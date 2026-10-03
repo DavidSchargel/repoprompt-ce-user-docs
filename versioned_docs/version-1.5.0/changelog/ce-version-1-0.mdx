@@ -1,0 +1,711 @@
+---
+id: "ce-version-1-0"
+title: "CE Version 1"
+description: "Browse Repo Prompt Community Edition Version 1 release notes covering agent integrations, workflow improvements, and fixes."
+slug: "/changelog/ce-version-1-0"
+keywords: ["ce","community edition","1.0","latest","agent mode","open source"]
+hide_table_of_contents: false
+toc_min_heading_level: 2
+toc_max_heading_level: 4
+---
+
+## Community Edition Version 1.x Series
+
+The Community Edition 1.x series is the first release in the Community Edition series. RepoPrompt CE is a native macOS app for orchestrating coding agents with a focus on context engineering. It builds an agent harness around an MCP server, giving you a shared place to prepare repository context, connect compatible CLI agents, run focused tasks, and inspect the work they produce. The goal is simple: make it easier to give agents the right context and keep multi-step engineering work understandable.
+
+### Key Features in Community Edition 1.x
+
+- Native macOS workspace for context engineering and agent orchestration.
+- MCP-based harness for integrating compatible CLI agents.
+- Repository-aware context selection, search, diffs, and worktree workflows.
+- Public Sparkle update channel for signed, notarized releases.
+- Fully open source and free to use.
+
+<details>
+
+<summary>View GitHub release notes (1.0.0 - 1.5.0)</summary>
+
+#### 1.5.0 - September 25, 2026
+
+What's Changed
+
+- MCP fix: skip deletion fencing for uncatalogued missing paths
+- Add support for multiple Oracles
+- Fix codemap indexing page restart on git churn
+- Fix selection mirror wedge recovery
+- Agent Session Oversight
+- Refactor Agent Session Oversight internals
+- Fix completed credential migration and blocked update recovery
+- Fix Sparkle startup update isolation
+- Fix Model Presets with multiple Oracles
+- Put workspace first in window titles
+- Reuse matching workspaces when opening folders
+- Fix workspace root removal and discovery readiness
+- Migrate release artifact actions to Node 24
+- feat(agent-mode): add Devin CLI provider
+- Expand sidebar checkbox hit targets
+- Fix seeded worktree publication deadlock and watchdog terminal errors
+- Fix Context Builder settled Oracle replies after primary failure
+- Fix cancellation handoff and Context Builder watchdog reliability
+- Make the OpenCode thinking level configurable
+- Make the subagent wait configurable in Settings
+- Fix: Clamp Context Builder budget slider values
+- Fix: Cache AgentModeViewModel binding snapshot to prevent O(N²) app hang
+- Fix JSON-valued MCP experimental capabilities
+- Fix Tip publisher API authentication and latest convergence
+- Fix composer cursor jumping during typing
+- Add persistent global model routing with Jev
+- Fix post-migration Keychain item creation
+- Fix Agent Mode sidebar render-loop performance
+- Improve agent orchestration observability and history analytics
+- Add Claude Opus 5.5 model choices
+- Update bundled Codex app-server to 0.156.0
+- Preserve dirty Copy and Chat overlays during Agent Models changes
+- Stop MCP read\_file from inventing a one-line success
+- Reduce composer keystroke latency
+- Diagnose canonical workspace state at Agent admission
+- Add bounded workspace projection decode measurements
+- Make physical file reads cancellation-responsive
+- Show captured Context Builder behavior during active runs
+- perf(git): bound diff cache retention with LRU eviction
+- Add bounded MCP lifecycle diagnostics for teardown investigation
+- Make passive appcast callback main-actor contract explicit
+- Add Jev multi-question judgment foundation
+- Fix Model Router persistence and refresh routing models
+- Stabilize workspace lifecycle regression tests
+- Fix Context Builder prerequisite error classification
+- Update bundled Codex app-server to 0.156.1
+- Preserve file authority across context binding
+- Add MCP controls for agent session pins and manual order
+- Guard protected Agent tabs during workspace replay
+- Fix app hang by caching sorted model options
+- Add independent Jev Auto effort for Codex and Claude
+- Add automatic APFS CoW cloning for app-managed worktrees
+- fix(mcp): allow background-tab selection mirrors to complete
+- fix(agent-mode): apply Auto effort to Claude MCP runs
+
+#### 1.4.1 - September 7, 2026
+
+What's Changed
+
+- Fix split-root Stable release metadata
+- Test MCP stdio and terminal commit barriers
+- Fix codemaps to index nested repo worktree sources
+- Fix Tip recovery after Stable 1.4.0
+- Harden Tip publisher release observation
+- Add Claude Fable 5.1 to the Claude Code model catalogs
+- Authenticate Tip protected-main preflight
+- Fix MCP context routing with the active workspace
+- Fix out-of-bounds access from a stale workspace index after async yield
+- Add Claude Fable Latest and normalize model picker fonts
+- Fix Tip release publication races
+- Fix HistoryMCP crash in buildGroups caused by force-unwrap
+- Fix Swift overflow when converting negative st\_dev to UInt64
+- Sanitize AI narration text to prevent SwiftUI crashes
+- Fix app hang from expensive Codex model display name computation
+- Fix context menu crash on dynamic item changes
+- Prefer Grok's direct model parser when configOptions accompany models
+- Fix file search freshness after Add Folder
+- Fix duplicate workspace consolidation persistence
+- Fix release provisioning profile permissions
+- Remove artificial timeouts from Tip workflow
+- Keep new windows eligible for Merge All Windows
+- Fix InterceptingWindowDelegateProxy unrecognized selector crash
+- Fix EXC\_BREAKPOINT in duplicate workspace cleanup
+- Fix GitWorktreeDefaultPathPlanner O(N^2) hang
+- Reduce repeated transcript snapshot access in row construction
+- Index hidden-session slice paths during rebase planning
+- Give Codex model options a consistent sort order
+- Preserve competing files during exclusive creation
+- Derive session deletion targets from validated files
+- Preserve settings after failed backup recovery
+- Retain physical authority for protected file mutations
+- Revalidate worktree identity before alternate-root operations
+- Preserve workspace affinity across MCP reconnects
+- Prevent load-time repair from resurrecting deleted sessions
+- Retain process ownership until child termination settles
+- Preserve settings across schema migration and recovery retries
+- Fix FSEvents delivery liveness
+- Enforce MCP readiness caller deadlines
+- Fix qualified reads stalling on unrelated roots
+- Resolve advertised Codex Max and Ultra effort selections
+- Allow selecting a local Codex runtime
+- Fix Context Builder shutdown during app termination
+- Fix concurrent same-workspace Agent admission
+- fix: support verified Cursor agent ACP entrypoint
+- feat(agent-mode): add Cursor Effort and Speed controls
+- Prevent concurrent settings writes from overwriting newer data
+- Protect large prompt exports from watchdog disconnects
+- Fix workspace loading, cleanup, and settings preservation
+- Fix OpenCode launch validation for admin-writable Homebrew Cellar paths
+- Make bundled Codex predictable and upgrade to 0.153.4
+- Add Google Antigravity ACP support
+
+#### 1.4.0 - August 30, 2026
+
+What's Changed
+
+- Scale MCP read\_file concurrency to machine capacity
+- Globalize Context Builder Settings behavior and make Analysis Budget independent
+- Agent Mode: eliminate app hang from AgentImageInputAdapter init
+- Stabilize AgentRunWorktreeStartTests production-capture selection race
+- Dismiss tooltips when owner windows change lifecycle
+- Add multi-select and bulk actions to Agent Mode chats
+- Fix: Unify exact read and mutation paths
+- Add stored prompt management controls
+- Fix: decode legacy mutation journal status
+- Prevent ephemeral workspace leaks and add safe bulk cleanup
+- Route direct-headless agents through existing worktrees
+- Add Grok Build CLI as an ACP Agent Mode provider
+- Fix: bound MCP structure settlement recovery
+- Fix: expose global skills to Codex agents
+- Add inline file browser to manually add files and codemaps to selected set in Context Composer
+- Fix Codex session disconnect during worktree rebinding
+- Add Grok Build reasoning-effort selection
+- Fix Codex wait-agent watchdog liveness
+- Fix replace-all matching with reused full-file indexes
+- Add Grok Build CLI to Oracle and built-in chat models
+- test: stabilize worktree API smoke and agent-run startup
+- Add a Codex project hook approval flow to Agent Mode
+- Bound release network operations and recover Sentry finalization
+- Fix bind\_context active workspace routing
+- Add session ID copying to Agent Mode sidebar menus
+- Reject rootless working\_dirs tab bindings
+- Enable Codex apps with runtime 0.149.0
+- Harden Apple identity migration bridge
+- Fix app hang in MessageTimestampFormatterCache.CacheKey.init
+- Include session title in handoff prompt
+- Fix Grok Oracle returning progress text instead of an answer
+- Harden identity rollover runtime safety
+- Add dormant identity transition release tooling
+- Enable Tip identity transition rehearsal
+- Fix Tip identity transition release credentials
+- Make Tip identity rollout dispatches reliable and truthful
+- Fail Tip identity credential errors before staging
+- Fix Tip staged rollout authority
+- Fix Tip signed artifact handoff
+- Fix Tip appcast generation without predecessors
+- Enable Tip identity transition role
+- Fix Tip transition stage identity validation
+- Fix Tip signer identity projection
+- Separate sidebar command progress from bulk selection UI
+- Refactor Apple identity transition release pipeline
+- Replace Tip release machinery with a direct protected-main publisher
+- Restore automatic Tip publication for all rollout roles
+- Remove manual Tip rollout role input
+- Refactor CI tests into deterministic contract and integration lanes
+- Fix redundant Tip package notarization
+- Fix Tip package signing key authorization
+- Fix: restore global Codex instructions in Agent Mode
+- Refactor test suite to remove low-value and timing-dependent coverage
+- Fix CLI single-shot selector routing
+
+#### 1.3.0 - August 11, 2026
+
+What's Changed
+
+- Trace worktree startup stall in shard 2
+- Remove the 500-tab background Agent limit
+- Use scoped locking for ACP async state transitions
+- fix: require authoritative context builder completion
+- feat: show sessionless compose tabs in agent chats
+- Fix automatic Agent Mode tab eviction
+- Cancel superseded pull request CI runs
+- P0: Protect live Agent session identity during admission
+- Report preset save failures and roll back non-durable edits
+- Fix workspace authority conflict recovery
+- Harden legacy defaults collection during startup
+- Prevent cancelled CLI requests from stalling or spawning
+- Prevent cancelled tasks from entering an unlocked AsyncMutex
+- Self-heal workspace authority revision races
+- Settle cancelled Codex stderr waiters promptly
+- Allow MessageReaper to tear down with queued messages
+- Synchronize transcript debug instrumentation callbacks
+- Clear transcript refresh signatures after tab removal
+- Migrate RepoPromptShared to Swift 6
+- Fence tool-card presentation derivation from render recomputation
+- Establish neutral agent execution contracts
+- fix: make agent read\_file selection converge
+- Agent Mode: classify terminal failures at settlement
+- Agent Mode: extract run-attempt lifecycle authority
+- Make agent run identity teardown stale-safe
+- Harden conductor control-plane resilience
+- Bundle Codex 0.147.0 and fix exec permissions
+- Add durable conductor build cache
+- Harden workspace-switch runtime ownership transfer
+- fix(mcp): add Sonoma async frame compatibility barrier
+- Agent Mode: bind terminal settlement to exact sessions
+- Agent Mode: hoist terminal attachment disposition
+- Agent Mode: detach Claude coordinator from view model
+- feat(agent-mode): add pinned Claude Opus 4.8 picker model
+- Bound untrusted Agent Mode tool names before normalization
+- Enforce one accounting identity per prompt file
+- Agent Mode: centralize Claude settlement authority
+- feat: streamline Context Composer entry points
+- Agent Mode: extract top-level tab session
+- Update approved contributors
+- Agent Mode: share transient execution classification
+- Oracle: extract headless streaming runtime
+- Prompt: extract stored-prompt persistence boundary
+- Reconstruct diff chunks without repeated array shifts
+- Add focused-build cost reporting and high-output conductor diagnostics
+- fix(agent-mode): eliminate O(N) snapshot copies in handoffConfig
+- Preserve Context Builder pending context through routing
+- Add built-in workflow parity to direct headless mode
+- Agent Mode: share Codex transient execution classification
+- Agent Mode: share Claude transient execution classification
+- Add operation-level MCP concurrency evidence
+
+#### 1.2.0 - August 3, 2026
+
+What's Changed
+
+- Surface Code Map recovery exhaustion
+- Prevent file-action watchdog stalls during mutation I/O
+- Headless runtime M1: add runtime and catalog foundation
+- Fix Oracle heartbeat liveness tracking
+- Fix App Hang: Disable text checking in AttributedTextView
+- Fix App Hang: Optimize string prefix checks
+- Fix AnchorGeometryView app hang
+- Fix agent workspace performance regression
+- Improve ChatGPT login resilience and managed sign-out
+- Fix EXC\_BREAKPOINT from dictionary mutation during iteration
+- Headless runtime M2: move workspace/context authority
+- Add opt-in Codex memories setting
+- Fix Tip socket ownership startup race
+- Headless runtime M3: migrate read and discovery families
+- Keep failed CI from evicting Tip builds
+- M4: protect MCP mutations and security boundaries
+- Provision Keychain for packaged release smoke
+- Remove test contract ledger system
+- Stabilize ledger-free CI routing and codemap contracts
+- \[6/8\] M5: move AI, Agent, Context Builder, and interaction into domain runtime
+- Fix M5 credential pruning type inference
+- Optimize Agent Mode sidebar projection caching
+- Fix protected mutation commit boundary
+- Add Compose: context inspector inspired by RP Classic
+- \[7/8\] M6: Add direct headless MCP runtime
+- M7: complete headless MCP runtime cutover
+- perf: coalesce compose inspector refresh work
+- Fix current-main CI blockers after M7 merge
+
+#### 1.1.2 - July 30, 2026
+
+What's Changed
+
+- Add semantic text-direction roles for app surfaces
+- Clamp Markdown selections before TextKit restoration
+- Preserve inline-code direction in mixed RTL Markdown
+- Linkify Agent Mode prose URLs
+- Headless runtime M0: freeze contracts and evidence gates
+- Fix Data.WritingOptions conflict in writeHandoffPayload
+- Fix MCP settlement across Codex turns and file mutations
+
+#### 1.1.1 - July 29, 2026
+
+What's Changed
+
+- Fix Codex app-server tool override policy
+- Add Codex app-server schema drift gate
+- perf: reduce codemap full-load latency
+- build: bundle pinned Codex runtimes
+- Fix worktree-bound Codex app-server startup
+- Fix bundled Codex release signing
+- Stabilize synthetic watcher integration tests
+- Optimize Swift and TypeScript CodeMap pipelines
+- Add Agent Mode session handoff prompt
+- Fix packaged MCP smoke ownership checks
+- feat: make bundled Codex runtime authoritative
+- Make Codex session routing deterministic per tab
+- Add per-root Code Map generation controls
+- feat(deep-plan): treat the context\_builder export as a preservation baseline
+- Bound Codex app-server liveness and silent hangs
+- fix(mcp): preserve caller binding during agent runs
+- Fix Codex legacy thread resume by forwarding rollout path
+- Fix MCP reconnect abort and Git artifact fence spin
+- Replace codemap projections with root-local incremental graphs
+- Fix Codex session tenacity recovery
+- Fix release codemap event type visibility
+- Optimize Codex thread startup memory policy
+- Preserve Codex completion across active reattach
+- Add Claude Opus 5 support
+- fix(agent-run): improve respond validation diagnostics
+- Fix stale codemap proof reclassification
+- Make async test oracles deterministic
+- Automate guarded Codex runtime update candidates
+- Rebase 315/316 collapse nested threads and clean up provider conversations
+- Fix Finder launch and install commands when only Xcode beta is installed
+- Restore Codex messages rejected before dispatch
+- Update bundled Codex to 0.145.0
+- Point fork dependencies at RepoPrompt organization
+- Fix Codex watchdog for silent long-running tools
+- Add PR-ready validation timing receipts
+- Add MCP concurrency evidence telemetry
+- Improve tip update details
+- Show build numbers in Sparkle update alerts
+- Fix MCP read timeout settlement without bridge disconnect
+- Fix CollapsibleUserMessage performance on large messages
+- Fix bundled Codex V8 JIT entitlements
+- Keep Tip update alerts compact
+- Add reusable Agent Mode handoff instructions
+- Fix Code Map stalls and manifest write amplification
+- Harden Code Map recovery after performance cutover
+- Fix Tip release optimizer ownership crash
+- Fix Codex watchdog for composite waits
+- Fix path-scoped Git artifact publication freezes
+- Fix duplicate physical root label traps
+- Include steering text in Agent Mode wait interruptions
+- Fix CodeHighlighter cache race condition
+- Fix duplicate worktree path crash
+- Fix dirent struct copy causing EXC\_BAD\_ACCESS in FileSystemService
+- Optimize Agent Mode transcript snapshot access
+- Eliminate app hang from synchronous file open
+
+#### 1.1.0 - July 21, 2026
+
+What's Changed
+
+- fix(release): support Sentry org:ci tokens
+- refactor(workspace): isolate path policy core
+- Complete Agent Models workspace follow-ups
+- fix: update Codex app-server text payload key
+- fix(mcp): avoid task-group teardown abort in runTransport retry backoff
+- Fail Codex child sessions closed when RepoPrompt MCP provisioning or routing never confirms
+- Add durable MCP watchdog attribution
+- Stream Context Builder progress over standard MCP
+- Harden Context Builder MCP routing readiness
+- Preserve MCP connection on code structure timeout
+- Fix authenticated tip release lookup
+- perf(codemap): reduce manifest write amplification during indexing
+- Avoid global manifest scans for access refreshes
+- fix: restore Sentry telemetry in Tip builds
+- perf(codemap): avoid repeated full-store scans when publishing manifests
+- Make MCP watchdog deadlines independent of event ordering
+- Harden code-structure settlement lifecycle
+- Make MCP route confirmation and revocation authoritative
+- Bound MCP advisory progress backpressure
+- Bound agent session cleanup and preserve partial results
+- Bound history MCP work and preserve transport
+- Fix agent message bubble line counting performance
+- Fix history tool catalog golden
+- Preserve codemap authority across publication retries
+- Fix Context Builder cancellation after discovery commit
+- Speed up Context Builder selection handoff
+- Fix Context Builder routing and settlement
+- Migrate CodeMap core to Swift 6 with exact official Tree-sitter pins
+- Fix clean release dependency cloning
+- Remove Dart CodeMap support
+
+#### 1.0.29 - July 15, 2026
+
+What's Changed
+
+- Make Context Builder model selection globally authoritative
+- Prepare hosted app tests for optional sharding
+- fix(agent-mode): stop tool-result updates from remounting unrelated cards
+- Add RPCE maintainer guidance skill
+- Harden Sentry privacy and release metadata
+- Add scoped Agent Models settings
+- Fix debug provenance JSON validation
+- Add title-adjacent Agent chat options menu
+- Fail closed on unsigned Tip appcasts
+- Fix Oracle selection packaging and mutation ingress stalls
+- Enforce strict ledger validation for suite plans
+- Fix global settings schema rollback compatibility
+- Harden Sentry privacy and release promotion
+- Fix typed Context Builder prompt handoff
+- Fix scoped Agent Models state integrity
+- Fix inactive-workspace Context Builder authority
+- Harden Git process launch lifecycle
+- Prevent recursive workspace path-index teardown overflow
+- Make TextKit external replacements undo-safe
+- Prevent duplicate workspace root ID crashes
+- Bound applied-index fallbacks and harden workspace autosave
+- Fix app hang during date formatting by pre-warming locale cache
+- Harden transcript export against duplicate turn IDs
+- Improve Tip build update notices
+- Harden Agent chat titlebar safety
+- Fix execution-location popover resize crash
+
+#### 1.0.28 - July 10, 2026
+
+What's Changed
+
+- Harden release packaged smoke timeout
+- Split RepoPrompt into thin executable and app target
+- Add opt-in tip update channel and rolling publish workflow
+- Fix Tip build number override
+- Improve conductor worktree parallelism
+- Fix Context Builder teardown finalization
+- Update Codex support for GPT-5.6 models
+
+#### 1.0.27 - July 9, 2026
+
+What's Changed
+
+- History query MCP tools (\`list\_sessions\`, \`search\`, \`time\`) with tunable idle threshold, per-day attribution, duration fixes, and review hardening
+- Enhanced Agent session search HUD behavior and archived-session visibility
+- Faster, less noisy workspace switch load readiness
+- Hardened agent CLI startup in fragile user environments
+- Fixed git diff artifact export after alias authorization rejection
+- Hardened build storm coordination and process cleanup
+- Persist global defaults across restarts and propagate changes across windows
+- Speed up \`dev-lint\` SwiftLint discovery
+- Recover CLI installation from stale App Translocation symlinks
+- Harden test harness behavior against hangs and waiter leaks
+- Integrated full Sentry telemetry
+- Added release-pipeline dSYM generation and upload coverage
+- Refactored Sentry telemetry controls and added release coverage for official Sentry-enabled builds
+
+#### 1.0.24 - July 6, 2026
+
+What's Changed
+
+- Add impacted XCTest lane and harden test tooling
+- fix(agent-mode): open live oracle from running tool card
+- Stabilize CI app tests with sharding and lifecycle cleanup
+- Polish agent sidebar worktree capsules (auto-naming, sizing, styling)
+- Fix routed worktree inheritance for UI parents
+- Fix mutation tools when worktree scope is unavailable
+- Tail-window massive agent transcripts
+- Fix issue 390 targeted authority reconciliation
+- Add minimal Sentry runtime wiring
+
+#### 1.0.23 - July 3, 2026
+
+What's Changed
+
+- Add content-addressed codemaps and diff-seeded worktree startup
+- Add Codex reasoning summary setting
+- Collapse Interview toggle to icon-only
+- Refresh selected files popover UI and performance
+- \[codex\] Contain codemap selection decode failures
+- Fix MCP token accounting freshness reporting
+- Add Claude Sonnet 5 model support
+- Start test-suite wallclock optimization reliability campaign
+- build(telemetry): link Sentry conditionally and document privacy model
+- Resume inactive agent sessions when steering
+- fix(agent-mode): stop listener leaks and orphaned Claude processes on close
+- fix: omit nil Codex service tier
+- Fix Codex steer crash and resume handling
+- Stabilize sidebar root updates during workspace switch
+- Add agent session switcher HUD
+- Fix MCP selection token freshness
+- Avoid applied-index hierarchy rebuilds for small deltas
+- Bump engineer role default to GPT-5.5 Medium
+- Fix crash restore settings persistence
+- Fix bound-tab token cache freshness
+
+#### 1.0.22 - June 28, 2026
+
+What's Changed
+
+- Fix Context Builder worktree review selection authority and freshness
+- keep @file tag paths pathful and non-absolute
+- build: Add Makefile help target
+- fix: resume MCP helper sessions after app restart
+- fix(claude-code): emit CLI identity preamble for GLM/z.ai backend
+- Fix and modernize Codex agent\_run transcripts
+- Fix symlinked global skill root readability
+- Fix CE URL scheme routing
+- Restore Agent Mode Interview pill
+- Fix orphaned OpenCode ACP runtimes on tab teardown killing CPU memory
+- Fix Oracle and sub-agent role model selections resetting on restart
+- Clarify sliced file selection summaries
+- Surface OpenCode empty ACP completions
+
+#### 1.0.21 - June 21, 2026
+
+What's Changed
+
+- Stabilize workspace switch cleanup tests
+- Fix duplicate Check for Updates menu item
+- Optimize workspace file search index readiness
+- Add generated Xcode workspace workflow
+- fix(xcode): Support generated workspace in Xcode 26 and 27
+- Fix Oracle review diffs for worktrees
+
+#### 1.0.20 - June 19, 2026
+
+What's Changed
+
+- Preserve Agent chat order when opening sessions
+- Fix Context Builder completion after discovery peer EOF
+- Fix file search scope failures and cold catalog cost
+- Reduce Agent Mode file-tool MainActor stalls
+- Refactor Oracle routing policy boundaries
+- Improve Cursor Agent CLI launch resolution diagnostics
+- Add smart Agent Mode timestamps
+- Show a Built-in badge instead of a no-op Remove button for default trusted clients
+- Fix Claude Safe Managed launch settings and MCP CLI wait bounds
+
+#### 1.0.19 - June 18, 2026
+
+What's Changed
+
+- Optimize XCTest suite lifecycle and runtime
+- Add repo skill for standardized issue creation
+- Fix Agent Mode Oracle transcript routing
+- Add MCP read latency diagnostics
+- Fix canonical codemap selection and packaging
+- Add Z.ai GLM 5.2 model support
+- Fix Agent sidebar restore hierarchy and ordering
+- Fix worktree readiness and parallel agent startup
+
+#### 1.0.18 - June 16, 2026
+
+What's Changed
+
+- Reduce structural tests and harden test lifecycle
+- Fix Agent Files preview loading state
+- Avoid duplicate manage\_selection freshness work
+- Integrate MCP lifecycle and bounded search freshness fixes
+- Fix role-default rows under filtered availability
+- Fix agent preview retention architecture
+- Reduce parallel MCP contention and preserve Agent selections
+
+#### 1.0.17 - June 14, 2026
+
+What's Changed
+
+- Stabilize descriptor inheritance test
+- Stabilize watcher restart barrier coverage
+- Fix Git pipe drain descriptor race
+- Stabilize codemap unload reentrancy test teardown
+- Fix CC Zai availability refresh for preconfigured keys
+- Fix test runtime lifecycle disposal
+- Fix composer binding after chat handoff
+- Integrate worktree test settings stabilization
+- Fix warm file\_search validation stalls
+- Show workspace names in window and native tab titles
+- Improve Agent Mode workspace footer readability
+- Fix Git cancellation output-drain stall
+- Fix Context Builder MCP response teardown race
+- Add active worktree context actions
+
+#### 1.0.16 - June 14, 2026
+
+What's Changed
+
+- Integrate MCP throughput remediation into staging
+- Promote MCP throughput remediation staging to main
+- Fix MCP transport timeout recovery
+- Fix Agent Mode wait recovery and Codex managed defaults
+- Keep CLI provider disclosures user-controlled
+- Fix resumed agent ownership and file-search tail latency
+- Integrate worktree-aware Context Builder on main
+- Fix Context Builder model restoration on launch
+
+#### 1.0.15 - June 11, 2026
+
+What's Changed
+
+- Fix Codex steering and composer submission races
+- Make MCP transport stderr diagnostics crash-safe on closed pipes
+
+#### 1.0.14 - June 11, 2026
+
+What's Changed
+
+- Add Claude Fable 5 across Agent Mode model catalogs
+- Harden MCP concurrency and workspace switching
+- Prefer OpenCode provider path before native defaults
+- Model picker missing Z.ai options at startup
+- Fix Cursor CLI Composer ACP routing
+
+#### 1.0.10 - June 9, 2026
+
+What's Changed
+
+- Harden runtime test coverage
+- Fix Agent Mode capsule label compression
+- Add worktree controls to `agent_explore.start`
+- Fix ACP mode negotiation and OpenCode routing
+
+#### 1.0.9 - June 9, 2026
+
+What's Changed
+
+- \[codex\] Avoid stale descriptor assertions in socket cleanup tests
+- Fix onboarding Skip All routing
+- Fix branch popover scroll containment
+- Add Dock New Window menu item
+- Harden MCP response delivery, execution, and agent waiters
+- Distinguish web tool card action labels
+- Document Homebrew tap install path
+- Add expanded file mention picker style
+- Fix local self-signed production packaging
+- Enforce custom hover tooltips
+- Refresh SwiftPM release lockfile
+- Add PR batch merge skill
+- Optimize store-backed file search performance
+- Fix Codex submit during agent wait drain
+- Fix Git process output drain race
+- Add lean test quality skill
+- Fix conductor daemon stdin handling for local install
+
+#### 1.0.8 - June 7, 2026
+
+What's Changed
+
+- Allow ad-hoc release manifests without designated requirements
+- Fix warm Agent Mode tab activation
+
+#### 1.0.7 - June 7, 2026
+
+What's Changed
+
+- Harden flaky worktree CI tests
+- Fix Keyboard Shortcuts settings crash
+- Fix stalls in long Agent Mode and Context Builder runs
+- Document KeyboardShortcuts packaging workaround
+- Harden Keychain signing domains and MCP release packaging
+- Prevent MCP frame starvation and lifecycle cleanup races
+- Fix / improve Agent mode Git branch and worktree UI
+
+#### 1.0.6 - June 4, 2026
+
+What's Changed
+
+- Package CE releases with the CE bundle name
+- Add Agent Mode session row context menus
+- Add `.worktreeinclude` support for managed worktrees
+- Show Git worktree context in Agent sidebar
+
+#### 1.0.4 - June 3, 2026
+
+What's Changed
+
+- Harden signed test build workflow
+- Improve native Web Search tool cards
+- Fix `scripts/doctor.sh` SDK version detection
+
+#### 1.0.3 - June 2, 2026
+
+What's Changed
+
+- docs(readme): document debug signing setup
+
+#### 1.0.2 - June 2, 2026
+
+What's Changed
+
+- Harden workspace file mutation paths
+- Default-enable Codex goal support
+- Harden OSS release validation
+
+#### 1.0.0 - June 1, 2026
+
+Highlights
+
+- Native macOS workspace for context engineering and agent orchestration.
+- MCP-based harness for integrating compatible CLI agents.
+- Repository-aware context selection, search, diffs, and worktree workflows.
+- Public Sparkle update channel for signed, notarized releases.
+- Fully open source and free to use.
+
+First Public Release
+
+- Starts a new `1.0.0` version line with its own bundle identifier, signing setup, and update channel.
+
+</details>

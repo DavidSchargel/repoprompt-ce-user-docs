@@ -1,0 +1,99 @@
+---
+id: "pro-mode"
+title: "Pro Mode"
+description: "Pro Mode — Repo Prompt Classic archive documentation."
+slug: "/historical-guides/api-integration/pro-mode"
+hide_table_of_contents: false
+toc_min_heading_level: 2
+toc_max_heading_level: 4
+---
+
+Pro Edit is Repo Prompt's advanced editing system that breaks down complex changes into smaller, focused tasks - each handled by the most appropriate AI model. It works in both Chat mode (automatic) and Compose mode (for external AI responses).
+
+## How Pro Edit Works
+
+### In Chat Mode (Automatic)
+
+When you enable Pro Edit in Chat mode:
+
+- The planning model analyzes your request and breaks it into per-file changes
+- Each file edit runs through a **delegate agent** - a sandboxed helper with constrained tools
+- Multiple files can be edited in parallel for faster results
+- You see clean diffs - the XML format is handled invisibly
+
+### In Compose Mode (External AI)
+
+Pro Edit also works with powerful external models like GPT-5.5 Pro on ChatGPT Pro (web):
+
+- Copy your context to an external AI with Pro Edit format enabled
+- The model reasons deeply and responds with structured XML changes
+- Paste the response back into Repo Prompt
+- Pro Edit applies each change through delegate agents
+
+## Delegate Agents
+
+Delegate agents are sandboxed helpers that make Pro Edit safer and more reliable:
+
+- **Single-file focus:** Each agent only edits one allowed file
+- **Constrained tools:** Agents can only read, search, and apply edits - nothing destructive
+- **Clear reporting:** Each agent reports exactly what changed (or if nothing changed)
+- **Parallel execution:** Multiple agents can run simultaneously for faster results
+
+## Multi-Model Routing
+
+Pro Edit automatically selects the best model for each edit based on complexity:
+
+- **Simple edits:** Fast, cost-effective models (e.g., Gemini Flash 2.0)
+- **Complex edits:** Powerful models (e.g., Claude Sonnet, DeepSeek V3)
+- **Large files:** Models optimized for high token counts
+
+This happens automatically - you don't need to configure it. The app evaluates file size and change complexity to make the best choice.
+
+## Enabling Pro Edit
+
+### In Chat Mode
+
+1. Select files and compose your instructions
+2. Click "New AI Chat"
+3. Enable the "Pro" toggle in the chat panel
+4. Send your message - Pro Edit handles the rest
+
+### In Compose Mode
+
+1. Select your copy preset that includes Pro Edit format
+2. Copy and paste into your external AI (ChatGPT, Claude.ai, etc.)
+3. Copy the AI's XML response
+4. Use Apply in Repo Prompt to trigger Pro Edit
+
+## Configuration (Optional)
+
+While automatic routing works well for most cases, you can customize:
+
+1. Click the gear icon next to the model dropdown
+2. Assign specific models for different edit types:
+
+   - **Simple Edits Model:** For small, straightforward changes
+   - **Complex Edits Model:** For intricate multi-step changes
+   - **Large File Model:** For files exceeding the size threshold
+3. Adjust the "Large File Threshold" as needed
+
+## Why Use Pro Edit?
+
+- **Safer edits:** Sandboxed agents with constrained tools reduce mistakes
+- **Cost effective:** Simple edits use cheaper models automatically
+- **Faster results:** Parallel execution across multiple files
+- **External AI support:** Use powerful reasoning models on their native platforms
+- **Less setup:** Automatic model selection and path resolution
+
+## Best Practices
+
+- **For diff editing:** Use Claude Sonnet 4.5 or DeepSeek V3 - they produce precise diffs that merge cleanly
+- **For external AI (ChatGPT Pro web):** GPT-5.5 Pro and Grok 4.1 work excellently with Pro Edit format for deep reasoning tasks
+- **For in-app Codex CLI agent/review:** GPT-5.5 Medium/High are the recommended Codex CLI models for implementation and review — they are not available via the OpenAI API or OpenRouter
+- **For speed:** Gemini Flash 2.0 excels at whole-file rewrites for smaller files
+
+:::tip
+
+**Tip:** Pro Edit shines for complex multi-file refactors. The delegate agent system ensures each file gets focused attention while the automatic model routing keeps costs down.
+
+:::

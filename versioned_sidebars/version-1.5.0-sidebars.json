@@ -1,0 +1,47 @@
+{
+  "docsSidebar": [
+    "overview",
+    {
+      "type": "category",
+      "label": "Overview",
+      "className": "sidebar-cat-rocket",
+      "items": [
+        "overview/installation"
+      ]
+    },
+    {
+      "type": "category",
+      "label": "Agent Mode",
+      "className": "sidebar-cat-code",
+      "items": [
+        "agent-mode/overview",
+        "agent-mode/workflows",
+        "agent-mode/skills",
+        "agent-mode/providers",
+        "agent-mode/sessions"
+      ]
+    },
+    {
+      "type": "category",
+      "label": "Reference",
+      "className": "sidebar-cat-sliders",
+      "items": [
+        "reference/settings"
+      ]
+    },
+    {
+      "type": "category",
+      "label": "Changelog",
+      "items": [
+        "changelog/ce-version-1-0"
+      ]
+    },
+    {
+      "type": "category",
+      "label": "FAQ",
+      "items": [
+        "historical-guides/faq/pay-for-services"
+      ]
+    }
+  ]
+}

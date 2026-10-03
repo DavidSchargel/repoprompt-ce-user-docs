@@ -1,0 +1,227 @@
+---
+id: "version-1-6"
+title: "Classic Version 1.6"
+description: "Classic Version 1.6 — Repo Prompt Classic archive documentation."
+slug: "/changelog/version-1-6"
+keywords: ["1.6","deep code reviews","git tool","review mode","rp-review","rp-refactor"]
+hide_table_of_contents: false
+toc_min_heading_level: 2
+toc_max_heading_level: 4
+---
+
+## Classic Edition Version 1.6 Series
+
+The Classic Edition 1.6 series introduces Deep Code Reviews with a unified git tool, review mode for Context Builder, new slash commands for code review and refactoring workflows, and Jujutsu (jj) VCS support.
+
+### Key Features in 1.6
+
+- **Git Worktree Support** - Compare diffs across worktrees and linked checkouts, with full worktree metadata display and intuitive "main"/"trunk" aliases
+- **Jujutsu (jj) VCS Support** - RepoPrompt now supports Jujutsu version control alongside Git, with automatic detection and seamless switching between backends
+- **Context Builder Review Mode** - New response type for deep code reviews that analyzes your code with full codebase context
+- **New Slash Commands** - `rp-review` for comprehensive code reviews and `rp-refactor` for finding refactoring opportunities
+- **Unified Git Tool** - New MCP tool for git operations (status, diff, log, show, blame) with token-efficient output and built-in safety features
+- **Git Diff Artifact Publishing** - Generate and publish git diff snapshots directly from the UI for sharing with AI agents
+
+<details>
+
+<summary>View detailed changelog (1.6.0 - 1.6.14)</summary>
+
+#### 1.6.14 - February 6, 2026
+
+New Features (CLI)
+
+- **Machine-readable tool schemas** - New `--tools-schema` flag and `tools --schema` command for structured JSON output of tool definitions, enabling integration with external systems
+- **JSON file/stdin support** - Pass JSON arguments via `@file` or `@-` (stdin) for easier handling of complex payloads
+
+Improvements
+
+- **Improved git tool diff detail levels** - New "patches" detail level for truncated diffs; "full" now provides complete untruncated output
+- **Better discovery agent guidance** - Context builder now explores more broadly and effectively when analyzing codebases
+- **Smarter CLI JSON parsing** - Auto-detects JSON files and auto-repairs common formatting issues from LLM outputs
+
+Fixes
+
+- Fixed silent failures in apply\_edits replace-all - Now shows a clear error when no matches are found instead of silently succeeding
+
+#### 1.6.13 - February 5, 2026
+
+Improvements
+
+- **Updated to GPT-5.3 Codex and Claude Opus 4.6** - Upgraded to the latest models for improved coding performance and context building
+
+Fixes
+
+- Fixed MCP server approval flow - Resolved issues with stale auto-denials and duplicate approval requests
+- Improved MCP connection management - Better handling of connection slots when at capacity
+- Fixed folder management for system workspaces - Prevented folders from being incorrectly added to or loaded in system workspaces
+- Fixed proxy mode startup - Resolved false exits caused by MCP host delays
+
+#### 1.6.12 - February 4, 2026
+
+New Features
+
+- **Select as Codemap** - New context menu option to mark files or folders as codemap-only directly from the file tree
+- **Tab management** - Added "Close All Tabs" and "Clear All Stashed Tabs" actions for better tab control
+- **Skills installer** - Renamed "Commands" to "Skills" with support for both project-local and global (~/.agents/skills/) installation for cross-agent compatibility
+
+Improvements
+
+- **Workspace switching confirmation** - Prompts before switching workspaces if active chat sessions or context builders could be disrupted
+- **Faster workspace exit** - Improved performance when closing workspaces with many folders
+- **Better context menu organization** - Reordered and grouped context menu items with separators for clarity
+- **MCP connection reliability** - Added health checks, auto-restart, and retry logic for more robust MCP connections
+- **Large table rendering** - Tables with many rows now render more efficiently with a simpler fallback
+- **Improved rp workflows** - Updated prompts for better code generation guidance
+- **Window tools always available** - List and select window tools now always exposed, with list windows showing all opened roots for easier binding
+
+Fixes
+
+- Fixed UI indicator that was preventing sidebar from being resized
+- Fixed various async/concurrency issues throughout the app
+
+#### 1.6.11 - February 2, 2026
+
+Improvements
+
+- **MCP server self-healing** - Automatically recovers MCP server connections when they drop unexpectedly
+- **Smarter file search** - Auto-detects regex patterns vs literal text, making searches more intuitive
+- **Whole-word matching** - New option for precise searches that match complete words only
+- **Improved edit reliability** - Automatically handles escaped characters (like \\n) in edit operations without manual intervention
+- **Better search guidance** - Suggests exploring file tree when search returns empty due to path filters
+
+Fixes
+
+- Fixed potential edit failures when search text contains escape sequences
+
+#### 1.6.10 - February 1, 2026
+
+Improvements
+
+- **Better TypeScript/TSX code maps** - Improved parsing and signature extraction for TypeScript and TSX files, with better handling of multi-line function signatures, type annotations, and React components
+- **Improved MCP connection stability** - Fixed issues where long-lived idle connections could cause session blocking or connection capacity exhaustion, now with keepalive pings and automatic cleanup of stale connections
+- **Auto-approved MCP clients** - Built-in clients like Claude Code are now automatically approved without manual addition to the allow-list
+
+Fixes
+
+- Fixed UI freezing during startup
+- Fixed MCP reconnection issues - Improved handling of reconnects and transient denials to prevent unnecessary session blocking
+- Fixed type detection regression for auto codemaps
+
+#### 1.6.9 - January 31, 2026
+
+New Features
+
+- **Ruby language support** - Code structure analysis now supports Ruby files with Tree-sitter integration
+- **OpenAI service tier variants** - Choose service tier (auto, default, flex) per-model in the model picker, with a new global default tier setting
+
+Improvements
+
+- **Code structure enhancements** - Line numbers now included for function/method definitions, improved parsing accuracy for Swift, TypeScript, JavaScript, C/C++, Dart, and other languages, better handling of complex signatures and nested types, performance improvements with regex caching
+- **Model picker refinements** - Cleaner UI with legacy models hidden, unified planning model handling, and improved model selection consistency
+- **Path resolution improvements** - Root folder names now work as aliases in search filters and file resolution
+- **API fixes** - Temperature parameter no longer sent to reasoning models (which don't support it)
+
+#### 1.6.8 - January 28, 2026
+
+Fixes
+
+- Fixed inconsistent handling of file creation and moving in multi-root workspaces
+
+#### 1.6.7 - January 27, 2026
+
+Fixes
+
+- Fixed MCP compatibility with Codex by adding resource handling support
+
+#### 1.6.6 - January 27, 2026
+
+Fixes
+
+- Fixed token reporting for context builder
+- Fixed potential hangs in discovery agent when errors occurred during streaming
+- Improved agent lifecycle management to prevent stale routing state
+
+#### 1.6.5 - January 26, 2026
+
+Improvements
+
+- Folder sorting operations are now much faster
+- File system operations are more efficient
+- Symlink traversal can now be enabled for folders (note: folders outside the repo may not have their updates tracked correctly)
+- Optimized apply\_edits diff logic
+
+Fixes
+
+- Stability fixes for MCP connectivity
+- Miscellaneous performance and stability improvements
+
+#### 1.6.4 - January 23, 2026
+
+New Features
+
+- **Git Worktree Support** - Compare diffs across worktrees and linked checkouts, with worktree info displayed in git operations (branch names, main checkout references). Use "main" or "trunk" aliases in compare specs for intuitive diff comparisons.
+
+Improvements
+
+- Better file creation handling in multi-root workspaces - paths with folder aliases now resolve correctly
+- Git diff caching is more accurate, detecting file changes better and avoiding stale results
+- Codex CLI is now prioritized as the recommended chat backend for better cost efficiency
+- MCP tool connections are now more reliable - tools only become available once fully initialized
+- Improved tool documentation for better clarity and usability
+
+Fixes
+
+- Fixed Codex CLI not being able to use the git tool in some cases
+- Fixed apply\_edits line count reporting - changed line counts now accurately reported
+- Fixed lingering tools in Context Builder (Claude Code) - tools properly cleaned up after discovery runs
+- Fixed race condition where MCP clients could receive incomplete tool lists on fast connections
+
+#### 1.6.3 - January 23, 2026
+
+New Features
+
+- **Selectable follow-up types in Context Builder** - Choose between Plan, Review, or Question modes when auto-generating from discovery results
+
+Improvements
+
+- **Optimized Context Builder streaming** - Improved performance of the Context Builder view during streaming responses
+- **Better markdown table display** - Tables now render in a horizontally scrollable view, preserving column alignment without wrapping
+
+Fixes
+
+- Fixed Review mode not working when started from the Context Builder interface
+- Fixed delegate edit tools not appearing in Pro Edit mode in some cases
+- Fixed git tool not being available to external agents (Codex)
+
+#### 1.6.1 - January 22, 2026
+
+New Features
+
+- **Jujutsu (jj) VCS Support** - RepoPrompt now supports Jujutsu version control alongside Git, with automatic detection and seamless switching between backends
+
+Improvements
+
+- **file\_search is now 80% more token efficient** - Optimized search result formatting significantly reduces token usage
+- Upgraded MCP backend to better support coding agents that do MCP tool search
+- Improved search result formatting with hierarchical file tree view for easier navigation
+- Better handling of workspaces with multiple git repositories
+- Performance improvements for file sorting operations
+
+Fixes
+
+- Fixed git tool support when used in a worktree
+- Fixed context builder settings getting reset after app restart
+
+#### 1.6.0 - January 20, 2026
+
+Deep Code Reviews
+
+This release introduces powerful code review capabilities powered by a new unified git tool:
+
+- **Context Builder Review Mode** - New response type for deep code reviews that analyzes your code with full codebase context
+- **New Slash Commands** - `rp-review` for comprehensive code reviews and `rp-refactor` for finding refactoring opportunities
+- **Unified Git Tool** - New MCP tool for git operations (status, diff, log, show, blame) with token-efficient output and built-in safety features
+- **Git Diff Artifact Publishing** - Generate and publish git diff snapshots directly from the UI for sharing with AI agents
+- **Improvements:** Streamlined Context Builder UI, improved CLI tab awareness and help documentation, JSON-only apply\_edits for better multiline handling, performance optimizations
+
+</details>

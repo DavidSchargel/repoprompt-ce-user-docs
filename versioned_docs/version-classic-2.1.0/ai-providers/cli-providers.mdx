@@ -1,0 +1,108 @@
+---
+id: "cli-providers"
+title: "CLI Providers"
+description: "CLI Providers — Repo Prompt Classic archive documentation."
+slug: "/ai-providers/cli-providers"
+keywords: ["cli","command line","terminal","chatgpt","codex cli","claude code","gemini cli","cursor cli","cursor pro","cursor business","subscription","no api key","existing subscription","agent communication protocol","acp"]
+hide_table_of_contents: false
+toc_min_heading_level: 2
+toc_max_heading_level: 4
+---
+
+:::tip
+
+**Use Your Existing Subscriptions:** CLI Providers let you use models through your Claude Pro/Max, OpenAI Plus/Pro, Cursor Pro/Business, or Google AI subscriptions instead of paying per-token API costs.
+
+:::
+
+CLI Providers are one of Repo Prompt's most powerful features. If you already pay for Claude Pro/Max, ChatGPT Plus/Pro, Cursor Pro/Business, or a Google AI subscription, you can use those same models in Repo Prompt without additional API costs.
+
+## Why Use CLI Providers?
+
+- **Save Money:** Use your existing subscription instead of paying per-token API fees
+- **Latest Models:** Access the newest models through official CLI tools
+- **No API Keys:** Authentication is handled by the CLI's existing login
+- **Full Features:** Works with Chat, Context Builder, and Pro Edit workflows
+
+## Available CLI Providers
+
+### Claude Code (Claude Pro/Max)
+
+Use Claude models through your Claude Pro or Max subscription. For many teams, Claude Pro is enough for light UI work and quick fixes.
+
+1. Install Claude Code: `npm install -g @anthropic-ai/claude-code`
+2. Login: `claude login`
+3. In Repo Prompt, go to Settings → CLI Providers
+4. Click "Connect" next to Claude Code
+5. Test the connection to verify it works
+
+**Claude Code-compatible backends:** The same Claude Code integration also powers**CC Zai** (GLM via a Z.AI API key), **CC Moonshot** (Kimi via a Moonshot API key, endpoint prefilled to `https://api.kimi.com/coding/`), and **CC Custom** (any Claude Code-compatible endpoint you configure). These appear in Agent Mode once their API keys are saved under **Settings → API Settings → API Providers**. See [Agent Mode → Providers](../../version-1.5.0/agent-mode/providers.mdx) for details.
+
+### Codex CLI (OpenAI Plus/Pro)
+
+Use OpenAI models through your ChatGPT Plus or Pro subscription.
+
+1. Install Codex: `npm install -g @openai/codex`
+2. Login: `codex login`
+3. In Repo Prompt, go to Settings → CLI Providers
+4. Click "Connect" next to Codex CLI
+5. Test the connection to verify it works
+
+### Gemini CLI (Google AI)
+
+Use Gemini models through your Google AI subscription. Gemini CLI connects via ACP (Agent Communication Protocol), enabling text streaming, permission support, bash tool access, and automatic model detection for a full-featured agent experience.
+
+1. Install Gemini CLI: `npm install -g @google/gemini-cli`
+2. Login: `gemini login`
+3. In Repo Prompt, go to Settings → CLI Providers
+4. Click "Connect" next to Gemini CLI
+5. Test the connection to verify it works
+
+### Cursor CLI (Cursor Pro/Business)
+
+Use Cursor models through your Cursor Pro or Business subscription. Cursor CLI connects via ACP with dynamic model discovery — available models are detected automatically from your Cursor installation.
+
+1. Install Cursor and ensure `cursor` is available on your PATH
+2. Login to your Cursor Pro or Business account
+3. In Repo Prompt, go to Settings → CLI Providers
+4. Click "Connect" next to Cursor CLI
+5. Test the connection — available models will be discovered automatically
+
+## Using CLI Providers
+
+Once connected, CLI providers appear as model options throughout Repo Prompt:
+
+- **Chat Mode:** Select CLI models from the model dropdown
+- **Context Builder:** Use CLI providers for AI-powered file discovery
+- **Pro Edit:** Route edits through CLI providers for cost-effective workflows
+
+## Troubleshooting
+
+### Connection Failed
+
+- **CLI not found:** Ensure the CLI tool is installed globally and available in your PATH
+- **Not logged in:** Run the login command for the respective CLI tool
+- **Subscription inactive:** Verify your subscription is active with the provider
+
+### Rate Limits
+
+CLI providers are subject to the rate limits of your subscription plan. If you hit rate limits:
+
+- Wait a few minutes before retrying
+- Consider using API keys for higher-volume work
+- Check your subscription tier's limits with the provider
+
+### Update Required
+
+If you see "update required" errors, update your CLI tool:
+
+- Claude Code: `npm update -g @anthropic-ai/claude-code`
+- Codex: `npm update -g @openai/codex`
+- Gemini: `npm update -g @google/gemini-cli`
+- Cursor: Update your Cursor application to the latest version
+
+:::tip
+
+**Pro Tip:** CLI Providers are especially valuable with the Context Builder. Since context building can involve multiple AI calls, using your existing subscription can significantly reduce costs compared to API usage.
+
+:::

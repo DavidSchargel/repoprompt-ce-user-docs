@@ -1,0 +1,49 @@
+---
+id: "filtering-files"
+title: "Filtering Files"
+description: "Filtering Files — Repo Prompt Classic archive documentation."
+slug: "/historical-guides/file-selection/filtering-files"
+hide_table_of_contents: false
+toc_min_heading_level: 2
+toc_max_heading_level: 4
+---
+
+To prevent unnecessary files (like build artifacts or node\_modules) from cluttering your workspace view, RepoPrompt provides powerful filtering options using ignore patterns.
+
+## Setting Up Ignore Patterns
+
+1. Click the "Filters" button above the file tree panel
+2. The "Ignore Patterns" modal window will appear with two tabs
+
+## Global Default Patterns
+
+These patterns apply to all workspaces in RepoPrompt:
+
+1. Click the "Global Default" tab in the Ignore Patterns modal
+2. Edit the patterns in the text area (RepoPrompt includes sensible defaults)
+3. Patterns follow `.gitignore` syntax
+4. Common patterns include: `node_modules/`, `*.log`, `.git/`, etc.
+
+## Local Folder Patterns
+
+These patterns apply only to specific folders in your workspace:
+
+1. Click the "Local Folder" tab in the Ignore Patterns modal
+2. Select the specific folder within your workspace using the "Select Folder" dropdown
+3. Edit the patterns in the text area
+4. If a `.repo_ignore` file exists in that folder, its contents will be loaded automatically
+
+## Pattern Precedence
+
+When determining which files to show or hide:
+
+- Local folder patterns override global defaults
+- More specific patterns take precedence over general ones
+
+After saving your filter changes, files matching the ignore patterns will be hidden from the file tree, reducing clutter and making it easier to find relevant files.
+
+:::tip
+
+**Tip:** You can create a `.repo_ignore` file in your project repository to share filtering rules with team members.
+
+:::

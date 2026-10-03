@@ -1,0 +1,3557 @@
+{
+  "registry": "src/data/documentationData.js",
+  "registrySha256": "8db31663f31cec233affdd6b41485006578b8e3d9493fee48246dbc791d2a539",
+  "sourceFiles": 81,
+  "registeredFiles": 49,
+  "archivedUnregisteredFiles": 32,
+  "versionCounts": {
+    "1.5.0": 10,
+    "classic-2.1.0": 71
+  },
+  "documents": [
+    {
+      "source": "overview/Overview.js",
+      "section": "overview",
+      "sectionTitle": "Overview",
+      "title": "Introduction",
+      "subsection": "introduction",
+      "keywords": [
+        "what is repo prompt",
+        "about",
+        "features",
+        "benefits",
+        "prompt engineering",
+        "context window",
+        "token",
+        "macos",
+        "mac app",
+        "code assistant",
+        "ai coding",
+        "overview",
+        "introduction",
+        "getting started",
+        "ide mode",
+        "agent mode",
+        "mcp server"
+      ],
+      "legacyHash": "#s=overview&ss=introduction",
+      "version": "1.5.0",
+      "id": "overview",
+      "destination": "versioned_docs/version-1.5.0/index.mdx",
+      "route": "/docs/",
+      "reason": "Current overview explicitly distinguishes Classic-only IDE Mode from agent workflows.",
+      "omissions": [
+        {
+          "lines": [
+            34,
+            54
+          ],
+          "reason": "Source SPA interaction replaced by documentation Copy page and code-copy controls",
+          "text": "Open in ChatGPT"
+        },
+        {
+          "lines": [
+            55,
+            75
+          ],
+          "reason": "Source SPA interaction replaced by documentation Copy page and code-copy controls",
+          "text": "Open in Claude"
+        },
+        {
+          "lines": [
+            76,
+            93
+          ],
+          "reason": "Source SPA interaction replaced by documentation Copy page and code-copy controls",
+          "text": "Copy Docs"
+        }
+      ],
+      "adaptations": [
+        "Source presentation styles removed; headings normalized under the document title; lists, tables, code, and prose retained as MDX."
+      ],
+      "sourceSha256": "cceff0dce7a3c06fd86e3d1df742fffd6bb8fdc04cf8c6644e7b11b1579f4b4e",
+      "features": {
+        "headingOffset": 1,
+        "lastHeading": 2,
+        "headings": 10,
+        "codeBlocks": 0,
+        "images": 2,
+        "tables": 0,
+        "admonitions": 1
+      },
+      "excludedKeywords": []
+    },
+    {
+      "source": "getting-started/Installation.js",
+      "section": "overview",
+      "sectionTitle": "Overview",
+      "title": "Installation",
+      "subsection": "installation",
+      "keywords": [
+        "download",
+        "install",
+        "setup",
+        "dmg",
+        "homebrew",
+        "requirements",
+        "system requirements",
+        "macos",
+        "get started",
+        "community edition",
+        "classic edition",
+        "migration",
+        "migrate"
+      ],
+      "legacyHash": "#s=overview&ss=installation",
+      "version": "1.5.0",
+      "id": "overview/installation",
+      "destination": "versioned_docs/version-1.5.0/overview/installation.mdx",
+      "route": "/docs/overview/installation/",
+      "reason": "CE release repository, Homebrew cask, and Classic-to-CE migration instructions.",
+      "omissions": [],
+      "adaptations": [
+        "Embedded player replaced by a descriptive external video link.",
+        "Source presentation styles removed; headings normalized under the document title; lists, tables, code, and prose retained as MDX."
+      ],
+      "sourceSha256": "8b37c60fbbf56782a3a4ed387c97d64eefb883ee97a558fb96b3a6c12fc58cbe",
+      "features": {
+        "headingOffset": 1,
+        "lastHeading": 2,
+        "headings": 9,
+        "codeBlocks": 1,
+        "images": 0,
+        "tables": 0,
+        "admonitions": 1
+      },
+      "excludedKeywords": []
+    },
+    {
+      "source": "agent-mode/AgentModeOverview.js",
+      "section": "agent-mode",
+      "sectionTitle": "Agent Mode",
+      "title": "Overview",
+      "subsection": "overview",
+      "keywords": [
+        "agent mode",
+        "cli agent",
+        "codex",
+        "claude code",
+        "gemini cli",
+        "cc zai",
+        "cc moonshot",
+        "cc custom",
+        "moonshot",
+        "kimi",
+        "glm",
+        "opencode",
+        "cursor cli",
+        "session host",
+        "orchestrate",
+        "native",
+        "gpt-5.5",
+        "per-tab",
+        "session",
+        "tool calls",
+        "edit review",
+        "agent",
+        "oracle chat",
+        "context builder",
+        "parallel",
+        "parallel agents",
+        "images",
+        "streaming",
+        "live streaming",
+        "sub-agent",
+        "sub agent",
+        "subagent",
+        "spawn agent",
+        "delegate",
+        "worker agent",
+        "multi-agent",
+        "dispatch"
+      ],
+      "legacyHash": "#s=agent-mode&ss=overview",
+      "version": "1.5.0",
+      "id": "agent-mode/overview",
+      "destination": "versioned_docs/version-1.5.0/agent-mode/overview.mdx",
+      "route": "/docs/agent-mode/overview/",
+      "reason": "Explicit CE onboarding instructions; agent capability family retained together.",
+      "omissions": [],
+      "adaptations": [
+        "Source presentation styles removed; headings normalized under the document title; lists, tables, code, and prose retained as MDX."
+      ],
+      "sourceSha256": "bf4b61e9cf1021bc82f94b9688e876160e9591018355393c7d7a1ec336a603d1",
+      "features": {
+        "headingOffset": 1,
+        "lastHeading": 2,
+        "headings": 5,
+        "codeBlocks": 0,
+        "images": 1,
+        "tables": 0,
+        "admonitions": 1
+      },
+      "excludedKeywords": []
+    },
+    {
+      "source": "agent-mode/AgentWorkflows.js",
+      "section": "agent-mode",
+      "sectionTitle": "Agent Mode",
+      "title": "Workflow Commands",
+      "subsection": "workflows",
+      "keywords": [
+        "rp-build",
+        "rp-review",
+        "rp-refactor",
+        "rp-investigate",
+        "rp-oracle-export",
+        "rp-orchestrate",
+        "workflow",
+        "context builder",
+        "oracle chat",
+        "plan and build",
+        "deep plan",
+        "optimize",
+        "interview mode",
+        "review",
+        "refactor",
+        "investigate",
+        "chatgpt prompt export",
+        "chatgpt export",
+        "gpt pro",
+        "discovery agent",
+        "analysis model",
+        "two-stage pipeline",
+        "debug",
+        "debugging",
+        "code review",
+        "git",
+        "token budget",
+        "custom workflow",
+        "root cause",
+        "second opinion",
+        "external ai",
+        "orchestrate",
+        "sub-agent",
+        "sub agent",
+        "decompose",
+        "delegate",
+        "dispatch",
+        "multi-agent",
+        "parallel agents"
+      ],
+      "legacyHash": "#s=agent-mode&ss=workflows",
+      "version": "1.5.0",
+      "id": "agent-mode/workflows",
+      "destination": "versioned_docs/version-1.5.0/agent-mode/workflows.mdx",
+      "route": "/docs/agent-mode/workflows/",
+      "reason": "Workflow guide for the CE Agent Mode capability family.",
+      "omissions": [],
+      "adaptations": [
+        "Source presentation styles removed; headings normalized under the document title; lists, tables, code, and prose retained as MDX."
+      ],
+      "sourceSha256": "42fd20cea5ad985a265a9daa149c18f864b753f6b7ccc32d809e92a950490ec1",
+      "features": {
+        "headingOffset": 1,
+        "lastHeading": 2,
+        "headings": 11,
+        "codeBlocks": 0,
+        "images": 2,
+        "tables": 0,
+        "admonitions": 1
+      },
+      "excludedKeywords": []
+    },
+    {
+      "source": "agent-mode/AgentSkills.js",
+      "section": "agent-mode",
+      "sectionTitle": "Agent Mode",
+      "title": "Skills & Slash Commands",
+      "subsection": "skills",
+      "keywords": [
+        "skills",
+        "slash commands",
+        "custom skills",
+        "SKILL.md",
+        "commands",
+        "templates",
+        ".claude",
+        ".agents",
+        "prompt templates",
+        "custom workflow",
+        "frontmatter",
+        "YAML",
+        "$ARGUMENTS",
+        "skill search",
+        "install skills",
+        "rp-build",
+        "rp-review",
+        "rp-refactor",
+        "rp-investigate",
+        "rp-oracle-export",
+        "terminal",
+        "terminal agent",
+        "mcp skills",
+        "rp-cli",
+        "global",
+        "markdown"
+      ],
+      "legacyHash": "#s=agent-mode&ss=skills",
+      "version": "1.5.0",
+      "id": "agent-mode/skills",
+      "destination": "versioned_docs/version-1.5.0/agent-mode/skills.mdx",
+      "route": "/docs/agent-mode/skills/",
+      "reason": "Skills guide for the CE Agent Mode capability family.",
+      "omissions": [],
+      "adaptations": [
+        "Source presentation styles removed; headings normalized under the document title; lists, tables, code, and prose retained as MDX."
+      ],
+      "sourceSha256": "473fbfc72929a04e8f228f7e2b2c8c0572f3afdb59fce52162af5fb5ca163b2c",
+      "features": {
+        "headingOffset": 1,
+        "lastHeading": 2,
+        "headings": 11,
+        "codeBlocks": 3,
+        "images": 0,
+        "tables": 0,
+        "admonitions": 1
+      },
+      "excludedKeywords": []
+    },
+    {
+      "source": "agent-mode/AgentProviders.js",
+      "section": "agent-mode",
+      "sectionTitle": "Agent Mode",
+      "title": "Providers",
+      "subsection": "providers",
+      "keywords": [
+        "codex cli",
+        "claude code",
+        "gemini cli",
+        "cc zai",
+        "cc moonshot",
+        "cc custom",
+        "moonshot",
+        "kimi",
+        "claude code compatible",
+        "glm",
+        "glm 4.6",
+        "glm 4.7",
+        "glm 5",
+        "z.ai",
+        "zhipu",
+        "opencode",
+        "open code",
+        "cursor cli",
+        "cursor",
+        "cursor pro",
+        "cursor business",
+        "provider",
+        "setup",
+        "connection",
+        "app server",
+        "headless",
+        "acp",
+        "subscription",
+        "compaction",
+        "reasoning effort",
+        "bash tools",
+        "comparison",
+        "which provider",
+        "recommended",
+        "install",
+        "openai",
+        "anthropic",
+        "google",
+        "claude pro",
+        "claude max",
+        "api key",
+        "base url"
+      ],
+      "legacyHash": "#s=agent-mode&ss=providers",
+      "version": "1.5.0",
+      "id": "agent-mode/providers",
+      "destination": "versioned_docs/version-1.5.0/agent-mode/providers.mdx",
+      "route": "/docs/agent-mode/providers/",
+      "reason": "Provider setup for the CE Agent Mode capability family.",
+      "omissions": [],
+      "adaptations": [
+        "Source presentation styles removed; headings normalized under the document title; lists, tables, code, and prose retained as MDX."
+      ],
+      "sourceSha256": "8edfe6972eab0fd7aba3531bb0af1d7d902a70f21a862646c11f8adb0c3068de",
+      "features": {
+        "headingOffset": 1,
+        "lastHeading": 2,
+        "headings": 18,
+        "codeBlocks": 0,
+        "images": 0,
+        "tables": 1,
+        "admonitions": 2
+      },
+      "excludedKeywords": []
+    },
+    {
+      "source": "agent-mode/AgentSessions.js",
+      "section": "agent-mode",
+      "sectionTitle": "Agent Mode",
+      "title": "Sessions & Interface",
+      "subsection": "sessions",
+      "keywords": [
+        "session",
+        "per-tab",
+        "tool calls",
+        "tool cards",
+        "edit review",
+        "sidebar",
+        "images",
+        "session management",
+        "interface",
+        "handoff",
+        "resume",
+        "token usage",
+        "multiple agents",
+        "parallel",
+        "drag drop",
+        "screenshot",
+        "runtime sidebar",
+        "message stream",
+        "debug",
+        "debugging",
+        "history",
+        "session history",
+        "auto apply",
+        "automatic apply",
+        "diff"
+      ],
+      "legacyHash": "#s=agent-mode&ss=sessions",
+      "version": "1.5.0",
+      "id": "agent-mode/sessions",
+      "destination": "versioned_docs/version-1.5.0/agent-mode/sessions.mdx",
+      "route": "/docs/agent-mode/sessions/",
+      "reason": "Session guide for the CE Agent Mode capability family.",
+      "omissions": [],
+      "adaptations": [
+        "Source presentation styles removed; headings normalized under the document title; lists, tables, code, and prose retained as MDX."
+      ],
+      "sourceSha256": "1b8f357ab0964402452762275ab48b1f1307c9b0930c5b557d96315a15b18309",
+      "features": {
+        "headingOffset": 1,
+        "lastHeading": 2,
+        "headings": 7,
+        "codeBlocks": 0,
+        "images": 1,
+        "tables": 0,
+        "admonitions": 1
+      },
+      "excludedKeywords": []
+    },
+    {
+      "source": "mcp/MCPOverview.js",
+      "section": "mcp-server",
+      "sectionTitle": "MCP Server",
+      "title": "Overview",
+      "subsection": "mcp-overview",
+      "keywords": [
+        "mcp",
+        "model context protocol",
+        "ide for agents",
+        "external tools",
+        "integration",
+        "cursor",
+        "claude code",
+        "codex",
+        "capabilities",
+        "agent_run",
+        "agent_manage",
+        "agent control plane",
+        "session_id",
+        "workflow run",
+        "agent session control",
+        "sub-agent",
+        "sub agent",
+        "subagent",
+        "spawn agent",
+        "orchestrate",
+        "multi-agent",
+        "session_ids",
+        "multi-wait",
+        "parallel"
+      ],
+      "legacyHash": "#s=mcp-server&ss=mcp-overview",
+      "version": "classic-2.1.0",
+      "id": "mcp-server/mcp-overview",
+      "destination": "versioned_docs/version-classic-2.1.0/mcp-server/mcp-overview.mdx",
+      "route": "/docs/classic-2.1.0/mcp-server/mcp-overview/",
+      "reason": "Conservative Classic archive placement: historical or not demonstrably CE-specific.",
+      "omissions": [],
+      "adaptations": [
+        "Source presentation styles removed; headings normalized under the document title; lists, tables, code, and prose retained as MDX."
+      ],
+      "sourceSha256": "7c8c002152982e9c861544ef41338cd69f05cb508b68033bac708016b1a4c682",
+      "features": {
+        "headingOffset": 0,
+        "lastHeading": 3,
+        "headings": 20,
+        "codeBlocks": 0,
+        "images": 1,
+        "tables": 0,
+        "admonitions": 2
+      },
+      "excludedKeywords": []
+    },
+    {
+      "source": "pro-features/MCPIntegration.js",
+      "section": "mcp-server",
+      "sectionTitle": "MCP Server",
+      "title": "Setup Guide",
+      "subsection": "mcp-setup",
+      "keywords": [
+        "install mcp",
+        "configure mcp",
+        "cursor setup",
+        "claude code setup",
+        "json config",
+        "repoprompt-mcp",
+        "deeplink",
+        "enable"
+      ],
+      "legacyHash": "#s=mcp-server&ss=mcp-setup",
+      "version": "classic-2.1.0",
+      "id": "mcp-server/mcp-setup",
+      "destination": "versioned_docs/version-classic-2.1.0/mcp-server/mcp-setup.mdx",
+      "route": "/docs/classic-2.1.0/mcp-server/mcp-setup/",
+      "reason": "Conservative Classic archive placement: historical or not demonstrably CE-specific.",
+      "omissions": [],
+      "adaptations": [
+        "Source presentation styles removed; headings normalized under the document title; lists, tables, code, and prose retained as MDX."
+      ],
+      "sourceSha256": "c3ce81ea1fa3bfc8302732af7b5238a78cc01bc70a41373bc88fa3fb370aa371",
+      "features": {
+        "headingOffset": 1,
+        "lastHeading": 3,
+        "headings": 15,
+        "codeBlocks": 1,
+        "images": 0,
+        "tables": 0,
+        "admonitions": 2
+      },
+      "excludedKeywords": []
+    },
+    {
+      "source": "mcp/MCPToolsReference.js",
+      "section": "mcp-server",
+      "sectionTitle": "MCP Server",
+      "title": "Tools Reference",
+      "subsection": "mcp-tools",
+      "keywords": [
+        "manage_selection",
+        "workspace_context",
+        "file_search",
+        "read_file",
+        "apply_edits",
+        "chat_send",
+        "context_builder",
+        "get_file_tree",
+        "get_code_structure",
+        "chats",
+        "list_models",
+        "file_actions",
+        "prompt",
+        "app_settings",
+        "agent_run",
+        "agent_manage",
+        "start",
+        "poll",
+        "wait",
+        "cancel",
+        "steer",
+        "respond",
+        "list_agents",
+        "list_sessions",
+        "get_log",
+        "create_session",
+        "resume_session",
+        "stop_session",
+        "list_workflows",
+        "timeout",
+        "bounded wait",
+        "model_id",
+        "workflow_id",
+        "detach",
+        "session_ids",
+        "multi-wait",
+        "multi-poll",
+        "wait any",
+        "parallel wait",
+        "sub-agent",
+        "sub agent",
+        "subagent",
+        "spawn",
+        "orchestrate",
+        "agent control plane",
+        "multi-session"
+      ],
+      "legacyHash": "#s=mcp-server&ss=mcp-tools",
+      "version": "classic-2.1.0",
+      "id": "mcp-server/mcp-tools",
+      "destination": "versioned_docs/version-classic-2.1.0/mcp-server/mcp-tools.mdx",
+      "route": "/docs/classic-2.1.0/mcp-server/mcp-tools/",
+      "reason": "Conservative Classic archive placement: historical or not demonstrably CE-specific.",
+      "omissions": [],
+      "adaptations": [
+        "Source presentation styles removed; headings normalized under the document title; lists, tables, code, and prose retained as MDX."
+      ],
+      "sourceSha256": "44db04294b1b9946fe1fa81353bd62cd988c1bc8f07ce77c1ebe0021a3449f16",
+      "features": {
+        "headingOffset": 1,
+        "lastHeading": 3,
+        "headings": 26,
+        "codeBlocks": 3,
+        "images": 0,
+        "tables": 18,
+        "admonitions": 3
+      },
+      "excludedKeywords": []
+    },
+    {
+      "source": "mcp/AppSettings.js",
+      "section": "mcp-server",
+      "sectionTitle": "MCP Server",
+      "title": "App Settings Tool",
+      "subsection": "mcp-app-settings",
+      "keywords": [
+        "app_settings",
+        "app settings",
+        "allowlist",
+        "preferences",
+        "appearance",
+        "appearance_mode",
+        "dark mode",
+        "light mode",
+        "prompt packaging",
+        "prompt sections order",
+        "editing",
+        "edit format",
+        "file_edit_format",
+        "temperature",
+        "planning model",
+        "models",
+        "mcp.auto_start",
+        "auto-start",
+        "code_maps.globally_disabled",
+        "code maps toggle",
+        "settings tool",
+        "set preference",
+        "get preference",
+        "list settings",
+        "ui group",
+        "scriptable settings",
+        "flip preference"
+      ],
+      "legacyHash": "#s=mcp-server&ss=mcp-app-settings",
+      "version": "classic-2.1.0",
+      "id": "mcp-server/mcp-app-settings",
+      "destination": "versioned_docs/version-classic-2.1.0/mcp-server/mcp-app-settings.mdx",
+      "route": "/docs/classic-2.1.0/mcp-server/mcp-app-settings/",
+      "reason": "Conservative Classic archive placement: historical or not demonstrably CE-specific.",
+      "omissions": [],
+      "adaptations": [
+        "Source presentation styles removed; headings normalized under the document title; lists, tables, code, and prose retained as MDX."
+      ],
+      "sourceSha256": "e8a25a422afddcc3345bdebdd8fb1036f9e494f4175f28dec108d4f10476b33f",
+      "features": {
+        "headingOffset": 0,
+        "lastHeading": 2,
+        "headings": 15,
+        "codeBlocks": 1,
+        "images": 0,
+        "tables": 9,
+        "admonitions": 1
+      },
+      "excludedKeywords": []
+    },
+    {
+      "source": "mcp/MCPTransportModes.js",
+      "section": "mcp-server",
+      "sectionTitle": "MCP Server",
+      "title": "Transport Modes",
+      "subsection": "mcp-transport",
+      "keywords": [
+        "unix socket",
+        "local socket",
+        "local only",
+        "cli bridge",
+        "transport",
+        "security",
+        "reconnection",
+        "connection refused"
+      ],
+      "legacyHash": "#s=mcp-server&ss=mcp-transport",
+      "version": "classic-2.1.0",
+      "id": "mcp-server/mcp-transport",
+      "destination": "versioned_docs/version-classic-2.1.0/mcp-server/mcp-transport.mdx",
+      "route": "/docs/classic-2.1.0/mcp-server/mcp-transport/",
+      "reason": "Conservative Classic archive placement: historical or not demonstrably CE-specific.",
+      "omissions": [],
+      "adaptations": [
+        "Source presentation styles removed; headings normalized under the document title; lists, tables, code, and prose retained as MDX."
+      ],
+      "sourceSha256": "7397e39c6f209c12774dd17299348817b88efcfbc5e7f84a85335b65d0190d70",
+      "features": {
+        "headingOffset": 1,
+        "lastHeading": 2,
+        "headings": 5,
+        "codeBlocks": 0,
+        "images": 0,
+        "tables": 0,
+        "admonitions": 1
+      },
+      "excludedKeywords": []
+    },
+    {
+      "source": "mcp/MCPSettings.js",
+      "section": "mcp-server",
+      "sectionTitle": "MCP Server",
+      "title": "Settings & Presets",
+      "subsection": "mcp-settings",
+      "keywords": [
+        "toggle",
+        "auto-start",
+        "model preset",
+        "context builder agent",
+        "fallback model",
+        "quick setup",
+        "copy json"
+      ],
+      "legacyHash": "#s=mcp-server&ss=mcp-settings",
+      "version": "classic-2.1.0",
+      "id": "mcp-server/mcp-settings",
+      "destination": "versioned_docs/version-classic-2.1.0/mcp-server/mcp-settings.mdx",
+      "route": "/docs/classic-2.1.0/mcp-server/mcp-settings/",
+      "reason": "Conservative Classic archive placement: historical or not demonstrably CE-specific.",
+      "omissions": [],
+      "adaptations": [
+        "Source presentation styles removed; headings normalized under the document title; lists, tables, code, and prose retained as MDX."
+      ],
+      "sourceSha256": "6085343c857d3ce6289b42268659c03c07df1f4bd489b2c019102debad44d478",
+      "features": {
+        "headingOffset": 0,
+        "lastHeading": 2,
+        "headings": 18,
+        "codeBlocks": 4,
+        "images": 1,
+        "tables": 0,
+        "admonitions": 3
+      },
+      "excludedKeywords": []
+    },
+    {
+      "source": "mcp/MCPConnectionManagement.js",
+      "section": "mcp-server",
+      "sectionTitle": "MCP Server",
+      "title": "Connection Management",
+      "subsection": "mcp-connections",
+      "keywords": [
+        "status",
+        "connection",
+        "multi-window",
+        "tabs",
+        "tab binding",
+        "manage_workspaces",
+        "window_id",
+        "approval",
+        "workspace",
+        "reconnect",
+        "troubleshooting"
+      ],
+      "legacyHash": "#s=mcp-server&ss=mcp-connections",
+      "version": "classic-2.1.0",
+      "id": "mcp-server/mcp-connections",
+      "destination": "versioned_docs/version-classic-2.1.0/mcp-server/mcp-connections.mdx",
+      "route": "/docs/classic-2.1.0/mcp-server/mcp-connections/",
+      "reason": "Conservative Classic archive placement: historical or not demonstrably CE-specific.",
+      "omissions": [],
+      "adaptations": [
+        "Source presentation styles removed; headings normalized under the document title; lists, tables, code, and prose retained as MDX."
+      ],
+      "sourceSha256": "3871f8c15a730558feb9a009b3a48d64b653f4874b44fa5f742aa9feef8e03db",
+      "features": {
+        "headingOffset": 1,
+        "lastHeading": 3,
+        "headings": 19,
+        "codeBlocks": 6,
+        "images": 0,
+        "tables": 2,
+        "admonitions": 2
+      },
+      "excludedKeywords": []
+    },
+    {
+      "source": "mcp/WorkflowCommands.js",
+      "section": "mcp-server",
+      "sectionTitle": "MCP Server",
+      "title": "Workflow Commands",
+      "subsection": "workflow-commands",
+      "keywords": [
+        "slash commands",
+        "workflow commands",
+        "rp-build",
+        "rp-investigate",
+        "end-to-end",
+        "claude code commands",
+        "automation"
+      ],
+      "legacyHash": "#s=mcp-server&ss=workflow-commands",
+      "version": "classic-2.1.0",
+      "id": "mcp-server/workflow-commands",
+      "destination": "versioned_docs/version-classic-2.1.0/mcp-server/workflow-commands.mdx",
+      "route": "/docs/classic-2.1.0/mcp-server/workflow-commands/",
+      "reason": "Conservative Classic archive placement: historical or not demonstrably CE-specific.",
+      "omissions": [],
+      "adaptations": [
+        "Source presentation styles removed; headings normalized under the document title; lists, tables, code, and prose retained as MDX."
+      ],
+      "sourceSha256": "e9cfd0a27d9ce3cc6adf7d3a2199a572b9d886391d3e85720af5d3aff3d875a9",
+      "features": {
+        "headingOffset": 1,
+        "lastHeading": 2,
+        "headings": 5,
+        "codeBlocks": 0,
+        "images": 2,
+        "tables": 0,
+        "admonitions": 1
+      },
+      "excludedKeywords": []
+    },
+    {
+      "source": "workflows/WorkflowOverview.js",
+      "section": "workflows",
+      "sectionTitle": "Workflows",
+      "title": "Context Over Convenience",
+      "subsection": "overview",
+      "keywords": [
+        "workflow",
+        "best practices",
+        "how to use",
+        "recommended",
+        "philosophy",
+        "approach",
+        "strategy",
+        "effective context",
+        "agent orientation"
+      ],
+      "legacyHash": "#s=workflows&ss=overview",
+      "version": "classic-2.1.0",
+      "id": "workflows/overview",
+      "destination": "versioned_docs/version-classic-2.1.0/workflows/overview.mdx",
+      "route": "/docs/classic-2.1.0/workflows/overview/",
+      "reason": "Conservative Classic archive placement: historical or not demonstrably CE-specific.",
+      "omissions": [],
+      "adaptations": [
+        "Decorative ExploreDots SVG omitted; adjacent pipeline labels retained.",
+        "Decorative Arrow SVG omitted; adjacent pipeline labels retained.",
+        "Decorative CurateDots SVG omitted; adjacent pipeline labels retained.",
+        "Decorative Arrow SVG omitted; adjacent pipeline labels retained.",
+        "Source presentation styles removed; headings normalized under the document title; lists, tables, code, and prose retained as MDX."
+      ],
+      "sourceSha256": "97a91f3bb1349535c4e8fac8e2de7aa6594bc3e54b7ba52ac50edfcd7847b5ac",
+      "features": {
+        "headingOffset": 1,
+        "lastHeading": 2,
+        "headings": 7,
+        "codeBlocks": 0,
+        "images": 0,
+        "tables": 2,
+        "admonitions": 1
+      },
+      "excludedKeywords": []
+    },
+    {
+      "source": "workflows/Discovery.js",
+      "section": "workflows",
+      "sectionTitle": "Workflows",
+      "title": "Discovery (Context Builder)",
+      "subsection": "discovery",
+      "keywords": [
+        "context builder",
+        "discover",
+        "automatic",
+        "file selection",
+        "ai select",
+        "find files",
+        "explore codebase",
+        "handoff prompt",
+        "token budget",
+        "slicing"
+      ],
+      "legacyHash": "#s=workflows&ss=discovery",
+      "version": "classic-2.1.0",
+      "id": "workflows/discovery",
+      "destination": "versioned_docs/version-classic-2.1.0/workflows/discovery.mdx",
+      "route": "/docs/classic-2.1.0/workflows/discovery/",
+      "reason": "Conservative Classic archive placement: historical or not demonstrably CE-specific.",
+      "omissions": [],
+      "adaptations": [
+        "Source presentation styles removed; headings normalized under the document title; lists, tables, code, and prose retained as MDX."
+      ],
+      "sourceSha256": "a1f902647d417d0d0e455f2a3a3fb05f21bec39aeccea6a8d688db0a76cf74ab",
+      "features": {
+        "headingOffset": 1,
+        "lastHeading": 2,
+        "headings": 7,
+        "codeBlocks": 0,
+        "images": 1,
+        "tables": 2,
+        "admonitions": 1
+      },
+      "excludedKeywords": []
+    },
+    {
+      "source": "workflows/ArchitecturalPlanning.js",
+      "section": "workflows",
+      "sectionTitle": "Workflows",
+      "title": "Architectural Planning",
+      "subsection": "architectural-planning",
+      "keywords": [
+        "plan",
+        "planning",
+        "architecture",
+        "design",
+        "gpt-5.5",
+        "chatgpt",
+        "chatgpt pro",
+        "reasoning",
+        "refactor",
+        "new feature",
+        "implementation",
+        "review",
+        "diff follow-up"
+      ],
+      "legacyHash": "#s=workflows&ss=architectural-planning",
+      "version": "classic-2.1.0",
+      "id": "workflows/architectural-planning",
+      "destination": "versioned_docs/version-classic-2.1.0/workflows/architectural-planning.mdx",
+      "route": "/docs/classic-2.1.0/workflows/architectural-planning/",
+      "reason": "Conservative Classic archive placement: historical or not demonstrably CE-specific.",
+      "omissions": [],
+      "adaptations": [
+        "Source presentation styles removed; headings normalized under the document title; lists, tables, code, and prose retained as MDX."
+      ],
+      "sourceSha256": "d9d5be2cdd853c683487f4c4c8e2cdf7c070c66b68d00ab6eb7b470cc7d1d839",
+      "features": {
+        "headingOffset": 1,
+        "lastHeading": 2,
+        "headings": 14,
+        "codeBlocks": 0,
+        "images": 1,
+        "tables": 0,
+        "admonitions": 5
+      },
+      "excludedKeywords": []
+    },
+    {
+      "source": "workflows/MCPBuilder.js",
+      "section": "workflows",
+      "sectionTitle": "Workflows",
+      "title": "MCP Builder Workflow",
+      "subsection": "mcp-builder",
+      "keywords": [
+        "mcp builder",
+        "rp-build",
+        "slash command",
+        "end-to-end",
+        "implementation",
+        "copy preset",
+        "agent workflow",
+        "claude code"
+      ],
+      "legacyHash": "#s=workflows&ss=mcp-builder",
+      "version": "classic-2.1.0",
+      "id": "workflows/mcp-builder",
+      "destination": "versioned_docs/version-classic-2.1.0/workflows/mcp-builder.mdx",
+      "route": "/docs/classic-2.1.0/workflows/mcp-builder/",
+      "reason": "Conservative Classic archive placement: historical or not demonstrably CE-specific.",
+      "omissions": [],
+      "adaptations": [
+        "Source presentation styles removed; headings normalized under the document title; lists, tables, code, and prose retained as MDX."
+      ],
+      "sourceSha256": "1117d2c0053540776f38cf4aef04342abf64093582b5ba7b178702d9067c7036",
+      "features": {
+        "headingOffset": 1,
+        "lastHeading": 3,
+        "headings": 9,
+        "codeBlocks": 0,
+        "images": 1,
+        "tables": 1,
+        "admonitions": 1
+      },
+      "excludedKeywords": []
+    },
+    {
+      "source": "workflows/PairProgramming.js",
+      "section": "workflows",
+      "sectionTitle": "Workflows",
+      "title": "Orchestration",
+      "subsection": "pair-programming",
+      "keywords": [
+        "orchestrate",
+        "orchestration",
+        "multi-agent",
+        "sub-agent",
+        "parallel",
+        "agent_run",
+        "agent_manage",
+        "dispatch",
+        "steer",
+        "multi-wait",
+        "session_ids",
+        "control plane",
+        "rp-orchestrate",
+        "worker agent"
+      ],
+      "legacyHash": "#s=workflows&ss=pair-programming",
+      "version": "classic-2.1.0",
+      "id": "workflows/pair-programming",
+      "destination": "versioned_docs/version-classic-2.1.0/workflows/pair-programming.mdx",
+      "route": "/docs/classic-2.1.0/workflows/pair-programming/",
+      "reason": "Conservative Classic archive placement: historical or not demonstrably CE-specific.",
+      "omissions": [],
+      "adaptations": [
+        "Interactive orchestration diagram represented as a textual workflow.",
+        "Source presentation styles removed; headings normalized under the document title; lists, tables, code, and prose retained as MDX."
+      ],
+      "sourceSha256": "2289aa084bd5bea7c94ee93c10b48019b49853fbd49a111c6d2e4af22a9901e0",
+      "features": {
+        "headingOffset": 1,
+        "lastHeading": 2,
+        "headings": 6,
+        "codeBlocks": 1,
+        "images": 0,
+        "tables": 1,
+        "admonitions": 2
+      },
+      "excludedKeywords": []
+    },
+    {
+      "source": "workflows/ModelRecommendations.js",
+      "section": "workflows",
+      "sectionTitle": "Workflows",
+      "title": "Model Recommendations",
+      "subsection": "model-recommendations",
+      "keywords": [
+        "which model",
+        "best model",
+        "model choice",
+        "gpt",
+        "gpt-5.5",
+        "codex cli",
+        "chatgpt pro",
+        "claude",
+        "claude opus",
+        "gemini",
+        "comparison",
+        "performance",
+        "subscription",
+        "recommendations"
+      ],
+      "legacyHash": "#s=workflows&ss=model-recommendations",
+      "version": "classic-2.1.0",
+      "id": "workflows/model-recommendations",
+      "destination": "versioned_docs/version-classic-2.1.0/workflows/model-recommendations.mdx",
+      "route": "/docs/classic-2.1.0/workflows/model-recommendations/",
+      "reason": "Conservative Classic archive placement: historical or not demonstrably CE-specific.",
+      "omissions": [],
+      "adaptations": [
+        "Source table at line 105 had no header; descriptive Markdown column headings added without dropping rows.",
+        "Source table at line 124 had no header; descriptive Markdown column headings added without dropping rows.",
+        "Source table at line 137 had no header; descriptive Markdown column headings added without dropping rows.",
+        "Source presentation styles removed; headings normalized under the document title; lists, tables, code, and prose retained as MDX."
+      ],
+      "sourceSha256": "e218e29b397002fde53bc85a1cdaa5b38deb7a45963649678873a15b2d915358",
+      "features": {
+        "headingOffset": 1,
+        "lastHeading": 3,
+        "headings": 10,
+        "codeBlocks": 0,
+        "images": 1,
+        "tables": 4,
+        "admonitions": 3
+      },
+      "excludedKeywords": []
+    },
+    {
+      "source": "ai/APIProviders.js",
+      "section": "ai-providers",
+      "sectionTitle": "AI Providers",
+      "title": "API Providers",
+      "subsection": "api-providers",
+      "keywords": [
+        "api key",
+        "openai",
+        "anthropic",
+        "google",
+        "gemini",
+        "azure",
+        "aws",
+        "bedrock",
+        "z.ai",
+        "glm",
+        "moonshot",
+        "kimi",
+        "cc zai",
+        "cc moonshot",
+        "cc custom",
+        "configure",
+        "setup",
+        "authentication"
+      ],
+      "legacyHash": "#s=ai-providers&ss=api-providers",
+      "version": "classic-2.1.0",
+      "id": "ai-providers/api-providers",
+      "destination": "versioned_docs/version-classic-2.1.0/ai-providers/api-providers.mdx",
+      "route": "/docs/classic-2.1.0/ai-providers/api-providers/",
+      "reason": "Conservative Classic archive placement: historical or not demonstrably CE-specific.",
+      "omissions": [],
+      "adaptations": [
+        "Source presentation styles removed; headings normalized under the document title; lists, tables, code, and prose retained as MDX."
+      ],
+      "sourceSha256": "1c95cc2bfe72f11829acebe8e87dc3e0f3cb12f748b74f4eac6c71f12a910e76",
+      "features": {
+        "headingOffset": 1,
+        "lastHeading": 2,
+        "headings": 10,
+        "codeBlocks": 0,
+        "images": 0,
+        "tables": 1,
+        "admonitions": 3
+      },
+      "excludedKeywords": []
+    },
+    {
+      "source": "getting-started/CLIProviders.js",
+      "section": "ai-providers",
+      "sectionTitle": "AI Providers",
+      "title": "CLI Providers",
+      "subsection": "cli-providers",
+      "keywords": [
+        "cli",
+        "command line",
+        "terminal",
+        "chatgpt",
+        "codex cli",
+        "claude code",
+        "gemini cli",
+        "cursor cli",
+        "cursor pro",
+        "cursor business",
+        "subscription",
+        "no api key",
+        "existing subscription",
+        "agent communication protocol",
+        "acp"
+      ],
+      "legacyHash": "#s=ai-providers&ss=cli-providers",
+      "version": "classic-2.1.0",
+      "id": "ai-providers/cli-providers",
+      "destination": "versioned_docs/version-classic-2.1.0/ai-providers/cli-providers.mdx",
+      "route": "/docs/classic-2.1.0/ai-providers/cli-providers/",
+      "reason": "Conservative Classic archive placement: historical or not demonstrably CE-specific.",
+      "omissions": [],
+      "adaptations": [
+        "Source presentation styles removed; headings normalized under the document title; lists, tables, code, and prose retained as MDX."
+      ],
+      "sourceSha256": "161610168212e2145bec00e86885d2eb329ed95b3d4c62fd226cc8ece6ce41f7",
+      "features": {
+        "headingOffset": 1,
+        "lastHeading": 3,
+        "headings": 11,
+        "codeBlocks": 0,
+        "images": 0,
+        "tables": 0,
+        "admonitions": 2
+      },
+      "excludedKeywords": []
+    },
+    {
+      "source": "ai/OpenRouterSetup.js",
+      "section": "ai-providers",
+      "sectionTitle": "AI Providers",
+      "title": "OpenRouter",
+      "subsection": "openrouter",
+      "keywords": [
+        "openrouter",
+        "router",
+        "multiple models",
+        "credits",
+        "unified api",
+        "model access"
+      ],
+      "legacyHash": "#s=ai-providers&ss=openrouter",
+      "version": "classic-2.1.0",
+      "id": "ai-providers/openrouter",
+      "destination": "versioned_docs/version-classic-2.1.0/ai-providers/openrouter.mdx",
+      "route": "/docs/classic-2.1.0/ai-providers/openrouter/",
+      "reason": "Conservative Classic archive placement: historical or not demonstrably CE-specific.",
+      "omissions": [],
+      "adaptations": [
+        "Source presentation styles removed; headings normalized under the document title; lists, tables, code, and prose retained as MDX."
+      ],
+      "sourceSha256": "c88fc5462a67b9ced4e153248efbc3e5eafacab7edc5f0fdc9329df429f05da6",
+      "features": {
+        "headingOffset": 1,
+        "lastHeading": 2,
+        "headings": 5,
+        "codeBlocks": 0,
+        "images": 0,
+        "tables": 0,
+        "admonitions": 3
+      },
+      "excludedKeywords": []
+    },
+    {
+      "source": "ai/CustomProviders.js",
+      "section": "ai-providers",
+      "sectionTitle": "AI Providers",
+      "title": "Custom Providers",
+      "subsection": "custom-providers",
+      "keywords": [
+        "custom",
+        "self-hosted",
+        "local",
+        "ollama",
+        "lmstudio",
+        "private",
+        "enterprise",
+        "base url",
+        "endpoint"
+      ],
+      "legacyHash": "#s=ai-providers&ss=custom-providers",
+      "version": "classic-2.1.0",
+      "id": "ai-providers/custom-providers",
+      "destination": "versioned_docs/version-classic-2.1.0/ai-providers/custom-providers.mdx",
+      "route": "/docs/classic-2.1.0/ai-providers/custom-providers/",
+      "reason": "Conservative Classic archive placement: historical or not demonstrably CE-specific.",
+      "omissions": [],
+      "adaptations": [
+        "Source presentation styles removed; headings normalized under the document title; lists, tables, code, and prose retained as MDX."
+      ],
+      "sourceSha256": "67a1d7bff5b725ae1a84326cd4b8d9973fecaed775fec0585effb90046d1d322",
+      "features": {
+        "headingOffset": 1,
+        "lastHeading": 3,
+        "headings": 11,
+        "codeBlocks": 3,
+        "images": 0,
+        "tables": 0,
+        "admonitions": 0
+      },
+      "excludedKeywords": []
+    },
+    {
+      "source": "mcp/CodeReviews.js",
+      "section": "code-reviews",
+      "sectionTitle": "Code Reviews",
+      "title": "Code Reviews & Git",
+      "subsection": "overview",
+      "keywords": [
+        "code review",
+        "review mode",
+        "deep review",
+        "git tool",
+        "diff",
+        "jujutsu",
+        "jj",
+        "version control",
+        "rp-review",
+        "uncommitted",
+        "staged",
+        "blame",
+        "log"
+      ],
+      "legacyHash": "#s=code-reviews&ss=overview",
+      "version": "classic-2.1.0",
+      "id": "code-reviews/overview",
+      "destination": "versioned_docs/version-classic-2.1.0/code-reviews/overview.mdx",
+      "route": "/docs/classic-2.1.0/code-reviews/overview/",
+      "reason": "Conservative Classic archive placement: historical or not demonstrably CE-specific.",
+      "omissions": [],
+      "adaptations": [
+        "Source presentation styles removed; headings normalized under the document title; lists, tables, code, and prose retained as MDX."
+      ],
+      "sourceSha256": "0419288057dd20870c757e0fab9b583a5b814b2be64a78ce626c835cf9b45ead",
+      "features": {
+        "headingOffset": 0,
+        "lastHeading": 2,
+        "headings": 12,
+        "codeBlocks": 1,
+        "images": 0,
+        "tables": 0,
+        "admonitions": 0
+      },
+      "excludedKeywords": []
+    },
+    {
+      "source": "mcp/RPCLI.js",
+      "section": "rp-cli",
+      "sectionTitle": "rp-cli",
+      "title": "Command Line Guide",
+      "subsection": "cli-guide",
+      "keywords": [
+        "rp-cli",
+        "repoprompt-mcp",
+        "cli",
+        "command line",
+        "terminal",
+        "exec mode",
+        "interactive mode",
+        "proxy mode",
+        "automation",
+        "scripts",
+        "bash",
+        "shell",
+        "export context",
+        "codex sandbox",
+        "agent_run",
+        "agent_manage",
+        "session_id",
+        "session_ids",
+        "workflow",
+        "agent mode control",
+        "multi-wait",
+        "multi-poll",
+        "orchestrate",
+        "sub-agent",
+        "sub agent",
+        "parallel agents",
+        "scriptable control surface",
+        "control plane",
+        "app_settings",
+        "settings tool group"
+      ],
+      "legacyHash": "#s=rp-cli&ss=cli-guide",
+      "version": "classic-2.1.0",
+      "id": "rp-cli/cli-guide",
+      "destination": "versioned_docs/version-classic-2.1.0/rp-cli/cli-guide.mdx",
+      "route": "/docs/classic-2.1.0/rp-cli/cli-guide/",
+      "reason": "Conservative Classic archive placement: historical or not demonstrably CE-specific.",
+      "omissions": [],
+      "adaptations": [
+        "Source presentation styles removed; headings normalized under the document title; lists, tables, code, and prose retained as MDX."
+      ],
+      "sourceSha256": "e8babdff938e7ac6595cbd1ba66f3f7bf6adfe403dced37b8d8381dd85ff10de",
+      "features": {
+        "headingOffset": 1,
+        "lastHeading": 3,
+        "headings": 44,
+        "codeBlocks": 41,
+        "images": 0,
+        "tables": 2,
+        "admonitions": 8
+      },
+      "excludedKeywords": []
+    },
+    {
+      "source": "mcp/CLIAppSettings.js",
+      "section": "rp-cli",
+      "sectionTitle": "rp-cli",
+      "title": "App Settings from the CLI",
+      "subsection": "cli-app-settings",
+      "keywords": [
+        "app_settings",
+        "settings",
+        "settings group",
+        "tools settings",
+        "preferences",
+        "appearance",
+        "dark mode",
+        "auto-start",
+        "mcp.auto_start",
+        "temperature",
+        "planning model",
+        "prompt packaging",
+        "code maps toggle",
+        "rp-cli settings",
+        "cli settings",
+        "script settings",
+        "flip preference",
+        "shell preferences"
+      ],
+      "legacyHash": "#s=rp-cli&ss=cli-app-settings",
+      "version": "classic-2.1.0",
+      "id": "rp-cli/cli-app-settings",
+      "destination": "versioned_docs/version-classic-2.1.0/rp-cli/cli-app-settings.mdx",
+      "route": "/docs/classic-2.1.0/rp-cli/cli-app-settings/",
+      "reason": "Conservative Classic archive placement: historical or not demonstrably CE-specific.",
+      "omissions": [],
+      "adaptations": [
+        "Source presentation styles removed; headings normalized under the document title; lists, tables, code, and prose retained as MDX."
+      ],
+      "sourceSha256": "ffc2ad75f7bbd1a6cc8a62a48a05548b7629e72ba7efedf1c25ac0ec2b8ddf7e",
+      "features": {
+        "headingOffset": 0,
+        "lastHeading": 2,
+        "headings": 10,
+        "codeBlocks": 7,
+        "images": 0,
+        "tables": 1,
+        "admonitions": 1
+      },
+      "excludedKeywords": []
+    },
+    {
+      "source": "reference/SettingsReference.js",
+      "section": "reference",
+      "sectionTitle": "Reference",
+      "title": "Settings Reference",
+      "subsection": "settings",
+      "keywords": [
+        "preferences",
+        "options",
+        "configuration",
+        "general",
+        "chat settings",
+        "appearance",
+        "theme",
+        "dark mode",
+        "light mode",
+        "api keys"
+      ],
+      "legacyHash": "#s=reference&ss=settings",
+      "version": "1.5.0",
+      "id": "reference/settings",
+      "destination": "versioned_docs/version-1.5.0/reference/settings.mdx",
+      "route": "/docs/reference/settings/",
+      "reason": "Explicitly described by the source as the Repo Prompt CE settings reference.",
+      "omissions": [
+        {
+          "lines": [
+            163,
+            163
+          ],
+          "reason": "Excluded subject section",
+          "text": "Benchmark"
+        },
+        {
+          "lines": [
+            164,
+            164
+          ],
+          "reason": "Excluded subject section",
+          "text": "Run model comparisons:"
+        },
+        {
+          "lines": [
+            165,
+            170
+          ],
+          "reason": "Excluded subject section",
+          "text": "Select models to benchmarkConfigure test parametersView results and historyExport benchmark data"
+        }
+      ],
+      "adaptations": [
+        "Source presentation styles removed; headings normalized under the document title; lists, tables, code, and prose retained as MDX."
+      ],
+      "sourceSha256": "31e1c45ed4e3381015859fba73e5bcce9a2bc9f490b4d322138a68b7257bab5a",
+      "features": {
+        "headingOffset": 1,
+        "lastHeading": 3,
+        "headings": 23,
+        "codeBlocks": 0,
+        "images": 0,
+        "tables": 0,
+        "admonitions": 1
+      },
+      "excludedKeywords": []
+    },
+    {
+      "source": "reference/KeyboardShortcuts.js",
+      "section": "reference",
+      "sectionTitle": "Reference",
+      "title": "Keyboard Shortcuts",
+      "subsection": "shortcuts",
+      "keywords": [
+        "hotkeys",
+        "keyboard",
+        "shortcuts",
+        "cmd",
+        "command",
+        "ctrl",
+        "keybindings",
+        "copy",
+        "paste",
+        "navigate"
+      ],
+      "legacyHash": "#s=reference&ss=shortcuts",
+      "version": "classic-2.1.0",
+      "id": "reference/shortcuts",
+      "destination": "versioned_docs/version-classic-2.1.0/reference/shortcuts.mdx",
+      "route": "/docs/classic-2.1.0/reference/shortcuts/",
+      "reason": "Conservative Classic archive placement: historical or not demonstrably CE-specific.",
+      "omissions": [],
+      "adaptations": [
+        "Source table at line 9 had no header; descriptive Markdown column headings added without dropping rows.",
+        "Source table at line 31 had no header; descriptive Markdown column headings added without dropping rows.",
+        "Source table at line 53 had no header; descriptive Markdown column headings added without dropping rows.",
+        "Source table at line 71 had no header; descriptive Markdown column headings added without dropping rows.",
+        "Source table at line 97 had no header; descriptive Markdown column headings added without dropping rows.",
+        "Source presentation styles removed; headings normalized under the document title; lists, tables, code, and prose retained as MDX."
+      ],
+      "sourceSha256": "ba6d26556a855429fd64fcbb4f3d1a9cd6227b06b07dd0190a9d311703974abb",
+      "features": {
+        "headingOffset": 1,
+        "lastHeading": 2,
+        "headings": 5,
+        "codeBlocks": 0,
+        "images": 0,
+        "tables": 5,
+        "admonitions": 1
+      },
+      "excludedKeywords": []
+    },
+    {
+      "source": "ide-mode/IDEModeOverview.js",
+      "section": "ide-mode",
+      "sectionTitle": "IDE Mode (Classic Edition)",
+      "title": "Overview",
+      "subsection": "overview",
+      "keywords": [
+        "ide mode",
+        "compose",
+        "chat",
+        "apply",
+        "review",
+        "context",
+        "prompts",
+        "file selection",
+        "codemaps",
+        "copy paste",
+        "manual",
+        "context building",
+        "prompt crafting",
+        "four views",
+        "copy presets"
+      ],
+      "legacyHash": "#s=ide-mode&ss=overview",
+      "version": "classic-2.1.0",
+      "id": "ide-mode/overview",
+      "destination": "versioned_docs/version-classic-2.1.0/ide-mode/overview.mdx",
+      "route": "/docs/classic-2.1.0/ide-mode/overview/",
+      "reason": "Conservative Classic archive placement: historical or not demonstrably CE-specific.",
+      "omissions": [],
+      "adaptations": [
+        "Source presentation styles removed; headings normalized under the document title; lists, tables, code, and prose retained as MDX."
+      ],
+      "sourceSha256": "7fc6538acf6159d28aa7a009badb81bbcab2843481a7b807536bee9e744b6341",
+      "features": {
+        "headingOffset": 1,
+        "lastHeading": 2,
+        "headings": 7,
+        "codeBlocks": 0,
+        "images": 0,
+        "tables": 0,
+        "admonitions": 0
+      },
+      "excludedKeywords": []
+    },
+    {
+      "source": "ide-mode/IDEWorkflows.js",
+      "section": "ide-mode",
+      "sectionTitle": "IDE Mode (Classic Edition)",
+      "title": "Workflows",
+      "subsection": "workflows",
+      "keywords": [
+        "workflow",
+        "copy paste",
+        "architectural planning",
+        "xml pro edit",
+        "pair programming",
+        "plan",
+        "chat",
+        "apply changes"
+      ],
+      "legacyHash": "#s=ide-mode&ss=workflows",
+      "version": "classic-2.1.0",
+      "id": "ide-mode/workflows",
+      "destination": "versioned_docs/version-classic-2.1.0/ide-mode/workflows.mdx",
+      "route": "/docs/classic-2.1.0/ide-mode/workflows/",
+      "reason": "Conservative Classic archive placement: historical or not demonstrably CE-specific.",
+      "omissions": [],
+      "adaptations": [
+        "Source presentation styles removed; headings normalized under the document title; lists, tables, code, and prose retained as MDX."
+      ],
+      "sourceSha256": "c513bfeb7836b0ce07165a7491fe0d14a5865623ad57280560c0a943291506c3",
+      "features": {
+        "headingOffset": 1,
+        "lastHeading": 2,
+        "headings": 6,
+        "codeBlocks": 0,
+        "images": 0,
+        "tables": 1,
+        "admonitions": 1
+      },
+      "excludedKeywords": []
+    },
+    {
+      "source": "context/ContextOverview.js",
+      "section": "ide-mode",
+      "sectionTitle": "IDE Mode (Classic Edition)",
+      "title": "Context Overview",
+      "subsection": "context-overview",
+      "keywords": [
+        "context",
+        "prompt anatomy",
+        "multi-root",
+        "workspace",
+        "getting started",
+        "how to",
+        "basics"
+      ],
+      "legacyHash": "#s=ide-mode&ss=context-overview",
+      "version": "classic-2.1.0",
+      "id": "ide-mode/context-overview",
+      "destination": "versioned_docs/version-classic-2.1.0/ide-mode/context-overview.mdx",
+      "route": "/docs/classic-2.1.0/ide-mode/context-overview/",
+      "reason": "Conservative Classic archive placement: historical or not demonstrably CE-specific.",
+      "omissions": [],
+      "adaptations": [
+        "Retired link /prompt-anatomy points to the home route.",
+        "Source presentation styles removed; headings normalized under the document title; lists, tables, code, and prose retained as MDX."
+      ],
+      "sourceSha256": "341e85c0360ea6e7564f6e239ce0e60bce7fa931fa5c483a2a75d20c1be8edfb",
+      "features": {
+        "headingOffset": 1,
+        "lastHeading": 3,
+        "headings": 5,
+        "codeBlocks": 0,
+        "images": 1,
+        "tables": 0,
+        "admonitions": 1
+      },
+      "excludedKeywords": []
+    },
+    {
+      "source": "getting-started/InterfaceOverview.js",
+      "section": "ide-mode",
+      "sectionTitle": "IDE Mode (Classic Edition)",
+      "title": "Interface Overview",
+      "subsection": "interface",
+      "keywords": [
+        "ui",
+        "layout",
+        "compose",
+        "chat",
+        "apply",
+        "sidebar",
+        "file tree",
+        "toolbar",
+        "tabs",
+        "panels",
+        "views",
+        "navigation"
+      ],
+      "legacyHash": "#s=ide-mode&ss=interface",
+      "version": "classic-2.1.0",
+      "id": "ide-mode/interface",
+      "destination": "versioned_docs/version-classic-2.1.0/ide-mode/interface.mdx",
+      "route": "/docs/classic-2.1.0/ide-mode/interface/",
+      "reason": "Conservative Classic archive placement: historical or not demonstrably CE-specific.",
+      "omissions": [],
+      "adaptations": [
+        "Source presentation styles removed; headings normalized under the document title; lists, tables, code, and prose retained as MDX."
+      ],
+      "sourceSha256": "630696ad7485ff5f8332a7edeff4baad599c84d19b6a212d5d198614744d224a",
+      "features": {
+        "headingOffset": 1,
+        "lastHeading": 3,
+        "headings": 12,
+        "codeBlocks": 0,
+        "images": 4,
+        "tables": 0,
+        "admonitions": 1
+      },
+      "excludedKeywords": []
+    },
+    {
+      "source": "context/FileSelection.js",
+      "section": "ide-mode",
+      "sectionTitle": "IDE Mode (Classic Edition)",
+      "title": "File Selection",
+      "subsection": "file-selection",
+      "keywords": [
+        "files",
+        "selection",
+        "slices",
+        "line ranges",
+        "full mode",
+        "selected files",
+        "file tree",
+        "sort",
+        "modes"
+      ],
+      "legacyHash": "#s=ide-mode&ss=file-selection",
+      "version": "classic-2.1.0",
+      "id": "ide-mode/file-selection",
+      "destination": "versioned_docs/version-classic-2.1.0/ide-mode/file-selection.mdx",
+      "route": "/docs/classic-2.1.0/ide-mode/file-selection/",
+      "reason": "Conservative Classic archive placement: historical or not demonstrably CE-specific.",
+      "omissions": [],
+      "adaptations": [
+        "Missing source image /images/filters.jpg replaced by its existing WebP counterpart.",
+        "Source presentation styles removed; headings normalized under the document title; lists, tables, code, and prose retained as MDX."
+      ],
+      "sourceSha256": "a6545e0aad45471e9ed876408ad04b6080e74b3c1e994d547ea51b3b9cc70ac3",
+      "features": {
+        "headingOffset": 1,
+        "lastHeading": 2,
+        "headings": 7,
+        "codeBlocks": 0,
+        "images": 3,
+        "tables": 2,
+        "admonitions": 3
+      },
+      "excludedKeywords": []
+    },
+    {
+      "source": "getting-started/FirstPrompt.js",
+      "section": "ide-mode",
+      "sectionTitle": "IDE Mode (Classic Edition)",
+      "title": "First Prompt",
+      "subsection": "first-prompt",
+      "keywords": [
+        "tutorial",
+        "quickstart",
+        "beginner",
+        "how to",
+        "getting started",
+        "first steps",
+        "select files",
+        "copy prompt",
+        "paste"
+      ],
+      "legacyHash": "#s=ide-mode&ss=first-prompt",
+      "version": "classic-2.1.0",
+      "id": "ide-mode/first-prompt",
+      "destination": "versioned_docs/version-classic-2.1.0/ide-mode/first-prompt.mdx",
+      "route": "/docs/classic-2.1.0/ide-mode/first-prompt/",
+      "reason": "Conservative Classic archive placement: historical or not demonstrably CE-specific.",
+      "omissions": [],
+      "adaptations": [
+        "Source presentation styles removed; headings normalized under the document title; lists, tables, code, and prose retained as MDX."
+      ],
+      "sourceSha256": "2cfe4f3c83dda45c7dec140c45ecc3561db8a541a3a334012ef243ec4c770dfe",
+      "features": {
+        "headingOffset": 1,
+        "lastHeading": 2,
+        "headings": 8,
+        "codeBlocks": 1,
+        "images": 1,
+        "tables": 0,
+        "admonitions": 1
+      },
+      "excludedKeywords": []
+    },
+    {
+      "source": "context/Codemaps.js",
+      "section": "ide-mode",
+      "sectionTitle": "IDE Mode (Classic Edition)",
+      "title": "Codemaps",
+      "subsection": "codemaps",
+      "keywords": [
+        "codemaps",
+        "codemap",
+        "api",
+        "signatures",
+        "types",
+        "tree-sitter",
+        "auto-codemap",
+        "structure",
+        "architecture"
+      ],
+      "legacyHash": "#s=ide-mode&ss=codemaps",
+      "version": "classic-2.1.0",
+      "id": "ide-mode/codemaps",
+      "destination": "versioned_docs/version-classic-2.1.0/ide-mode/codemaps.mdx",
+      "route": "/docs/classic-2.1.0/ide-mode/codemaps/",
+      "reason": "Conservative Classic archive placement: historical or not demonstrably CE-specific.",
+      "omissions": [],
+      "adaptations": [
+        "Source presentation styles removed; headings normalized under the document title; lists, tables, code, and prose retained as MDX."
+      ],
+      "sourceSha256": "1704b54f96f9832746cd34e30ff8737e9a63dc9c3bf42f25235dcf6ed22702b2",
+      "features": {
+        "headingOffset": 1,
+        "lastHeading": 2,
+        "headings": 8,
+        "codeBlocks": 0,
+        "images": 0,
+        "tables": 1,
+        "admonitions": 1
+      },
+      "excludedKeywords": []
+    },
+    {
+      "source": "context/TokenManagement.js",
+      "section": "ide-mode",
+      "sectionTitle": "IDE Mode (Classic Edition)",
+      "title": "Token Management",
+      "subsection": "tokens",
+      "keywords": [
+        "tokens",
+        "token count",
+        "context window",
+        "token budget",
+        "reduce tokens",
+        "too many tokens",
+        "limits",
+        "effective context",
+        "model limits"
+      ],
+      "legacyHash": "#s=ide-mode&ss=tokens",
+      "version": "classic-2.1.0",
+      "id": "ide-mode/tokens",
+      "destination": "versioned_docs/version-classic-2.1.0/ide-mode/tokens.mdx",
+      "route": "/docs/classic-2.1.0/ide-mode/tokens/",
+      "reason": "Conservative Classic archive placement: historical or not demonstrably CE-specific.",
+      "omissions": [],
+      "adaptations": [
+        "Source presentation styles removed; headings normalized under the document title; lists, tables, code, and prose retained as MDX."
+      ],
+      "sourceSha256": "2be7fb7888999b18c76da3c5dff53c0b7c4a77a057a3e24ff39da5ff9c3d1f83",
+      "features": {
+        "headingOffset": 1,
+        "lastHeading": 2,
+        "headings": 9,
+        "codeBlocks": 0,
+        "images": 0,
+        "tables": 1,
+        "admonitions": 1
+      },
+      "excludedKeywords": []
+    },
+    {
+      "source": "context/Presets.js",
+      "section": "ide-mode",
+      "sectionTitle": "IDE Mode (Classic Edition)",
+      "title": "Presets & Prompts",
+      "subsection": "presets",
+      "keywords": [
+        "presets",
+        "stored prompts",
+        "save",
+        "xml edit",
+        "plan",
+        "mcp pair",
+        "copy format",
+        "custom preset"
+      ],
+      "legacyHash": "#s=ide-mode&ss=presets",
+      "version": "classic-2.1.0",
+      "id": "ide-mode/presets",
+      "destination": "versioned_docs/version-classic-2.1.0/ide-mode/presets.mdx",
+      "route": "/docs/classic-2.1.0/ide-mode/presets/",
+      "reason": "Conservative Classic archive placement: historical or not demonstrably CE-specific.",
+      "omissions": [],
+      "adaptations": [
+        "Source presentation styles removed; headings normalized under the document title; lists, tables, code, and prose retained as MDX."
+      ],
+      "sourceSha256": "58d0703f6962c188d8bf1984e8494dedcc14cc64df43a140a7c05305a18a0c84",
+      "features": {
+        "headingOffset": 1,
+        "lastHeading": 3,
+        "headings": 10,
+        "codeBlocks": 0,
+        "images": 4,
+        "tables": 2,
+        "admonitions": 1
+      },
+      "excludedKeywords": []
+    },
+    {
+      "source": "changelog/CEVersion10.js",
+      "section": "changelog",
+      "sectionTitle": "Changelog",
+      "title": "CE Version 1",
+      "subsection": "ce-version-1-0",
+      "keywords": [
+        "ce",
+        "community edition",
+        "1.0",
+        "latest",
+        "agent mode",
+        "open source"
+      ],
+      "legacyHash": "#s=changelog&ss=ce-version-1-0",
+      "version": "1.5.0",
+      "id": "changelog/ce-version-1-0",
+      "destination": "versioned_docs/version-1.5.0/changelog/ce-version-1-0.mdx",
+      "route": "/docs/changelog/ce-version-1-0/",
+      "reason": "CE Version 1 changelog: mandatory 1.5.0 placement.",
+      "omissions": [],
+      "adaptations": [
+        "Source presentation styles removed; headings normalized under the document title; lists, tables, code, and prose retained as MDX."
+      ],
+      "sourceSha256": "6ae20f7823a6d918b0aa2119b345790c12533aa972f74575df22d8b89f8b0794",
+      "features": {
+        "headingOffset": 1,
+        "lastHeading": 4,
+        "headings": 33,
+        "codeBlocks": 0,
+        "images": 0,
+        "tables": 0,
+        "admonitions": 0
+      },
+      "excludedKeywords": []
+    },
+    {
+      "source": "changelog/ClassicVersion21.js",
+      "section": "changelog",
+      "sectionTitle": "Changelog",
+      "title": "Classic Version 2.1",
+      "subsection": "version-2-1",
+      "keywords": [
+        "2.1",
+        "mcp agents",
+        "sub-agents",
+        "sub agent",
+        "subagent",
+        "agent_run",
+        "agent_manage",
+        "role defaults",
+        "cross-family",
+        "cursor cli",
+        "cursor agent",
+        "orchestrate",
+        "multi-wait",
+        "session_ids",
+        "spawn",
+        "parallel agents",
+        "multi-session"
+      ],
+      "legacyHash": "#s=changelog&ss=version-2-1",
+      "version": "classic-2.1.0",
+      "id": "changelog/version-2-1",
+      "destination": "versioned_docs/version-classic-2.1.0/changelog/version-2-1.mdx",
+      "route": "/docs/classic-2.1.0/changelog/version-2-1/",
+      "reason": "Historical Classic release notes.",
+      "omissions": [
+        {
+          "lines": [
+            397,
+            397
+          ],
+          "reason": "Removed Benchmark Model from the related-settings list",
+          "text": "Agent Models settings surfaces related cross-links (Oracle Model Presets, Delegated Edits, Benchmark Model) in a Related Settings section"
+        }
+      ],
+      "adaptations": [
+        "Source presentation styles removed; headings normalized under the document title; lists, tables, code, and prose retained as MDX."
+      ],
+      "sourceSha256": "d1436da536985a02fc87fe78479f0e18b15c305e1075789439a238bac001938d",
+      "features": {
+        "headingOffset": 1,
+        "lastHeading": 4,
+        "headings": 35,
+        "codeBlocks": 0,
+        "images": 0,
+        "tables": 0,
+        "admonitions": 0
+      },
+      "excludedKeywords": []
+    },
+    {
+      "source": "changelog/ClassicVersion20.js",
+      "section": "changelog",
+      "sectionTitle": "Changelog",
+      "title": "Classic Version 2.0",
+      "subsection": "version-2-0",
+      "keywords": [
+        "2.0",
+        "agent mode",
+        "repo prompt agent",
+        "codex",
+        "claude code",
+        "gemini",
+        "onboarding"
+      ],
+      "legacyHash": "#s=changelog&ss=version-2-0",
+      "version": "classic-2.1.0",
+      "id": "changelog/version-2-0",
+      "destination": "versioned_docs/version-classic-2.1.0/changelog/version-2-0.mdx",
+      "route": "/docs/classic-2.1.0/changelog/version-2-0/",
+      "reason": "Historical Classic release notes.",
+      "omissions": [],
+      "adaptations": [
+        "Source presentation styles removed; headings normalized under the document title; lists, tables, code, and prose retained as MDX."
+      ],
+      "sourceSha256": "ea7520df7576a6c1bb1eb8ceb01579e687cf073ef8aa7fb32bdfe77db1b3e290",
+      "features": {
+        "headingOffset": 1,
+        "lastHeading": 4,
+        "headings": 32,
+        "codeBlocks": 0,
+        "images": 0,
+        "tables": 0,
+        "admonitions": 0
+      },
+      "excludedKeywords": []
+    },
+    {
+      "source": "changelog/ClassicVersion16.js",
+      "section": "changelog",
+      "sectionTitle": "Changelog",
+      "title": "Classic Version 1.6",
+      "subsection": "version-1-6",
+      "keywords": [
+        "1.6",
+        "deep code reviews",
+        "git tool",
+        "review mode",
+        "rp-review",
+        "rp-refactor"
+      ],
+      "legacyHash": "#s=changelog&ss=version-1-6",
+      "version": "classic-2.1.0",
+      "id": "changelog/version-1-6",
+      "destination": "versioned_docs/version-classic-2.1.0/changelog/version-1-6.mdx",
+      "route": "/docs/classic-2.1.0/changelog/version-1-6/",
+      "reason": "Historical Classic release notes.",
+      "omissions": [],
+      "adaptations": [
+        "Source presentation styles removed; headings normalized under the document title; lists, tables, code, and prose retained as MDX."
+      ],
+      "sourceSha256": "a0a552a5619bcfe29b802c99a563e5012208f645df8364da74d15d903acd98fb",
+      "features": {
+        "headingOffset": 1,
+        "lastHeading": 4,
+        "headings": 16,
+        "codeBlocks": 0,
+        "images": 0,
+        "tables": 0,
+        "admonitions": 0
+      },
+      "excludedKeywords": []
+    },
+    {
+      "source": "changelog/ClassicVersion15.js",
+      "section": "changelog",
+      "sectionTitle": "Changelog",
+      "title": "Classic Version 1.5",
+      "subsection": "version-1-5",
+      "keywords": [
+        "1.5",
+        "context builder 2.0",
+        "compose tabs",
+        "cli providers",
+        "chatgpt provider",
+        "gemini cli",
+        "unix socket"
+      ],
+      "legacyHash": "#s=changelog&ss=version-1-5",
+      "version": "classic-2.1.0",
+      "id": "changelog/version-1-5",
+      "destination": "versioned_docs/version-classic-2.1.0/changelog/version-1-5.mdx",
+      "route": "/docs/classic-2.1.0/changelog/version-1-5/",
+      "reason": "Historical Classic release notes.",
+      "omissions": [],
+      "adaptations": [
+        "Source presentation styles removed; headings normalized under the document title; lists, tables, code, and prose retained as MDX."
+      ],
+      "sourceSha256": "452b710c7abc02cfa0d8c40804f8e9b7d1397d004384ca9a720d81c888618aff",
+      "features": {
+        "headingOffset": 1,
+        "lastHeading": 4,
+        "headings": 35,
+        "codeBlocks": 0,
+        "images": 0,
+        "tables": 0,
+        "admonitions": 0
+      },
+      "excludedKeywords": []
+    },
+    {
+      "source": "changelog/ClassicVersion14.js",
+      "section": "changelog",
+      "sectionTitle": "Changelog",
+      "title": "Classic Version 1.4",
+      "subsection": "version-1-4",
+      "keywords": [
+        "1.4",
+        "presets",
+        "repo bench",
+        "benchmarks",
+        "tahoe",
+        "sequoia",
+        "model presets"
+      ],
+      "legacyHash": "#s=changelog&ss=version-1-4",
+      "version": "classic-2.1.0",
+      "id": "changelog/version-1-4",
+      "destination": "versioned_docs/version-classic-2.1.0/changelog/version-1-4.mdx",
+      "route": "/docs/classic-2.1.0/changelog/version-1-4/",
+      "reason": "Historical Classic release notes.",
+      "omissions": [
+        {
+          "lines": [
+            8,
+            8
+          ],
+          "reason": "Removed only the Repo Bench clause; other features preserved",
+          "text": "The Classic Edition 1.4 series introduces the Presets system, Repo Bench for model benchmarking, macOS Tahoe support, git integration, and major performance optimizations."
+        },
+        {
+          "lines": [
+            20,
+            20
+          ],
+          "reason": "Required exclusion",
+          "text": "Repo Bench - Benchmark any model on complex large context and file editing constraints"
+        },
+        {
+          "lines": [
+            53,
+            59
+          ],
+          "reason": "Entire release entry concerns Repo Bench and global rankings",
+          "text": "1.4.25 - September 29, 2025Repo Bench for evaluating models on complex tasksSubmit results to global rankings"
+        },
+        {
+          "lines": [
+            49,
+            49
+          ],
+          "reason": "Removed benchmark-view clause; performance improvements retained",
+          "text": "Performance improvements and benchmark view fixes"
+        }
+      ],
+      "adaptations": [
+        "Source presentation styles removed; headings normalized under the document title; lists, tables, code, and prose retained as MDX."
+      ],
+      "sourceSha256": "abee0330baa386c0a6604d7f49fda1a3c5c289a0f04d0df37cced394d0a5041f",
+      "features": {
+        "headingOffset": 1,
+        "lastHeading": 4,
+        "headings": 6,
+        "codeBlocks": 0,
+        "images": 0,
+        "tables": 0,
+        "admonitions": 0
+      },
+      "excludedKeywords": [
+        "repo bench",
+        "benchmarks"
+      ]
+    },
+    {
+      "source": "changelog/ClassicVersion13.js",
+      "section": "changelog",
+      "sectionTitle": "Changelog",
+      "title": "Classic Version 1.3",
+      "subsection": "version-1-3",
+      "keywords": [
+        "1.3",
+        "mcp server",
+        "cursor integration",
+        "deepseek",
+        "grok",
+        "xai"
+      ],
+      "legacyHash": "#s=changelog&ss=version-1-3",
+      "version": "classic-2.1.0",
+      "id": "changelog/version-1-3",
+      "destination": "versioned_docs/version-classic-2.1.0/changelog/version-1-3.mdx",
+      "route": "/docs/classic-2.1.0/changelog/version-1-3/",
+      "reason": "Historical Classic release notes.",
+      "omissions": [],
+      "adaptations": [
+        "Source presentation styles removed; headings normalized under the document title; lists, tables, code, and prose retained as MDX."
+      ],
+      "sourceSha256": "adceddcfbf1bd00234ae81103ba8bf210f38e118f69e1e7a04bb7b571be99187",
+      "features": {
+        "headingOffset": 1,
+        "lastHeading": 4,
+        "headings": 9,
+        "codeBlocks": 0,
+        "images": 0,
+        "tables": 0,
+        "admonitions": 0
+      },
+      "excludedKeywords": []
+    },
+    {
+      "source": "changelog/ClassicVersion12.js",
+      "section": "changelog",
+      "sectionTitle": "Changelog",
+      "title": "Classic Version 1.2",
+      "subsection": "version-1-2",
+      "keywords": [
+        "1.2",
+        "context builder",
+        "discovery",
+        "slices",
+        "openrouter"
+      ],
+      "legacyHash": "#s=changelog&ss=version-1-2",
+      "version": "classic-2.1.0",
+      "id": "changelog/version-1-2",
+      "destination": "versioned_docs/version-classic-2.1.0/changelog/version-1-2.mdx",
+      "route": "/docs/classic-2.1.0/changelog/version-1-2/",
+      "reason": "Historical Classic release notes.",
+      "omissions": [],
+      "adaptations": [
+        "Source presentation styles removed; headings normalized under the document title; lists, tables, code, and prose retained as MDX."
+      ],
+      "sourceSha256": "8b58ab57bcc028820538d89074fb06d6f6bea40c269f357adc8fcf726c68fb2e",
+      "features": {
+        "headingOffset": 1,
+        "lastHeading": 4,
+        "headings": 8,
+        "codeBlocks": 0,
+        "images": 0,
+        "tables": 0,
+        "admonitions": 0
+      },
+      "excludedKeywords": []
+    },
+    {
+      "source": "changelog/ClassicVersion11.js",
+      "section": "changelog",
+      "sectionTitle": "Changelog",
+      "title": "Classic Version 1.1",
+      "subsection": "version-1-1",
+      "keywords": [
+        "1.1",
+        "chat mode",
+        "pro edit",
+        "reasoning",
+        "gemini"
+      ],
+      "legacyHash": "#s=changelog&ss=version-1-1",
+      "version": "classic-2.1.0",
+      "id": "changelog/version-1-1",
+      "destination": "versioned_docs/version-classic-2.1.0/changelog/version-1-1.mdx",
+      "route": "/docs/classic-2.1.0/changelog/version-1-1/",
+      "reason": "Historical Classic release notes.",
+      "omissions": [],
+      "adaptations": [
+        "Source presentation styles removed; headings normalized under the document title; lists, tables, code, and prose retained as MDX."
+      ],
+      "sourceSha256": "bcc01f7d5a874444aab7f15472012ded93fe165caed6246d5fc4eec2fc0c46c3",
+      "features": {
+        "headingOffset": 1,
+        "lastHeading": 4,
+        "headings": 8,
+        "codeBlocks": 0,
+        "images": 0,
+        "tables": 0,
+        "admonitions": 0
+      },
+      "excludedKeywords": []
+    },
+    {
+      "source": "changelog/ClassicVersion10.js",
+      "section": "changelog",
+      "sectionTitle": "Changelog",
+      "title": "Classic Version 1.0",
+      "subsection": "version-1-0",
+      "keywords": [
+        "1.0",
+        "initial release",
+        "launch",
+        "first version",
+        "codemaps",
+        "multi-root"
+      ],
+      "legacyHash": "#s=changelog&ss=version-1-0",
+      "version": "classic-2.1.0",
+      "id": "changelog/version-1-0",
+      "destination": "versioned_docs/version-classic-2.1.0/changelog/version-1-0.mdx",
+      "route": "/docs/classic-2.1.0/changelog/version-1-0/",
+      "reason": "Historical Classic release notes.",
+      "omissions": [],
+      "adaptations": [
+        "Source presentation styles removed; headings normalized under the document title; lists, tables, code, and prose retained as MDX."
+      ],
+      "sourceSha256": "0691b6fc17787b6e45da516f9f6c8b4833b44b4c1d8fd59dd9eeecc3854e8f61",
+      "features": {
+        "headingOffset": 1,
+        "lastHeading": 4,
+        "headings": 8,
+        "codeBlocks": 0,
+        "images": 0,
+        "tables": 0,
+        "admonitions": 0
+      },
+      "excludedKeywords": []
+    },
+    {
+      "source": "ai/UsingAI.js",
+      "section": "historical-guides",
+      "sectionTitle": "Historical guides",
+      "title": "Using AI",
+      "subsection": "ai/using-ai",
+      "legacyHash": null,
+      "version": "classic-2.1.0",
+      "id": "historical-guides/ai/using-ai",
+      "destination": "versioned_docs/version-classic-2.1.0/historical-guides/ai/using-ai.mdx",
+      "route": "/docs/classic-2.1.0/historical-guides/ai/using-ai/",
+      "reason": "Conservative Classic archive placement: historical or not demonstrably CE-specific.",
+      "omissions": [],
+      "adaptations": [
+        "Source presentation styles removed; headings normalized under the document title; lists, tables, code, and prose retained as MDX."
+      ],
+      "sourceSha256": "6e85f8d7301c1194be04045a7ff8221f3e7f848bd0320f3bc602c7c3179d41e0",
+      "features": {
+        "headingOffset": 1,
+        "lastHeading": 2,
+        "headings": 20,
+        "codeBlocks": 0,
+        "images": 3,
+        "tables": 3,
+        "admonitions": 3
+      }
+    },
+    {
+      "source": "api-integration/IntegratedChat.js",
+      "section": "historical-guides",
+      "sectionTitle": "Historical guides",
+      "title": "Integrated Chat",
+      "subsection": "api-integration/integrated-chat",
+      "legacyHash": null,
+      "version": "classic-2.1.0",
+      "id": "historical-guides/api-integration/integrated-chat",
+      "destination": "versioned_docs/version-classic-2.1.0/historical-guides/api-integration/integrated-chat.mdx",
+      "route": "/docs/classic-2.1.0/historical-guides/api-integration/integrated-chat/",
+      "reason": "Conservative Classic archive placement: historical or not demonstrably CE-specific.",
+      "omissions": [],
+      "adaptations": [
+        "Source presentation styles removed; headings normalized under the document title; lists, tables, code, and prose retained as MDX."
+      ],
+      "sourceSha256": "140570f8f159c5163b4831bce32118b87a89fd7e423f72134607b8d09f1e4289",
+      "features": {
+        "headingOffset": 1,
+        "lastHeading": 2,
+        "headings": 6,
+        "codeBlocks": 0,
+        "images": 0,
+        "tables": 0,
+        "admonitions": 2
+      }
+    },
+    {
+      "source": "api-integration/ProMode.js",
+      "section": "historical-guides",
+      "sectionTitle": "Historical guides",
+      "title": "Pro Mode",
+      "subsection": "api-integration/pro-mode",
+      "legacyHash": null,
+      "version": "classic-2.1.0",
+      "id": "historical-guides/api-integration/pro-mode",
+      "destination": "versioned_docs/version-classic-2.1.0/historical-guides/api-integration/pro-mode.mdx",
+      "route": "/docs/classic-2.1.0/historical-guides/api-integration/pro-mode/",
+      "reason": "Conservative Classic archive placement: historical or not demonstrably CE-specific.",
+      "omissions": [],
+      "adaptations": [
+        "Source presentation styles removed; headings normalized under the document title; lists, tables, code, and prose retained as MDX."
+      ],
+      "sourceSha256": "482a6b16dd8ac91549a14ceb8be695f45acb15312775b0d44cc7ba2c545613fc",
+      "features": {
+        "headingOffset": 1,
+        "lastHeading": 2,
+        "headings": 11,
+        "codeBlocks": 0,
+        "images": 0,
+        "tables": 0,
+        "admonitions": 1
+      }
+    },
+    {
+      "source": "api-integration/SupportedModels.js",
+      "section": "historical-guides",
+      "sectionTitle": "Historical guides",
+      "title": "Supported Models",
+      "subsection": "api-integration/supported-models",
+      "legacyHash": null,
+      "version": "classic-2.1.0",
+      "id": "historical-guides/api-integration/supported-models",
+      "destination": "versioned_docs/version-classic-2.1.0/historical-guides/api-integration/supported-models.mdx",
+      "route": "/docs/classic-2.1.0/historical-guides/api-integration/supported-models/",
+      "reason": "Conservative Classic archive placement: historical or not demonstrably CE-specific.",
+      "omissions": [],
+      "adaptations": [
+        "Source presentation styles removed; headings normalized under the document title; lists, tables, code, and prose retained as MDX."
+      ],
+      "sourceSha256": "1635df8b4c170b6396f8bbdb0f5b485b4d807f4dbc5c2d2079438489746effe1",
+      "features": {
+        "headingOffset": 1,
+        "lastHeading": 2,
+        "headings": 13,
+        "codeBlocks": 0,
+        "images": 0,
+        "tables": 0,
+        "admonitions": 0
+      }
+    },
+    {
+      "source": "applying-changes/ApplyMode.js",
+      "section": "historical-guides",
+      "sectionTitle": "Historical guides",
+      "title": "Apply Mode",
+      "subsection": "applying-changes/apply-mode",
+      "legacyHash": null,
+      "version": "classic-2.1.0",
+      "id": "historical-guides/applying-changes/apply-mode",
+      "destination": "versioned_docs/version-classic-2.1.0/historical-guides/applying-changes/apply-mode.mdx",
+      "route": "/docs/classic-2.1.0/historical-guides/applying-changes/apply-mode/",
+      "reason": "Conservative Classic archive placement: historical or not demonstrably CE-specific.",
+      "omissions": [],
+      "adaptations": [
+        "Source presentation styles removed; headings normalized under the document title; lists, tables, code, and prose retained as MDX."
+      ],
+      "sourceSha256": "229fe811ba5b8c2277bcb3c02330d28afeb9dfbb32619a4c5ecbfb53efbc04b3",
+      "features": {
+        "headingOffset": 1,
+        "lastHeading": 2,
+        "headings": 5,
+        "codeBlocks": 0,
+        "images": 0,
+        "tables": 0,
+        "admonitions": 1
+      }
+    },
+    {
+      "source": "applying-changes/MultiFileEdits.js",
+      "section": "historical-guides",
+      "sectionTitle": "Historical guides",
+      "title": "Multi File Edits",
+      "subsection": "applying-changes/multi-file-edits",
+      "legacyHash": null,
+      "version": "classic-2.1.0",
+      "id": "historical-guides/applying-changes/multi-file-edits",
+      "destination": "versioned_docs/version-classic-2.1.0/historical-guides/applying-changes/multi-file-edits.mdx",
+      "route": "/docs/classic-2.1.0/historical-guides/applying-changes/multi-file-edits/",
+      "reason": "Conservative Classic archive placement: historical or not demonstrably CE-specific.",
+      "omissions": [],
+      "adaptations": [
+        "Source presentation styles removed; headings normalized under the document title; lists, tables, code, and prose retained as MDX."
+      ],
+      "sourceSha256": "07129b55b9f91013be14eae4ec199b5c9f540fb673800982b6da64ae7b90f76d",
+      "features": {
+        "headingOffset": 1,
+        "lastHeading": 2,
+        "headings": 6,
+        "codeBlocks": 0,
+        "images": 0,
+        "tables": 0,
+        "admonitions": 1
+      }
+    },
+    {
+      "source": "context/BuildingContext.js",
+      "section": "historical-guides",
+      "sectionTitle": "Historical guides",
+      "title": "Building Context",
+      "subsection": "context/building-context",
+      "legacyHash": null,
+      "version": "classic-2.1.0",
+      "id": "historical-guides/context/building-context",
+      "destination": "versioned_docs/version-classic-2.1.0/historical-guides/context/building-context.mdx",
+      "route": "/docs/classic-2.1.0/historical-guides/context/building-context/",
+      "reason": "Conservative Classic archive placement: historical or not demonstrably CE-specific.",
+      "omissions": [],
+      "adaptations": [
+        "Source presentation styles removed; headings normalized under the document title; lists, tables, code, and prose retained as MDX."
+      ],
+      "sourceSha256": "a66c42d5565a246992c138be48f709627abf20b4e2ee5f022b646bb88a8a048a",
+      "features": {
+        "headingOffset": 1,
+        "lastHeading": 2,
+        "headings": 26,
+        "codeBlocks": 0,
+        "images": 3,
+        "tables": 5,
+        "admonitions": 1
+      }
+    },
+    {
+      "source": "faq/APIKeys.js",
+      "section": "historical-guides",
+      "sectionTitle": "Historical guides",
+      "title": "API Keys",
+      "subsection": "faq/api-keys",
+      "legacyHash": null,
+      "version": "classic-2.1.0",
+      "id": "historical-guides/faq/api-keys",
+      "destination": "versioned_docs/version-classic-2.1.0/historical-guides/faq/api-keys.mdx",
+      "route": "/docs/classic-2.1.0/historical-guides/faq/api-keys/",
+      "reason": "Conservative Classic archive placement: historical or not demonstrably CE-specific.",
+      "omissions": [],
+      "adaptations": [
+        "Source presentation styles removed; headings normalized under the document title; lists, tables, code, and prose retained as MDX."
+      ],
+      "sourceSha256": "71357445b1f891f07db4b195e523ad8bcdc661c8c8dbe0bfe52f2f18f7e8b6e4",
+      "features": {
+        "headingOffset": 1,
+        "lastHeading": 2,
+        "headings": 3,
+        "codeBlocks": 0,
+        "images": 0,
+        "tables": 0,
+        "admonitions": 0
+      }
+    },
+    {
+      "source": "faq/MCPTroubleshooting.js",
+      "section": "historical-guides",
+      "sectionTitle": "Historical guides",
+      "title": "MCP Troubleshooting",
+      "subsection": "faq/mcp-troubleshooting",
+      "legacyHash": null,
+      "version": "classic-2.1.0",
+      "id": "historical-guides/faq/mcp-troubleshooting",
+      "destination": "versioned_docs/version-classic-2.1.0/historical-guides/faq/mcp-troubleshooting.mdx",
+      "route": "/docs/classic-2.1.0/historical-guides/faq/mcp-troubleshooting/",
+      "reason": "Conservative Classic archive placement: historical or not demonstrably CE-specific.",
+      "omissions": [
+        {
+          "lines": [
+            199,
+            199
+          ],
+          "reason": "Required exclusion",
+          "text": "Contact support with your configuration details and system information"
+        }
+      ],
+      "adaptations": [
+        "Source presentation styles removed; headings normalized under the document title; lists, tables, code, and prose retained as MDX."
+      ],
+      "sourceSha256": "d5b5545241f856bdecbbef0bd9f18b77cbd34d3b2da318f979f820a5ad24f8e1",
+      "features": {
+        "headingOffset": 1,
+        "lastHeading": 2,
+        "headings": 28,
+        "codeBlocks": 0,
+        "images": 0,
+        "tables": 0,
+        "admonitions": 1
+      }
+    },
+    {
+      "source": "faq/PayForServices.js",
+      "section": "historical-guides",
+      "sectionTitle": "FAQ",
+      "title": "Do I need to pay for AI services?",
+      "subsection": "faq/pay-for-services",
+      "legacyHash": null,
+      "version": "1.5.0",
+      "id": "historical-guides/faq/pay-for-services",
+      "destination": "versioned_docs/version-1.5.0/historical-guides/faq/pay-for-services.mdx",
+      "route": "/docs/historical-guides/faq/pay-for-services/",
+      "reason": "Explicit CE free/open-source and third-party-provider cost explanation.",
+      "omissions": [],
+      "adaptations": [
+        "Source presentation styles removed; headings normalized under the document title; lists, tables, code, and prose retained as MDX."
+      ],
+      "sourceSha256": "2b695200b48e63a367e5c7d03c17dd56ee0fc96f1baec7d8e0045476152f3d38",
+      "features": {
+        "headingOffset": 1,
+        "lastHeading": 2,
+        "headings": 12,
+        "codeBlocks": 0,
+        "images": 0,
+        "tables": 0,
+        "admonitions": 2
+      }
+    },
+    {
+      "source": "faq/PromptCaching.js",
+      "section": "historical-guides",
+      "sectionTitle": "Historical guides",
+      "title": "Prompt Caching",
+      "subsection": "faq/prompt-caching",
+      "legacyHash": null,
+      "version": "classic-2.1.0",
+      "id": "historical-guides/faq/prompt-caching",
+      "destination": "versioned_docs/version-classic-2.1.0/historical-guides/faq/prompt-caching.mdx",
+      "route": "/docs/classic-2.1.0/historical-guides/faq/prompt-caching/",
+      "reason": "Conservative Classic archive placement: historical or not demonstrably CE-specific.",
+      "omissions": [],
+      "adaptations": [
+        "Source presentation styles removed; headings normalized under the document title; lists, tables, code, and prose retained as MDX."
+      ],
+      "sourceSha256": "ea05b1cd176cb136f24ee5625c9ef4fa29eae5703ae07a386a854785342368d0",
+      "features": {
+        "headingOffset": 1,
+        "lastHeading": 2,
+        "headings": 1,
+        "codeBlocks": 0,
+        "images": 0,
+        "tables": 0,
+        "admonitions": 0
+      }
+    },
+    {
+      "source": "faq/SoloProject.js",
+      "section": "historical-guides",
+      "sectionTitle": "Historical guides",
+      "title": "Solo Project",
+      "subsection": "faq/solo-project",
+      "legacyHash": null,
+      "version": "classic-2.1.0",
+      "id": "historical-guides/faq/solo-project",
+      "destination": "versioned_docs/version-classic-2.1.0/historical-guides/faq/solo-project.mdx",
+      "route": "/docs/classic-2.1.0/historical-guides/faq/solo-project/",
+      "reason": "Conservative Classic archive placement: historical or not demonstrably CE-specific.",
+      "omissions": [],
+      "adaptations": [
+        "Source presentation styles removed; headings normalized under the document title; lists, tables, code, and prose retained as MDX."
+      ],
+      "sourceSha256": "65d634266b0c7a2709a514157cec0c34690627fa23de34d6f932cd4fb6306fcd",
+      "features": {
+        "headingOffset": 1,
+        "lastHeading": 2,
+        "headings": 1,
+        "codeBlocks": 0,
+        "images": 0,
+        "tables": 0,
+        "admonitions": 0
+      }
+    },
+    {
+      "source": "faq/WhatIsRepoPrompt.js",
+      "section": "historical-guides",
+      "sectionTitle": "Historical guides",
+      "title": "What Is Repo Prompt",
+      "subsection": "faq/what-is-repo-prompt",
+      "legacyHash": null,
+      "version": "classic-2.1.0",
+      "id": "historical-guides/faq/what-is-repo-prompt",
+      "destination": "versioned_docs/version-classic-2.1.0/historical-guides/faq/what-is-repo-prompt.mdx",
+      "route": "/docs/classic-2.1.0/historical-guides/faq/what-is-repo-prompt/",
+      "reason": "Conservative Classic archive placement: historical or not demonstrably CE-specific.",
+      "omissions": [],
+      "adaptations": [
+        "Embedded player replaced by a descriptive external video link.",
+        "Retired link https://repoprompt.com/prompt-anatomy points to the home route.",
+        "Embedded player replaced by a descriptive external video link.",
+        "Embedded player replaced by a descriptive external video link.",
+        "Source presentation styles removed; headings normalized under the document title; lists, tables, code, and prose retained as MDX."
+      ],
+      "sourceSha256": "0e4ba7e323443dd0cf9bb05521c638c0e89769c12f2cbdd04d2470bfb5808cff",
+      "features": {
+        "headingOffset": 1,
+        "lastHeading": 2,
+        "headings": 2,
+        "codeBlocks": 0,
+        "images": 1,
+        "tables": 0,
+        "admonitions": 0
+      }
+    },
+    {
+      "source": "faq/WindowsLinux.js",
+      "section": "historical-guides",
+      "sectionTitle": "Historical guides",
+      "title": "Windows Linux",
+      "subsection": "faq/windows-linux",
+      "legacyHash": null,
+      "version": "classic-2.1.0",
+      "id": "historical-guides/faq/windows-linux",
+      "destination": "versioned_docs/version-classic-2.1.0/historical-guides/faq/windows-linux.mdx",
+      "route": "/docs/classic-2.1.0/historical-guides/faq/windows-linux/",
+      "reason": "Conservative Classic archive placement: historical or not demonstrably CE-specific.",
+      "omissions": [],
+      "adaptations": [
+        "Source presentation styles removed; headings normalized under the document title; lists, tables, code, and prose retained as MDX."
+      ],
+      "sourceSha256": "bfd4aa432e4038674d50987e0e40d29fe61192707942416443f307ef033ea82d",
+      "features": {
+        "headingOffset": 1,
+        "lastHeading": 2,
+        "headings": 2,
+        "codeBlocks": 0,
+        "images": 0,
+        "tables": 0,
+        "admonitions": 0
+      }
+    },
+    {
+      "source": "file-selection/ContextBuilder.js",
+      "section": "historical-guides",
+      "sectionTitle": "Historical guides",
+      "title": "Context Builder",
+      "subsection": "file-selection/context-builder",
+      "legacyHash": null,
+      "version": "classic-2.1.0",
+      "id": "historical-guides/file-selection/context-builder",
+      "destination": "versioned_docs/version-classic-2.1.0/historical-guides/file-selection/context-builder.mdx",
+      "route": "/docs/classic-2.1.0/historical-guides/file-selection/context-builder/",
+      "reason": "Conservative Classic archive placement: historical or not demonstrably CE-specific.",
+      "omissions": [],
+      "adaptations": [
+        "Source presentation styles removed; headings normalized under the document title; lists, tables, code, and prose retained as MDX."
+      ],
+      "sourceSha256": "f94790c94ee339fd5bb3bbdea33716f6a7a9bc8ceb42ff35a3c4e37b5c5f196c",
+      "features": {
+        "headingOffset": 1,
+        "lastHeading": 2,
+        "headings": 12,
+        "codeBlocks": 0,
+        "images": 0,
+        "tables": 0,
+        "admonitions": 1
+      }
+    },
+    {
+      "source": "file-selection/FilteringFiles.js",
+      "section": "historical-guides",
+      "sectionTitle": "Historical guides",
+      "title": "Filtering Files",
+      "subsection": "file-selection/filtering-files",
+      "legacyHash": null,
+      "version": "classic-2.1.0",
+      "id": "historical-guides/file-selection/filtering-files",
+      "destination": "versioned_docs/version-classic-2.1.0/historical-guides/file-selection/filtering-files.mdx",
+      "route": "/docs/classic-2.1.0/historical-guides/file-selection/filtering-files/",
+      "reason": "Conservative Classic archive placement: historical or not demonstrably CE-specific.",
+      "omissions": [],
+      "adaptations": [
+        "Source presentation styles removed; headings normalized under the document title; lists, tables, code, and prose retained as MDX."
+      ],
+      "sourceSha256": "5658a1940403f1d4b25f5c69d2d65c8cb0e1af8e9ef57d0fdb59d4096d38617f",
+      "features": {
+        "headingOffset": 1,
+        "lastHeading": 2,
+        "headings": 4,
+        "codeBlocks": 0,
+        "images": 0,
+        "tables": 0,
+        "admonitions": 1
+      }
+    },
+    {
+      "source": "file-selection/SearchingFiles.js",
+      "section": "historical-guides",
+      "sectionTitle": "Historical guides",
+      "title": "Searching Files",
+      "subsection": "file-selection/searching-files",
+      "legacyHash": null,
+      "version": "classic-2.1.0",
+      "id": "historical-guides/file-selection/searching-files",
+      "destination": "versioned_docs/version-classic-2.1.0/historical-guides/file-selection/searching-files.mdx",
+      "route": "/docs/classic-2.1.0/historical-guides/file-selection/searching-files/",
+      "reason": "Conservative Classic archive placement: historical or not demonstrably CE-specific.",
+      "omissions": [],
+      "adaptations": [
+        "Source presentation styles removed; headings normalized under the document title; lists, tables, code, and prose retained as MDX."
+      ],
+      "sourceSha256": "0aa04b2c1dd751ee1f8058260047db4950b60c919727b8ffad03074c193c775f",
+      "features": {
+        "headingOffset": 1,
+        "lastHeading": 2,
+        "headings": 2,
+        "codeBlocks": 0,
+        "images": 0,
+        "tables": 0,
+        "admonitions": 1
+      }
+    },
+    {
+      "source": "file-selection/SelectionMethods.js",
+      "section": "historical-guides",
+      "sectionTitle": "Historical guides",
+      "title": "Selection Methods",
+      "subsection": "file-selection/selection-methods",
+      "legacyHash": null,
+      "version": "classic-2.1.0",
+      "id": "historical-guides/file-selection/selection-methods",
+      "destination": "versioned_docs/version-classic-2.1.0/historical-guides/file-selection/selection-methods.mdx",
+      "route": "/docs/classic-2.1.0/historical-guides/file-selection/selection-methods/",
+      "reason": "Conservative Classic archive placement: historical or not demonstrably CE-specific.",
+      "omissions": [],
+      "adaptations": [
+        "Source presentation styles removed; headings normalized under the document title; lists, tables, code, and prose retained as MDX."
+      ],
+      "sourceSha256": "5e48473236395fb778918058455b048551dedcd89e57ab768710a61c31e7e388",
+      "features": {
+        "headingOffset": 1,
+        "lastHeading": 2,
+        "headings": 3,
+        "codeBlocks": 0,
+        "images": 0,
+        "tables": 0,
+        "admonitions": 1
+      }
+    },
+    {
+      "source": "file-selection/SortingFiles.js",
+      "section": "historical-guides",
+      "sectionTitle": "Historical guides",
+      "title": "Sorting Files",
+      "subsection": "file-selection/sorting-files",
+      "legacyHash": null,
+      "version": "classic-2.1.0",
+      "id": "historical-guides/file-selection/sorting-files",
+      "destination": "versioned_docs/version-classic-2.1.0/historical-guides/file-selection/sorting-files.mdx",
+      "route": "/docs/classic-2.1.0/historical-guides/file-selection/sorting-files/",
+      "reason": "Conservative Classic archive placement: historical or not demonstrably CE-specific.",
+      "omissions": [],
+      "adaptations": [
+        "Source presentation styles removed; headings normalized under the document title; lists, tables, code, and prose retained as MDX."
+      ],
+      "sourceSha256": "e375ec534c82f64c77a5687e73464b7b89c496f28ed90fc75364f3ea7dbc8ee1",
+      "features": {
+        "headingOffset": 1,
+        "lastHeading": 2,
+        "headings": 3,
+        "codeBlocks": 0,
+        "images": 0,
+        "tables": 0,
+        "admonitions": 1
+      }
+    },
+    {
+      "source": "getting-started/GettingStarted.js",
+      "section": "historical-guides",
+      "sectionTitle": "Historical guides",
+      "title": "Getting Started",
+      "subsection": "getting-started/getting-started",
+      "legacyHash": null,
+      "version": "classic-2.1.0",
+      "id": "historical-guides/getting-started/getting-started",
+      "destination": "versioned_docs/version-classic-2.1.0/historical-guides/getting-started/getting-started.mdx",
+      "route": "/docs/classic-2.1.0/historical-guides/getting-started/getting-started/",
+      "reason": "Conservative Classic archive placement: historical or not demonstrably CE-specific.",
+      "omissions": [],
+      "adaptations": [
+        "Embedded player replaced by a descriptive external video link.",
+        "Source presentation styles removed; headings normalized under the document title; lists, tables, code, and prose retained as MDX."
+      ],
+      "sourceSha256": "9387287db2d29f49751baff4f7ee123aef7d822ecfdf3df34d5dd37972a412bf",
+      "features": {
+        "headingOffset": 1,
+        "lastHeading": 2,
+        "headings": 2,
+        "codeBlocks": 0,
+        "images": 0,
+        "tables": 0,
+        "admonitions": 1
+      }
+    },
+    {
+      "source": "getting-started/MultipleWorkspaces.js",
+      "section": "historical-guides",
+      "sectionTitle": "Historical guides",
+      "title": "Multiple Workspaces",
+      "subsection": "getting-started/multiple-workspaces",
+      "legacyHash": null,
+      "version": "classic-2.1.0",
+      "id": "historical-guides/getting-started/multiple-workspaces",
+      "destination": "versioned_docs/version-classic-2.1.0/historical-guides/getting-started/multiple-workspaces.mdx",
+      "route": "/docs/classic-2.1.0/historical-guides/getting-started/multiple-workspaces/",
+      "reason": "Conservative Classic archive placement: historical or not demonstrably CE-specific.",
+      "omissions": [],
+      "adaptations": [
+        "Source presentation styles removed; headings normalized under the document title; lists, tables, code, and prose retained as MDX."
+      ],
+      "sourceSha256": "f94fc667f55c4d64c87f573dd108f8804a8a9acfbc12da2d42d52e387f3d8d48",
+      "features": {
+        "headingOffset": 1,
+        "lastHeading": 2,
+        "headings": 2,
+        "codeBlocks": 0,
+        "images": 0,
+        "tables": 0,
+        "admonitions": 1
+      }
+    },
+    {
+      "source": "getting-started/NavigatingFileTree.js",
+      "section": "historical-guides",
+      "sectionTitle": "Historical guides",
+      "title": "Navigating File Tree",
+      "subsection": "getting-started/navigating-file-tree",
+      "legacyHash": null,
+      "version": "classic-2.1.0",
+      "id": "historical-guides/getting-started/navigating-file-tree",
+      "destination": "versioned_docs/version-classic-2.1.0/historical-guides/getting-started/navigating-file-tree.mdx",
+      "route": "/docs/classic-2.1.0/historical-guides/getting-started/navigating-file-tree/",
+      "reason": "Conservative Classic archive placement: historical or not demonstrably CE-specific.",
+      "omissions": [],
+      "adaptations": [
+        "Source presentation styles removed; headings normalized under the document title; lists, tables, code, and prose retained as MDX."
+      ],
+      "sourceSha256": "2157227420eaae3f69fad929449bfdda12292a55f8758cc8c0df8f30c6b5663e",
+      "features": {
+        "headingOffset": 1,
+        "lastHeading": 2,
+        "headings": 2,
+        "codeBlocks": 0,
+        "images": 0,
+        "tables": 0,
+        "admonitions": 0
+      }
+    },
+    {
+      "source": "getting-started/OpeningWorkspace.js",
+      "section": "historical-guides",
+      "sectionTitle": "Historical guides",
+      "title": "Opening Workspace",
+      "subsection": "getting-started/opening-workspace",
+      "legacyHash": null,
+      "version": "classic-2.1.0",
+      "id": "historical-guides/getting-started/opening-workspace",
+      "destination": "versioned_docs/version-classic-2.1.0/historical-guides/getting-started/opening-workspace.mdx",
+      "route": "/docs/classic-2.1.0/historical-guides/getting-started/opening-workspace/",
+      "reason": "Conservative Classic archive placement: historical or not demonstrably CE-specific.",
+      "omissions": [],
+      "adaptations": [
+        "Source presentation styles removed; headings normalized under the document title; lists, tables, code, and prose retained as MDX."
+      ],
+      "sourceSha256": "c0b2eda11ceece04965c3b01c1cc9b68e1eb92552490a9c86d776581c3027900",
+      "features": {
+        "headingOffset": 1,
+        "lastHeading": 2,
+        "headings": 2,
+        "codeBlocks": 0,
+        "images": 0,
+        "tables": 0,
+        "admonitions": 1
+      }
+    },
+    {
+      "source": "getting-started/QuickStart.js",
+      "section": "historical-guides",
+      "sectionTitle": "Historical guides",
+      "title": "Quick Start",
+      "subsection": "getting-started/quick-start",
+      "legacyHash": null,
+      "version": "classic-2.1.0",
+      "id": "historical-guides/getting-started/quick-start",
+      "destination": "versioned_docs/version-classic-2.1.0/historical-guides/getting-started/quick-start.mdx",
+      "route": "/docs/classic-2.1.0/historical-guides/getting-started/quick-start/",
+      "reason": "Conservative Classic archive placement: historical or not demonstrably CE-specific.",
+      "omissions": [],
+      "adaptations": [
+        "Source presentation styles removed; headings normalized under the document title; lists, tables, code, and prose retained as MDX."
+      ],
+      "sourceSha256": "0fdade03e00116a6c2a53450dd25355a03325708fba879b546ee54124fa35987",
+      "features": {
+        "headingOffset": 1,
+        "lastHeading": 2,
+        "headings": 8,
+        "codeBlocks": 0,
+        "images": 0,
+        "tables": 0,
+        "admonitions": 2
+      }
+    },
+    {
+      "source": "prompt-management/CodeMaps.js",
+      "section": "historical-guides",
+      "sectionTitle": "Historical guides",
+      "title": "Code Maps",
+      "subsection": "prompt-management/code-maps",
+      "legacyHash": null,
+      "version": "classic-2.1.0",
+      "id": "historical-guides/prompt-management/code-maps",
+      "destination": "versioned_docs/version-classic-2.1.0/historical-guides/prompt-management/code-maps.mdx",
+      "route": "/docs/classic-2.1.0/historical-guides/prompt-management/code-maps/",
+      "reason": "Conservative Classic archive placement: historical or not demonstrably CE-specific.",
+      "omissions": [],
+      "adaptations": [
+        "Source presentation styles removed; headings normalized under the document title; lists, tables, code, and prose retained as MDX."
+      ],
+      "sourceSha256": "c117c6ae0a1388a317c8148796035f651b3080a30267e0c529f65364aca7c9f0",
+      "features": {
+        "headingOffset": 1,
+        "lastHeading": 2,
+        "headings": 7,
+        "codeBlocks": 0,
+        "images": 0,
+        "tables": 0,
+        "admonitions": 1
+      }
+    },
+    {
+      "source": "prompt-management/ComposingPrompts.js",
+      "section": "historical-guides",
+      "sectionTitle": "Historical guides",
+      "title": "Composing Prompts",
+      "subsection": "prompt-management/composing-prompts",
+      "legacyHash": null,
+      "version": "classic-2.1.0",
+      "id": "historical-guides/prompt-management/composing-prompts",
+      "destination": "versioned_docs/version-classic-2.1.0/historical-guides/prompt-management/composing-prompts.mdx",
+      "route": "/docs/classic-2.1.0/historical-guides/prompt-management/composing-prompts/",
+      "reason": "Conservative Classic archive placement: historical or not demonstrably CE-specific.",
+      "omissions": [],
+      "adaptations": [
+        "Source presentation styles removed; headings normalized under the document title; lists, tables, code, and prose retained as MDX."
+      ],
+      "sourceSha256": "b63c6c1063d6ba8ee6efb6d9c556e78a5785a8d2ecd72ff9551505726afa689a",
+      "features": {
+        "headingOffset": 1,
+        "lastHeading": 2,
+        "headings": 3,
+        "codeBlocks": 0,
+        "images": 0,
+        "tables": 0,
+        "admonitions": 1
+      }
+    },
+    {
+      "source": "prompt-management/StoringPrompts.js",
+      "section": "historical-guides",
+      "sectionTitle": "Historical guides",
+      "title": "Storing Prompts",
+      "subsection": "prompt-management/storing-prompts",
+      "legacyHash": null,
+      "version": "classic-2.1.0",
+      "id": "historical-guides/prompt-management/storing-prompts",
+      "destination": "versioned_docs/version-classic-2.1.0/historical-guides/prompt-management/storing-prompts.mdx",
+      "route": "/docs/classic-2.1.0/historical-guides/prompt-management/storing-prompts/",
+      "reason": "Conservative Classic archive placement: historical or not demonstrably CE-specific.",
+      "omissions": [],
+      "adaptations": [
+        "Source presentation styles removed; headings normalized under the document title; lists, tables, code, and prose retained as MDX."
+      ],
+      "sourceSha256": "4d326682e8f1c27af2ba4c6f5dc736b6cd3795bf9a2bf9d37e9edb616736486c",
+      "features": {
+        "headingOffset": 1,
+        "lastHeading": 2,
+        "headings": 4,
+        "codeBlocks": 0,
+        "images": 0,
+        "tables": 0,
+        "admonitions": 1
+      }
+    },
+    {
+      "source": "reference/Reference.js",
+      "section": "historical-guides",
+      "sectionTitle": "Historical guides",
+      "title": "Reference",
+      "subsection": "reference/reference",
+      "legacyHash": null,
+      "version": "classic-2.1.0",
+      "id": "historical-guides/reference/reference",
+      "destination": "versioned_docs/version-classic-2.1.0/historical-guides/reference/reference.mdx",
+      "route": "/docs/classic-2.1.0/historical-guides/reference/reference/",
+      "reason": "Conservative Classic archive placement: historical or not demonstrably CE-specific.",
+      "omissions": [
+        {
+          "lines": [
+            230,
+            230
+          ],
+          "reason": "Required exclusion",
+          "text": "Email: contact@repoprompt.com"
+        },
+        {
+          "lines": [
+            232,
+            232
+          ],
+          "reason": "Required exclusion",
+          "text": "Twitter/X: @repoprompt"
+        }
+      ],
+      "adaptations": [
+        "Source table at line 179 had no header; descriptive Markdown column headings added without dropping rows.",
+        "Source presentation styles removed; headings normalized under the document title; lists, tables, code, and prose retained as MDX."
+      ],
+      "sourceSha256": "4cddc13ffdb8c88e720d55b4874363cb74f8857db09522d71812b4310104c2ff",
+      "features": {
+        "headingOffset": 1,
+        "lastHeading": 2,
+        "headings": 13,
+        "codeBlocks": 1,
+        "images": 1,
+        "tables": 3,
+        "admonitions": 1
+      }
+    },
+    {
+      "source": "workspace-management/FileOperations.js",
+      "section": "historical-guides",
+      "sectionTitle": "Historical guides",
+      "title": "File Operations",
+      "subsection": "workspace-management/file-operations",
+      "legacyHash": null,
+      "version": "classic-2.1.0",
+      "id": "historical-guides/workspace-management/file-operations",
+      "destination": "versioned_docs/version-classic-2.1.0/historical-guides/workspace-management/file-operations.mdx",
+      "route": "/docs/classic-2.1.0/historical-guides/workspace-management/file-operations/",
+      "reason": "Conservative Classic archive placement: historical or not demonstrably CE-specific.",
+      "omissions": [],
+      "adaptations": [
+        "Source presentation styles removed; headings normalized under the document title; lists, tables, code, and prose retained as MDX."
+      ],
+      "sourceSha256": "b1a4e2372d48019c79e11f9da50fed20a7f67f87551fd20bddeeaa143e9ace57",
+      "features": {
+        "headingOffset": 1,
+        "lastHeading": 2,
+        "headings": 3,
+        "codeBlocks": 0,
+        "images": 0,
+        "tables": 0,
+        "admonitions": 1
+      }
+    },
+    {
+      "source": "workspace-management/FileWatching.js",
+      "section": "historical-guides",
+      "sectionTitle": "Historical guides",
+      "title": "File Watching",
+      "subsection": "workspace-management/file-watching",
+      "legacyHash": null,
+      "version": "classic-2.1.0",
+      "id": "historical-guides/workspace-management/file-watching",
+      "destination": "versioned_docs/version-classic-2.1.0/historical-guides/workspace-management/file-watching.mdx",
+      "route": "/docs/classic-2.1.0/historical-guides/workspace-management/file-watching/",
+      "reason": "Conservative Classic archive placement: historical or not demonstrably CE-specific.",
+      "omissions": [],
+      "adaptations": [
+        "Source presentation styles removed; headings normalized under the document title; lists, tables, code, and prose retained as MDX."
+      ],
+      "sourceSha256": "0bb2791d60c841c8d00fa656591ddf426e6d3c9fc9837307ad89f7c8f5fb656d",
+      "features": {
+        "headingOffset": 1,
+        "lastHeading": 2,
+        "headings": 3,
+        "codeBlocks": 0,
+        "images": 0,
+        "tables": 0,
+        "admonitions": 0
+      }
+    },
+    {
+      "source": "workspace-management/ManagingWorkspaces.js",
+      "section": "historical-guides",
+      "sectionTitle": "Historical guides",
+      "title": "Managing Workspaces",
+      "subsection": "workspace-management/managing-workspaces",
+      "legacyHash": null,
+      "version": "classic-2.1.0",
+      "id": "historical-guides/workspace-management/managing-workspaces",
+      "destination": "versioned_docs/version-classic-2.1.0/historical-guides/workspace-management/managing-workspaces.mdx",
+      "route": "/docs/classic-2.1.0/historical-guides/workspace-management/managing-workspaces/",
+      "reason": "Conservative Classic archive placement: historical or not demonstrably CE-specific.",
+      "omissions": [],
+      "adaptations": [
+        "Source presentation styles removed; headings normalized under the document title; lists, tables, code, and prose retained as MDX."
+      ],
+      "sourceSha256": "f4344a18168b5ce78a0e5e3f5e5edb972abce6c1267ac888da957b2cb54d54ed",
+      "features": {
+        "headingOffset": 1,
+        "lastHeading": 2,
+        "headings": 6,
+        "codeBlocks": 0,
+        "images": 0,
+        "tables": 0,
+        "admonitions": 1
+      }
+    },
+    {
+      "source": "workspace-management/URLScheme.js",
+      "section": "historical-guides",
+      "sectionTitle": "Historical guides",
+      "title": "URL Scheme",
+      "subsection": "workspace-management/url-scheme",
+      "legacyHash": null,
+      "version": "classic-2.1.0",
+      "id": "historical-guides/workspace-management/url-scheme",
+      "destination": "versioned_docs/version-classic-2.1.0/historical-guides/workspace-management/url-scheme.mdx",
+      "route": "/docs/classic-2.1.0/historical-guides/workspace-management/url-scheme/",
+      "reason": "Conservative Classic archive placement: historical or not demonstrably CE-specific.",
+      "omissions": [],
+      "adaptations": [
+        "Source presentation styles removed; headings normalized under the document title; lists, tables, code, and prose retained as MDX."
+      ],
+      "sourceSha256": "59d85732c491ba33fb760f7613c1e51f7f8e022f4e3597ec9b6bf4690e255956",
+      "features": {
+        "headingOffset": 1,
+        "lastHeading": 2,
+        "headings": 12,
+        "codeBlocks": 8,
+        "images": 0,
+        "tables": 0,
+        "admonitions": 1
+      }
+    }
+  ],
+  "assets": [
+    {
+      "source": "public/images/rate-limited_profile.jpg",
+      "destination": "static/images/docs/images/rate-limited_profile.jpg",
+      "sha256": "1519c3c02104b0200f999f4eec6205825774546c9b6e89024e51c651c44852e4"
+    },
+    {
+      "source": "public/images/agent-new-session.jpg",
+      "destination": "static/images/docs/images/agent-new-session.jpg",
+      "sha256": "bb44bdc8a4e9f9d24455facc21c57caa738b0a80ed3c9aba32e9c5a49f73e31d"
+    },
+    {
+      "source": "public/images/investigation-workflow.jpg",
+      "destination": "static/images/docs/images/investigation-workflow.jpg",
+      "sha256": "6e44052caeab77230505949236e229d785eec2b099a4e43433ad5e2fec785334"
+    },
+    {
+      "source": "public/images/onboarding-context-builder.jpg",
+      "destination": "static/images/docs/images/onboarding-context-builder.jpg",
+      "sha256": "7ee9d457a2eb0c97b7ba4d7f74d3a01432dc7c06431f96c9e1f8066cead1c9f8"
+    },
+    {
+      "source": "public/images/mcpServerSettingsSetup.jpg",
+      "destination": "static/images/docs/images/mcpServerSettingsSetup.jpg",
+      "sha256": "2b1742b43048c5695b3450fc5ce1553bba68c9eac02f6f9fad426e4262957bff"
+    },
+    {
+      "source": "public/images/commands.jpg",
+      "destination": "static/images/docs/images/commands.jpg",
+      "sha256": "e9f5bfc1ff55dd0cf8b32dd1b6c79a6e58bad3a2e3c79666feecb7ae14cc99df"
+    },
+    {
+      "source": "public/images/onboarding-mcp-server.jpg",
+      "destination": "static/images/docs/images/onboarding-mcp-server.jpg",
+      "sha256": "3c42daf40d53cb2c293396a3ecedb6388f0c792f1c45327a3b62367218deb6c9"
+    },
+    {
+      "source": "public/images/MCP-Builder.jpg",
+      "destination": "static/images/docs/images/MCP-Builder.jpg",
+      "sha256": "dad1471e1692f93ed4111b7cb90ab134d78ccb6d141dfece39263acfc46b2a7e"
+    },
+    {
+      "source": "public/images/modelRecs.jpg",
+      "destination": "static/images/docs/images/modelRecs.jpg",
+      "sha256": "18764dea903fd41c8e734e3202aa3744d638ad405cb4d9f1200945736e7db46b"
+    },
+    {
+      "source": "public/images/apply.jpg",
+      "destination": "static/images/docs/images/apply.jpg",
+      "sha256": "0fb5513d595d2f9ed080182ab227bb386c3fe590346c79dbd2f4a53b3dcfa551"
+    },
+    {
+      "source": "public/images/review.jpg",
+      "destination": "static/images/docs/images/review.jpg",
+      "sha256": "7839b2cff9d888eb0469942787bbe725c4e1b75603091bec74656945a1b5121a"
+    },
+    {
+      "source": "public/images/filters.webp",
+      "destination": "static/images/docs/images/filters.webp",
+      "sha256": "5446d9311af1924e5a384b83db903e8f87b801af45070ac5099645a854e90d4c"
+    },
+    {
+      "source": "public/images/ignorepatterns.jpg",
+      "destination": "static/images/docs/images/ignorepatterns.jpg",
+      "sha256": "175bb1952697a15aa66d08b4e2f1870036d7a5a1f3745c4737dd6c2cf7028d9e"
+    },
+    {
+      "source": "public/images/ChatPresets.jpg",
+      "destination": "static/images/docs/images/ChatPresets.jpg",
+      "sha256": "afb24c9784bd833fe12b25e297bab6ca7f6d90242a45800d013f4582e9d96e53"
+    },
+    {
+      "source": "public/images/chat_manualControls.jpg",
+      "destination": "static/images/docs/images/chat_manualControls.jpg",
+      "sha256": "9e7f93302afdd7aa59d18b6f5c62d664fc6f9344eb38d8db29c185c5947cebc3"
+    },
+    {
+      "source": "public/images/Trevors_explanation.jpg",
+      "destination": "static/images/docs/images/Trevors_explanation.jpg",
+      "sha256": "514e852142c55950783fe21078f67f3b98fba0cbc9996718171e4483b3e09b0f"
+    }
+  ],
+  "legacyLinks": [
+    {
+      "source": "overview/Overview.js",
+      "from": "/docs#s=agent-mode",
+      "to": "/docs/agent-mode/overview/"
+    },
+    {
+      "source": "overview/Overview.js",
+      "from": "/docs#s=mcp-server",
+      "to": "/docs/classic-2.1.0/mcp-server/mcp-overview/"
+    },
+    {
+      "source": "overview/Overview.js",
+      "from": "/docs#s=ide-mode",
+      "to": "/docs/classic-2.1.0/ide-mode/overview/"
+    },
+    {
+      "source": "overview/Overview.js",
+      "from": "/docs#s=agent-mode&ss=workflows",
+      "to": "/docs/agent-mode/workflows/"
+    },
+    {
+      "source": "overview/Overview.js",
+      "from": "/docs#s=agent-mode&ss=workflows",
+      "to": "/docs/agent-mode/workflows/"
+    },
+    {
+      "source": "overview/Overview.js",
+      "from": "/docs#s=agent-mode&ss=workflows",
+      "to": "/docs/agent-mode/workflows/"
+    },
+    {
+      "source": "overview/Overview.js",
+      "from": "/docs#s=mcp-server",
+      "to": "/docs/classic-2.1.0/mcp-server/mcp-overview/"
+    },
+    {
+      "source": "overview/Overview.js",
+      "from": "/docs#s=agent-mode&ss=workflows",
+      "to": "/docs/agent-mode/workflows/"
+    },
+    {
+      "source": "overview/Overview.js",
+      "from": "/docs#s=ai-providers&ss=cli-providers",
+      "to": "/docs/classic-2.1.0/ai-providers/cli-providers/"
+    },
+    {
+      "source": "overview/Overview.js",
+      "from": "/docs#s=ai-providers&ss=cli-providers",
+      "to": "/docs/classic-2.1.0/ai-providers/cli-providers/"
+    },
+    {
+      "source": "overview/Overview.js",
+      "from": "/docs#s=overview&ss=installation",
+      "to": "/docs/overview/installation/"
+    },
+    {
+      "source": "overview/Overview.js",
+      "from": "/docs#s=ai-providers&ss=cli-providers",
+      "to": "/docs/classic-2.1.0/ai-providers/cli-providers/"
+    },
+    {
+      "source": "overview/Overview.js",
+      "from": "/docs#s=mcp-server",
+      "to": "/docs/classic-2.1.0/mcp-server/mcp-overview/"
+    },
+    {
+      "source": "overview/Overview.js",
+      "from": "/docs#s=agent-mode",
+      "to": "/docs/agent-mode/overview/"
+    },
+    {
+      "source": "overview/Overview.js",
+      "from": "/docs#s=ide-mode&ss=context-builder",
+      "to": "/docs/classic-2.1.0/historical-guides/file-selection/context-builder/"
+    },
+    {
+      "source": "agent-mode/AgentWorkflows.js",
+      "from": "/docs#s=mcp-server&ss=workflow-commands",
+      "to": "/docs/classic-2.1.0/mcp-server/workflow-commands/"
+    },
+    {
+      "source": "agent-mode/AgentSkills.js",
+      "from": "/docs#s=mcp-server&ss=workflow-commands",
+      "to": "/docs/classic-2.1.0/mcp-server/workflow-commands/"
+    },
+    {
+      "source": "mcp/MCPOverview.js",
+      "from": "/docs#s=rp-cli&ss=cli-guide",
+      "to": "/docs/classic-2.1.0/rp-cli/cli-guide/"
+    },
+    {
+      "source": "mcp/MCPOverview.js",
+      "from": "/docs#s=mcp-server&ss=mcp-tools",
+      "to": "/docs/classic-2.1.0/mcp-server/mcp-tools/"
+    },
+    {
+      "source": "mcp/MCPOverview.js",
+      "from": "/docs#s=mcp-server&ss=mcp-app-settings",
+      "to": "/docs/classic-2.1.0/mcp-server/mcp-app-settings/"
+    },
+    {
+      "source": "mcp/MCPOverview.js",
+      "from": "/docs#s=rp-cli&ss=cli-guide",
+      "to": "/docs/classic-2.1.0/rp-cli/cli-guide/"
+    },
+    {
+      "source": "mcp/MCPOverview.js",
+      "from": "/docs#s=rp-cli&ss=cli-app-settings",
+      "to": "/docs/classic-2.1.0/rp-cli/cli-app-settings/"
+    },
+    {
+      "source": "mcp/MCPToolsReference.js",
+      "from": "/docs#s=mcp-server&ss=code-reviews",
+      "to": "/docs/classic-2.1.0/code-reviews/overview/"
+    },
+    {
+      "source": "mcp/MCPToolsReference.js",
+      "from": "/docs#s=mcp-server&ss=mcp-app-settings",
+      "to": "/docs/classic-2.1.0/mcp-server/mcp-app-settings/"
+    },
+    {
+      "source": "mcp/AppSettings.js",
+      "from": "/docs#s=rp-cli&ss=cli-app-settings",
+      "to": "/docs/classic-2.1.0/rp-cli/cli-app-settings/"
+    },
+    {
+      "source": "mcp/AppSettings.js",
+      "from": "/docs#s=reference&ss=settings",
+      "to": "/docs/reference/settings/"
+    },
+    {
+      "source": "mcp/AppSettings.js",
+      "from": "/docs#s=rp-cli&ss=cli-app-settings",
+      "to": "/docs/classic-2.1.0/rp-cli/cli-app-settings/"
+    },
+    {
+      "source": "mcp/AppSettings.js",
+      "from": "/docs#s=mcp-server&ss=mcp-tools",
+      "to": "/docs/classic-2.1.0/mcp-server/mcp-tools/"
+    },
+    {
+      "source": "mcp/AppSettings.js",
+      "from": "/docs#s=reference&ss=settings",
+      "to": "/docs/reference/settings/"
+    },
+    {
+      "source": "mcp/AppSettings.js",
+      "from": "/docs#s=mcp-server&ss=mcp-overview",
+      "to": "/docs/classic-2.1.0/mcp-server/mcp-overview/"
+    },
+    {
+      "source": "mcp/MCPSettings.js",
+      "from": "/docs#s=mcp-server&ss=mcp-transport",
+      "to": "/docs/classic-2.1.0/mcp-server/mcp-transport/"
+    },
+    {
+      "source": "mcp/MCPSettings.js",
+      "from": "/docs#s=mcp-server&ss=mcp-connections",
+      "to": "/docs/classic-2.1.0/mcp-server/mcp-connections/"
+    },
+    {
+      "source": "mcp/WorkflowCommands.js",
+      "from": "/docs#s=mcp-server&ss=code-reviews",
+      "to": "/docs/classic-2.1.0/code-reviews/overview/"
+    },
+    {
+      "source": "mcp/WorkflowCommands.js",
+      "from": "/docs#s=agent-mode&ss=skills",
+      "to": "/docs/agent-mode/skills/"
+    },
+    {
+      "source": "mcp/WorkflowCommands.js",
+      "from": "/docs#s=agent-mode&ss=workflows",
+      "to": "/docs/agent-mode/workflows/"
+    },
+    {
+      "source": "workflows/MCPBuilder.js",
+      "from": "/docs#s=workflows&ss=discovery",
+      "to": "/docs/classic-2.1.0/workflows/discovery/"
+    },
+    {
+      "source": "workflows/MCPBuilder.js",
+      "from": "/docs#s=mcp-server&ss=workflow-commands",
+      "to": "/docs/classic-2.1.0/mcp-server/workflow-commands/"
+    },
+    {
+      "source": "ai/APIProviders.js",
+      "from": "#s=agent-mode&ss=providers",
+      "to": "/docs/agent-mode/providers/"
+    },
+    {
+      "source": "ai/APIProviders.js",
+      "from": "#s=agent-mode&ss=providers",
+      "to": "/docs/agent-mode/providers/"
+    },
+    {
+      "source": "getting-started/CLIProviders.js",
+      "from": "/docs#s=agent-mode&ss=providers",
+      "to": "/docs/agent-mode/providers/"
+    },
+    {
+      "source": "ai/OpenRouterSetup.js",
+      "from": "#s=agent-mode&ss=providers",
+      "to": "/docs/agent-mode/providers/"
+    },
+    {
+      "source": "mcp/CodeReviews.js",
+      "from": "/docs#s=mcp-server&ss=mcp-tools",
+      "to": "/docs/classic-2.1.0/mcp-server/mcp-tools/"
+    },
+    {
+      "source": "mcp/CodeReviews.js",
+      "from": "/docs#s=mcp-server&ss=workflow-commands",
+      "to": "/docs/classic-2.1.0/mcp-server/workflow-commands/"
+    },
+    {
+      "source": "mcp/RPCLI.js",
+      "from": "/docs#s=mcp-server&ss=mcp-tools",
+      "to": "/docs/classic-2.1.0/mcp-server/mcp-tools/"
+    },
+    {
+      "source": "mcp/RPCLI.js",
+      "from": "/docs#s=rp-cli&ss=cli-app-settings",
+      "to": "/docs/classic-2.1.0/rp-cli/cli-app-settings/"
+    },
+    {
+      "source": "mcp/RPCLI.js",
+      "from": "/docs#s=mcp-server&ss=mcp-app-settings",
+      "to": "/docs/classic-2.1.0/mcp-server/mcp-app-settings/"
+    },
+    {
+      "source": "mcp/RPCLI.js",
+      "from": "/docs#s=rp-cli&ss=cli-app-settings",
+      "to": "/docs/classic-2.1.0/rp-cli/cli-app-settings/"
+    },
+    {
+      "source": "mcp/RPCLI.js",
+      "from": "/docs#s=mcp-server&ss=mcp-tools",
+      "to": "/docs/classic-2.1.0/mcp-server/mcp-tools/"
+    },
+    {
+      "source": "mcp/RPCLI.js",
+      "from": "/docs#s=mcp-server&ss=mcp-app-settings",
+      "to": "/docs/classic-2.1.0/mcp-server/mcp-app-settings/"
+    },
+    {
+      "source": "mcp/RPCLI.js",
+      "from": "/docs#s=rp-cli&ss=cli-app-settings",
+      "to": "/docs/classic-2.1.0/rp-cli/cli-app-settings/"
+    },
+    {
+      "source": "mcp/CLIAppSettings.js",
+      "from": "/docs#s=mcp-server&ss=mcp-app-settings",
+      "to": "/docs/classic-2.1.0/mcp-server/mcp-app-settings/"
+    },
+    {
+      "source": "mcp/CLIAppSettings.js",
+      "from": "/docs#s=mcp-server&ss=mcp-app-settings",
+      "to": "/docs/classic-2.1.0/mcp-server/mcp-app-settings/"
+    },
+    {
+      "source": "mcp/CLIAppSettings.js",
+      "from": "/docs#s=mcp-server&ss=mcp-app-settings",
+      "to": "/docs/classic-2.1.0/mcp-server/mcp-app-settings/"
+    },
+    {
+      "source": "mcp/CLIAppSettings.js",
+      "from": "/docs#s=rp-cli&ss=cli-guide",
+      "to": "/docs/classic-2.1.0/rp-cli/cli-guide/"
+    },
+    {
+      "source": "mcp/CLIAppSettings.js",
+      "from": "/docs#s=reference&ss=settings",
+      "to": "/docs/reference/settings/"
+    },
+    {
+      "source": "reference/SettingsReference.js",
+      "from": "/docs#s=mcp-server&ss=mcp-app-settings",
+      "to": "/docs/classic-2.1.0/mcp-server/mcp-app-settings/"
+    },
+    {
+      "source": "reference/SettingsReference.js",
+      "from": "/docs#s=rp-cli&ss=cli-app-settings",
+      "to": "/docs/classic-2.1.0/rp-cli/cli-app-settings/"
+    },
+    {
+      "source": "ide-mode/IDEWorkflows.js",
+      "from": "/docs#s=agent-mode&ss=workflows",
+      "to": "/docs/agent-mode/workflows/"
+    }
+  ],
+  "unresolvedLinks": []
+}

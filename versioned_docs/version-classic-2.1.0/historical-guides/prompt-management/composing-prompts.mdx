@@ -1,0 +1,43 @@
+---
+id: "composing-prompts"
+title: "Composing Prompts"
+description: "Composing Prompts — Repo Prompt Classic archive documentation."
+slug: "/historical-guides/prompt-management/composing-prompts"
+hide_table_of_contents: false
+toc_min_heading_level: 2
+toc_max_heading_level: 4
+---
+
+The core workflow in RepoPrompt involves composing prompts that combine your instructions with selected file context, then sending them to an AI for processing.
+
+## The Compose Tab Workflow
+
+1. Select relevant files from the file tree panel (they'll appear in the "Selected Files" panel)
+2. Activate any stored prompts you want to use via the prompt tabs
+3. Click on the "Instructions" tab if not already selected
+4. Type your specific instructions or query in the main text area
+5. Review the selected files and approximate token count at the bottom
+
+## Copying for External Use
+
+To use your prompt with an external AI service (like ChatGPT web interface):
+
+1. After composing your prompt as described above, click the "Copy" button at the bottom left
+2. The fully formatted prompt (including instructions, file map, file contents, and system messages) is copied to your clipboard
+3. Paste this complete prompt into your preferred external LLM chat interface
+
+## Understanding the Generated Prompt
+
+The prompt RepoPrompt generates typically includes:
+
+- **System instructions:** From your active stored prompts
+- **Your specific query:** From the Instructions text area
+- **File map:** A structured outline of the selected files
+- **File contents:** The actual code from selected files
+- **Code Maps:** If enabled, structured summaries of code definitions
+
+:::tip
+
+**Tip:** For best results, be specific in your instructions about what you want the AI to do with the provided code. Mention file names explicitly when referring to them in your instructions.
+
+:::

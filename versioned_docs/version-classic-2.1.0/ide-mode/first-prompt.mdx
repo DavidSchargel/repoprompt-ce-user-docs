@@ -1,0 +1,82 @@
+---
+id: "first-prompt"
+title: "First Prompt"
+description: "First Prompt — Repo Prompt Classic archive documentation."
+slug: "/ide-mode/first-prompt"
+keywords: ["tutorial","quickstart","beginner","how to","getting started","first steps","select files","copy prompt","paste"]
+hide_table_of_contents: false
+toc_min_heading_level: 2
+toc_max_heading_level: 4
+---
+
+Let's build your first AI prompt with rich code context. This takes about 2 minutes.
+
+## Step 1: Open Your Project
+
+1. Launch Repo Prompt
+2. Go to **File → Open** (or `⌘+O`)
+3. Select your project folder
+
+Your workspace loads with the file tree on the left.
+
+## Step 2: Select Files
+
+Click files in the tree to add them to your context. Selected files appear in the Selected Files panel.
+
+**Tips for good selection:**
+
+- Select files you want the AI to understand or modify
+- Include related files (imports, types, tests)
+- Watch the token counter - stay within model limits
+
+:::tip
+
+**Start small:** For your first prompt, select 2-3 related files. You can always add more context later.
+
+:::
+
+## Step 3: Write Your Prompt
+
+In the Instructions area, describe what you want:
+
+```text
+Add input validation to the login form. Check that:
+- Email is a valid format
+- Password is at least 8 characters
+- Show error messages below each field
+```
+
+Be specific about what you want. Good prompts include:
+
+- The task or goal
+- Any constraints or requirements
+- Expected behavior or output
+
+## Step 4: Copy and Use
+
+### Option A: Copy to External AI
+
+1. Click **Copy** (or `⌘+C`)
+2. Paste into ChatGPT, Claude.ai, or any AI
+3. Get your response
+4. If it contains code changes, paste back into Apply view
+
+### Option B: Use Built-in Chat
+
+1. Click **New AI Chat**
+2. Select your model and settings
+3. Send - your context is automatically included
+4. Review changes in the diff view
+
+## Step 5: Apply Changes
+
+When the AI suggests code changes:
+
+1. Review each file's changes in the diff view
+2. Click **Apply All** or select specific files
+3. Changes are written to your files
+4. Use **Undo** if needed
+
+## Watch It In Action
+
+[![Rapid Iteration with Repo Prompt — First Prompt documentation illustration](https://img.youtube.com/vi/LSQBi0Vx3Y4/maxresdefault.jpg) Rapid Iteration with Repo Prompt See the complete prompt-building workflow in action](https://www.youtube.com/watch?v=LSQBi0Vx3Y4)

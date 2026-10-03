@@ -1,0 +1,82 @@
+---
+id: "integrated-chat"
+title: "Integrated Chat"
+description: "Integrated Chat — Repo Prompt Classic archive documentation."
+slug: "/historical-guides/api-integration/integrated-chat"
+hide_table_of_contents: false
+toc_min_heading_level: 2
+toc_max_heading_level: 4
+---
+
+RepoPrompt's integrated chat feature allows you to interact with AI models directly within the application, eliminating the need to copy/paste to external services.
+
+## Setting Up API Access
+
+Before using integrated chat, you need to configure your AI provider API keys:
+
+1. Open RepoPrompt's settings
+2. Navigate to the "API Keys" section
+3. Enter your API keys for the services you plan to use (OpenAI, Anthropic, etc.)
+4. API keys are stored securely in your system's keychain
+
+## Starting a Chat Session
+
+1. Select the files and compose your instructions in the "Compose" tab
+2. Click the "New AI Chat" button at the bottom right of the window
+3. A new Chat panel opens with your prompt pre-filled
+4. Select your desired AI model from the dropdown (e.g., "GPT-5.4", "Claude 4.5", or "GPT-5.5 Low/Medium/High" via Codex CLI)
+5. Click the "Send" button (arrow icon) to send your prompt to the AI
+
+## Working with Different Models
+
+RepoPrompt allows you to select from various AI models with different strengths:
+
+- **Task-based selection:**
+
+  - For detailed in-app reviews and complex edits: GPT-5.5 High via Codex CLI, Claude Sonnet 4.5, DeepSeek V3, or GPT-5.4 High via API
+  - For quick iterations on smaller files: Gemini 3.0 Flash or Claude Haiku 4.5
+  - For exploring ideas with no file changes: Any available model
+- **Edit format options:**
+
+  - **Diff Mode:** The AI provides only the specific changes needed (requires compatible models)
+  - **Whole Mode:** The AI rewrites entire files (works with all models)
+- **Temperature setting:** 0 by default for optimal code editing accuracy. Can be raised for usecases requiring more creativity
+
+## Working with AI Responses
+
+When the AI responds, RepoPrompt handles the reply intelligently:
+
+- Normal text responses are displayed in the chat history
+- Code snippets are syntax-highlighted for readability
+- If the AI provides structured code changes (using RepoPrompt's expected format), they appear as distinct change blocks
+- You can click on a change block to see the specific code diff
+
+## Applying Code Changes
+
+1. When the AI suggests code changes, review them in the response
+2. Click the "Merge Changes" button to enter the review mode
+3. A diff review screen appears, showing the proposed modifications for each affected file
+4. Review the diffs carefully, ensuring they match your expectations
+5. Click "Accept All Files" to apply all changes, or review and accept individual files
+6. Click "Reset All Files" to discard all changes
+7. Click "Exit Review" when done to return to the chat
+
+## Continuing the Conversation
+
+After receiving a response:
+
+1. Type your follow-up question or request in the chat input box
+2. Click "Send" to continue the conversation
+3. The AI maintains context from earlier messages in the conversation
+
+:::tip
+
+**Tip:** The integrated chat provides the most streamlined workflow for applying AI-suggested changes to your codebase, as it understands the XML diff format natively and provides a visual diff review interface.
+
+:::
+
+:::tip
+
+**GPT-5.5 note:** GPT-5.5 Low/Medium/High are accessed through the Codex CLI provider, not through API keys. GPT-5.5 Pro is available only on ChatGPT Pro web and isn't an in-app chat option — use the **ChatGPT Export** workflow for it.
+
+:::

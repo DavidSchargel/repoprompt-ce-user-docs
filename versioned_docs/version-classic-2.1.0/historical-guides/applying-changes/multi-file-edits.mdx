@@ -1,0 +1,68 @@
+---
+id: "multi-file-edits"
+title: "Multi File Edits"
+description: "Multi File Edits — Repo Prompt Classic archive documentation."
+slug: "/historical-guides/applying-changes/multi-file-edits"
+hide_table_of_contents: false
+toc_min_heading_level: 2
+toc_max_heading_level: 4
+---
+
+RepoPrompt excels at handling code changes that span multiple files, providing a streamlined workflow for reviewing and applying complex edits.
+
+## Understanding Multi-File Edits
+
+When an AI suggests changes that affect multiple files, RepoPrompt:
+
+- Organizes the changes by file for easy navigation
+- Provides a comprehensive diff view for each affected file
+- Allows you to accept or reject changes on a per-file basis
+- Maintains the integrity of your codebase during the process
+
+## The Diff Review Interface
+
+After receiving suggestions (via integrated chat or Apply mode), the diff review interface shows:
+
+- **File List:** All affected files, organized by change type (edit, create, delete)
+- **Diff View:** Side-by-side comparison of original and modified code
+- **Line Numbers:** For precise identification of changes
+- **Highlighting:** Added lines (green), removed lines (red), and unchanged context
+
+## Reviewing Changes
+
+1. When changes are proposed, click "Merge Changes" to enter the review interface
+2. Navigate between files using the file list on the left
+3. For each file, carefully review the highlighted changes
+4. Use the checkboxes or buttons to accept or reject changes for individual files
+
+## Applying Changes
+
+After reviewing the proposed edits, you have several options:
+
+- **Accept All Files:** Apply all changes across all files
+- **Accept Individual Files:** Apply changes only to specific files
+- **Reset All Files:** Discard all proposed changes
+- **Exit Review:** Close the diff view and return to the previous screen
+
+## Working with File Operations
+
+RepoPrompt handles different types of file operations:
+
+- **Edits:** Modifications to existing files
+- **Creations:** Entirely new files added to your project
+- **Deletions:** Removal of existing files
+
+## Safety Features
+
+To protect your code, RepoPrompt provides several safety mechanisms:
+
+- Changes are only applied after explicit confirmation
+- Individual file acceptance lets you apply only the changes you want
+- The diff view clearly highlights all modifications for verification
+- Hitting reset on a file or all files restores the file to the state before the changes were applied
+
+:::tip
+
+**Tip:** For complex refactoring operations, review changes in logical order rather than alphabetically. Start with core components or interfaces, then move to implementations to ensure everything remains consistent.
+
+:::

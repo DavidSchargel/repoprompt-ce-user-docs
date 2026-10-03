@@ -1,0 +1,134 @@
+---
+id: "workflows"
+title: "Agent Workflow Commands"
+sidebar_label: "Workflow Commands"
+description: "Use Repo Prompt CE workflows for planning, building, reviewing, investigating, and orchestrating agents with Context Builder and Oracle."
+slug: "/agent-mode/workflows"
+keywords: ["rp-build","rp-review","rp-refactor","rp-investigate","rp-oracle-export","rp-orchestrate","workflow","context builder","oracle chat","plan and build","deep plan","optimize","interview mode","review","refactor","investigate","chatgpt prompt export","chatgpt export","gpt pro","discovery agent","analysis model","two-stage pipeline","debug","debugging","code review","git","token budget","custom workflow","root cause","second opinion","external ai","orchestrate","sub-agent","sub agent","decompose","delegate","dispatch","multi-agent","parallel agents"]
+hide_table_of_contents: false
+toc_min_heading_level: 2
+toc_max_heading_level: 4
+---
+
+Agent Mode comes with built-in workflows that guide your agents through structured, multi-step tasks — from feature implementation to deep code reviews.
+
+## How Workflows Work
+
+Each workflow wraps your task description in a structured prompt that teaches the agent a proven approach. Instead of the agent figuring out how to tackle your request from scratch, the workflow provides a step-by-step protocol that leverages Repo Prompt's context tools at each stage.
+
+Select a workflow from the **Workflow** dropdown in the Agent Mode toolbar, type your task, and the agent follows the protocol automatically.
+
+![Agent Mode running an Investigate workflow with Context Builder, Oracle, and file reads](../../../static/images/docs/images/investigation-workflow.jpg)
+
+## Built-in Workflows
+
+Orchestrate
+
+Plans a complex task, decomposes it into discrete work items, and dispatches sub-agents to implement each one. The orchestrator stays lean — it coordinates and monitors, while worker agents handle the actual implementation. Works with both UI-started and MCP-started sessions.
+
+**Flow:** Quick scan → Context Builder (plan) → Decompose into work items → Dispatch sub-agents → Monitor and verify
+
+Deep Plan
+
+Researches the code, asks how hands-on you want to be, and writes a clear implementation plan.
+
+Review
+
+Surveys your git changes, determines the comparison scope (uncommitted, staged, vs main, etc.), and uses Context Builder to produce a thorough code review grounded in your full codebase — not just the diff.
+
+**Flow:** Survey git state → Confirm scope → Context Builder (with review) → Fill gaps if needed
+
+Refactor
+
+A two-pass workflow: first analyzes your code for redundancies and complexity using Context Builder's review mode, then plans and implements improvements while preserving existing behavior.
+
+**Flow:** Analyze (Context Builder review) → Plan improvements → Implement (Context Builder plan)
+
+Optimize
+
+Finds what to measure, adds metrics, tries improvements, and uses evidence to keep iterating.
+
+Investigate
+
+Systematic codebase exploration for debugging and research. The agent forms hypotheses, uses Context Builder for deep dives, gathers evidence, and documents findings — continuing until the root cause is identified.
+
+**Flow:** Assess → Explore (Context Builder) → Deep dive follow-ups → Evidence gathering → Findings report
+
+Plan & Build
+
+The most comprehensive workflow. The agent does a quick scan of your codebase, calls Context Builder to gather deep context and generate an architectural plan, refines the plan through Oracle Chat, and then implements the solution directly.
+
+**Flow:** Quick scan → Context Builder (with plan) → Refine with Oracle Chat → Implement with editing tools
+
+ChatGPT Prompt Export
+
+Builds optimized context for your task using Context Builder, then exports a prompt file ready to paste directly into GPT Pro models on ChatGPT (or any external AI) for a second opinion.
+
+**Flow:** Context Builder (clarify mode) → Export prompt file → Paste into ChatGPT (GPT Pro)
+
+## Interview Mode
+
+Before launching into a workflow, you can enable **Interview Mode** to have the agent ask clarifying questions first. This ensures the agent fully understands the task requirements, edge cases, and constraints before it starts working. Toggle it from the agent settings — when enabled, the agent will conduct a brief interview to align on the task definition before proceeding with the selected workflow.
+
+## Why Context Matters
+
+Coding agents are convenient but fundamentally limited by how they gather context. When you prompt an agent, it must understand your problem and codebase from scratch — searching with grep, reading small slivers of files, and starting to make changes before fully understanding the code. By the time the agent orients itself, its context window is filled with tool calls, search results, and irrelevant code, leaving less room for actual reasoning.
+
+This matters because models have an *effective* context window that's smaller than the advertised one. Most models perform well in the 64–128k token range, but going beyond that degrades reasoning ability significantly. Every token spent on orientation is a token not spent on solving your problem.
+
+Repo Prompt's workflow commands solve this by separating **discovery** from **implementation**. The Context Builder handles the heavy lifting of finding and curating relevant files, so the agent receives complete, well-organized context upfront — and can spend its entire thinking budget on the solution.
+
+Read more: [Context Over Convenience](/blog/context-over-convenience)
+
+![Context Builder onboarding showing the two-stage pipeline and built-in workflows](../../../static/images/docs/images/onboarding-context-builder.jpg)
+
+## The Context Builder Pipeline
+
+Every workflow is built around the Context Builder — a two-stage intelligence pipeline:
+
+1. **Stage 1 — Discovery Agent:** A specialized model explores your entire codebase, identifies relevant files, and curates a token-budgeted selection. It uses codemaps (concise API signatures) and line slices to maximize context within the allocated budget
+2. **Stage 2 — Analysis Model:** A powerful model receives the curated context and produces deep analysis — architectural plans, code reviews, or answers to questions — grounded entirely in your actual code
+
+The discovery agent is deliberately non-opinionated: it gathers facts and relationships without biasing toward a particular solution. This ensures the analysis model gets a complete, neutral picture of the relevant codebase before reasoning about what to do.
+
+## Oracle Chat
+
+Oracle Chat is a curated context window shared between the agent and a powerful reasoning model. It leverages Repo Prompt's best practices for prompting reasoning models — optimized file selection, codemaps, and line slices — to get optimal insights, plans, and reviews.
+
+### How It Works
+
+The Oracle sees a carefully curated selection of your codebase — not raw grep results or piecemeal file reads, but the precise files and slices relevant to the question. The pipeline:
+
+1. The agent describes what it needs to know
+2. Context Builder curates the most relevant files within a token budget
+3. The Oracle receives this optimized context and reasons deeply over it
+4. The answer flows back to the agent, which continues working with new understanding
+
+Oracle Chat maintains a conversation — the agent can ask follow-up questions in the same session, building on previous answers without re-running discovery each time.
+
+### Shared Context, Always Current
+
+Agent Mode automatically tracks every file the agent reads and keeps the Oracle's selection in sync. The Oracle is never less informed than the agent — it always has at least the same files the agent has seen, plus whatever additional files Context Builder discovers during its research.
+
+The Oracle's strength is *context density*. Rather than working from whatever happens to be in the agent's context window, Context Builder curates the most relevant files for each specific question — pulling in related code the agent may not have encountered yet. This targeted curation is what enables the deepest insights.
+
+### When Agents Use Oracle Chat
+
+- **During /rp-build:** Clarifying architectural patterns, edge cases, or how existing code handles similar situations
+- **During /rp-investigate:** Testing hypotheses about a bug's root cause with cross-file reasoning
+- **During /rp-refactor:** Understanding dependencies and usage patterns before proposing changes
+- **Mid-implementation:** When the agent needs to understand how something works before editing it
+
+## Customizing Workflows
+
+You can toggle built-in workflows on or off, clone them as starting points for your own, or create entirely new ones from scratch. Open the **Configure...** option at the bottom of the Workflow dropdown to manage your workflow list.
+
+## Available as MCP Skills Too
+
+All of these workflows are also available as installable skills for external agents connected via the MCP server. When you use Claude Code, Codex CLI, or Gemini CLI in your terminal, the same workflows are available as slash commands like `/rp-build` and `/rp-review`. See [MCP Workflow Commands](../../version-classic-2.1.0/mcp-server/workflow-commands.mdx) for details.
+
+:::tip
+
+**Which Workflow?** Start with **Plan & Build** for most tasks. Use **Review** before committing changes. Reach for **Investigate** when debugging tricky issues that need systematic exploration.
+
+:::

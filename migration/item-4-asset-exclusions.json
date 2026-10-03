@@ -1,0 +1,8 @@
+[
+  {"file":"CopyPresets.jpg","sha256":"0fa15c951809a22b318f4dba003d4a27d9fd921e5fcc416897f1c614855fb2e6","reason":"Visible benchmark prompt and Cloudflare Worker text behind the menu"},
+  {"file":"compose.jpg","sha256":"446738fcb8cb8ee6e686c4a451f4d9bcc37aed2a5f1a1d85fde7a2d547c7180d","reason":"Repo Bench prompt, backend implementation, and source tree"},
+  {"file":"chat.jpg","sha256":"6535dfc7760012f3dd3403c4d74be660c4f7d32fb44519be6c9e3ed029f0e12b","reason":"Benchmark and infrastructure filenames visible in the source tree"},
+  {"file":"git-controls.jpg","sha256":"7de68e1dc77338503b567e85437d827244d4ad82967f11a611a2142ca7a8b90e","reason":"Cloudflare Worker text visible behind the panel"},
+  {"file":"storedPrompts.jpg","sha256":"c41f8f87af5d47f7984b0bac7f701b374f2b678425160f9633bd7472f42085fc","reason":"Bench explorer route visible above the panel"},
+  {"file":"agent-handoff.jpg","sha256":"cb7e65f19e746b8a4d23534638aa39b0188414189641aeea341be592378c7fd9","reason":"Benchmark test command visible above dialog; conservatively excluded"}
+]

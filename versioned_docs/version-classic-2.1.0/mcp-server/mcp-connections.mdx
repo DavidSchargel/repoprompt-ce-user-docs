@@ -1,0 +1,226 @@
+---
+id: "mcp-connections"
+title: "Connection Management"
+description: "Connection Management — Repo Prompt Classic archive documentation."
+slug: "/mcp-server/mcp-connections"
+keywords: ["status","connection","multi-window","tabs","tab binding","manage_workspaces","window_id","approval","workspace","reconnect","troubleshooting"]
+hide_table_of_contents: false
+toc_min_heading_level: 2
+toc_max_heading_level: 4
+---
+
+Repo Prompt provides comprehensive tools for managing MCP connections, including status monitoring, multi-window support, tab binding, and workspace management - all controllable both through the UI and programmatically via MCP tools.
+
+## Connection Status UI
+
+The MCP connection status is displayed in the toolbar and provides real-time feedback:
+
+| Status | Meaning |
+| --- | --- |
+| Server Off | MCP Server is disabled in Settings |
+| Listening | Server is running, waiting for connections |
+| Connecting... | Client is establishing connection |
+| Connected: \[Client Name\] | Active connection with named client (e.g., "Claude Code") |
+| Tool Running (animated) | A tool call is currently being processed |
+
+Click the status indicator to access quick actions: view connection details, copy configuration, or open MCP settings.
+
+## Connection Approval
+
+When a new client attempts to connect, Repo Prompt shows an approval dialog:
+
+- **Client name:** Identifies the connecting application
+- **Allow Once:** Permit this single connection
+- **Always Allow:** Add to allowlist for automatic approval
+- **Deny:** Reject the connection
+
+:::tip
+
+**New in 1.5.41:** The connection approval dialog now defaults to "Always Allow" to reduce repeated prompts for trusted clients.
+
+:::
+
+## Multi-Window Mode
+
+Repo Prompt supports multiple windows, each potentially showing different workspaces. The MCP server can be configured to work across windows:
+
+### Single Window Mode (Default)
+
+- One window owns the MCP server
+- All tool calls operate on that window's workspace
+- Simpler mental model for basic use
+
+### Multi-Window Mode
+
+Enable in **Settings → MCP Server → Multi-Window Mode**
+
+- Agents can query available windows and their workspaces
+- Tool calls can target specific windows
+- Enables parallel work across multiple projects
+
+When multi-window mode is enabled, the `manage_workspaces` tool gains additional capabilities:
+
+```text
+// List all workspaces across windows
+{ "action": "list" }
+
+// Switch a window to a different workspace
+{ "action": "switch", "workspace": "MyProject", "window_id": 2 }
+
+// Open workspace in a NEW window and bind connection to it
+{ "action": "switch", "workspace": "MyProject", "open_in_new_window": true }
+// Returns: { "action": "switch", "status": "ok", "window_id": 3 }
+
+// Create a new workspace
+{ "action": "create", "name": "NewProject" }
+
+// Create a new workspace and switch to it
+{ "action": "create", "name": "NewProject", "switch_to_created": true }
+
+// Create a new workspace in a NEW window
+{ "action": "create", "name": "NewProject", "open_in_new_window": true }
+// Returns: { "action": "create", "status": "ok", "window_id": 3 }
+
+// Add folder to workspace
+{ "action": "add_folder", "workspace": "MyProject", "folder_path": "/path/to/folder" }
+```
+
+## Tab Management
+
+Compose tabs allow parallel work contexts within a single window. MCP clients can manage tabs programmatically:
+
+### Listing Tabs
+
+```text
+// List tabs in current window
+{ "action": "list_tabs" }
+
+// Response includes:
+// - Tab ID and name
+// - [active] = Currently visible tab
+// - [bound] = Tab this MCP connection is pinned to
+```
+
+### Tab Binding
+
+By default, MCP tools operate on whichever tab is currently active. This can cause issues if the user switches tabs during a long operation. Tab binding solves this:
+
+```text
+// Bind to a specific tab for consistent context
+{ "action": "select_tab", "tab": "Feature-Auth", "focus": false }
+
+// focus: true = switch UI to show this tab (can disrupt user)
+// focus: false = bind silently, user's view unchanged
+```
+
+Once bound, all subsequent tool calls from this connection operate on the bound tab, regardless of which tab the user is viewing.
+
+### Creating Tabs for Background Work
+
+MCP clients can now create new compose tabs explicitly. This is useful for spinning up a fresh task context without disturbing the tab the user is currently looking at.
+
+```text
+// Create a blank background tab and bind this MCP connection to it
+{ "action": "create_tab", "name": "Bugfix", "bind": true, "focus": false }
+
+// Fork an existing tab into a new background tab
+{ "action": "create_tab", "mode": "fork", "source_tab": "Feature-Auth", "name": "Feature-Auth Follow-up" }
+```
+
+`create_tab` defaults to `bind=true` and `focus=false`. That means automation can create an isolated tab for a task, keep future tool calls pinned to it, and avoid stealing focus from the user.
+
+### Closing Tabs Safely
+
+Tabs can also be closed programmatically, but Repo Prompt applies safety checks to prevent destructive or confusing behavior.
+
+```text
+// Close a non-active tab by name or UUID
+{ "action": "close_tab", "tab": "Bugfix" }
+
+// Explicitly allow closing the currently visible tab
+{ "action": "close_tab", "tab": "Bugfix", "allow_active": true }
+```
+
+- The last remaining compose tab cannot be closed
+- The currently visible tab is protected unless `allow_active=true`
+- Tabs with live bound runs cannot be closed until those runs finish or disconnect
+
+### Tab-Scoped Chat History
+
+The `chats` MCP tool now supports chat inspection at either workspace scope or compose-tab scope. This is especially helpful when you use multiple tabs for parallel work and want chat history that matches the tab currently bound to your connection.
+
+```text
+// List recent chats for the currently bound tab
+{ "action": "list", "scope": "tab" }
+
+// Read recent messages from the current tab's most recent chat
+{ "action": "log", "scope": "tab", "limit": 10 }
+
+// Inspect a specific tab explicitly
+{ "action": "list", "scope": "tab", "tab_id": "TAB-UUID-HERE" }
+```
+
+When `scope` is `tab` and `tab_id` is omitted, Repo Prompt uses the current bound tab when available, otherwise it falls back to the active tab in the UI.
+
+### Context Builder Discovery Tab
+
+When running Context Builder via MCP (`context_builder`), a fresh compose tab is automatically created for each run. This ensures discovery operations don't interfere with your existing work context.
+
+## Workspace Approval System
+
+Certain workspace operations require explicit user approval based on risk level:
+
+| Operation | Risk Level | Approval Required |
+| --- | --- | --- |
+| List workspaces | None | No |
+| Switch workspace | Low | No (existing workspaces) |
+| Create workspace | Medium | Yes |
+| Add folder | Medium | Yes |
+| Delete workspace | High | Yes |
+
+## Connection Lifecycle
+
+Understanding the connection lifecycle helps troubleshoot issues:
+
+1. **Server Start:** Repo Prompt opens listening socket/creates filesystem inbox
+2. **Client Launch:** External tool spawns `repoprompt-mcp` CLI
+3. **Handshake:** CLI establishes connection and exchanges capabilities
+4. **Approval:** User approves (or connection auto-approved from allowlist)
+5. **Active:** Tool calls flow bidirectionally
+6. **Disconnect:** Client closes or user stops server
+7. **Cleanup:** Resources released, filesystem folders deleted
+
+## Reconnection Behavior
+
+Connection management was significantly improved in 1.5.41:
+
+- **App Restart:** Connections automatically rebind when Repo Prompt restarts
+- **Client Restart:** New connection inherits previous approval status
+- **Tab Context:** Bound tabs are restored across reconnections
+- **Multi-Window:** Window routing is preserved through restarts
+
+## Troubleshooting Connections
+
+### Connection Not Appearing
+
+- Ensure MCP Server is enabled in Settings
+- Check the approval queue (look in menu bar for pending approvals)
+- Verify the client configuration points to correct `repoprompt-mcp` path
+
+### Stale Connection State
+
+- Toggle the MCP Server off and on in Settings
+- Restart the external client
+- Check for orphaned connection folders in `~/Library/Application Support/RepoPrompt/MCPFS/`
+
+### Wrong Window/Tab Receiving Tools
+
+- Use `list_tabs` to verify which tab is bound
+- Use `select_tab` to explicitly bind to the correct tab
+- In multi-window mode, use `manage_workspaces` to target the right window
+
+:::tip
+
+**Pro Tip:** For long-running agent sessions, always bind to a specific tab using`select_tab` early in the session. This prevents context confusion if tabs are switched during operation.
+
+:::

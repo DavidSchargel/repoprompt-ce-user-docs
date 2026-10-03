@@ -1,0 +1,294 @@
+---
+id: "version-1-5"
+title: "Classic Version 1.5"
+description: "Classic Version 1.5 — Repo Prompt Classic archive documentation."
+slug: "/changelog/version-1-5"
+keywords: ["1.5","context builder 2.0","compose tabs","cli providers","chatgpt provider","gemini cli","unix socket"]
+hide_table_of_contents: false
+toc_min_heading_level: 2
+toc_max_heading_level: 4
+---
+
+## Classic Edition Version 1.5 Series
+
+The Classic Edition 1.5 series introduces Background Mode with menu bar control, tab-bound chats with concurrent streaming, Context Builder 2.0 with agentic discovery and auto plan generation, compose tabs for parallel workflows, interactive CLI, and support for new CLI providers.
+
+### Key Features in 1.5
+
+- **Integrated Sidebar Terminal** - Launch terminal sessions directly in the sidebar with support for AI agent CLIs or a plain shell
+- **Background Mode** - App stays active when windows are closed, with a menu bar icon for quick restore or quit
+- **Tab-Bound Chats** - Chats are now bound to tabs for easier session management, with support for multiple concurrent streaming conversations
+- **Interactive CLI** - Command-line interface for MCP tools with shell aliases, command history, output redirection, exec mode, and one-click PATH installation
+- **Context Builder 2.0** - Agentic context building using Claude Code or Codex to automatically select files, codemaps, and slices within a token budget
+- **Auto Plan Generation** - Context builder can automatically generate an implementation plan after exploration
+- **Discovery Clarifying Questions** - Agent can ask clarifying questions during context building for better results
+- **Reasoning Display** - See the model's thought process during plan generation in a collapsible section
+- **Compose Tabs** - Work on multiple tasks in parallel with independent prompts and file selections per tab
+- **Pro Edit Agent Mode** - Use Claude Code or Codex with MCP tools to generate edits in parallel with higher accuracy
+- **Claude Code Slash Commands** - One-click installation of Repo Prompt MCP commands from settings
+- **MCP Builder Preset** - Four-phase workflow: quick scan, context building, chat refinement, and implementation
+- **UNIX Socket MCP Transport** - Replaced network communication for better performance, no Local Network permission needed
+- **Codex CLI as API Provider** - Use OpenAI models through your Plus or Pro plan via Codex CLI
+- **Gemini CLI Support** - Use Gemini CLI for chat, discovery & delegate edits
+- **Context Builder as MCP Tool** - Run discovery directly from external agents
+- **Tab Management via MCP** - Control tabs and workspaces programmatically
+- **GPT-5.2 & Opus 4.5 Support** - Latest OpenAI and Anthropic models with extended reasoning variants
+- **Chat Message Forking** - Edit user messages to create conversation branches
+- **Model Recommendation Engine** - Automatic model suggestions based on your current workflow and configuration
+- **File Actions** - Open files in default apps, copy absolute paths, and reveal in Finder from file tree
+- **Prompt Export** - Export complete clipboard content to a file via MCP tool, plus ChatGPT Prompt Export command for generating prompt files for GPT Pro models
+
+<details>
+
+<summary>View detailed changelog (1.5 - 1.5.68)</summary>
+
+#### 1.5.68 - January 16, 2026
+
+- **New:** OpenCode CLI installer - Install MCP server configuration for OpenCode CLI from settings
+- **New:** claude-rp CLI wrapper - An alias for running Claude Code with RepoPrompt's MCP tools, disabling clashing built-in tools
+- **New:** MCP Tools settings - New settings tab to toggle individual MCP tools per-window with search (Pro)
+- **New:** Window management for MCP/CLI - MCP and CLI can now automatically open and close windows when creating, switching, or deleting workspaces
+- Cleaned up MCP settings UI
+- Smarter CLI command management - respects user-removed commands and won't re-add them on updates
+- MCP question UI - questions asked during MCP operations now appear and work consistently
+- Fixed terminal crash during long terminal sessions
+
+#### 1.5.67 - January 13, 2026
+
+- Fixed issue with Gemini CLI's stream getting cutoff mid-response
+- Fixed issue with OpenAI API where heartbeats were causing decode errors
+
+#### 1.5.66 - January 12, 2026
+
+- **New:** Built-in Interview Prompt - New interview prompt for Context Builder to guide implementation planning
+- **New:** Pinnable Context Builder Prompts - Pin your favorite prompts for quick access (shown first in the list)
+- **New:** Collapsible Instructions Panel - Collapse the instructions panel for a cleaner prompt view
+- Improved MCP and CLI tool schemas
+- Improved CLI documentation and help output
+- More flexible CLI invocation with support for various argument formats
+- Enhanced Discovery Agent tool descriptions for better structure in agent/planner workflows
+- Improved Discovery Agent prompt for smarter file selection
+- Better terminal stability with smoother resizing and scroll restoration
+- Fixed long-running MCP tool calls disconnecting prematurely
+- Fixed terminal keyUp recursion crash
+- Fixed chat sessions overwriting compose tab prompt IDs
+- Fixed workspace refresh issues with stale indices
+
+#### 1.5.65 - January 8, 2026
+
+- Fixed tabs getting wiped on update
+
+#### 1.5.64 - January 8, 2026
+
+- **New:** Customizable Context Builder Prompts - Create and save custom prompts for the context builder to tailor how context is discovered for different tasks
+- **New:** Remote Git Branches - View and select remote branches alongside local ones; remote refs are now auto-fetched to stay current
+- **CLI:** New --json flag for scripting, better flag parsing, and cleaner command syntax for the builder command
+- New compose tabs now preserve your current file tree expansion instead of collapsing everything
+- Fixed issue with context builder state getting wiped on tab switches
+- Fixed git diff not being included when it was supposed to
+- Fixed issue with model presets getting wiped
+
+#### 1.5.63 - January 7, 2026
+
+- **New:** Integrated Sidebar Terminal - Launch terminal sessions directly in the sidebar with support for AI agent CLIs (Claude Code, Gemini CLI, etc.) or a plain shell
+- Code review mode now available via MCP tools
+- Changed default chat\_send mode to "chat" for safer initial MCP interactions
+- Fixed tools timing out after 15 minutes, preventing long context builder runs
+- Fixed workspace tooling not working reliably from the CLI
+- Fixed folder picker sometimes blocking the app
+- Improved performance when expanding large workspaces
+
+#### 1.5.62 - January 5, 2026
+
+- **CLI:** Tab targeting - Target specific compose tabs via CLI flags for precise multi-window control
+- **CLI:** Copy preset management - List and select copy presets directly from CLI and MCP
+- **CLI:** Progress notifications - Shows progress updates during lengthy tasks to prevent timeouts
+- **CLI:** Better multi-window guidance - Help output includes contextual routing tips when multiple windows are detected
+- Shift+Command+W shortcut to close the active window quickly
+- Improved tab cleanup - Running tasks are properly stopped when tabs are closed
+
+#### 1.5.61 - January 1, 2026
+
+- **New:** Background Mode - App stays active when you close windows, with a menu bar icon for quick restore or quit
+- **New:** Chat UX Revamp - Chats are now bound to tabs for easier session management, with support for multiple concurrent streaming conversations
+- **New:** Prompt Export Tool - New MCP tool to export complete clipboard content to a file
+- **New:** ChatGPT Prompt Export Command - New rp-oracle-export prompt to run context builder and export a prompt file for use with GPT Pro models on ChatGPT
+- **New:** File Actions - Open files in default apps, copy absolute paths, and reveal in Finder from file tree and selected files
+- Improved cache cleanup to remove stale code maps for deleted folders
+
+#### 1.5.60 - December 22, 2025
+
+- **New:** CLI command installation - Added rp-investigate and rp-build CLI commands for easier use in Codex and Claude Code environments
+- **New:** Per-tab auto-plan setting - Auto-generate plan now works per-tab with workspace fallback for finer control
+- **CLI:** Raw JSON output mode - New --raw-json flag returns pure JSON responses for easier scripting and automation
+- **CLI:** Output redirection - Commands now support shell-like &gt; (overwrite) and &gt;&gt; (append) redirection to files
+- **CLI:** Enhanced command parsing - Extended flags and options across search, selection, file operations, and chat commands
+- **CLI:** Smarter path resolution - Improved handling of folder paths, workspace-relative paths, and root aliases
+- Better codemap management - Files without codemap support are now properly filtered and reported instead of causing errors
+- Improved custom text input UI - Styled as a selectable option with visual feedback for better consistency
+- Fixed codemap demotion incorrectly removing files that don't support codemaps
+- Fixed path resolution edge cases in multi-root workspaces
+
+#### 1.5.59 - December 19, 2025
+
+- **Fixed truncation of tool descriptions and workspace names** - Some content was incorrectly being cut off in command output and UI prompts
+- **Improved app quit stability** - Fixed potential crashes when quitting the app by preventing duplicate termination attempts
+- Cleaner CLI error messages
+
+#### 1.5.58 - December 19, 2025
+
+- **Improved chat bubble performance** - Optimized text layout to reduce unnecessary UI updates and improve scrolling smoothness
+- **Updated MCP Builder workflow** - Consolidated and improved guidance for context building and implementation workflows
+- Fixed inconsistent CLI naming in help menu
+
+#### 1.5.57 - December 18, 2025
+
+- **Major:** Interactive CLI - New command-line interface for exploring and executing MCP tools directly from terminal. Includes shell-like aliases, command history, output redirection, timing info, typo suggestions, tool group filtering, and exec mode for scripting. Easy one-click PATH installation from Settings.
+- **New:** MCP Slash Commands - Key prompts (rp-build, rp-investigate) now automatically exposed to any connected MCP client as slash commands
+- **New:** Path Paste Menu - Quickly select files from a blob of text containing paths, available in More Actions
+- **New:** OpenAI Service Tier setting for Responses API
+- Improved tooltip positioning on hover and scroll
+- Enhanced window/tab routing for workspace tools
+- Auto-apply recommendations for new workspaces
+- Fixed infinite layout loop crashes in search file tree
+- Fixed recommendation invalidation issues
+- Improved MCP socket connection stability and handling
+- Misc UI fixes
+
+#### 1.5.56 - December 11, 2025
+
+- Improved GPT-5.2 Pro support - Added background job support for Azure OpenAI and OpenAI providers, enabling stable use of GPT-5.2 Pro and other models that require asynchronous processing
+- Improved text editor stability - Fixed TextKit issues that could cause crashes or visual glitches during editing
+- Improved app stability - Various fixes to prevent crashes and improve reliability
+- Fixed high CPU usage - Resolved performance issue where the Discover Agent view could cause high CPU usage during extended runs
+
+#### 1.5.55 - December 11, 2025
+
+- **New:** GPT-5.2 support with XHigh reasoning variants
+- Context builder now shows your actual codemap preset settings alongside its normalized view
+- Background plan generation now runs independently per tab, enabling concurrent plans
+- Improved socket connection stability with better race condition handling
+- Fixed context builder and manage\_selection tools not properly providing feedback when using codemap modes other than "auto"
+
+#### 1.5.54 - December 10, 2025
+
+- **New:** Claude Code slash commands with one-click installation from settings
+- **New:** "MCP Builder" preset with four-phase workflow: quick scan, context building, chat refinement, and implementation
+- **New:** Discovery agent can now ask clarifying questions during context building (optional setting)
+- Gemini CLI integration now uses persistent settings file for better reliability
+- Auto-focus window and switch to compose tab when clarifying questions are pending
+- Fixed context bleed between tabs during discovery runs
+- Fixed text field scrolling issues on Intel Macs
+- Fixed potential MCP socket connection errors on systems with restrictive firewalls
+
+#### 1.5.53 - December 8, 2025
+
+- Overhauled MCP transport architecture - replaced all local network communication with high-performance UNIX sockets, significantly reducing CPU overhead and improving connection stability
+- Removed network permission requirements - the app no longer needs Local Network access, eliminating authorization popups when connecting to MCP servers
+- Improved CLI provider initialization - changed where CLI providers are initialized to avoid unnecessary access popups for Apple Music and Documents folders
+- More reliable MCP connections - added robust reconnect logic with client identity caching, ensuring consistent connections during session recovery
+
+#### 1.5.52 - December 7, 2025
+
+- Temporarily disabled filesystem transport due to CPU overhead - reworking the solution
+- Fixed tab related race conditions causing issues with MCP powered context building
+- Fixed context builder text state issues
+- Better handling of discovery runs where the agent doesn't leave a handoff prompt
+- Minor UI improvements
+
+#### 1.5.51 - December 6, 2025
+
+- Fixed tab state not working correctly for context builder view
+
+#### 1.5.50 - December 6, 2025
+
+- **New:** Reasoning/thinking display for plan generation - see the model's thought process in a collapsible section
+- **New:** Plan preset locking ensures consistent settings during context builder operations
+- Better cancellation support for async operations - more responsive UI when stopping queries
+- Improved streaming with proper cleanup to prevent hangs
+- Enhanced tab busy state indicators for plan generation
+- Fixed potential resource leaks during streaming cancellation
+- Fixed file deletion detection
+
+#### 1.5.48 - December 5, 2025
+
+- Further improved CPU utilization - found high churn areas that appeared after many hours of uptime
+- Improved UI for active discovery tabs
+- Fixed regressions in MCP connection stability
+
+#### 1.5.47 - December 5, 2025
+
+- Reworked some file tree logic to optimize UI churn for extremely large repos
+- Reworked MCP lifecycle management to better handle closing connections and CPU usage
+- More fixes to parallel MCP-based plan/discovery queries
+
+#### 1.5.46 - December 3, 2025
+
+- **New Models:** Replaced Codex models from OpenAI with Codex-max
+- Optimized file-watcher logic so that it's a lot less CPU hungry
+- Polished recommendation wizard + small UI fixes
+- Fixed issues with parallel context builder plan generation
+- Fixed non-working GPT-5 mini models
+
+#### 1.5.45 - December 3, 2025
+
+- **New:** Context builder can now automatically generate a plan after completing its exploration
+- **New:** Improved MCP context builder tool to add followup chaining for questions or plans
+- **New:** Added Recommendation engine for auto model selection based on current configuration
+- file\_search uses improved regex engine for better performance in large repos
+- Many CPU usage optimizations across the app
+- Fixed MCP tool routing by using direct window\_id and tab\_id params to tools
+- Improved performance of discovery agent
+
+#### 1.5.44 - November 29, 2025
+
+- Resolved issues with prompts getting reset on tab switches
+- Fixed UI issue for pro edit settings
+- Discovery MCP tool now shows cancellation info
+
+#### 1.5.42 - November 28, 2025
+
+- Context builder as an MCP tool
+- Tab management now possible with MCP tooling
+- Workspace tool can create and edit workspaces with permission management
+
+#### 1.5.40 - November 24, 2025
+
+- Added support for Opus 4.5 across the app and providers
+- Zero-network MCP mode using filesystem-based transport
+
+#### 1.5.37 - November 17, 2025
+
+- Added support for Gemini CLI for chat, discovery & delegate edits
+
+#### 1.5.28 - November 10, 2025
+
+- Codex CLI as an API provider for OpenAI models via Plus/Pro plan
+
+#### 1.5.21 - November 4, 2025
+
+- File slices now stored in Application Support
+- Haiku 4.5 support, deprecated Sonnet 3.5 removed
+- Custom provider supports V4+ endpoint versions
+
+#### 1.5.15 - October 29, 2025
+
+- Pro Edit Agent mode with Claude Code or Codex for parallel edits
+
+#### 1.5.5 - October 21, 2025
+
+- Compose Tabs for parallel task workflows
+- Prompt enhancement modes: Replace, Augment, or Preserve
+- Desktop notifications when context builder completes
+
+#### 1.5 - October 16, 2025
+
+- Context Builder 2.0 with agentic discovery using Claude Code or Codex
+- Automatically selects files, codemaps, and slices within token budget
+- Overhauled file search and manage\_selection MCP tools
+
+#### Other 1.5.x releases
+
+Versions 1.5.1-1.5.4, 1.5.6-1.5.14, 1.5.16-1.5.20, 1.5.22-1.5.27, 1.5.29-1.5.39, 1.5.41, 1.5.43 include MCP connection improvements, tab stashing (limit raised to 25), GPT-5 updates, native markdown rendering, auto workspace restore, and numerous stability fixes.
+
+</details>

@@ -1,0 +1,84 @@
+---
+id: "overview"
+title: "Classic IDE Mode Overview"
+sidebar_label: "Overview"
+description: "Archived guide to Repo Prompt Classic IDE Mode: select files, curate context, and assemble prompts for manual AI workflows."
+slug: "/ide-mode/overview"
+keywords: ["ide mode","compose","chat","apply","review","context","prompts","file selection","codemaps","copy paste","manual","context building","prompt crafting","four views","copy presets"]
+hide_table_of_contents: false
+toc_min_heading_level: 2
+toc_max_heading_level: 4
+---
+
+IDE Mode is part of the older Repo Prompt Classic Edition experience — a purpose-built workspace for crafting precise, token-efficient prompts that give AI models the deep understanding they need to write better code.
+
+## What Is the old IDE Mode?
+
+IDE Mode (only available in the Classic Edition) gives you full manual control over what context your AI sees. Select files, choose how much of each file to include (full content, line slices, or API signatures), write your instructions, and send the result to any AI model — through built-in chat, copy-paste, or the MCP server.
+
+This is the approach that reasoning models like GPT-5.5 Pro (ChatGPT Pro web), Claude, and Gemini work best with: complete context upfront, so they can spend their thinking budget on your problem instead of searching for files. For in-app Codex CLI sessions, GPT-5.5 Medium/High are the recommended implementation and review models, while Low remains the explore/discovery default.
+
+## The Four Views within the Classic Edition
+
+**Compose**
+
+Build context by selecting files, writing instructions, and choosing a copy preset. The primary workspace where everything starts.
+
+**Chat**
+
+Have AI conversations with your selected files automatically included as context. Switch models, use Pro Edit mode, and maintain history.
+
+**Apply**
+
+Paste AI responses containing code changes. Parses XML or Pro Edit format and queues edits for review.
+
+**Review**
+
+Side-by-side diff view to inspect, approve, or reject each file change before applying it to your codebase.
+
+## Context Building Tools (Classic Edition)
+
+IDE Mode from the Classic Edition gives you precise control over what goes into your AI prompts:
+
+- **File Selection:** Click files in the tree to include them. Right-click for selection modes — full content, line slices, or codemap (API signatures only)
+- **Codemaps:** Tree-sitter powered function and type signatures. Include 10x more files in your context using a fraction of the tokens
+- **Line Slices:** Select specific line ranges from large files to include only the relevant sections
+- **Multi-Root Workspaces:** Load multiple project folders into a single workspace. Analyze monorepos, microservices, and related projects together
+- **Token Counter:** Real-time token count shows exactly how much context you're using
+
+## Copy Presets (Classic Edition)
+
+Copy presets control how your context is formatted when you copy or send it. Each preset is designed for a specific workflow:
+
+- **Standard:** Clean format for pasting into any AI chat (ChatGPT, Claude, etc.)
+- **Plan:** Includes instructions for generating an architectural plan
+- **XML Edit / Pro Edit:** Formats for AI-assisted code editing with diff review
+- **MCP Builder:** Primes an MCP-connected agent with your context and the builder workflow
+- **MCP Pair:** Sets up a pair programming workflow between a driver agent and Repo Prompt's chat
+- **MCP Agent:** Gives an MCP agent general awareness of your project structure and tools
+
+## Context Builder (Classic Edition)
+
+Don't want to manually select files? The **Context Builder** is an AI-powered tool that automatically explores your codebase and selects the right files for your task. It's a two-stage pipeline:
+
+1. **Discovery Agent** — Explores your project structure, searches for relevant files, and builds a curated selection within a token budget
+2. **Analysis Model** — Receives the curated context and produces plans, reviews, or answers grounded in your actual code
+
+Run Context Builder from the toolbar or use it through the MCP server and Agent Mode workflows.
+
+## Built-in Chat (Classic Edition)
+
+The Chat view lets you talk to AI models with your full file context included automatically. Features include:
+
+- Multiple AI provider support (your own API keys or CLI providers)
+- Pro Edit mode for generating code changes that can be reviewed and applied
+- Conversation history with session tabs
+- Model selector for switching between different AI models
+
+## Applying Changes (Classic Edition)
+
+Whether changes come from the built-in chat, a web AI, or an MCP agent, the Apply and Review views give you a consistent workflow for reviewing and applying them:
+
+1. Paste the AI's response in the Apply view (or use chat's Pro Edit mode)
+2. Repo Prompt parses the code changes and shows a diff for each file
+3. Review each change, then apply the ones you approve

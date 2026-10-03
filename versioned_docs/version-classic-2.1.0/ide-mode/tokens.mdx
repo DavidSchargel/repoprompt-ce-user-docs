@@ -1,0 +1,66 @@
+---
+id: "tokens"
+title: "Token Management"
+description: "Token Management — Repo Prompt Classic archive documentation."
+slug: "/ide-mode/tokens"
+keywords: ["tokens","token count","context window","token budget","reduce tokens","too many tokens","limits","effective context","model limits"]
+hide_table_of_contents: false
+toc_min_heading_level: 2
+toc_max_heading_level: 4
+---
+
+The token counter shows your current context size. Understanding token limits helps you build effective prompts without hitting model limits.
+
+## Example Model Context Windows
+
+| Model | Context Window | Notes |
+| --- | --- | --- |
+| GPT-5.4 | 272K–1M tokens | Codex standard: 272K. API: 1M+. ChatGPT: 30k (Plus) / 60k (Pro). GPT-5.5 is Codex CLI-only (Medium/High) or ChatGPT Pro web (Pro) — do not treat it as an API or OpenRouter context-window entry. |
+| Claude 4.5 | 200K tokens | Claude Code & Desktop. 1M via API at higher rates |
+| Gemini 3.0 Preview | 200K tokens | Standard pricing. 1M+ at higher pricing tiers |
+
+:::tip
+
+**Effective vs Advertised:** Models have an advertised context window and an effective one. Most models perform well in the 64-128k token range, but going beyond that can degrade reasoning ability.
+
+:::
+
+## Token Reduction Strategies
+
+If you're hitting token limits:
+
+### 1. Use Codemaps
+
+Switch reference files from Full to Codemap mode. You get the API surface without implementation details—typically 10x fewer tokens.
+
+### 2. Use Slices
+
+Let Context Builder create slices, or have MCP agents specify line ranges. Include only the relevant sections of large files.
+
+### 3. Be Selective
+
+Remove files that aren't essential for the task. Ask yourself: "Does the AI need to see this file to answer my question?"
+
+### 4. Simplify the Tree
+
+Use "Selected" tree mode instead of "Full". The AI doesn't always need to see your entire directory structure.
+
+### 5. Consider Model Choice
+
+For massive contexts, Gemini's 1M+ token window or Claude's 1M API tier can help when you truly need everything.
+
+## Reading the Token Counter
+
+The token counter in Repo Prompt shows:
+
+- **Total tokens:** Your complete prompt size
+- **Breakdown:** Hover to see files, codemaps, tree, and prompt contributions
+- **Per-file tokens:** Shown in the selected files panel
+
+## Budgeting for Responses
+
+Remember that the context window includes both your prompt *and* the model's response. Leave room:
+
+- **Planning tasks:** Leave 10-20k tokens for detailed plans
+- **Code generation:** Leave tokens proportional to expected output
+- **Conversations:** Budget for multiple turns

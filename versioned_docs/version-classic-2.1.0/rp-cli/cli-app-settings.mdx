@@ -1,0 +1,143 @@
+---
+id: "cli-app-settings"
+title: "App Settings from the CLI"
+description: "App Settings from the CLI — Repo Prompt Classic archive documentation."
+slug: "/rp-cli/cli-app-settings"
+keywords: ["app_settings","settings","settings group","tools settings","preferences","appearance","dark mode","auto-start","mcp.auto_start","temperature","planning model","prompt packaging","code maps toggle","rp-cli settings","cli settings","script settings","flip preference","shell preferences"]
+hide_table_of_contents: false
+toc_min_heading_level: 2
+toc_max_heading_level: 4
+---
+
+Flip RepoPrompt preferences from scripts, agents, and Bash without opening the Settings UI. `rp-cli` exposes the same `app_settings` tool the MCP server does, plus a `settings` tool group for schema discovery.
+
+:::tip
+
+**Full allowlist and safety story:** The list of keys, types, and deliberately excluded categories lives on the MCP page — see [App Settings Tool](../mcp-server/mcp-app-settings.mdx) for the authoritative registry. This page focuses on how to drive the same surface from a shell.
+
+:::
+
+## Quick Reference
+
+```bash
+# Browse the catalog (each entry includes the current value)
+rp-cli -e 'app_settings op=list'
+
+# Inspect one group
+rp-cli -e 'app_settings op=list group=ui'
+
+# Read a single setting
+rp-cli -e 'app_settings op=get key=ui.appearance_mode'
+
+# Toggle a boolean
+rp-cli -e 'app_settings op=set key=ui.show_tooltips value=false'
+
+# Change an enum
+rp-cli -e 'app_settings op=set key=ui.appearance_mode value=Dark'
+
+# Fractional numbers or null — use JSON via 'call'
+rp-cli -e 'call app_settings {"op":"set","key":"models.temperature","value":1.25}'
+rp-cli -e 'call app_settings {"op":"set","key":"models.planning_model","value":null}'
+
+# List candidate values for a setting that advertises options_available
+rp-cli -e 'app_settings op=options key=models.planning_model agent=codexExec'
+```
+
+Groups: `ui`, `prompt_packaging`, `editing`, `models`, `context_builder`, `mcp`, `code_maps`.
+
+## When to Use Shorthand vs `call`
+
+`rp-cli` parses `key=value` arguments before handing them to the MCP tool, so most everyday writes work with the shorthand form. Reach for `call app_settings {...}` when you need types the shorthand cannot express.
+
+| Use shorthand for | Use `call` JSON for |
+| --- | --- |
+| - Booleans (`true`/`false`)<br />- Integer values<br />- Enum strings (`Dark`, `Relative`, …)<br />- Enum values with spaces — quote the value (e.g. `value="Parallel split"`)<br />- Single-key reads/writes<br />- Batch `get` with a JSON array (e.g. `keys=["ui.appearance_mode"]`) | - Fractional numbers (e.g. `1.25`)<br />- Explicit `null` values<br />- JSON files piped via `-j @args.json` or `-j @-`<br />- Anything that is easier to express as a literal JSON object |
+
+```bash
+# Enum value with spaces — quote the value
+rp-cli -e 'app_settings op=set key=editing.complex_edit_strategy value="Parallel split"'
+
+# Batch get via shorthand (generic parser accepts JSON arrays in key=value form)
+rp-cli -e 'app_settings op=get keys=["ui.appearance_mode","mcp.auto_start"]'
+
+# Same batch via explicit JSON
+rp-cli -c app_settings -j '{"op":"get","keys":["ui.appearance_mode","mcp.auto_start"]}'
+
+# Read args from a file (.json is auto-detected, @ is optional)
+rp-cli -c app_settings -j settings-change.json
+rp-cli -c app_settings -j @settings-change.json
+
+# Read args from stdin
+cat change.json | rp-cli -c app_settings -j @-
+```
+
+## `settings` Tool Group
+
+The CLI groups tools by role. `app_settings` lives in the `settings` group, which is filterable from `tools` and `tools --schema`:
+
+```bash
+rp-cli -e 'tools --groups'         # List available tool groups
+rp-cli -e 'tools settings'          # List tools in the settings group
+rp-cli -e 'tools settings --schema' # Full JSON schema for app_settings
+rp-cli -d app_settings              # Human-readable help (describe)
+rp-cli -d app_settings --verbose    # Include raw JSON schema
+```
+
+Use `tools settings --schema` when you need a machine-readable description — for example, generating agent skill prompts or validating a script's argument shape before sending it.
+
+## Script Patterns
+
+### Read, mutate, write inside a `.rp` script
+
+Chain a read to decide the next write. The CLI's `--raw-json` flag emits parsable output that a small helper can inspect.
+
+```bash
+# toggle-dark-mode.sh
+current=$(rp-cli -e 'app_settings op=get key=ui.appearance_mode' --raw-json \
+  | python3 -c 'import json,sys; print(json.load(sys.stdin)["values"]["ui.appearance_mode"])')
+
+if [ "$current" = "Dark" ]; then
+  rp-cli -e 'app_settings op=set key=ui.appearance_mode value=Light'
+else
+  rp-cli -e 'app_settings op=set key=ui.appearance_mode value=Dark'
+fi
+```
+
+### Flip MCP auto-start in a postinstall step
+
+```bash
+# postinstall.sh
+# Ensure the MCP listener launches with RepoPrompt going forward.
+rp-cli --wait-for-server 5 -e 'app_settings op=set key=mcp.auto_start value=true'
+```
+
+### Set a temperature before a planning session
+
+```bash
+rp-cli -e '
+  app_settings op=set key=models.temperature_enabled value=true &&
+  call app_settings {"op":"set","key":"models.temperature","value":0.4} &&
+  plan "Design the auth migration"
+'
+```
+
+### Disable Code Maps globally during a large refactor
+
+```bash
+rp-cli -e 'app_settings op=set key=code_maps.globally_disabled value=true'
+# ... do work ...
+rp-cli -e 'app_settings op=set key=code_maps.globally_disabled value=false'
+```
+
+## Notes & Caveats
+
+- **One key per write.** `op=set` accepts exactly one `key`; `keys` and `group` are rejected.
+- **Always non-destructive.** Validation fails closed — unknown keys, bad types, or out-of-range values are rejected with a clear error and nothing is partially applied.
+- **Listener state is not force-cycled.** Flipping `mcp.auto_start` affects future launches; it does not stop or start the current MCP listener.
+- **Allowlist only.** Secrets, tool ACLs, and workspace-scoped settings are intentionally unreachable. See the [MCP page](../mcp-server/mcp-app-settings.mdx) for the full exclusion list.
+
+## See Also
+
+- [App Settings Tool (MCP)](../mcp-server/mcp-app-settings.mdx) — full allowlist, parameter schema, and safety details.
+- [rp-cli Command Line Guide](./cli-guide.mdx) — exec mode, quoting, JSON argument sources, and multi-window rules.
+- [Settings Reference](../../version-1.5.0/reference/settings.mdx) — in-app Settings UI equivalents.

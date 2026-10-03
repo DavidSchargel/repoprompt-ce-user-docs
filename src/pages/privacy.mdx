@@ -1,0 +1,131 @@
+---
+title: Repo Prompt Privacy Policy
+description: Repo Prompt application privacy policy covering anonymous analytics, crash diagnostics, data handling, external integrations, and privacy rights.
+---
+
+import Head from '@docusaurus/Head';
+
+<Head><meta name="robots" content="noindex,follow" /></Head>
+
+# Repo Prompt Privacy Policy
+
+:::warning Legal review required
+This text is migrated from the application policy dated April 12, 2025. It requires legal review and confirmation that the described practices apply to Community Edition before publication. It is not a newly verified policy for this documentation website.
+:::
+
+**Effective Date:** April 12, 2025  
+**Last Updated:** April 12, 2025
+
+Repo Prompt ("**we**," "**us**," or "**our**") is committed to protecting your privacy. This Privacy Policy explains in clear terms how Repo Prompt collects, uses, and safeguards information when you use our application. It is designed to comply with the European Union's General Data Protection Regulation (GDPR) and Quebec's Law 25 (Bill 25), as well as other applicable global privacy laws, ensuring transparency and legal adequacy for all our users worldwide.
+
+## 1. Scope and Application
+
+This Privacy Policy applies to the Repo Prompt application and any related services. By using Repo Prompt, you acknowledge that you have read and understood this Policy. This Policy covers users globally, including residents of the European Economic Area (EEA) and Quebec, Canada, and addresses the specific requirements of GDPR and Quebec's Law 25.
+
+## 2. Who We Are
+
+Repo Prompt is a locally-running application designed to assist with repository analysis and prompts. The application operates primarily on your device. There are no user accounts or registration with Repo Prompt, and we do not directly collect personal identifiers.
+
+## 3. Information We Collect
+
+We do **not** collect any personal information that can identify you. Repo Prompt only collects a minimal amount of anonymous usage data for analytics and performance monitoring, as described below:
+
+### Anonymous Usage Analytics
+
+We use PostHog to gather usage statistics and understand how Repo Prompt is used. This includes basic, non-identifying information about feature usage and event counts.
+
+We have explicitly configured PostHog to **exclude** the following properties:
+
+- IP address
+- Operating system and device type
+- Geographic location (latitude, longitude, city, country, postal code)
+- Time zone and regional subdivision data
+
+No personally identifying information (PII) is collected, and all analytics data is either **aggregated** or **de-identified**.
+
+PostHog data is stored in the United States and processed under GDPR-compliant terms, including Data Processing Agreements and standard contractual clauses.
+
+### Crash Reports and Diagnostics
+
+We use Sentry for crash reporting and diagnostics. These reports may include technical information such as error messages, stack traces, and non-identifying device metadata (e.g., operating system or browser type).
+
+We have configured Sentry to:
+
+- Scrub or remove IP addresses by default
+- Avoid collection of custom events or user identifiers
+- Exclude sensitive or personally identifiable information (PII) from logs and reports
+
+While Sentry may automatically capture general device and environment data (e.g., OS version, platform), this information is not linked to any user identity and cannot be used to identify individuals. We also do not use session replay, breadcrumb tracking, query parameters, or console logs.
+
+All crash data is processed under GDPR-compliant data processing terms. We rely on Sentry's participation in the EU-U.S. Data Privacy Framework and Standard Contractual Clauses to ensure adequate protection for data stored in the United States.
+
+**We do not collect or store:**
+
+- Your personal identifiers
+- IP addresses or device identifiers
+- The contents of your code or files
+- Cookies or session data
+
+## 4. How We Use the Collected Data
+
+We use the limited data collected **only** to:
+
+- Improve application performance and feature design
+- Identify and fix crashes or bugs
+
+We do **not** use data for marketing, profiling, or advertising, and we never sell or share data for commercial purposes.
+
+## 5. Legal Basis for Processing
+
+Under GDPR, we process data on the basis of **legitimate interest**—specifically, to ensure the stability and functionality of the app. Under Quebec's Law 25, we consider the anonymized nature of the data and user installation as valid consent.
+
+## 6. Where and How We Store Data
+
+Analytics and crash data are transmitted and stored by our third-party service providers:
+
+- **PostHog (Analytics)** — stored in the **United States**
+- **Sentry (Crash Reports)** — stored in the **United States**
+
+These services comply with GDPR and offer appropriate safeguards (e.g., Data Processing Agreements, standard contractual clauses).
+
+## 7. Third-Party Service Providers
+
+We use the following third-party services:
+
+- **PostHog** — for anonymous usage analytics
+- **Sentry** — for crash and performance monitoring
+
+## 8. Data Retention
+
+We retain anonymous usage and crash data only as long as necessary for diagnostics and performance monitoring. We regularly review and delete or anonymize old data. No personally identifiable information is collected or stored.
+
+## 9. Your Privacy Rights
+
+Repo Prompt does not collect personal identifiers or maintain user-specific data, which means we cannot link any data back to an individual user. As such, the following rights are limited in scope:
+
+- **Access or Deletion Requests:** We are unable to access or delete specific data associated with an individual user because we do not collect identifiable data.
+- **Opt-out Options:** You may opt out of analytics and crash reporting by disabling network access to these services or by modifying your device's configuration.
+- **Withdraw Consent:** Consent is considered granted through the act of installation and use, but since no identifiable data is collected, withdrawal has no effect on stored data.
+- **Complaints:** You may file a complaint with a privacy regulator in your jurisdiction if you believe your rights under applicable law are being violated.
+
+## 10. Security Measures
+
+We use appropriate safeguards to protect data, including HTTPS encryption and restricted access. Crash data is anonymized, and no code or personal data is collected. The app is built around privacy-by-design principles, minimizing any data processing.
+
+## 11. External APIs and Integrations
+
+Repo Prompt may allow optional API integrations. When used:
+
+- Data is sent **directly** from your device to the provider
+- We do **not** intercept, log, or transmit API data
+- You are responsible for reviewing third-party API privacy terms
+
+## 12. Children's Privacy
+
+Repo Prompt is not intended for children under 13. We do not knowingly collect information from children. If such data is discovered, we will delete it immediately upon request.
+
+## 13. Changes to This Privacy Policy
+
+We may update this policy as needed. The latest version will always be dated at the top. Continued use of Repo Prompt after updates constitutes acceptance of any changes.
+
+[Terms and conditions](/terms/) · [Home](/)

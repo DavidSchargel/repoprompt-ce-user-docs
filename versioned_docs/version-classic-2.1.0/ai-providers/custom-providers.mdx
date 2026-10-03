@@ -1,0 +1,88 @@
+---
+id: "custom-providers"
+title: "Custom Providers"
+description: "Custom Providers — Repo Prompt Classic archive documentation."
+slug: "/ai-providers/custom-providers"
+keywords: ["custom","self-hosted","local","ollama","lmstudio","private","enterprise","base url","endpoint"]
+hide_table_of_contents: false
+toc_min_heading_level: 2
+toc_max_heading_level: 4
+---
+
+Connect to any OpenAI-compatible API endpoint - perfect for self-hosted models, company internal APIs, or alternative providers.
+
+## What's Supported
+
+Any API that follows the OpenAI API specification works, including:
+
+- **Self-hosted models:** vLLM, text-generation-inference, LocalAI
+- **Company APIs:** Internal model deployments
+- **Alternative providers:** Services offering OpenAI-compatible endpoints
+- **Proxies:** API gateways and load balancers
+
+## Setup
+
+1. Open **Settings** (`⌘+,`)
+2. Go to **API Settings → Custom API**
+3. Enter your configuration:
+
+   - **Base URL:** Your API endpoint (e.g., `https://your-api.company.com/v1`)
+   - **API Key:** Authentication key if required
+   - **Model Name:** The model identifier your API expects
+4. Click **Validate & Save**
+
+## Configuration Examples
+
+### vLLM Server
+
+```text
+Base URL: http://localhost:8000/v1
+API Key: (leave empty for local)
+Model: meta-llama/Llama-3.1-70B-Instruct
+```
+
+### Text Generation Inference
+
+```text
+Base URL: http://localhost:8080/v1
+API Key: (leave empty for local)
+Model: tgi
+```
+
+### Company Internal API
+
+```text
+Base URL: https://ai.internal.company.com/api/v1
+API Key: your-internal-api-key
+Model: company-gpt-4
+```
+
+## OpenAI Custom Base URL
+
+You can also customize the OpenAI base URL for proxies without using a full custom provider:
+
+1. Go to Settings → API Providers
+2. Under OpenAI, click "Advanced (Custom Base URL)"
+3. Enter your custom endpoint
+4. Your OpenAI API key is used with the custom URL
+
+## Troubleshooting
+
+### Connection Failed
+
+- Verify the base URL is correct and accessible
+- Check that the URL ends with `/v1` if your API expects it
+- Ensure any required API key is correct
+
+### Model Not Found
+
+- Verify the model name matches exactly what your API expects
+- Some APIs require just the model name, others need the full path
+- Check your API's documentation for the correct model identifier
+
+### Streaming Issues
+
+If responses aren't streaming properly:
+
+- Ensure your API supports server-sent events (SSE)
+- Check that your proxy/gateway preserves streaming responses

@@ -1,0 +1,134 @@
+---
+id: "providers"
+title: "Providers"
+description: "Configure Agent Mode providers, compare integration capabilities, and choose authentication and model settings for coding sessions."
+slug: "/agent-mode/providers"
+keywords: ["codex cli","claude code","gemini cli","cc zai","cc moonshot","cc custom","moonshot","kimi","claude code compatible","glm","glm 4.6","glm 4.7","glm 5","z.ai","zhipu","opencode","open code","cursor cli","cursor","cursor pro","cursor business","provider","setup","connection","app server","headless","acp","subscription","compaction","reasoning effort","bash tools","comparison","which provider","recommended","install","openai","anthropic","google","claude pro","claude max","api key","base url"]
+hide_table_of_contents: false
+toc_min_heading_level: 2
+toc_max_heading_level: 4
+---
+
+Agent Mode supports multiple CLI coding agents. Each provider has its own connection method, capabilities, and strengths.
+
+## Provider Comparison
+
+| Feature | Codex CLI | Claude Code | CC Zai | Gemini CLI | OpenCode | Cursor CLI |
+| --- | --- | --- | --- | --- | --- | --- |
+| Connection | Native app server | Headless CLI + MCP | Headless CLI + MCP | Headless CLI + MCP | ACP | ACP |
+| Session control | Full | Full | Full | Full (via ACP) | Full (via ACP) | Full (via ACP) |
+| Context Builder | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ |
+| Oracle Chat | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ |
+| Compaction | ✓ | ✓ | ✓ | — | — | — |
+| Bash / shell tools | ✓ | ✓ | ✓ | ✓ (via ACP) | ✓ (via ACP) | ✓ (via ACP) |
+| Reasoning effort | Configurable | — | — | Auto (via ACP) | Auto (via ACP) | Auto (via ACP) |
+| Subscription | OpenAI (Codex) | Anthropic (Claude Pro/Max) | Z.AI (API key) | Google (Gemini) | Various (includes free models) | Cursor (Pro/Business) |
+
+## Codex CLI
+
+Codex CLI is the recommended provider for Agent Mode. It connects through a native app server integration with full session control, compaction, configurable tool preferences, and reasoning effort settings. GPT-5.5 Low via Codex CLI is the recommended default for explore and discovery, while GPT-5.5 Medium is the default for engineer-style implementation. GPT-5.5 High remains the stronger choice for heavier planning, review, and pair sessions.
+
+### Setup
+
+1. Install Codex CLI: run `codex` in your terminal (or install via npm)
+2. Authenticate with your OpenAI account
+3. In Repo Prompt, go to Agent Mode settings and test the connection
+
+## Claude Code
+
+Claude Code is a full-featured provider with interactive agentic sessions, compaction support, and deep MCP integration. It connects through a headless CLI, giving Repo Prompt access to context tools and editing capabilities while Claude handles the agent loop.
+
+Claude Code supports compaction — when the context window fills up, the session is automatically summarized so the agent can continue working on longer tasks without losing track of what it's doing.
+
+You can also configure how the RepoPrompt system prompt is delivered to Claude — either as a standard system message or as a user message. This gives you flexibility for workflows where Claude performs better with the context framed as user input.
+
+### Setup
+
+1. Install Claude Code: run `claude login` in your terminal
+2. Authenticate with your Anthropic account (Claude Pro or Max subscription)
+3. In Repo Prompt, go to Agent Mode settings and test the connection
+
+## CC Zai
+
+**CC Zai** uses the Claude Code infrastructure to run GLM models via the Z.AI API. Add your Z.AI API key in Settings and GLM models become available automatically in Agent Mode — no additional CLI installation required.
+
+Available models include GLM 4.6, GLM 4.7, and GLM 5. CC Zai supports the full Claude Code feature set: compaction, bash/shell tools, Context Builder, and Oracle Chat.
+
+### Setup
+
+1. Open **Settings** (`⌘+,`) and go to **API Settings → API Providers**
+2. Find **Z.AI** and enter your API key
+3. A green checkmark confirms the key is valid
+4. CC Zai models appear automatically in the Agent Mode model picker
+
+## CC Moonshot
+
+**CC Moonshot** runs Moonshot's Kimi coding model through the Claude Code infrastructure using Anthropic-compatible routing. Add your Moonshot (Kimi) API key and CC Moonshot appears as a single no-model option in the Agent Mode model picker — Repo Prompt does not send a `--model` flag, so the endpoint picks the backing model.
+
+The base URL is prefilled as `https://api.kimi.com/coding/`. CC Moonshot inherits the same Claude Code feature set as CC Zai: compaction, bash/shell tools, Context Builder, and Oracle Chat.
+
+### Setup
+
+1. Get a Moonshot / Kimi API key from [platform.moonshot.ai](https://platform.moonshot.ai)
+2. Open **Settings** (`⌘+,`) and go to **API Settings → API Providers**
+3. Find **Moonshot** and enter your API key — the base URL is prefilled to `https://api.kimi.com/coding/`
+4. Select **CC Moonshot** in the Agent Mode model picker
+
+## CC Custom
+
+**CC Custom** lets you point Claude Code at any Anthropic / Claude Code-compatible endpoint. Configure a base URL and API key (or other auth environment variables) and Repo Prompt will route Agent Mode through that endpoint using the same Claude Code integration as CC Zai and CC Moonshot.
+
+Depending on how your endpoint is configured, CC Custom can run as a no-model backend (like CC Moonshot, where the endpoint picks the model) or expose Claude-slot mappings so your endpoint's models show up under the familiar Claude Code model picker entries.
+
+### Setup
+
+1. Open **Settings** (`⌘+,`) and go to **API Settings → API Providers**
+2. Find **CC Custom** and enter the base URL for your Claude Code-compatible endpoint
+3. Provide the API key or auth environment values your endpoint requires
+4. Select **CC Custom** in the Agent Mode model picker
+
+:::tip
+
+**Switching between Claude Code backends:** Standard Claude Code, CC Zai, CC Moonshot, and CC Custom are separate backends that share the Claude Code integration. Repo Prompt starts a fresh session when you switch between them so environment routing (base URL, auth) is applied cleanly — an existing Claude Code process is not reused across variants.
+
+:::
+
+## Gemini CLI
+
+Gemini CLI connects through ACP (Agent Communication Protocol), providing text streaming, permission support, bash tool access, automatic model detection, and significantly better performance compared to the previous prompt-only integration. Gemini CLI now offers a full-featured agent experience on par with other providers.
+
+### Setup
+
+1. Install Gemini CLI: run `gemini auth login` in your terminal
+2. Authenticate with your Google account
+3. In Repo Prompt, go to Agent Mode settings and test the connection
+
+## OpenCode
+
+OpenCode connects through ACP (Agent Communication Protocol) with text streaming, bash tool access, and dynamic model discovery. OpenCode supports multiple AI providers — including some free models — so available models depend on which providers you've configured. Repo Prompt discovers and lists them automatically when you test the connection.
+
+### Setup
+
+1. Install OpenCode CLI: ensure `opencode` is available on your PATH
+2. Configure your providers in OpenCode (some models are available for free)
+3. In Repo Prompt, go to Agent Mode settings and test the connection — available models will be discovered automatically
+
+## Cursor CLI
+
+Cursor CLI connects through ACP (Agent Communication Protocol) with text streaming, dynamic model discovery, and automatic model fallback. When you start a Cursor agent session, Repo Prompt discovers available models from your Cursor installation and lists them in the model picker. Repo Prompt automatically injects its MCP tools into the Cursor session, giving the agent full access to context building, file operations, and oracle chat.
+
+### Setup
+
+1. Install Cursor and ensure the `cursor` CLI command is available on your PATH
+2. Sign in with your Cursor Pro or Business account
+3. In Repo Prompt, go to Agent Mode settings and test the connection — available models will be discovered automatically
+
+## Using Your Existing Subscriptions
+
+Codex CLI, Claude Code, Gemini CLI, and Cursor CLI use your existing AI subscriptions — no additional API costs. If you're already paying for ChatGPT Plus / Pro / Codex, Claude Pro/Max, Google AI, or Cursor Pro/Business, you can use those same accounts to power Agent Mode sessions. CC Zai, CC Moonshot, and CC Custom run through the Claude Code integration and require their own API keys (Z.AI, Moonshot/Kimi, or whichever Claude Code-compatible endpoint you configure), billed based on usage. OpenCode supports multiple providers including some free models — check OpenCode's documentation for available options.
+
+:::tip
+
+**Provider Selection:** Choose based on the models and subscriptions you already have. All six providers offer deep integration with Repo Prompt's context tools. Codex is recommended because GPT-5.5 Low is the practical default for explore/discovery, GPT-5.5 Medium covers engineer implementation, and GPT-5.5 High covers heavier planning/review work, but Claude Code (including the CC Zai, CC Moonshot, and CC Custom backends), Gemini CLI, OpenCode, and Cursor CLI are all full-featured alternatives.
+
+:::

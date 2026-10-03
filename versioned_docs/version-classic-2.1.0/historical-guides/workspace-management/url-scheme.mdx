@@ -1,0 +1,103 @@
+---
+id: "url-scheme"
+title: "URL Scheme"
+description: "URL Scheme — Repo Prompt Classic archive documentation."
+slug: "/historical-guides/workspace-management/url-scheme"
+hide_table_of_contents: false
+toc_min_heading_level: 2
+toc_max_heading_level: 4
+---
+
+RepoPrompt supports a flexible URL scheme that allows you to open projects, workspaces, specific files, and pre-fill prompts directly from external applications or shortcuts.
+
+## URL Scheme Format
+
+The basic format for RepoPrompt's URL scheme is:
+
+```text
+repoprompt://open/[folderPath]?[parameters]
+```
+
+## Components
+
+- **folderPath (Optional):** Appears immediately after repoprompt://open/. This can be:
+
+  - An absolute path (/Users/...)
+  - A path containing ~ for the home directory
+  - May contain percent-encoded characters (e.g. %20 for spaces)
+- **Query Parameters:** Follow ? and can be combined with &
+
+  - **workspace:** Opens or creates a workspace named "MyWorkspace"
+  - **files:** Comma-separated list of files to select in the file tree
+  - **prompt:** Pre-fills the prompt text in the main prompt area or chat
+  - **ephemeral:** When set to true, creates a temporary workspace that isn't saved
+  - **persist:** When set to false, prevents saving the workspace to disk
+  - **focus:** When set to true, attempts to focus an existing window with the target workspace
+
+## Examples
+
+### Open a specific folder:
+
+```text
+repoprompt://open/~/Documents/MyProject
+```
+
+### Open a workspace named "Personal":
+
+```text
+repoprompt://open?workspace=Personal
+```
+
+### Open a folder and select specific files:
+
+```text
+repoprompt://open/~/Projects?files=README.md,script.sh
+```
+
+### Open a workspace and pre-fill prompt text:
+
+```text
+repoprompt://open?workspace=Work&prompt=Review%20the%20latest%20updates
+```
+
+### Create a temporary workspace that won't be saved:
+
+```text
+repoprompt://open/~/Dev/TempProject?ephemeral=true
+```
+
+### Focus an existing window with the target workspace:
+
+```text
+repoprompt://open?workspace=Demo&focus=true
+```
+
+### Full example with folder, workspace, files, and prompt:
+
+```text
+repoprompt://open/~/Code?workspace=Demo&files=main.swift,AppDelegate.swift&prompt=Implement%20authentication%20logic&focus=true
+```
+
+## Important Notes
+
+- Spaces or special characters must be percent-encoded (e.g., spaces become %20)
+- You can specify multiple files parameters or a comma-separated list for multiple files
+- Multiple prompt parameters will concatenate into one message
+- If ephemeral=true or persist=false, the workspace will not be saved to disk
+- focus=true tries to focus an existing window with the target workspace
+- Tilde (~) is automatically expanded to your home directory in all paths
+
+## Use Cases
+
+The URL scheme is particularly useful for:
+
+- Creating desktop shortcuts to frequently used workspaces
+- Integration with automation tools like Shortcuts, Alfred, or Keyboard Maestro
+- Linking to specific project configurations from documentation
+- Setting up custom launch configurations for different development tasks
+
+:::tip
+
+**Tip:** Create Shortcuts on macOS to quickly open specific project configurations with pre-selected files and prompt text. This can dramatically speed up repetitive development tasks.
+
+:::

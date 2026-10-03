@@ -1,0 +1,54 @@
+---
+id: "mcp-transport"
+title: "Transport Modes"
+description: "Transport Modes — Repo Prompt Classic archive documentation."
+slug: "/mcp-server/mcp-transport"
+keywords: ["unix socket","local socket","local only","cli bridge","transport","security","reconnection","connection refused"]
+hide_table_of_contents: false
+toc_min_heading_level: 2
+toc_max_heading_level: 4
+---
+
+Repo Prompt's MCP server uses secure local UNIX sockets for communication between external clients and the main application. All traffic stays local to your machine with no network ports exposed.
+
+## How It Works
+
+When an external client (Claude Code, Cursor, etc.) connects to Repo Prompt, the CLI bridge establishes a secure local socket connection:
+
+1. External client launches `repoprompt-mcp` via stdio
+2. CLI bridge connects to Repo Prompt through a local UNIX socket
+3. Messages are forwarded bidirectionally between the client and Repo Prompt
+4. Connection persists for the session lifetime with automatic reconnection on interruption
+
+## Security
+
+UNIX sockets provide strong security guarantees:
+
+- **No network exposure:** Connections are local-only with no TCP ports opened
+- **Per-user isolation:** Socket directories are user-specific, preventing cross-user access
+- **Approval flow:** New clients must be explicitly approved before accessing your workspace
+- **Session tokens:** Each CLI instance has a unique session identifier for connection management
+
+## Connection Management
+
+The MCP dashboard (accessible from the status bar icon) shows all active connections and allows you to:
+
+- View connected clients and their activity
+- Disconnect specific clients
+- Manage auto-approval settings for trusted clients
+
+## Automatic Reconnection
+
+If Repo Prompt restarts or temporarily becomes unavailable, connected clients will automatically attempt to reconnect. The CLI maintains its session identity across reconnections, so your workflow continues seamlessly.
+
+## Troubleshooting
+
+- **Connection refused:** Ensure MCP Server is enabled in Settings and Repo Prompt is running
+- **Approval not appearing:** Check that the client is using a compatible version of the CLI
+- **Stale connections:** Use the MCP dashboard to disconnect old sessions
+
+:::tip
+
+**Note:** The UNIX socket transport works reliably in all environments including corporate networks with strict firewall policies, as no network ports are used.
+
+:::

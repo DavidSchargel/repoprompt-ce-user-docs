@@ -1,0 +1,80 @@
+---
+id: "overview"
+title: "Agent Mode Overview"
+sidebar_label: "Overview"
+description: "Run coding agents inside Repo Prompt CE with curated repository context, built-in workflows, and reviewable file changes."
+slug: "/agent-mode/overview"
+keywords: ["agent mode","cli agent","codex","claude code","gemini cli","cc zai","cc moonshot","cc custom","moonshot","kimi","glm","opencode","cursor cli","session host","orchestrate","native","gpt-5.5","per-tab","session","tool calls","edit review","agent","oracle chat","context builder","parallel","parallel agents","images","streaming","live streaming","sub-agent","sub agent","subagent","spawn agent","delegate","worker agent","multi-agent","dispatch"]
+hide_table_of_contents: false
+toc_min_heading_level: 2
+toc_max_heading_level: 4
+---
+
+Agent Mode hands off Repo Prompt's context engineering to your coding agents. The same best practices that make IDE Mode in the older Classic Edition powerful — codemaps, file slicing, token-budgeted selection, structured prompts for reasoning models — are managed by agents on your behalf, inside a native macOS session host.
+
+![Agent Mode new session screen showing workflow tips, oracle chat, and file tracking features](../../../static/images/docs/images/agent-new-session.jpg)
+
+## What Is Agent Mode?
+
+Agent Mode runs CLI coding agents directly inside Repo Prompt, giving them full access to the same context tools you used in the Classic Edition's IDE Mode — file search, code structure, codemaps, Context Builder, and Oracle Chat. The agents apply Repo Prompt's best practices for context engineering automatically: curating token-efficient selections, using codemaps for architectural awareness, and structuring prompts for optimal reasoning. You watch their work stream in real time, review changes, and guide them as needed.
+
+## Supported Providers
+
+**Codex CLI**Recommended
+
+Native app server integration with full agent control, compaction, configurable tool preferences, and reasoning effort settings.
+
+**Claude Code**
+
+Full-featured agentic sessions with compaction support, deep MCP integration, and context tools.
+
+**CC Zai / CC Moonshot / CC Custom**
+
+Claude Code-compatible backends. **CC Zai** runs GLM (4.6, 4.7, 5) via a Z.AI API key, **CC Moonshot** runs Kimi via a Moonshot API key, and **CC Custom** points at any Claude Code-compatible endpoint you configure.
+
+**Gemini CLI**
+
+ACP-based sessions with text streaming, bash tool access, automatic model detection, and permission support.
+
+**OpenCode**
+
+ACP-based sessions with dynamic model discovery, bash tools, and support for multiple providers including free models.
+
+**Cursor CLI**
+
+ACP-based sessions with dynamic model discovery and automatic model fallback. Uses your Cursor Pro or Business subscription.
+
+## Key Capabilities
+
+- **Per-Tab Sessions:** Each compose tab gets its own agent session. Run multiple agents in parallel across different tasks with isolated context
+- **Context Builder Integration:** Agents trigger Context Builder directly — a discovery agent curates the right files, then an analysis model generates plans, reviews, or deep answers grounded in your actual code
+- **Oracle Chat:** A curated context window shared between the agent and a reasoning model. Leverages Repo Prompt's prompting best practices to get optimal insights, plans, and reviews — the agent's work is tracked so the Oracle always has full context
+- **Token-Efficient Tools:** Agents use Repo Prompt's MCP tools for file search, code structure, and editing — ~80% fewer tokens than built-in CLI equivalents
+- **Optional Edit Review:** Review and approve each edit the agent makes before it's applied
+- **Image Support:** Paste or drag-and-drop images into agent conversations
+- **Session Management:** Resume sessions, track token usage, and manage multiple agent conversations
+
+## How It Works
+
+The typical Agent Mode flow looks like this:
+
+1. **Open a workspace** — Load your project in Repo Prompt
+2. **Start an agent session** — Choose your provider and model from the Agent Mode interface
+3. **Describe your task** — Type what you want to accomplish, optionally selecting a workflow like **Plan & Build** from the Workflow dropdown
+4. **Watch and guide** — The agent streams its work in real time. You'll see tool calls, file reads, and edits as they happen
+5. **Review changes** — Approve, reject, or modify the agent's edits before they're applied
+
+## Getting Started
+
+To set up Agent Mode:
+
+1. Install your preferred CLI agent (`codex`, `claude`, `gemini`, `opencode`, or `cursor`)
+2. Open Repo Prompt and load a workspace
+3. Switch to Agent Mode using the mode selector
+4. Test your provider connection from the agent settings
+
+:::tip
+
+**Onboarding Wizard:** When you first launch Repo Prompt CE, the onboarding wizard will guide you through setting up Agent Mode and testing your CLI providers.
+
+:::

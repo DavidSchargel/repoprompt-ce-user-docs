@@ -1,0 +1,78 @@
+---
+id: "workflows"
+title: "Workflows"
+description: "Workflows — Repo Prompt Classic archive documentation."
+slug: "/ide-mode/workflows"
+keywords: ["workflow","copy paste","architectural planning","xml pro edit","pair programming","plan","chat","apply changes"]
+hide_table_of_contents: false
+toc_min_heading_level: 2
+toc_max_heading_level: 4
+---
+
+IDE Mode in the Classic Edition supports several workflows for different task types — from quick questions to complex multi-file implementations. Choose the right workflow based on your task's complexity.
+
+## Quick Reference (Classic Edition)
+
+| Workflow | When to Use | Best For |
+| --- | --- | --- |
+| **Copy & Paste** | Quick tasks, 1-2 files | Questions, small fixes, using web AI |
+| **Built-in Chat** | Interactive conversation | Iterating on ideas, code exploration |
+| **Architectural Planning** | 3+ files, complex tasks | New features, refactors, system changes |
+| **XML Pro Edit** | Multi-file code changes | When you need diff review before applying |
+| **Pair Programming** | Very large, iterative tasks | Major system changes, 10+ files |
+
+## Copy & Paste (Classic Edition)
+
+The simplest workflow — and often all you need for small tasks:
+
+1. Select the relevant files in the file tree
+2. Write your instructions in the compose area
+3. Choose a copy preset (Standard for most cases)
+4. Copy and paste into your preferred AI (ChatGPT, Claude, Gemini, etc.)
+5. Optionally paste the response back into the Apply view to review and apply code changes
+
+## Architectural Planning (Classic Edition)
+
+For complex tasks, get a plan *before* you start implementing. This workflow uses Context Builder and a reasoning model to create an informed architectural plan:
+
+1. **Describe your task** — Write what you want to accomplish
+2. **Run Context Builder** — It explores your codebase and selects relevant files
+3. **Copy with the Plan preset** — Sends context to a reasoning model (like GPT-5.5 Pro on ChatGPT Pro web, or GPT-5.4 Pro via API if you prefer direct API billing)
+4. **Get an architectural plan** — The model generates a step-by-step implementation plan grounded in your actual code
+5. **Hand off to implementation** — Give the plan to a coding agent (via MCP Builder preset) or implement manually. For Codex CLI implementation/review, GPT-5.5 Medium/High are our recommended models.
+
+This two-step approach (plan first, then implement) consistently produces better results than asking a model to both plan and implement in one shot.
+
+## XML Pro Edit (Classic Edition)
+
+XML Pro Edit lets you apply multi-file code changes from AI responses with full diff review:
+
+- **XML Edit:** Paste XML-formatted code changes from web AI conversations into the Apply view. Repo Prompt parses the XML and shows each edit as a reviewable diff.
+- **Pro Edit:** Use the built-in chat with Pro Edit mode enabled. The AI generates structured changes that are automatically queued for review — no copy-paste needed.
+
+Both modes support multi-file changes and give you a side-by-side diff before anything touches your code.
+
+## Pair Programming (Classic Edition)
+
+For very large changes spanning many files, the Pair Programming workflow uses two context windows working together:
+
+- **Driver agent** (Claude Code, Codex, etc.) — Manages the overall plan, selects files, coordinates tasks
+- **Repo Prompt Chat** — Receives curated context and writes the code, with fresh context for each step
+
+The driver breaks the plan into steps and sends each one to the chat with just the right files selected. The chat writes the code, the driver reviews it, and the cycle continues until the task is complete.
+
+## Choosing the Right Workflow within the Classic Edition
+
+A simple decision tree:
+
+- **Small task (1-2 files)?** → Copy & Paste or Built-in Chat
+- **Need a plan before coding?** → Architectural Planning
+- **Want diff review of AI changes?** → XML Pro Edit
+- **Huge task, many files?** → Pair Programming
+- **Want fully automated?** → Switch to [Agent Mode workflows](../../version-1.5.0/agent-mode/workflows.mdx)
+
+:::tip
+
+**Pro Tip:** If you're still using the Classic Edition, start with Architectural Planning for any task touching 3+ files. The upfront planning time pays for itself in fewer iterations and better code quality.
+
+:::

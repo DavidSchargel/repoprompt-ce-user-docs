@@ -1,0 +1,94 @@
+name: Validate and optionally publish Pages
+
+on:
+  pull_request:
+  push:
+    branches: [main]
+  workflow_dispatch:
+    inputs:
+      publish:
+        description: Publish after owner/repository and legal-text confirmation
+        required: true
+        type: boolean
+        default: false
+
+permissions:
+  contents: read
+
+concurrency:
+  group: ${{ github.event_name == 'workflow_dispatch' && inputs.publish && 'pages-publication' || format('pages-validation-{0}', github.ref) }}
+  cancel-in-progress: true
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    env:
+      PAGES_OWNER: ${{ vars.PAGES_OWNER }}
+      PAGES_REPOSITORY: ${{ vars.PAGES_REPOSITORY }}
+      SITE_URL: ${{ vars.SITE_URL }}
+      SITE_BASE_URL: ${{ vars.SITE_BASE_URL }}
+      SITE_INDEXABLE: ${{ vars.SITE_INDEXABLE }}
+      ALGOLIA_APP_ID: ${{ vars.ALGOLIA_APP_ID }}
+      ALGOLIA_SEARCH_API_KEY: ${{ vars.ALGOLIA_SEARCH_API_KEY }}
+      ALGOLIA_INDEX_NAME: ${{ vars.ALGOLIA_INDEX_NAME }}
+    steps:
+      - uses: actions/checkout@v6
+      - name: Install pinned standalone pnpm
+        shell: bash
+        run: |
+          set -euo pipefail
+          tool_dir="$RUNNER_TEMP/pnpm-12.8.1"
+          mkdir -p "$tool_dir"
+          curl --proto '=https' --tlsv1.2 -fsSL https://github.com/pnpm/pnpm/releases/download/v12.8.1/pnpm-linux-x64.tar.gz -o "$tool_dir/pnpm.tar.gz"
+          echo "db3906881f63e41b655e3b97d473603dc26326c2470d0b1b8083689e1bcbd1e8  $tool_dir/pnpm.tar.gz" | sha256sum -c -
+          tar -xzf "$tool_dir/pnpm.tar.gz" -C "$tool_dir"
+          test "$("$tool_dir/pnpm" --version)" = 12.8.1
+          echo "$tool_dir" >> "$GITHUB_PATH"
+      - uses: actions/setup-node@v6
+        with:
+          node-version-file: .node-version
+          cache: pnpm
+          cache-dependency-path: pnpm-lock.yaml
+      - name: Check publication confirmations
+        if: github.event_name == 'workflow_dispatch' && inputs.publish
+        env:
+          PUBLISH_APPROVED: ${{ vars.PUBLISH_APPROVED }}
+          LEGAL_TEXT_APPROVED: ${{ vars.LEGAL_TEXT_APPROVED }}
+        run: |
+          test "$GITHUB_REF" = refs/heads/main
+          test "$PUBLISH_APPROVED" = true
+          test "$LEGAL_TEXT_APPROVED" = true
+          test -n "$PAGES_OWNER"
+          test -n "$PAGES_REPOSITORY"
+          test "$PAGES_OWNER/$PAGES_REPOSITORY" = "$GITHUB_REPOSITORY"
+      - name: Verify pinned Node and pnpm
+        run: |
+          test "$(node --version)" = v26.10.0
+          test "$(pnpm --version)" = 12.8.1
+      - run: pnpm install --frozen-lockfile --ignore-scripts
+      - name: Install approved native dependencies and verify toolchain
+        run: pnpm run setup:native
+      - run: pnpm run build
+      - name: Configure Pages
+        if: github.event_name == 'workflow_dispatch' && inputs.publish
+        uses: actions/configure-pages@v5
+      - name: Upload Pages artifact
+        if: github.event_name == 'workflow_dispatch' && inputs.publish
+        uses: actions/upload-pages-artifact@v4
+        with:
+          path: build
+
+  deploy:
+    if: github.event_name == 'workflow_dispatch' && github.ref == 'refs/heads/main' && inputs.publish && vars.PUBLISH_APPROVED == 'true' && vars.LEGAL_TEXT_APPROVED == 'true'
+    needs: build
+    runs-on: ubuntu-latest
+    permissions:
+      pages: write
+      id-token: write
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - name: Deploy Pages
+        id: deployment
+        uses: actions/deploy-pages@v4

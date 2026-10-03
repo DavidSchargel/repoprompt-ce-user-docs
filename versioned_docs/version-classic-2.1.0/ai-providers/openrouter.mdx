@@ -1,0 +1,71 @@
+---
+id: "openrouter"
+title: "OpenRouter"
+description: "OpenRouter — Repo Prompt Classic archive documentation."
+slug: "/ai-providers/openrouter"
+keywords: ["openrouter","router","multiple models","credits","unified api","model access"]
+hide_table_of_contents: false
+toc_min_heading_level: 2
+toc_max_heading_level: 4
+---
+
+OpenRouter provides access to multiple AI providers through a single API. It's a great way to try different models without managing multiple API keys.
+
+:::tip
+
+**IDE Mode only (Classic Edition):** Like other API key providers, OpenRouter powers Chat, Context Builder, Oracle, and Pro Edit. Agent Mode requires a CLI harness — see [Agent Providers](../../version-1.5.0/agent-mode/providers.mdx) for the six compatible CLIs.
+
+:::
+
+## What is OpenRouter?
+
+OpenRouter is a unified API that routes requests to various AI providers including:
+
+- Anthropic (Claude models)
+- OpenAI (GPT models)
+- Google (Gemini models)
+- Meta (Llama models)
+- Mistral AI
+- And many more...
+
+## Setup
+
+1. Create an account at [openrouter.ai](https://openrouter.ai)
+2. Add credits to your account
+3. Go to Keys → Create Key
+4. Copy your API key
+5. In Repo Prompt: Settings → API Settings → OpenRouter
+6. Paste your key and click "Validate & Save"
+
+## Available Models
+
+Once connected, OpenRouter models appear in your model selector with an "openrouter/" prefix. Popular options include:
+
+- `openrouter/anthropic/claude-sonnet-4.5`
+- `openrouter/openai/gpt-5.4`
+- `openrouter/google/gemini-3.0-preview`
+- `openrouter/meta-llama/llama-3.1-70b`
+- `openrouter/mistralai/mixtral-8x7b`
+
+## Pricing
+
+OpenRouter uses pay-per-token pricing that varies by model. Check [openrouter.ai/models](https://openrouter.ai/models) for current pricing.
+
+## When to Use OpenRouter
+
+- **Model variety:** Easy access to models from many providers
+- **No commitment:** Try models without signing up for each provider
+- **Cost comparison:** Compare pricing across providers
+- **Fallback routing:** OpenRouter can route to alternatives if a model is unavailable
+
+:::tip
+
+**Direct vs OpenRouter:** For your primary models, direct API keys often provide better performance and reliability. OpenRouter is great for exploration and accessing models you use occasionally.
+
+:::
+
+:::tip
+
+**GPT-5.5 is not on OpenRouter:** GPT-5.5 Low/Medium/High are available only through Codex CLI, and GPT-5.5 Pro is ChatGPT Pro web only. OpenRouter continues to serve the GPT-5.4 family for OpenAI routing.
+
+:::

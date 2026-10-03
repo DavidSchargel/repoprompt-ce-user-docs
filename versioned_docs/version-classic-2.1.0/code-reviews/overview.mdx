@@ -1,0 +1,102 @@
+---
+id: "overview"
+title: "Code Reviews & Git"
+description: "Code Reviews & Git — Repo Prompt Classic archive documentation."
+slug: "/code-reviews/overview"
+keywords: ["code review","review mode","deep review","git tool","diff","jujutsu","jj","version control","rp-review","uncommitted","staged","blame","log"]
+hide_table_of_contents: false
+toc_min_heading_level: 2
+toc_max_heading_level: 4
+---
+
+Repo Prompt provides AI-powered code reviews that go far beyond simple diff analysis. By automatically mapping the full context of your changes—affected files, dependencies, and related code paths—reviews can understand not just *what* changed, but *why* it matters and *how* it fits into your codebase.
+
+## Deep Code Reviews
+
+When you request a code review, Repo Prompt's Context Builder automatically:
+
+- **Maps your changes** – Identifies all modified, added, and deleted files
+- **Traces dependencies** – Finds files that call into or are affected by your changes
+- **Gathers context** – Selects the most relevant source files to understand intent
+- **Generates review artifacts** – Creates structured diff summaries optimized for review
+
+This curated context is then sent to a dedicated review model, enabling thorough analysis of correctness, security implications, API changes, error handling, and edge cases.
+
+### What makes this different
+
+Traditional diff-based reviews show line changes in isolation. Repo Prompt's approach ensures the reviewer has enough surrounding context to catch issues that only become apparent when you understand how the code fits together—like a renamed function that breaks a caller in another file, or a new edge case that an existing test doesn't cover.
+
+## Running a Code Review
+
+The easiest way to run a review is with the `/rp-review` command in Claude Code:
+
+```text
+/rp-review
+```
+
+This surveys your repository state and launches a full context-aware review of uncommitted changes.
+
+### Reviewing specific scopes
+
+You can also target specific change scopes:
+
+- **Uncommitted changes** (default) – Everything not yet committed
+- **Staged changes** – Only what's staged for commit
+- **Recent commits** – Review the last N commits (e.g., `back:3`)
+- **Branch comparison** – Compare against trunk with merge-base semantics (e.g., `main`, `mergebase:origin/main`, or `main...HEAD`)
+
+## Git Tool
+
+The `git` tool provides quick access to repository information without leaving your AI conversation:
+
+- **Status** – See your current branch, staged/modified/untracked files, and sync status
+- **Diff** – View changes at different detail levels (summary, file list, truncated patches, or full patches)
+- **Log** – Browse recent commit history with stats
+- **Show** – Inspect a specific commit's changes
+- **Blame** – See who last modified specific lines
+
+### Multi-repository workspaces
+
+If your workspace contains multiple repositories, the git tool can query all of them at once, giving you a unified view of changes across your entire project.
+
+### Git Worktrees
+
+Full support for git worktrees allows you to compare diffs across linked checkouts. The git tool displays worktree metadata including branch names and main checkout references.
+
+- **Worktree detection** – Automatically identifies worktree vs main checkout
+- **Targeting** – Use `:worktree` or `:main` suffixes on repo\_root to target specific checkouts
+- **Aliases** – Use `main` or `trunk` in compare specs to diff against your main branch using merge-base semantics
+
+For explicit control, use `mergebase:X` for working tree vs merge-base with `X`. The explicit forms `uncommitted:main` and `staged:main` also use merge-base semantics against the detected trunk branch.
+
+## Jujutsu (jj) Support
+
+Repo Prompt natively supports [Jujutsu (jj)](https://github.com/martinvonz/jj), a modern version control system that's gaining popularity as a Git alternative. When you open a jj-managed repository, Repo Prompt automatically detects it and uses jj commands under the hood.
+
+### What works the same
+
+- Code reviews, diffs, logs, and blame all work as expected
+- Multi-repository workspaces can mix Git and jj repos
+- Context Builder fully supports jj repositories
+
+### Key differences from Git
+
+Jujutsu has a different mental model than Git, which affects some workflows:
+
+- **No staging area** – jj doesn't have a Git-style index. If you request "staged" or "unstaged" changes, Repo Prompt shows all uncommitted changes instead.
+- **Working copy is always a commit** – In jj, your working directory is itself a commit that gets amended as you work. This makes "uncommitted changes" semantically different but functionally similar for review purposes.
+
+If you're a jj user, Repo Prompt works naturally with your workflow. If you're curious about jj, it's worth exploring—especially for complex branching and history rewriting.
+
+## Tips for Better Reviews
+
+- **Guide the focus** – Tell the reviewer what to prioritize: "Focus on security implications" or "Pay attention to the database migration changes"
+- **Specify what to compare** – Ask to review against a specific branch, or just the last few commits since your feature started
+- **Review before committing** – Catch issues while they're easy to fix
+- **Keep changes focused** – Smaller, cohesive changesets get better reviews
+- **Follow up on findings** – After the initial review, ask clarifying questions or request deeper analysis of specific areas
+
+## See Also
+
+- [MCP Tools Reference](../mcp-server/mcp-tools.mdx) – Full parameter documentation
+- [Workflow Commands](../mcp-server/workflow-commands.mdx) – Other automated workflows like `/rp-build`

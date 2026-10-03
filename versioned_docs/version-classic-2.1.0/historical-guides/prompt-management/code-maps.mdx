@@ -1,0 +1,89 @@
+---
+id: "code-maps"
+title: "Code Maps"
+description: "Code Maps — Repo Prompt Classic archive documentation."
+slug: "/historical-guides/prompt-management/code-maps"
+hide_table_of_contents: false
+toc_min_heading_level: 2
+toc_max_heading_level: 4
+---
+
+Code Maps are a powerful feature in RepoPrompt that provide LLMs with structural understanding of your code without sending the entire file content, significantly saving on token usage.
+
+## What are Code Maps?
+
+Code Maps extract and summarize key structural elements from your code, such as:
+
+- Class and interface definitions
+- Function and method signatures
+- Type declarations
+
+This gives the AI a "map" of your codebase structure without needing the full implementation details.
+
+CodeMaps are designed to extract essential information about how to use a file from its public definitions, helping models avoid hallucinating function calls or enum definitions.
+
+## Supported Languages
+
+CodeMaps currently support the following languages:
+
+- Swift (swift)
+- JavaScript (js)
+- C# (cs)
+- Python (py)
+- PHP (php)
+- C (c)
+- Rust (rs)
+- C++ (cpp)
+- Go (go)
+- Java (java)
+- Dart (dart)
+- TypeScript (ts, tsx)
+
+**Coming soon:** Ruby and Scala support.
+
+## Configuring Code Maps
+
+1. Click the gear icon next to the "Code Map" tab to open Code Map settings
+2. Under "Code Map Usage", choose an option:
+
+   - **None:** No code map is included
+   - **Auto:** (Default) RepoPrompt automatically detects definitions based on available tokens and relevance
+   - **Complete:** Includes all definitions found in the scanned files (use with caution, can be large)
+3. Under "File Tree", choose how the file structure is represented:
+
+   - **Auto:** Balance between token usage and context
+   - **Full"** Include all files in the workspace
+   - **Selected:** Only include selected files
+   - **None:** Don't include file tree information
+
+## Language Types and CodeMap Behavior
+
+CodeMaps behave differently based on language type:
+
+- **Strongly Typed Languages:** For languages like TypeScript, Swift, Java, etc., the Auto mode will automatically detect references to other files and include relevant file APIs in the final prompt.
+- **Dynamically Typed Languages:** For languages like JavaScript or Python, the Auto mode may not pick up all references. Complete mode may be more suitable for these languages to ensure comprehensive coverage.
+
+## Benefits of Code Maps
+
+- **Token Efficiency:** Significantly reduces token usage for large files
+- **Structural Understanding:** Helps the AI understand code organization
+- **Type Awareness:** Preserves type information for better code analysis
+- **Expanded Context:** Allows including more files within token limits
+
+## CodeMap Modes in Detail
+
+- **Auto Mode:** Balances token usage and context by intelligently selecting relevant definitions.
+- **Complete Mode:** Includes all extracted file APIs for files that are not selected, helping models gain a complete picture of the codebase at lower resolution than the files you're working with. This is particularly useful for understanding the broader codebase structure.
+
+## Best Practices
+
+- Code Maps work best with strongly-typed languages (TypeScript, Swift, Java, etc.)
+- For small files or specific implementation details, include the full file instead
+- Use "Auto" mode for most cases to let RepoPrompt optimize token usage
+- Use "Complete" mode when the structural relationships are complex and critical, or when working with dynamically typed languages
+
+:::tip
+
+**Tip:** When you're asking for high-level architectural insights or structural changes, Code Maps are often more useful than full file content, as they help the AI focus on relationships between components. Try setting codemap to complete and deselecting all files.
+
+:::

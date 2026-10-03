@@ -1,0 +1,81 @@
+---
+id: "sessions"
+title: "Sessions & Interface"
+description: "Manage Agent Mode sessions, inspect tool activity and changed files, and hand off context to a fresh coding session."
+slug: "/agent-mode/sessions"
+keywords: ["session","per-tab","tool calls","tool cards","edit review","sidebar","images","session management","interface","handoff","resume","token usage","multiple agents","parallel","drag drop","screenshot","runtime sidebar","message stream","debug","debugging","history","session history","auto apply","automatic apply","diff"]
+hide_table_of_contents: false
+toc_min_heading_level: 2
+toc_max_heading_level: 4
+---
+
+Agent Mode organizes work into per-tab sessions — each with its own agent, conversation history, and tool call log. Run multiple agents in parallel across different tasks.
+
+## Per-Tab Sessions
+
+Each compose tab in Repo Prompt gets its own isolated agent session. This means you can:
+
+- Run a **Plan & Build** task in one tab while a **Review** runs in another
+- Use different providers or models in different tabs
+- Keep task context completely separate between sessions
+
+## The Agent Interface
+
+When an agent session is active, you'll see:
+
+- **Message stream:** The conversation between you and the agent, including its thinking, tool calls, and responses
+- **Tool call cards:** Visual cards for each tool the agent uses — file reads, searches, edits, context builder calls — with expandable details
+- **Runtime sidebar:** Status information about the current session, including token usage and session state
+- **Input bar:** Type messages, select workflows, invoke slash skills, or paste images
+
+## Tool Call Visibility
+
+Every tool call the agent makes is displayed as an interactive card in the conversation. You can expand any card to see the full input and output, making it easy to understand exactly what the agent is doing at each step.
+
+Common tool call cards include:
+
+- **File search results** — Shows what the agent searched for and what it found
+- **File reads** — Displays which files and line ranges the agent read
+- **Code edits** — Shows the before/after diff of changes the agent made
+- **Context Builder** — Shows the discovery and analysis results
+- **Oracle Chat** — Shows questions the agent asked and answers it received
+
+## Edit Review
+
+When enabled, Agent Mode presents each file edit for your review before applying it. You can:
+
+- Approve individual edits
+- Reject edits you disagree with
+- Review the diff to understand what changed
+
+This is configurable in Agent Mode settings — you can toggle between automatic apply and manual review mode depending on your comfort level and the task.
+
+## Session Handoff
+
+When you want to continue a task with a fresh context window — or switch to a different agent — use **Handoff**. This migrates the current session's context and Oracle chats to a new agent session, so the new agent picks up right where the previous one left off.
+
+You can choose the provider and model for the new session, and optionally copy the handoff payload for use outside Repo Prompt. This is especially useful for long-running tasks where the agent's context window fills up, or when you want a second agent's perspective on the same work.
+
+## Session History
+
+The sessions sidebar shows all your agent sessions for the current workspace. Each session displays:
+
+- The initial task or prompt
+- The provider and model used
+- Session status (active, completed, or stopped)
+
+You can resume previous sessions, review their conversation history, or start new ones from the sidebar.
+
+## Image Support
+
+You can include images in your agent conversations by pasting from your clipboard or dragging and dropping image files into the input bar. This is useful for tasks like:
+
+- Sharing mockups or designs for the agent to implement
+- Showing error screenshots for debugging
+- Providing visual context for UI-related tasks
+
+:::tip
+
+**Pro Tip:** Use multiple tabs to parallelize independent tasks. For example, run a code review in one tab while building a new feature in another — each agent works in its own isolated context.
+
+:::

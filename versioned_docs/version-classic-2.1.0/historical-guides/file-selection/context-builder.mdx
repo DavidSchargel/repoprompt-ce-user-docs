@@ -1,0 +1,127 @@
+---
+id: "context-builder"
+title: "Context Builder"
+description: "Context Builder — Repo Prompt Classic archive documentation."
+slug: "/historical-guides/file-selection/context-builder"
+hide_table_of_contents: false
+toc_min_heading_level: 2
+toc_max_heading_level: 4
+---
+
+The Context Builder is RepoPrompt's most sophisticated feature - an AI-powered system that analyzes your entire codebase using advanced language models to intelligently recommend the most relevant files for your task. It combines tree-sitter syntax analysis, parallel query processing, and token-aware optimization to deliver precise context building for any development workflow.
+
+## What is the Context Builder?
+
+The Context Builder uses AI to analyze your codebase and your prompt, then recommends files organized by priority (high, medium, low) that are most relevant to your task. This helps you:
+
+- Save time by automating file selection
+- Identify files you might have overlooked
+- Optimize token usage by focusing on the most relevant files
+- Organize files by importance to better structure your context
+
+## Generating Recommendations
+
+1. In RepoPrompt, navigate to the "Context Builder" tab
+2. The builder will use your prompt from the main instructions area (or an override prompt if specified)
+3. Select an AI model from the dropdown menu
+4. Click the "Generate" button to start analyzing your codebase
+5. A progress indicator will show the analysis stages
+6. Once complete, recommended files will appear organized by priority
+
+## Understanding Priorities
+
+Recommended files are categorized into three priority levels:
+
+- **High Priority (Red):** Most critical files directly related to your task
+- **Medium Priority (Orange):** Supporting files that provide important context
+- **Low Priority (Blue):** Files with some relevance that could be helpful
+
+Each priority level has a toggle button allowing you to show or hide files of that priority. A counter shows how many files are in each category.
+
+## Token Estimation
+
+The Context Builder provides token estimation to help you understand the impact on your token usage:
+
+- **Tree:** Tokens used by the file tree structure
+- **Map:** Tokens used by the code map
+- **Prompt:** Tokens used by your instructions and other text
+
+This helps you stay within token limits for your selected AI model.
+
+## Applying Recommendations
+
+After generating recommendations, you have two ways to apply them:
+
+- **Add:** Adds recommended files to your existing selection
+- **Replace:** Replaces your current selection with the recommended files
+
+You can also remove individual files from the recommendations by clicking the 'X' button next to each file.
+
+## Context Controls
+
+For advanced users, the Context Controls section offers additional configuration options:
+
+- **Include File Tree:** Toggle to include or exclude the file structure in analysis
+- **Include Code Map:** Toggle to include or exclude the code map in analysis
+- **Parallel Queries:** Enable to process larger codebases by splitting analysis into smaller chunks
+- **Max Tokens per Query:** When using Parallel Queries, adjust this slider to control the token limit for each query chunk
+- **Override Prompt:** Use a custom prompt specifically for the Context Builder instead of the main instructions
+
+## Model Considerations
+
+Different AI models have different characteristics when used with the Context Builder:
+
+- **GitHub-hosted models:** Have tight rate limits and a maximum context input of 8K tokens, making them less suitable for the Context Builder
+- **Gemini Pro 2.5:** Works better with "Parallel Queries" disabled due to rate limit constraints
+- **Empty Code Map:** If your code map appears empty (very low token count), consider updating your File Settings to use Auto or Complete Code Map mode
+
+## Managing Recommendations
+
+After generating recommendations, you can:
+
+- **Save as Preset:** Save the current recommendations as a named preset in your workspace
+- **Revert:** Return to your previous file selection (before applying recommendations)
+- **Filter:** Toggle between high, medium, and low priority files to focus on what's most important
+
+## Troubleshooting
+
+If you encounter issues with the Context Builder:
+
+- If an error occurs, check if your selected model has sufficient rate limits, especially when using parallel queries
+- If no recommendations are found, ensure your code map is present and consider adjusting your prompt to be more specific
+- If all recommendations are filtered out, enable at least one priority level (High, Medium, or Low)
+
+## Advanced Features & Architecture
+
+Under the hood, the Context Builder leverages several sophisticated technologies:
+
+- **Multi-Model Architecture:** Separate model selection for Context Builder vs Chat allows optimization for different task types
+- **Tree-Sitter Integration:** Language-specific syntax analysis for 10+ programming languages (Swift, JavaScript, Python, C/C++, Rust, Go, Java, Dart, C#, TypeScript)
+- **Parallel Query Processing:** Intelligent codebase chunking with rate limit management for analyzing large projects
+- **Token-Aware Optimization:** Real-time token counting with model-specific limits to prevent context overflow
+- **Cross-Repository Analysis:** Multi-repository workspace support for complex project structures
+- **State Persistence:** Context Builder settings and results are saved with your workspace
+
+## Performance Optimization
+
+For best performance with large codebases:
+
+- Enable "Parallel Queries" for projects with high token counts
+- Use Code Maps to reduce token overhead while maintaining semantic understanding
+- Choose models with higher token limits and better rate limit allowances
+- Consider using workspace presets to save optimized Context Builder configurations
+- Monitor token usage in real-time to stay within model limits
+
+## Integration with Pro Features
+
+Context Builder integrates seamlessly with other Pro features:
+
+- **Pro Mode:** Context Builder selections automatically optimize for multi-model workflows
+- **MCP Integration:** External editors can trigger Context Builder analysis via MCP protocol
+- **Workspace Management:** Advanced preset system includes Context Builder configurations
+
+:::tip
+
+**Tip:** For optimal results, try different combinations of Context Controls settings. Smaller projects often work best with Parallel Queries disabled, while larger codebases may require it. Always use specific, detailed prompts about what you're trying to accomplish to help the AI better identify relevant files.
+
+:::

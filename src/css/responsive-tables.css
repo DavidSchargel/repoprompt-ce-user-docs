@@ -1,0 +1,6 @@
+main .markdown table {
+  display: block !important;
+  width: 100% !important;
+  max-width: 100% !important;
+  overflow-x: auto !important;
+}

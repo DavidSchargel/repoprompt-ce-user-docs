@@ -1,0 +1,76 @@
+---
+id: "codemaps"
+title: "Codemaps"
+description: "Codemaps — Repo Prompt Classic archive documentation."
+slug: "/ide-mode/codemaps"
+keywords: ["codemaps","codemap","api","signatures","types","tree-sitter","auto-codemap","structure","architecture"]
+hide_table_of_contents: false
+toc_min_heading_level: 2
+toc_max_heading_level: 4
+---
+
+Codemaps extract the "shape" of your code - function signatures, class definitions, type declarations - without implementation details. This gives AI structural understanding at 10x fewer tokens.
+
+## What Codemaps Include
+
+- Function and method signatures (names, parameters, return types)
+- Class and struct definitions
+- Type aliases and interfaces
+- Protocol/interface declarations
+- Important constants and enums
+
+## Supported Languages
+
+Codemaps are powered by tree-sitter and support:
+
+Swift, JavaScript, TypeScript, Python, C, C++, C#, Rust, Go, Java, Dart, PHP
+
+## Codemap Modes
+
+| Mode | Behavior | When to Use |
+| --- | --- | --- |
+| **None** | No codemaps included | When you don't need structural context |
+| **Auto** (Default) | Intelligently selects relevant definitions | Most use cases - balanced and smart |
+| **Complete** | All definitions from scanned files | Architectural understanding, full API overview |
+
+## Auto-Codemap Management
+
+When you select files in Full or Slices mode, Repo Prompt automatically adds codemaps for related files:
+
+- Dependencies and imports get codemap context
+- Related types and protocols are included
+- You get structural context without manually selecting every file
+
+Manual codemap operations (promote/demote) disable auto-management for that session.
+
+## Using Codemaps Effectively
+
+### For Reference Files
+
+When you need to reference APIs or types but don't need to edit the file:
+
+1. Right-click the file in the tree
+2. Select "Show as API only"
+3. The file is included as a codemap (10x fewer tokens)
+
+### For Architecture Questions
+
+To understand your codebase structure:
+
+1. Set Codemap mode to "Complete" in settings
+2. Don't select any files in Full mode
+3. Get a bird's-eye view of your entire codebase at minimal token cost
+
+:::tip
+
+**Architecture Tip:** For architectural questions, try Complete codemaps with no full files selected. This gives AI a bird's-eye view of your entire codebase structure at minimal token cost.
+
+:::
+
+## Codemap Availability
+
+Files with available codemaps show a `+` marker in the file tree. If a file doesn't have this marker:
+
+- The language may not be supported
+- The file may be too small to benefit from a codemap
+- The file type (config files, JSON, etc.) doesn't have structural definitions

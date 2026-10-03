@@ -1,0 +1,215 @@
+---
+id: "mcp-troubleshooting"
+title: "MCP Troubleshooting"
+description: "MCP Troubleshooting — Repo Prompt Classic archive documentation."
+slug: "/historical-guides/faq/mcp-troubleshooting"
+hide_table_of_contents: false
+toc_min_heading_level: 2
+toc_max_heading_level: 4
+---
+
+MCP (Model Context Protocol) Server integration connects RepoPrompt with external editors and CLI agents. Whether you're using Cursor as an MCP client or running Cursor CLI as an Agent Mode provider, these troubleshooting steps cover common issues.
+
+## Quick Diagnostics
+
+Before diving into specific issues, check these fundamentals:
+
+- **Server Status:** Verify MCP Server is enabled in RepoPrompt Settings → MCP Server Settings
+- **Service Running:** Look for the MCP server status indicator in RepoPrompt's toolbar
+- **Configuration:** Use "Copy Configuration" in MCP settings for system-specific paths
+
+## Connection Issues
+
+### Editor Can't Find CLI Server
+
+**Symptoms:** External editor reports "server not found" or "command not found"
+
+**Solutions:**
+
+- Use "Copy Configuration" in RepoPrompt's MCP Settings - paths are system-specific
+- Verify the CLI server path in the configuration points to your RepoPrompt.app bundle
+- Check that RepoPrompt is installed in /Applications/ or update the path accordingly
+- For Cursor: Try the "Install in Cursor" deeplink button instead of manual configuration
+
+### Connection Refused
+
+**Symptoms:** Editor connects to CLI but gets "connection refused" errors
+
+**Solutions:**
+
+- Ensure MCP Server is enabled in RepoPrompt settings
+- Ensure RepoPrompt is running - the app must be open to accept connections
+- Restart RepoPrompt to reinitialize the MCP service
+- Check that no other RepoPrompt instance is running with conflicting socket ownership
+
+### Permission Denied
+
+**Symptoms:** Connection attempts are blocked or rejected
+
+**Solutions:**
+
+- Look for pending approval prompts in RepoPrompt - all connections require user approval
+- Check the allowlist in MCP Settings if you previously approved this client
+- Review tool permissions - some tools might be disabled in settings
+- Restart the editor after approving the connection in RepoPrompt
+
+## Tool Access Issues
+
+### Tools Not Available
+
+**Symptoms:** Editor connects but MCP tools don't appear or are greyed out
+
+**Solutions:**
+
+- Check tool availability in MCP Settings - tools can be individually enabled/disabled
+- Ensure the client is properly approved in RepoPrompt's allowlist
+- Try disconnecting and reconnecting the editor
+
+### Planning Tools Failing
+
+**Symptoms:** `request_plan` tool returns errors or no results
+
+**Solutions:**
+
+- Configure a planning model in MCP Settings → Planning Model
+- Verify API keys are valid for your selected planning model
+- Check that the model provider is responding (try a simple chat in RepoPrompt)
+- Ensure sufficient API credits/quota for the planning model
+
+### File Operations Denied
+
+**Symptoms:** File reading or selection tools return permission errors
+
+**Solutions:**
+
+- Check workspace permissions - RepoPrompt needs access to your project folders
+- Verify file paths are within loaded workspaces
+- Ensure files aren't locked by other applications
+- Try refreshing the workspace in RepoPrompt
+
+## Setup-Specific Issues
+
+### Cursor Integration Problems (MCP Client)
+
+#### Deeplink Installation Failed
+
+- Try manual configuration using "Copy Configuration"
+- Ensure Cursor is properly installed and up to date
+- Check that Cursor's MCP feature is enabled (may require Cursor Pro)
+- Manually add the configuration to Cursor's settings file
+
+#### Cursor Shows Connection but No Tools
+
+- Restart Cursor after configuration
+- Check Cursor's MCP panel for connection status
+- Verify the configuration JSON is valid
+- Try disconnecting and reconnecting in Cursor's MCP settings
+
+### Cursor CLI Agent Problems
+
+#### CLI Not Found
+
+- Ensure the `cursor` command is available on your PATH
+- Try running `cursor --version` in your terminal to verify
+- On macOS, you may need to install the CLI command from Cursor's command palette ("Install 'cursor' command")
+
+#### Model Discovery Fails
+
+- Test the Cursor CLI connection in Agent Mode settings
+- Ensure you're signed into your Cursor Pro or Business account
+- Check that Cursor is up to date — older versions may not support ACP
+- Try restarting Cursor and retesting the connection
+
+#### Agent Session Won't Start
+
+- Verify Cursor CLI is properly authenticated
+- Check that no other Cursor agent session is conflicting
+- Ensure your workspace path is accessible to the Cursor process
+- Try starting with a simple workspace first to isolate the issue
+
+### CLI Server Not Launching
+
+**Symptoms:** Editor can't start the CLI server process
+
+**Solutions:**
+
+- Check RepoPrompt installation integrity - reinstall if necessary
+- Verify system permissions for running the CLI executable
+- Ensure RepoPrompt is running - the CLI requires the app to be open
+- Try running the CLI server manually from Terminal to see error messages
+
+## Performance Issues
+
+### Slow Response Times
+
+**Solutions:**
+
+- Limit concurrent tool usage - avoid multiple heavy operations simultaneously
+- Optimize file selections - large selections can slow down operations
+- Check system resources - ensure adequate memory and CPU
+- Use `token_stats` tool to monitor context size
+
+### Memory Issues
+
+**Solutions:**
+
+- Reduce the number of files in active selections
+- Use code maps instead of full file contents when possible
+- Close unused workspaces in RepoPrompt
+- Restart RepoPrompt periodically for long sessions
+
+## Connection Stability Issues
+
+### Frequent Disconnections
+
+**Symptoms:** Client repeatedly disconnects and reconnects
+
+**Solutions:**
+
+- Ensure RepoPrompt remains open during your session
+- Check the MCP dashboard for connection diagnostics
+- The CLI automatically reconnects after RepoPrompt restarts - allow a few seconds for reconnection
+- If connections keep failing, try restarting both RepoPrompt and your editor
+
+### Client Shows Wrong Name
+
+**Symptoms:** Connection appears with incorrect client name in dashboard
+
+**Solutions:**
+
+- This typically resolves after the first message exchange with the client
+- Update RepoPrompt to the latest version and restart your MCP client
+
+## Advanced Troubleshooting
+
+### Multiple Connections Conflicting
+
+Only one editor should connect at a time for optimal performance:
+
+- Disconnect other MCP clients before connecting a new one
+- Check the allowlist in MCP Settings for active connections
+- Restart RepoPrompt to clear all connections
+- Use different RepoPrompt windows for different editors if needed
+
+### Configuration Debugging
+
+For persistent issues, manually verify your configuration:
+
+- Check that the CLI server path exists: `/Applications/RepoPrompt.app/Contents/Resources/repoprompt-mcp`
+- Verify the configuration JSON syntax is valid
+- Test the CLI server manually: run it from Terminal to see direct error messages
+- Compare working configurations from "Copy Configuration" button
+
+## Getting Additional Help
+
+If these solutions don't resolve your issue:
+
+- Check the MCP server status in RepoPrompt's toolbar for additional information
+- Try the configuration with a minimal test case (small workspace, few files)
+- Document the exact error messages and steps to reproduce
+
+:::tip
+
+**Pro Tip:** The "Copy Configuration" button in MCP Settings always generates the correct configuration for your specific system. When in doubt, use this rather than manual configuration to avoid path and permission issues.
+
+:::

@@ -1,0 +1,179 @@
+---
+id: "overview"
+title: "Introduction"
+description: "Learn how Repo Prompt CE curates code context, connects coding agents, and guides discovery, planning, implementation, and review."
+slug: "/"
+keywords: ["what is repo prompt","about","features","benefits","prompt engineering","context window","token","macos","mac app","code assistant","ai coding","overview","introduction","getting started","ide mode","agent mode","mcp server"]
+hide_table_of_contents: false
+toc_min_heading_level: 2
+toc_max_heading_level: 4
+---
+
+import Tabs from '@theme/Tabs';
+import TabItem from '@theme/TabItem';
+import useBaseUrl from '@docusaurus/useBaseUrl';
+
+Repo Prompt is an AI-powered context IDE. It gives you precise control over what a model sees — so you get the best responses from the most powerful reasoning models.
+
+**Talk to These Docs**
+
+Open all documentation in an AI assistant for guided help. Use the Copy page button to copy this article for an AI assistant. Complete machine-readable documentation is available in the <a href={useBaseUrl('/llms.txt')}>LLM index</a> and <a href={useBaseUrl('/llms-full.txt')}>full documentation export</a>.
+
+## Why Context Engineering Matters
+
+Agents waste context before they start thinking. Their context windows fill with tool calls, duplicate file reads, and irrelevant code — leaving little room for actual reasoning. Repo Prompt solves this by structuring context upfront: the model reasons about the problem from the first token instead of spending its thinking budget on figuring out what to read next.
+
+**Typical Agent Context**
+
+- ~16% system prompts & tool definitions
+- ~38% wasted on duplicate reads & unrelated code
+- ~16% relevant code (finally)
+- ~14% actual reasoning
+- ~16% missing context the agent never found
+
+**Repo Prompt Context**
+
+- File tree for project orientation
+- Codemaps for API surface at a glance
+- Complete relevant file contents
+- Git diffs for change awareness
+- Task description — 100% of reasoning spent solving the problem
+
+## Three Ways to Work
+
+[**Agent Mode** Hands off context engineering to your coding agents. The same best practices from the old IDE Mode in the Classic Edition — codemaps, slicing, token budgets — managed by agents (Codex, Claude Code, Cursor, Gemini, OpenCode) on your behalf, with built-in workflows.](./agent-mode/overview.mdx)
+
+[**Built-in MCP Server** Any MCP-compatible tool gets access to Repo Prompt's context tools. Claude Code, Cursor, Codex, Gemini CLI, OpenCode — install with one click.](../version-classic-2.1.0/mcp-server/mcp-overview.mdx)
+
+[**IDE Mode (Classic Edition only)** Craft precise prompts with full control over file selection, codemaps, and context.](../version-classic-2.1.0/ide-mode/overview.mdx)
+
+## [How Context Builder Works](./agent-mode/workflows.mdx)
+
+Context Builder is a three-stage pipeline that gives your agents the right context, every time. [Learn more →](./agent-mode/workflows.mdx)
+
+**1. Explore**
+
+A discovery agent navigates your codebase, reading files and understanding relationships.
+
+**2. Curate**
+
+Relevant files are selected within a token budget, using codemaps and line slices for maximum density.
+
+**3. Handoff**
+
+A structured prompt with curated context is passed to an analysis model for planning, review, or deep Q&A.
+
+## [Built-in Workflows](./agent-mode/workflows.mdx)
+
+Ready-made context engineering pipelines your agents run directly:
+
+- **Orchestrate** (`/rp-orchestrate`) — Plans, decomposes, dispatches sub-agents across providers
+- **Plan & Build** (`/rp-build`) — Discovery → plan → implement in one session
+- **Review** (`/rp-review`) — Git diffs + codebase context for grounded code reviews
+- **Investigate** (`/rp-investigate`) — Systematic exploration with evidence gathering
+- **Refactor** (`/rp-refactor`) — Two-pass: analyze then implement preserving behavior
+
+## [Agent Orchestration](../version-classic-2.1.0/mcp-server/mcp-overview.mdx)
+
+Repo Prompt is a full control plane for multi-agent workflows via MCP. The `agent_run` tool provides: start, wait/poll (multi-session), steer, respond, cancel. Any MCP-connected agent can orchestrate complex workflows — not just Repo Prompt's built-in agents.
+
+The `/rp-orchestrate` workflow automates this: Context Builder generates a plan → decomposes into tasks → dispatches sub-agents in parallel or sequence → verifies each result. [Learn more →](./agent-mode/workflows.mdx)
+
+## Why It Matters
+
+**Without Curated Context**
+
+- Misses tradeoffs and edge cases
+- Architectural drift from existing patterns
+- Duplicates functionality that already exists
+- Generic advice disconnected from your codebase
+
+**With Curated Context**
+
+- Considers the full picture before acting
+- Follows existing patterns and conventions
+- Finds simpler solutions using what's already there
+- Grounded feedback tied to real code
+
+## [CLI Providers](../version-classic-2.1.0/ai-providers/cli-providers.mdx)
+
+Already paying for Claude Pro/Max, ChatGPT Plus/Pro, or Google AI? Use those same models in Repo Prompt with **CLI Providers** — no additional API costs. These providers power Agent Mode, Chat Mode, and Context Builder workflows. [Learn more →](../version-classic-2.1.0/ai-providers/cli-providers.mdx)
+
+## Who Is Repo Prompt For?
+
+- **Developers, researchers, or anyone working with AI on their files** — Repo Prompt gives you precise control over what context AI sees, whether you're writing code, analyzing documents, or exploring data
+- **Professionals shipping production-ready code** — Context Builder helps plan architecturally sound changes that fit naturally into existing codebases, so AI suggestions don't fight your patterns
+- **Teams that care about code quality** — the `/rp-review` workflow provides world-class AI code reviews powered by Context Builder, grounding feedback in your actual codebase rather than generic advice
+
+## Get Started
+
+Ready to build better AI prompts? Here's where to go next:
+
+- **New to Repo Prompt?** Start with the [Installation guide](./overview/installation.mdx)
+- **Have an AI subscription?** Set up [CLI Providers](../version-classic-2.1.0/ai-providers/cli-providers.mdx) to use your existing plan
+- **Using Claude Code or Cursor?** Check out [MCP Server Integration](../version-classic-2.1.0/mcp-server/mcp-overview.mdx)
+- **Want an integrated agent experience?** Try [Agent Mode](./agent-mode/overview.mdx) with Codex, Claude Code, or Gemini CLI
+- **Want smarter file selection?** Learn about the [Context Builder](../version-classic-2.1.0/historical-guides/file-selection/context-builder.mdx)
+
+## Learn More
+
+[![Video thumbnail for Repo Prompt 101: context selection and coding workflows](https://img.youtube.com/vi/ncY6cqOCd_Y/maxresdefault.jpg) Repo Prompt 101 Video walkthroughs of key features and workflows](https://youtube.com/playlist?list=PLFg9suyZ1OnLh3Tv5bP6jvWXcKKTlI_4m)
+
+[![Rate Limited Podcast](../../static/images/docs/images/rate-limited_profile.jpg) Rate Limited Podcast AI coding workflows with Eric, Ray Fernando, Adam Larson](https://www.youtube.com/@ratelimitedpod)
+
+:::tip
+
+**Quick Win:** Download Repo Prompt, open a project, select a few files, and copy your first prompt. You'll immediately see how much cleaner the context is compared to manual copy-paste.
+
+:::
+
+## Documentation table of contents
+
+The current documentation version is **1.5.0**. Historical guides remain in the [Classic 2.1.0 archive](../version-classic-2.1.0/index.md), with cross-version links where the source guide is not demonstrably CE-specific.
+
+### Overview
+
+- [Installation](./overview/installation.mdx)
+
+### Agent Mode
+
+- [Overview](./agent-mode/overview.mdx)
+- [Workflow Commands](./agent-mode/workflows.mdx)
+- [Skills & Slash Commands](./agent-mode/skills.mdx)
+- [Providers](./agent-mode/providers.mdx)
+- [Sessions & Interface](./agent-mode/sessions.mdx)
+
+### Reference
+
+- [Settings Reference](./reference/settings.mdx)
+
+### Changelog
+
+- [CE Version 1](./changelog/ce-version-1-0.mdx)
+
+### FAQ
+
+- [Do I need to pay for AI services?](./historical-guides/faq/pay-for-services.mdx)
+
+## Code examples: MCP and shell
+
+The following language tabs show the same read-only settings request. Code blocks provide a Copy button. The full historical references are [App Settings Tool](../version-classic-2.1.0/mcp-server/mcp-app-settings.mdx) and [App Settings from the CLI](../version-classic-2.1.0/rp-cli/cli-app-settings.mdx).
+
+<Tabs groupId="settings-language">
+<TabItem value="json" label="JSON · MCP" default>
+
+Call `app_settings` with:
+
+```json
+{"op":"get","key":"ui.appearance_mode"}
+```
+
+</TabItem>
+<TabItem value="bash" label="Bash · rp-cli">
+
+```bash
+rp-cli -e 'app_settings op=get key=ui.appearance_mode'
+```
+
+</TabItem>
+</Tabs>

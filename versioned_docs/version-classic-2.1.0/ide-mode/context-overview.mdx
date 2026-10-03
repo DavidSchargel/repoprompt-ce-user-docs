@@ -1,0 +1,61 @@
+---
+id: "context-overview"
+title: "Context Overview"
+description: "Context Overview — Repo Prompt Classic archive documentation."
+slug: "/ide-mode/context-overview"
+keywords: ["context","prompt anatomy","multi-root","workspace","getting started","how to","basics"]
+hide_table_of_contents: false
+toc_min_heading_level: 2
+toc_max_heading_level: 4
+---
+
+The key to good AI responses is giving the right context - not too much, not too little. Repo Prompt gives you precise control over what context your AI sees.
+
+[![What is Repo Prompt for? — Context Overview documentation illustration](https://img.youtube.com/vi/ncY6cqOCd_Y/maxresdefault.jpg) What is Repo Prompt for? Overview of context building fundamentals](https://youtu.be/ncY6cqOCd_Y)
+
+## The Anatomy of a Repo Prompt
+
+Every prompt you create in Repo Prompt is assembled from several components:
+
+- **Your instructions:** What you want the AI to do
+- **File tree:** Project structure for navigation context
+- **Codemaps:** Structural summaries of your code
+- **Selected files:** Full content of files you're working with
+- **Slices:** Specific line ranges from large files
+
+[Try the interactive Prompt Anatomy demo →](/)
+
+## Multi-Root Workspaces
+
+Repo Prompt supports opening multiple root folders in a single workspace. All features work across roots:
+
+- **Cross-project context:** Select files from your codebase and a third-party library to evaluate integration
+- **Code + docs:** Work with your code and documentation site together to improve docs
+- **Monorepos:** Navigate related packages, shared libraries, and services in one view
+- **Context Builder:** Discovers relevant files across all roots automatically
+
+Add roots via **File → Add Folder to Workspace** or drag folders onto the app.
+
+## Context Building Workflow
+
+There are two main approaches to building context:
+
+### Manual Selection
+
+1. Browse the file tree and click files to select them
+2. Use search to find specific files or content
+3. Adjust selection modes (Full, Codemap, Slices) per file
+4. Write your prompt and copy to AI
+
+### AI-Powered Discovery
+
+1. Open Context Builder and describe your task
+2. Let the AI agent explore and select relevant files
+3. Review and refine the selection
+4. Proceed to your chosen workflow
+
+:::tip
+
+**Tip:** For complex tasks, start with Context Builder to discover files, then manually refine the selection before proceeding.
+
+:::

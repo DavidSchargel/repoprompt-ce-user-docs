@@ -1,0 +1,100 @@
+---
+id: "supported-models"
+title: "Supported Models"
+description: "Supported Models — Repo Prompt Classic archive documentation."
+slug: "/historical-guides/api-integration/supported-models"
+hide_table_of_contents: false
+toc_min_heading_level: 2
+toc_max_heading_level: 4
+---
+
+RepoPrompt integrates with multiple AI providers through their APIs, offering access to a wide range of language models for your development needs.
+
+## Supported AI Providers
+
+### OpenAI
+
+- **Available Models:** GPT-5.4 family (including GPT-5.4 Pro via API), GPT-5 Mini
+- **API Setup:** Requires an OpenAI API key from [OpenAI Platform](https://platform.openai.com/docs/overview)
+- **Features:** Most models support diff editing for precise code changes
+- **GPT-5.5 note:** GPT-5.5 Low/Medium/High are available only through Codex CLI, and GPT-5.5 Pro is available only on ChatGPT Pro web. Do not try to configure GPT-5.5 as an OpenAI API model — the OpenAI API continues to serve the GPT-5.4 family.
+
+### Anthropic
+
+- **Available Models:** Claude 3.5 Sonnet, Claude 3.5 Haiku, Claude 3.7 Sonnet, Claude 3.7 Sonnet Thinking, Claude 3.7 Sonnet Thinking Max
+- **API Setup:** Requires an Anthropic API key from [Anthropic Console](https://console.anthropic.com/settings/keys)
+- **Features:** Claude 3.5 and 3.7 models excel at precise code editing and understanding context
+
+### Gemini
+
+- **Available Models:** Gemini 1.5 Pro, Gemini 1.5 Flash, Gemini 1.5 Flash 8b, Gemini 2.0 Flash, Gemini Flash Thinking, Gemini 2.5 Pro
+- **API Setup:** Requires a Gemini API key from [Google AI Studio](https://aistudio.google.com)
+- **Features:** Gemini 2.0 Flash and Gemini 2.5 Pro offer excellent performance for whole file editing
+
+### DeepSeek
+
+- **Available Models:** DeepSeek V3, DeepSeek R1
+- **API Setup:** Requires a DeepSeek API key from [DeepSeek Platform](https://platform.deepseek.com/api_keys)
+- **Features:** Both models support diff editing with strong code understanding capabilities
+
+### GitHub
+
+- **Available Models:** GitHub-hosted GPT models
+- **API Setup:** Authenticate with GitHub account
+- **Features:** Access to OpenAI models for GitHub users without requiring separate API keys
+
+### Azure OpenAI
+
+- **Available Models:** Custom deployed models via Azure
+- **API Setup:** Requires Azure resource name, deployment ID, API version, and key
+- **Features:** Enterprise-grade deployment with custom resource management
+
+### OpenRouter
+
+- **Available Models:** Access to models from various providers, including DeepSeek, Qwen, OpenAI, Anthropic, and Google
+- **API Setup:** Requires an OpenRouter API key
+- **Features:** Single API to access multiple providers, including options not directly supported
+
+### Local Models (Ollama)
+
+- **Available Models:** Any model deployed through Ollama or other local services
+- **API Setup:** Configure URL (default: http://localhost:11434) and select available models
+- **Features:** Run models locally without sending data to external services
+
+### Custom Provider
+
+- **Features:** Connect to any OpenAI-compatible API endpoint
+- **API Setup:** Configure base URL, API key, and other parameters
+- **Use Cases:** Self-hosted models or alternative API providers
+
+## Setting Up API Keys
+
+To configure your API keys in RepoPrompt:
+
+1. Open RepoPrompt's settings
+2. Navigate to the "API Keys" tab
+3. Enter your API key for each service you want to use
+4. Click "Validate & Save" to securely store and verify your key
+
+API keys are stored securely in your system's keychain and never shared with external services beyond the respective AI provider.
+
+## Model Capabilities
+
+Different models have different capabilities when it comes to code editing:
+
+- **Diff Editing Capable:** Models like Claude Sonnet 4.5, DeepSeek V3, GPT-5.4, and Gemini 3 Pro can provide precise diff edits that only modify the necessary parts of a file.
+- **Whole File Editing:** All models can rewrite entire files, with models like Gemini Flash 2.0 excelling at this task for smaller files.
+- **GPT-5.5 (Codex CLI / ChatGPT Pro):** GPT-5.5 Low/Medium/High are Codex CLI recommendations and should not be configured as OpenAI API or OpenRouter model IDs. GPT-5.5 Pro is ChatGPT Pro web only.
+
+You can customize model capabilities in the Model Overrides settings, enabling or disabling features like diff editing and streaming for specific models.
+
+## Pro Edit Settings
+
+RepoPrompt's Pro Mode intelligently distributes editing tasks across different models:
+
+- **Planning:** The primary model you select handles overall planning and complex decisions
+- **Simple Edits:** Typically handled by faster, more cost-effective models like Gemini Flash 2.0
+- **Complex Edits:** Assigned to powerful models like Claude 3.7 Sonnet for difficult changes
+- **Large Files:** Processed by models with high context windows and diff capabilities
+
+The application automatically adjusts editing strategies based on file size and complexity.

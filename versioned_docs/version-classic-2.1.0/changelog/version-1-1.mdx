@@ -1,0 +1,70 @@
+---
+id: "version-1-1"
+title: "Classic Version 1.1"
+description: "Classic Version 1.1 — Repo Prompt Classic archive documentation."
+slug: "/changelog/version-1-1"
+keywords: ["1.1","chat mode","pro edit","reasoning","gemini"]
+hide_table_of_contents: false
+toc_min_heading_level: 2
+toc_max_heading_level: 4
+---
+
+## Classic Edition Version 1.1 Series
+
+The Classic Edition 1.1 series introduced Context Builder for AI-powered file recommendations, Pro Edit with parallel file changes, and major chat performance improvements.
+
+### Key Features in 1.1
+
+- **Context Builder** - Combine codemaps and LLMs to produce relevant file recommendations
+- **Pro Edit Parallel Changes** - Split changes within a file to tackle complex edits in parallel
+- **File Checkpoints** - Capture and restore file states across app reloads
+- **File Renaming** - Rename files (treated as create + delete) in chat and apply
+- **Fireworks AI Provider** - Built-in support for Fireworks
+- **Native File Tree** - Complete rebuild for better large repository scaling
+- **Plan/Act Toggle** - Switch between planning and acting modes in chat
+- **O3/O4 Mini Support** - OpenAI's compact reasoning models
+- **Prompt Ordering Menu** - Experiment with element order in prompts
+- **Token Usage Display** - Per-message and delegate edit token counts
+
+<details>
+
+<summary>View detailed changelog (1.1.0 - 1.1.20)</summary>
+
+#### 1.1.20 - May 2, 2024
+
+- Fixed state caching issues with empty files or excess deletions
+- Improved delegate edit error handling
+
+#### 1.1.16 - April 28, 2024
+
+- Pro edit can split changes within files for parallel processing
+- File checkpoints with persistence across reloads
+- File renaming support
+- Fireworks AI provider
+- Per-message token usage display
+
+#### 1.1.11 - April 18, 2024
+
+- Complete native file tree rebuild for large repos
+- Fuzzy search with space-as-wildcard
+- Font sizing options
+- Prompt export/import
+
+#### 1.1.10 - April 16, 2024
+
+- O3 and O4 mini support via OpenAI
+- Prompt ordering menu
+- User instruction sandwiching
+
+#### 1.1.0 - Major Release
+
+- Context Builder for AI-powered file recommendations
+- Parallel AI queries for large codebases
+- Save recommendations as presets
+- Optimized chat streaming performance
+
+#### Other 1.1.x releases
+
+Versions 1.1.1-1.1.9, 1.1.12-1.1.15, 1.1.17-1.1.19 include Gemini 2.5 Pro Exp, Sonnet Thinking MAX, o1 Pro support, URL scheme improvements, chat rendering optimizations, and stability fixes.
+
+</details>

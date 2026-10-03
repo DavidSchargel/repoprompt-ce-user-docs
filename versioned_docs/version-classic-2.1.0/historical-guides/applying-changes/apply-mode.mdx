@@ -1,0 +1,64 @@
+---
+id: "apply-mode"
+title: "Apply Mode"
+description: "Apply Mode — Repo Prompt Classic archive documentation."
+slug: "/historical-guides/applying-changes/apply-mode"
+hide_table_of_contents: false
+toc_min_heading_level: 2
+toc_max_heading_level: 4
+---
+
+Apply Mode is a powerful feature that lets you take code changes suggested by external AI services (like ChatGPT web interface or Claude) and apply them directly to your local files.
+
+## When to Use Apply Mode
+
+Apply Mode is ideal when:
+
+- You're using a web-based AI interface rather than RepoPrompt's integrated chat
+- You have existing conversations with AI services that you want to implement
+- You prefer using specific external AI services for certain tasks
+
+## The XML Diff Format
+
+For Apply Mode to work, the AI response must use a specific XML format that includes:
+
+- `<plan>`: Overall explanation of the changes
+- `<file>`: Container for changes to a specific file
+- `<change>`: Individual edit within a file
+- `<search>`: The original code to find
+- `<content>`: The new code to replace it with
+
+## Asking the AI for the Correct Format
+
+1. In the "Apply" tab, select the files relevant to your task
+2. Enter your instructions in the "Instructions" text area
+3. Click the "Copy with Diff Edit Prompt" button
+4. Paste the complete prompt into your external AI service
+5. This prompt includes special instructions that ask the AI to respond using the required XML format
+
+## Applying AI Suggestions
+
+1. Once the AI responds with XML-formatted changes, copy the entire response
+2. In RepoPrompt, click the "Apply" tab
+3. Paste the AI response into the "AI Response" text area on the right side
+4. Click the "Merge Changes" button
+5. RepoPrompt will parse the XML and display the proposed changes in a diff review screen
+6. Review each change carefully
+7. Click "Accept All Files" to apply all changes, or review and accept individual files
+8. Click "Reset All Files" to discard all changes
+9. Click "Exit Review" when done
+
+## Troubleshooting Apply Mode
+
+If the AI response doesn't parse correctly:
+
+- Ensure the response contains the proper XML tags (`<plan>`, `<file>`, etc.)
+- Check that file paths in the response match your actual project structure
+- Verify that the `<search>` blocks exactly match portions of your actual files
+- Try using the "Copy with Diff Edit Prompt" button again to generate a clearer prompt
+
+:::tip
+
+**Tip:** For complex edits across multiple files, you may get better results by breaking your request into smaller chunks, focusing on related files in each request.
+
+:::

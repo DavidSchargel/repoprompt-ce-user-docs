@@ -1,0 +1,450 @@
+---
+id: "mcp-tools"
+title: "Tools Reference"
+description: "Tools Reference — Repo Prompt Classic archive documentation."
+slug: "/mcp-server/mcp-tools"
+keywords: ["manage_selection","workspace_context","file_search","read_file","apply_edits","chat_send","context_builder","get_file_tree","get_code_structure","chats","list_models","file_actions","prompt","app_settings","agent_run","agent_manage","start","poll","wait","cancel","steer","respond","list_agents","list_sessions","get_log","create_session","resume_session","stop_session","list_workflows","timeout","bounded wait","model_id","workflow_id","detach","session_ids","multi-wait","multi-poll","wait any","parallel wait","sub-agent","sub agent","subagent","spawn","orchestrate","agent control plane","multi-session"]
+hide_table_of_contents: false
+toc_min_heading_level: 2
+toc_max_heading_level: 4
+---
+
+Complete reference for all MCP tools available in Repo Prompt. Tools are organized by category and can be individually enabled/disabled in **Settings → MCP Server → Tools**.
+
+## Selection & Context Tools
+
+### `manage_selection`
+
+Add, remove, or replace files in the current selection with fine-grained control over representation.
+
+| Parameter | Description |
+| --- | --- |
+| `op` | get \| add \| remove \| set \| clear \| preview \| promote \| demote |
+| `paths` | Array of file or folder paths (folders expanded recursively) |
+| `mode` | full \| slices \| codemap\_only |
+| `slices` | Array of &#123;path, ranges: \[&#123;start\_line, end\_line, description&#125;\]&#125; |
+| `view` | summary \| files \| content \| codemaps |
+
+**Selection Modes:**
+
+- **full:** Complete file content (default)
+- **slices:** Only specified line ranges
+- **codemap\_only:** Just function/type signatures (token-efficient)
+
+**Auto-Codemap:** When adding files with full/slices mode, related dependency files automatically get codemaps added. Use promote/demote to manually adjust.
+
+### `workspace_context`
+
+Get a complete snapshot of the current workspace state.
+
+| Parameter | Description |
+| --- | --- |
+| `include` | Array of: prompt, selection, code, files, tree, tokens |
+
+Returns prompt text, selected files, codemaps, and token counts in a single call.
+
+### `prompt`
+
+Get or modify the shared prompt/instructions text.
+
+| Parameter | Description |
+| --- | --- |
+| `op` | get \| set \| append \| clear |
+| `text` | Text for set/append operations |
+
+### `context_builder`
+
+Intelligently explore the codebase and build optimal file context for a task.
+
+| Parameter | Description |
+| --- | --- |
+| `instructions` | Describe the task or question you need help with |
+| `response_type` | `clarify` (default, context only) \| `question` (answer using context) \| `plan` (generate implementation plan) \| `review` (generate code review with git diffs) |
+
+Creates a fresh compose tab, runs a headless agent to explore the codebase, and selects relevant files within a token budget. Returns a `chat_id` when `response_type` is`question`, `plan`, or `review` for continuing the conversation via `chat_send`. Can take 30s-5min+ depending on codebase size and task complexity.
+
+## File Operation Tools
+
+### `get_file_tree`
+
+Get an ASCII directory tree of the project.
+
+| Parameter | Description |
+| --- | --- |
+| `type` | files \| roots |
+| `mode` | auto \| full \| folders \| selected |
+| `path` | Optional starting folder |
+| `max_depth` | Limit tree depth (root = 0) |
+
+Files with available codemaps are marked with `+` in the tree output.
+
+### `file_search`
+
+Search by file path and/or content with regex support.
+
+| Parameter | Description |
+| --- | --- |
+| `pattern` | Search pattern (regex by default) |
+| `mode` | auto \| path \| content \| both |
+| `regex` | true (default) \| false for literal matching |
+| `context_lines` | Lines of context around matches |
+| `filter` | &#123;extensions, exclude, paths&#125; |
+| `max_results` | Limit results (default: 50) |
+
+### `read_file`
+
+Read file contents with optional line ranges.
+
+| Parameter | Description |
+| --- | --- |
+| `path` | File path (relative or absolute) |
+| `start_line` | 1-based start line (negative for tail) |
+| `limit` | Number of lines to read |
+
+Use `start_line: -N` to read the last N lines (like `tail -n`).
+
+### `get_code_structure`
+
+Get codemaps (function/type signatures) for files or directories.
+
+| Parameter | Description |
+| --- | --- |
+| `scope` | selected \| paths |
+| `paths` | Array of file/folder paths (when scope=paths) |
+| `max_results` | Limit codemaps returned (default: 25) |
+
+Directories are processed recursively. Files without codemap support are reported.
+
+### `file_actions`
+
+Create, delete, or move files.
+
+| Parameter | Description |
+| --- | --- |
+| `action` | create \| delete \| move |
+| `path` | File path (absolute required for delete) |
+| `content` | File content (for create) |
+| `new_path` | Destination path (for move) |
+| `if_exists` | error (default) \| overwrite |
+
+Multi-root workspaces require absolute paths for create to avoid ambiguity.
+
+### `apply_edits`
+
+Apply search/replace edits or full file rewrites.
+
+| Parameter | Description |
+| --- | --- |
+| `path` | File to edit |
+| `search` | Text to find (single edit) |
+| `replace` | Replacement text (single edit) |
+| `edits` | Array of &#123;search, replace, all&#125; for multiple edits |
+| `rewrite` | Complete file content for full rewrite |
+| `all` | Replace all occurrences (default: false) |
+| `verbose` | Include diff preview in response |
+
+Handles indentation correction, ambiguous search block validation, and malformed input recovery.
+
+:::tip
+
+**CLI usage:** `apply_edits` requires JSON format via `rp-cli`:
+
+```bash
+rp-cli -e 'call apply_edits {"path":"file.ts","search":"old","replace":"new"}'
+rp-cli -c apply_edits -j edits.json      # From .json file (auto-detected)
+rp-cli -c apply_edits -j @edits.json     # From file (explicit @)
+echo '...' | rp-cli -c apply_edits -j @- # From stdin
+```
+
+Raw newlines/tabs in JSON strings are auto-repaired for LLM-generated payloads.
+
+:::
+
+## Chat & Model Tools
+
+### `chat_send`
+
+Start or continue chat conversations with Repo Prompt's built-in chat.
+
+| Parameter | Description |
+| --- | --- |
+| `message` | Your message to send |
+| `new_chat` | true to start new, false to continue |
+| `mode` | chat \| plan \| edit \| review |
+| `model` | Model preset ID or name |
+| `chat_id` | Specific chat to continue |
+| `chat_name` | Name for the session |
+| `selected_paths` | Override selection for this message |
+| `include_diffs` | Include edit diffs in response |
+
+**Modes:**
+
+- **chat:** General conversation
+- **plan:** Architectural planning without immediate edits
+- **edit:** Generate and apply code changes
+- **review:** Code review with git diff context from selected files
+
+### `chats`
+
+List recent chats or view conversation history for the current workspace or a specific compose tab.
+
+| Parameter | Description |
+| --- | --- |
+| `action` | list \| log |
+| `chat_id` | Chat ID for log action |
+| `scope` | workspace \| tab (default: workspace) |
+| `tab_id` | Optional compose tab UUID filter. With `scope="tab"`, omitting it uses the current bound tab when available, otherwise the active UI tab. |
+| `limit` | Max results (default: 10 for list, 3 for log) |
+| `diffs` | Include diff summaries in log |
+
+### `list_models`
+
+List available model presets with descriptions.
+
+Returns preset ID, name, description, and supported modes. Use the ID with `chat_send`.
+
+## Git Tools
+
+### `git`
+
+Safe, token-efficient git abstraction for MCP agents. Also supports Jujutsu (jj) repositories natively.
+
+See [Code Reviews & Git](../code-reviews/overview.mdx) for deep review workflows and jj details.
+
+| Parameter | Description |
+| --- | --- |
+| `op` | status \| diff \| log \| show \| blame |
+| `repo_root` | Repo path or loaded root name (defaults to first loaded root). Supports suffixes: `:worktree` or `:main` to target specific checkout |
+| `repo_roots` | Array of repo paths or names (for multi-root operations) |
+| `compare` | Compare spec: uncommitted (default), staged, unstaged, mergebase:X, back:N, last, main, trunk, or any revspec. `main`/`trunk` and `*:main` use merge-base semantics. |
+| `detail` | summary (default) \| files \| patches \| full |
+| `scope` | all \| selected (diff scope) |
+| `artifacts` | Write snapshot artifacts (MAP.txt, patches) for diff |
+| `ref` | Git ref for show operation (e.g., HEAD~1, main) |
+| `path` | File path for blame operation |
+| `lines` | Line range for blame (e.g., "45-60") |
+| `count` | Number of commits for log |
+
+**Operations:**
+
+- **status:** Repository state (branch, upstream, ahead/behind, staged/modified/untracked)
+- **diff:** View changes with configurable detail level. Optionally writes artifacts.
+- **log:** Commit history with stats
+- **show:** Single commit details
+- **blame:** Line-by-line attribution
+
+**Worktrees:** Full support for git worktrees. Status and diff output includes worktree metadata (branch, main checkout path). Use `repo_root` suffixes to target specific checkouts in multi-worktree setups.
+
+**Safety:** All git commands use `--no-ext-diff`, `--no-textconv`,`--color=never`, and `GIT_TERMINAL_PROMPT=0` to ensure predictable, safe output.
+
+## Workspace Management Tools
+
+### `manage_workspaces`
+
+List, switch, create, or modify workspaces and tabs.
+
+| Parameter | Description |
+| --- | --- |
+| `action` | list \| switch \| create \| delete \| add\_folder \| remove\_folder \| list\_tabs \| select\_tab \| create\_tab \| close\_tab |
+| `workspace` | Workspace UUID or name |
+| `name` | Name for new workspace, or optional name for `create_tab` |
+| `folder_path` | Absolute path for add/remove\_folder |
+| `tab` | Tab UUID or name for `select_tab` or `close_tab` |
+| `mode` | For `create_tab`: `blank` \| `fork` (default: `blank`) |
+| `source_tab` | Optional source tab for `create_tab` when `mode="fork"` |
+| `bind` | For `create_tab`: bind this MCP connection to the new tab (default: true) |
+| `window_id` | Target window (multi-window mode) |
+| `focus` | For `select_tab` or `create_tab`: switch the UI to that tab (default: false) |
+| `allow_active` | For `close_tab`: allow closing the currently visible tab |
+| `open_in_new_window` | For action=switch or create: opens workspace in a new window and binds connection. Returns `window_id` in response. |
+| `switch_to_created` | For action=create: switch to the newly created workspace in the target window (default: true). |
+
+Create, delete, and folder operations modify workspace state. Tab binding ensures consistent context even if the user switches tabs during your session. Use `open_in_new_window` with the switch or create action to open a workspace in a fresh window without affecting existing windows.
+
+**Tab automation:** `create_tab` defaults to `bind=true` and `focus=false`, so agents can create isolated background tabs without stealing UI focus. `close_tab` refuses to close the last remaining tab, the active visible tab unless `allow_active=true`, or any tab that still has live bound runs.
+
+## App Settings
+
+### `app_settings`
+
+Read and update an allowlisted set of RepoPrompt's global preferences — appearance, prompt packaging, edit-format defaults, preferred models, the Context Builder agent/model, MCP server behavior, and the global Code Maps toggle — without opening the Settings UI. Secrets, tool ACLs, workspace-scoped settings, and internal/migration flags are deliberately excluded.
+
+| Parameter | Description |
+| --- | --- |
+| `op` | `list` \| `get` \| `set` \| `options` |
+| `group` | `ui` \| `prompt_packaging` \| `editing` \| `models` \| `context_builder` \| `mcp` \| `code_maps`. Filter on `list` or selector on `get`. |
+| `key` | Fully-qualified key (e.g. `ui.appearance_mode`). Required on `set`; optional selector on `get`. |
+| `keys` | Array of keys for batch `get`. Mutually exclusive with `key` and `group`. |
+| `value` | boolean \| number \| string \| null. Required on `set`; validated against the entry's declared type. |
+| `agent` | For `options`: filter candidates to one CLI backend (e.g. `claudeCode`, `codexExec`, `gemini`). |
+| `limit` | For `options`: maximum number of candidates returned (1–200, default 60). |
+| `detailed` | For `options`: include descriptions and model metadata in each candidate. |
+
+**Groups:** `ui`, `prompt_packaging`, `editing`, `models`, `context_builder`, `mcp`, `code_maps`.
+
+**Examples:**
+
+```bash
+# Browse the catalog (values always included)
+{ "op": "list" }
+
+# Inspect one group
+{ "op": "list", "group": "ui" }
+
+# Batch read
+{ "op": "get", "keys": ["ui.appearance_mode", "mcp.auto_start"] }
+
+# Toggle a flag
+{ "op": "set", "key": "ui.show_tooltips", "value": false }
+
+# Clear an optional model
+{ "op": "set", "key": "models.planning_model", "value": null }
+
+# Switch the Context Builder agent (remembered model is preserved)
+{ "op": "set", "key": "context_builder.agent", "value": "codexExec" }
+
+# List candidate values for a setting that advertises options_available
+{ "op": "options", "key": "models.planning_model", "agent": "codexExec" }
+```
+
+**See the standalone** [App Settings Tool](./mcp-app-settings.mdx) **page** for the complete key allowlist, per-group tables, validation rules, and the deliberately excluded categories.
+
+## Agent Control Plane
+
+:::tip
+
+**Advanced & Policy-Gated:** The `agent_run` and `agent_manage` tools are part of the advanced agent external control capability. They may not appear on all MCP connections — availability depends on the connection's policy configuration. These tools enable external orchestration of Repo Prompt's Agent Mode sessions.
+
+:::
+
+### `agent_run`
+
+Session-based control surface for long-running Agent Mode runs. Each `start` call returns a `session_id` that becomes the control-plane identifier for `poll`, `wait`,`steer`, `respond`, and `cancel`. Use `agent_manage` for durable session history and metadata.
+
+**Operations:**
+
+| Operation | Required Parameters | Description |
+| --- | --- | --- |
+| `start` | `message` | Start a new agent run in a **new session**. Do not pass `session_id` — use `steer` to continue an existing session. Optional: `session_name`, `model_id` (role label like `explore`, `engineer`, `pair`, `design`, or a specific ID from `agent_manage.list_agents`), `workflow_id`/`workflow_name`, `detach`, `timeout`. Returns a snapshot with `session_id`. |
+| `poll` | `session_id` or `session_ids` | Non-blocking read of the current run snapshot. With `session_ids` (array), returns all current snapshots in a collection response with `poll` metadata. |
+| `wait` | `session_id` or `session_ids`, `timeout` (optional) | Blocks until the run needs input (`waiting_for_input`) or reaches a terminal state. With `session_ids` (array), waits for the **first** session to reach an interesting state and returns the winning snapshot. Optional `timeout` in seconds (fractional OK); defaults to 300s (5 min). Use `timeout=0` for an immediate non-blocking check. `session_id` and `session_ids` are mutually exclusive. |
+| `cancel` | `session_id` | Cancel an active agent run. Only valid when the run is `running` or `waiting_for_input`. Waits for cleanup before returning the final snapshot. |
+| `steer` | `session_id`, `message` | Continue an existing agent session. If the run is still active, the instruction is injected into that run. If the previous run already finished, a new run starts in the same session. Optional: `wait=true` to block until the steered run finishes or needs input, `timeout_seconds` (defaults to 300s, implies `wait=true`). This is the only way to continue an existing session — `start` always creates a new one. |
+| `respond` | `session_id`, `interaction_id` | Resolve a pending interaction. Use `response` for decisions/text, `answers` for structured input, and `amendment` when relevant. Also supports `workflow_id`/`workflow_name`. |
+
+**Snapshot Status Values:**
+
+- `running` — Agent is actively working
+- `waiting_for_input` — Agent needs a response (check `interaction` field)
+- `completed` — Run finished successfully
+- `failed` — Run encountered an error (check `failure_reason`: `process_crash`, `timeout`, `agent_error`)
+- `cancelled` — Run was cancelled (`failure_reason: cancelled`)
+- `expired` — The session has no active control snapshot available
+
+**Snapshot Fields:** Responses include `session_id`, `status`, `status_text`, `assistant_text` (partial output while running, full output when terminal), `transcript_item_count`, `failure_reason` (on failed/cancelled), and a `session` object with `id`, `name`, `tab_id`, `parent_session_id`. Agent info (`agent.id`, `agent.name`, `agent.model`) is included when available.
+
+**Interaction Kinds** (for the `respond` operation):
+
+| Kind | Response Fields |
+| --- | --- |
+| `approval` | `response` (`accept` \| `accept_for_session` \| `accept_with_amendment` \| `decline` \| `cancel`), optional `reason` / `amendment` |
+| `question` | `response` (text) or `answers` (object), optional `skip` |
+| `user_input` | `response` (text) or `answers` (object), optional `skip` |
+
+**Sub-Agent Spawning:**
+
+Top-level MCP-started agent sessions can spawn sub-agents using `agent_run` and `agent_manage` — just like user-initiated sessions. This enables the **Orchestrate** workflow, which plans, decomposes, and delegates tasks across multiple agents. Only nested sub-agent sessions are blocked from spawning further agents (no recursive spawning).
+
+**Multi-Session Wait & Poll:**
+
+When running multiple agents in parallel, use `session_ids` (array) instead of `session_id` to monitor them efficiently:
+
+- **`op=wait` with `session_ids`:** Blocks until the *first* session reaches an interesting state. Returns the winning snapshot at the top level with a `wait` metadata object containing `mode`, `result`, `winner_session_id`, and `pending_session_ids`.
+- **`op=poll` with `session_ids`:** Returns all current snapshots immediately in a collection response with `poll` metadata and a `snapshots` array.
+
+`session_id` and `session_ids` are mutually exclusive. Multi-session mode is only supported for `wait` and `poll` — not `steer`, `respond`, or `cancel`.
+
+**Typical workflow:**
+
+1. Call `agent_run op=start message="..."` → receive `session_id`
+2. Call `agent_run op=wait session_id="..."` → blocks up to 5 min (or custom `timeout`) until input needed or terminal
+3. When `status=waiting_for_input`, call `agent_run op=respond` with the returned `interaction_id` and an appropriate `response`
+4. Repeat wait/respond loop until the run reaches a terminal state
+
+### `agent_manage`
+
+Session and workflow management surface for Agent Mode. Use this tool to discover available agents, list and inspect sessions, and read transcript logs.`agent_run` controls the current run for a session, while session data itself persists across runs.
+
+**Operations:**
+
+| Operation | Key Parameters | Description |
+| --- | --- | --- |
+| `list_agents` | — | List available agent providers and their supported models. |
+| `list_sessions` | `limit`, `state` | List agent sessions (both live and persisted). Returns `session_id` for each session. When called from agent mode, automatically scopes to sessions spawned by the current agent session. Filter by `state` (e.g., `running`, `completed`, `failed`), or `agent`. MCP-originated sessions include `is_mcp_originated: true`. |
+| `get_log` | `session_id` | Read session transcript as compact XML. Returns `name` and `transcript_xml`. Supports `offset` and `limit` for pagination. |
+| `create_session` | `session_name` | Create a new agent session. Optional: `model_id` (role label or specific ID). |
+| `resume_session` | `session_id` | Hydrate and resume an existing session. Optional: `model_id`. |
+| `stop_session` | `session_id` | Stop/cancel a currently live running session. Returns `stop_requested: true` if the session was active. |
+| `cleanup_sessions` | `session_ids` (array) | Delete specific MCP-originated sessions by UUID. Only sessions started via MCP are eligible — user-created sessions are never deleted. Skips active sessions. Use `list_sessions` first to find session IDs. |
+| `list_workflows` | — | List available agent workflows. |
+
+**Session IDs:** Full UUIDs are required for all `session_id` parameters. There is no separate `get_session` operation — use `list_sessions` for metadata and `get_log` for transcript content.
+
+**Workflow runs:** To start a workflow-backed run, use `agent_run op=start` with`workflow_id` or `workflow_name` plus your `message`. Then use `agent_run`operations (`wait`, `respond`, etc.) with that `session_id` to control the run.
+
+### Agent Control Plane Examples
+
+```bash
+# Discover available agents and workflows
+agent_manage op=list_agents
+agent_manage op=list_workflows
+
+# List recent sessions, filter by state
+agent_manage op=list_sessions limit=10
+agent_manage op=list_sessions state=failed
+
+# Read a session transcript
+agent_manage op=get_log session_id="<uuid>" limit=5
+
+# Stop a running session
+agent_manage op=stop_session session_id="<uuid>"
+
+# Clean up old MCP-originated sessions
+agent_manage op=cleanup_sessions session_ids=["<uuid1>","<uuid2>"]
+
+# Start a run and control it
+agent_run op=start message="Investigate the auth flow"
+agent_run op=wait session_id="<uuid>"
+agent_run op=wait session_id="<uuid>" timeout=10
+
+# Steer and wait for result in one call
+agent_run op=steer session_id="<uuid>" message="Now fix it" wait=true
+
+# Respond to a pending approval
+agent_run op=respond session_id="<uuid>" interaction_id="<id>" response="accept"
+
+# Respond to a question
+agent_run op=respond session_id="<uuid>" interaction_id="<id>" response="Use the staging API"
+
+# Start a workflow-backed run
+agent_run op=start workflow_id="<workflow-id>" message="Add logout support"
+
+# Then use agent_run to wait/respond on the returned session_id
+
+# Orchestrate: start multiple agents in parallel, wait for the first to finish
+agent_run op=start model_id="engineer" message="Task A" detach=true  # → session_id_1
+agent_run op=start model_id="engineer" message="Task B" detach=true  # → session_id_2
+agent_run op=wait session_ids=["<session_id_1>","<session_id_2>"] timeout=60
+
+# Poll all agents at once for a dashboard view
+agent_run op=poll session_ids=["<session_id_1>","<session_id_2>","<session_id_3>"]
+
+# Use the orchestrate workflow for automatic planning and delegation
+agent_run op=start workflow_name="orchestrate" message="Refactor auth into separate module"
+```
+
+:::tip
+
+**Tool Availability:** Individual tools can be enabled/disabled in**Settings → MCP Server → Tools**. Disabled tools won't appear in the client's tool list. Agent control tools (`agent_run`, `agent_manage`) are additionally gated by connection policy and may not appear on all MCP connections.
+
+:::

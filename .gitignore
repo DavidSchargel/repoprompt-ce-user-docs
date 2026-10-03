@@ -1,0 +1,10 @@
+.foundation-fixtures/
+node_modules/
+build/
+.docusaurus/
+.env
+.env.*
+!.env.example
+.DS_Store
+pnpm-debug.log*
+.pnpm-store/

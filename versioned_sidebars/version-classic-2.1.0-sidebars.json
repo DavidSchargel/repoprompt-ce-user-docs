@@ -1,0 +1,130 @@
+{
+  "docsSidebar": [
+    "overview",
+    {
+      "type": "category",
+      "label": "MCP Server",
+      "items": [
+        "mcp-server/mcp-overview",
+        "mcp-server/mcp-setup",
+        "mcp-server/mcp-tools",
+        "mcp-server/mcp-app-settings",
+        "mcp-server/mcp-transport",
+        "mcp-server/mcp-settings",
+        "mcp-server/mcp-connections",
+        "mcp-server/workflow-commands"
+      ]
+    },
+    {
+      "type": "category",
+      "label": "Workflows",
+      "items": [
+        "workflows/overview",
+        "workflows/discovery",
+        "workflows/architectural-planning",
+        "workflows/mcp-builder",
+        "workflows/pair-programming",
+        "workflows/model-recommendations"
+      ]
+    },
+    {
+      "type": "category",
+      "label": "AI Providers",
+      "items": [
+        "ai-providers/api-providers",
+        "ai-providers/cli-providers",
+        "ai-providers/openrouter",
+        "ai-providers/custom-providers"
+      ]
+    },
+    {
+      "type": "category",
+      "label": "Code Reviews",
+      "items": [
+        "code-reviews/overview"
+      ]
+    },
+    {
+      "type": "category",
+      "label": "rp-cli",
+      "items": [
+        "rp-cli/cli-guide",
+        "rp-cli/cli-app-settings"
+      ]
+    },
+    {
+      "type": "category",
+      "label": "Reference",
+      "items": [
+        "reference/shortcuts"
+      ]
+    },
+    {
+      "type": "category",
+      "label": "IDE Mode (Classic Edition)",
+      "items": [
+        "ide-mode/overview",
+        "ide-mode/workflows",
+        "ide-mode/context-overview",
+        "ide-mode/interface",
+        "ide-mode/file-selection",
+        "ide-mode/first-prompt",
+        "ide-mode/codemaps",
+        "ide-mode/tokens",
+        "ide-mode/presets"
+      ]
+    },
+    {
+      "type": "category",
+      "label": "Changelog",
+      "items": [
+        "changelog/version-2-1",
+        "changelog/version-2-0",
+        "changelog/version-1-6",
+        "changelog/version-1-5",
+        "changelog/version-1-4",
+        "changelog/version-1-3",
+        "changelog/version-1-2",
+        "changelog/version-1-1",
+        "changelog/version-1-0"
+      ]
+    },
+    {
+      "type": "category",
+      "label": "Historical guides",
+      "items": [
+        "historical-guides/ai/using-ai",
+        "historical-guides/api-integration/integrated-chat",
+        "historical-guides/api-integration/pro-mode",
+        "historical-guides/api-integration/supported-models",
+        "historical-guides/applying-changes/apply-mode",
+        "historical-guides/applying-changes/multi-file-edits",
+        "historical-guides/context/building-context",
+        "historical-guides/faq/api-keys",
+        "historical-guides/faq/mcp-troubleshooting",
+        "historical-guides/faq/prompt-caching",
+        "historical-guides/faq/solo-project",
+        "historical-guides/faq/what-is-repo-prompt",
+        "historical-guides/faq/windows-linux",
+        "historical-guides/file-selection/context-builder",
+        "historical-guides/file-selection/filtering-files",
+        "historical-guides/file-selection/searching-files",
+        "historical-guides/file-selection/selection-methods",
+        "historical-guides/file-selection/sorting-files",
+        "historical-guides/getting-started/getting-started",
+        "historical-guides/getting-started/multiple-workspaces",
+        "historical-guides/getting-started/navigating-file-tree",
+        "historical-guides/getting-started/opening-workspace",
+        "historical-guides/getting-started/quick-start",
+        "historical-guides/prompt-management/code-maps",
+        "historical-guides/prompt-management/composing-prompts",
+        "historical-guides/prompt-management/storing-prompts",
+        "historical-guides/reference/reference",
+        "historical-guides/workspace-management/file-operations",
+        "historical-guides/workspace-management/file-watching",
+        "historical-guides/workspace-management/managing-workspaces",
+        "historical-guides/workspace-management/url-scheme"
+      ]
+    }
+  ]
+}

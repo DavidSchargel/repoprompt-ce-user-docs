@@ -1,0 +1,470 @@
+---
+id: "version-2-0"
+title: "Classic Version 2.0"
+description: "Classic Version 2.0 — Repo Prompt Classic archive documentation."
+slug: "/changelog/version-2-0"
+keywords: ["2.0","agent mode","repo prompt agent","codex","claude code","gemini","onboarding"]
+hide_table_of_contents: false
+toc_min_heading_level: 2
+toc_max_heading_level: 4
+---
+
+## Classic Edition Version 2.0 Series
+
+The Classic Edition 2.0 series introduces Repo Prompt Agent, a fully integrated agent harness that brings interactive, agentic coding sessions directly into the app with first-class support for Codex, Claude Code, and Gemini.
+
+### Key Features in 2.0
+
+- **Repo Prompt Agent** - A completely new way to use Repo Prompt with interactive, agentic coding sessions powered by your choice of AI provider
+- **Full Native Codex Support** - Rich integration with the Codex app server for the best agent experience, including configurable tool preferences and reasoning effort
+- **Claude Code & Gemini Support** - Interactive agentic sessions via headless CLIs, with full native reasoning traces, steering, bash tool calls, and approval flows
+- **Context Builder Integration** - Agents can leverage Repo Prompt's context building workflows for deeper codebase understanding
+- **Optional Edit Review** - Review and approve each edit the agent makes before it's applied
+- **Agent Onboarding** - Guided wizard for setting up Agent Mode, including license activation, provider testing, and MCP server configuration
+
+<details>
+
+<summary>View detailed changelog (2.0)</summary>
+
+#### 2.0.31 - March 30, 2026
+
+Improvements
+
+- Restored GLM 5.0 as an API provider model for Oracle and Chat alongside 5.1
+- Prompt export now strips meta-framing and defaults ambiguous requests to Plan mode
+
+Fixes
+
+- Fixed legacy chat markdown rendering at incorrect widths
+
+#### 2.0.30 - March 30, 2026
+
+Improvements
+
+- Smoother, more responsive chat scrolling with less jitter during streaming
+- Session handoff now preserves richer context when forking conversations
+- Collapsed history summaries render faster with precomputed details
+
+Fixes
+
+- Fixed chat scroll views getting stuck or not following new content
+- Fixed inconsistent transcript rendering when switching sessions
+
+#### 2.0.29 - March 27, 2026
+
+New Features
+
+- Codex agent mode now supports user input requests for clarification and approval
+
+Improvements
+
+- Improved transcript auto-scroll reliability with better layout settling and viewport detection
+
+Fixes
+
+- Fixed apply\_patch tool cards reverting from completed to running state when late output arrives
+- Fixed bash tool cards not auto-expanding inside grouped transcript blocks
+- Fixed Codex reconnection interrupting active threads
+
+#### 2.0.28 - March 27, 2026
+
+New Features
+
+- Added GPT-5.4 Fast service tier support for Codex CLI provider
+- Added GLM 5.1 model support for Z.AI
+- Tool search is now a separate preference in Claude Code agent mode, independent from MCP strict mode
+
+Improvements
+
+- Better tool result preservation during session handoff and migration
+- Improved transcript scrolling performance
+
+Fixes
+
+- Fixed Codex rejecting MCP tool calls when running context builder by adding proper operation annotations
+- Fixed crash when viewing archived sessions with duplicate sidebar tabs
+- Fixed Claude context usage displaying inflated values
+- Fixed crash in text editor when handling mention inputs
+- Fixed potential race condition in token calculations
+- Improved file system event handling stability and reduced memory allocations
+
+#### 2.0.27 - March 27, 2026
+
+Fixes
+
+- Fixed a regression from 2.0.26 that could strip detail from transcript turns during compaction
+- Disabled Codex app server elicitation support to prevent connection issues
+
+#### 2.0.26 - March 26, 2026
+
+New Features
+
+- Effort level picker — Choose between Low, Medium, High, and Max effort levels for Claude directly from the input bar
+- MCP strict mode toggle — Control whether Claude Code runs in strict MCP mode; disabling allows additional MCP servers
+
+Improvements
+
+- Smarter session sidebar — Better prioritization of active and archived sessions
+- Reduced memory usage — Older transcript content is now compacted more aggressively to keep sessions lightweight
+- Smoother scrolling — Fixed several scroll state bugs and improved scroll reliability
+
+Fixes
+
+- Fixed workflow and attachments lost on first message — Selected workflow and pending attachments now carry over correctly when starting a new session
+- Fixed MCP server registration — Corrected an issue where --env flags weren't parsed correctly when adding Claude MCP servers
+
+#### 2.0.25 - March 23, 2026
+
+Improvements
+
+- Improved chat auto-scroll reliability — auto-follow now recovers correctly after content settles
+- Streaming assistant responses render more smoothly with less layout thrashing
+- Improved performance and reliability of file tree updates, especially in large repos
+
+Fixes
+
+- Fixed auto-scroll getting stuck after streaming activity settles
+- Fixed unwanted scroll-to-bottom while actively scrolling
+
+#### 2.0.24 - March 20, 2026
+
+Improvements
+
+- IDE tabs preserved on close — Editor tabs are now stashed by default when closing, so your workspace is restored next time
+- Agent Oracle pill — Updated to use a brain icon for better clarity
+- Improved Claude Code integration — Better MCP environment defaults for more reliable connections
+- Agent mode performance — Improved scroll stability and reduced unnecessary re-renders during long sessions
+- Refined tool cards — Improved summaries and status indicators for agent tool results
+
+Fixes
+
+- Fixed transcript scroll getting stuck during long agent conversations
+- Fixed window session state not saving correctly on app quit
+- Fixed skill/command names failing with strict validators
+
+#### 2.0.23 - March 19, 2026
+
+New Features
+
+- GLM 5 Turbo support — New model option available for Claude Code integrations, with updated defaults (GLM 5 Turbo for Sonnet tier, GLM 4.7 for Haiku tier)
+- Codex automatic auth recovery — RepoPrompt now detects ChatGPT authentication failures and surfaces a login prompt to recover the session without manually reconnecting
+
+Improvements
+
+- Richer agent tool cards — Tool results show more status detail and better visual indicators during and after execution
+- Bash result cards auto-expand — Recent and in-progress bash commands automatically expand in the tool panel for easier monitoring
+- Smarter session creation — New tabs no longer create blank agent sessions when opened outside of agent mode
+
+#### 2.0.22 - March 18, 2026
+
+Improvements
+
+- Further improved auto-follow scroll behavior in agent chat when reaching the end of a run
+- Improved scroll behavior in unified diff views
+
+Fixes
+
+- Fixed missing session metadata causing incorrect sidebar titles and sort order for older sessions
+
+#### 2.0.21 - March 17, 2026
+
+New Features
+
+- Pin compose tabs to keep important sessions at the top of the sidebar
+- Confirmation prompt before closing windows with active MCP connections (Cmd+W)
+- Confirmation prompt before deleting a workspace to prevent accidental deletions
+
+Improvements
+
+- Improved unified diff rendering with accurate hunk positioning and line change stats
+- Better session continuity when interrupting and resuming Claude runs
+- Optimized agent mode chat view and improved scrolling behavior
+
+Fixes
+
+- Fixed skills being auto-invoked by Codex when they should require explicit invocation
+- Fixed active tab state not restoring correctly after switching sessions
+- Fixed auto-selected files losing their full selection when reading slices
+- Improved reliability and performance of git diff review workflows
+
+#### 2.0.20 - March 12, 2026
+
+Fixes
+
+- Fixed architect prompt being too language-specific
+
+#### 2.0.19 - March 12, 2026
+
+Improvements
+
+- Much improved scroll stability during agent runs
+
+Fixes
+
+- Fixed token count inflation in Manual preset when codemap was disabled
+- Fixed agent file tag context selection
+
+Agent Workflows
+
+- Refreshed agent workflow tooltips and descriptions for clarity
+
+MCP
+
+- New MCP commands for creating and closing compose tabs, with safe defaults for background automation
+- New tab management safety rules prevent closing the last tab, the active visible tab unless explicitly allowed, or tabs with live bound runs
+- MCP agents can now list chats and inspect chat history scoped to the current compose tab for more accurate multi-tab workflows
+
+#### 2.0.18 - March 10, 2026
+
+Fixes
+
+- Fixed several performance and stability issues introduced in the previous update
+- Fixed agent transcript rendering accuracy and tool execution state consistency
+- Fixed copy-to-clipboard button for generated plans in the Discover agent
+
+#### 2.0.17 - March 10, 2026
+
+New Features
+
+- Agent transcript now uses a structured turn-based model with smart compaction, keeping your most important context while managing long sessions efficiently
+- ChatGPT export now supports planning and code review workflows, designed for use with GPT-5.4 Pro
+
+Improvements
+
+- Transcript export now includes grouped history summaries with condensed tool previews
+- Tool previews in export now exclude failed or cancelled executions for cleaner output
+- Improved architect system prompt
+- Workflow selection UI improvements
+
+Fixes
+
+- Fixed git tool not using the system PATH, which could prevent tools like git LFS from being found
+- Fixed a breaking change with the Codex app server
+
+#### 2.0.16 - March 5, 2026
+
+Fixes
+
+- Fixed session scroll in Codex agent mode
+- Fixed tool boundary isolation for Codex
+
+#### 2.0.15 - March 5, 2026
+
+New Features
+
+- Added GPT-5.4 model support
+- Added Codex fast mode toggle and compact command
+
+Improvements
+
+- Improved search with smarter pattern matching and warnings when a search is auto-corrected
+- Codex reasoning messages are no longer shown in the feed
+- Agent instruction files are excluded from auto-selection
+- Performance improvements across file browsing, selection, and git diff operations
+
+Fixes
+
+- Fixed context builder token budget drift when called via MCP
+- Fixed crash when opening the workflows popover
+- Fixed Codex approval failures due to wire format mismatch
+- Fixed bash liveness detection causing hangs
+- Fixed agent mode model picker appearing too narrow
+
+#### 2.0.14 - March 4, 2026
+
+Improvements
+
+- **Agent Mode (Codex)**: Revamped system prompt encourages natural preamble output; reasoning messages now update the status bar instead of flooding the chat; improved tool card rendering
+- **Architect/Plan prompt** modernized for agentic workflows with better guidance for multi-step planning
+- **Plan & Build / rp-build** workflow is now more efficient
+- **MCP tool improvements**: Fixed incorrect search failures; improved path semantics across all tools in multi-root workspaces for more consistent behavior
+- Oracle Export is now clearly labeled as **ChatGPT Prompt Export**, making its purpose more obvious for ChatGPT Pro users
+- ChatGPT Prompt Export tool card now includes a **Copy Prompt button** for easily passing prompts from Agent Mode into external tools
+- Cleaner UX around model selection in Agent Mode
+- Codex provider stability improvements
+
+Fixes
+
+- Removed deprecated Gemini 3.0 Pro (being shut down)
+
+#### 2.0.13 - March 2, 2026
+
+New Features
+
+- Added Claude GLM as a Claude Code option using your confirmed Z.ai API key with native Claude environment support
+
+Improvements
+
+- Codex agent timeouts are now logged as warnings in the agent log instead of failing the run
+
+Fixes
+
+- Fixed delegate edit so file changes are reported more reliably
+- OpenRouter settings now update more reliably when configuration changes
+
+Note
+
+- If recent Codex CLI changes are causing connectivity issues, we currently recommend rolling back to Codex CLI 104
+
+#### 2.0.12 - March 1, 2026
+
+Improvements
+
+- Codex agent sessions now detect stalls and automatically recover
+- Codex resume timeouts now fall back to a fresh session instead of getting stuck
+- Codex model list now syncs more reliably without unnecessary reloads
+- Upgraded Investigate workflow — more thorough and effective at diagnosing issues
+
+Fixes
+
+- Fixed agent sessions showing errors when switching tabs or restarting; sessions now recover automatically
+- Fixed background processes not cleaning up properly on exit
+- Fixed occasional hangs when closing windows or quitting the app
+- Fixed occasional UI glitches in the toolbar and MCP server panel
+
+#### 2.0.11 - February 27, 2026
+
+New Features
+
+- **Agent session handoff** — Transfer an agent chat transcript and context to a new tab or a different agent, preserving full conversation continuity
+- **Fork sessions from the transcript** — Create a new agent session branching from any message bubble in a transcript
+- **Agent-scoped slash command discovery** — Slash commands and skills are now discovered based on the active agent (Claude Code uses `.claude/commands/`, Codex/Gemini use `.agents/slash/`)
+- **Remember last-used agent** — New agent tabs now open with your previously selected agent (Claude/Codex/Gemini) instead of always defaulting to Claude Code
+
+Improvements
+
+- Significantly reduced token usage in Codex agent sessions
+- Greatly improved Codex session stability and recovery, including better cancellation handling and recovery from unresponsive states
+
+Fixes
+
+- Fixed Oracle UI and workflow selections leaking between multiple chat tabs
+- Fixed autocomplete suggestion overlay rendering at the wrong size when the first result set is empty
+- Fixed a race condition where Claude could miss tool results when steering interrupts were sent quickly
+- Transient stream connection errors are now handled gracefully instead of failing the request
+
+#### 2.0.10 - February 25, 2026
+
+New Features
+
+- **File tagging in agent chat** — Type `@filename` in agent messages to attach file contents directly as context. Includes a smart suggestion overlay with fuzzy matching and disambiguation for duplicate filenames
+- **Support for skills via `/` commands** — Skill files are now detected from all loaded workspace directories and the global skills folder, and can be invoked with `/skillname` in agent input with autocomplete suggestions
+- **GLM5 support in ZAI provider** — GLM5 is now available for chat and oracle
+
+Improvements
+
+- Steering messages to Claude now wait for active tool calls to finish before sending, preventing crashes and ensuring correct message ordering
+- Cancelled or failed steering drafts are restored to the input bar instead of being lost
+- Improved Codex stability and addressed hanging output
+
+Fixes
+
+- Fixed Claude tool call requests including wrong tools, causing prolonged and failing discovery and delegate edit runs
+- Fixed discovery agent not receiving the correct timeout setting
+
+#### 2.0.9 - February 23, 2026
+
+New Features
+
+- **Claude Agent Out of Beta** — Full support for native reasoning traces, steering, bash tool calls, and approval flows, powered by the headless CLI you already have installed
+- Added Gemini 3.1 Pro Preview model support
+
+Improvements
+
+- **Revamped Bash Tool Call Cards** — New cards for both Codex and Claude with auto-expansion for the latest completed command, better output rendering, and improved status tracking
+- Revamped Review prompt and tightened rp-review prompt
+- Reasoning effort preference is now saved across sessions
+- Tool configuration panels replaced with integrated menus for a cleaner, faster workflow
+
+Fixes
+
+- Fixed Codex agent failing to reconnect properly after disconnects
+- Fixed history panel auto-revealing during active agent runs or streaming
+
+#### 2.0.8 - February 18, 2026
+
+Improvements
+
+- Improved Codex agent connection routing reliability in multi-window environments
+- Enhanced connection recovery and session continuity during reconnects
+
+#### 2.0.6 - February 18, 2026
+
+Fixes
+
+- Reverted some Codex changes that caused instability
+
+#### 2.0.5 - February 18, 2026
+
+New Features
+
+- **Custom Agent Workflows** — Create, clone, and configure custom agent workflows with a new workflow manager UI
+- **Oracle Chat Log Tool** — New oracle\_chat\_log tool gives agents read-only access to recent chat history for better context recovery
+- **Context Builder Plan Streaming** — Context builder plans now stream in real-time with cancellation support
+
+Improvements
+
+- **Codex Streaming** — When using Codex CLI for oracle/chat models, responses now stream in real time instead of completing all at once
+- **Image Paste** — Reworked agent mode image pasting to resolve many cases of failed pastes
+- **Session Resume** — Improved agent session resume stability
+- **Skills Rework** — Skills for MCP/CLI have been reworked to use the correct structure
+
+Fixes
+
+- Fixed a rare crash with Codex
+- Fixed app hangs when scrolling back up through old sessions
+- Fixed an issue with Codex where third-party MCP tools were getting filtered out
+
+#### 2.0.4 - February 14, 2026
+
+Fixes
+
+- Fixed context builder calls failing to resolve the correct tab during agent mode chats
+
+#### 2.0.3 - February 14, 2026
+
+Fixes
+
+- Fixed dropped messages in Codex agent mode chats
+- Fixed memory leaks in agent mode during extended sessions with heavy tool usage
+- Improved event stream stability to prevent concurrency issues during agent runs
+
+#### 2.0.2 - February 13, 2026
+
+New Features
+
+- **Image pasting support** - Paste images directly into conversations
+- **Improved image support for Claude and Gemini**
+
+Improvements
+
+- **Significantly improved command execution reliability in Codex Agent Mode** - More accurate tracking of running processes, cleaner output display, and better session stability with retry logic
+- **Toggle to always expand tool cards in Agent Mode** - Available in the new agent settings menu
+- **Improved diff rendering** - More context lines and cleaner hunk separation
+- **Smoother UI performance** - Reduced unnecessary UI refreshes, optimized loading indicator, and improved autoscrolling behavior
+- **Improved model selection sorting** - Models sorted by version families with better default collapsing
+
+Fixes
+
+- Fixed auto model retrieval for Codex
+
+#### 2.0.1 - February 11, 2026
+
+New: Repo Prompt Agent
+
+A completely new way to use Repo Prompt. Repo Prompt Agent is a fully integrated agent harness that brings interactive, agentic coding sessions directly into the app.
+
+- **Full native support for Codex** - Rich integration with the Codex app server for the best agent experience
+- **Beta support for Claude Code and Gemini** - Interactive agentic sessions via headless CLIs (long chats may have limitations)
+- **First-class Context Builder integration** - Agents can leverage Repo Prompt's context building workflows for deeper codebase understanding
+- **Optional edit review** - Review and approve each edit the agent makes before it's applied
+- **Image support** - Paste or drag-and-drop images into agent conversations
+- **Session management** - Resume sessions, track token usage, and manage multiple agent conversations
+- **Configurable tool preferences (Codex)** - Control which tools agents can use, including approval policies and sandbox modes
+- **Selectable reasoning effort (Codex)** - Fine-tune agent behavior with adjustable reasoning effort levels
+
+New: Agent Onboarding
+
+- Guided onboarding wizard for setting up Agent Mode, including license activation, provider testing, and MCP server configuration
+
+</details>

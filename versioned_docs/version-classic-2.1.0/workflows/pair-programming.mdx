@@ -1,0 +1,91 @@
+---
+id: "pair-programming"
+title: "Orchestration"
+description: "Orchestration — Repo Prompt Classic archive documentation."
+slug: "/workflows/pair-programming"
+keywords: ["orchestrate","orchestration","multi-agent","sub-agent","parallel","agent_run","agent_manage","dispatch","steer","multi-wait","session_ids","control plane","rp-orchestrate","worker agent"]
+hide_table_of_contents: false
+toc_min_heading_level: 2
+toc_max_heading_level: 4
+---
+
+Repo Prompt is a **multi-agent control plane**. Any MCP-connected agent — Claude Code, Cursor, Codex, Gemini CLI, OpenCode, or custom scripts — can orchestrate complex multi-agent workflows through Repo Prompt's `agent_run` and `agent_manage` tools.
+
+**Orchestration flow:** task → context discovery → planning → delegated implementation → verification.
+
+## Agent Run Control
+
+The `agent_run` MCP tool is the core primitive for orchestration. It provides five operations:
+
+| Operation | Description |
+| --- | --- |
+| `start` | Launch an agent session with a task and optional provider/model |
+| `wait / poll` | Block or poll on one or many sessions — multi-session wait returns when the first of N parallel agents finishes |
+| `steer` | Redirect a running agent mid-flight with new instructions |
+| `respond` | Answer agent interactions and permission requests |
+| `cancel` | Stop any session cleanly |
+
+## Orchestration Layer
+
+On top of `agent_run`, Repo Prompt provides infrastructure for coordinating multi-agent work:
+
+- **Multi-session wait** — Pass a `session_ids` array to `wait` and block until the first of N parallel agents finishes, enabling fan-out/fan-in patterns
+- **Session management** — Create, resume, and stop durable sessions via `agent_manage`
+- **Workflow engine** — Reusable multi-step orchestration templates (e.g. the `/rp-orchestrate` workflow)
+- **MCP-native** — Any AI tool that speaks MCP can orchestrate. Not just Repo Prompt agents — any MCP client can drive this
+
+## How /rp-orchestrate Works
+
+The built-in orchestration workflow automates the full lifecycle:
+
+1. **Scan:** Context Builder gathers relevant files and generates (or accepts) a plan
+2. **Decompose:** The plan is broken into discrete work items with dependency information
+3. **Dispatch:** Sub-agents are launched across providers — the orchestrator decides whether to run tasks in parallel or sequence based on dependencies
+4. **Scope:** Each sub-agent gets scoped file boundaries from the shared plan
+5. **Monitor:** The orchestrator steers between tasks and verifies each result against the plan
+6. **Multi-provider:** Sub-agents can use any available provider — Codex, Claude, Cursor, Gemini, OpenCode
+
+## Example: Parallel Agent Dispatch
+
+Launch multiple agents and wait for the first to complete:
+
+```text
+// Start parallel agents for independent tasks
+agent_run  op: start  message: "Fix the auth token refresh bug in src/auth/"
+// → session_id: "agent-a"
+
+agent_run  op: start  message: "Add integration tests for the payments API"
+// → session_id: "agent-b"
+
+// Block until the first agent finishes
+agent_run  op: wait  session_ids: ["agent-a", "agent-b"]
+
+// Steer the remaining agent if needed
+agent_run  op: steer  session_id: "agent-b"  message: "Also cover edge case for expired cards"
+```
+
+:::tip
+
+**Fan-out/fan-in:** The multi-session `wait` returns as soon as *any* of the listed sessions completes. This lets an orchestrator react immediately — process the result, launch follow-up work, or steer the remaining agents — without polling.
+
+:::
+
+## Who Can Orchestrate
+
+- Any **Agent Mode** session running `/rp-orchestrate`
+- Any MCP client calling `agent_run` and `agent_manage` tools directly
+- CLI scripts using `rp-cli`
+- Custom automation via the standard MCP protocol
+
+## When to Use Orchestration
+
+- Complex multi-part tasks that benefit from parallel execution
+- Work that spans different concerns — backend, frontend, and tests can each get a dedicated agent
+- When you want different models for different sub-tasks (e.g. Codex for fast edits, Claude for architectural reasoning)
+- Overnight or autonomous work pipelines where the orchestrator monitors progress without human intervention
+
+:::tip
+
+**Getting started:** Run `/rp-orchestrate` in any Agent Mode session and describe your task. The workflow handles plan generation, decomposition, dispatch, and verification automatically.
+
+:::

@@ -1,0 +1,1051 @@
+---
+id: "cli-guide"
+title: "Command Line Guide"
+description: "Command Line Guide — Repo Prompt Classic archive documentation."
+slug: "/rp-cli/cli-guide"
+keywords: ["rp-cli","repoprompt-mcp","cli","command line","terminal","exec mode","interactive mode","proxy mode","automation","scripts","bash","shell","export context","codex sandbox","agent_run","agent_manage","session_id","session_ids","workflow","agent mode control","multi-wait","multi-poll","orchestrate","sub-agent","sub agent","parallel agents","scriptable control surface","control plane","app_settings","settings tool group"]
+hide_table_of_contents: false
+toc_min_heading_level: 2
+toc_max_heading_level: 4
+---
+
+:::tip
+
+**What is rp-cli?** `rp-cli` is RepoPrompt's **scriptable control surface** — a shell-level bridge to the same tool surface the MCP server exposes. Drive workspaces, tabs, file selections, Context Builder, chat, edits, Agent Mode sessions, and allowlisted app settings from Bash, Makefiles, scripts, or any agent that prefers a terminal. The core automation surface — workspaces, tabs, selections, context, chats, edits, allowlisted app preferences, and Agent Mode sessions — is reachable from the CLI, while API credentials, tool ACLs, workspace approvals, and other sensitive or internal settings remain UI-only by design.
+
+:::
+
+When an agent like Claude Code, Codex, Cursor, or Gemini runs `rp-cli`through its Bash/shell tool, it gets the same surface a native MCP client would: file selection, codemaps, Context Builder, chat, edits, workspace and tab lifecycle, allowlisted app preferences via `app_settings`, and Agent Mode run control. The CLI is especially useful for agents that don't speak MCP natively, for ad-hoc shell automation, and for mixing RepoPrompt with other tools in a script.
+
+The CLI communicates with the running Repo Prompt app over a local UNIX socket. You don't need to configure MCP in the agent, but you **do** need the MCP Server enabled in Repo Prompt's settings for the CLI to connect. The shorthand verbs below map to the same MCP tools documented in the [MCP Tools Reference](../mcp-server/mcp-tools.mdx); use `rp-cli -d <tool>` or `rp-cli tools <group> --schema` for the authoritative schema.
+
+:::tip
+
+**New: `app_settings`:** RepoPrompt exposes an allowlisted set of global preferences through the `app_settings` tool and the matching `settings` tool group. See [App Settings from the CLI](./cli-app-settings.mdx) for the shell-focused guide and [App Settings Tool](../mcp-server/mcp-app-settings.mdx) for the full allowlist and safety story.
+
+:::
+
+## CLI vs MCP: When to Use Which
+
+Both the CLI and direct MCP integration provide access to the same tools, but with different tradeoffs:
+
+| Aspect | CLI (`rp-cli`) | Direct MCP |
+| --- | --- | --- |
+| **Connection** | Ephemeral - each invocation is independent | Persistent - binds once per agent session |
+| **Window/Tab targeting** | Must pass `-w` and `-t` on every call | Bind once with `select_tab`, persists for session |
+| **Command chaining** | Yes - use `&&` to chain commands | No - one tool call per request |
+| **Output redirection** | Yes - pipe to files with `>` | No - results returned in response |
+| **Token efficiency** | Higher - formatted text output | Lower - structured JSON responses |
+| **Setup complexity** | None - just call via Bash | Requires MCP server configuration |
+
+**Use CLI when:**
+
+- Your agent supports Bash/shell but not MCP directly
+- You want to chain multiple operations in one call, or pipe output to files
+- You're building agent skills or workflows that mix Repo Prompt with other shell tools
+- You don't want MCP tool schemas loaded into every agent session—CLI is on-demand, keeping conversations lighter when Repo Prompt isn't needed
+
+**Use MCP when:**
+
+- Your agent has native MCP support and you want persistent window/tab binding
+- You prefer structured JSON responses for programmatic processing
+- Your workflow primarily uses Repo Prompt and benefits from having tool schemas always available
+
+## Getting Started
+
+Before using `rp-cli`, you'll need three things: Repo Prompt running on your Mac, the MCP Server enabled in settings, and the CLI installed to your PATH.
+
+To install the CLI, open Repo Prompt, go to Settings → MCP Server, and click "Install CLI to PATH". This creates a symlink at `/usr/local/bin/rp-cli` (macOS will prompt for administrator access).
+
+After installing, open a new terminal and verify it works:
+
+```bash
+rp-cli --version
+```
+
+## Exec Mode: The Primary Mode for Agents
+
+Exec mode is designed for AI agents and scripts. Run commands with `-e` and they execute immediately:
+
+```bash
+rp-cli -e 'tree'                              # Show file tree
+rp-cli -e 'workspace list'                    # List workspaces
+rp-cli -e 'select set src/ && context'        # Select files, get context
+rp-cli -e 'search "TODO" --extensions .swift' # Search code
+rp-cli -e 'chat How does auth work?'          # Send to AI chat
+```
+
+### Core Concept: Selection is Context
+
+The tab's **file selection is the context for chat**. The AI only sees files you've selected. Use `manage_selection` to curate context manually, or `context_builder` to auto-select relevant files.
+
+```bash
+# Manual workflow
+rp-cli -e 'manage_selection op=set paths=["src/"]'   # Build selection
+rp-cli -e 'chat_send message="How does this work?"'  # Chat sees selection
+
+# Auto workflow with context_builder
+# Builds file selection, optionally generates a response
+rp-cli -e 'context_builder task="find auth code"'                        # Build context only
+rp-cli -e 'context_builder task="explain auth" response_type=question'   # Build → answer → chat_id
+rp-cli -e 'builder "add feature" --type plan'                            # Build → plan → chat_id
+
+# Continue the conversation using the returned chat_id
+rp-cli -e 'chat_send message="What about edge cases?" chat_id=<returned_id>'
+```
+
+### MCP Tools Reference
+
+The CLI provides shorthand commands that map to MCP tools. Use `-d <tool>` to see full parameter documentation including types, required/optional, and valid values:
+
+```bash
+rp-cli -d file_search         # Full parameter docs with types and enums
+rp-cli -d chat_send           # See all options and modes
+rp-cli -d manage_selection    # Selection operations and modes
+rp-cli -d file_search --verbose  # Also show raw JSON schema
+```
+
+| MCP Tool | Shorthand | Key Parameters |
+| --- | --- | --- |
+| `manage_selection` | `select` | op (`add\|remove\|set\|clear\|get\|preview\|promote\|demote`), paths (array), mode (`full\|slices\|codemap_only`) |
+| `context_builder` | `builder` | instructions (required), response\_type (`clarify`=context only, `question`=answer, `plan`=implementation plan, `review`=code review) |
+| `chat_send` | `chat`, `plan`, `review` | message (string), new\_chat (bool, required), mode (`chat\|plan\|edit\|review`), model, chat\_id |
+| `read_file` | `read`, `cat` | path (required), start\_line (int, negative for tail), limit (int) |
+| `file_search` | `search`, `grep` | pattern (required), mode (`auto\|path\|content\|both`), filter (object: extensions, paths, exclude), context\_lines, max\_results |
+| `get_file_tree` | `tree` | type (`files\|roots`, default: files), mode (`auto\|full\|folders\|selected`, default: auto), path, max\_depth |
+| `get_code_structure` | `structure` | scope (`paths\|selected`), paths (array), max\_results |
+| `workspace_context` | `context` | include (array: `prompt,selection,code,files,tree,tokens`), path\_display (`relative\|full`) |
+| `apply_edits` | *JSON only* | Use `call apply_edits {...}` - path (required), ONE of: rewrite \| search+replace \| edits array |
+| `file_actions` | *JSON only* | Use `call file_actions {...}` - action (`create\|delete\|move`), path (required), content (for create), new\_path (for move) |
+| `prompt` | `prompt` | op (`get\|set\|append\|clear\|export\|list_presets\|select_preset`), text, path, preset |
+| `app_settings` | *direct name* | op (`list\|get\|set\|options`), group (`ui\|prompt_packaging\|editing\|models\|context_builder\|mcp\|code_maps`), key, keys, value, agent, limit, detailed. See [App Settings from the CLI](./cli-app-settings.mdx). |
+| `chats` | `chats` | action (`list\|log`), scope (`workspace\|tab`), tab\_id, chat\_id (for log), include\_diffs (bool), limit |
+| `list_models` | `models` | (no parameters - lists available AI model presets) |
+| `manage_workspaces` | `workspace`, `tabs` | action (`list\|switch\|create\|delete\|add_folder\|remove_folder\|list_tabs\|select_tab\|create_tab\|close_tab`), workspace, tab, mode, source\_tab, bind, focus, allow\_active, open\_in\_new\_window, switch\_to\_created, close\_window |
+| `list_windows` | `windows` | (no parameters - lists open Repo Prompt windows) |
+| `git` | `git` | op (`status\|diff\|log\|show\|blame`), repo-root (path or name), repo-roots (comma-separated), compare (`uncommitted\|staged\|unstaged\|mergebase:X\|main\|trunk\|back:N\|revspec`), detail, scope, artifacts, ref, path, lines |
+| `agent_run` | *direct name* | op (`start\|poll\|wait\|cancel\|steer\|respond`), session\_id, session\_name, message, model\_id, interaction\_id, response, timeout, detach |
+| `agent_manage` | *direct name* | op (`list_agents\|list_sessions\|get_log\|create_session\|resume_session\|stop_session\|list_workflows`), session\_id, model\_id, session\_name, state, limit |
+
+:::tip
+
+**Agent Control Plane:** `agent_run` and `agent_manage` are advanced, policy-gated tools for external orchestration of Agent Mode sessions. They may not appear on all connections. See the [MCP Tools Reference](../mcp-server/mcp-tools.mdx) for full documentation.
+
+:::
+
+### Common Examples by Tool
+
+```bash
+# Selection (manage_selection)
+rp-cli -e 'select set src/'                        # Replace selection with folder
+rp-cli -e 'select add lib/utils.ts'                # Add file to selection
+rp-cli -e 'select add file.swift:10-50'            # Add line range (slice)
+rp-cli -e 'select clear'                           # Clear all selection
+
+# Context Builder (context_builder)
+rp-cli -e 'builder "find auth code"'               # Build context only
+rp-cli -e 'builder "add logout" --type plan'       # Generate implementation plan
+rp-cli -e 'builder "how does X work?" --type question'  # Answer question
+rp-cli -e 'builder "review changes" --type review' # Generate code review
+
+# Chat (chat_send)
+rp-cli -e 'chat "Explain this code"'               # Continue current chat
+rp-cli -e 'chat "New question" --new'              # Start new chat
+rp-cli -e 'plan "Design auth system"'              # Plan mode (new chat)
+rp-cli -e 'review'                                 # Review selected files
+
+# File Operations
+rp-cli -e 'read src/main.swift'                    # Read entire file
+rp-cli -e 'read src/main.swift 100 50'             # Lines 100-149
+rp-cli -e 'search "TODO" --extensions .swift'      # Search Swift files
+rp-cli -e 'tree --folders'                         # Show folder structure
+rp-cli -e 'structure src/auth/'                    # Get codemaps
+
+# Workspace & Context
+rp-cli -e 'context --all'                          # Full workspace snapshot
+rp-cli -e 'workspace list'                         # List workspaces
+rp-cli -e 'workspace switch MyProject'             # Switch workspace
+rp-cli -e 'workspace switch MyProject --new-window'  # Open in new window
+rp-cli -e 'workspace create MyProject --new-window'  # Create in new window
+rp-cli -e 'workspace create MyProject --switch'      # Create and switch to it
+rp-cli -e 'workspace create MyProject --folder-path /path/to/repo'  # Create with a root folder
+rp-cli -e 'workspace create MyProject --new-window --folder-path /path/to/repo'  # Create in new window with root folder
+rp-cli -e 'workspace delete MyProject --close-window'  # Delete workspace and close its window
+rp-cli -e 'tabs create "Bugfix"'                  # Create a blank background tab
+rp-cli -e 'tabs create --mode fork --source-tab "Feature Work" --name "Feature Work Follow-up"'  # Fork a tab
+rp-cli -e 'tabs close "Bugfix"'                   # Close a non-active tab
+rp-cli -e 'tabs close "Feature Work" --allow-active'  # Explicitly close the visible tab
+rp-cli -e 'chats list --scope tab'                 # List chats for the current tab
+rp-cli -e 'chats log --scope tab --limit 10'       # Read recent messages from the current tab
+rp-cli -e 'prompt export ~/context.md'             # Export for LLM
+
+# App Settings (allowlisted app-wide preferences)
+rp-cli -e 'app_settings op=list'                    # Browse the catalog (values always included)
+rp-cli -e 'app_settings op=list group=ui'           # Inspect one group
+rp-cli -e 'app_settings op=get key=ui.appearance_mode'
+rp-cli -e 'app_settings op=set key=ui.show_tooltips value=false'
+rp-cli -e 'app_settings op=set key=ui.appearance_mode value=Dark'
+rp-cli -e 'app_settings op=set key=editing.complex_edit_strategy value="Parallel split"'  # quote enum values with spaces
+rp-cli -e 'call app_settings {"op":"set","key":"models.temperature","value":1.25}'
+rp-cli -e 'call app_settings {"op":"set","key":"models.planning_model","value":null}'
+rp-cli -e 'app_settings op=options key=models.planning_model agent=codexExec'  # candidate model values
+rp-cli -e 'tools settings --schema'                 # app_settings schema as JSON
+
+# Editing (apply_edits requires JSON format)
+rp-cli -e 'call apply_edits {"path":"src/f.ts","search":"old","replace":"new"}'
+rp-cli -e 'call apply_edits {"path":"src/f.ts","search":"old","replace":"new","all":true}'
+rp-cli -e 'call apply_edits {"path":"src/f.ts","search":"a\nb","replace":"c\nd"}'  # Multiline
+rp-cli -e 'call file_actions {"action":"create","path":"src/new.ts"}'           # Create file
+rp-cli -e 'call file_actions {"action":"create","path":"f.ts","content":"hello"}'  # Create with content
+rp-cli -e 'call file_actions {"action":"move","path":"old.ts","new_path":"new.ts"}' # Rename file
+
+# Git (git) - defaults to first loaded root
+rp-cli -e 'git status'                             # Repository status
+rp-cli -e 'git diff --files'                       # Changed files list
+rp-cli -e 'git diff --patches --compare staged'   # Staged patches (truncated)
+rp-cli -e 'git diff --full --compare staged'      # Staged patches (untruncated)
+rp-cli -e 'git diff --compare main'                # Working tree vs trunk merge-base
+rp-cli -e 'git diff --compare mergebase:origin/main' # Explicit merge-base compare
+rp-cli -e 'git log --count 10'                     # Recent commit history
+rp-cli -e 'git show HEAD~1'                        # Show specific commit
+rp-cli -e 'git blame src/main.swift --lines 10-40' # Line attribution
+rp-cli -e 'git diff --artifacts'                   # Write snapshot (MAP.txt, patches)
+rp-cli -e 'git status --repo-root MyApp'           # Target specific repo by name
+rp-cli -e 'git diff --repo-roots MyApp,Backend'    # Multi-root diff
+
+# Agent Control (advanced, policy-gated)
+rp-cli -e 'agent_manage op=list_agents'            # List agent providers
+rp-cli -e 'agent_manage op=list_sessions limit=5'  # List sessions
+rp-cli -e 'agent_manage op=list_sessions state=failed' # Filter by state
+rp-cli -e 'agent_manage op=list_workflows'         # List workflows
+rp-cli -e 'agent_manage op=stop_session session_id="<uuid>"' # Stop a live session
+rp-cli -e 'agent_manage op=cleanup_sessions session_ids=["<uuid1>","<uuid2>"]' # Delete MCP sessions
+rp-cli -e 'agent_run op=start message="Investigate auth"'  # Start run
+rp-cli -e 'agent_run op=wait session_id="<uuid>"'          # Wait (default 5 min timeout)
+rp-cli -e 'agent_run op=wait session_id="<uuid>" timeout=10' # Bounded 10s wait
+rp-cli -e 'agent_run op=steer session_id="<uuid>" message="Fix it" wait=true' # Steer and wait
+rp-cli -e 'agent_run op=respond session_id="<uuid>" interaction_id="<i>" response="accept"'
+rp-cli -d agent_run                                # Full schema docs
+rp-cli -d agent_manage                             # Full schema docs
+```
+
+### Parameter Syntax
+
+The CLI supports multiple ways to pass parameters:
+
+```bash
+# Shorthand flags (most commands)
+rp-cli -e 'search "TODO" --extensions .swift --context-lines 3'
+
+# Key=value pairs (any tool)
+rp-cli -e 'file_search pattern=TODO mode=content max_results=20'
+
+# JSON arrays and objects (for complex parameters)
+rp-cli -e 'manage_selection op=set paths=["src/","lib/"]'
+rp-cli -e 'file_search pattern=TODO filter={"extensions":[".swift",".ts"]}'
+
+# Dotted keys expand to nested objects
+rp-cli -e 'file_search pattern=TODO filter.extensions=[".swift"]'
+
+# Raw JSON with call command (full control)
+rp-cli -e 'call file_search {"pattern":"TODO","filter":{"paths":["src/"]}}'
+```
+
+### Quoting and Escape Sequences
+
+In shorthand commands:
+
+- **Single quotes** (`'...'`): Content is literal, no escape processing
+- **Double quotes** (`"..."`): Escape sequences are processed:
+
+  - `\n` → newline
+  - `\t` → tab
+  - `\r` → carriage return
+  - `\\` → literal backslash
+  - `\"` → literal quote
+  - Other backslashes (e.g., `\w` in regex) are preserved literally
+
+For complex multiline content, prefer the JSON format (`call <tool> {json}`) which provides standard JSON escape handling.
+
+### chat\_send: Starting vs Continuing Chats
+
+The `new_chat` parameter controls whether to start a new conversation or continue the current one:
+
+```bash
+# Continue current chat (new_chat=false, default for 'chat')
+rp-cli -e 'chat_send message="Follow-up question"'
+rp-cli -e 'chat "Follow-up question"'
+
+# Start new chat (new_chat=true)
+rp-cli -e 'chat_send message="New topic" new_chat=true'
+rp-cli -e 'chat "New topic" --new'
+
+# plan and review shorthands START NEW CHATS by default (new_chat=true)
+rp-cli -e 'plan "Design the auth system"'       # Starts NEW chat in plan mode
+rp-cli -e 'review "Check this code"'            # Starts NEW chat in review mode
+rp-cli -e 'plan "Continue planning" --continue' # Continue existing chat
+rp-cli -e 'review --continue'                   # Continue in review mode
+```
+
+### Chaining Commands
+
+Commands can be chained with `&&` within a single `-e` flag. State like workspace selection carries through the chain:
+
+```bash
+rp-cli -e 'workspace MyProject && select set src/ && context --all'
+rp-cli -e 'workspace create MyProject --new-window && tree'
+rp-cli -e 'workspace create MyProject --switch && context --all'
+rp-cli -e 'workspace switch MyProject --new-window && tree'
+```
+
+### Output Redirection
+
+Commands support output redirection with `>` to write results directly to a file:
+
+```bash
+rp-cli -e 'tree > /tmp/structure.txt'
+rp-cli -e 'workspace MyProject && context > ~/Desktop/context.md'
+```
+
+### Prompt Export and Presets
+
+Export full LLM-ready context (files, tree, codemaps) to a file, or manage copy presets:
+
+```bash
+rp-cli -e 'prompt export ~/context.md'    # Export full context to file
+rp-cli -e 'prompt presets'                 # List available copy presets
+rp-cli -e 'prompt preset "My Preset"'      # Select a copy preset by name
+```
+
+The `prompt export` command builds a complete context file that can be used with any LLM, including the file tree, selected files, and codemaps.
+
+### Exec Mode Flags
+
+```text
+-e, --exec <cmd>       Execute command(s)
+-w, --window <id>      Target window ID
+-t, --tab <name>       Target tab (name or UUID)
+-c, --call <tool>      Call tool directly
+-j, --json <arg>       JSON for --call (see below)
+--tools-schema         Dump all tools as MCP tools/list JSON
+-q, --quiet            Suppress non-essential output
+--raw-json             Raw JSON output (for scripting)
+--verbose              Show debug/timing info
+--fail-fast            Stop on first error in chain
+```
+
+### JSON Argument Sources (-j / --json)
+
+The `-j` flag accepts JSON arguments in multiple formats:
+
+```bash
+# Inline JSON
+rp-cli -c tool -j '{"key":"value"}'
+
+# From a .json file (auto-detected by extension, no @ needed)
+rp-cli -c tool -j args.json
+rp-cli -c tool -j /path/to/args.json
+
+# From a file with explicit @ prefix
+rp-cli -c tool -j @args.json
+rp-cli -c tool -j @/path/to/args.json
+
+# From stdin
+echo '{"key":"value"}' | rp-cli -c tool -j @-
+```
+
+**Auto-repair:** Raw newlines and tabs inside JSON string values are automatically escaped. This handles a common issue where LLMs produce JSON with unescaped control characters in multiline content.
+
+## Interactive Mode
+
+Interactive mode provides a REPL for exploration and experimentation. It's useful for learning commands, debugging workflows, or when you want to maintain state across multiple operations.
+
+```bash
+rp-cli -i              # Start interactive REPL
+rp-cli -i -w 1         # Start with window pre-selected
+```
+
+Inside the REPL, type `help` to see all commands. The same commands from exec mode work here, plus session management commands like `history`, `set`, and `status`.
+
+### One-Shot Flags
+
+These flags run a single operation and exit - useful for scripting or quick lookups:
+
+```bash
+rp-cli -l              # List all available MCP tools
+rp-cli -l explore      # List tools in the 'explore' group
+rp-cli -l settings     # List tools in the 'settings' group (app_settings)
+rp-cli --tools-schema  # Dump all tools as MCP tools/list JSON (machine-readable)
+rp-cli -d search       # Describe a specific command
+rp-cli -c read_file -j '{"path":"/tmp/test.txt"}'  # Call tool directly
+rp-cli -c read_file -j args.json                    # JSON from file (auto-detected)
+rp-cli -c read_file -j @args.json                   # JSON from file (explicit @)
+echo '...' | rp-cli -c read_file -j @-              # JSON from stdin
+```
+
+## Working with Multiple Windows
+
+When multiple Repo Prompt windows are open, you **must** target a specific window.
+
+**CLI limitation:** Each CLI invocation is an independent connection with no memory of previous calls. You must pass `-w` (and optionally `-t`) on **every** invocation. This is inherent to how the CLI works—each command starts fresh.
+
+**MCP alternative:** If your agent supports MCP directly, use `manage_workspaces` with `action=select_tab` once at the start of your session. The binding persists for all subsequent tool calls without needing to repeat the window/tab targeting.
+
+```bash
+rp-cli -e 'windows'                    # Discover available windows
+rp-cli -w 1 -e 'workspace tabs'        # List tabs in window 1
+rp-cli -w 1 -t MyTab -e 'context'      # Target window + tab
+```
+
+:::warning
+
+**Important for AI Agents**
+
+When multiple windows are detected, AI agents **must**:
+
+1. Run `windows` to discover available windows
+2. Pass `-w <id>` on every CLI invocation
+3. Pass `-t <tab>` to target a specific compose tab
+
+:::
+
+### Targeting Specific Tabs
+
+Workspaces can have multiple compose tabs, each with different file selections and prompts. Use `-t` to target a specific tab by name or UUID:
+
+```bash
+rp-cli -w 1 -e 'tabs'                       # List available tabs (shorthand)
+rp-cli -w 1 -e 'workspace tabs'             # Same as above
+rp-cli -w 1 -t "Feature Work" -e 'context'  # Target by name
+rp-cli -w 1 -t "UUID-HERE" -e 'chat Hello'  # Target by UUID
+```
+
+Using a dedicated tab ensures consistent file selection and prompt context across multiple tool calls.
+
+## Scripting with .rp Files
+
+For repeatable workflows, save commands to a script file:
+
+```bash
+# daily-export.rp
+# Export context from multiple projects
+workspace switch Frontend
+select set src/components/
+context --all > ~/exports/frontend.md
+
+workspace switch Backend
+select set src/api/
+context --all > ~/exports/backend.md
+```
+
+Run with:
+
+```bash
+rp-cli --exec-file ~/scripts/daily-export.rp
+```
+
+### Workflow Shorthand Flags
+
+Common workflows have shorthand flags that compile to exec commands:
+
+```text
+-w, --window <id>        Target window (required with multiple windows)
+-t, --tab <name>         Target tab (name or UUID)
+--workspace <name>       Switch to workspace
+--select-add <paths>     Add files to selection
+--select-set <paths>     Replace selection
+--export-context <file>  Export context to file (JSON snapshot)
+--export-prompt <file>   Export full LLM-ready context to file
+--chat <message>         Send chat message
+--builder <task>         Build context (add --type plan to generate plan)
+```
+
+Example:
+
+```bash
+rp-cli -w 1 -t MyTab --workspace MyProject --select-set src/ --export-prompt ~/out.md
+```
+
+## Getting Help
+
+The CLI has tiered help for different needs:
+
+```bash
+rp-cli --help              # Exec mode quick reference
+rp-cli --help-interactive  # REPL mode details
+rp-cli --help-scripting    # Script files and workflow flags
+rp-cli --help-advanced     # Tab targeting, routing parameters
+rp-cli -d <command>        # Detailed help for a specific command
+rp-cli --tools-schema      # All tool schemas as JSON (for MCP clients/docs)
+```
+
+## Complete Tool Schema Reference
+
+Below is the complete schema documentation for all MCP tools. Use `rp-cli -d <tool> --verbose` to also see the raw JSON schema.
+
+### manage\_selection
+
+Manage the current file selection (context for chat). Shorthand: `select`
+
+```text
+Parameters:
+  op (string): get | add | remove | set | clear | preview | promote | demote
+    Operation to perform
+
+  paths (array<string>)
+    File or folder paths (required for add/remove/set)
+
+  mode (string): full | slices | codemap_only
+    How to represent files: 'full' (complete content), 'slices' (line ranges),
+    or 'codemap_only' (signatures only)
+
+  view (string): summary | files | content | codemaps
+    Amount of detail to return (default: summary)
+
+  slices (array<object>)
+    Selection slices with line ranges:
+    - path (string, required): File path
+    - ranges (array): [{start_line, end_line, description}]
+    - lines (string): Shorthand like '10-20,40'
+
+  strict (boolean)
+    Error when no paths resolve (default: false)
+
+  path_display (string): full | relative
+    Path display format (default: relative)
+```
+
+### context\_builder
+
+Auto-build optimal file selection for a task. Shorthand: `builder`
+
+```text
+Parameters:
+  instructions (string)
+    Your request. Use XML tags: <task> for goal, <context> for background,
+    <discovery_agent-guidelines> for agent hints.
+
+  response_type (string): plan | question | review | clarify
+    'clarify' (default): Returns context only
+    'question': Answers using built context
+    'plan': Generates implementation plan
+    'review': Generates code review with git diffs
+```
+
+### chat\_send
+
+Send message to AI chat. Shorthands: `chat`, `plan`, `review`
+
+```text
+Parameters:
+  new_chat (boolean, required)
+    Start a new chat session
+
+  message (string)
+    Your message to send
+
+  mode (string): chat | plan | edit | review [default: chat]
+    Operation mode
+
+  chat_id (string)
+    Chat ID to continue a specific chat
+
+  chat_name (string)
+    Set or update the chat session name
+
+  model (string)
+    Model preset ID or name (call list_models first)
+
+  selected_paths (array<string>)
+    File paths for context (overrides current selection)
+
+  include_diffs (boolean)
+    Include edit diffs in reply (default: true)
+
+  use_tab_prompt (boolean)
+    Use compose tab's prompt instead of message
+```
+
+### read\_file
+
+Read file contents. Shorthands: `read`, `cat`
+
+```text
+Parameters:
+  path (string, required)
+    File path
+
+  start_line (integer)
+    Line to start from (1-based). Negative for tail behavior (-N reads last N lines)
+
+  limit (integer)
+    Number of lines to read
+```
+
+### file\_search
+
+Search by file path and/or content. Shorthands: `search`, `grep`
+
+```text
+Parameters:
+  pattern (string, required)
+    Search pattern (regex by default)
+
+  mode (string): auto | path | content | both [default: auto]
+    Search scope
+
+  regex (boolean) [default: true]
+    Use regex matching
+
+  filter (object)
+    File filtering:
+    - extensions (array<string>): e.g., [".swift", ".ts"]
+    - paths (array<string>): Limit to specific paths
+    - exclude (array<string>): Skip matching patterns
+
+  context_lines (integer)
+    Lines of context before/after matches
+
+  max_results (integer) [default: 50]
+    Maximum results to return
+
+  whole_word (boolean)
+    Match whole words only
+
+  count_only (boolean)
+    Return only match count
+```
+
+### get\_file\_tree
+
+ASCII directory tree. Shorthand: `tree`
+
+```text
+Parameters:
+  type (string): files | roots [default: files]
+    Tree type to generate
+
+  mode (string): auto | full | folders | selected [default: auto]
+    Filter mode (for 'files' type only)
+
+  max_depth (integer)
+    Maximum depth (root = 0)
+
+  path (string)
+    Starting folder for subtree
+```
+
+### get\_code\_structure
+
+Get codemaps (function/type signatures). Shorthand: `structure`
+
+```text
+Parameters:
+  scope (string): paths | selected [default: paths]
+    Scope of operation
+
+  paths (array<string>)
+    File or directory paths (when scope='paths')
+
+  max_results (integer) [default: 25]
+    Maximum codemaps to return
+```
+
+### workspace\_context
+
+Snapshot of workspace state. Shorthand: `context`
+
+```text
+Parameters:
+  include (array<string>): items: prompt | selection | code | files | tree | tokens
+    What to include (default: prompt, selection, code, tokens)
+
+  path_display (string): full | relative [default: relative]
+    Path display format
+
+  copy_preset (string | object)
+    Preset override. String: UUID, kind, or name.
+    Object: {id?, kind?, name?}
+```
+
+### prompt
+
+Get or modify shared prompt/instructions.
+
+```text
+Parameters:
+  op (string): get | set | append | clear | export | list_presets | select_preset
+    Operation (default: 'get')
+
+  text (string)
+    Text for set/append
+
+  path (string)
+    File path (required for export)
+
+  preset (string | object)
+    Preset to select. String: UUID, kind, or name.
+    Object: {id?, kind?, name?}
+
+  copy_preset (string | object)
+    Override for export. String: UUID, kind, or name.
+    Object: {id?, kind?, name?}
+```
+
+### apply\_edits
+
+Apply file edits. **JSON format required** - use `call apply_edits {...}`
+
+:::tip
+
+**Usage:** No shorthand available. Use JSON format for reliable escape handling:
+
+```bash
+# Inline JSON
+rp-cli -e 'call apply_edits {"path":"file.ts","search":"old","replace":"new"}'
+rp-cli -e 'call apply_edits {"path":"file.ts","search":"line1\nline2","replace":"new"}'
+
+# From file (no @ needed for .json files)
+rp-cli -c apply_edits -j edits.json
+rp-cli -c apply_edits -j @edits.json
+
+# From stdin
+echo '...' | rp-cli -c apply_edits -j @-
+```
+
+**Auto-repair:** Raw newlines and tabs in JSON strings are automatically escaped, so multiline payloads from LLMs work without manual escaping.
+
+:::
+
+**Provide exactly ONE mode:**
+
+```bash
+Parameters:
+  path (string, required)
+    File path
+
+  # Mode 1: Rewrite entire file
+  rewrite (string)
+    Replace entire file content
+  on_missing (string): error | create [default: create]
+    Behavior when file is missing
+
+  # Mode 2: Single replacement
+  search (string)
+    Text to find
+  replace (string)
+    Replacement text
+  all (boolean) [default: false]
+    Replace all occurrences
+
+  # Mode 3: Multiple edits
+  edits (array<object>)
+    Array of {search, replace, all} objects
+
+  # Shared option
+  verbose (boolean)
+    Include diff preview
+```
+
+### file\_actions
+
+Create, delete, or move files. **JSON format required** - use `call file_actions {...}`
+
+:::tip
+
+**Usage:** No shorthand available. Use JSON format for reliable escape handling:
+
+```bash
+# Inline JSON
+rp-cli -e 'call file_actions {"action":"create","path":"src/new.ts"}'
+rp-cli -e 'call file_actions {"action":"create","path":"f.ts","content":"line1\nline2"}'
+rp-cli -e 'call file_actions {"action":"move","path":"old.ts","new_path":"new.ts"}'
+
+# From file (no @ needed for .json files)
+rp-cli -c file_actions -j create-file.json
+rp-cli -c file_actions -j @create-file.json
+
+# From stdin
+echo '...' | rp-cli -c file_actions -j @-
+```
+
+**Auto-repair:** Raw newlines and tabs in JSON strings are automatically escaped.
+
+:::
+
+```text
+Parameters:
+  action (string, required): create | delete | move
+    Operation to perform
+
+  path (string, required)
+    File path (absolute required for delete)
+
+  content (string)
+    File content (for create)
+
+  new_path (string)
+    Destination path (for move)
+
+  if_exists (string): error | overwrite [default: error]
+    Behavior if file exists (for create)
+```
+
+### chats
+
+List chats or view history.
+
+```text
+Parameters:
+  action (string): list | log [default: list]
+    Action to perform
+
+  scope (string): workspace | tab [default: workspace]
+    Scope for list/log operations
+
+  tab_id (string)
+    Optional compose tab UUID filter. With scope=tab and no tab_id,
+    Repo Prompt uses the current bound tab when available, otherwise the active UI tab.
+
+  chat_id (string)
+    Chat ID for log action
+
+  include_diffs (boolean)
+    Include diff summaries in log
+
+  limit (integer)
+    Max items (list: default 10, log: default 3)
+```
+
+### list\_models
+
+List available AI model presets. Shorthand: `models`
+
+```text
+(no parameters)
+```
+
+### manage\_workspaces
+
+Manage workspaces and tabs. Shorthands: `workspace`, `tabs`
+
+:::tip
+
+**CLI vs MCP:** With CLI, connections are ephemeral—you must pass `-w` and `-t` on every invocation. With direct MCP, use `select_tab` once to bind your session to a specific tab; subsequent tool calls automatically target that tab without needing to repeat the binding.
+
+:::
+
+```text
+Parameters:
+  action (string, required): list | switch | create | delete | add_folder |
+                            remove_folder | list_tabs | select_tab |
+                            create_tab | close_tab
+    Action to perform
+
+  workspace (string)
+    Workspace UUID or name (for switch, delete, add_folder, remove_folder)
+
+  name (string)
+    New workspace name (for create) or optional tab name (for create_tab)
+
+  folder_path (string)
+    Absolute folder path (for add_folder, remove_folder)
+
+  tab (string)
+    Tab UUID or name (for select_tab, close_tab)
+
+  mode (string): blank | fork [default: blank]
+    For create_tab: create an empty tab or fork an existing one
+
+  source_tab (string)
+    For create_tab with mode=fork: source compose tab UUID or name
+
+  bind (boolean) [default: true]
+    For create_tab: bind this connection to the new tab
+
+  window_id (integer)
+    Target window ID
+
+  focus (boolean) [default: false]
+    For select_tab or create_tab: switch UI to show selected tab
+
+  allow_active (boolean) [default: false]
+    For close_tab: allow closing the currently visible tab
+
+  open_in_new_window (boolean)
+    For create/switch: open workspace in a new window and bind the connection
+
+  switch_to_created (boolean) [default: true]
+    For create: switch to the newly created workspace
+
+Safety:
+  close_tab refuses to close the last remaining tab, the visible active tab unless
+  allow_active=true, or any tab with live bound runs.
+```
+
+### list\_windows
+
+List open Repo Prompt windows. Shorthand: `windows`
+
+```text
+(no parameters)
+```
+
+### app\_settings
+
+Read/update allowlisted RepoPrompt app-wide preferences. Part of the `settings` tool group. See [App Settings Tool](../mcp-server/mcp-app-settings.mdx) (MCP) for the full registry, and [App Settings from the CLI](./cli-app-settings.mdx) for shell-focused examples.
+
+```bash
+Parameters:
+  op (string, required): list | get | set | options
+    Operation to perform
+
+  group (string): ui | prompt_packaging | editing | models | context_builder | mcp | code_maps
+    Filter for list; selector for get.
+
+  key (string)
+    Fully-qualified key (e.g. ui.appearance_mode). Required for set/options.
+
+  keys (array<string>)
+    Multi-key selector for get. Mutually exclusive with key and group.
+
+  value (boolean | number | string | null)
+    Required for set. Type validated against the entry definition.
+
+  agent (string)
+    For options on model settings: filter candidates to one CLI backend.
+
+  limit (integer)
+    For options: max candidates returned (1-200, default 60).
+
+  detailed (boolean)
+    For options: include descriptions and model metadata per candidate.
+
+Shell examples:
+  rp-cli -e 'app_settings op=list'
+  rp-cli -e 'app_settings op=list group=ui'
+  rp-cli -e 'app_settings op=get key=ui.appearance_mode'
+  rp-cli -e 'app_settings op=set key=ui.show_tooltips value=false'
+  rp-cli -e 'app_settings op=set key=ui.appearance_mode value=Dark'
+  rp-cli -e 'app_settings op=options key=models.planning_model agent=codexExec'
+  rp-cli -e 'call app_settings {"op":"set","key":"models.temperature","value":1.25}'
+  rp-cli -e 'call app_settings {"op":"set","key":"models.planning_model","value":null}'
+
+Use rp-cli -d app_settings for the full schema.
+Use rp-cli tools settings --schema for the machine-readable schema.
+```
+
+### agent\_run
+
+Session-based agent run control. **Advanced, policy-gated.**
+
+```text
+Parameters:
+  op (string, required): start | poll | wait | cancel | steer | respond
+    Operation to perform
+
+  message (string)
+    Instruction text (required for start, steer)
+
+  session_id (string)
+    Session UUID for poll, wait, cancel, steer, and respond.
+    Do not pass for start — use steer to continue an existing session.
+
+  timeout (number)
+    Maximum seconds to wait (optional for start/wait, defaults to 300).
+    Fractional values allowed. Use 0 for immediate non-blocking check.
+
+  wait (boolean)
+    [steer] Wait for an interesting/terminal state after steering.
+    Implied when timeout_seconds is provided.
+
+  timeout_seconds (number)
+    [steer] Max wait seconds when wait=true. Default 300.
+
+  session_name (string)
+    Name for a new session (optional for start)
+
+  model_id (string)
+    Role label (explore, engineer, pair, design) or specific model_id
+    from agent_manage.list_agents (optional for start)
+
+  workflow_id, workflow_name (string)
+    Start a workflow-backed run (optional for start, steer, respond)
+
+  detach (boolean)
+    Return immediately instead of waiting (optional for start, default false)
+
+  interaction_id (string)
+    Pending interaction UUID (required for respond)
+
+  response (string), answers (object), amendment (string)
+    Response fields for respond
+
+Responses include failure_reason on failed/cancelled runs:
+  process_crash, timeout, agent_error, cancelled
+
+Use rp-cli -d agent_run for the full schema with types and enums.
+See the MCP Tools Reference for detailed operation documentation.
+```
+
+### agent\_manage
+
+Session and workflow management. **Advanced, policy-gated.**
+
+```text
+Parameters:
+  op (string, required): list_agents | list_sessions | get_log |
+                         create_session | resume_session | stop_session |
+                         cleanup_sessions | list_workflows
+    Operation to perform
+
+  session_id (string)
+    Session UUID (for get_log, resume_session, stop_session)
+
+  session_ids (array of strings)
+    Session UUIDs to delete (required for cleanup_sessions).
+    Only MCP-originated sessions are eligible.
+
+  session_name (string)
+    Name for new session (for create_session)
+
+  model_id (string)
+    Role label or specific model_id (for create_session, resume_session)
+
+  limit (integer), offset (integer)
+    Pagination (for list_sessions, get_log)
+
+  state (string)
+    Filter by state (for list_sessions, e.g. failed, completed, running)
+
+Use rp-cli -d agent_manage for the full schema with types and enums.
+See the MCP Tools Reference for detailed operation documentation.
+```
+
+## Troubleshooting
+
+### "command not found: rp-cli"
+
+The CLI isn't installed or isn't on your PATH. Install from Repo Prompt's settings, then open a new terminal.
+
+### Connection Failures
+
+Make sure Repo Prompt is running and the MCP Server is enabled. For scripts that start both together, use `--wait-for-server 5`.
+
+### Operations Need Approval
+
+Some operations require approval in the Repo Prompt UI. If a command hangs, check the app for a dialog.
+
+:::warning
+
+**Codex CLI Users: Sandbox Restrictions**
+
+Codex runs in a restricted sandbox that may block the socket connection `rp-cli` needs.
+
+**Solutions:**
+
+- **Use MCP directly (recommended)** - Configure Repo Prompt as an MCP server in Codex rather than calling `rp-cli` through Bash.
+- **Escalate sandbox permissions** - Use `sandbox_permissions: "require_escalated"` in the Bash tool invocation.
+- **Run outside Codex** - Run `rp-cli` in a regular terminal and use the exported context with Codex.
+
+:::
