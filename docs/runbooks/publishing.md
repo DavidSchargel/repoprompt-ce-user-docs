@@ -14,7 +14,7 @@ Before first publication, obtain:
 
 ## Local verification
 
-Run from the target root using its pinned toolchain; use the [maintenance setup](maintenance.md) for a fresh install.
+Run from the repository root.
 
 ```sh
 pnpm test

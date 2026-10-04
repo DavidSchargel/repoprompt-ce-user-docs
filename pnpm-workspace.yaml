@@ -1,12 +1,4 @@
-engineStrict: true
-pmOnFail: error
-runtimeOnFail: error
-saveExact: true
-ignoreScripts: true
-strictDepBuilds: true
-verifyDepsBeforeRun: error
 nodeLinker: hoisted
-sideEffectsCache: false
 allowBuilds:
-  sharp@0.32.6: true
-  '@swc/core@1.16.13': true
+  sharp: true
+  '@swc/core': true
