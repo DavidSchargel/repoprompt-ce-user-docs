@@ -1,7 +1,7 @@
 ---
 id: "cli-guide"
 title: "Command Line Guide"
-description: "Command Line Guide — Repo Prompt Classic archive documentation."
+description: "Command Line Guide — RepoPrompt Classic archive documentation."
 slug: "/rp-cli/cli-guide"
 keywords: ["rp-cli","repoprompt-mcp","cli","command line","terminal","exec mode","interactive mode","proxy mode","automation","scripts","bash","shell","export context","codex sandbox","agent_run","agent_manage","session_id","session_ids","workflow","agent mode control","multi-wait","multi-poll","orchestrate","sub-agent","sub agent","parallel agents","scriptable control surface","control plane","app_settings","settings tool group"]
 hide_table_of_contents: false
@@ -17,7 +17,7 @@ toc_max_heading_level: 4
 
 When an agent like Claude Code, Codex, Cursor, or Gemini runs `rp-cli`through its Bash/shell tool, it gets the same surface a native MCP client would: file selection, codemaps, Context Builder, chat, edits, workspace and tab lifecycle, allowlisted app preferences via `app_settings`, and Agent Mode run control. The CLI is especially useful for agents that don't speak MCP natively, for ad-hoc shell automation, and for mixing RepoPrompt with other tools in a script.
 
-The CLI communicates with the running Repo Prompt app over a local UNIX socket. You don't need to configure MCP in the agent, but you **do** need the MCP Server enabled in Repo Prompt's settings for the CLI to connect. The shorthand verbs below map to the same MCP tools documented in the [MCP Tools Reference](../mcp-server/mcp-tools.mdx); use `rp-cli -d <tool>` or `rp-cli tools <group> --schema` for the authoritative schema.
+The CLI communicates with the running RepoPrompt app over a local UNIX socket. You don't need to configure MCP in the agent, but you **do** need the MCP Server enabled in RepoPrompt's settings for the CLI to connect. The shorthand verbs below map to the same MCP tools documented in the [MCP Tools Reference](../mcp-server/mcp-tools.mdx); use `rp-cli -d <tool>` or `rp-cli tools <group> --schema` for the authoritative schema.
 
 :::tip
 
@@ -42,20 +42,20 @@ Both the CLI and direct MCP integration provide access to the same tools, but wi
 
 - Your agent supports Bash/shell but not MCP directly
 - You want to chain multiple operations in one call, or pipe output to files
-- You're building agent skills or workflows that mix Repo Prompt with other shell tools
-- You don't want MCP tool schemas loaded into every agent session—CLI is on-demand, keeping conversations lighter when Repo Prompt isn't needed
+- You're building agent skills or workflows that mix RepoPrompt with other shell tools
+- You don't want MCP tool schemas loaded into every agent session—CLI is on-demand, keeping conversations lighter when RepoPrompt isn't needed
 
 **Use MCP when:**
 
 - Your agent has native MCP support and you want persistent window/tab binding
 - You prefer structured JSON responses for programmatic processing
-- Your workflow primarily uses Repo Prompt and benefits from having tool schemas always available
+- Your workflow primarily uses RepoPrompt and benefits from having tool schemas always available
 
 ## Getting Started
 
-Before using `rp-cli`, you'll need three things: Repo Prompt running on your Mac, the MCP Server enabled in settings, and the CLI installed to your PATH.
+Before using `rp-cli`, you'll need three things: RepoPrompt running on your Mac, the MCP Server enabled in settings, and the CLI installed to your PATH.
 
-To install the CLI, open Repo Prompt, go to Settings → MCP Server, and click "Install CLI to PATH". This creates a symlink at `/usr/local/bin/rp-cli` (macOS will prompt for administrator access).
+To install the CLI, open RepoPrompt, go to Settings → MCP Server, and click "Install CLI to PATH". This creates a symlink at `/usr/local/bin/rp-cli` (macOS will prompt for administrator access).
 
 After installing, open a new terminal and verify it works:
 
@@ -122,7 +122,7 @@ rp-cli -d file_search --verbose  # Also show raw JSON schema
 | `chats` | `chats` | action (`list\|log`), scope (`workspace\|tab`), tab\_id, chat\_id (for log), include\_diffs (bool), limit |
 | `list_models` | `models` | (no parameters - lists available AI model presets) |
 | `manage_workspaces` | `workspace`, `tabs` | action (`list\|switch\|create\|delete\|add_folder\|remove_folder\|list_tabs\|select_tab\|create_tab\|close_tab`), workspace, tab, mode, source\_tab, bind, focus, allow\_active, open\_in\_new\_window, switch\_to\_created, close\_window |
-| `list_windows` | `windows` | (no parameters - lists open Repo Prompt windows) |
+| `list_windows` | `windows` | (no parameters - lists open RepoPrompt windows) |
 | `git` | `git` | op (`status\|diff\|log\|show\|blame`), repo-root (path or name), repo-roots (comma-separated), compare (`uncommitted\|staged\|unstaged\|mergebase:X\|main\|trunk\|back:N\|revspec`), detail, scope, artifacts, ref, path, lines |
 | `agent_run` | *direct name* | op (`start\|poll\|wait\|cancel\|steer\|respond`), session\_id, session\_name, message, model\_id, interaction\_id, response, timeout, detach |
 | `agent_manage` | *direct name* | op (`list_agents\|list_sessions\|get_log\|create_session\|resume_session\|stop_session\|list_workflows`), session\_id, model\_id, session\_name, state, limit |
@@ -385,7 +385,7 @@ echo '...' | rp-cli -c read_file -j @-              # JSON from stdin
 
 ## Working with Multiple Windows
 
-When multiple Repo Prompt windows are open, you **must** target a specific window.
+When multiple RepoPrompt windows are open, you **must** target a specific window.
 
 **CLI limitation:** Each CLI invocation is an independent connection with no memory of previous calls. You must pass `-w` (and optionally `-t`) on **every** invocation. This is inherent to how the CLI works—each command starts fresh.
 
@@ -805,7 +805,7 @@ Parameters:
 
   tab_id (string)
     Optional compose tab UUID filter. With scope=tab and no tab_id,
-    Repo Prompt uses the current bound tab when available, otherwise the active UI tab.
+    RepoPrompt uses the current bound tab when available, otherwise the active UI tab.
 
   chat_id (string)
     Chat ID for log action
@@ -885,7 +885,7 @@ Safety:
 
 ### list\_windows
 
-List open Repo Prompt windows. Shorthand: `windows`
+List open RepoPrompt windows. Shorthand: `windows`
 
 ```text
 (no parameters)
@@ -1026,15 +1026,15 @@ See the MCP Tools Reference for detailed operation documentation.
 
 ### "command not found: rp-cli"
 
-The CLI isn't installed or isn't on your PATH. Install from Repo Prompt's settings, then open a new terminal.
+The CLI isn't installed or isn't on your PATH. Install from RepoPrompt's settings, then open a new terminal.
 
 ### Connection Failures
 
-Make sure Repo Prompt is running and the MCP Server is enabled. For scripts that start both together, use `--wait-for-server 5`.
+Make sure RepoPrompt is running and the MCP Server is enabled. For scripts that start both together, use `--wait-for-server 5`.
 
 ### Operations Need Approval
 
-Some operations require approval in the Repo Prompt UI. If a command hangs, check the app for a dialog.
+Some operations require approval in the RepoPrompt UI. If a command hangs, check the app for a dialog.
 
 :::warning
 
@@ -1044,7 +1044,7 @@ Codex runs in a restricted sandbox that may block the socket connection `rp-cli`
 
 **Solutions:**
 
-- **Use MCP directly (recommended)** - Configure Repo Prompt as an MCP server in Codex rather than calling `rp-cli` through Bash.
+- **Use MCP directly (recommended)** - Configure RepoPrompt as an MCP server in Codex rather than calling `rp-cli` through Bash.
 - **Escalate sandbox permissions** - Use `sandbox_permissions: "require_escalated"` in the Bash tool invocation.
 - **Run outside Codex** - Run `rp-cli` in a regular terminal and use the exported context with Codex.
 

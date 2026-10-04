@@ -1,7 +1,7 @@
 ---
 id: "mcp-transport"
 title: "Transport Modes"
-description: "Transport Modes — Repo Prompt Classic archive documentation."
+description: "Transport Modes — RepoPrompt Classic archive documentation."
 slug: "/mcp-server/mcp-transport"
 keywords: ["unix socket","local socket","local only","cli bridge","transport","security","reconnection","connection refused"]
 hide_table_of_contents: false
@@ -9,15 +9,15 @@ toc_min_heading_level: 2
 toc_max_heading_level: 4
 ---
 
-Repo Prompt's MCP server uses secure local UNIX sockets for communication between external clients and the main application. All traffic stays local to your machine with no network ports exposed.
+RepoPrompt's MCP server uses secure local UNIX sockets for communication between external clients and the main application. All traffic stays local to your machine with no network ports exposed.
 
 ## How It Works
 
-When an external client (Claude Code, Cursor, etc.) connects to Repo Prompt, the CLI bridge establishes a secure local socket connection:
+When an external client (Claude Code, Cursor, etc.) connects to RepoPrompt, the CLI bridge establishes a secure local socket connection:
 
 1. External client launches `repoprompt-mcp` via stdio
-2. CLI bridge connects to Repo Prompt through a local UNIX socket
-3. Messages are forwarded bidirectionally between the client and Repo Prompt
+2. CLI bridge connects to RepoPrompt through a local UNIX socket
+3. Messages are forwarded bidirectionally between the client and RepoPrompt
 4. Connection persists for the session lifetime with automatic reconnection on interruption
 
 ## Security
@@ -39,11 +39,11 @@ The MCP dashboard (accessible from the status bar icon) shows all active connect
 
 ## Automatic Reconnection
 
-If Repo Prompt restarts or temporarily becomes unavailable, connected clients will automatically attempt to reconnect. The CLI maintains its session identity across reconnections, so your workflow continues seamlessly.
+If RepoPrompt restarts or temporarily becomes unavailable, connected clients will automatically attempt to reconnect. The CLI maintains its session identity across reconnections, so your workflow continues seamlessly.
 
 ## Troubleshooting
 
-- **Connection refused:** Ensure MCP Server is enabled in Settings and Repo Prompt is running
+- **Connection refused:** Ensure MCP Server is enabled in Settings and RepoPrompt is running
 - **Approval not appearing:** Check that the client is using a compatible version of the CLI
 - **Stale connections:** Use the MCP dashboard to disconnect old sessions
 

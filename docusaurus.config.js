@@ -13,7 +13,7 @@ const origin = new URL(url);
 if (!['https:', 'http:'].includes(origin.protocol) || origin.pathname !== '/' || origin.search || origin.hash || origin.username || origin.password) throw new Error('SITE_URL must be an HTTP(S) origin only.');
 
 module.exports = {
-  title: 'Repo Prompt CE',
+  title: 'RepoPrompt',
   tagline: 'Community Edition documentation',
   url,
   baseUrl,
@@ -48,10 +48,10 @@ module.exports = {
       },
       blog: {
         remarkPlugins: [remarkIdealImages],
-        blogTitle: 'Repo Prompt CE Blog',
-        blogDescription: 'News and updates from Repo Prompt CE.',
+        blogTitle: 'RepoPrompt CE Blog',
+        blogDescription: 'News and updates from RepoPrompt CE.',
         onUntruncatedBlogPosts: 'throw',
-        feedOptions: {type: ['rss', 'atom'], copyright: 'Repo Prompt CE'},
+        feedOptions: {type: ['rss', 'atom'], copyright: 'RepoPrompt CE'},
       },
       pages: {remarkPlugins: [remarkIdealImages]},
       theme: {customCss: require.resolve('./src/css/responsive-tables.css')},
@@ -92,10 +92,10 @@ module.exports = {
       },
     },
     image: 'images/blog/repo-prompt-community-edition.png',
-    metadata: [{name: 'description', content: 'Documentation for Repo Prompt Community Edition and the Classic archive.'}],
+    metadata: [{name: 'description', content: 'Documentation for RepoPrompt Community Edition and the Classic archive.'}],
     colorMode: {defaultMode: 'dark', respectPrefersColorScheme: true},
     navbar: {
-      title: 'Repo Prompt CE',
+      title: 'RepoPrompt',
       items: [
         {type: 'docSidebar', sidebarId: 'docsSidebar', label: 'Docs', position: 'left'},
         {to: '/blog/', label: 'Blog', position: 'left'},

@@ -1,7 +1,7 @@
 ---
 id: "overview"
 title: "Code Reviews & Git"
-description: "Code Reviews & Git — Repo Prompt Classic archive documentation."
+description: "Code Reviews & Git — RepoPrompt Classic archive documentation."
 slug: "/code-reviews/overview"
 keywords: ["code review","review mode","deep review","git tool","diff","jujutsu","jj","version control","rp-review","uncommitted","staged","blame","log"]
 hide_table_of_contents: false
@@ -9,11 +9,11 @@ toc_min_heading_level: 2
 toc_max_heading_level: 4
 ---
 
-Repo Prompt provides AI-powered code reviews that go far beyond simple diff analysis. By automatically mapping the full context of your changes—affected files, dependencies, and related code paths—reviews can understand not just *what* changed, but *why* it matters and *how* it fits into your codebase.
+RepoPrompt provides AI-powered code reviews that go far beyond simple diff analysis. By automatically mapping the full context of your changes—affected files, dependencies, and related code paths—reviews can understand not just *what* changed, but *why* it matters and *how* it fits into your codebase.
 
 ## Deep Code Reviews
 
-When you request a code review, Repo Prompt's Context Builder automatically:
+When you request a code review, RepoPrompt's Context Builder automatically:
 
 - **Maps your changes** – Identifies all modified, added, and deleted files
 - **Traces dependencies** – Finds files that call into or are affected by your changes
@@ -24,7 +24,7 @@ This curated context is then sent to a dedicated review model, enabling thorough
 
 ### What makes this different
 
-Traditional diff-based reviews show line changes in isolation. Repo Prompt's approach ensures the reviewer has enough surrounding context to catch issues that only become apparent when you understand how the code fits together—like a renamed function that breaks a caller in another file, or a new edge case that an existing test doesn't cover.
+Traditional diff-based reviews show line changes in isolation. RepoPrompt's approach ensures the reviewer has enough surrounding context to catch issues that only become apparent when you understand how the code fits together—like a renamed function that breaks a caller in another file, or a new edge case that an existing test doesn't cover.
 
 ## Running a Code Review
 
@@ -71,7 +71,7 @@ For explicit control, use `mergebase:X` for working tree vs merge-base with `X`.
 
 ## Jujutsu (jj) Support
 
-Repo Prompt natively supports [Jujutsu (jj)](https://github.com/martinvonz/jj), a modern version control system that's gaining popularity as a Git alternative. When you open a jj-managed repository, Repo Prompt automatically detects it and uses jj commands under the hood.
+RepoPrompt natively supports [Jujutsu (jj)](https://github.com/martinvonz/jj), a modern version control system that's gaining popularity as a Git alternative. When you open a jj-managed repository, RepoPrompt automatically detects it and uses jj commands under the hood.
 
 ### What works the same
 
@@ -83,10 +83,10 @@ Repo Prompt natively supports [Jujutsu (jj)](https://github.com/martinvonz/jj), 
 
 Jujutsu has a different mental model than Git, which affects some workflows:
 
-- **No staging area** – jj doesn't have a Git-style index. If you request "staged" or "unstaged" changes, Repo Prompt shows all uncommitted changes instead.
+- **No staging area** – jj doesn't have a Git-style index. If you request "staged" or "unstaged" changes, RepoPrompt shows all uncommitted changes instead.
 - **Working copy is always a commit** – In jj, your working directory is itself a commit that gets amended as you work. This makes "uncommitted changes" semantically different but functionally similar for review purposes.
 
-If you're a jj user, Repo Prompt works naturally with your workflow. If you're curious about jj, it's worth exploring—especially for complex branching and history rewriting.
+If you're a jj user, RepoPrompt works naturally with your workflow. If you're curious about jj, it's worth exploring—especially for complex branching and history rewriting.
 
 ## Tips for Better Reviews
 

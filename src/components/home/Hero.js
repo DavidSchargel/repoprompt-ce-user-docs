@@ -19,10 +19,10 @@ function DownloadOptions() {
     >
       <div className="download-container">
         <div className="download-header">
-          <p className="download-eyebrow">Download Repo Prompt</p>
+          <p className="download-eyebrow">Download RepoPrompt</p>
           <h2 id="download-heading">Choose the edition that fits your workflow</h2>
           <p className="download-intro">
-            Repo Prompt is now open source. Community Edition is the active home
+            RepoPrompt is now open source. Community Edition is the active home
             for new development, while Classic remains available for the original
             manual prompt-building workflow.
           </p>
@@ -108,7 +108,7 @@ function DownloadOptions() {
             </div>
 
             <p className="edition-description">
-              The original Repo Prompt experience for selecting files, assembling
+              The original RepoPrompt experience for selecting files, assembling
               prompts, and copying them into your AI tool. Keep it for established
               manual workflows.
             </p>
@@ -155,7 +155,7 @@ function DownloadOptions() {
         <div className="download-community">
           <p>
             <strong>Built in the open.</strong> Report issues, contribute
-            improvements, and help shape what Repo Prompt becomes next.
+            improvements, and help shape what RepoPrompt becomes next.
           </p>
           <a
             href="https://discord.gg/NtbFDAJPGM"
@@ -191,7 +191,7 @@ function Hero() {
               <div className="logo-glow"></div>
             </div>
 
-            <h1 className="hero-headline">Repo Prompt</h1>
+            <h1 className="hero-headline">RepoPrompt</h1>
 
             <div className="hero-copy">
               <p className="hero-tagline">

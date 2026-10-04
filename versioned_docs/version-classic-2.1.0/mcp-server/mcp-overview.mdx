@@ -14,7 +14,7 @@ toc_max_heading_level: 4
 
 ### What is MCP?
 
-MCP (Model Context Protocol) is an open standard for AI tools to communicate with external services. Repo Prompt's MCP server exposes its capabilities — file selection, codemaps, Context Builder, chat, edits, workspace and tab lifecycle, app preferences, and Agent Mode session control — as tools that any MCP-compatible agent can use. The same tool surface is reachable two ways:
+MCP (Model Context Protocol) is an open standard for AI tools to communicate with external services. RepoPrompt's MCP server exposes its capabilities — file selection, codemaps, Context Builder, chat, edits, workspace and tab lifecycle, app preferences, and Agent Mode session control — as tools that any MCP-compatible agent can use. The same tool surface is reachable two ways:
 
 - **Direct MCP** — persistent connections for agents that natively speak MCP.
 - **[rp-cli](../rp-cli/cli-guide.mdx)** — ephemeral shell invocations for agents and humans that prefer a terminal.
@@ -29,20 +29,20 @@ Click the **MCP Server** indicator in the toolbar for quick access to all MCP se
 
 **Key settings to configure:**
 
-- **Auto-Start:** Enable this so MCP is always available when you launch Repo Prompt
+- **Auto-Start:** Enable this so MCP is always available when you launch RepoPrompt
 - **Chat Model Presets:** Choose which model handles `chat_send` requests from external agents
 - **Context Builder:** Select the agent (Codex, Claude, Gemini) that powers `context_builder`
 - **Quick Setup:** One-click install for Cursor, Claude Code, Codex CLI, and more
 
 :::tip
 
-**Showing 0 tools?** If you just set up your client and it shows 0 available tools, the client cached the empty tool list before Repo Prompt was ready. Restart your client (Cursor, Claude Code, etc.) to pull the updated list.
+**Showing 0 tools?** If you just set up your client and it shows 0 available tools, the client cached the empty tool list before RepoPrompt was ready. Restart your client (Cursor, Claude Code, etc.) to pull the updated list.
 
 :::
 
-### Repo Prompt as an IDE for Agents
+### RepoPrompt as an IDE for Agents
 
-Think of Repo Prompt's MCP server as providing everything an AI agent needs to work effectively with code:
+Think of RepoPrompt's MCP server as providing everything an AI agent needs to work effectively with code:
 
 #### File Navigation
 
@@ -62,7 +62,7 @@ Run Context Builder as an MCP tool - let a headless agent select relevant files 
 
 #### Pair Programming
 
-Invoke Repo Prompt's built-in chat for planning, reviewing, and implementing changes with your configured models.
+Invoke RepoPrompt's built-in chat for planning, reviewing, and implementing changes with your configured models.
 
 #### File Editing
 
@@ -88,7 +88,7 @@ Flip allowlisted RepoPrompt preferences — appearance, prompt packaging, edit-f
 
 The MCP server uses a secure, local-only architecture with UNIX socket transport:
 
-**Local Socket Transport:**<br />External Client → rp-cli (stdio) → UNIX Socket → Repo Prompt App
+**Local Socket Transport:**<br />External Client → rp-cli (stdio) → UNIX Socket → RepoPrompt App
 
 All traffic stays local to your machine with no network ports exposed. UNIX sockets provide strong isolation - connections are user-specific and cannot be accessed by other users on the system.
 
@@ -113,7 +113,7 @@ This installs a simple command that launches Claude Code pre-configured to use R
 
 - **Better Context:** Agents get token-efficient codemaps and slices instead of dumping entire files
 - **Multi-Repository:** Work across multiple project folders in a single workspace
-- **Visual Feedback:** See what agents are doing in Repo Prompt's UI
+- **Visual Feedback:** See what agents are doing in RepoPrompt's UI
 - **Human Oversight:** Approve connections, review edits before applying
 - **Undo Support:** File checkpoints let you restore previous states
 

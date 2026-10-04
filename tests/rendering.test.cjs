@@ -35,7 +35,7 @@ test('MDX receives the responsive image adapter through the real MDX provider', 
   const src = {default: {src: {src: '/project/assets/logo.png', images: [{path: '/project/assets/logo-320.png', width: 320}]}}};
   function HomeContent() {
     const components = {img: 'img', ...mdx.useMDXComponents()};
-    return React.createElement(components.img, {src, alt: 'Repo Prompt application logo'});
+    return React.createElement(components.img, {src, alt: 'RepoPrompt application logo'});
   }
   const html = renderToStaticMarkup(React.createElement(MDXContent, null, React.createElement(HomeContent)));
   assert.doesNotMatch(html, /\[object Object\]/);
@@ -63,7 +63,7 @@ test('React homepage renders its content and resolves assets and navigation unde
   }
   const Home = loadJsx(path.join(__dirname, '../src/pages/index.js'), dependencies);
   const html = renderToStaticMarkup(React.createElement(Home));
-  for (const heading of ['Repo Prompt', 'Community Edition', 'From prompt to verified delivery', 'Context Builder Workflows', 'Works With Every Agent']) assert.ok(html.includes(heading));
+  for (const heading of ['RepoPrompt', 'Community Edition', 'From prompt to verified delivery', 'Context Builder Workflows', 'Works With Every Agent']) assert.ok(html.includes(heading));
   assert.match(html, /href="\/project\/docs\/"/);
   assert.match(html, /href="\/project\/docs\/classic-2.1.0\/"/);
   assert.match(html, /href="\/project\/docs\/agent-mode\/workflows\/"/);

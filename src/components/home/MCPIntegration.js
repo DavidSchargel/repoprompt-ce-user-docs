@@ -55,8 +55,8 @@ const MCPIntegration = () => {
         <div className="integration-flow">
           <div className="flow-diagram">
             <div className="repo-prompt-hub">
-              <img src={useBaseUrl("/images/home/RepoPromptLogo_NoBG.png")} alt="Repo Prompt" className="hub-logo" />
-              <span className="hub-label">Repo Prompt</span>
+              <img src={useBaseUrl("/images/home/RepoPromptLogo_NoBG.png")} alt="RepoPrompt" className="hub-logo" />
+              <span className="hub-label">RepoPrompt</span>
               <span className="hub-status">MCP Server</span>
               <div className="hub-features">
                 <span>• 15+ tools available</span>

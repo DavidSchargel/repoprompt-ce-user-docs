@@ -1,14 +1,14 @@
 ---
 id: overview
-title: Repo Prompt Classic 2.1.0
-description: Historical Repo Prompt guides and Classic release notes.
+title: RepoPrompt Classic 2.1.0
+description: Historical RepoPrompt guides and Classic release notes.
 slug: /
 hide_table_of_contents: false
 ---
 
 ## About this archive
 
-This archive preserves the Classic documentation and historical guides, including older material no longer linked from the source navigation. Commands, model recommendations, prices, limits, and feature descriptions reflect the source rather than a newly verified current specification. For CE installation and agent workflows, start with [Repo Prompt CE 1.5.0](../version-1.5.0/index.mdx).
+This archive preserves the Classic documentation and historical guides, including older material no longer linked from the source navigation. Commands, model recommendations, prices, limits, and feature descriptions reflect the source rather than a newly verified current specification. For CE installation and agent workflows, start with [RepoPrompt CE 1.5.0](../version-1.5.0/index.mdx).
 
 :::note Version history
 
@@ -95,7 +95,7 @@ All Classic changelogs are retained here. The CE Version 1 changelog belongs to 
 - [MCP Troubleshooting](./historical-guides/faq/mcp-troubleshooting.mdx)
 - [Prompt Caching](./historical-guides/faq/prompt-caching.mdx)
 - [Solo Project](./historical-guides/faq/solo-project.mdx)
-- [What Is Repo Prompt](./historical-guides/faq/what-is-repo-prompt.mdx)
+- [What Is RepoPrompt](./historical-guides/faq/what-is-repo-prompt.mdx)
 - [Windows Linux](./historical-guides/faq/windows-linux.mdx)
 - [Context Builder](./historical-guides/file-selection/context-builder.mdx)
 - [Filtering Files](./historical-guides/file-selection/filtering-files.mdx)

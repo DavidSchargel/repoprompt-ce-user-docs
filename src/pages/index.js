@@ -14,20 +14,22 @@ import '../components/home/adaptations.css';
 
 export default function Home() {
   return (
-    <Layout title="Repo Prompt — context for coding agents" description="Curate the right context, run deep analysis, and orchestrate coding agents with Repo Prompt Community Edition, a free, open-source native macOS app.">
-      <main className="repo-home">
-        <Hero />
-        <OrchestrationFlow />
-        <AgentSection />
-        <WorkflowsShowcase />
-        <Demo />
-        <MCPIntegration />
-        <Testimonials />
+    <Layout title="RepoPrompt — context for coding agents" description="Curate the right context, run deep analysis, and orchestrate coding agents with RepoPrompt Community Edition, a free, open-source native macOS app.">
+      <div className="repo-home">
+        <main>
+          <Hero />
+          <OrchestrationFlow />
+          <AgentSection />
+          <WorkflowsShowcase />
+          <Demo />
+          <MCPIntegration />
+          <Testimonials />
+        </main>
         <footer className="home-footer">
-          <p>© <CopyrightYear /> Repo Prompt</p>
+          <p>© <CopyrightYear /> RepoPrompt</p>
           <nav aria-label="Footer"><Link to="/privacy/">Privacy policy</Link><Link to="/terms/">Terms and conditions</Link></nav>
         </footer>
-      </main>
+      </div>
     </Layout>
   );
 }
