@@ -3,7 +3,7 @@ id: "installation"
 title: "Installation"
 description: "Download Repo Prompt Community Edition for macOS and follow the installation and first-launch guidance."
 slug: "/overview/installation"
-keywords: ["download","install","setup","dmg","homebrew","requirements","system requirements","macos","get started","community edition","classic edition","migration","migrate"]
+keywords: ["download","install","setup","dmg","homebrew","requirements","system requirements","macos","get started","community edition","classic edition"]
 hide_table_of_contents: false
 toc_min_heading_level: 2
 toc_max_heading_level: 4
@@ -40,16 +40,6 @@ brew tap repoprompt/repoprompt-ce
 brew trust --tap repoprompt/repoprompt-ce
 brew install --cask repoprompt-ce
 ```
-
-## Migrating from the Classic Edition
-
-To move your existing Repo Prompt Classic data into Repo Prompt CE, install Repo Prompt CE and launch it once so macOS creates the new app data location. Then the Codex app or Claude Desktop or similar to migrate the data for you. The apps are recommended, though a CLI should work too.
-
-You can use a prompt like:
-
-`Migrate Repo Prompt's Application Data to Repo Prompt CE. Do not change anything inside Repo Prompt's folders. Migrate everything to Repo Prompt CE, and do not worry about overwriting data because this is a fresh install.`
-
-For MCP installs created with Classic Edition or installed manually, update the `command` path to: `~/Library/Application Support/RepoPrompt CE/repoprompt_ce_cli`
 
 ## System Requirements
 

@@ -10,10 +10,7 @@ async function main() {
   const directory = path.join(root, 'build');
   const config = require('../docusaurus.config.js');
   const siteUrl = new URL(config.baseUrl, config.url).href;
-  const entries = [...require('../migration/docs-manifest.json').documents, {
-    destination: 'versioned_docs/version-classic-2.1.0/index.md',
-    route: '/docs/classic-2.1.0/', version: 'classic-2.1.0',
-  }];
+  const entries = require('./doc-inventory.cjs').readDocs(root);
   const routes = Object.fromEntries(entries.map((entry) => [entry.destination, entry.route]));
   const docs = [];
   for (const entry of entries) {

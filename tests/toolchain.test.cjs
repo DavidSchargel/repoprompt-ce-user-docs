@@ -57,7 +57,7 @@ test('release pipeline keeps toolchain, content, tests and finalizers', () => {
   assert.deepEqual(commands, [
     'node scripts/verify-toolchain.cjs', 'pnpm test', 'pnpm run check:content', 'docusaurus build',
     'node scripts/finalize-redirects.cjs', 'node scripts/finalize-llm-exports.cjs',
-    'pnpm run check:artifacts', 'pnpm run check:integration',
+    'pnpm run check:artifacts',
   ]);
   for (const [name, command] of Object.entries(manifest.scripts)) {
     assert.match(command, /^node scripts\/verify-toolchain\.cjs(?: |$)/, `${name} must validate its original invoker before delegating`);

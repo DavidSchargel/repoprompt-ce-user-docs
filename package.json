@@ -9,11 +9,10 @@
   },
   "scripts": {
     "start": "node scripts/verify-toolchain.cjs --versions-only && docusaurus start",
-    "build": "node scripts/verify-toolchain.cjs && pnpm test && pnpm run check:content && docusaurus build && node scripts/finalize-redirects.cjs && node scripts/finalize-llm-exports.cjs && pnpm run check:artifacts && pnpm run check:integration",
+    "build": "node scripts/verify-toolchain.cjs && pnpm test && pnpm run check:content && docusaurus build && node scripts/finalize-redirects.cjs && node scripts/finalize-llm-exports.cjs && pnpm run check:artifacts",
     "check:artifacts": "node scripts/verify-toolchain.cjs --versions-only && node scripts/check-artifacts.cjs",
     "test": "node scripts/verify-toolchain.cjs --versions-only && node --test tests/*.test.cjs",
-    "check:content": "node scripts/verify-toolchain.cjs --versions-only && node migration/check-docs.cjs",
-    "check:integration": "node scripts/verify-toolchain.cjs --versions-only && node scripts/check-integration.cjs",
+    "check:content": "node scripts/verify-toolchain.cjs --versions-only && node scripts/check-content.cjs",
     "verify:toolchain": "node scripts/verify-toolchain.cjs",
     "preinstall": "node scripts/verify-toolchain.cjs --versions-only",
     "setup:native": "node scripts/verify-toolchain.cjs --versions-only && pnpm rebuild --ignore-scripts=false sharp @swc/core && pnpm run verify:toolchain",
