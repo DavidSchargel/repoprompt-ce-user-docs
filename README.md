@@ -23,7 +23,7 @@ pnpm run serve
 
 `pnpm run build` includes strict link/anchor/MDX checks, redirect finalization, version-correct LLM exports, and artifact audits. A bare `docusaurus build` is not the release pipeline. Local previews default to example.invalid with noindex. No secrets are required to build.
 
-## Maintainer guide
+## Runbooks
 
 - [Publishing, approvals, variables, and rollback](docs/runbooks/publishing.md)
 - [Algolia credentials, DocSearch crawler, and legacy redirects](docs/runbooks/search-and-redirects.md)

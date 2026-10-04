@@ -145,8 +145,8 @@ test('version, theme, plugin, and redirect contracts are intact', () => {
   assert.equal(config.themes[0][0], 'cosmos-docusaurus-theme');
   const plugins = config.plugins.map((plugin) => Array.isArray(plugin) ? plugin[0] : plugin);
   for (const name of ['docusaurus-plugin-llms', 'docusaurus-plugin-copy-page-button', '@docusaurus/plugin-ideal-image']) assert.ok(plugins.includes(name));
-  assert.ok(!plugins.includes('docusaurus-plugin-image-zoom'));
-  assert.equal(Object.hasOwn(config.themeConfig, 'zoom'), false);
+  assert.ok(plugins.includes('docusaurus-plugin-image-zoom'));
+  assert.equal(config.themeConfig.zoom.selector, '.markdown img');
   const redirect = config.plugins.find((plugin) => plugin[0] === '@docusaurus/plugin-client-redirects')[1].redirects[0];
   assert.deepEqual(redirect.from, ['/claim', '/unsubscribe', '/appcast', '/pricing', '/roadmap', '/prompt-anatomy']);
   assert.equal(redirect.to, '/');

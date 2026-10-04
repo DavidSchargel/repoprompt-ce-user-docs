@@ -20,7 +20,12 @@ module.exports = {
   organizationName,
   projectName,
   trailingSlash: true,
-  favicon: 'images/site/favicon.png',
+  favicon: 'favicon.ico',
+  headTags: [
+    {tagName: 'link', attributes: {rel: 'icon', type: 'image/png', sizes: '96x96', href: `${baseUrl}favicon-96x96.png`}},
+    {tagName: 'link', attributes: {rel: 'apple-touch-icon', sizes: '180x180', href: `${baseUrl}apple-touch-icon.png`}},
+    {tagName: 'link', attributes: {rel: 'manifest', href: `${baseUrl}site.webmanifest`}},
+  ],
   clientModules: [require.resolve('./src/clientModules/legacyHashRedirect.js')],
   noIndex: process.env.SITE_INDEXABLE !== 'true',
   future: {v4: true},
@@ -56,6 +61,7 @@ module.exports = {
   themes: [['cosmos-docusaurus-theme', {injectFavicon: false}]],
   plugins: [
     require.resolve('./plugins/seo-policy.cjs'),
+    'docusaurus-plugin-image-zoom',
     ['docusaurus-plugin-llms', {
       generateLLMsTxt: true,
       generateLLMsFullTxt: true,
@@ -78,6 +84,13 @@ module.exports = {
     }],
   ],
   themeConfig: {
+    zoom: {
+      selector: '.markdown img',
+      background: {
+        light: 'rgb(255, 255, 255)',
+        dark: 'rgb(50, 50, 50)',
+      },
+    },
     image: 'images/blog/repo-prompt-community-edition.png',
     metadata: [{name: 'description', content: 'Documentation for Repo Prompt Community Edition and the Classic archive.'}],
     colorMode: {defaultMode: 'dark', respectPrefersColorScheme: true},

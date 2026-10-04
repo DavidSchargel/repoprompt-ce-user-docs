@@ -6,6 +6,7 @@
     "node": ">=20"
   },
   "scripts": {
+    "generate:favicons": "node scripts/generate-favicons.cjs",
     "start": "docusaurus start",
     "build": "pnpm test && pnpm run check:content && docusaurus build && node scripts/finalize-redirects.cjs && node scripts/finalize-llm-exports.cjs && pnpm run check:artifacts",
     "check:artifacts": "node scripts/check-artifacts.cjs",
@@ -24,6 +25,7 @@
     "@mdx-js/react": "3.1.1",
     "cosmos-docusaurus-theme": "2.2.6",
     "docusaurus-plugin-copy-page-button": "0.8.4",
+    "docusaurus-plugin-image-zoom": "3.0.1",
     "docusaurus-plugin-llms": "0.6.0",
     "react": "19.2.4",
     "react-dom": "19.2.4"
