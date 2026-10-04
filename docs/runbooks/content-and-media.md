@@ -4,7 +4,7 @@
 
 Edit the current MDX files directly. No separate source checkout is needed to build this site.
 
-- Default collection: `versioned_docs/version-1.5.0/`, served at `/docs/`.
+- Default collection: `versioned_docs/version-<current version>/`, where the current version is the first entry in [`versions.json`](../../versions.json), served at `/docs/`. Check the version routes in [`docusaurus.config.js`](../../docusaurus.config.js) when working on version selection or navigation.
 - Historical collection: `versioned_docs/version-classic-2.1.0/`, served at `/docs/classic-2.1.0/`.
 - Explicit sidebars: `versioned_sidebars/`; public unversioned current docs are disabled.
 - Three complete posts: `blog/`.

@@ -17,7 +17,7 @@ planned feature as available.
 
 ## Where to edit
 
-- Current documentation: `versioned_docs/version-1.5.0/`.
+- Current documentation: `versioned_docs/version-<current version>/`, where the current version is the first entry in [`versions.json`](versions.json).
 - Navigation: `versioned_sidebars/` and `sidebars.js`.
 - Blog posts: `blog/`.
 - Site pages and styling: `src/`.
