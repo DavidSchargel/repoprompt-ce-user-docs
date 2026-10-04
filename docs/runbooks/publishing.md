@@ -14,21 +14,80 @@ Before first publication, obtain:
 
 ## Local verification
 
-Run from the repository root.
+Run from the repository root. Site variables are read when Docusaurus starts or builds; changing them requires a server restart or a new build. Local commands do not publish the site.
+
+### Load local settings
+
+Create `.env.local` in the repository root with shell-compatible values. This file is already ignored by Git, but it is not loaded automatically. Replace `YOUR_GITHUB_OWNER` below with the intended GitHub user or organization; confirm the intended production destination before publishing.
 
 ```sh
-pnpm test
-pnpm run check:content
+export PAGES_OWNER=YOUR_GITHUB_OWNER
+export PAGES_REPOSITORY=repoprompt-ce-user-docs
+export SITE_URL="https://${PAGES_OWNER}.github.io"
+export SITE_BASE_URL=/repoprompt-ce-user-docs/
+export SITE_INDEXABLE=false
+
+# Leave all three empty to disable Algolia, or fill in all three to test it.
+export ALGOLIA_APP_ID=''
+export ALGOLIA_SEARCH_API_KEY=''
+export ALGOLIA_INDEX_NAME=''
+```
+
+Use only an Algolia search-only API key, never an admin key: these values become part of the public client build. Empty assignments also clear values inherited from a previous shell session. See [Search and redirects](search-and-redirects.md) for search configuration.
+
+Load the file explicitly in the terminal where you run the site:
+
+```sh
+source .env.local
+pnpm start
+```
+
+Open the local URL printed by Docusaurus, including the configured base path. `SITE_URL` controls production URL generation; it does not bind the development server to that domain. After editing `.env.local`, stop the server, source the file again, and restart it. Each new terminal needs to load the file separately.
+
+### Verify a production build
+
+Development mode is useful for content and navigation checks; use a production build to verify generated URLs, indexing metadata, redirects, and exports:
+
+```sh
+source .env.local
+pnpm run build
+pnpm run serve
+```
+
+`pnpm run build` includes the test suite, content validation, redirect/export finalization, and artifact checks. Browse the local production preview and check navigation, images, version switching, deep-page refreshes, and old redirect links. Inspect generated canonical URLs, `build/sitemap.xml`, `build/robots.txt`, `build/llms.txt`, and page-source robots metadata against the intended origin, path, and indexing setting.
+
+Test these configuration cases before publication:
+
+| Setting | Local check |
+| --- | --- |
+| `PAGES_OWNER` / `PAGES_REPOSITORY` | In a subshell, run `(unset SITE_URL SITE_BASE_URL; pnpm run build)` to check derived URLs. A project repository should use `https://OWNER.github.io/REPOSITORY/`; a repository named `OWNER.github.io` should use `/`. |
+| `SITE_URL` / `SITE_BASE_URL` | Build with the intended overrides. The origin must be HTTP(S) with no path other than `/`, query, fragment, or credentials; the base path must start and end with `/`. Check both root and project-path layouts if the destination is undecided. |
+| `SITE_INDEXABLE` | Compare builds with `false` and `true`. Unset or any value other than the exact string `true` keeps site-wide `noindex`. Existing page-specific indexing exclusions still apply. An indexable local build is only a test, not approval to publish. |
+| Algolia variables | First test with all three empty, then with all three valid values. Partial configuration should fail startup/build. With valid values, test search in the browser against the configured index; a successful build alone does not verify credentials or index contents. Search uses the remote Algolia service, so results may point to indexed production URLs. |
+
+For example, these commands exercise root and project-path layouts without changing `.env.local`:
+
+```sh
 SITE_URL=https://example.invalid SITE_BASE_URL=/ SITE_INDEXABLE=false \
   pnpm run build
 SITE_URL=https://example.invalid SITE_BASE_URL=/repoprompt-ce-user-docs/ SITE_INDEXABLE=true \
   pnpm run build
 ```
 
+Each build replaces `build/`, so preview or inspect one case before building the next. If running `pnpm run check:artifacts` separately, pass the same `SITE_URL`, `SITE_BASE_URL`, and `SITE_INDEXABLE` values used for that build. Restore the intended settings with `source .env.local` and rebuild before the final preview.
+
+### Settings that only apply in GitHub Actions
+
+`PUBLISH_APPROVED` and `LEGAL_TEXT_APPROVED` are deployment gates, not Docusaurus settings. Setting them locally has no effect on `pnpm start`, `pnpm run build`, or `pnpm run serve`. The `publish` checkbox is a manual workflow input, not an environment variable.
+
+After local verification, configure repository variables under **Settings → Secrets and variables → Actions → Variables** and manually run the workflow with `publish` unchecked to test the hosted build without deployment. This validates the build with repository variables, but does not exercise the publication-only approval checks or deployment permissions. Publishing separately requires `main`, both approval variables set to `true`, an exact owner/repository match, and `publish` checked.
+
+GitHub supplies `GITHUB_TOKEN`, `GITHUB_REF`, and `GITHUB_REPOSITORY`; the pnpm setup action supplies `PNPM_HOME`. Do not copy these CI-generated values into `.env.local`.
+
 In restricted orchestration, target build/install writes require owner-run one-time commands. Do not copy the project into the source tree to evade this boundary. The already completed initialization command was:
 
 ```sh
-cd /Users/david/Developer/Projects/Current/RepoPrompt/repoprompt-ce-user-docs
+cd /path/to/repoprompt-ce-user-docs
 git init -b main
 ```
 
