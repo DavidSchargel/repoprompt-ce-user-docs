@@ -1,0 +1,8 @@
+blank_issues_enabled: false
+contact_links:
+  - name: RepoPrompt CE application changes and support
+    url: https://github.com/repoprompt/repoprompt-ce
+    about: Report app bugs, crashes, build problems, or feature requests in the application repository. Read its contribution guidance first.
+  - name: Read the documentation
+    url: https://repoprompt.com
+    about: Find instructions and workflow guidance before opening a documentation issue.

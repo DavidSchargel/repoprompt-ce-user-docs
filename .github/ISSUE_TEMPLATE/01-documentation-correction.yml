@@ -1,0 +1,45 @@
+name: Documentation correction
+description: Report incorrect instructions, unclear wording, outdated screenshots, or broken links.
+title: "[Docs correction]: "
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Use this form to correct existing documentation. Search existing issues before submitting.
+
+        For app bugs, crashes, build problems, or feature requests, use the [RepoPrompt CE repository](https://github.com/repoprompt/repoprompt-ce) and read its contribution guidance.
+
+        Reports are public. Remove private information from examples and screenshots. Follow this repository's security policy for vulnerabilities or exposed secrets.
+        Classic 2.1.0 documentation is archived; changes should target current documentation.
+  - type: input
+    id: location
+    attributes:
+      label: Page URL or source file
+      description: Include the heading or section so we can find the problem.
+      placeholder: Page URL or repository path, and section heading
+    validations:
+      required: true
+  - type: input
+    id: versions
+    attributes:
+      label: Documentation and app versions
+      description: Include the documentation version shown and, for app workflows, your RepoPrompt version. If unknown, say so.
+  - type: textarea
+    id: problem
+    attributes:
+      label: What is incorrect or unclear?
+      description: Quote the relevant passage or describe the screenshot or link. For instructions, explain where you got stuck and what happened.
+    validations:
+      required: true
+  - type: textarea
+    id: correction
+    attributes:
+      label: Suggested correction or expected guidance
+      description: Describe what the documentation should explain. A complete rewrite is not needed; include supporting sources or verified app behavior if available.
+    validations:
+      required: true
+  - type: textarea
+    id: evidence
+    attributes:
+      label: Supporting examples or screenshots
+      description: Optional. Use sample data and remove credentials and private project information.
