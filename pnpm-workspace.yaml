@@ -1,4 +1,6 @@
 nodeLinker: hoisted
 allowBuilds:
+  # Its postinstall only displays a funding banner; no build is required.
+  core-js: false
   sharp: true
   '@swc/core': true
