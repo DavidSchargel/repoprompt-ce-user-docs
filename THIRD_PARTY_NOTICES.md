@@ -1,6 +1,6 @@
 # Third-party notices
 
-Original documentation and site code are licensed under [Apache-2.0](LICENSE.md).
+Original documentation and site code are licensed under [Apache-2.0](LICENSE).
 That license does not replace the terms for third-party dependencies, fonts,
 quoted material, or marks shown in screenshots.
 
@@ -76,6 +76,13 @@ license is separate from the theme's MIT license.
 
 ## Documentation, screenshots, and trademarks
 
+The [Code of Conduct](CODE_OF_CONDUCT.md) is adapted from
+[Contributor Covenant 3.0](https://www.contributor-covenant.org/version/3/0/),
+stewarded by the Organization for Ethical Source and licensed under
+[Creative Commons Attribution-ShareAlike 4.0 International](https://creativecommons.org/licenses/by-sa/4.0/).
+It retains that license rather than Apache-2.0. The adaptation removes the
+template's editorial note about selecting an enforcement process.
+
 RepoPrompt screenshots and examples may depict third-party product names,
 interfaces, and logos. Their inclusion explains how to use RepoPrompt and does
 not imply endorsement or grant rights to third-party trademarks. Retain any
@@ -97,5 +104,5 @@ When updating dependencies, refresh the versions and preserved notices from the
 actual packages. Before redistributing a built site or dependency bundle, review
 the components included in that output and carry forward their required license,
 copyright, and NOTICE material, including notices in generated JavaScript and
-font assets. Keep [LICENSE.md](LICENSE.md) and [NOTICE](NOTICE) with distributions
+font assets. Keep [LICENSE](LICENSE) and [NOTICE](NOTICE) with distributions
 of this repository. These attribution files do not change upstream license terms.

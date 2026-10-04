@@ -1,6 +1,6 @@
 # RepoPrompt CE user documentation
 
-[![License: Apache 2.0](https://img.shields.io/badge/License-Apache_2.0-blue.svg)](LICENSE.md)
+[![License: Apache 2.0](https://img.shields.io/badge/License-Apache_2.0-blue.svg)](LICENSE)
 
 Source code for https://repoprompt.com, the public-facing end user documentation for the [Community Edition of RepoPrompt](https://github.com/repoprompt/repoprompt-ce). Contains legacy documentation for the older "Classic" version of RepoPrompt.
 
@@ -36,9 +36,11 @@ See [CONTRIBUTING.md](CONTRIBUTING.md) to improve these docs and
 [SUPPORT.md](SUPPORT.md) for help. Report vulnerabilities using
 [SECURITY.md](SECURITY.md).
 
+Community participation is governed by our [Code of Conduct](CODE_OF_CONDUCT.md).
+
 ## License
 
 Original documentation and site code in this repository are licensed under
-[Apache-2.0](LICENSE.md), except where otherwise noted. Third-party material
+[Apache-2.0](LICENSE), except where otherwise noted. Third-party material
 retains its own license terms; see [THIRD_PARTY_NOTICES.md](THIRD_PARTY_NOTICES.md)
 and [NOTICE](NOTICE). The license does not grant trademark rights.

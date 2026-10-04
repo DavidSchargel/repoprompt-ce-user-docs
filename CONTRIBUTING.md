@@ -2,7 +2,7 @@
 
 Help improve the end-user documentation for RepoPrompt CE: correct a confusing
 step, update a screenshot, explain a workflow, or fix the documentation site.
-Application changes belong in the [RepoPrompt CE repository](https://github.com/repoprompt/repoprompt-ce).
+Application changes belong in the [RepoPrompt CE repository](https://github.com/repoprompt/repoprompt-ce) and documentation changes belong in this [RepoPrompt CE documentation repository](https://github.com/repoprompt/repoprompt-ce-use-docs).
 
 ## Before you start
 
@@ -66,9 +66,8 @@ changes. AI-assisted contributions are welcome; verify their accuracy and
 licensing and be able to explain the work you submit.
 
 By intentionally submitting a contribution for inclusion, you agree to license
-it under Apache-2.0, as described in Section 5 of [LICENSE.md](LICENSE.md), unless
+it under Apache-2.0, as described in Section 5 of [LICENSE](LICENSE), unless
 you explicitly state otherwise. Only submit material you have the right to
 contribute, and preserve existing third-party notices.
 
-Be respectful and discuss the work rather than the person. Harassment, personal
-attacks, and publication of private information are not welcome.
+Follow our [Code of Conduct](CODE_OF_CONDUCT.md) in all community spaces.

@@ -1,7 +1,7 @@
 RepoPrompt CE user documentation
 
 Original documentation and site code are licensed under the Apache License,
-Version 2.0. See LICENSE.md.
+Version 2.0. See LICENSE.
 
 This repository documents RepoPrompt CE:
 https://github.com/repoprompt/repoprompt-ce
@@ -16,3 +16,8 @@ Font Awesome Free by Font Awesome (Creative Commons Attribution 4.0).
 See THIRD_PARTY_NOTICES.md for source links, icon attribution, and license copies.
 
 This notice is informational and does not modify the license terms.
+
+CODE_OF_CONDUCT.md is adapted from Contributor Covenant 3.0, stewarded by
+the Organization for Ethical Source, under Creative Commons
+Attribution-ShareAlike 4.0 International. See its Attribution section and
+THIRD_PARTY_NOTICES.md.
