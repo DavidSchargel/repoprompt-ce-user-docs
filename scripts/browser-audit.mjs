@@ -244,40 +244,12 @@ try {
   await send('Emulation.setDeviceMetricsOverride', {width:1440,height:1000,deviceScaleFactor:1,mobile:false});
   report.checks.push({interaction:'mobile navigation opens and closes',status:'passed'});
   await go('docs/agent-mode/overview/');
-  await until(`!!document.querySelector('img.medium-zoom-image')`);
-  const zoomCheck = {interaction:'image zoom opens fully and real Escape closes; lazy responsive image decodes',status:'checking'};
-  report.checks.push(zoomCheck);
-  await evaluate(`(() => {
-    const image=document.querySelector('img.medium-zoom-image');
-    const state=window.__auditZoom={events:[],keys:[]};
-    for (const type of ['open','opened','close','closed']) {
-      image.addEventListener('medium-zoom:'+type, () => state.events.push({type,time:performance.now()}));
-    }
-    document.addEventListener('keyup', e => {
-      if(e.key==='Escape') state.keys.push({key:e.key,code:e.code,trusted:e.isTrusted,target:e.target.tagName,time:performance.now()});
-    }, {capture:true});
-  })()`);
-  try {
-    await click('img.medium-zoom-image');
-    await until(`window.__auditZoom.events.some(e=>e.type==='opened') && !!document.querySelector('.medium-zoom-image--opened')`);
-    await screenshot('image-zoom');
-    await key('Escape');
-    await until(`window.__auditZoom.events.some(e=>e.type==='closed') && !document.querySelector('.medium-zoom-image--opened') && !document.querySelector('.medium-zoom-overlay')`);
-    assert.ok(await evaluate(`(() => {const i=document.querySelector('.markdown img');return i.complete && i.naturalWidth>0 && i.loading==='lazy' && !!i.srcset && !i.classList.contains('medium-zoom-image--hidden');})()`));
-  } finally {
-    zoomCheck.diagnostics = await evaluate(`({
-      ...window.__auditZoom,
-      documentFocused:document.hasFocus(),activeElement:document.activeElement?.tagName,
-      overlayPresent:!!document.querySelector('.medium-zoom-overlay'),
-      clones:[...document.querySelectorAll('.medium-zoom-image--opened')].map(e=>({src:e.currentSrc,complete:e.complete,naturalWidth:e.naturalWidth,transform:getComputedStyle(e).transform,transition:getComputedStyle(e).transition})),
-      animations:document.getAnimations().map(a=>({playState:a.playState,currentTime:a.currentTime}))
-    })`);
-  }
-  assert.deepEqual(zoomCheck.diagnostics.events.map(e=>e.type), ['open','opened','close','closed']);
-  const escapeEvent = zoomCheck.diagnostics.keys.find(e=>e.key==='Escape' && e.trusted);
-  assert.ok(escapeEvent, 'A trusted Escape keyup must reach the document');
-  assert.ok(escapeEvent.time >= zoomCheck.diagnostics.events.find(e=>e.type==='opened').time, 'Escape must follow completed opening');
-  zoomCheck.status = 'passed';
+  await until(`!!document.querySelector('.markdown img')`);
+  await evaluate(`document.querySelector('.markdown img').scrollIntoView({block:'center'})`);
+  await until(`(() => {const image=document.querySelector('.markdown img');return image.complete && image.naturalWidth>0;})()`);
+  assert.ok(await evaluate(`(() => {const image=document.querySelector('.markdown img');return image.loading==='lazy' && !!image.srcset;})()`));
+  await screenshot('responsive-image');
+  report.checks.push({interaction:'lazy responsive image decodes',status:'passed'});
   for (const [route, target] of [['docs/?audit=1#s=agent-mode&ss=skills','docs/agent-mode/skills/?audit=1'],['documentation/?audit=2#s=mcp-server&ss=code-reviews','docs/classic-2.1.0/code-reviews/overview/?audit=2'],['docs/#s=unknown','docs/'],['pricing/','']]) {
     await go(route);
     await until(`location.pathname + location.search === ${JSON.stringify(base + target)}`);

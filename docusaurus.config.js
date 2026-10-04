@@ -67,7 +67,6 @@ module.exports = {
       ],
     }],
     ['docusaurus-plugin-copy-page-button', {enabledActions: ['copy'], placement: 'article'}],
-    'docusaurus-plugin-image-zoom',
     ['@docusaurus/plugin-ideal-image', {quality: 85, min: 320, max: 1600, steps: 4, disableInDev: false}],
     ['@docusaurus/plugin-client-redirects', {
       redirects: [
@@ -91,7 +90,6 @@ module.exports = {
       ],
     },
     tableOfContents: {minHeadingLevel: 2, maxHeadingLevel: 3},
-    zoom: {selector: '.markdown img', background: {light: 'var(--ifm-background-color)', dark: 'var(--ifm-background-color)'}},
     ...(algoliaValues.every(Boolean) ? {
       algolia: {appId: algoliaValues[0], apiKey: algoliaValues[1], indexName: algoliaValues[2], contextualSearch: true, insights: false},
     } : {}),
