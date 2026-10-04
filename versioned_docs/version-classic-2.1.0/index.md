@@ -115,3 +115,9 @@ All Classic changelogs are retained here. The CE Version 1 changelog belongs to 
 - [File Watching](./historical-guides/workspace-management/file-watching.mdx)
 - [Managing Workspaces](./historical-guides/workspace-management/managing-workspaces.mdx)
 - [URL Scheme](./historical-guides/workspace-management/url-scheme.mdx)
+
+## Agent session handoff image
+
+This screenshot accompanied the later [CE Agent Sessions guide](../version-1.5.0/agent-mode/sessions.mdx). It is retained in this archive as historical interface media, not as a Classic feature specification.
+
+![Handoff dialog showing session context and Oracle chats moving to a new agent](../../static/images/docs/images/agent-handoff.jpg)
