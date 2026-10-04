@@ -10,4 +10,9 @@ Third-party software, fonts, and other material retain their respective
 copyright notices and licenses. See THIRD_PARTY_NOTICES.md and
 ThirdPartyLicenses/ for the attribution material collected for this site.
 
+The homepage uses react-icons and react-tweet under the MIT License.
+Icons supplied through react-icons include Feather by Cole Bemis (MIT) and
+Font Awesome Free by Font Awesome (Creative Commons Attribution 4.0).
+See THIRD_PARTY_NOTICES.md for source links, icon attribution, and license copies.
+
 This notice is informational and does not modify the license terms.

@@ -24,6 +24,8 @@ graph, including transitive dependencies.
 | [docusaurus-plugin-llms](https://github.com/rachfop/docusaurus-plugin-llms) | 0.6.0 | MIT | License file absent from installed package; see note below. |
 | [react](https://github.com/facebook/react) | 19.2.4 | MIT | [LICENSE](ThirdPartyLicenses/react/LICENSE) |
 | [react-dom](https://github.com/facebook/react) | 19.2.4 | MIT | [LICENSE](ThirdPartyLicenses/react-dom/LICENSE) |
+| [react-icons](https://github.com/react-icons/react-icons) | 5.7.0 | MIT for package code; icon-set licenses apply separately | [LICENSE and icon-set notices](ThirdPartyLicenses/react-icons/LICENSE) |
+| [react-tweet](https://github.com/vercel/react-tweet) | 3.3.1 | MIT | [license.md](ThirdPartyLicenses/react-tweet/license.md) |
 
 The installed `docusaurus-plugin-copy-page-button` and `docusaurus-plugin-llms`
 packages declare MIT in their package metadata and READMEs but do not ship a
@@ -31,6 +33,39 @@ standalone license file at the package root. Their source repositories are linke
 above. This inventory records that gap rather than inventing copyright notices;
 obtain the applicable upstream license text before redistributing those packages
 or their code as a separate bundle.
+
+## Icons supplied through react-icons
+
+The site's source imports the following icon sets. Versions come from the
+installed `react-icons` 5.7.0 README; the package's MIT license does not replace
+these icon licenses.
+
+| Icon set | Upstream version | License | Preserved upstream notices |
+| --- | --- | --- | --- |
+| [Feather](https://feathericons.com/) (`react-icons/fi`) | 4.29.1 | MIT | [LICENSE](ThirdPartyLicenses/feather/LICENSE) |
+| [Font Awesome Free 5](https://fontawesome.com/) (`react-icons/fa`) | 5.15.4-3-gafecf2a | CC BY 4.0 for SVG/JS icons | [Upstream license notice](ThirdPartyLicenses/font-awesome/LICENSE.txt), [CC BY 4.0 text](ThirdPartyLicenses/font-awesome/CC-BY-4.0.txt) |
+
+Feather is copyright (c) 2013–2023 Cole Bemis. The homepage uses its
+`FiArrowDown`, `FiArrowUpRight`, `FiCheck`, `FiDownload`, and `FiGithub` icons.
+
+Font Awesome Free icons are by [Font Awesome](https://fontawesome.com/), licensed
+under [Creative Commons Attribution 4.0 International](https://creativecommons.org/licenses/by/4.0/).
+The homepage uses `FaApple`; retained component source also imports
+`FaArrowRight` and `FaChartBar`. These icons are provided as React components by
+`react-icons` and styled and sized by the site; this repository does not edit
+their path geometry. Brand icons remain trademarks of their respective owners.
+The upstream notice also describes font and code licenses; the site's
+`react-icons/fa` imports use SVG/JS icons, not Font Awesome font files.
+
+See [source provenance](ThirdPartyLicenses/homepage-sources.md) for the package
+files and upstream revisions used to preserve these notices.
+
+## Embedded posts
+
+The `react-tweet` MIT license covers the rendering package, not the posts,
+avatars, linked media, or trademarks displayed through it. Those materials
+retain their respective rights and attribution. The site's testimonial embeds
+retain author names and links to the original posts.
 
 ## Bundled fonts
 
@@ -53,7 +88,7 @@ the inventory for this website.
 
 ## Maintaining and redistributing notices
 
-This is an inventory of direct dependencies and bundled fonts, not an exhaustive
+This is an inventory of direct dependencies, imported icon sets, and bundled fonts, not an exhaustive
 license inventory of every transitive dependency or generated website asset.
 Build tooling and transitive packages retain their own licenses even when they
 are absent from this table.
