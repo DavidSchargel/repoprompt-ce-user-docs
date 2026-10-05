@@ -254,6 +254,21 @@ test('a new CE release keeps older CE docs and Classic on distinct routes', () =
   }
 });
 
+test('LLM exports use configured labels for future CE, retained CE, and Classic', () => {
+  const {getVersionLabel} = require('../scripts/finalize-llm-exports.cjs');
+  const config = {plugins: ['unrelated-plugin', ['docusaurus-plugin-llms', {docsDir: [
+    {path: 'versioned_docs/version-classic-2.1.0', label: 'Classic 2.1.0'},
+    {path: 'versioned_docs/version-99.0.0', label: 'Community Edition next release'},
+    {path: 'versioned_docs/version-98.0.0', label: 'Community Edition previous release'},
+  ]}]]};
+  assert.equal(getVersionLabel(config, '99.0.0'), 'Community Edition next release');
+  assert.equal(getVersionLabel(config, '98.0.0'), 'Community Edition previous release');
+  assert.equal(getVersionLabel(config, 'classic-2.1.0'), 'Classic 2.1.0');
+  assert.throws(() => getVersionLabel(config, '97.0.0'), /Missing configured LLM export label.*97\.0\.0/);
+  config.plugins[1][1].docsDir[1].label = ' ';
+  assert.throws(() => getVersionLabel(config, '99.0.0'), /Missing configured LLM export label/);
+});
+
 test('version, theme, plugin, and redirect contracts are intact', () => {
   const config = require('../docusaurus.config.js');
   const versions = require('../versions.json');
