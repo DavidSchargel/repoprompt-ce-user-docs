@@ -33,7 +33,7 @@ test('MDX receives the responsive image adapter through the real MDX provider', 
     '@theme/MDXComponents': {img: Img},
   });
   const src = {default: {src: {src: '/project/assets/logo.png', images: [{path: '/project/assets/logo-320.png', width: 320}]}}};
-  for (const alt of ['RepoPrompt application logo', '']) {
+  for (const alt of ['RepoPrompt application logo', '', undefined]) {
     const Content = () => {
       const components = {img: 'img', ...mdx.useMDXComponents()};
       return React.createElement(components.img, {src, alt});
@@ -43,7 +43,11 @@ test('MDX receives the responsive image adapter through the real MDX provider', 
     assert.match(html, /src="\/project\/assets\/logo.png"/);
     assert.match(html, /srcSet="\/project\/assets\/logo-320.png 320w"/);
     assert.match(html, /loading="lazy"/);
-    assert.ok(html.includes(`alt="${alt}"`), 'Meaningful and deliberately empty alt must survive rendering');
+    if (alt === undefined) {
+      assert.doesNotMatch(html, /alt=|role="presentation"/, 'Omitted alt must not become decorative');
+    } else {
+      assert.ok(html.includes(`alt="${alt}"`), 'Meaningful and deliberately empty alt must survive rendering');
+    }
   }
 });
 

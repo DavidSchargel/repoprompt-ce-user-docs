@@ -1,7 +1,7 @@
 import React from 'react';
 import OriginalImg from '@theme-original/MDXComponents/Img';
 
-export default function MarkdownImage({src, alt = '', ...props}) {
+export default function MarkdownImage({src, alt, ...props}) {
   const image = src?.default ?? src;
   if (image?.src?.images?.length) {
     return (

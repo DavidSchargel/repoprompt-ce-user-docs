@@ -13,6 +13,11 @@ module.exports = function remarkIdealImages() {
           call?.type === 'CallExpression' && call.callee?.name === 'require' &&
           typeof request === 'string' && request.startsWith('!') && request.includes('url-loader')
         ) {
+          // Docusaurus omits the attribute when a Markdown image has empty alt.
+          // Restore it only for these generated image nodes, not authored JSX.
+          if (!node.attributes.some((attribute) => attribute.name === 'alt')) {
+            node.attributes.push({type: 'mdxJsxAttribute', name: 'alt', value: ''});
+          }
           const imagePath = request.slice(request.lastIndexOf('!') + 1);
           if (/\.(png|jpe?g)$/i.test(imagePath)) {
             call.arguments[0] = {type: 'Literal', value: imagePath, raw: JSON.stringify(imagePath)};

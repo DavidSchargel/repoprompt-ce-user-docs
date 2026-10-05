@@ -32,6 +32,25 @@ const decorativeSettingsImages = new Set([
 ]);
 
 
+const settingsDirectory = 'versioned_docs/version-1.5.0/settings/';
+function isDecorativeSettingsImage(file, url) {
+  if (!file.startsWith(settingsDirectory) || typeof url !== 'string' || /^[a-z][\w+.-]*:|^\//i.test(url)) return false;
+  const resolved = path.posix.normalize(path.posix.join(path.posix.dirname(file), decodeURIComponent(url.split(/[?#]/)[0])));
+  return path.posix.dirname(resolved) === `${settingsDirectory}images`
+    && decorativeSettingsImages.has(path.posix.basename(resolved));
+}
+
+function assertImageAlt(node, file) {
+  const jsx = ['mdxJsxFlowElement', 'mdxJsxTextElement'].includes(node.type) && node.name === 'img';
+  if (node.type !== 'image' && !jsx) return;
+  const attribute = name => node.attributes.find(attr => attr.type === 'mdxJsxAttribute' && attr.name === name)?.value;
+  const alt = jsx ? attribute('alt') : node.alt;
+  const url = jsx ? attribute('src') : node.url;
+  assert.ok((typeof alt === 'string' && alt.trim()) || (alt === '' && isDecorativeSettingsImage(file, url)), `${file}: missing image alt text`);
+  return {alt, url};
+}
+
+
 async function main() {
   const root = path.join(__dirname, '..');
   const entries = readDocs(root);
@@ -57,13 +76,8 @@ async function main() {
     docs.set(entry.destination, {tree, ids});
   }
   for (const [file, doc] of docs) walk(doc.tree, node => {
+    assertImageAlt(node, file);
     if (!['link', 'image', 'definition'].includes(node.type)) return;
-    if (node.type === 'image') {
-      const decorative = file.startsWith('versioned_docs/version-1.5.0/settings/')
-        && /^\.\.?\/images\/[^/]+$/.test(node.url)
-        && decorativeSettingsImages.has(path.posix.basename(node.url));
-      assert.ok(node.alt?.trim() || decorative, `${file}: missing image alt text`);
-    }
     if (/^[a-z][\w+.-]*:|^\/\//i.test(node.url)) return;
     const [base, anchor] = node.url.split('#');
     if (base.startsWith('/')) return; // Public routes are checked by the production build.
@@ -83,4 +97,5 @@ async function main() {
   for (const route of Object.values(require('../src/utils/resolveLegacyHash.cjs').routes)) assert.ok(routes.has(route), `Unknown redirect destination: ${route}`);
   console.log(`Validated ${entries.length} documents, sidebars, local links, images, anchors, and redirect destinations.`);
 }
-main().catch(error => { console.error(error); process.exitCode = 1; });
+module.exports = {assertImageAlt, isDecorativeSettingsImage};
+if (require.main === module) main().catch(error => { console.error(error); process.exitCode = 1; });

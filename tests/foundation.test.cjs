@@ -89,6 +89,19 @@ test('local PNG and JPEG Markdown imports reach ideal-image without string coerc
   }
 });
 
+test('generated Markdown images retain empty alt without approving omitted JSX alt', () => {
+  const tree = imageTree('./example.png', '', '');
+  const image = tree.children[0].children[0];
+  image.attributes = image.attributes.filter(attribute => attribute.name !== 'alt');
+  remarkIdealImages()(tree);
+  assert.equal(image.attributes.find(attribute => attribute.name === 'alt')?.value, '');
+  const jsx = {type: 'mdxJsxTextElement', name: 'img', attributes: [
+    {type: 'mdxJsxAttribute', name: 'src', value: './example.png'},
+  ]};
+  remarkIdealImages()({type: 'root', children: [jsx]});
+  assert.equal(jsx.attributes.find(attribute => attribute.name === 'alt'), undefined);
+});
+
 test('provider comparison MDX keeps its caption, scoped headers, and keyboard-scroll region', async () => {
   const React = require('react');
   const {renderToStaticMarkup} = require('react-dom/server');
