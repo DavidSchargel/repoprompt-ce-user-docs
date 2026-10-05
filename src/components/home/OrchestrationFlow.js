@@ -12,13 +12,13 @@ const FlowNode = ({ color, title, subtitle, model, filled }) => (
 );
 
 const FlowArrow = () => (
-  <svg className="flow-h-arrow" width="28" height="14" viewBox="0 0 28 14" fill="none">
+  <svg aria-hidden="true" focusable="false" className="flow-h-arrow" width="28" height="14" viewBox="0 0 28 14" fill="none">
     <path d="M4 7H20M17 3.5l4 3.5-4 3.5" stroke="var(--text)" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" opacity="0.2" />
   </svg>
 );
 
 const DownArrow = () => (
-  <svg className="flow-v-arrow" width="24" height="20" viewBox="0 0 24 20" fill="none">
+  <svg aria-hidden="true" focusable="false" className="flow-v-arrow" width="24" height="20" viewBox="0 0 24 20" fill="none">
     <path d="M12 2V14M8 11l4 4 4-4" stroke="#8B5CF6" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" opacity="0.3" />
   </svg>
 );
@@ -41,7 +41,38 @@ const OrchestrationFlow = () => {
           Plan with a powerful reasoning model, then dispatch sub-agents across providers to implement, each scoped to its own files.
         </p>
 
-        <div className="orch-diagram">
+        <ol className="orch-process">
+          <li><strong>Prompt:</strong> describe the task.</li>
+          <li><strong>Context Builder:</strong> curate the relevant code.</li>
+          <li><strong>Oracle:</strong> draft the execution plan.</li>
+          <li><strong>Orchestrator:</strong> decompose the plan into tasks with scoped file boundaries.</li>
+          <li>
+            <strong>Execute using a shared Plan.md:</strong> both branches use the same plan.
+            <div className="orch-process-branches">
+              <div>
+                <strong>Sequential tasks</strong>
+                <ol>
+                  <li>Implement the auth service.</li>
+                  <li>Add API validation.</li>
+                  <li>Wire up middleware.</li>
+                </ol>
+                <p>The orchestrator can steer between tasks.</p>
+              </div>
+              <div>
+                <strong>Parallel agents</strong>
+                <ul>
+                  <li>OpenCode explores the codebase.</li>
+                  <li>Codex implements backend logic.</li>
+                  <li>Gemini updates configuration.</li>
+                </ul>
+                <p>Multi-wait resumes when the first parallel task completes.</p>
+              </div>
+            </div>
+          </li>
+          <li><strong>Verify:</strong> the orchestrator checks adherence to the plan and continues until the work is complete.</li>
+        </ol>
+
+        <div className="orch-diagram" aria-hidden="true">
           <div className="orch-row-top">
             <FlowNode color="#D84725" title="Prompt" subtitle="Describe the task" />
             <FlowArrow />
@@ -53,7 +84,7 @@ const OrchestrationFlow = () => {
           <DownArrow />
 
           <div className="orch-bar">
-            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" className="orch-bar-icon">
+            <svg aria-hidden="true" focusable="false" width="20" height="20" viewBox="0 0 24 24" fill="none" className="orch-bar-icon">
               <path d="M12 3L20 7.5V16.5L12 21L4 16.5V7.5L12 3Z" stroke="#8B5CF6" strokeWidth="1.5" strokeLinejoin="round" />
               <circle cx="12" cy="12" r="3" stroke="#8B5CF6" strokeWidth="1.5" />
             </svg>
@@ -62,7 +93,7 @@ const OrchestrationFlow = () => {
           </div>
 
           <div className="orch-fork">
-            <svg className="orch-fork-svg" viewBox="0 0 600 28" fill="none" preserveAspectRatio="xMidYMid meet">
+            <svg aria-hidden="true" focusable="false" className="orch-fork-svg" viewBox="0 0 600 28" fill="none" preserveAspectRatio="xMidYMid meet">
               <path d="M300 0V10H150V24" stroke="#8B5CF6" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" opacity="0.3" />
               <path d="M146 20l4 5 4-5" stroke="#8B5CF6" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" opacity="0.3" />
               <path d="M300 0V10H450V24" stroke="#8B5CF6" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" opacity="0.3" />
@@ -83,7 +114,7 @@ const OrchestrationFlow = () => {
                 </div>
               </div>
               <div className="orch-steer">
-                <svg width="14" height="14" viewBox="0 0 24 24" fill="none">
+                <svg aria-hidden="true" focusable="false" width="14" height="14" viewBox="0 0 24 24" fill="none">
                   <path d="M17 1l4 4-4 4" stroke="#8B5CF6" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
                   <path d="M3 11V9a4 4 0 014-4h14" stroke="#8B5CF6" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
                   <path d="M7 23l-4-4 4-4" stroke="#8B5CF6" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
@@ -94,19 +125,19 @@ const OrchestrationFlow = () => {
             </div>
 
             <div className="orch-plan-col">
-              <svg className="plan-arrow-left" width="16" height="20" viewBox="0 0 16 20" fill="none">
+              <svg aria-hidden="true" focusable="false" className="plan-arrow-left" width="16" height="20" viewBox="0 0 16 20" fill="none">
                 <path d="M16 10H4" stroke="var(--text)" strokeWidth="1.5" strokeDasharray="4 3" opacity="0.25" strokeLinecap="round" />
                 <path d="M7 6L3 10l4 4" stroke="var(--text)" strokeWidth="1.5" opacity="0.25" strokeLinecap="round" strokeLinejoin="round" />
               </svg>
               <div className="orch-plan-badge">
-                <svg width="18" height="18" viewBox="0 0 24 24" fill="none">
+                <svg aria-hidden="true" focusable="false" width="18" height="18" viewBox="0 0 24 24" fill="none">
                   <path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8l-6-6z" stroke="var(--text)" strokeWidth="1.5" strokeLinejoin="round" opacity="0.4" />
                   <path d="M14 2v6h6" stroke="var(--text)" strokeWidth="1.5" strokeLinejoin="round" opacity="0.4" />
                 </svg>
                 <strong>Plan.md</strong>
                 <span>shared source of truth</span>
               </div>
-              <svg className="plan-arrow-right" width="16" height="20" viewBox="0 0 16 20" fill="none">
+              <svg aria-hidden="true" focusable="false" className="plan-arrow-right" width="16" height="20" viewBox="0 0 16 20" fill="none">
                 <path d="M0 10H12" stroke="var(--text)" strokeWidth="1.5" strokeDasharray="4 3" opacity="0.25" strokeLinecap="round" />
                 <path d="M9 6l4 4-4 4" stroke="var(--text)" strokeWidth="1.5" opacity="0.25" strokeLinecap="round" strokeLinejoin="round" />
               </svg>
@@ -120,7 +151,7 @@ const OrchestrationFlow = () => {
                 <AgentCard provider="Gemini" task="Update configs" color="#F59E0B" />
               </div>
               <div className="orch-steer">
-                <svg width="14" height="14" viewBox="0 0 24 24" fill="none">
+                <svg aria-hidden="true" focusable="false" width="14" height="14" viewBox="0 0 24 24" fill="none">
                   <circle cx="12" cy="12" r="9" stroke="#8B5CF6" strokeWidth="1.5" />
                   <path d="M12 7v5l3 3" stroke="#8B5CF6" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
                 </svg>
@@ -130,7 +161,7 @@ const OrchestrationFlow = () => {
           </div>
 
           <div className="orch-merge">
-            <svg className="orch-merge-svg" viewBox="0 0 600 24" fill="none" preserveAspectRatio="xMidYMid meet">
+            <svg aria-hidden="true" focusable="false" className="orch-merge-svg" viewBox="0 0 600 24" fill="none" preserveAspectRatio="xMidYMid meet">
               <path d="M150 0V10H300V20" stroke="#8B5CF6" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" opacity="0.3" />
               <path d="M450 0V10H300V20" stroke="#8B5CF6" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" opacity="0.3" />
               <path d="M296 16l4 5 4-5" stroke="#8B5CF6" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" opacity="0.3" />
@@ -138,7 +169,7 @@ const OrchestrationFlow = () => {
           </div>
 
           <div className="orch-verify">
-            <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
+            <svg aria-hidden="true" focusable="false" width="20" height="20" viewBox="0 0 24 24" fill="none">
               <path d="M9 12l2 2 4-4" stroke="#8B5CF6" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
               <circle cx="12" cy="12" r="9" stroke="#8B5CF6" strokeWidth="1.5" />
             </svg>

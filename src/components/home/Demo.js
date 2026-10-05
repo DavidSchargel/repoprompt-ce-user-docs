@@ -15,6 +15,9 @@ export default function Demo() {
           />
         </div>
         <p className="demo-caption">This is from an older RepoPrompt but the basics are still the same.</p>
+        <p className="demo-fallback">
+          If the embedded player is unavailable, <a href="https://www.youtube.com/watch?v=5YNOxxdSHVk">watch the workflow demonstration on YouTube</a>.
+        </p>
       </div>
     </section>
   );

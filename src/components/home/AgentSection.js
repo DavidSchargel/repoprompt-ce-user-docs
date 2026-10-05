@@ -17,38 +17,38 @@ const AgentSection = () => {
         <div className="agent-providers">
           <div className="agent-provider-card">
             <div className="provider-icon" style={{ background: 'rgba(16, 185, 129, 0.12)' }}>
-              <svg viewBox="0 0 24 24" fill="none" stroke="#10B981" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" width="24" height="24">
+              <svg aria-hidden="true" focusable="false" viewBox="0 0 24 24" fill="none" stroke="#10B981" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" width="24" height="24">
                 <polyline points="4 17 10 11 4 5"/>
                 <line x1="12" y1="19" x2="20" y2="19"/>
               </svg>
             </div>
             <div className="provider-info">
-              <h4>Codex CLI</h4>
+              <h3>Codex CLI</h3>
               <span className="provider-badge native">App Server</span>
             </div>
           </div>
           <div className="agent-provider-card">
-            <img src={useBaseUrl("/images/home/claudecodelogo.png")} alt="Claude Code" className="provider-logo" style={{ background: 'rgba(139, 69, 19, 0.1)' }} loading="lazy" />
+            <img src={useBaseUrl("/images/home/claudecodelogo.png")} alt="" className="provider-logo" style={{ background: 'rgba(139, 69, 19, 0.1)' }} loading="lazy" />
             <div className="provider-info">
-              <h4>Claude Code</h4>
+              <h3>Claude Code</h3>
               <span className="provider-badge mcp-indigo">Headless CLI</span>
             </div>
           </div>
           <div className="agent-provider-card">
             <div className="provider-icon" style={{ background: 'rgba(245, 158, 11, 0.12)' }}>
-              <svg viewBox="0 0 24 24" fill="none" stroke="#F59E0B" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" width="24" height="24">
+              <svg aria-hidden="true" focusable="false" viewBox="0 0 24 24" fill="none" stroke="#F59E0B" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" width="24" height="24">
                 <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/>
               </svg>
             </div>
             <div className="provider-info">
-              <h4>Gemini CLI</h4>
+              <h3>Gemini CLI</h3>
               <span className="provider-badge mcp-amber">Via ACP</span>
             </div>
           </div>
           <div className="agent-provider-card">
-            <img src={useBaseUrl("/images/home/opencode-logo-light.svg")} alt="OpenCode" className="provider-logo" style={{ background: 'rgba(139, 92, 246, 0.1)' }} loading="lazy" />
+            <img src={useBaseUrl("/images/home/opencode-logo-light.svg")} alt="" className="provider-logo" style={{ background: 'rgba(139, 92, 246, 0.1)' }} loading="lazy" />
             <div className="provider-info">
-              <h4>OpenCode</h4>
+              <h3>OpenCode</h3>
               <span className="provider-badge mcp-violet">Via ACP</span>
             </div>
           </div>
@@ -59,7 +59,7 @@ const AgentSection = () => {
             <source srcSet={useBaseUrl("/images/home/agentMode.webp")} type="image/webp" />
             <img
               src={useBaseUrl("/images/home/agentMode.jpg")}
-              alt="Repo Prompt Agent Mode showing a Claude Code session with file reading and workspace context"
+              alt="RepoPrompt Agent Mode showing a Claude Code session with file reading and workspace context"
               className="agent-screenshot-image"
               loading="lazy"
             />
@@ -68,12 +68,12 @@ const AgentSection = () => {
 
         <div className="orchestration-callout">
           <div className="orchestration-icon">
-            <img src={useBaseUrl("/images/home/openclaw.svg")} alt="OpenClaw" style={{ width: 28, height: 28 }} />
+            <img src={useBaseUrl("/images/home/openclaw.svg")} alt="" style={{ width: 28, height: 28 }} />
           </div>
           <div className="orchestration-content">
             <h3>Launch from Your Personal Agent</h3>
             <p>
-              <strong>OpenClaw</strong> and other personal agents can launch Repo Prompt's orchestrate workflow via CLI, planning, decomposing, and dispatching sub-agents to complete complex engineering work while you sleep.
+              <strong>OpenClaw</strong> and other personal agents can launch RepoPrompt's orchestrate workflow via CLI, planning, decomposing, and dispatching sub-agents to complete complex engineering work while you sleep.
             </p>
           </div>
         </div>

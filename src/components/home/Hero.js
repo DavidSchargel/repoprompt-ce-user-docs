@@ -71,21 +71,19 @@ function DownloadOptions() {
               <a
                 href="https://github.com/repoprompt/repoprompt-ce/releases/latest"
                 className="edition-button edition-button-primary"
-                target="_blank"
                 rel="noopener noreferrer"
               >
                 <FaApple aria-hidden="true" />
-                Download latest release
+                Download Community Edition’s latest release
                 <FiArrowUpRight aria-hidden="true" />
               </a>
               <a
                 href="https://github.com/repoprompt/repoprompt-ce"
                 className="edition-text-link"
-                target="_blank"
                 rel="noopener noreferrer"
               >
                 <FiGithub aria-hidden="true" />
-                View source
+                View Community Edition source
               </a>
               <Link className="edition-text-link" to="/docs/">Community Edition docs →</Link>
             </div>
@@ -133,7 +131,6 @@ function DownloadOptions() {
               <a
                 href="https://d2ruaev2blr0t3.cloudfront.net/RepoPrompt.dmg"
                 className="edition-button edition-button-classic"
-                target="_blank"
                 rel="noopener noreferrer"
               >
                 <FiDownload aria-hidden="true" />
@@ -142,11 +139,10 @@ function DownloadOptions() {
               <a
                 href="https://github.com/repoprompt/repoprompt-classic"
                 className="edition-text-link"
-                target="_blank"
                 rel="noopener noreferrer"
               >
                 <FiGithub aria-hidden="true" />
-                View archived source
+                View Classic archived source
               </a>
               <Link className="edition-text-link" to="/docs/classic-2.1.0/">Classic documentation →</Link>
             </div>
@@ -160,7 +156,6 @@ function DownloadOptions() {
           </p>
           <a
             href="https://discord.gg/NtbFDAJPGM"
-            target="_blank"
             rel="noopener noreferrer"
           >
             Join the Discord community
@@ -213,7 +208,6 @@ function Hero() {
               <a
                 href="https://discord.gg/NtbFDAJPGM"
                 className="hero-discord-button"
-                target="_blank"
                 rel="noopener noreferrer"
               >
                 <img

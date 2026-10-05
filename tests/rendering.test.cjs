@@ -33,18 +33,56 @@ test('MDX receives the responsive image adapter through the real MDX provider', 
     '@theme/MDXComponents': {img: Img},
   });
   const src = {default: {src: {src: '/project/assets/logo.png', images: [{path: '/project/assets/logo-320.png', width: 320}]}}};
-  function HomeContent() {
-    const components = {img: 'img', ...mdx.useMDXComponents()};
-    return React.createElement(components.img, {src, alt: 'RepoPrompt application logo'});
+  for (const alt of ['RepoPrompt application logo', '']) {
+    const Content = () => {
+      const components = {img: 'img', ...mdx.useMDXComponents()};
+      return React.createElement(components.img, {src, alt});
+    };
+    const html = renderToStaticMarkup(React.createElement(MDXContent, null, React.createElement(Content)));
+    assert.doesNotMatch(html, /\[object Object\]/);
+    assert.match(html, /src="\/project\/assets\/logo.png"/);
+    assert.match(html, /srcSet="\/project\/assets\/logo-320.png 320w"/);
+    assert.match(html, /loading="lazy"/);
+    assert.ok(html.includes(`alt="${alt}"`), 'Meaningful and deliberately empty alt must survive rendering');
   }
-  const html = renderToStaticMarkup(React.createElement(MDXContent, null, React.createElement(HomeContent)));
-  assert.doesNotMatch(html, /\[object Object\]/);
-  assert.match(html, /src="\/project\/assets\/logo.png"/);
-  assert.match(html, /srcSet="\/project\/assets\/logo-320.png 320w"/);
-  assert.match(html, /loading="lazy"/);
 });
 
-test('React homepage renders its content and resolves assets and navigation under a deployment base path', () => {
+test('blog listing has one page heading inside its existing main landmark', () => {
+  const React = require('react');
+  const {renderToStaticMarkup} = require('react-dom/server');
+  const received = {};
+  const BlogListPage = loadJsx(path.join(__dirname, '../src/theme/BlogListPage/index.js'), {
+    react: React,
+    clsx: (...parts) => parts.filter(Boolean).join(' '),
+    '@docusaurus/useDocusaurusContext': () => ({siteConfig: {title: 'RepoPrompt'}}),
+    '@docusaurus/theme-common': {
+      PageMetadata: (props) => { received.pageMetadata = props; return null; },
+      HtmlClassNameProvider: ({children}) => children,
+      ThemeClassNames: {wrapper: {blogPages: 'blog-wrapper'}, page: {blogListPage: 'blog-list-page'}},
+    },
+    '@theme/BlogLayout': ({sidebar, children}) => { received.sidebar = sidebar; return React.createElement('main', null, children); },
+    '@theme/BlogListPaginator': ({metadata}) => { received.paginatorMetadata = metadata; return null; },
+    '@theme/SearchMetadata': ({tag}) => { received.searchTag = tag; return null; },
+    '@theme/BlogPostItems': ({items}) => { received.items = items; return React.createElement('h2', null, 'Example post'); },
+    '@theme/BlogListPage/StructuredData': (props) => { received.structuredData = props; return null; },
+  });
+  const metadata = {blogTitle: 'RepoPrompt CE Blog', blogDescription: 'News and updates', permalink: '/blog/'};
+  const items = [{content: 'Example post'}];
+  const sidebar = {items: [{title: '2026'}]};
+  const html = renderToStaticMarkup(React.createElement(BlogListPage, {metadata, items, sidebar}));
+  assert.equal((html.match(/<h1\b/g) || []).length, 1);
+  assert.match(html, /<main><h1>RepoPrompt CE Blog<\/h1><h2>Example post<\/h2><\/main>/);
+  assert.deepEqual(received.pageMetadata, {title: 'RepoPrompt CE Blog', description: 'News and updates'});
+  assert.equal(received.searchTag, 'blog_posts_list');
+  assert.equal(received.sidebar, sidebar);
+  assert.equal(received.items, items);
+  assert.equal(received.paginatorMetadata, metadata);
+  assert.equal(received.structuredData.metadata, metadata);
+  assert.equal(received.structuredData.items, items);
+  assert.equal(received.structuredData.sidebar, sidebar);
+});
+
+test('React homepage component SSR preserves authored structure and base-path assets', () => {
   const React = require('react');
   const {renderToStaticMarkup} = require('react-dom/server');
   const dependencies = {
@@ -72,9 +110,92 @@ test('React homepage renders its content and resolves assets and navigation unde
   assert.doesNotMatch(html, /id="(?:benchmark|blog)"/);
   assert.doesNotMatch(html.match(/<footer[\s\S]*?<\/footer>/)[0], /href="\/project\/docs\/"/);
   assert.doesNotMatch(html, /\[object Object\]|(?:src|srcSet)="\/images\//);
+  assert.equal((html.match(/<main\b/g) || []).length, 1);
+  assert.equal((html.match(/<h1\b/g) || []).length, 1);
+  assert.ok(html.indexOf('</main>') < html.indexOf('<footer'), 'Page footer must be outside main');
+  assert.match(html, /<footer[^>]*>[\s\S]*?<nav aria-label="Footer">/);
+  assert.doesNotMatch(html, /target="_blank"/, 'Authored homepage links should not force new tabs');
+  assert.match(html, /role="group" aria-label="Choose a testimonial"/);
+  assert.match(html, /id="home-testimonial-content"/);
+  assert.match(html, /role="status" aria-live="polite" aria-atomic="true"/);
+  assert.equal((html.match(/aria-controls="home-testimonial-content"/g) || []).length, 10);
+  assert.equal((html.match(/aria-pressed="true"/g) || []).length, 1);
+  assert.equal((html.match(/aria-label="Show testimonial \d+ of 10"/g) || []).length, 10);
+  assert.doesNotMatch(html, /<h4\b/);
+  assert.match(html, /<h3[^>]*>Codex CLI<\/h3>/);
+  const orchestration = html.match(/<section id="orchestration"[\s\S]*?<div class="orch-diagram" aria-hidden="true">/);
+  assert.ok(orchestration, 'A semantic process must precede the hidden visual diagram');
+  const process = orchestration[0].match(/<ol class="orch-process">[\s\S]*$/)?.[0];
+  assert.ok(process);
+  for (const stage of ['Prompt:', 'Context Builder:', 'Oracle:', 'Orchestrator:', 'Execute using a shared Plan.md:', 'Verify:']) {
+    assert.ok(process.includes(stage), `Missing process stage: ${stage}`);
+  }
+  assert.match(process, /Sequential tasks[\s\S]*?<ol>/);
+  assert.match(process, /Parallel agents[\s\S]*?<ul>/);
+  assert.match(html, /aria-hidden="true"[^>]*focusable="false"/);
+  assert.match(html, /alt=""/, 'Decorative images need explicit empty alt');
   const images = [...html.matchAll(/(?:src|srcSet)="\/project\/([^" ]+)"/g)];
   assert.ok(images.length > 5);
   for (const [, image] of images) assert.ok(fs.existsSync(path.join(__dirname, '../static', image)), `Missing homepage asset: ${image}`);
+});
+
+test('testimonial selection keeps pressed state, status, and fallbacks aligned without reselecting', () => {
+  const React = require('react');
+  const state = [];
+  let hook = 0;
+  const Tweet = () => null;
+  const Testimonials = loadJsx(path.join(__dirname, '../src/components/home/Testimonials.js'), {
+    react: {...React, useState(initial) {
+      const slot = hook++;
+      if (!(slot in state)) state[slot] = initial;
+      return [state[slot], (value) => { state[slot] = value; }];
+    }},
+    'react-tweet': {Tweet},
+  });
+  const render = () => { hook = 0; return Testimonials(); };
+  const collect = (node, predicate, result = []) => {
+    if (Array.isArray(node)) { for (const child of node) collect(child, predicate, result); return result; }
+    if (!node || typeof node !== 'object' || !('props' in node)) return result;
+    if (predicate(node)) result.push(node);
+    collect(node.props.children, predicate, result);
+    return result;
+  };
+  const buttons = (tree) => collect(tree, (node) => node.type === 'button');
+  const selectedTweet = (tree) => collect(tree, (node) => node.type === Tweet)[0];
+  const status = (tree) => collect(tree, (node) => node.props.role === 'status')[0];
+  let tree = render();
+  assert.equal(buttons(tree).length, 10);
+  assert.equal(buttons(tree).filter((button) => button.props['aria-pressed']).length, 1);
+  assert.equal(status(tree).props.children, '');
+  const firstId = selectedTweet(tree).props.id;
+  buttons(tree)[0].props.onClick();
+  assert.deepEqual(state, [0, ''], 'Reselecting the active button must not announce a change');
+  buttons(tree)[2].props.onClick();
+  tree = render();
+  assert.equal(state[0], 2);
+  assert.equal(status(tree).props.children, 'Testimonial 3 of 10 selected');
+  assert.equal(buttons(tree)[2].props['aria-pressed'], true);
+  assert.equal(buttons(tree).filter((button) => button.props['aria-pressed']).length, 1);
+  assert.notEqual(selectedTweet(tree).props.id, firstId);
+  const assertFallbackLinks = (currentTree) => {
+    const tweet = selectedTweet(currentTree);
+    const selectedUrl = `https://x.com/i/status/${tweet.props.id}`;
+    const suspense = collect(currentTree, (node) => node.type === React.Suspense)[0];
+    for (const fallback of [tweet.props.fallback, tweet.props.components.TweetNotFound(), suspense.props.fallback]) {
+      const links = collect(fallback, (node) => node.type === 'a');
+      assert.ok(links.length > 0);
+      assert.equal(links[0].props.href, selectedUrl);
+    }
+    const links = collect(currentTree, (node) => node.type === 'a');
+    assert.ok(links.some((link) => link.props.href === selectedUrl), 'Persistent source link must match the selected tweet');
+  };
+  assertFallbackLinks(tree);
+  buttons(tree)[9].props.onClick();
+  tree = render();
+  assert.equal(state[0], 9);
+  assert.equal(status(tree).props.children, 'Testimonial 10 of 10 selected');
+  assert.equal(buttons(tree)[9].props['aria-pressed'], true);
+  assertFallbackLinks(tree);
 });
 
 test('copyright year updates at New Year and after a suspended tab resumes', () => {
@@ -137,22 +258,38 @@ test('production and development CSS retain native layers and unlayered Cosmos t
   assert.throws(() => assertCosmosLayers(':root{--ifm-font-family-base:Outfit}'), /Missing native Infima/);
 });
 
-test('wide Markdown tables use scoped scroll containment in the configured stylesheet', () => {
+test('wide Markdown tables retain Cosmos overrides and use a scoped accessible overflow region', () => {
   const config = require('../docusaurus.config.js');
   const options = config.presets.find(([name]) => name === 'classic')[1];
   const tableStylesheet = path.join(__dirname, '../src/css/responsive-tables.css');
   assert.ok([options.theme.customCss].flat().includes(tableStylesheet));
   const tree = require('postcss').parse(fs.readFileSync(tableStylesheet, 'utf8'));
-  assert.equal(tree.nodes.length, 1, 'Keep this fix scoped to tables, not page clipping');
-  const rule = tree.nodes[0];
-  assert.equal(rule.type, 'rule');
-  assert.equal(rule.selector, 'main .markdown table');
-  assert.equal(rule.nodes.length, 4);
-  assert.deepEqual(Object.fromEntries(rule.nodes.map(decl => [decl.prop, decl.value])), {
-    display: 'block', width: '100%', 'max-width': '100%', 'overflow-x': 'auto',
-  });
-  for (const decl of rule.nodes) assert.ok(decl.important, `Must override Cosmos important ${decl.prop}`);
-  assert.equal(rule.parent.type, 'root', 'Remain unlayered to override unlayered Cosmos important rules');
+  const rules = tree.nodes.filter((node) => node.type === 'rule');
+  assert.equal(rules.length, tree.nodes.length, 'Keep rules unlayered so Cosmos overrides remain effective');
+  const allowed = new Set([
+    'main .markdown table',
+    'main .markdown .accessible-table-scroll',
+    'main .markdown .accessible-table-scroll:focus-visible',
+    'main .markdown .accessible-table-scroll table',
+  ]);
+  assert.equal(rules.length, allowed.size, 'Duplicate rules could override the scroll contract');
+  assert.deepEqual(new Set(rules.map((rule) => rule.selector)), allowed, 'No page-wide overflow clipping or unrelated rules');
+  const declarations = (selector) => Object.fromEntries(rules.find((rule) => rule.selector === selector).nodes.map((decl) => [decl.prop, decl]));
+  const ordinary = declarations('main .markdown table');
+  for (const [prop, value] of Object.entries({display: 'block', width: '100%', 'max-width': '100%', 'overflow-x': 'auto'})) {
+    assert.equal(ordinary[prop]?.value, value);
+    assert.ok(ordinary[prop].important, `Must override Cosmos important ${prop}`);
+  }
+  const region = declarations('main .markdown .accessible-table-scroll');
+  assert.equal(region['overflow-x']?.value, 'auto');
+  assert.equal(region['max-width']?.value, '100%');
+  const focus = declarations('main .markdown .accessible-table-scroll:focus-visible');
+  assert.match(focus.outline?.value || '', /\b3px\b/);
+  const inner = declarations('main .markdown .accessible-table-scroll table');
+  for (const [prop, value] of Object.entries({display: 'table', width: 'max-content', 'min-width': '100%', 'max-width': 'none', overflow: 'visible'})) {
+    assert.equal(inner[prop]?.value, value);
+    assert.ok(inner[prop].important, `Wrapped table must override Cosmos important ${prop}`);
+  }
 });
 
 test('resource checks reject serialized objects and validate relative as well as absolute URLs', () => {

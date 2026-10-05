@@ -50,22 +50,25 @@ const MCPIntegration = () => {
           <p className="section-subtitle">
             15+ token-efficient MCP tools, automated context curation, and multi-agent orchestration. Accessible from any MCP-compatible client.
           </p>
+          <p className="mcp-connection-summary">
+            Each listed client exchanges requests and results with the RepoPrompt MCP server.
+          </p>
         </div>
 
         <div className="integration-flow">
           <div className="flow-diagram">
             <div className="repo-prompt-hub">
-              <img src={useBaseUrl("/images/home/RepoPromptLogo_NoBG.png")} alt="RepoPrompt" className="hub-logo" />
+              <img src={useBaseUrl("/images/home/RepoPromptLogo_NoBG.png")} alt="" className="hub-logo" />
               <span className="hub-label">RepoPrompt</span>
               <span className="hub-status">MCP Server</span>
-              <div className="hub-features">
-                <span>• 15+ tools available</span>
-                <span>• Standard protocol</span>
-                <span>• Future compatible</span>
-              </div>
+              <ul className="hub-features">
+                <li>15+ tools available</li>
+                <li>Standard protocol</li>
+                <li>Future compatible</li>
+              </ul>
             </div>
 
-            <svg className="connections-svg" viewBox="0 0 1100 400" preserveAspectRatio="xMidYMid meet">
+            <svg aria-hidden="true" focusable="false" className="connections-svg" viewBox="0 0 1100 400" preserveAspectRatio="xMidYMid meet">
               <defs>
                 <marker id="arrowhead" markerWidth="10" markerHeight="7"
                   refX="9" refY="3.5" orient="auto">
@@ -98,22 +101,22 @@ const MCPIntegration = () => {
                 markerStart="url(#arrowhead-reverse)" />
             </svg>
 
-              <div className="integration-grid">
+              <ul className="integration-grid" aria-label="MCP clients">
                 {integrations.map((integration, index) => (
-                  <div key={index} className="integration-card" style={{ '--index': index }}>
+                  <li key={index} className="integration-card" style={{ '--index': index }}>
                     <div className="card-header">
                       <div className="integration-logo">
                         {integration.logo ? (
                           <img
                             src={assetBase + integration.logo}
-                            alt={integration.name}
+                            alt=""
                             className="logo-image"
                             style={{ '--bg-color': integration.bgColor }}
                             loading="lazy"
                           />
                         ) : integration.icon?.svg ? (
                           <div className="logo-icon" style={{ background: integration.icon.bgColor }}>
-                            <svg viewBox="0 0 24 24" fill="none" stroke={integration.icon.color} strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" width="24" height="24">
+                            <svg aria-hidden="true" focusable="false" viewBox="0 0 24 24" fill="none" stroke={integration.icon.color} strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" width="24" height="24">
                               <path d={integration.icon.path} />
                             </svg>
                           </div>
@@ -121,7 +124,7 @@ const MCPIntegration = () => {
                           <div className="logo-placeholder">{integration.name[0]}</div>
                         )}
                       </div>
-                      <h4>{integration.name}</h4>
+                      <h3>{integration.name}</h3>
                       <p>{integration.description}</p>
                     </div>
                     {integration.features.length > 0 && (
@@ -131,15 +134,15 @@ const MCPIntegration = () => {
                         ))}
                       </ul>
                     )}
-                  </div>
+                  </li>
                 ))}
-              </div>
+              </ul>
           </div>
 
-                      <div className="mcp-features">
-              <div className="feature-card">
+            <ul className="mcp-features">
+              <li className="feature-card">
                 <div className="feature-icon">
-                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                  <svg aria-hidden="true" focusable="false" viewBox="0 0 24 24" fill="none" stroke="currentColor">
                     <circle cx="11" cy="11" r="7" strokeWidth="2" />
                     <path d="M20 20l-3-3" strokeWidth="2" strokeLinecap="round" />
                     <path d="M11 8v3l2 2" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
@@ -147,39 +150,39 @@ const MCPIntegration = () => {
                 </div>
                 <h3>Automated Context Curation</h3>
                 <p>Context Builder explores your codebase, selects the most relevant files within a token budget, and hands curated context to powerful analysis models.</p>
-              </div>
+              </li>
 
-              <div className="feature-card">
+              <li className="feature-card">
                 <div className="feature-icon">
-                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                  <svg aria-hidden="true" focusable="false" viewBox="0 0 24 24" fill="none" stroke="currentColor">
                     <path d="M12 3L20 7.5V16.5L12 21L4 16.5V7.5L12 3Z" strokeWidth="2" strokeLinejoin="round" />
                     <circle cx="12" cy="12" r="3" strokeWidth="2" />
                   </svg>
                 </div>
                 <h3>Multi-Agent Orchestration</h3>
                 <p>Launch parallel or sequential agent sessions, steer them mid-flight, and let an orchestrator verify the work.</p>
-              </div>
+              </li>
 
-              <div className="feature-card">
+              <li className="feature-card">
                 <div className="feature-icon">
-                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                  <svg aria-hidden="true" focusable="false" viewBox="0 0 24 24" fill="none" stroke="currentColor">
                     <path d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
                   </svg>
                 </div>
                 <h3>Codemaps &amp; Token Efficiency</h3>
                 <p>Function signatures via tree-sitter let agents see 10x more files. Slices, codemaps, and full content: the right detail level for every file.</p>
-              </div>
+              </li>
 
-              <div className="feature-card">
+              <li className="feature-card">
                 <div className="feature-icon">
-                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                  <svg aria-hidden="true" focusable="false" viewBox="0 0 24 24" fill="none" stroke="currentColor">
                     <path d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
                   </svg>
                 </div>
                 <h3>Oracle Collaboration</h3>
                 <p>Your agent consults powerful reasoning models mid-session. Context Builder finds the answer using your full repo, no manual file selection needed.</p>
-              </div>
-            </div>
+              </li>
+            </ul>
         </div>
       </div>
     </section>

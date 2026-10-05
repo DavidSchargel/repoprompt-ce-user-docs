@@ -109,7 +109,6 @@
   width: 112px;
   height: 112px;
   filter: drop-shadow(0 10px 30px rgba(0, 0, 0, 0.1));
-  animation: alphaFadeIn 1.5s ease-out;
 }
 
 .repo-home .logo-glow {
@@ -122,7 +121,7 @@
   background: radial-gradient(circle, rgba(255, 237, 196, 0.6) 0%, rgba(255, 220, 150, 0.3) 50%, transparent 100%);
   filter: blur(50px);
   z-index: -1;
-  animation: rp-hero-pulse 3s ease-in-out infinite;
+  opacity: 0.4;
 }
 
 @keyframes rp-hero-pulse {
@@ -234,11 +233,6 @@
   box-shadow: 0 12px 30px rgba(88, 101, 242, 0.32);
 }
 
-.repo-home .hero-download-button:focus-visible,
-.repo-home .hero-discord-button:focus-visible {
-  outline: 3px solid rgba(var(--accent-rgb), 0.35);
-  outline-offset: 4px;
-}
 
 .repo-home .stat-label {
   font-size: 0.875rem;
@@ -561,12 +555,6 @@
   color: var(--rust);
 }
 
-.repo-home .edition-button:focus-visible,
-.repo-home .edition-text-link:focus-visible,
-.repo-home .download-community a:focus-visible {
-  outline: 3px solid rgba(var(--accent-rgb), 0.3);
-  outline-offset: 3px;
-}
 
 .repo-home .download-community {
   display: flex;
@@ -673,7 +661,7 @@
   }
 
   .repo-home .download-container {
-    width: min(100% - 28px, 1120px);
+    width: min(calc(100% - 28px), 1120px);
   }
 
   .repo-home .download-header {
@@ -772,6 +760,8 @@
 }
 
 .repo-home .flow-node {
+  min-width: 0;
+  overflow-wrap: anywhere;
   padding: 12px 18px;
   border-radius: 12px;
   border: 1.5px solid;
@@ -862,6 +852,10 @@
   align-items: stretch;
 }
 
+.repo-home .orch-columns > * {
+  min-width: 0;
+}
+
 .repo-home .orch-plan-col {
   display: flex;
   flex-direction: column;
@@ -905,6 +899,7 @@
 
 .repo-home .orch-col {
   flex: 1;
+  min-width: 0;
   padding: 18px;
   border-radius: 14px;
   display: flex;
@@ -979,12 +974,14 @@
 }
 .repo-home .orch-col-agents {
   display: flex;
+  flex-wrap: wrap;
   gap: 8px;
   width: 100%;
 }
 
 .repo-home .agent-card {
   flex: 1;
+  min-width: 0;
   padding: 10px 8px;
   border-radius: 10px;
   background: var(--card-bg);
@@ -1088,6 +1085,15 @@
   }
 
   .repo-home .orch-plan-col {
+    width: 100%;
+  }
+
+  .repo-home .orch-plan-badge {
+    width: 100%;
+  }
+
+  .repo-home .plan-arrow-left,
+  .repo-home .plan-arrow-right {
     display: none;
   }
 
@@ -1220,7 +1226,7 @@
   flex-shrink: 0;
 }
 
-.repo-home .provider-info h4 {
+.repo-home .provider-info h3 {
   font-size: 1rem;
   font-weight: 600;
   color: var(--text);
@@ -1500,6 +1506,9 @@
   align-items: flex-start;
   justify-content: center;
   gap: 0;
+  margin: 0;
+  padding: 0;
+  list-style: none;
 }
 
 .repo-home .diagram-stage {
@@ -1507,12 +1516,14 @@
   flex-direction: column;
   align-items: center;
   gap: 10px;
-  width: 320px;
+  width: min(320px, 100%);
+  min-width: 0;
+  text-align: center;
 }
 
 .repo-home .diagram-stage-visual {
-  width: 320px;
-  height: 240px;
+  width: min(320px, 100%);
+  min-height: 240px;
   border-radius: 16px;
   border: 1.5px solid;
   display: flex;
@@ -1528,6 +1539,8 @@
 
 .repo-home .pipeline-svg {
   display: block;
+  max-width: 100%;
+  height: auto;
 }
 
 .repo-home .diagram-stage-num {
@@ -1558,7 +1571,7 @@
   flex-shrink: 0;
 }
 .repo-home .handoff-card {
-  width: 280px;
+  width: min(280px, 100%);
   border-radius: 12px;
   background: rgba(255, 255, 255, 0.7);
   border: 1px solid rgba(99, 102, 241, 0.12);
@@ -1594,6 +1607,8 @@
 }
 
 .repo-home .handoff-file {
+  min-width: 0;
+  overflow-wrap: anywhere;
   font-size: 0.8rem;
   font-family: 'SF Mono', 'Monaco', monospace;
   color: #6366F1;
@@ -1763,7 +1778,7 @@
   flex-direction: column;
   align-items: center;
   gap: 8px;
-  background: var(--primary);
+  background: var(--background);
   padding: 32px 28px;
   border-radius: 16px;
   box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
@@ -1776,13 +1791,14 @@
   flex-direction: column;
   align-items: flex-start;
   gap: 4px;
-  margin-top: 12px;
-  padding-top: 12px;
-  border-top: 1px solid rgba(var(--accent-rgb), 0.2);
   width: 100%;
+  margin: 12px 0 0;
+  padding: 12px 0 0;
+  list-style: none;
+  border-top: 1px solid rgba(var(--accent-rgb), 0.2);
 }
 
-.repo-home .hub-features span {
+.repo-home .hub-features li {
   font-size: 0.75rem;
   color: var(--text);
   opacity: 0.8;
@@ -1825,7 +1841,7 @@
 
 .repo-home .repo-prompt-hub:hover {
   box-shadow: 0 10px 40px rgba(var(--accent-rgb), 0.3);
-  transform: translateY(-50%) scale(1.02);
+  transform: translateY(-50%);
 }
 @keyframes rp-mcpintegration-pulse {
   0%, 100% {
@@ -1841,11 +1857,7 @@
   stroke: var(--accent);
   stroke-width: 2;
   stroke-dasharray: 5, 5;
-  opacity: 0;
-  animation:
-    rp-mcpintegration-fadeInLine 0.8s ease-out forwards,
-    rp-mcpintegration-dash 20s linear infinite;
-  animation-delay: var(--delay, 0s);
+  opacity: 1;
 }
 
 .repo-home .connection-arrow {
@@ -1864,9 +1876,11 @@
   top: 50%;
   transform: translateY(-50%);
   display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  grid-template-rows: repeat(2, 1fr);
+  grid-template-columns: repeat(2, minmax(0, 1fr));
   gap: 30px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
   z-index: 8;
 }
 .repo-home .integration-card:nth-child(1) {
@@ -1887,14 +1901,14 @@
 
 .repo-home .integration-card {
   width: 220px;
+  min-width: 0;
+  overflow-wrap: anywhere;
   background: transparent;
   backdrop-filter: none;
   border: 1px solid rgba(var(--primary-rgb), 0.2);
   border-radius: 16px;
   padding: 24px;
-  opacity: 0;
-  animation: rp-mcpintegration-fadeInCard 0.5s ease-out forwards;
-  animation-delay: calc(var(--index) * 0.1s + 0.8s);
+  opacity: 1;
   transition: all 0.3s ease;
   position: relative;
   z-index: 9;
@@ -1906,19 +1920,19 @@
   background: transparent;
 }
 .repo-home .integration-card:nth-child(1):hover {
-  transform: translateY(-40px) translateX(-130px) scale(1.05);
+  transform: translateY(-40px) translateX(-130px);
 }
 
 .repo-home .integration-card:nth-child(2):hover {
-  transform: translateX(-40px) translateY(10px) scale(1.05);
+  transform: translateX(-40px) translateY(10px);
 }
 
 .repo-home .integration-card:nth-child(3):hover {
-  transform: translateY(40px) translateX(-130px) scale(1.05);
+  transform: translateY(40px) translateX(-130px);
 }
 
 .repo-home .integration-card:nth-child(4):hover {
-  transform: translateX(-40px) translateY(-10px) scale(1.05);
+  transform: translateX(-40px) translateY(-10px);
 }
 
 .repo-home .card-header {
@@ -1984,7 +1998,7 @@
   transform: scale(1.05);
 }
 
-.repo-home .integration-card h4 {
+.repo-home .integration-card h3 {
   font-size: 1.125rem;
   font-weight: 600;
   margin-bottom: 4px;
@@ -2022,12 +2036,12 @@
 
 .repo-home .mcp-features {
   display: grid;
-  grid-template-columns: repeat(2, 1fr);
+  grid-template-columns: repeat(2, minmax(0, 1fr));
   gap: 24px;
-  margin-top: 60px;
   max-width: 900px;
-  margin-left: auto;
-  margin-right: auto;
+  margin: 60px auto 0;
+  padding: 0;
+  list-style: none;
 }
 
 .repo-home .feature-card {
@@ -2135,7 +2149,7 @@
   }
 
   .repo-home .integration-card:hover {
-    transform: translateY(-5px) !important;
+    transform: none !important;
   }
 
   .repo-home .mcp-features {
@@ -2183,7 +2197,7 @@
   }
 
   .repo-home .hub-features {
-    display: none;
+    display: flex;
   }
 
   .repo-home .mcp-features {
@@ -2455,7 +2469,7 @@
   justify-content: center;
   align-items: center;
   transition: background-color 0.3s ease, color 0.3s ease;
-  scroll-margin-top: 0;
+  scroll-margin-top: calc(var(--ifm-navbar-height) + 1rem);
 }
 
 .repo-home .demo-content {
@@ -2562,29 +2576,45 @@
 .repo-home .carousel-dots {
   display: flex;
   justify-content: center;
+  flex-wrap: wrap;
   gap: 8px;
   margin-bottom: 20px;
 }
 
 .repo-home .dot {
-  width: 8px;
-  height: 8px;
+  width: 32px;
+  height: 32px;
+  flex: 0 0 32px;
+  display: grid;
+  place-items: center;
   border-radius: 50%;
-  background: var(--color-text);
-  opacity: 0.3;
-  border: none;
+  background: transparent;
+  border: 2px solid transparent;
   cursor: pointer;
-  transition: all 0.3s ease;
   padding: 0;
+  transition: border-color 0.2s ease, background-color 0.2s ease;
+}
+
+.repo-home .dot::after {
+  content: '';
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: var(--text);
 }
 
 .repo-home .dot.active {
-  opacity: 1;
-  transform: scale(1.4);
+  border-color: var(--text);
+  background: var(--card-bg-hover);
+}
+
+.repo-home .dot.active::after {
+  width: 12px;
+  height: 12px;
 }
 
 .repo-home .dot:hover {
-  opacity: 0.6;
+  background: var(--card-bg-hover);
 }
 
 @keyframes rp-testimonials-loading {
@@ -2617,8 +2647,112 @@
     margin-bottom: 15px;
   }
 
-  .repo-home .dot {
-    width: 8px;
-    height: 8px;
-  }
+}
+
+/* Keep the semantic process and list content readable alongside the visual diagrams. */
+.repo-home .orch-process {
+  max-width: 900px;
+  margin: 0 auto 2rem;
+  padding: 1.25rem 1.25rem 1.25rem 2.75rem;
+  border: 1px solid var(--card-border);
+  border-radius: 12px;
+  background: var(--card-bg);
+  color: var(--text);
+  text-align: left;
+  line-height: 1.6;
+}
+
+.repo-home .orch-process > li + li { margin-top: 0.65rem; }
+.repo-home .orch-process :is(ol, ul) { margin: 0.5rem 0; padding-left: 1.5rem; }
+.repo-home .orch-process li { min-width: 0; overflow-wrap: anywhere; }
+.repo-home .orch-process p { margin: 0.5rem 0 0; }
+.repo-home .orch-process-branches {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 1rem;
+  margin-top: 0.75rem;
+}
+.repo-home .orch-process-branches > div { min-width: 0; }
+
+/* Zero-width generated content preserves list semantics in Safari/VoiceOver
+   when the visual markers are suppressed for these diagram lists. */
+.repo-home :is(.hub-features, .integration-grid, .mcp-features, .diagram-stages) > li::before {
+  content: '\200B';
+}
+
+.repo-home .mcp-connection-summary {
+  max-width: 700px;
+  margin: 0.75rem auto 0;
+  color: var(--text);
+}
+.repo-home .hub-features li { opacity: 1; }
+.repo-home .integration-grid > li,
+.repo-home .mcp-features > li { min-width: 0; }
+.repo-home .integration-card,
+.repo-home .feature-card { overflow-wrap: anywhere; }
+
+.repo-home .diagram-selection-example {
+  margin: 0;
+  color: var(--text);
+  font-size: 0.875rem;
+}
+.repo-home .diagram-stage-visual,
+.repo-home .handoff-card { min-width: 0; }
+.repo-home .handoff-row { min-width: 0; }
+
+/* Text colors must not depend on pale accent inks, alpha, or brightness filters. */
+.repo-home :is(.flow-node-title, .orch-col-label, .orch-col-model, .agent-card-provider, .workflow-command, .diagram-stage-label, .diagram-stage-num) {
+  color: var(--text) !important;
+  filter: none;
+}
+.repo-home :is(.download-eyebrow, .edition-status-legacy, .orch-badge, .workflows-badge, .provider-badge, .flow-node-model, .handoff-header, .handoff-file, .handoff-lines, .orch-steer strong) {
+  color: var(--text);
+  filter: none;
+}
+.repo-home :is(.flow-node-sub, .orch-bar span, .orch-plan-badge span, .orch-task-num, .orch-steer span, .orch-verify span, .diagram-stage-sub, .handoff-lines, .handoff-file, .edition-meta, .edition-label) {
+  opacity: 1;
+}
+.repo-home .provider-badge.native,
+.repo-home .provider-badge.mcp-indigo,
+.repo-home .provider-badge.mcp-amber,
+.repo-home .provider-badge.mcp-violet { color: var(--text); }
+.repo-home .agent-badge { background: #a83519; color: #fff; }
+.repo-home .mcp-badge { background: #174b80; color: #fff; }
+.repo-home .repo-prompt-hub { border: 1px solid var(--card-border); }
+.repo-home .orch-plan-badge { border-color: var(--card-border); background: var(--card-bg); }
+
+.repo-home :is(.edition-text-link, .download-community a, .workflows-docs-link, .demo-fallback a, .testimonial-source a, .home-tweet a, .hub-status) {
+  color: var(--home-link);
+}
+.repo-home .workflows-docs-link { border-color: var(--home-link); }
+.repo-home .workflows-docs-link:hover { background: var(--home-link); border-color: var(--home-link); color: var(--background); }
+.repo-home .edition-text-link:hover,
+.repo-home .download-community a:hover { color: var(--home-link); }
+.repo-home :is(.demo-fallback, .home-tweet, .testimonial-source) a {
+  text-decoration: underline;
+  text-underline-offset: 0.15em;
+}
+.repo-home .demo-fallback { margin: 0.75rem auto 0; color: var(--text); line-height: 1.5; }
+.repo-home .testimonial-source { margin: 0.75rem auto 0; text-align: center; }
+.repo-home .testimonial-selection-status {
+  min-height: 1.6em;
+  max-width: 40rem;
+  margin: 0 auto 0.5rem;
+  color: var(--text);
+  text-align: center;
+}
+.repo-home .home-tweet,
+.repo-home .home-tweet > * { max-width: 100%; min-width: 0; }
+
+@media (max-width: 768px) {
+  .repo-home .orch-process-branches { grid-template-columns: minmax(0, 1fr); }
+  .repo-home .orch-plan-col { flex-shrink: 1; }
+}
+
+@media (max-width: 480px) {
+  .repo-home .orch-process { padding: 1rem 1rem 1rem 2.25rem; }
+  .repo-home .diagram-stage-visual { min-height: 0; }
+  .repo-home .handoff-row { padding-inline: 0.75rem; }
+  .repo-home .handoff-lines { overflow-wrap: anywhere; }
+  .repo-home .testimonials-title { font-size: clamp(1.75rem, 9vw, 2.25rem); }
 }

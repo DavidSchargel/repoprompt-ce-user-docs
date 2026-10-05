@@ -13,7 +13,7 @@ const ExploreDots = () => {
     '0-2','0-7','1-4','1-6','2-1','2-5','2-8','3-3','3-7','4-0','4-5','4-6','5-2','5-4',
   ]);
   return (
-    <svg width={W} height={H} viewBox={`0 0 ${W} ${H}`} fill="none" className="pipeline-svg">
+    <svg aria-hidden="true" focusable="false" width={W} height={H} viewBox={`0 0 ${W} ${H}`} fill="none" className="pipeline-svg">
       {Array.from({length: ROWS}).map((_, r) =>
         Array.from({length: COLS}).map((_, c) => {
           const active = highlighted.has(`${r}-${c}`);
@@ -44,7 +44,7 @@ const CurateDots = () => {
   const sw = 2 * SX + 2 * PAD;
   const sh = 2 * SY + 2 * PAD;
   return (
-    <svg width={W} height={H} viewBox={`0 0 ${W} ${H}`} fill="none" className="pipeline-svg">
+    <svg aria-hidden="true" focusable="false" width={W} height={H} viewBox={`0 0 ${W} ${H}`} fill="none" className="pipeline-svg">
       <rect x={sx} y={sy} width={sw} height={sh} rx="8" fill="#F28C3810" stroke="#F28C38" strokeWidth="1.5" />
       {Array.from({length: ROWS}).map((_, r) =>
         Array.from({length: COLS}).map((_, c) => {
@@ -79,15 +79,6 @@ const HandoffCard = () => (
         <span className="handoff-lines">{f.lines}</span>
       </div>
     ))}
-  </div>
-);
-
-const Arrow = ({ color }) => (
-  <div className="diagram-arrow">
-    <svg width="40" height="20" viewBox="0 0 40 20" fill="none">
-      <path d="M4 10H32M26 4l6 6-6 6" stroke={color} strokeWidth="2"
-        strokeLinecap="round" strokeLinejoin="round" opacity="0.4" />
-    </svg>
   </div>
 );
 
@@ -134,34 +125,33 @@ const WorkflowsShowcase = () => {
         </p>
 
         <div className="workflow-diagram">
-          <div className="diagram-stages">
-            <div className="diagram-stage">
+          <ol className="diagram-stages">
+            <li className="diagram-stage">
               <div className="diagram-stage-visual" style={{ borderColor: '#D8472520', background: '#D8472508' }}>
                 <ExploreDots />
               </div>
               <span className="diagram-stage-num" style={{ color: '#D84725' }}>01</span>
               <div className="diagram-stage-label" style={{ color: '#D84725' }}>Explore</div>
               <div className="diagram-stage-sub">Agent navigates codebase</div>
-            </div>
-            <Arrow color="#F28C38" />
-            <div className="diagram-stage">
+            </li>
+            <li className="diagram-stage">
               <div className="diagram-stage-visual" style={{ borderColor: '#F28C3820', background: '#F28C3808' }}>
                 <CurateDots />
               </div>
               <span className="diagram-stage-num" style={{ color: '#F28C38' }}>02</span>
               <div className="diagram-stage-label" style={{ color: '#F28C38' }}>Curate</div>
               <div className="diagram-stage-sub">Select within token budget</div>
-            </div>
-            <Arrow color="#6366F1" />
-            <div className="diagram-stage">
-              <div className="diagram-stage-visual handoff-visual" style={{ borderColor: '#6366F120', background: '#6366F108' }}>
-                <HandoffCard />
-              </div>
+              <p className="diagram-selection-example">Example: 9 of 54 files selected.</p>
+            </li>
+            <li className="diagram-stage">
               <span className="diagram-stage-num" style={{ color: '#6366F1' }}>03</span>
               <div className="diagram-stage-label" style={{ color: '#6366F1' }}>Handoff</div>
               <div className="diagram-stage-sub">Structured prompt for analysis</div>
-            </div>
-          </div>
+              <div className="diagram-stage-visual handoff-visual" style={{ borderColor: '#6366F120', background: '#6366F108' }}>
+                <HandoffCard />
+              </div>
+            </li>
+          </ol>
         </div>
 
         <div className="workflows-grid">
