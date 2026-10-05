@@ -5,6 +5,7 @@ const path = require('node:path');
 const remarkIdealImages = require('../plugins/remark-ideal-images.cjs');
 const {assetRequireAttributeValue} = require('@docusaurus/mdx-loader/lib/remark/utils');
 const root = path.join(__dirname, '..');
+const currentDocsDirectory = `versioned_docs/version-${require('../versions.json')[0]}`;
 
 test('shared Head filters Twitter metadata while retaining other SEO', () => {
   const React = require('react');
@@ -125,7 +126,7 @@ test('provider comparison MDX keeps its caption, scoped headers, and keyboard-sc
     return dependencies[name];
   }});
   const MDXContent = exports.default;
-  const source = fs.readFileSync(path.join(root, 'versioned_docs/version-1.5.0/agent-mode/providers.mdx'), 'utf8');
+  const source = fs.readFileSync(path.join(root, currentDocsDirectory, 'agent-mode/providers.mdx'), 'utf8');
   const compiled = await compile(source, {
     remarkPlugins: [frontmatter],
     outputFormat: 'function-body',
@@ -153,7 +154,7 @@ test('provider comparison MDX keeps its caption, scoped headers, and keyboard-sc
 test('active docs landing keeps a navigable outline and standalone link names', async () => {
   const {compile} = await import('@mdx-js/mdx');
   const {default: frontmatter} = await import('remark-frontmatter');
-  const source = fs.readFileSync(path.join(root, 'versioned_docs/version-1.5.0/index.mdx'), 'utf8');
+  const source = fs.readFileSync(path.join(root, currentDocsDirectory, 'index.mdx'), 'utf8');
   await compile(source, {remarkPlugins: [frontmatter]});
   for (const [marker, heading] of [
     ['##', 'Talk to These Docs'],

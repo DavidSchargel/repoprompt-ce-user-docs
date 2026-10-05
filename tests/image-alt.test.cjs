@@ -1,10 +1,11 @@
 const test = require('node:test');
 const assert = require('node:assert/strict');
 const {assertImageAlt} = require('../scripts/check-content.cjs');
+const currentDocsDirectory = `versioned_docs/version-${require('../versions.json')[0]}`;
 
 test('Markdown and direct JSX images require reviewed paths for empty alt', async () => {
   const {createProcessor} = await import('@mdx-js/mdx');
-  const file = 'versioned_docs/version-1.5.0/settings/agent-mode/overview.mdx';
+  const file = `${currentDocsDirectory}/settings/agent-mode/overview.mdx`;
   const validate = (source, destination = file) => {
     const walk = node => {
       assertImageAlt(node, destination);
@@ -25,5 +26,32 @@ test('Markdown and direct JSX images require reviewed paths for empty alt', asyn
     validate(`<img src="${url}" alt="Settings screenshot" />`);
   }
   assert.throws(() => validate('<img src="../images/advanced.png" role="presentation" />'), /missing image alt/);
-  assert.throws(() => validate('![](../images/advanced.png)', 'versioned_docs/version-1.5.0/agent-mode/overview.mdx'), /missing image alt/);
+  assert.throws(() => validate('![](../images/advanced.png)', `${currentDocsDirectory}/agent-mode/overview.mdx`), /missing image alt/);
+  assert.throws(() => validate('![](../images/advanced.png)', 'versioned_docs/version-classic-2.1.0/settings/agent-mode/overview.mdx'), /missing image alt/);
+});
+
+test('reviewed decorative images remain allowed in current and retained CE releases', () => {
+  const fs = require('node:fs');
+  const scriptPath = require.resolve('../scripts/check-content.cjs');
+  const localRequire = require('node:module').createRequire(scriptPath);
+  const nextVersion = '99.0.0';
+  const configRequire = name => name === '../versions.json'
+    ? [nextVersion, ...require('../versions.json')] : localRequire(name);
+  const context = {module: {exports: {}}, require: configRequire, __dirname: require('node:path').dirname(scriptPath)};
+  require('node:vm').runInNewContext(fs.readFileSync(scriptPath, 'utf8'), context, {filename: scriptPath});
+  const validate = context.module.exports.assertImageAlt;
+  const image = {type: 'image', alt: '', url: '../images/advanced.png'};
+  const nextDirectory = `versioned_docs/version-${nextVersion}`;
+  for (const directory of [nextDirectory, currentDocsDirectory]) {
+    assert.doesNotThrow(() => validate(image, `${directory}/settings/agent-mode/overview.mdx`));
+    assert.throws(() => validate({...image, url: '../images/unreviewed.png'}, `${directory}/settings/agent-mode/overview.mdx`), /missing image alt/);
+    assert.throws(() => validate(image, `${directory}/agent-mode/overview.mdx`), /missing image alt/);
+    assert.throws(() => validate({type: 'mdxJsxTextElement', name: 'img', attributes: [
+      {type: 'mdxJsxAttribute', name: 'src', value: image.url},
+      {type: 'mdxJsxAttribute', name: 'alt', value: ''},
+    ]}, `${directory}/settings/agent-mode/overview.mdx`), /missing image alt/);
+  }
+  for (const directory of ['versioned_docs/version-classic-2.1.0', 'versioned_docs/version-unlisted']) {
+    assert.throws(() => validate(image, `${directory}/settings/agent-mode/overview.mdx`), /missing image alt/);
+  }
 });

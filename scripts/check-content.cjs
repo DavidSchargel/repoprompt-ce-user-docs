@@ -32,9 +32,13 @@ const decorativeSettingsImages = new Set([
 ]);
 
 
-const settingsDirectory = 'versioned_docs/version-1.5.0/settings/';
+// Retained CE snapshots keep the same reviewed decorative-image allowance.
+const settingsDirectories = require('../versions.json')
+  .filter(version => !version.startsWith('classic-'))
+  .map(version => `versioned_docs/version-${version}/settings/`);
 function isDecorativeSettingsImage(file, url) {
-  if (!file.startsWith(settingsDirectory) || typeof url !== 'string' || /^[a-z][\w+.-]*:|^\//i.test(url)) return false;
+  const settingsDirectory = settingsDirectories.find(directory => file.startsWith(directory));
+  if (!settingsDirectory || typeof url !== 'string' || /^[a-z][\w+.-]*:|^\//i.test(url)) return false;
   const resolved = path.posix.normalize(path.posix.join(path.posix.dirname(file), decodeURIComponent(url.split(/[?#]/)[0])));
   return path.posix.dirname(resolved) === `${settingsDirectory}images`
     && decorativeSettingsImages.has(path.posix.basename(resolved));
