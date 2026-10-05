@@ -119,6 +119,7 @@ module.exports = {
     navbar: {
       title: 'RepoPrompt',
       items: [
+        {to: '/', label: 'Home', position: 'left', exact: true},
         {type: 'docSidebar', sidebarId: 'docsSidebar', label: 'Docs', position: 'left'},
         {to: '/blog/', label: 'Blog', position: 'left'},
         {type: 'docsVersionDropdown', position: 'right'},
