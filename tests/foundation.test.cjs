@@ -129,7 +129,7 @@ test('provider comparison MDX keeps its caption, scoped headers, and keyboard-sc
   assert.ok(caption, 'Table needs a nonempty caption');
   assert.equal(label[1], caption[1], 'Table region must be labelled by its own caption');
   assert.match(wrapper[2], /<thead>[\s\S]*?<th scope="col">Feature<\/th>/);
-  assert.equal((wrapper[2].match(/<th scope="col">/g) || []).length, 7);
+  assert.equal((wrapper[2].match(/<th scope="col">/g) || []).length, 6);
   assert.equal((wrapper[2].match(/<th scope="row">/g) || []).length, 8);
   assert.doesNotMatch(wrapper[2], /<td>\s*[✓—-]\s*<\/td>/);
   assert.match(html, /focus the table region/);

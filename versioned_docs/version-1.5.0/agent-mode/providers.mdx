@@ -3,7 +3,7 @@ id: "providers"
 title: "Providers"
 description: "Configure Agent Mode providers, compare integration capabilities, and choose authentication and model settings for coding sessions."
 slug: "/agent-mode/providers"
-keywords: ["codex cli","claude code","gemini cli","cc zai","cc moonshot","cc custom","moonshot","kimi","claude code compatible","glm","glm 4.6","glm 4.7","glm 5","z.ai","zhipu","opencode","open code","cursor cli","cursor","cursor pro","cursor business","provider","setup","connection","app server","headless","acp","subscription","compaction","reasoning effort","bash tools","comparison","which provider","recommended","install","openai","anthropic","google","claude pro","claude max","api key","base url"]
+keywords: ["codex cli","claude code","cc zai","cc moonshot","cc custom","moonshot","kimi","claude code compatible","glm","glm 4.6","glm 4.7","glm 5","z.ai","zhipu","opencode","open code","cursor cli","cursor","cursor pro","cursor business","provider","setup","connection","app server","headless","acp","subscription","compaction","reasoning effort","bash tools","comparison","which provider","recommended","install","openai","anthropic","google","claude pro","claude max","api key","base url"]
 hide_table_of_contents: false
 toc_min_heading_level: 2
 toc_max_heading_level: 4
@@ -24,7 +24,6 @@ If the comparison extends beyond your screen, focus the table region and use the
         <th scope="col">Codex CLI</th>
         <th scope="col">Claude Code</th>
         <th scope="col">CC Zai</th>
-        <th scope="col">Gemini CLI</th>
         <th scope="col">OpenCode</th>
         <th scope="col">Cursor CLI</th>
       </tr>
@@ -37,7 +36,6 @@ If the comparison extends beyond your screen, focus the table region and use the
         <td>Headless CLI + MCP</td>
         <td>ACP</td>
         <td>ACP</td>
-        <td>ACP</td>
       </tr>
       <tr>
         <th scope="row">Session control</th>
@@ -46,11 +44,9 @@ If the comparison extends beyond your screen, focus the table region and use the
         <td>Full session control</td>
         <td>Full session control via ACP</td>
         <td>Full session control via ACP</td>
-        <td>Full session control via ACP</td>
       </tr>
       <tr>
         <th scope="row">Context Builder</th>
-        <td>Supported</td>
         <td>Supported</td>
         <td>Supported</td>
         <td>Supported</td>
@@ -64,14 +60,12 @@ If the comparison extends beyond your screen, focus the table region and use the
         <td>Supported</td>
         <td>Supported</td>
         <td>Supported</td>
-        <td>Supported</td>
       </tr>
       <tr>
         <th scope="row">Compaction</th>
         <td>Supported</td>
         <td>Supported</td>
         <td>Supported</td>
-        <td>Not documented</td>
         <td>Not documented</td>
         <td>Not documented</td>
       </tr>
@@ -82,14 +76,12 @@ If the comparison extends beyond your screen, focus the table region and use the
         <td>Supported</td>
         <td>Supported via ACP</td>
         <td>Supported via ACP</td>
-        <td>Supported via ACP</td>
       </tr>
       <tr>
         <th scope="row">Reasoning effort</th>
         <td>Configurable</td>
         <td>Not documented</td>
         <td>Not documented</td>
-        <td>Automatic via ACP</td>
         <td>Configurable thinking level</td>
         <td>Configurable effort</td>
       </tr>
@@ -98,7 +90,6 @@ If the comparison extends beyond your screen, focus the table region and use the
         <td>OpenAI (Codex)</td>
         <td>Anthropic (Claude Pro/Max)</td>
         <td>Z.AI (API key)</td>
-        <td>Google (Gemini)</td>
         <td>Various (includes free models)</td>
         <td>Cursor (Pro/Business)</td>
       </tr>
@@ -177,16 +168,6 @@ Depending on how your endpoint is configured, CC Custom can run as a no-model ba
 
 :::
 
-## Gemini CLI
-
-Gemini CLI connects through ACP (Agent Communication Protocol), providing text streaming, permission support, bash tool access, automatic model detection, and significantly better performance compared to the previous prompt-only integration. Gemini CLI now offers a full-featured agent experience on par with other providers.
-
-### Setup
-
-1. Install Gemini CLI: run `gemini auth login` in your terminal
-2. Authenticate with your Google account
-3. In RepoPrompt, go to Agent Mode settings and test the connection
-
 ## OpenCode
 
 OpenCode connects through ACP (Agent Communication Protocol) with text streaming, bash tool access, and dynamic model discovery. OpenCode supports multiple AI providers — including some free models — so available models depend on which providers you've configured. RepoPrompt discovers and lists them automatically when you test the connection.
@@ -209,10 +190,10 @@ Cursor CLI connects through ACP (Agent Communication Protocol) with text streami
 
 ## Using Your Existing Subscriptions
 
-Codex CLI, Claude Code, Gemini CLI, and Cursor CLI use your existing AI subscriptions — no additional API costs. If you're already paying for ChatGPT Plus / Pro / Codex, Claude Pro/Max, Google AI, or Cursor Pro/Business, you can use those same accounts to power Agent Mode sessions. CC Zai, CC Moonshot, and CC Custom run through the Claude Code integration and require their own API keys (Z.AI, Moonshot/Kimi, or whichever Claude Code-compatible endpoint you configure), billed based on usage. OpenCode supports multiple providers including some free models — check OpenCode's documentation for available options.
+Codex CLI, Claude Code, and Cursor CLI use your existing AI subscriptions — no additional API costs. If you're already paying for ChatGPT Plus / Pro / Codex, Claude Pro/Max, or Cursor Pro/Business, you can use those same accounts to power Agent Mode sessions. CC Zai, CC Moonshot, and CC Custom run through the Claude Code integration and require their own API keys (Z.AI, Moonshot/Kimi, or whichever Claude Code-compatible endpoint you configure), billed based on usage. OpenCode supports multiple providers including some free models — check OpenCode's documentation for available options.
 
 :::tip
 
-**Provider Selection:** Choose based on the models and subscriptions you already have. All six providers offer deep integration with RepoPrompt's context tools. Codex is recommended because GPT-5.5 Low is the practical default for explore/discovery, GPT-5.5 Medium covers engineer implementation, and GPT-5.5 High covers heavier planning/review work, but Claude Code (including the CC Zai, CC Moonshot, and CC Custom backends), Gemini CLI, OpenCode, and Cursor CLI are all full-featured alternatives.
+**Provider Selection:** Choose based on the models and subscriptions you already have. These providers offer deep integration with RepoPrompt's context tools. Codex is recommended because GPT-5.5 Low is the practical default for explore/discovery, GPT-5.5 Medium covers engineer implementation, and GPT-5.5 High covers heavier planning/review work, but Claude Code (including the CC Zai, CC Moonshot, and CC Custom backends), OpenCode, and Cursor CLI are all full-featured alternatives.
 
 :::

@@ -2,6 +2,35 @@ const fs = require('node:fs');
 const path = require('node:path');
 const assert = require('node:assert/strict');
 const {readDocs} = require('./doc-inventory.cjs');
+// These title-and-icon crops repeat the page heading and have no additional content.
+// Keep empty alt text limited to this reviewed set of decorative settings images.
+const decorativeSettingsImages = new Set([
+  'advanced.png',
+  'agent-models.png',
+  'agent-permissions.png',
+  'agent-workflows.png',
+  'api-providers.png',
+  'appearance.png',
+  'chat-settings.png',
+  'context-builder.png',
+  'copy-prompt-order.png',
+  'custom-api.png',
+  'keyboard-shortcuts.png',
+  'manage-presets.png',
+  'manage-workspaces.png',
+  'mcp-server.png',
+  'model-config.png',
+  'model-presets.png',
+  'model-router.png',
+  'openrouter.png',
+  'search-settings.png',
+  'telemetry.png',
+  'tools.png',
+  'updates.png',
+  'workflow-presets.png',
+  'workspace-approvals.png',
+]);
+
 
 async function main() {
   const root = path.join(__dirname, '..');
@@ -29,7 +58,12 @@ async function main() {
   }
   for (const [file, doc] of docs) walk(doc.tree, node => {
     if (!['link', 'image', 'definition'].includes(node.type)) return;
-    if (node.type === 'image') assert.ok(node.alt?.trim(), `${file}: missing image alt text`);
+    if (node.type === 'image') {
+      const decorative = file.startsWith('versioned_docs/version-1.5.0/settings/')
+        && /^\.\.?\/images\/[^/]+$/.test(node.url)
+        && decorativeSettingsImages.has(path.posix.basename(node.url));
+      assert.ok(node.alt?.trim() || decorative, `${file}: missing image alt text`);
+    }
     if (/^[a-z][\w+.-]*:|^\/\//i.test(node.url)) return;
     const [base, anchor] = node.url.split('#');
     if (base.startsWith('/')) return; // Public routes are checked by the production build.

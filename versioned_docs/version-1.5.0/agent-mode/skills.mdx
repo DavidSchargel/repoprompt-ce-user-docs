@@ -27,7 +27,7 @@ Agent Mode has two ways to structure a task: the **Workflow** dropdown (built-in
 
 ## Skills for Terminal Agents
 
-The same on-disk skill files also work with external agents running in your terminal (Claude Code, Codex CLI, Gemini CLI). When those agents are connected via the MCP server, they discover skills from the same directories and can invoke them as slash commands.
+The same on-disk skill files also work with external agents running in your terminal (Claude Code, Codex CLI). When those agents are connected via the MCP server, they discover skills from the same directories and can invoke them as slash commands.
 
 RepoPrompt ships with built-in workflow skills (`/rp-build`, `/rp-review`, `/rp-refactor`, `/rp-investigate`, `/rp-oracle-export`) that you can install for your terminal agents. These give external agents the same workflow capabilities that are built into Agent Mode's Workflow dropdown. See [MCP Workflow Commands](../../version-classic-2.1.0/mcp-server/workflow-commands.mdx) for details.
 
@@ -94,7 +94,7 @@ RepoPrompt scans provider-specific directories in order of priority. Project-lev
 3. `~/.claude/skills/` — Global folder-based skills
 4. `~/.claude/commands/` — Global flat file skills
 
-### For Codex CLI & Gemini CLI
+### For Codex CLI
 
 1. `<project>/.agents/skills/` — Project-level folder-based skills
 2. `<project>/.agents/slash/` — Project-level flat file skills

@@ -80,7 +80,7 @@ async function main() {
   const images = findResponsiveImages(docsPages.map((file) => fs.readFileSync(file, 'utf8')));
   assert.ok(images.length > 0, 'No responsive Markdown images found across the documentation');
   for (const image of images) {
-    assert.ok(image.alt?.trim() && image.srcset, `Markdown ideal-image alt text or srcset missing: ${image.src}`);
+    assert.ok((image.alt?.trim() || image.role === 'presentation') && image.srcset, `Markdown ideal-image alt text or srcset missing: ${image.src}`);
     assert.equal(image.loading, 'lazy', `Image is not lazy-loaded: ${image.src}`);
     for (const candidate of image.srcset.split(', ')) {
       const pathname = new URL(candidate.split(' ')[0], config.url).pathname;
