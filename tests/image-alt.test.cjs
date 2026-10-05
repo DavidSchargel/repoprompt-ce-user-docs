@@ -30,7 +30,7 @@ test('Markdown and direct JSX images require reviewed paths for empty alt', asyn
   assert.throws(() => validate('![](../images/advanced.png)', 'versioned_docs/version-classic-2.1.0/settings/agent-mode/overview.mdx'), /missing image alt/);
 });
 
-test('reviewed decorative images remain allowed in current and retained CE releases', () => {
+test('listing a new CE release does not approve its decorative images', () => {
   const fs = require('node:fs');
   const scriptPath = require.resolve('../scripts/check-content.cjs');
   const localRequire = require('node:module').createRequire(scriptPath);
@@ -42,7 +42,7 @@ test('reviewed decorative images remain allowed in current and retained CE relea
   const validate = context.module.exports.assertImageAlt;
   const image = {type: 'image', alt: '', url: '../images/advanced.png'};
   const nextDirectory = `versioned_docs/version-${nextVersion}`;
-  for (const directory of [nextDirectory, currentDocsDirectory]) {
+  for (const directory of ['versioned_docs/version-1.5.0']) {
     assert.doesNotThrow(() => validate(image, `${directory}/settings/agent-mode/overview.mdx`));
     assert.throws(() => validate({...image, url: '../images/unreviewed.png'}, `${directory}/settings/agent-mode/overview.mdx`), /missing image alt/);
     assert.throws(() => validate(image, `${directory}/agent-mode/overview.mdx`), /missing image alt/);
@@ -51,7 +51,8 @@ test('reviewed decorative images remain allowed in current and retained CE relea
       {type: 'mdxJsxAttribute', name: 'alt', value: ''},
     ]}, `${directory}/settings/agent-mode/overview.mdx`), /missing image alt/);
   }
-  for (const directory of ['versioned_docs/version-classic-2.1.0', 'versioned_docs/version-unlisted']) {
+  for (const directory of [nextDirectory, 'versioned_docs/version-classic-2.1.0', 'versioned_docs/version-unlisted']) {
     assert.throws(() => validate(image, `${directory}/settings/agent-mode/overview.mdx`), /missing image alt/);
+    assert.doesNotThrow(() => validate({...image, alt: 'Settings screenshot'}, `${directory}/settings/agent-mode/overview.mdx`));
   }
 });

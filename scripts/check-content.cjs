@@ -4,7 +4,7 @@ const assert = require('node:assert/strict');
 const {readDocs} = require('./doc-inventory.cjs');
 // These title-and-icon crops repeat the page heading and have no additional content.
 // Keep empty alt text limited to this reviewed set of decorative settings images.
-const decorativeSettingsImages = new Set([
+const decorativeSettingsImages150 = new Set([
   'advanced.png',
   'agent-models.png',
   'agent-permissions.png',
@@ -32,16 +32,17 @@ const decorativeSettingsImages = new Set([
 ]);
 
 
-// Retained CE snapshots keep the same reviewed decorative-image allowance.
-const settingsDirectories = require('../versions.json')
-  .filter(version => !version.startsWith('classic-'))
-  .map(version => `versioned_docs/version-${version}/settings/`);
+// Approve each version's actual assets explicitly after review. Listing a new
+// release in versions.json must never grant it an empty-alt exemption.
+const decorativeImagesByDirectory = new Map([
+  ['versioned_docs/version-1.5.0/settings/', decorativeSettingsImages150],
+]);
 function isDecorativeSettingsImage(file, url) {
-  const settingsDirectory = settingsDirectories.find(directory => file.startsWith(directory));
+  const settingsDirectory = [...decorativeImagesByDirectory.keys()].find(directory => file.startsWith(directory));
   if (!settingsDirectory || typeof url !== 'string' || /^[a-z][\w+.-]*:|^\//i.test(url)) return false;
   const resolved = path.posix.normalize(path.posix.join(path.posix.dirname(file), decodeURIComponent(url.split(/[?#]/)[0])));
   return path.posix.dirname(resolved) === `${settingsDirectory}images`
-    && decorativeSettingsImages.has(path.posix.basename(resolved));
+    && decorativeImagesByDirectory.get(settingsDirectory).has(path.posix.basename(resolved));
 }
 
 function assertImageAlt(node, file) {
