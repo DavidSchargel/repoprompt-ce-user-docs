@@ -1,4 +1,20 @@
 const remarkIdealImages = require('./plugins/remark-ideal-images.cjs');
+const docVersions = require('./versions.json');
+// versions.json is ordered newest first; Classic keeps its published archive route.
+const currentCEVersion = docVersions[0];
+if (!currentCEVersion || currentCEVersion.startsWith('classic-')) {
+  throw new Error('versions.json must list the current CE version first.');
+}
+const docsVersions = Object.fromEntries(docVersions.map(version => [version,
+  version === 'classic-2.1.0'
+    ? {label: 'Classic 2.1.0', path: 'classic-2.1.0', banner: 'unmaintained'}
+    : {label: version, path: version === currentCEVersion ? '' : version, banner: version === currentCEVersion ? 'none' : 'unmaintained'},
+]));
+const llmDocsDirectories = docVersions.map(version => ({
+  path: `versioned_docs/version-${version}`,
+  routeBasePath: ['docs', docsVersions[version].path].filter(Boolean).join('/'),
+  label: version === 'classic-2.1.0' ? docsVersions[version].label : `Community Edition ${docsVersions[version].label}`,
+}));
 const organizationName = process.env.PAGES_OWNER;
 const projectName = process.env.PAGES_REPOSITORY;
 const url = process.env.SITE_URL || (organizationName ? `https://${organizationName}.github.io` : 'https://example.invalid');
@@ -41,11 +57,8 @@ module.exports = {
         remarkPlugins: [remarkIdealImages],
         routeBasePath: 'docs',
         includeCurrentVersion: false,
-        lastVersion: '1.5.0',
-        versions: {
-          '1.5.0': {label: '1.5.0', path: '', banner: 'none'},
-          'classic-2.1.0': {label: 'Classic 2.1.0', path: 'classic-2.1.0', banner: 'unmaintained'},
-        },
+        lastVersion: currentCEVersion,
+        versions: docsVersions,
       },
       blog: {
         remarkPlugins: [remarkIdealImages],
@@ -73,10 +86,7 @@ module.exports = {
       generateLLMsFullTxt: true,
       generateMarkdownFiles: true,
       excludeImports: true,
-      docsDir: [
-        {path: 'versioned_docs/version-1.5.0', routeBasePath: 'docs', label: 'Community Edition 1.5.0'},
-        {path: 'versioned_docs/version-classic-2.1.0', routeBasePath: 'docs/classic-2.1.0', label: 'Classic 2.1.0'},
-      ],
+      docsDir: llmDocsDirectories,
     }],
     ['docusaurus-plugin-copy-page-button', {enabledActions: ['copy'], placement: 'article'}],
     ['@docusaurus/plugin-ideal-image', {quality: 85, min: 320, max: 1600, steps: 4, disableInDev: false}],

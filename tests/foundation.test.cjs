@@ -224,14 +224,45 @@ test('responsive-image QA discovers screenshots beyond the docs index', () => {
   assert.equal(images[0].alt, 'Workspace screenshot');
 });
 
+test('a new CE release keeps older CE docs and Classic on distinct routes', () => {
+  const configPath = path.join(root, 'docusaurus.config.js');
+  const localRequire = require('node:module').createRequire(configPath);
+  const currentVersion = require('../versions.json')[0];
+  const nextVersion = '99.0.0';
+  const configRequire = name => name === './versions.json'
+    ? [nextVersion, currentVersion, 'classic-2.1.0'] : localRequire(name);
+  configRequire.resolve = localRequire.resolve;
+  const context = {module: {exports: {}}, require: configRequire, process: {env: {}}, URL};
+  require('node:vm').runInNewContext(fs.readFileSync(configPath, 'utf8'), context, {filename: configPath});
+  const config = context.module.exports;
+  const docs = config.presets[0][1].docs;
+  assert.equal(docs.lastVersion, nextVersion);
+  assert.equal(docs.versions[nextVersion].path, '');
+  assert.equal(docs.versions[currentVersion].path, currentVersion);
+  assert.equal(docs.versions['classic-2.1.0'].path, 'classic-2.1.0');
+  assert.equal(docs.versions['classic-2.1.0'].label, 'Classic 2.1.0');
+  assert.equal(docs.versions['classic-2.1.0'].banner, 'unmaintained');
+  const sections = config.plugins.find(plugin => plugin[0] === 'docusaurus-plugin-llms')[1].docsDir;
+  for (const [index, version, route, label] of [
+    [0, nextVersion, 'docs', `Community Edition ${nextVersion}`],
+    [1, currentVersion, `docs/${currentVersion}`, `Community Edition ${currentVersion}`],
+    [2, 'classic-2.1.0', 'docs/classic-2.1.0', 'Classic 2.1.0'],
+  ]) {
+    assert.equal(sections[index].path, `versioned_docs/version-${version}`);
+    assert.equal(sections[index].routeBasePath, route);
+    assert.equal(sections[index].label, label);
+  }
+});
+
 test('version, theme, plugin, and redirect contracts are intact', () => {
   const config = require('../docusaurus.config.js');
   const versions = require('../versions.json');
-  assert.deepEqual(versions, ['1.5.0', 'classic-2.1.0']);
+  assert.ok(versions.includes('classic-2.1.0'));
   const docs = config.presets[0][1].docs;
   assert.equal(docs.includeCurrentVersion, false);
-  assert.equal(docs.lastVersion, '1.5.0');
-  assert.equal(docs.versions['1.5.0'].path, '');
+  assert.equal(docs.lastVersion, versions[0]);
+  assert.equal(docs.versions[versions[0]].path, '');
+  assert.equal(docs.versions['classic-2.1.0'].path, 'classic-2.1.0');
   assert.equal(config.future.v4, true);
   assert.equal(config.themes[0][0], 'cosmos-docusaurus-theme');
   const plugins = config.plugins.map((plugin) => Array.isArray(plugin) ? plugin[0] : plugin);
