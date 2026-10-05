@@ -1,0 +1,27 @@
+---
+id: "agent-permissions"
+title: "Agent Permissions"
+description: "Configure permissions for agents launched directly from RepoPrompt and the separate policy for sub-agents launched through MCP. Sub-agent policy can use Safe Managed behavior, inherit direct-agent settings, or use custom settings."
+slug: "/settings/agent-permissions"
+hide_table_of_contents: false
+---
+
+<div className="settings-intro">
+
+![](../images/agent-permissions.png)
+
+<div>
+
+Configure permissions for agents launched directly from RepoPrompt and the separate policy for sub-agents launched through MCP. Sub-agent policy can use Safe Managed behavior, inherit direct-agent settings, or use custom settings.
+
+</div>
+
+</div>
+
+Open **Settings → Agent Mode → Agent Permissions**.
+
+1. Select the **Direct Agents** scope. Adjust the controls for the provider you launch directly, such as Claude Bash access, Codex sandbox permissions, or an ACP session mode.
+2. Switch to **Sub-Agents** to configure agents launched through MCP. Choose **Safe Managed** for managed overrides, **Inherit Provider** to reuse the direct-agent provider settings, or **Custom** to configure independent per-provider sub-agent modes.
+3. If you choose **Custom**, select the permission mode for each provider under **Per-provider sub-agent modes**. Review the effective profile before launching a new sub-agent.
+
+Direct-agent settings and MCP sub-agent policy are separate. Changing a direct-agent control affects sub-agents through **Inherit Provider**; **Safe Managed** and **Custom** apply their own policy. Configure MCP tool access in [Tools](../mcp-server/tools.mdx) and workspace operation approvals in [Workspace Approvals](../mcp-server/workspace-approvals.mdx).

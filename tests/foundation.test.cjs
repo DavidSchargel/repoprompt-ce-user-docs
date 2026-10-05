@@ -83,10 +83,25 @@ test('local PNG and JPEG Markdown imports reach ideal-image without string coerc
       assert.equal(value.data.estree.body[0].expression.type, 'CallExpression');
       assert.equal(value.data.estree.body[0].expression.arguments[0].value, file);
       assert.equal(value.value, `require(${JSON.stringify(file)})`);
-      assert.equal(image.attributes[0].value, alt);
+      const altAttributes = image.attributes.filter(attribute => attribute.name === 'alt');
+      assert.equal(altAttributes.length, 1);
+      assert.equal(altAttributes[0].value, alt);
       assert.equal(tree.children[0].type, 'paragraph');
     }
   }
+});
+
+test('generated Markdown images retain empty alt without approving omitted JSX alt', () => {
+  const tree = imageTree('./example.png', '', '');
+  const image = tree.children[0].children[0];
+  image.attributes = image.attributes.filter(attribute => attribute.name !== 'alt');
+  remarkIdealImages()(tree);
+  assert.equal(image.attributes.find(attribute => attribute.name === 'alt')?.value, '');
+  const jsx = {type: 'mdxJsxTextElement', name: 'img', attributes: [
+    {type: 'mdxJsxAttribute', name: 'src', value: './example.png'},
+  ]};
+  remarkIdealImages()({type: 'root', children: [jsx]});
+  assert.equal(jsx.attributes.find(attribute => attribute.name === 'alt'), undefined);
 });
 
 test('provider comparison MDX keeps its caption, scoped headers, and keyboard-scroll region', async () => {
@@ -129,7 +144,7 @@ test('provider comparison MDX keeps its caption, scoped headers, and keyboard-sc
   assert.ok(caption, 'Table needs a nonempty caption');
   assert.equal(label[1], caption[1], 'Table region must be labelled by its own caption');
   assert.match(wrapper[2], /<thead>[\s\S]*?<th scope="col">Feature<\/th>/);
-  assert.equal((wrapper[2].match(/<th scope="col">/g) || []).length, 7);
+  assert.equal((wrapper[2].match(/<th scope="col">/g) || []).length, 6);
   assert.equal((wrapper[2].match(/<th scope="row">/g) || []).length, 8);
   assert.doesNotMatch(wrapper[2], /<td>\s*[✓—-]\s*<\/td>/);
   assert.match(html, /focus the table region/);

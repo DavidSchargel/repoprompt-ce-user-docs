@@ -1,0 +1,26 @@
+---
+id: "context-builder"
+title: "Context Builder"
+description: "Configure context and analysis token budgets, prompt enhancement, question timeouts, and clarifying-question behavior. This page also manages custom instructions and distinguishes runs started in the interface from runs requested through MCP."
+slug: "/settings/context-builder"
+hide_table_of_contents: false
+---
+
+<div className="settings-intro">
+
+![](../images/context-builder.png)
+
+<div>
+
+Configure context and analysis token budgets, prompt enhancement, question timeouts, and clarifying-question behavior. This page also manages custom instructions and distinguishes runs started in the interface from runs requested through MCP.
+
+</div>
+
+</div>
+
+Open **Settings → Agent Mode → Context Builder**.
+
+1. Adjust **Context Budget** to set the target size of an exported context package. Adjust **Analysis Budget** for runs that immediately produce a plan, review, or answer. Lower either slider to gather a smaller context package.
+2. Choose **Prompt Enhancement**: **Rewrite** to rewrite your prompt, **Augment** to add context, or **Preserve** to keep it unchanged.
+3. Set **Question Timeout** to choose how long the agent waits for your response before continuing. Toggle **Allow Clarifying Questions** separately under **UI Runs** and **MCP Runs**; MCP questions require you to watch RepoPrompt and are disabled for inactive target workspaces.
+4. Under **Custom Instructions**, click **Add** (or the prompt count), then **New**. Enter a prompt title and instructions, and click **Save**. Use the same manager to edit existing prompts, then select the prompts to use in the Context Builder panel for the current tab.

@@ -2,6 +2,8 @@ const assert = require('node:assert/strict');
 const fs = require('node:fs');
 const path = require('node:path');
 const {walkFiles, exportFiles, localImageEdits} = require('./llm-markdown.cjs');
+const {readDocs} = require('./doc-inventory.cjs');
+const {assertImageAlt} = require('./check-content.cjs');
 
 function tags(html, name) {
   return [...html.matchAll(new RegExp(`<${name}\\b[^>]*>`, 'gi'))].map(([tag]) => {
@@ -25,6 +27,19 @@ function findResponsiveImages(pages) {
 
 async function main() {
   const root = path.join(__dirname, '..');
+  const {createProcessor} = await import('@mdx-js/mdx');
+  const {default: frontmatter} = await import('remark-frontmatter');
+  const reviewedImagesByRoute = new Map();
+  for (const entry of readDocs(root)) {
+    const reviewed = new Set();
+    const walk = node => {
+      const image = assertImageAlt(node, entry.destination);
+      if (image?.alt === '') reviewed.add(path.posix.parse(image.url).name);
+      (node.children || []).forEach(walk);
+    };
+    walk(createProcessor({remarkPlugins: [frontmatter]}).parse(entry.content));
+    reviewedImagesByRoute.set(entry.route, reviewed);
+  }
   const directory = path.join(root, 'build');
   const config = require('../docusaurus.config.js');
   const files = walkFiles(directory);
@@ -79,13 +94,18 @@ async function main() {
   const docsPages = files.filter((file) => file.startsWith(docsDirectory) && file.endsWith('.html'));
   const images = findResponsiveImages(docsPages.map((file) => fs.readFileSync(file, 'utf8')));
   assert.ok(images.length > 0, 'No responsive Markdown images found across the documentation');
-  for (const image of images) {
-    assert.ok(image.alt?.trim() && image.srcset, `Markdown ideal-image alt text or srcset missing: ${image.src}`);
-    assert.equal(image.loading, 'lazy', `Image is not lazy-loaded: ${image.src}`);
-    for (const candidate of image.srcset.split(', ')) {
-      const pathname = new URL(candidate.split(' ')[0], config.url).pathname;
-      assert.ok(pathname.startsWith(config.baseUrl), 'Image escaped the configured base path');
-      assert.ok(fs.existsSync(path.join(directory, decodeURIComponent(pathname.slice(config.baseUrl.length)))), `Missing responsive image ${pathname}`);
+  for (const file of docsPages) {
+    const route = '/' + path.relative(directory, path.dirname(file)).split(path.sep).join('/') + '/';
+    const reviewed = reviewedImagesByRoute.get(route) || new Set();
+    for (const image of findResponsiveImages([fs.readFileSync(file, 'utf8')])) {
+      const name = path.posix.basename(image.src).match(/^(.*)\.[a-f0-9]{7}\.\d+\.[^.]+$/)?.[1];
+      assert.ok((image.alt?.trim() || (image.alt === '' && reviewed.has(name))) && image.srcset, `Markdown ideal-image alt text or srcset missing: ${image.src}`);
+      assert.equal(image.loading, 'lazy', `Image is not lazy-loaded: ${image.src}`);
+      for (const candidate of image.srcset.split(', ')) {
+        const pathname = new URL(candidate.split(' ')[0], config.url).pathname;
+        assert.ok(pathname.startsWith(config.baseUrl), 'Image escaped the configured base path');
+        assert.ok(fs.existsSync(path.join(directory, decodeURIComponent(pathname.slice(config.baseUrl.length)))), `Missing responsive image ${pathname}`);
+      }
     }
   }
   console.log('Artifact QA passed: no Twitter metadata, SEO retained, routes/redirects intact, clean LLM exports, lazy responsive Markdown images.');

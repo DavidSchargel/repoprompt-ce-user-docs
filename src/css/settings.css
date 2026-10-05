@@ -1,0 +1,23 @@
+/* Keep screenshots beside their descriptions, then stack for zoom/mobile. */
+.settings-intro {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 2fr);
+  align-items: start;
+  gap: 1.25rem;
+  margin-block: 1rem 1.5rem;
+}
+.settings-intro > * { min-width: 0; }
+.settings-intro img { max-width: 100%; height: auto; }
+@media (max-width: 48rem) {
+  .settings-intro { grid-template-columns: minmax(0, 1fr); gap: 0.5rem; }
+  .settings-intro > p { max-width: 22rem; }
+}
+
+.settings-panel-intro { grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); }
+@media (max-width: 48rem) {
+  .settings-panel-intro { grid-template-columns: minmax(0, 1fr); }
+  .settings-panel-intro > p { max-width: none; }
+}
+
+/* The image pipeline sets a 320px intrinsic width; show panels at the available width. */
+.settings-reference img { width: 100%; height: auto; }
