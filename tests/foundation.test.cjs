@@ -83,7 +83,9 @@ test('local PNG and JPEG Markdown imports reach ideal-image without string coerc
       assert.equal(value.data.estree.body[0].expression.type, 'CallExpression');
       assert.equal(value.data.estree.body[0].expression.arguments[0].value, file);
       assert.equal(value.value, `require(${JSON.stringify(file)})`);
-      assert.equal(image.attributes[0].value, alt);
+      const altAttributes = image.attributes.filter(attribute => attribute.name === 'alt');
+      assert.equal(altAttributes.length, 1);
+      assert.equal(altAttributes[0].value, alt);
       assert.equal(tree.children[0].type, 'paragraph');
     }
   }

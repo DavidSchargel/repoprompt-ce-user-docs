@@ -46,7 +46,9 @@ function assertImageAlt(node, file) {
   const attribute = name => node.attributes.find(attr => attr.type === 'mdxJsxAttribute' && attr.name === name)?.value;
   const alt = jsx ? attribute('alt') : node.alt;
   const url = jsx ? attribute('src') : node.url;
-  assert.ok((typeof alt === 'string' && alt.trim()) || (alt === '' && isDecorativeSettingsImage(file, url)), `${file}: missing image alt text`);
+  // Literal JSX paths bypass Markdown asset processing and resolve against the
+  // published page URL. They cannot establish approval for decorative images.
+  assert.ok((typeof alt === 'string' && alt.trim()) || (!jsx && alt === '' && isDecorativeSettingsImage(file, url)), `${file}: missing image alt text; use Markdown syntax for reviewed decorative assets`);
   return {alt, url};
 }
 
