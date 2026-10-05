@@ -90,23 +90,49 @@ test('local PNG and JPEG Markdown imports reach ideal-image without string coerc
 });
 
 test('provider comparison MDX keeps its caption, scoped headers, and keyboard-scroll region', async () => {
-  const {compile} = await import('@mdx-js/mdx');
+  const React = require('react');
+  const {renderToStaticMarkup} = require('react-dom/server');
+  const {compile, run} = await import('@mdx-js/mdx');
+  const mdx = await import('@mdx-js/react');
+  const runtime = await import('react/jsx-runtime');
   const {default: frontmatter} = await import('remark-frontmatter');
+  const {code} = require('@babel/core').transformSync(fs.readFileSync(
+    require.resolve('@docusaurus/theme-classic/lib/theme/MDXContent/index.js'), 'utf8'), {
+    babelrc: false,
+    configFile: false,
+    plugins: ['@babel/plugin-transform-react-jsx', '@babel/plugin-transform-modules-commonjs'],
+  });
+  // The site uses intrinsic elements for the explicit table and overflow region.
+  const dependencies = {react: React, '@mdx-js/react': mdx, '@theme/MDXComponents': {}};
+  const exports = {};
+  require('node:vm').runInNewContext(code, {exports, require(name) {
+    assert.ok(Object.hasOwn(dependencies, name), `Unexpected dependency: ${name}`);
+    return dependencies[name];
+  }});
+  const MDXContent = exports.default;
   const source = fs.readFileSync(path.join(root, 'versioned_docs/version-1.5.0/agent-mode/providers.mdx'), 'utf8');
-  await compile(source, {remarkPlugins: [frontmatter]});
-  const wrapper = source.match(/<div\b([^>]*)>\s*<table>/);
+  const compiled = await compile(source, {
+    remarkPlugins: [frontmatter],
+    outputFormat: 'function-body',
+    providerImportSource: '@mdx-js/react',
+  });
+  const {default: Content} = await run(compiled, {...runtime, useMDXComponents: mdx.useMDXComponents});
+  const html = renderToStaticMarkup(React.createElement(MDXContent, null, React.createElement(Content)));
+  const wrapper = html.match(/<div\b([^>]*)>\s*(<table>[\s\S]*?<\/table>)\s*<\/div>/);
   assert.ok(wrapper, 'Expected a table inside an explicit overflow region');
-  for (const attribute of ['className="accessible-table-scroll"', 'role="region"', 'tabIndex={0}']) {
+  for (const attribute of ['class="accessible-table-scroll"', 'role="region"', 'tabindex="0"']) {
     assert.ok(wrapper[1].includes(attribute), `Missing table-region ${attribute}`);
   }
   const label = wrapper[1].match(/aria-labelledby="([^"]+)"/);
   assert.ok(label, 'Table region needs a caption reference');
-  assert.match(source, new RegExp(`<caption id="${label[1]}">[^<]+<\\/caption>`));
-  assert.match(source, /<thead>[\s\S]*?<th scope="col">Feature<\/th>/);
-  assert.equal((source.match(/<th scope="col">/g) || []).length, 7);
-  assert.equal((source.match(/<th scope="row">/g) || []).length, 8);
-  assert.doesNotMatch(source, /<td>\s*[✓—-]\s*<\/td>/);
-  assert.match(source, /focus the table region/);
+  const caption = wrapper[2].match(/<caption id="([^"]+)">([^<]+)<\/caption>/);
+  assert.ok(caption, 'Table needs a nonempty caption');
+  assert.equal(label[1], caption[1], 'Table region must be labelled by its own caption');
+  assert.match(wrapper[2], /<thead>[\s\S]*?<th scope="col">Feature<\/th>/);
+  assert.equal((wrapper[2].match(/<th scope="col">/g) || []).length, 7);
+  assert.equal((wrapper[2].match(/<th scope="row">/g) || []).length, 8);
+  assert.doesNotMatch(wrapper[2], /<td>\s*[✓—-]\s*<\/td>/);
+  assert.match(html, /focus the table region/);
 });
 
 test('active docs landing keeps a navigable outline and standalone link names', async () => {
@@ -114,12 +140,13 @@ test('active docs landing keeps a navigable outline and standalone link names', 
   const {default: frontmatter} = await import('remark-frontmatter');
   const source = fs.readFileSync(path.join(root, 'versioned_docs/version-1.5.0/index.mdx'), 'utf8');
   await compile(source, {remarkPlugins: [frontmatter]});
-  for (const heading of [
-    'Talk to These Docs', 'Typical Agent Context', 'RepoPrompt Context',
-    '1. Explore', '2. Curate', '3. Handoff',
-    'Without Curated Context', 'With Curated Context',
+  for (const [marker, heading] of [
+    ['##', 'Talk to These Docs'],
+    ['###', 'Typical Agent Context'], ['###', 'RepoPrompt Context'],
+    ['###', '1. Explore'], ['###', '2. Curate'], ['###', '3. Handoff'],
+    ['###', 'Without Curated Context'], ['###', 'With Curated Context'],
   ]) {
-    assert.ok(source.split('\n').some((line) => line === `## ${heading}` || line === `### ${heading}`), `Missing heading: ${heading}`);
+    assert.ok(source.split('\n').includes(`${marker} ${heading}`), `Missing heading: ${marker} ${heading}`);
   }
   assert.doesNotMatch(source, /\[Learn more\s*→\]/);
   for (const label of [

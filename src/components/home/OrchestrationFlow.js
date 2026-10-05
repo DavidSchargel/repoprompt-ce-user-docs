@@ -121,7 +121,7 @@ const OrchestrationFlow = () => {
                 <ul className="orch-col-agents" role="list">
                   <AgentCard provider="OpenCode" task="Explore codebase" color="#8B5CF6" />
                   <AgentCard provider="Codex" task="Backend logic" color="#10B981" />
-                  <AgentCard provider="Gemini" task="Update configs" color="#F59E0B" />
+                  <AgentCard provider="Antigravity CLI" task="Update configs" color="#F59E0B" />
                 </ul>
                 <div className="orch-steer">
                   <svg aria-hidden="true" focusable="false" width="14" height="14" viewBox="0 0 24 24" fill="none">
