@@ -29,6 +29,7 @@ module.exports = {
   clientModules: [require.resolve('./src/clientModules/legacyHashRedirect.js')],
   noIndex: process.env.SITE_INDEXABLE !== 'true',
   future: {v4: true},
+  storage: {type: 'localStorage'},
   onBrokenLinks: 'throw',
   onBrokenAnchors: 'throw',
   onDuplicateRoutes: 'throw',
@@ -113,7 +114,8 @@ module.exports = {
     },
     image: 'images/blog/repo-prompt-community-edition.png',
     metadata: [{name: 'description', content: 'Documentation for RepoPrompt Community Edition and the Classic archive.'}],
-    colorMode: {defaultMode: 'dark', respectPrefersColorScheme: true},
+    // Follow the system until the visitor saves a choice; no cookies are used.
+    colorMode: {respectPrefersColorScheme: true},
     navbar: {
       title: 'RepoPrompt',
       items: [
