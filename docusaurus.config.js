@@ -59,6 +59,7 @@ module.exports = {
         require.resolve('react-tweet/theme.css'),
         require.resolve('./src/css/responsive-tables.css'),
         require.resolve('./src/css/code-blocks.css'),
+        require.resolve('./src/css/settings.css'),
       ]},
       sitemap: {changefreq: 'weekly', priority: 0.5, ignorePatterns: ['**/privacy/**', '**/terms/**']},
     }],

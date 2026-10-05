@@ -23,6 +23,81 @@
     },
     {
       "type": "category",
+      "label": "Settings",
+      "className": "sidebar-cat-sliders",
+      "items": [
+        "settings/search-settings",
+        {
+          "type": "category",
+          "label": "Agent Mode",
+          "items": [
+            "settings/agent-mode/overview",
+            "settings/agent-mode/cli-providers",
+            "settings/agent-mode/agent-models",
+            "settings/agent-mode/agent-permissions",
+            "settings/agent-mode/agent-workflows",
+            "settings/agent-mode/context-builder"
+          ]
+        },
+        {
+          "type": "category",
+          "label": "Router",
+          "items": [
+            "settings/router/model-router"
+          ]
+        },
+        {
+          "type": "category",
+          "label": "General",
+          "items": [
+            "settings/general/appearance",
+            "settings/general/updates",
+            "settings/general/keyboard-shortcuts",
+            "settings/general/advanced",
+            "settings/general/telemetry"
+          ]
+        },
+        {
+          "type": "category",
+          "label": "MCP Server",
+          "items": [
+            "settings/mcp-server/mcp-server",
+            "settings/mcp-server/tools",
+            "settings/mcp-server/workspace-approvals",
+            "settings/mcp-server/model-presets"
+          ]
+        },
+        {
+          "type": "category",
+          "label": "Models & Providers",
+          "items": [
+            "settings/models-and-providers/api-providers",
+            "settings/models-and-providers/openrouter",
+            "settings/models-and-providers/custom-api",
+            "settings/models-and-providers/model-config"
+          ]
+        },
+        {
+          "type": "category",
+          "label": "Workspaces",
+          "items": [
+            "settings/workspaces/manage-workspaces",
+            "settings/workspaces/manage-presets"
+          ]
+        },
+        {
+          "type": "category",
+          "label": "Prompting",
+          "items": [
+            "settings/prompting/chat-settings",
+            "settings/prompting/workflow-presets",
+            "settings/prompting/copy-prompt-order"
+          ]
+        }
+      ]
+    },
+    {
+      "type": "category",
       "label": "Reference",
       "className": "sidebar-cat-sliders",
       "items": [
