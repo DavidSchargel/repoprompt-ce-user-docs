@@ -2759,16 +2759,18 @@
 
 /* Preserve the diagram geometry while exposing its process and branch lists. */
 .repo-home {
-  --diagram-rust: #9e3018;
+  --explore-text: #00665f;
   --diagram-orange: #924609;
+  --curate-text: #994400;
   --diagram-indigo: #413da8;
   --diagram-violet: #6833b8;
   --diagram-green: #08704e;
   --diagram-amber: #825008;
 }
 [data-theme='dark'] .repo-home {
-  --diagram-rust: #f28c68;
+  --explore-text: #5ed9c5;
   --diagram-orange: #f6aa64;
+  --curate-text: #F28C38;
   --diagram-indigo: #a5a7ff;
   --diagram-violet: #bc9aff;
   --diagram-green: #63d6ad;

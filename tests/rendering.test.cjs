@@ -339,3 +339,62 @@ test('resource checks reject serialized objects and validate relative as well as
     assertResourceUrl(value, 'fixture');
   }
 });
+
+test('homepage mobile navigation contains focus and restores background state on close', () => {
+  const React = require('react');
+  let effect;
+  let toggles = 0;
+  const listeners = new Map();
+  const attributes = new Map();
+  const document = {activeElement: null};
+  const control = () => ({tabIndex: 0, disabled: false, isConnected: true,
+    closest: () => null, getClientRects: () => [{}],
+    focus() { document.activeElement = this; },
+  });
+  const trigger = control();
+  const first = control();
+  const last = control();
+  const sidebar = {
+    contains: (element) => [sidebar, first, last].includes(element),
+    getAttribute: (name) => attributes.get(name) ?? null,
+    setAttribute: (name, value) => attributes.set(name, value),
+    removeAttribute: (name) => attributes.delete(name),
+    querySelector: () => first,
+    querySelectorAll: () => [first, last],
+    addEventListener() {}, removeEventListener() {},
+  };
+  const background = [false, true].map((inert) => ({inert, contains: () => false}));
+  Object.assign(document, {
+    activeElement: trigger,
+    querySelector: (selector) => selector === '.navbar-sidebar' ? sidebar : trigger,
+    querySelectorAll: () => background,
+    addEventListener: (name, listener) => listeners.set(name, listener),
+    removeEventListener: (name) => listeners.delete(name),
+  });
+  const Navigation = loadJsx(path.join(__dirname, '../src/theme/Navbar/MobileSidebar/index.js'), {
+    react: {...React, useEffect: (callback) => { effect = callback; }},
+    '@theme-original/Navbar/MobileSidebar': () => null,
+    '@docusaurus/theme-common/internal': {useNavbarMobileSidebar: () => ({shown: true, toggle: () => { toggles++; }})},
+    '@docusaurus/router': {useLocation: () => ({pathname: '/'})},
+    '@docusaurus/useBaseUrl': () => '/',
+  }, {document, requestAnimationFrame: (callback) => { callback(); return 1; }, cancelAnimationFrame() {},
+    getComputedStyle: () => ({visibility: 'visible', display: 'block'}),
+  });
+  Navigation({});
+  const cleanup = effect();
+  assert.equal(attributes.get('aria-modal'), 'true');
+  assert.equal(document.activeElement, first);
+  assert.ok(background.every((element) => element.inert));
+  document.activeElement = last;
+  listeners.get('keydown')({key: 'Tab', shiftKey: false, preventDefault() {}});
+  assert.equal(document.activeElement, first);
+  listeners.get('keydown')({key: 'Tab', shiftKey: true, preventDefault() {}});
+  assert.equal(document.activeElement, last);
+  listeners.get('keydown')({key: 'Escape', preventDefault() {}});
+  assert.equal(toggles, 1);
+  cleanup();
+  assert.equal(document.activeElement, trigger);
+  assert.deepEqual(background.map((element) => element.inert), [false, true]);
+  assert.equal(listeners.size, 0);
+  assert.equal(attributes.size, 0);
+});

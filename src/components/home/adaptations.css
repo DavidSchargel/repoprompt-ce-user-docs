@@ -1,5 +1,6 @@
 [data-theme='light']:has(.repo-home) .navbar {
   --ifm-navbar-background-color: #e2c8aa;
+  --cosmos-brand: #174b80;
   border-bottom-color: rgba(61, 43, 0, 0.12);
 }
 
@@ -51,6 +52,8 @@
 .repo-home .edition-status-active { color: #075f3b; }
 [data-theme='dark'] .repo-home .edition-status-active { color: #6ee7b7; }
 .repo-home .player-wrapper iframe { position: absolute; inset: 0; width: 100%; height: 100%; border: 0; transform: none; }
+.repo-home .demo-caption { opacity: 1; }
+.repo-home .demo-caption a { color: var(--home-link); text-decoration: underline; text-underline-offset: 0.15em; }
 .repo-home .home-tweet { display: flex; justify-content: center; min-height: 260px; text-align: left; }
 .repo-home .home-footer { display: flex; justify-content: space-between; flex-wrap: wrap; gap: 1rem; padding: 2rem max(1.25rem, calc((100% - 1160px) / 2)); border-top: 1px solid var(--card-border); }
 .repo-home .home-footer p { margin: 0; }

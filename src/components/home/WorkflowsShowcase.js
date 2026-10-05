@@ -44,7 +44,7 @@ const CurateDots = () => {
   const sw = 2 * SX + 2 * PAD;
   const sh = 2 * SY + 2 * PAD;
   return (
-    <svg aria-hidden="true" focusable="false" width={W} height={H} viewBox={`0 0 ${W} ${H}`} fill="none" className="pipeline-svg">
+    <svg role="img" aria-label="Example curated context: 9 of 54 files selected within the token budget" focusable="false" width={W} height={H} viewBox={`0 0 ${W} ${H}`} fill="none" className="pipeline-svg">
       <rect x={sx} y={sy} width={sw} height={sh} rx="8" fill="#F28C3810" stroke="#F28C38" strokeWidth="1.5" />
       {Array.from({length: ROWS}).map((_, r) =>
         Array.from({length: COLS}).map((_, c) => {
@@ -143,8 +143,8 @@ const WorkflowsShowcase = () => {
               <div className="diagram-stage-visual" style={{ borderColor: '#D8472520', background: '#D8472508' }}>
                 <ExploreDots />
               </div>
-              <span className="diagram-stage-num" style={{ color: 'var(--diagram-rust)' }}>01</span>
-              <div className="diagram-stage-label" style={{ color: 'var(--diagram-rust)' }}>Explore</div>
+              <span className="diagram-stage-num" style={{ color: 'var(--explore-text)' }}>01</span>
+              <div className="diagram-stage-label" style={{ color: 'var(--explore-text)' }}>Explore</div>
               <div className="diagram-stage-sub">Agent navigates codebase</div>
               <Arrow color="#F28C38" />
             </li>
@@ -152,8 +152,8 @@ const WorkflowsShowcase = () => {
               <div className="diagram-stage-visual" style={{ borderColor: '#F28C3820', background: '#F28C3808' }}>
                 <CurateDots />
               </div>
-              <span className="diagram-stage-num" style={{ color: '#F28C38' }}>02</span>
-              <div className="diagram-stage-label" style={{ color: '#F28C38' }}>Curate</div>
+              <span className="diagram-stage-num" style={{ color: 'var(--curate-text)' }}>02</span>
+              <div className="diagram-stage-label" style={{ color: 'var(--curate-text)' }}>Curate</div>
               <div className="diagram-stage-sub">Select within token budget</div>
               <Arrow color="#6366F1" />
             </li>
