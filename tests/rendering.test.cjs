@@ -127,6 +127,8 @@ test('React homepage component SSR preserves authored structure and base-path as
   assert.match(html, /<ol class="orch-diagram" role="list"/);
   assert.match(html, /<ol class="orch-row-top" role="list"/);
   assert.equal((html.match(/class="flow-node-title"/g) || []).length, 3);
+  assert.equal((html.match(/class="flow-node-title" style="color:inherit"/g) || []).length, 2,
+    'Prompt and Context Builder must keep their inherited title color');
   assert.match(html, /<ol class="orch-col-tasks" role="list">/);
   assert.match(html, /<ul class="orch-col-agents" role="list">/);
   assert.match(html, /aria-labelledby="orch-sequential"/);
@@ -188,6 +190,7 @@ test('testimonials preserve selection, fallbacks, and controllable rotation', ()
   stopTimer();
   assert.equal(timer, undefined);
   assert.equal(buttons(tree).length, 10);
+  assert.equal(collect(tree, (node) => node.type === Tweet).length, 1, 'Only the active tweet should mount');
   assert.equal(buttons(tree).filter((button) => button.props['aria-pressed']).length, 1);
   buttons(tree)[2].props.onClick();
   tree = render();
@@ -197,6 +200,7 @@ test('testimonials preserve selection, fallbacks, and controllable rotation', ()
   assert.equal(status(tree).props.children, 'Testimonial 3 of 10 selected');
   assert.equal(buttons(tree)[2].props['aria-pressed'], true);
   assert.equal(collect(tree, (node) => node.props['aria-roledescription'] === 'slide' && node.props.hidden).length, 9);
+  assert.equal(collect(tree, (node) => node.type === Tweet).length, 1, 'Selecting a slide must not mount hidden tweets');
   const assertFallbackLinks = (currentTree) => {
     const tweet = selectedTweet(currentTree);
     const url = `https://x.com/i/status/${tweet.props.id}`;
@@ -215,10 +219,13 @@ test('testimonials preserve selection, fallbacks, and controllable rotation', ()
   assertFallbackLinks(tree);
   rotation(tree).props.onClick();
   tree = render();
+  assert.equal(status(tree).props.children, '', 'Restarting rotation must clear the stale selection status');
   const stopResumed = effects[1]();
   timer();
   tree = render();
   assert.equal(state[0], 0, 'Rotation wraps after the final testimonial');
+  assert.equal(status(tree).props.children, '', 'Automatic rotation must leave selection status empty');
+  assert.equal(collect(tree, (node) => node.type === Tweet).length, 1);
   stopResumed();
   tree.props.onMouseEnter();
   tree = render();

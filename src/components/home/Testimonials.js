@@ -68,6 +68,11 @@ export default function Testimonials() {
     return () => clearInterval(timer);
   }, [playing, hovered, visible, pageVisible, index]);
 
+  function toggleRotation() {
+    if (!playing) setSelectionStatus('');
+    setPlaying(!playing);
+  }
+
   function selectTestimonial(nextIndex) {
     setPlaying(false);
     if (nextIndex === index) return;
@@ -88,7 +93,7 @@ export default function Testimonials() {
           <p className="testimonials-subtitle">See what developers are saying about RepoPrompt on X.com/Twitter</p>
         </div>
         <div className="testimonial-controls">
-          <button type="button" className="testimonial-rotation" onClick={() => setPlaying((current) => !current)}
+          <button type="button" className="testimonial-rotation" onClick={toggleRotation}
             aria-label={playing ? 'Pause testimonial rotation' : 'Start testimonial rotation'}>
             <svg aria-hidden="true" focusable="false" width="12" height="12" viewBox="0 0 12 12" fill="currentColor">
               {playing ? <path d="M2 1h3v10H2zM7 1h3v10H7z" /> : <path d="M3 1l8 5-8 5z" />}
@@ -115,13 +120,15 @@ export default function Testimonials() {
               return (
                 <div key={id} className={`tweet-slide ${index === i ? 'active' : ''}`} hidden={index !== i}
                   role="group" aria-roledescription="slide" aria-label={`${i + 1} of ${tweetIds.length}`}>
-                  <div className="tweet-wrapper">
-                    <TweetErrorBoundary fallback={unavailable}>
-                      <Suspense fallback={loading}>
-                        <Tweet id={id} fallback={loading} components={{TweetNotFound: () => unavailable}} />
-                      </Suspense>
-                    </TweetErrorBoundary>
-                  </div>
+                  {index === i && (
+                    <div className="tweet-wrapper">
+                      <TweetErrorBoundary fallback={unavailable}>
+                        <Suspense fallback={loading}>
+                          <Tweet id={id} fallback={loading} components={{TweetNotFound: () => unavailable}} />
+                        </Suspense>
+                      </TweetErrorBoundary>
+                    </div>
+                  )}
                 </div>
               );
             })}

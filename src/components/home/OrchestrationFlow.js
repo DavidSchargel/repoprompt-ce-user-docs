@@ -2,11 +2,10 @@ import React from 'react';
 
 const FlowNode = ({ color, title, subtitle, model, filled, arrow }) => (
   <li className="flow-node" style={{
-    '--node-ink': `var(--diagram-${color === '#D84725' ? 'rust' : 'indigo'})`,
     background: filled ? color + '18' : color + '0A',
     borderColor: filled ? color + '40' : color + '22',
   }}>
-    <div className="flow-node-title" style={{ color: 'var(--node-ink)' }}>{title}</div>
+    <div className="flow-node-title" style={{ color: color === '#D84725' ? 'inherit' : 'var(--diagram-indigo)' }}>{title}</div>
     <div className="flow-node-sub">{subtitle}</div>
     {model && <span className="flow-node-model">{model}</span>}
     {arrow && <FlowArrow />}
