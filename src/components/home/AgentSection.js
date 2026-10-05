@@ -41,7 +41,7 @@ const AgentSection = () => {
               </svg>
             </div>
             <div className="provider-info">
-              <h3>Gemini CLI</h3>
+              <h3>Antigravity CLI</h3>
               <span className="provider-badge mcp-amber">Via ACP</span>
             </div>
           </div>

@@ -123,15 +123,18 @@ test('React homepage component SSR preserves authored structure and base-path as
   assert.equal((html.match(/aria-label="Show testimonial \d+ of 10"/g) || []).length, 10);
   assert.doesNotMatch(html, /<h4\b/);
   assert.match(html, /<h3[^>]*>Codex CLI<\/h3>/);
-  const orchestration = html.match(/<section id="orchestration"[\s\S]*?<div class="orch-diagram" aria-hidden="true">/);
-  assert.ok(orchestration, 'A semantic process must precede the hidden visual diagram');
-  const process = orchestration[0].match(/<ol class="orch-process">[\s\S]*$/)?.[0];
-  assert.ok(process);
-  for (const stage of ['Prompt:', 'Context Builder:', 'Oracle:', 'Orchestrator:', 'Execute using a shared Plan.md:', 'Verify:']) {
-    assert.ok(process.includes(stage), `Missing process stage: ${stage}`);
-  }
-  assert.match(process, /Sequential tasks[\s\S]*?<ol>/);
-  assert.match(process, /Parallel agents[\s\S]*?<ul>/);
+  assert.doesNotMatch(html, /orch-process|class="orch-diagram" aria-hidden/);
+  assert.match(html, /<ol class="orch-diagram" role="list"/);
+  assert.match(html, /<ol class="orch-row-top" role="list"/);
+  assert.equal((html.match(/class="flow-node-title"/g) || []).length, 3);
+  assert.match(html, /<ol class="orch-col-tasks" role="list">/);
+  assert.match(html, /<ul class="orch-col-agents" role="list">/);
+  assert.match(html, /aria-labelledby="orch-sequential"/);
+  assert.match(html, /aria-labelledby="orch-parallel"/);
+  assert.equal((html.match(/shared source of truth/g) || []).length, 1);
+  assert.match(html, /<svg role="img" aria-labelledby="handoff-title handoff-description"/);
+  assert.match(html, /<desc id="handoff-description">Example handoff:/);
+  assert.ok(html.indexOf('class="pipeline-svg handoff-svg"') < html.indexOf('>Handoff</div>'));
   assert.match(html, /aria-hidden="true"[^>]*focusable="false"/);
   assert.match(html, /alt=""/, 'Decorative images need explicit empty alt');
   const images = [...html.matchAll(/(?:src|srcSet)="\/project\/([^" ]+)"/g)];
@@ -139,20 +142,28 @@ test('React homepage component SSR preserves authored structure and base-path as
   for (const [, image] of images) assert.ok(fs.existsSync(path.join(__dirname, '../static', image)), `Missing homepage asset: ${image}`);
 });
 
-test('testimonial selection keeps pressed state, status, and fallbacks aligned without reselecting', () => {
+test('testimonials preserve selection, fallbacks, and controllable rotation', () => {
   const React = require('react');
   const state = [];
+  const effects = [];
   let hook = 0;
+  let timer;
+  let reducedMotion = false;
   const Tweet = () => null;
   const Testimonials = loadJsx(path.join(__dirname, '../src/components/home/Testimonials.js'), {
     react: {...React, useState(initial) {
       const slot = hook++;
       if (!(slot in state)) state[slot] = initial;
-      return [state[slot], (value) => { state[slot] = value; }];
-    }},
+      return [state[slot], (value) => { state[slot] = typeof value === 'function' ? value(state[slot]) : value; }];
+    }, useRef: () => ({current: null}), useEffect: (effect) => effects.push(effect)},
     'react-tweet': {Tweet},
+  }, {
+    window: {matchMedia: () => ({matches: reducedMotion, addEventListener() {}, removeEventListener() {}})},
+    document: {hidden: false, addEventListener() {}, removeEventListener() {}},
+    setInterval(callback, delay) { assert.equal(delay, 5000); timer = callback; return 1; },
+    clearInterval() { timer = undefined; },
   });
-  const render = () => { hook = 0; return Testimonials(); };
+  const render = () => { hook = 0; effects.length = 0; return Testimonials(); };
   const collect = (node, predicate, result = []) => {
     if (Array.isArray(node)) { for (const child of node) collect(child, predicate, result); return result; }
     if (!node || typeof node !== 'object' || !('props' in node)) return result;
@@ -160,42 +171,70 @@ test('testimonial selection keeps pressed state, status, and fallbacks aligned w
     collect(node.props.children, predicate, result);
     return result;
   };
-  const buttons = (tree) => collect(tree, (node) => node.type === 'button');
-  const selectedTweet = (tree) => collect(tree, (node) => node.type === Tweet)[0];
+  const buttons = (tree) => collect(tree, (node) => node.type === 'button' && 'aria-pressed' in node.props);
+  const activeSlide = (tree) => collect(tree, (node) => node.props['aria-roledescription'] === 'slide' && !node.props.hidden)[0];
+  const selectedTweet = (tree) => collect(activeSlide(tree), (node) => node.type === Tweet)[0];
   const status = (tree) => collect(tree, (node) => node.props.role === 'status')[0];
+  const rotation = (tree) => collect(tree, (node) => node.props.className === 'testimonial-rotation')[0];
   let tree = render();
+  const cleanup = effects[0]();
+  tree = render();
+  const stopTimer = effects[1]();
+  assert.equal(typeof timer, 'function');
+  timer();
+  tree = render();
+  assert.equal(state[0], 1);
+  assert.equal(status(tree).props.children, '', 'Automatic rotation must not announce every slide');
+  stopTimer();
+  assert.equal(timer, undefined);
   assert.equal(buttons(tree).length, 10);
   assert.equal(buttons(tree).filter((button) => button.props['aria-pressed']).length, 1);
-  assert.equal(status(tree).props.children, '');
-  const firstId = selectedTweet(tree).props.id;
-  buttons(tree)[0].props.onClick();
-  assert.deepEqual(state, [0, ''], 'Reselecting the active button must not announce a change');
   buttons(tree)[2].props.onClick();
   tree = render();
+  effects[1]();
+  assert.equal(timer, undefined, 'Manual selection must pause rotation');
   assert.equal(state[0], 2);
   assert.equal(status(tree).props.children, 'Testimonial 3 of 10 selected');
   assert.equal(buttons(tree)[2].props['aria-pressed'], true);
-  assert.equal(buttons(tree).filter((button) => button.props['aria-pressed']).length, 1);
-  assert.notEqual(selectedTweet(tree).props.id, firstId);
+  assert.equal(collect(tree, (node) => node.props['aria-roledescription'] === 'slide' && node.props.hidden).length, 9);
   const assertFallbackLinks = (currentTree) => {
     const tweet = selectedTweet(currentTree);
-    const selectedUrl = `https://x.com/i/status/${tweet.props.id}`;
-    const suspense = collect(currentTree, (node) => node.type === React.Suspense)[0];
-    for (const fallback of [tweet.props.fallback, tweet.props.components.TweetNotFound(), suspense.props.fallback]) {
+    const url = `https://x.com/i/status/${tweet.props.id}`;
+    const suspense = collect(activeSlide(currentTree), (node) => node.type === React.Suspense)[0];
+    for (let fallback of [tweet.props.fallback, tweet.props.components.TweetNotFound(), suspense.props.fallback]) {
+      if (typeof fallback.type === 'function') fallback = fallback.type(fallback.props);
       const links = collect(fallback, (node) => node.type === 'a');
-      assert.ok(links.length > 0);
-      assert.equal(links[0].props.href, selectedUrl);
+      assert.equal(links[0].props.href, url);
     }
-    const links = collect(currentTree, (node) => node.type === 'a');
-    assert.ok(links.some((link) => link.props.href === selectedUrl), 'Persistent source link must match the selected tweet');
   };
   assertFallbackLinks(tree);
   buttons(tree)[9].props.onClick();
   tree = render();
   assert.equal(state[0], 9);
   assert.equal(status(tree).props.children, 'Testimonial 10 of 10 selected');
-  assert.equal(buttons(tree)[9].props['aria-pressed'], true);
   assertFallbackLinks(tree);
+  rotation(tree).props.onClick();
+  tree = render();
+  const stopResumed = effects[1]();
+  timer();
+  tree = render();
+  assert.equal(state[0], 0, 'Rotation wraps after the final testimonial');
+  stopResumed();
+  tree.props.onMouseEnter();
+  tree = render();
+  effects[1]();
+  assert.equal(timer, undefined, 'Hover suspends rotation');
+  tree.props.onMouseLeave();
+  tree.props.onFocusCapture({target: {closest: () => null}});
+  tree = render();
+  effects[1]();
+  assert.equal(timer, undefined, 'Keyboard focus stops rotation until explicitly restarted');
+  cleanup();
+  reducedMotion = true;
+  effects[0]();
+  tree = render();
+  effects[1]();
+  assert.equal(timer, undefined, 'Reduced motion must start with rotation stopped');
 });
 
 test('copyright year updates at New Year and after a suspended tab resumes', () => {

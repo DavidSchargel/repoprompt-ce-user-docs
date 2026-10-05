@@ -27,7 +27,7 @@ const MCPIntegration = () => {
       bgColor: "rgba(139, 92, 246, 0.1)"
     },
     {
-      name: "Gemini CLI",
+      name: "Antigravity CLI",
       description: "Google AI integration",
       features: [],
       icon: {
