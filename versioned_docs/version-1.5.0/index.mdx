@@ -34,7 +34,7 @@ import useBaseUrl from "@docusaurus/useBaseUrl";
 
 RepoPrompt is an AI-powered context IDE. It gives you precise control over what a model sees — so you get the best responses from the most powerful reasoning models.
 
-**Talk to These Docs**
+## Talk to These Docs
 
 Open all documentation in an AI assistant for guided help. Use the Copy page button to copy this article for an AI assistant. Complete machine-readable documentation is available in the <a href={useBaseUrl('/llms.txt')}>LLM index</a> and <a href={useBaseUrl('/llms-full.txt')}>full documentation export</a>.
 
@@ -42,7 +42,7 @@ Open all documentation in an AI assistant for guided help. Use the Copy page but
 
 Agents waste context before they start thinking. Their context windows fill with tool calls, duplicate file reads, and irrelevant code — leaving little room for actual reasoning. RepoPrompt solves this by structuring context upfront: the model reasons about the problem from the first token instead of spending its thinking budget on figuring out what to read next.
 
-**Typical Agent Context**
+### Typical Agent Context
 
 - ~16% system prompts & tool definitions
 - ~38% wasted on duplicate reads & unrelated code
@@ -50,7 +50,7 @@ Agents waste context before they start thinking. Their context windows fill with
 - ~14% actual reasoning
 - ~16% missing context the agent never found
 
-**RepoPrompt Context**
+### RepoPrompt Context
 
 - File tree for project orientation
 - Codemaps for API surface at a glance
@@ -68,17 +68,17 @@ Agents waste context before they start thinking. Their context windows fill with
 
 ## [How Context Builder Works](./agent-mode/workflows.mdx)
 
-Context Builder is a three-stage pipeline that gives your agents the right context, every time. [Learn more →](./agent-mode/workflows.mdx)
+Context Builder is a three-stage pipeline that gives your agents the right context, every time. [Explore the Context Builder workflow →](./agent-mode/workflows.mdx)
 
-**1. Explore**
+### 1. Explore
 
 A discovery agent navigates your codebase, reading files and understanding relationships.
 
-**2. Curate**
+### 2. Curate
 
 Relevant files are selected within a token budget, using codemaps and line slices for maximum density.
 
-**3. Handoff**
+### 3. Handoff
 
 A structured prompt with curated context is passed to an analysis model for planning, review, or deep Q&A.
 
@@ -96,18 +96,18 @@ Ready-made context engineering pipelines your agents run directly:
 
 RepoPrompt is a full control plane for multi-agent workflows via MCP. The `agent_run` tool provides: start, wait/poll (multi-session), steer, respond, cancel. Any MCP-connected agent can orchestrate complex workflows — not just RepoPrompt's built-in agents.
 
-The `/rp-orchestrate` workflow automates this: Context Builder generates a plan → decomposes into tasks → dispatches sub-agents in parallel or sequence → verifies each result. [Learn more →](./agent-mode/workflows.mdx)
+The `/rp-orchestrate` workflow automates this: Context Builder generates a plan → decomposes into tasks → dispatches sub-agents in parallel or sequence → verifies each result. [Explore Agent Orchestration workflows →](./agent-mode/workflows.mdx)
 
 ## Why It Matters
 
-**Without Curated Context**
+### Without Curated Context
 
 - Misses tradeoffs and edge cases
 - Architectural drift from existing patterns
 - Duplicates functionality that already exists
 - Generic advice disconnected from your codebase
 
-**With Curated Context**
+### With Curated Context
 
 - Considers the full picture before acting
 - Follows existing patterns and conventions
@@ -116,7 +116,7 @@ The `/rp-orchestrate` workflow automates this: Context Builder generates a plan 
 
 ## [CLI Providers](../version-classic-2.1.0/ai-providers/cli-providers.mdx)
 
-Already paying for Claude Pro/Max, ChatGPT Plus/Pro, or Google AI? Use those same models in RepoPrompt with **CLI Providers** — no additional API costs. These providers power Agent Mode, Chat Mode, and Context Builder workflows. [Learn more →](../version-classic-2.1.0/ai-providers/cli-providers.mdx)
+Already paying for Claude Pro/Max, ChatGPT Plus/Pro, or Google AI? Use those same models in RepoPrompt with **CLI Providers** — no additional API costs. These providers power Agent Mode, Chat Mode, and Context Builder workflows. [Learn more about CLI Providers →](../version-classic-2.1.0/ai-providers/cli-providers.mdx)
 
 ## Who Is RepoPrompt For?
 
@@ -136,9 +136,9 @@ Ready to build better AI prompts? Here's where to go next:
 
 ## Learn More
 
-[![Video thumbnail for RepoPrompt 101: context selection and coding workflows](https://img.youtube.com/vi/ncY6cqOCd_Y/maxresdefault.jpg) RepoPrompt 101 Video walkthroughs of key features and workflows](https://youtube.com/playlist?list=PLFg9suyZ1OnLh3Tv5bP6jvWXcKKTlI_4m)
+[![Video preview image](https://img.youtube.com/vi/ncY6cqOCd_Y/maxresdefault.jpg) RepoPrompt 101 Video walkthroughs of key features and workflows](https://youtube.com/playlist?list=PLFg9suyZ1OnLh3Tv5bP6jvWXcKKTlI_4m)
 
-[![Rate Limited Podcast](../../static/images/docs/images/rate-limited_profile.jpg) Rate Limited Podcast AI coding workflows with Eric, Ray Fernando, Adam Larson](https://www.youtube.com/@ratelimitedpod)
+[![Podcast cover art](../../static/images/docs/images/rate-limited_profile.jpg) Rate Limited Podcast AI coding workflows with Eric, Ray Fernando, Adam Larson](https://www.youtube.com/@ratelimitedpod)
 
 :::tip
 

@@ -9,10 +9,10 @@ Edit the current MDX files directly. No separate source checkout is needed to bu
 - Explicit sidebars: `versioned_sidebars/`; public unversioned current docs are disabled.
 - Three complete posts: `blog/`.
 - Legal pages: `src/pages/privacy.mdx` and `terms.mdx`; warning text, noindex, and sitemap exclusion remain until owner review.
-- Home content: `_home.mdx` imported by `index.js`, not a duplicate standalone route.
+- Home content: `src/pages/index.js` composes React components from `src/components/home/`; there is no `_home.mdx` source route.
 - Maintenance records: `maintainers/`, never public docs inputs.
 
-Use meaningful unique descriptions, informative Markdown image alt text, fenced code with a language, accessible headings/tables, and relative source links for cross-version docs. Native anchors with `useBaseUrl` are reserved for generated `.txt` files so Docusaurus does not treat them as trailing-slash routes. Never weaken strict broken-link/anchor checks to hide a missing output.
+Use meaningful unique descriptions, a logical heading hierarchy, descriptive link text, fenced code with a language, and relative source links for cross-version docs. Give informative images alt text that conveys their purpose; use `alt=""` for purely decorative images, never omit the attribute. Do not duplicate adjacent link text in linked-image alt. Tables need a visible caption, column and row headers where applicable, and keyboard-reachable overflow when wider than the viewport. Native anchors with `useBaseUrl` are reserved for generated `.txt` files so Docusaurus does not treat them as trailing-slash routes. Never weaken strict broken-link/anchor checks to hide a missing output.
 
 The main docs page includes a TOC and keyboard-operable JSON/Bash tabs. Code blocks have standard copy controls; Copy page is supplied by the requested plugin. Changing a title/slug/heading can break bookmarks: update the frontmatter, sidebars, and legacy mapping together and run the checks. Do not manufacture new release snapshots from changelogs.
 
@@ -22,11 +22,11 @@ No RepoBench page/code/post, Worker/account backend, Helpful Links footer, X/Twi
 
 ## Images and Cosmos
 
-Keep Markdown image syntax. Local PNG/JPEG imports pass through the remark adapter to the required ideal-image plugin. The image renderer emits native lazy-loading images with responsive srcset and informative alt text. Images do not open in a zoom overlay. WebP, SVG, remote images, and query/fragment image URLs keep the standard Docusaurus renderer because the pinned ideal-image pipeline does not support every format. Do not convert assets solely to make a plugin claim universal coverage.
+Keep Markdown image syntax. Local PNG/JPEG imports pass through the remark adapter to the required ideal-image plugin. The image renderer emits native lazy-loading images with responsive srcset and preserves authored alt text, including deliberate empty alt. The configured image-zoom plugin applies to `.markdown img`; its keyboard activation, dismissal, and focus return require browser verification. WebP, SVG, remote images, and query/fragment image URLs keep the standard Docusaurus renderer because the pinned ideal-image pipeline does not support every format. Do not convert assets solely to make a plugin claim universal coverage.
 
 Cosmos provides the actual CSS, self-hosted fonts, theme palettes, TOC/tables/code/details styling, and home cards/lifecycle badges/sidebar icons. Use its documented tokens/utilities rather than hard-coded theme colors. Test light/dark and narrow widths after UI changes.
 
-Review newly added images visually for embedded excluded content and sensitive text; filenames and automated text scans cannot prove the pixels are safe.
+Review newly added images visually for embedded excluded content, sensitive text, and whether the authored alt accurately describes the image's purpose; filenames and automated text scans cannot prove the pixels are safe. Check captions and audio description for any embedded video; a fallback link alone does not establish accessible media.
 
 ## LLM pipeline and compatibility adapters
 

@@ -56,6 +56,7 @@ module.exports = {
       },
       pages: {remarkPlugins: [remarkIdealImages]},
       theme: {customCss: [
+        require.resolve('react-tweet/theme.css'),
         require.resolve('./src/css/responsive-tables.css'),
         require.resolve('./src/css/code-blocks.css'),
       ]},

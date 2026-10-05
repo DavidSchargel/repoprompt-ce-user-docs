@@ -28,6 +28,14 @@ async function main() {
   const directory = path.join(root, 'build');
   const config = require('../docusaurus.config.js');
   const files = walkFiles(directory);
+  const home = fs.readFileSync(path.join(directory, 'index.html'), 'utf8');
+  const homeStyles = tags(home, 'link').filter((link) => link.rel === 'stylesheet').map((link) => {
+    const pathname = new URL(link.href, config.url).pathname;
+    return fs.readFileSync(path.join(directory, pathname.slice(config.baseUrl.length)), 'utf8');
+  }).join('\n');
+  for (const token of ['tweet-font-color', 'tweet-font-family', 'tweet-bg-color', 'tweet-body-font-size']) {
+    assert.match(homeStyles, new RegExp(`--${token}\\s*:`), `Homepage tweet theme is missing ${token}`);
+  }
   for (const file of files.filter((name) => name.endsWith('.html'))) {
     assertNoTwitter(fs.readFileSync(file, 'utf8'), path.relative(directory, file));
   }

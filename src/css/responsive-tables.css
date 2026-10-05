@@ -4,3 +4,22 @@ main .markdown table {
   max-width: 100% !important;
   overflow-x: auto !important;
 }
+
+main .markdown .accessible-table-scroll {
+  max-width: 100%;
+  min-width: 0;
+  overflow-x: auto;
+}
+
+main .markdown .accessible-table-scroll:focus-visible {
+  outline: 3px solid currentColor;
+  outline-offset: 2px;
+}
+
+main .markdown .accessible-table-scroll table {
+  display: table !important;
+  width: max-content !important;
+  min-width: 100% !important;
+  max-width: none !important;
+  overflow: visible !important;
+}
