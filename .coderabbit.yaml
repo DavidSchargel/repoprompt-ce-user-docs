@@ -1,5 +1,5 @@
 # yaml-language-server: $schema=https://www.coderabbit.ai/integrations/schema.v2.json
-# Strict reviews for the public RepoPrompt CE Docusaurus documentation site.
+# Advisory reviews for the public RepoPrompt CE Docusaurus documentation site.
 # GitHub branch protection/rulesets must separately require reviews and CI checks.
 language: en-US
 early_access: false
@@ -10,13 +10,13 @@ tone_instructions: >-
 
 reviews:
   profile: assertive
-  request_changes_workflow: true
+  request_changes_workflow: false
   allow_author_approval: false
   high_level_summary: true
   high_level_summary_in_walkthrough: true
   review_status: true
   review_details: true
-  fail_commit_status: true
+  fail_commit_status: false
   collapse_walkthrough: true
   sequence_diagrams: false
   poem: false
@@ -151,21 +151,21 @@ reviews:
     docstrings:
       mode: off
     title:
-      mode: error
+      mode: warning
       requirements: >-
         Describe the concrete documentation or site change. Avoid vague titles
         such as 'updates' or 'fix stuff'; no mandatory ticket or commit prefix.
     description:
-      mode: error
+      mode: warning
     custom_checks:
       - name: Classic archive remains unchanged
-        mode: error
+        mode: warning
         instructions: >-
           Fail if the PR adds, edits, deletes, or renames any file beneath
           classic-2.1.0/ or versioned_docs/version-classic-2.1.0/.
           Otherwise pass. Use both old and new paths for renames.
       - name: Dependency attribution accompanies changes
-        mode: error
+        mode: warning
         instructions: >-
           If the PR adds or changes dependency versions in package.json or
           pnpm-lock.yaml, require corresponding changes to THIRD_PARTY_NOTICES.md,

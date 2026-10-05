@@ -5,6 +5,7 @@ const path = require('node:path');
 const remarkIdealImages = require('../plugins/remark-ideal-images.cjs');
 const {assetRequireAttributeValue} = require('@docusaurus/mdx-loader/lib/remark/utils');
 const root = path.join(__dirname, '..');
+const currentDocsDirectory = `versioned_docs/version-${require('../versions.json')[0]}`;
 
 test('shared Head filters Twitter metadata while retaining other SEO', () => {
   const React = require('react');
@@ -125,7 +126,7 @@ test('provider comparison MDX keeps its caption, scoped headers, and keyboard-sc
     return dependencies[name];
   }});
   const MDXContent = exports.default;
-  const source = fs.readFileSync(path.join(root, 'versioned_docs/version-1.5.0/agent-mode/providers.mdx'), 'utf8');
+  const source = fs.readFileSync(path.join(root, currentDocsDirectory, 'agent-mode/providers.mdx'), 'utf8');
   const compiled = await compile(source, {
     remarkPlugins: [frontmatter],
     outputFormat: 'function-body',
@@ -153,7 +154,7 @@ test('provider comparison MDX keeps its caption, scoped headers, and keyboard-sc
 test('active docs landing keeps a navigable outline and standalone link names', async () => {
   const {compile} = await import('@mdx-js/mdx');
   const {default: frontmatter} = await import('remark-frontmatter');
-  const source = fs.readFileSync(path.join(root, 'versioned_docs/version-1.5.0/index.mdx'), 'utf8');
+  const source = fs.readFileSync(path.join(root, currentDocsDirectory, 'index.mdx'), 'utf8');
   await compile(source, {remarkPlugins: [frontmatter]});
   for (const [marker, heading] of [
     ['##', 'Talk to These Docs'],
@@ -224,14 +225,103 @@ test('responsive-image QA discovers screenshots beyond the docs index', () => {
   assert.equal(images[0].alt, 'Workspace screenshot');
 });
 
+test('a new CE release keeps older CE docs and Classic on distinct routes', async (t) => {
+  const configPath = path.join(root, 'docusaurus.config.js');
+  const localRequire = require('node:module').createRequire(configPath);
+  const currentVersion = require('../versions.json')[0];
+  const nextVersion = '99.0.0';
+  const configRequire = name => name === './versions.json'
+    ? [nextVersion, currentVersion, 'classic-2.1.0'] : localRequire(name);
+  configRequire.resolve = localRequire.resolve;
+  const context = {module: {exports: {}}, require: configRequire, process: {env: {}}, URL};
+  require('node:vm').runInNewContext(fs.readFileSync(configPath, 'utf8'), context, {filename: configPath});
+  const config = context.module.exports;
+  const docs = config.presets[0][1].docs;
+  assert.equal(docs.lastVersion, nextVersion);
+  assert.equal(docs.versions[nextVersion].path, '');
+  assert.equal(docs.versions[currentVersion].path, currentVersion);
+  assert.equal(docs.versions['classic-2.1.0'].path, 'classic-2.1.0');
+  assert.equal(docs.versions['classic-2.1.0'].label, 'Classic 2.1.0');
+  assert.equal(docs.versions['classic-2.1.0'].banner, 'unmaintained');
+  const sections = config.plugins.find(plugin => plugin[0] === 'docusaurus-plugin-llms')[1].docsDir;
+  for (const [index, version, route, label] of [
+    [0, nextVersion, 'docs', `Community Edition ${nextVersion}`],
+    [1, currentVersion, `docs/${currentVersion}`, `Community Edition ${currentVersion}`],
+    [2, 'classic-2.1.0', 'docs/classic-2.1.0', 'Classic 2.1.0'],
+  ]) {
+    assert.equal(sections[index].path, `versioned_docs/version-${version}`);
+    assert.equal(sections[index].routeBasePath, route);
+    assert.equal(sections[index].label, label);
+  }
+
+  // Build minimal content with the simulated configuration's real routing options.
+  const fixtures = path.join(root, '.foundation-fixtures');
+  fs.mkdirSync(fixtures, {recursive: true});
+  const siteDir = fs.mkdtempSync(path.join(fixtures, 'next-release-'));
+  t.after(() => fs.rmSync(siteDir, {recursive: true, force: true}));
+  fs.writeFileSync(path.join(siteDir, 'package.json'), JSON.stringify({name: 'next-release-fixture', version: '1.0.0'}));
+  fs.writeFileSync(path.join(siteDir, 'versions.json'), JSON.stringify([nextVersion, currentVersion, 'classic-2.1.0']));
+  fs.writeFileSync(path.join(siteDir, 'docusaurus.config.js'), `module.exports = ${JSON.stringify({
+    title: config.title,
+    url: config.url,
+    baseUrl: config.baseUrl,
+    trailingSlash: config.trailingSlash,
+    onDuplicateRoutes: config.onDuplicateRoutes,
+    presets: [[require.resolve('@docusaurus/preset-classic'), {
+      docs: {...docs, sidebarPath: false, remarkPlugins: []},
+      blog: false,
+    }]],
+  })};`);
+  fs.mkdirSync(path.join(siteDir, 'src/pages'), {recursive: true});
+  fs.writeFileSync(path.join(siteDir, 'src/pages/index.md'), '# Release fixture\n');
+  const expectedPages = [
+    [nextVersion, 'docs'],
+    [currentVersion, `docs/${currentVersion}`],
+    ['classic-2.1.0', 'docs/classic-2.1.0'],
+  ];
+  for (const [version] of expectedPages) {
+    const directory = path.join(siteDir, 'versioned_docs', `version-${version}`);
+    fs.mkdirSync(directory, {recursive: true});
+    fs.writeFileSync(path.join(directory, 'index.md'), `---\ntitle: Release ${version}\nslug: /\n---\n\nUnique content for release ${version}.\n`);
+  }
+  const cli = path.join(path.dirname(require.resolve('@docusaurus/core/package.json')), 'bin/docusaurus.mjs');
+  await require('node:util').promisify(require('node:child_process').execFile)(
+    process.execPath, [cli, 'build', siteDir, '--no-minify'], {cwd: root, timeout: 120_000, maxBuffer: 10 * 1024 * 1024},
+  );
+  for (const [version, route] of expectedPages) {
+    const html = fs.readFileSync(path.join(siteDir, 'build', route, 'index.html'), 'utf8');
+    assert.ok(html.includes(`Unique content for release ${version}.`), `Wrong content at ${route}/`);
+    assert.ok(html.includes(`href="${config.url}/${route}/"`), `Wrong canonical URL at ${route}/`);
+    for (const [otherVersion] of expectedPages) {
+      if (otherVersion !== version) assert.ok(!html.includes(`Unique content for release ${otherVersion}.`));
+    }
+  }
+});
+
+test('LLM exports use configured labels for future CE, retained CE, and Classic', () => {
+  const {getVersionLabel} = require('../scripts/finalize-llm-exports.cjs');
+  const config = {plugins: ['unrelated-plugin', ['docusaurus-plugin-llms', {docsDir: [
+    {path: 'versioned_docs/version-classic-2.1.0', label: 'Classic 2.1.0'},
+    {path: 'versioned_docs/version-99.0.0', label: 'Community Edition next release'},
+    {path: 'versioned_docs/version-98.0.0', label: 'Community Edition previous release'},
+  ]}]]};
+  assert.equal(getVersionLabel(config, '99.0.0'), 'Community Edition next release');
+  assert.equal(getVersionLabel(config, '98.0.0'), 'Community Edition previous release');
+  assert.equal(getVersionLabel(config, 'classic-2.1.0'), 'Classic 2.1.0');
+  assert.throws(() => getVersionLabel(config, '97.0.0'), /Missing configured LLM export label.*97\.0\.0/);
+  config.plugins[1][1].docsDir[1].label = ' ';
+  assert.throws(() => getVersionLabel(config, '99.0.0'), /Missing configured LLM export label/);
+});
+
 test('version, theme, plugin, and redirect contracts are intact', () => {
   const config = require('../docusaurus.config.js');
   const versions = require('../versions.json');
-  assert.deepEqual(versions, ['1.5.0', 'classic-2.1.0']);
+  assert.ok(versions.includes('classic-2.1.0'));
   const docs = config.presets[0][1].docs;
   assert.equal(docs.includeCurrentVersion, false);
-  assert.equal(docs.lastVersion, '1.5.0');
-  assert.equal(docs.versions['1.5.0'].path, '');
+  assert.equal(docs.lastVersion, versions[0]);
+  assert.equal(docs.versions[versions[0]].path, '');
+  assert.equal(docs.versions['classic-2.1.0'].path, 'classic-2.1.0');
   assert.equal(config.future.v4, true);
   assert.equal(config.themes[0][0], 'cosmos-docusaurus-theme');
   const plugins = config.plugins.map((plugin) => Array.isArray(plugin) ? plugin[0] : plugin);
