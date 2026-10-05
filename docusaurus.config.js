@@ -54,7 +54,10 @@ module.exports = {
         feedOptions: {type: ['rss', 'atom'], copyright: 'RepoPrompt CE'},
       },
       pages: {remarkPlugins: [remarkIdealImages]},
-      theme: {customCss: require.resolve('./src/css/responsive-tables.css')},
+      theme: {customCss: [
+        require.resolve('./src/css/responsive-tables.css'),
+        require.resolve('./src/css/code-blocks.css'),
+      ]},
       sitemap: {changefreq: 'weekly', priority: 0.5, ignorePatterns: ['**/privacy/**', '**/terms/**']},
     }],
   ],
@@ -84,6 +87,23 @@ module.exports = {
     }],
   ],
   themeConfig: {
+    prism: {
+      darkTheme: require('prism-react-renderer').themes.palenight,
+      theme: {
+        plain: {color: '#24292f', backgroundColor: '#ffffff'},
+        styles: [
+          {types: ['comment', 'prolog', 'doctype', 'cdata'], style: {color: '#57606a', fontStyle: 'italic'}},
+          {types: ['punctuation'], style: {color: '#7c3aed'}},
+          {types: ['operator'], style: {color: '#087e8b'}},
+          {types: ['string', 'char', 'attr-value', 'regex'], style: {color: '#287d27'}},
+          {types: ['property', 'variable'], style: {color: '#1d4ed8'}},
+          {types: ['number', 'boolean', 'constant', 'symbol'], style: {color: '#a94709'}},
+          {types: ['keyword', 'atrule', 'deleted'], style: {color: '#cf222e'}},
+          {types: ['function', 'class-name'], style: {color: '#8250df'}},
+          {types: ['tag', 'selector', 'attr-name', 'inserted'], style: {color: '#116329'}},
+        ],
+      },
+    },
     zoom: {
       selector: '.markdown img',
       background: {

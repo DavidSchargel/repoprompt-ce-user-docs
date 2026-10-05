@@ -1,0 +1,10 @@
+/* Pair the light Prism palette with a subtle panel and no inline-code overlay. */
+html[data-theme='light'] .prism-code {
+  border: 1px solid var(--ifm-toc-border-color);
+  font-weight: 500;
+}
+
+html[data-theme='light'] .prism-code > code {
+  background: transparent;
+  border: 0;
+}

@@ -140,8 +140,9 @@ test('production and development CSS retain native layers and unlayered Cosmos t
 test('wide Markdown tables use scoped scroll containment in the configured stylesheet', () => {
   const config = require('../docusaurus.config.js');
   const options = config.presets.find(([name]) => name === 'classic')[1];
-  assert.equal(options.theme.customCss, path.join(__dirname, '../src/css/responsive-tables.css'));
-  const tree = require('postcss').parse(fs.readFileSync(options.theme.customCss, 'utf8'));
+  const tableStylesheet = path.join(__dirname, '../src/css/responsive-tables.css');
+  assert.ok([options.theme.customCss].flat().includes(tableStylesheet));
+  const tree = require('postcss').parse(fs.readFileSync(tableStylesheet, 'utf8'));
   assert.equal(tree.nodes.length, 1, 'Keep this fix scoped to tables, not page clipping');
   const rule = tree.nodes[0];
   assert.equal(rule.type, 'rule');
