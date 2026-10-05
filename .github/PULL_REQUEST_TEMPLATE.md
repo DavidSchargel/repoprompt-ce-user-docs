@@ -55,4 +55,4 @@ them as if tested. Note any remaining work in the validation section above. -->
 - [ ] Links and anchors work; sidebar entries and redirects are updated for added, moved, or renamed pages.
 - [ ] Accessibility meets WCAG 2.2 AA for the affected content or UI, including meaningful alt text, descriptive links, keyboard access, visible focus, and contrast as applicable.
 - [ ] Changes target the intended documentation version; Classic 2.1.0 archives and generated `build/` and `.docusaurus/` files are untouched.
-- [ ] Added or updated dependencies have corresponding updates to `THIRD_PARTY_NOTICES.md`, `NOTICE`, and `ThirdPartyLicenses/`; other third-party material retains its source and license attribution.
+- [ ] Added or updated dependencies have been reviewed for license, copyright, and bundled-asset changes; `THIRD_PARTY_NOTICES.md`, `NOTICE`, and `ThirdPartyLicenses/` are updated where attribution changed. Other third-party material retains its source and license attribution.
