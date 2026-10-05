@@ -4,6 +4,8 @@
 
 Source code for https://repoprompt.com, the public-facing end user documentation for the [Community Edition of RepoPrompt](https://github.com/repoprompt/repoprompt-ce). Contains legacy documentation for the older "Classic" version of RepoPrompt.
 
+RepoPrompt Classic and its `repoprompt-classic` repository are archived. The [Classic 2.1.0 documentation](https://repoprompt.com/docs/classic-2.1.0/) uses **Classic 2.1.0** as an archive label. Its instructions may describe earlier RepoPrompt Classic releases and are not specific to version 2.1.0. Check each guide against your installed version.
+
 RepoPrompt CE is a free, open-source native macOS app and agent orchestrator for context engineering. It helps coding agents understand your codebase before they act. It assembles focused, reviewable context from files, CodeMaps, repository structure, and Git diffs, then hands that context to AI tools and CLI agents.
 
 RepoPrompt CE also builds an agent harness around its bundled MCP server. Connect MCP-compatible clients and CLI agents to search repositories, inspect files, curate context, run agent sessions, and orchestrate work through a shared native macOS interface.

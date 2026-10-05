@@ -3,15 +3,34 @@ id: "overview"
 title: "Introduction"
 description: "Learn how RepoPrompt CE curates code context, connects coding agents, and guides discovery, planning, implementation, and review."
 slug: "/"
-keywords: ["what is repo prompt","about","features","benefits","prompt engineering","context window","token","macos","mac app","code assistant","ai coding","overview","introduction","getting started","ide mode","agent mode","mcp server"]
+keywords:
+  [
+    "what is repo prompt",
+    "about",
+    "features",
+    "benefits",
+    "prompt engineering",
+    "context window",
+    "token",
+    "macos",
+    "mac app",
+    "code assistant",
+    "ai coding",
+    "overview",
+    "introduction",
+    "getting started",
+    "ide mode",
+    "agent mode",
+    "mcp server",
+  ]
 hide_table_of_contents: false
 toc_min_heading_level: 2
 toc_max_heading_level: 4
 ---
 
-import Tabs from '@theme/Tabs';
-import TabItem from '@theme/TabItem';
-import useBaseUrl from '@docusaurus/useBaseUrl';
+import Tabs from "@theme/Tabs";
+import TabItem from "@theme/TabItem";
+import useBaseUrl from "@docusaurus/useBaseUrl";
 
 RepoPrompt is an AI-powered context IDE. It gives you precise control over what a model sees — so you get the best responses from the most powerful reasoning models.
 
@@ -129,7 +148,13 @@ Ready to build better AI prompts? Here's where to go next:
 
 ## Documentation table of contents
 
-The current documentation version is **1.5.0**. Historical guides remain in the [Classic 2.1.0 archive](../version-classic-2.1.0/index.md), with cross-version links where the source guide is not demonstrably CE-specific.
+The current documentation version is **1.5.0** and may refer to versions in the 1.5.x series.
+
+:::note
+
+RepoPrompt Classic and its `repoprompt-classic` repository are archived. **[Classic 2.1.0 archive](../version-classic-2.1.0/index.md)** is the documentation archive label: its instructions may describe earlier RepoPrompt Classic releases and are not specific to version 2.1.0. Features, interface labels, and workflows may differ from your installed version; check each guide's context before following it.
+
+:::
 
 ### Overview
 
@@ -165,7 +190,7 @@ The following language tabs show the same read-only settings request. Code block
 Call `app_settings` with:
 
 ```json
-{"op":"get","key":"ui.appearance_mode"}
+{ "op": "get", "key": "ui.appearance_mode" }
 ```
 
 </TabItem>

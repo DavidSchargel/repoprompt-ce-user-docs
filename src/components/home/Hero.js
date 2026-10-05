@@ -110,7 +110,8 @@ function DownloadOptions() {
             <p className="edition-description">
               The original RepoPrompt experience for selecting files, assembling
               prompts, and copying them into your AI tool. Keep it for established
-              manual workflows.
+              manual workflows as RepoPrompt Classic is archived. The “Classic 2.1.0” docs on this site may also
+              cover earlier releases.
             </p>
 
             <ul className="edition-features">
