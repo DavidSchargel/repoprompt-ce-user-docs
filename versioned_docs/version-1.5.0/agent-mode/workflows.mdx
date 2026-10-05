@@ -2,7 +2,7 @@
 id: "workflows"
 title: "Agent Workflow Commands"
 sidebar_label: "Workflow Commands"
-description: "Use Repo Prompt CE workflows for planning, building, reviewing, investigating, and orchestrating agents with Context Builder and Oracle."
+description: "Use RepoPrompt CE workflows for planning, building, reviewing, investigating, and orchestrating agents with Context Builder and Oracle."
 slug: "/agent-mode/workflows"
 keywords: ["rp-build","rp-review","rp-refactor","rp-investigate","rp-oracle-export","rp-orchestrate","workflow","context builder","oracle chat","plan and build","deep plan","optimize","interview mode","review","refactor","investigate","chatgpt prompt export","chatgpt export","gpt pro","discovery agent","analysis model","two-stage pipeline","debug","debugging","code review","git","token budget","custom workflow","root cause","second opinion","external ai","orchestrate","sub-agent","sub agent","decompose","delegate","dispatch","multi-agent","parallel agents"]
 hide_table_of_contents: false
@@ -14,7 +14,7 @@ Agent Mode comes with built-in workflows that guide your agents through structur
 
 ## How Workflows Work
 
-Each workflow wraps your task description in a structured prompt that teaches the agent a proven approach. Instead of the agent figuring out how to tackle your request from scratch, the workflow provides a step-by-step protocol that leverages Repo Prompt's context tools at each stage.
+Each workflow wraps your task description in a structured prompt that teaches the agent a proven approach. Instead of the agent figuring out how to tackle your request from scratch, the workflow provides a step-by-step protocol that leverages RepoPrompt's context tools at each stage.
 
 Select a workflow from the **Workflow** dropdown in the Agent Mode toolbar, type your task, and the agent follows the protocol automatically.
 
@@ -22,45 +22,45 @@ Select a workflow from the **Workflow** dropdown in the Agent Mode toolbar, type
 
 ## Built-in Workflows
 
-Orchestrate
+### Orchestrate
 
 Plans a complex task, decomposes it into discrete work items, and dispatches sub-agents to implement each one. The orchestrator stays lean — it coordinates and monitors, while worker agents handle the actual implementation. Works with both UI-started and MCP-started sessions.
 
 **Flow:** Quick scan → Context Builder (plan) → Decompose into work items → Dispatch sub-agents → Monitor and verify
 
-Deep Plan
+### Deep Plan
 
 Researches the code, asks how hands-on you want to be, and writes a clear implementation plan.
 
-Review
+### Review
 
 Surveys your git changes, determines the comparison scope (uncommitted, staged, vs main, etc.), and uses Context Builder to produce a thorough code review grounded in your full codebase — not just the diff.
 
 **Flow:** Survey git state → Confirm scope → Context Builder (with review) → Fill gaps if needed
 
-Refactor
+### Refactor
 
 A two-pass workflow: first analyzes your code for redundancies and complexity using Context Builder's review mode, then plans and implements improvements while preserving existing behavior.
 
 **Flow:** Analyze (Context Builder review) → Plan improvements → Implement (Context Builder plan)
 
-Optimize
+### Optimize
 
 Finds what to measure, adds metrics, tries improvements, and uses evidence to keep iterating.
 
-Investigate
+### Investigate
 
 Systematic codebase exploration for debugging and research. The agent forms hypotheses, uses Context Builder for deep dives, gathers evidence, and documents findings — continuing until the root cause is identified.
 
 **Flow:** Assess → Explore (Context Builder) → Deep dive follow-ups → Evidence gathering → Findings report
 
-Plan & Build
+### Plan & Build
 
 The most comprehensive workflow. The agent does a quick scan of your codebase, calls Context Builder to gather deep context and generate an architectural plan, refines the plan through Oracle Chat, and then implements the solution directly.
 
 **Flow:** Quick scan → Context Builder (with plan) → Refine with Oracle Chat → Implement with editing tools
 
-ChatGPT Prompt Export
+### ChatGPT Prompt Export
 
 Builds optimized context for your task using Context Builder, then exports a prompt file ready to paste directly into GPT Pro models on ChatGPT (or any external AI) for a second opinion.
 
@@ -76,7 +76,7 @@ Coding agents are convenient but fundamentally limited by how they gather contex
 
 This matters because models have an *effective* context window that's smaller than the advertised one. Most models perform well in the 64–128k token range, but going beyond that degrades reasoning ability significantly. Every token spent on orientation is a token not spent on solving your problem.
 
-Repo Prompt's workflow commands solve this by separating **discovery** from **implementation**. The Context Builder handles the heavy lifting of finding and curating relevant files, so the agent receives complete, well-organized context upfront — and can spend its entire thinking budget on the solution.
+RepoPrompt's workflow commands solve this by separating **discovery** from **implementation**. The Context Builder handles the heavy lifting of finding and curating relevant files, so the agent receives complete, well-organized context upfront — and can spend its entire thinking budget on the solution.
 
 Read more: [Context Over Convenience](/blog/context-over-convenience)
 
@@ -93,7 +93,7 @@ The discovery agent is deliberately non-opinionated: it gathers facts and relati
 
 ## Oracle Chat
 
-Oracle Chat is a curated context window shared between the agent and a powerful reasoning model. It leverages Repo Prompt's best practices for prompting reasoning models — optimized file selection, codemaps, and line slices — to get optimal insights, plans, and reviews.
+Oracle Chat is a curated context window shared between the agent and a powerful reasoning model. It leverages RepoPrompt's best practices for prompting reasoning models — optimized file selection, codemaps, and line slices — to get optimal insights, plans, and reviews.
 
 ### How It Works
 

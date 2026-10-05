@@ -40,6 +40,22 @@ async function main() {
     assert.ok(meta.some((entry) => entry.property === 'og:description' && entry.content), `${route}: missing Open Graph description`);
     const canonical = tags(html, 'link').find((entry) => entry.rel === 'canonical');
     assert.equal(canonical?.href, new URL(config.baseUrl + route, config.url).href, `${route}: canonical changed`);
+    const links = tags(html, 'link');
+    const icons = links.filter((entry) => entry.rel === 'icon');
+    assert.equal(icons.length, 2, `${route}: missing or duplicate favicons`);
+    assert.ok(icons.some((entry) => entry.href === `${config.baseUrl}favicon.ico`), `${route}: missing ICO`);
+    assert.ok(icons.some((entry) => entry.href === `${config.baseUrl}favicon-96x96.png` && entry.sizes === '96x96' && entry.type === 'image/png'), `${route}: missing PNG icon`);
+    assert.equal(links.find((entry) => entry.rel === 'apple-touch-icon')?.href, `${config.baseUrl}apple-touch-icon.png`);
+    assert.equal(links.find((entry) => entry.rel === 'manifest')?.href, `${config.baseUrl}site.webmanifest`);
+  }
+  assert.ok(!fs.existsSync(path.join(directory, 'images/site/favicon.png')), 'Obsolete favicon was published');
+  const manifest = JSON.parse(fs.readFileSync(path.join(directory, 'site.webmanifest'), 'utf8'));
+  for (const icon of manifest.icons) {
+    const pathname = new URL(icon.src, new URL(config.baseUrl + 'site.webmanifest', config.url)).pathname;
+    assert.ok(pathname.startsWith(config.baseUrl), 'Manifest icon escaped the configured base path');
+    const png = fs.readFileSync(path.join(directory, pathname.slice(config.baseUrl.length)));
+    assert.equal(png.subarray(1, 4).toString(), 'PNG');
+    assert.equal(`${png.readUInt32BE(16)}x${png.readUInt32BE(20)}`, icon.sizes, `Incorrect dimensions for ${icon.src}`);
   }
   for (const route of ['claim', 'unsubscribe', 'appcast', 'pricing', 'roadmap', 'prompt-anatomy']) {
     const html = fs.readFileSync(path.join(directory, route, 'index.html'), 'utf8');

@@ -1,7 +1,7 @@
 ---
 id: "workflows"
 title: "Workflows"
-description: "Workflows — Repo Prompt Classic archive documentation."
+description: "Workflows — RepoPrompt Classic archive documentation."
 slug: "/ide-mode/workflows"
 keywords: ["workflow","copy paste","architectural planning","xml pro edit","pair programming","plan","chat","apply changes"]
 hide_table_of_contents: false
@@ -47,7 +47,7 @@ This two-step approach (plan first, then implement) consistently produces better
 
 XML Pro Edit lets you apply multi-file code changes from AI responses with full diff review:
 
-- **XML Edit:** Paste XML-formatted code changes from web AI conversations into the Apply view. Repo Prompt parses the XML and shows each edit as a reviewable diff.
+- **XML Edit:** Paste XML-formatted code changes from web AI conversations into the Apply view. RepoPrompt parses the XML and shows each edit as a reviewable diff.
 - **Pro Edit:** Use the built-in chat with Pro Edit mode enabled. The AI generates structured changes that are automatically queued for review — no copy-paste needed.
 
 Both modes support multi-file changes and give you a side-by-side diff before anything touches your code.
@@ -57,7 +57,7 @@ Both modes support multi-file changes and give you a side-by-side diff before an
 For very large changes spanning many files, the Pair Programming workflow uses two context windows working together:
 
 - **Driver agent** (Claude Code, Codex, etc.) — Manages the overall plan, selects files, coordinates tasks
-- **Repo Prompt Chat** — Receives curated context and writes the code, with fresh context for each step
+- **RepoPrompt Chat** — Receives curated context and writes the code, with fresh context for each step
 
 The driver breaks the plan into steps and sends each one to the chat with just the right files selected. The chat writes the code, the driver reviews it, and the cycle continues until the task is complete.
 

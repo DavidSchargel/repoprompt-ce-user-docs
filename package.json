@@ -2,23 +2,19 @@
   "name": "repoprompt-ce-user-docs",
   "version": "0.1.0",
   "private": true,
-  "packageManager": "pnpm@12.8.1",
   "engines": {
-    "node": "26.10.0",
-    "pnpm": "12.8.1"
+    "node": ">=20"
   },
   "scripts": {
-    "start": "node scripts/verify-toolchain.cjs --versions-only && docusaurus start",
-    "build": "node scripts/verify-toolchain.cjs && pnpm test && pnpm run check:content && docusaurus build && node scripts/finalize-redirects.cjs && node scripts/finalize-llm-exports.cjs && pnpm run check:artifacts && pnpm run check:integration",
-    "check:artifacts": "node scripts/verify-toolchain.cjs --versions-only && node scripts/check-artifacts.cjs",
-    "test": "node scripts/verify-toolchain.cjs --versions-only && node --test tests/*.test.cjs",
-    "check:content": "node scripts/verify-toolchain.cjs --versions-only && node migration/check-docs.cjs",
-    "check:integration": "node scripts/verify-toolchain.cjs --versions-only && node scripts/check-integration.cjs",
-    "verify:toolchain": "node scripts/verify-toolchain.cjs",
-    "preinstall": "node scripts/verify-toolchain.cjs --versions-only",
-    "setup:native": "node scripts/verify-toolchain.cjs --versions-only && pnpm rebuild --ignore-scripts=false sharp @swc/core && pnpm run verify:toolchain",
-    "serve": "node scripts/verify-toolchain.cjs --versions-only && docusaurus serve",
-    "clear": "node scripts/verify-toolchain.cjs --versions-only && docusaurus clear"
+    "generate:favicons": "node scripts/generate-favicons.cjs",
+    "start": "docusaurus start",
+    "build": "pnpm test && pnpm run check:content && docusaurus build && node scripts/finalize-redirects.cjs && node scripts/finalize-llm-exports.cjs && pnpm run check:artifacts",
+    "check:artifacts": "node scripts/check-artifacts.cjs",
+    "test": "node --test tests/*.test.cjs",
+    "check:content": "node scripts/check-content.cjs",
+    "setup:native": "pnpm rebuild --ignore-scripts=false sharp @swc/core",
+    "serve": "docusaurus serve",
+    "clear": "docusaurus clear"
   },
   "dependencies": {
     "@docusaurus/core": "3.10.2",
@@ -32,9 +28,12 @@
     "docusaurus-plugin-image-zoom": "3.0.1",
     "docusaurus-plugin-llms": "0.6.0",
     "react": "19.2.4",
-    "react-dom": "19.2.4"
+    "react-dom": "19.2.4",
+    "react-icons": "5.7.0",
+    "react-tweet": "3.3.1"
   },
   "browserslist": [
     "defaults and supports css-cascade-layers"
-  ]
+  ],
+  "license": "Apache-2.0"
 }

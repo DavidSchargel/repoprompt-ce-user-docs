@@ -19,7 +19,7 @@ A skill is a Markdown file containing a structured prompt template with optional
 
 Agent Mode discovers skills from on-disk directories and presents them in the input bar. Type `/` at the start of your message to see available skills — they filter as you type by name and description.
 
-When you send a message with a slash skill, Repo Prompt expands the template (stripping frontmatter and substituting `$ARGUMENTS` with your task description) before sending it to the agent.
+When you send a message with a slash skill, RepoPrompt expands the template (stripping frontmatter and substituting `$ARGUMENTS` with your task description) before sending it to the agent.
 
 **Skills vs. Workflows**
 
@@ -29,11 +29,11 @@ Agent Mode has two ways to structure a task: the **Workflow** dropdown (built-in
 
 The same on-disk skill files also work with external agents running in your terminal (Claude Code, Codex CLI, Gemini CLI). When those agents are connected via the MCP server, they discover skills from the same directories and can invoke them as slash commands.
 
-Repo Prompt ships with built-in workflow skills (`/rp-build`, `/rp-review`, `/rp-refactor`, `/rp-investigate`, `/rp-oracle-export`) that you can install for your terminal agents. These give external agents the same workflow capabilities that are built into Agent Mode's Workflow dropdown. See [MCP Workflow Commands](../../version-classic-2.1.0/mcp-server/workflow-commands.mdx) for details.
+RepoPrompt ships with built-in workflow skills (`/rp-build`, `/rp-review`, `/rp-refactor`, `/rp-investigate`, `/rp-oracle-export`) that you can install for your terminal agents. These give external agents the same workflow capabilities that are built into Agent Mode's Workflow dropdown. See [MCP Workflow Commands](../../version-classic-2.1.0/mcp-server/workflow-commands.mdx) for details.
 
 ## Creating Custom Skills
 
-Custom skills are Markdown files placed in specific directories. Repo Prompt automatically discovers them and makes them available — both in Agent Mode and for any terminal agents that share the same skill directories.
+Custom skills are Markdown files placed in specific directories. RepoPrompt automatically discovers them and makes them available — both in Agent Mode and for any terminal agents that share the same skill directories.
 
 ### Skill File Format
 
@@ -85,7 +85,7 @@ You can also place individual `.md` files directly in a commands directory:
 
 ## Skill Search Locations
 
-Repo Prompt scans provider-specific directories in order of priority. Project-level skills take precedence over global ones:
+RepoPrompt scans provider-specific directories in order of priority. Project-level skills take precedence over global ones:
 
 ### For Claude Code
 
@@ -105,7 +105,7 @@ If two skills have the same name, the one found first (higher priority location)
 
 ## Installing Built-in Skills
 
-Repo Prompt can install its built-in workflow skills into the appropriate directories for your terminal agents. You can do this from:
+RepoPrompt can install its built-in workflow skills into the appropriate directories for your terminal agents. You can do this from:
 
 - **Onboarding wizard** — During initial setup, the MCP Setup step includes a "Skills" install button
 - **MCP Settings** — The settings panel has options to install skills for different providers

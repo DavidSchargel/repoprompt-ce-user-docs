@@ -13,17 +13,23 @@ const origin = new URL(url);
 if (!['https:', 'http:'].includes(origin.protocol) || origin.pathname !== '/' || origin.search || origin.hash || origin.username || origin.password) throw new Error('SITE_URL must be an HTTP(S) origin only.');
 
 module.exports = {
-  title: 'Repo Prompt CE',
+  title: 'RepoPrompt',
   tagline: 'Community Edition documentation',
   url,
   baseUrl,
   organizationName,
   projectName,
   trailingSlash: true,
-  favicon: 'images/site/favicon.png',
+  favicon: 'favicon.ico',
+  headTags: [
+    {tagName: 'link', attributes: {rel: 'icon', type: 'image/png', sizes: '96x96', href: `${baseUrl}favicon-96x96.png`}},
+    {tagName: 'link', attributes: {rel: 'apple-touch-icon', sizes: '180x180', href: `${baseUrl}apple-touch-icon.png`}},
+    {tagName: 'link', attributes: {rel: 'manifest', href: `${baseUrl}site.webmanifest`}},
+  ],
   clientModules: [require.resolve('./src/clientModules/legacyHashRedirect.js')],
   noIndex: process.env.SITE_INDEXABLE !== 'true',
   future: {v4: true},
+  storage: {type: 'localStorage'},
   onBrokenLinks: 'throw',
   onBrokenAnchors: 'throw',
   onDuplicateRoutes: 'throw',
@@ -43,19 +49,23 @@ module.exports = {
       },
       blog: {
         remarkPlugins: [remarkIdealImages],
-        blogTitle: 'Repo Prompt CE Blog',
-        blogDescription: 'News and updates from Repo Prompt CE.',
+        blogTitle: 'RepoPrompt CE Blog',
+        blogDescription: 'News and updates from RepoPrompt CE.',
         onUntruncatedBlogPosts: 'throw',
-        feedOptions: {type: ['rss', 'atom'], copyright: 'Repo Prompt CE'},
+        feedOptions: {type: ['rss', 'atom'], copyright: 'RepoPrompt CE'},
       },
       pages: {remarkPlugins: [remarkIdealImages]},
-      theme: {customCss: require.resolve('./src/css/responsive-tables.css')},
+      theme: {customCss: [
+        require.resolve('./src/css/responsive-tables.css'),
+        require.resolve('./src/css/code-blocks.css'),
+      ]},
       sitemap: {changefreq: 'weekly', priority: 0.5, ignorePatterns: ['**/privacy/**', '**/terms/**']},
     }],
   ],
   themes: [['cosmos-docusaurus-theme', {injectFavicon: false}]],
   plugins: [
     require.resolve('./plugins/seo-policy.cjs'),
+    'docusaurus-plugin-image-zoom',
     ['docusaurus-plugin-llms', {
       generateLLMsTxt: true,
       generateLLMsFullTxt: true,
@@ -67,7 +77,6 @@ module.exports = {
       ],
     }],
     ['docusaurus-plugin-copy-page-button', {enabledActions: ['copy'], placement: 'article'}],
-    'docusaurus-plugin-image-zoom',
     ['@docusaurus/plugin-ideal-image', {quality: 85, min: 320, max: 1600, steps: 4, disableInDev: false}],
     ['@docusaurus/plugin-client-redirects', {
       redirects: [
@@ -79,19 +88,44 @@ module.exports = {
     }],
   ],
   themeConfig: {
+    prism: {
+      darkTheme: require('prism-react-renderer').themes.palenight,
+      theme: {
+        plain: {color: '#24292f', backgroundColor: '#ffffff'},
+        styles: [
+          {types: ['comment', 'prolog', 'doctype', 'cdata'], style: {color: '#57606a', fontStyle: 'italic'}},
+          {types: ['punctuation'], style: {color: '#7c3aed'}},
+          {types: ['operator'], style: {color: '#087e8b'}},
+          {types: ['string', 'char', 'attr-value', 'regex'], style: {color: '#287d27'}},
+          {types: ['property', 'variable'], style: {color: '#1d4ed8'}},
+          {types: ['number', 'boolean', 'constant', 'symbol'], style: {color: '#a94709'}},
+          {types: ['keyword', 'atrule', 'deleted'], style: {color: '#cf222e'}},
+          {types: ['function', 'class-name'], style: {color: '#8250df'}},
+          {types: ['tag', 'selector', 'attr-name', 'inserted'], style: {color: '#116329'}},
+        ],
+      },
+    },
+    zoom: {
+      selector: '.markdown img',
+      background: {
+        light: 'rgb(255, 255, 255)',
+        dark: 'rgb(50, 50, 50)',
+      },
+    },
     image: 'images/blog/repo-prompt-community-edition.png',
-    metadata: [{name: 'description', content: 'Documentation for Repo Prompt Community Edition and the Classic archive.'}],
-    colorMode: {defaultMode: 'dark', respectPrefersColorScheme: true},
+    metadata: [{name: 'description', content: 'Documentation for RepoPrompt Community Edition and the Classic archive.'}],
+    // Follow the system until the visitor saves a choice; no cookies are used.
+    colorMode: {respectPrefersColorScheme: true},
     navbar: {
-      title: 'Repo Prompt CE',
+      title: 'RepoPrompt',
       items: [
+        {to: '/', label: 'Home', position: 'left', exact: true},
         {type: 'docSidebar', sidebarId: 'docsSidebar', label: 'Docs', position: 'left'},
         {to: '/blog/', label: 'Blog', position: 'left'},
         {type: 'docsVersionDropdown', position: 'right'},
       ],
     },
     tableOfContents: {minHeadingLevel: 2, maxHeadingLevel: 3},
-    zoom: {selector: '.markdown img', background: {light: 'var(--ifm-background-color)', dark: 'var(--ifm-background-color)'}},
     ...(algoliaValues.every(Boolean) ? {
       algolia: {appId: algoliaValues[0], apiKey: algoliaValues[1], indexName: algoliaValues[2], contextualSearch: true, insights: false},
     } : {}),

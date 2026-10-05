@@ -1,0 +1,43 @@
+name: Missing or improved documentation
+description: Propose a guide, example, explanation, or reorganization that helps readers complete a task.
+title: "[Docs improvement]: "
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Use this form for new or substantially improved documentation. Search existing issues before submitting.
+
+        Requests to change the application belong in the [RepoPrompt CE repository](https://github.com/repoprompt/repoprompt-ce). Documentation should describe available behavior, not present planned features as available.
+
+        Reports are public; use sample data and remove private information. Classic 2.1.0 documentation is archived; proposals should target current documentation.
+  - type: textarea
+    id: reader-task
+    attributes:
+      label: What is the reader trying to do?
+      description: Describe the task, the intended audience, and any prerequisites or experience they need.
+    validations:
+      required: true
+  - type: textarea
+    id: gap
+    attributes:
+      label: What is missing from the current documentation?
+      description: Explain what you searched for and why the existing guidance does not help. Link related pages or sections if available.
+    validations:
+      required: true
+  - type: textarea
+    id: proposal
+    attributes:
+      label: Proposed documentation change
+      description: Outline the explanation, steps, examples, or navigation change that would help. Describe what a reader should be able to do afterward.
+    validations:
+      required: true
+  - type: input
+    id: versions
+    attributes:
+      label: Applicable documentation and app versions
+      description: Include versions if the proposal concerns a specific workflow. If unknown or not applicable, say so.
+  - type: textarea
+    id: references
+    attributes:
+      label: References or examples
+      description: Optional. Link verified app behavior, related issues, or source material. Identify sources for any proposed third-party content.

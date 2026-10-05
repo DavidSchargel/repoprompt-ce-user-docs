@@ -1,0 +1,56 @@
+name: Documentation website or accessibility problem
+description: Report problems with site navigation, search, display, keyboard access, or assistive technology.
+title: "[Docs site]: "
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Use this form for problems with the documentation website, including accessibility barriers. Search existing issues before submitting.
+
+        Problems with the application itself belong in the [RepoPrompt CE repository](https://github.com/repoprompt/repoprompt-ce).
+
+        Reports are public. Remove private information from screenshots and examples. Follow this repository's security policy for vulnerabilities or exposed secrets.
+        You do not need to identify a WCAG criterion or provide a screenshot to report an accessibility problem.
+  - type: input
+    id: location
+    attributes:
+      label: Affected page URL
+      description: Include a representative page if the problem occurs across the site. For local development, include the page path.
+    validations:
+      required: true
+  - type: textarea
+    id: steps
+    attributes:
+      label: Steps to encounter the problem
+      description: Explain what you were trying to do and the steps you took. Include keyboard actions or search terms where relevant.
+    validations:
+      required: true
+  - type: textarea
+    id: actual
+    attributes:
+      label: What happened?
+      description: Describe the behavior and how it prevents or makes it harder to use the documentation.
+    validations:
+      required: true
+  - type: textarea
+    id: expected
+    attributes:
+      label: What should happen?
+      description: Describe the result or interaction you expected.
+    validations:
+      required: true
+  - type: textarea
+    id: environment
+    attributes:
+      label: Browser and environment
+      description: Include what you know. Only include assistive technology details if relevant; no personal or medical information is needed.
+      placeholder: |
+        Browser and version:
+        Operating system and device:
+        Light or dark theme, zoom level, or window size (if relevant):
+        Assistive technology and version (if relevant):
+  - type: textarea
+    id: evidence
+    attributes:
+      label: Screenshots or additional context
+      description: Optional. Describe important visual details in text and remove credentials or private information from attachments.

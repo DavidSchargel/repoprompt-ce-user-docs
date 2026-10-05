@@ -1,7 +1,7 @@
 ---
 id: "mcp-connections"
 title: "Connection Management"
-description: "Connection Management — Repo Prompt Classic archive documentation."
+description: "Connection Management — RepoPrompt Classic archive documentation."
 slug: "/mcp-server/mcp-connections"
 keywords: ["status","connection","multi-window","tabs","tab binding","manage_workspaces","window_id","approval","workspace","reconnect","troubleshooting"]
 hide_table_of_contents: false
@@ -9,7 +9,7 @@ toc_min_heading_level: 2
 toc_max_heading_level: 4
 ---
 
-Repo Prompt provides comprehensive tools for managing MCP connections, including status monitoring, multi-window support, tab binding, and workspace management - all controllable both through the UI and programmatically via MCP tools.
+RepoPrompt provides comprehensive tools for managing MCP connections, including status monitoring, multi-window support, tab binding, and workspace management - all controllable both through the UI and programmatically via MCP tools.
 
 ## Connection Status UI
 
@@ -27,7 +27,7 @@ Click the status indicator to access quick actions: view connection details, cop
 
 ## Connection Approval
 
-When a new client attempts to connect, Repo Prompt shows an approval dialog:
+When a new client attempts to connect, RepoPrompt shows an approval dialog:
 
 - **Client name:** Identifies the connecting application
 - **Allow Once:** Permit this single connection
@@ -42,7 +42,7 @@ When a new client attempts to connect, Repo Prompt shows an approval dialog:
 
 ## Multi-Window Mode
 
-Repo Prompt supports multiple windows, each potentially showing different workspaces. The MCP server can be configured to work across windows:
+RepoPrompt supports multiple windows, each potentially showing different workspaces. The MCP server can be configured to work across windows:
 
 ### Single Window Mode (Default)
 
@@ -131,7 +131,7 @@ MCP clients can now create new compose tabs explicitly. This is useful for spinn
 
 ### Closing Tabs Safely
 
-Tabs can also be closed programmatically, but Repo Prompt applies safety checks to prevent destructive or confusing behavior.
+Tabs can also be closed programmatically, but RepoPrompt applies safety checks to prevent destructive or confusing behavior.
 
 ```text
 // Close a non-active tab by name or UUID
@@ -160,7 +160,7 @@ The `chats` MCP tool now supports chat inspection at either workspace scope or c
 { "action": "list", "scope": "tab", "tab_id": "TAB-UUID-HERE" }
 ```
 
-When `scope` is `tab` and `tab_id` is omitted, Repo Prompt uses the current bound tab when available, otherwise it falls back to the active tab in the UI.
+When `scope` is `tab` and `tab_id` is omitted, RepoPrompt uses the current bound tab when available, otherwise it falls back to the active tab in the UI.
 
 ### Context Builder Discovery Tab
 
@@ -182,7 +182,7 @@ Certain workspace operations require explicit user approval based on risk level:
 
 Understanding the connection lifecycle helps troubleshoot issues:
 
-1. **Server Start:** Repo Prompt opens listening socket/creates filesystem inbox
+1. **Server Start:** RepoPrompt opens listening socket/creates filesystem inbox
 2. **Client Launch:** External tool spawns `repoprompt-mcp` CLI
 3. **Handshake:** CLI establishes connection and exchanges capabilities
 4. **Approval:** User approves (or connection auto-approved from allowlist)
@@ -194,7 +194,7 @@ Understanding the connection lifecycle helps troubleshoot issues:
 
 Connection management was significantly improved in 1.5.41:
 
-- **App Restart:** Connections automatically rebind when Repo Prompt restarts
+- **App Restart:** Connections automatically rebind when RepoPrompt restarts
 - **Client Restart:** New connection inherits previous approval status
 - **Tab Context:** Bound tabs are restored across reconnections
 - **Multi-Window:** Window routing is preserved through restarts

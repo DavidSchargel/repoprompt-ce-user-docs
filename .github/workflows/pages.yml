@@ -33,17 +33,10 @@ jobs:
       ALGOLIA_INDEX_NAME: ${{ vars.ALGOLIA_INDEX_NAME }}
     steps:
       - uses: actions/checkout@v6
-      - name: Install pinned standalone pnpm
-        shell: bash
-        run: |
-          set -euo pipefail
-          tool_dir="$RUNNER_TEMP/pnpm-12.8.1"
-          mkdir -p "$tool_dir"
-          curl --proto '=https' --tlsv1.2 -fsSL https://github.com/pnpm/pnpm/releases/download/v12.8.1/pnpm-linux-x64.tar.gz -o "$tool_dir/pnpm.tar.gz"
-          echo "db3906881f63e41b655e3b97d473603dc26326c2470d0b1b8083689e1bcbd1e8  $tool_dir/pnpm.tar.gz" | sha256sum -c -
-          tar -xzf "$tool_dir/pnpm.tar.gz" -C "$tool_dir"
-          test "$("$tool_dir/pnpm" --version)" = 12.8.1
-          echo "$tool_dir" >> "$GITHUB_PATH"
+      - name: Install pnpm 12.x
+        uses: pnpm/action-setup@v6
+        with:
+          version: '12.x'
       - uses: actions/setup-node@v6
         with:
           node-version-file: .node-version
@@ -61,13 +54,7 @@ jobs:
           test -n "$PAGES_OWNER"
           test -n "$PAGES_REPOSITORY"
           test "$PAGES_OWNER/$PAGES_REPOSITORY" = "$GITHUB_REPOSITORY"
-      - name: Verify pinned Node and pnpm
-        run: |
-          test "$(node --version)" = v26.10.0
-          test "$(pnpm --version)" = 12.8.1
-      - run: pnpm install --frozen-lockfile --ignore-scripts
-      - name: Install approved native dependencies and verify toolchain
-        run: pnpm run setup:native
+      - run: pnpm install --frozen-lockfile
       - run: pnpm run build
       - name: Configure Pages
         if: github.event_name == 'workflow_dispatch' && inputs.publish

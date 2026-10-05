@@ -1,7 +1,7 @@
 ---
 id: "pair-programming"
 title: "Orchestration"
-description: "Orchestration — Repo Prompt Classic archive documentation."
+description: "Orchestration — RepoPrompt Classic archive documentation."
 slug: "/workflows/pair-programming"
 keywords: ["orchestrate","orchestration","multi-agent","sub-agent","parallel","agent_run","agent_manage","dispatch","steer","multi-wait","session_ids","control plane","rp-orchestrate","worker agent"]
 hide_table_of_contents: false
@@ -9,7 +9,7 @@ toc_min_heading_level: 2
 toc_max_heading_level: 4
 ---
 
-Repo Prompt is a **multi-agent control plane**. Any MCP-connected agent — Claude Code, Cursor, Codex, Gemini CLI, OpenCode, or custom scripts — can orchestrate complex multi-agent workflows through Repo Prompt's `agent_run` and `agent_manage` tools.
+RepoPrompt is a **multi-agent control plane**. Any MCP-connected agent — Claude Code, Cursor, Codex, Gemini CLI, OpenCode, or custom scripts — can orchestrate complex multi-agent workflows through RepoPrompt's `agent_run` and `agent_manage` tools.
 
 **Orchestration flow:** task → context discovery → planning → delegated implementation → verification.
 
@@ -27,12 +27,12 @@ The `agent_run` MCP tool is the core primitive for orchestration. It provides fi
 
 ## Orchestration Layer
 
-On top of `agent_run`, Repo Prompt provides infrastructure for coordinating multi-agent work:
+On top of `agent_run`, RepoPrompt provides infrastructure for coordinating multi-agent work:
 
 - **Multi-session wait** — Pass a `session_ids` array to `wait` and block until the first of N parallel agents finishes, enabling fan-out/fan-in patterns
 - **Session management** — Create, resume, and stop durable sessions via `agent_manage`
 - **Workflow engine** — Reusable multi-step orchestration templates (e.g. the `/rp-orchestrate` workflow)
-- **MCP-native** — Any AI tool that speaks MCP can orchestrate. Not just Repo Prompt agents — any MCP client can drive this
+- **MCP-native** — Any AI tool that speaks MCP can orchestrate. Not just RepoPrompt agents — any MCP client can drive this
 
 ## How /rp-orchestrate Works
 

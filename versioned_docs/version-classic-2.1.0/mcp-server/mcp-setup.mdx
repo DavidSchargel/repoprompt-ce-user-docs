@@ -1,7 +1,7 @@
 ---
 id: "mcp-setup"
 title: "Setup Guide"
-description: "Setup Guide — Repo Prompt Classic archive documentation."
+description: "Setup Guide — RepoPrompt Classic archive documentation."
 slug: "/mcp-server/mcp-setup"
 keywords: ["install mcp","configure mcp","cursor setup","claude code setup","json config","repoprompt-mcp","deeplink","enable"]
 hide_table_of_contents: false
@@ -9,36 +9,36 @@ toc_min_heading_level: 2
 toc_max_heading_level: 4
 ---
 
-Get Repo Prompt's MCP server connected to your preferred AI tool in minutes. The server enables external agents to use Repo Prompt's powerful context building, code intelligence, and editing capabilities.
+Get RepoPrompt's MCP server connected to your preferred AI tool in minutes. The server enables external agents to use RepoPrompt's powerful context building, code intelligence, and editing capabilities.
 
 ## Quick Setup
 
 1. Open **Settings → MCP Server**
 2. Enable the **MCP Server** toggle
 3. Click the install button for your client (or copy configuration)
-4. Restart your client and approve the connection in Repo Prompt
+4. Restart your client and approve the connection in RepoPrompt
 
 ## Client-Specific Instructions
 
 ### Cursor (One-Click)
 
-1. Open **Settings → MCP Server** in Repo Prompt
+1. Open **Settings → MCP Server** in RepoPrompt
 2. Click **"Install in Cursor"**
 3. Restart Cursor
-4. When Cursor connects, approve in Repo Prompt (check menu bar for dialog)
+4. When Cursor connects, approve in RepoPrompt (check menu bar for dialog)
 
 ### Claude Code
 
-1. Open **Settings → MCP Server** in Repo Prompt
+1. Open **Settings → MCP Server** in RepoPrompt
 2. Click **"Copy Configuration"**
 3. Open Claude Code's MCP settings (`claude mcp add` or edit config file)
 4. Paste the configuration
 5. Restart Claude Code
-6. Approve the connection when prompted in Repo Prompt
+6. Approve the connection when prompted in RepoPrompt
 
 ### Codex CLI (One-Click)
 
-1. Open **Settings → MCP Server** in Repo Prompt
+1. Open **Settings → MCP Server** in RepoPrompt
 2. Click **"Install for Codex"**
 3. This automatically configures your `codex.toml` with extended timeouts
 4. Restart Codex and approve the connection
@@ -49,7 +49,7 @@ Get Repo Prompt's MCP server connected to your preferred AI tool in minutes. The
 2. Click **"Copy Configuration"** to get the JSON config
 3. Add to your client's MCP server configuration
 4. The client will launch `repoprompt-mcp` automatically via stdio
-5. Approve the connection in Repo Prompt
+5. Approve the connection in RepoPrompt
 
 ## Configuration Format
 
@@ -59,7 +59,7 @@ The copied configuration follows the MCP standard format:
 {
   "mcpServers": {
     "repoprompt": {
-      "command": "/Applications/Repo Prompt.app/.../repoprompt-mcp",
+      "command": "/Applications/RepoPrompt.app/.../repoprompt-mcp",
       "args": []
     }
   }
@@ -70,7 +70,7 @@ The exact path varies by installation. Always use the "Copy Configuration" butto
 
 ## Connection Approval
 
-When a client first connects, Repo Prompt shows an approval dialog. You can:
+When a client first connects, RepoPrompt shows an approval dialog. You can:
 
 - **Allow Once:** Permit this single session
 - **Always Allow:** Add to allowlist (recommended for trusted clients)
@@ -78,18 +78,18 @@ When a client first connects, Repo Prompt shows an approval dialog. You can:
 
 :::tip
 
-**Tip:** The approval dialog appears in the menu bar area. If you don't see it, check that Repo Prompt has focus or look for a notification.
+**Tip:** The approval dialog appears in the menu bar area. If you don't see it, check that RepoPrompt has focus or look for a notification.
 
 :::
 
 ## Verifying the Connection
 
-Once connected, you'll see the connection status in Repo Prompt's toolbar:
+Once connected, you'll see the connection status in RepoPrompt's toolbar:
 
 - **Connected: \[Client Name\]** - Ready to receive tool calls
 - **Animated icon** - Tool call in progress
 
-Test the connection by asking your agent to list files or get the workspace context. In Claude Code, try: "Use Repo Prompt to show me the file tree."
+Test the connection by asking your agent to list files or get the workspace context. In Claude Code, try: "Use RepoPrompt to show me the file tree."
 
 ## Transport Mode
 
@@ -102,7 +102,7 @@ See **Transport Modes** documentation for details on when and why to use each mo
 ### Client can't find repoprompt-mcp
 
 - Re-copy the configuration - paths are system-specific
-- Ensure Repo Prompt is installed in /Applications
+- Ensure RepoPrompt is installed in /Applications
 - Check that the CLI binary exists at the configured path
 
 ### No approval dialog appears
