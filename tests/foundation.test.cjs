@@ -225,7 +225,7 @@ test('responsive-image QA discovers screenshots beyond the docs index', () => {
   assert.equal(images[0].alt, 'Workspace screenshot');
 });
 
-test('a new CE release keeps older CE docs and Classic on distinct routes', () => {
+test('a new CE release keeps older CE docs and Classic on distinct routes', async (t) => {
   const configPath = path.join(root, 'docusaurus.config.js');
   const localRequire = require('node:module').createRequire(configPath);
   const currentVersion = require('../versions.json')[0];
@@ -252,6 +252,49 @@ test('a new CE release keeps older CE docs and Classic on distinct routes', () =
     assert.equal(sections[index].path, `versioned_docs/version-${version}`);
     assert.equal(sections[index].routeBasePath, route);
     assert.equal(sections[index].label, label);
+  }
+
+  // Build minimal content with the simulated configuration's real routing options.
+  const fixtures = path.join(root, '.foundation-fixtures');
+  fs.mkdirSync(fixtures, {recursive: true});
+  const siteDir = fs.mkdtempSync(path.join(fixtures, 'next-release-'));
+  t.after(() => fs.rmSync(siteDir, {recursive: true, force: true}));
+  fs.writeFileSync(path.join(siteDir, 'package.json'), JSON.stringify({name: 'next-release-fixture', version: '1.0.0'}));
+  fs.writeFileSync(path.join(siteDir, 'versions.json'), JSON.stringify([nextVersion, currentVersion, 'classic-2.1.0']));
+  fs.writeFileSync(path.join(siteDir, 'docusaurus.config.js'), `module.exports = ${JSON.stringify({
+    title: config.title,
+    url: config.url,
+    baseUrl: config.baseUrl,
+    trailingSlash: config.trailingSlash,
+    onDuplicateRoutes: config.onDuplicateRoutes,
+    presets: [[require.resolve('@docusaurus/preset-classic'), {
+      docs: {...docs, sidebarPath: false, remarkPlugins: []},
+      blog: false,
+    }]],
+  })};`);
+  fs.mkdirSync(path.join(siteDir, 'src/pages'), {recursive: true});
+  fs.writeFileSync(path.join(siteDir, 'src/pages/index.md'), '# Release fixture\n');
+  const expectedPages = [
+    [nextVersion, 'docs'],
+    [currentVersion, `docs/${currentVersion}`],
+    ['classic-2.1.0', 'docs/classic-2.1.0'],
+  ];
+  for (const [version] of expectedPages) {
+    const directory = path.join(siteDir, 'versioned_docs', `version-${version}`);
+    fs.mkdirSync(directory, {recursive: true});
+    fs.writeFileSync(path.join(directory, 'index.md'), `---\ntitle: Release ${version}\nslug: /\n---\n\nUnique content for release ${version}.\n`);
+  }
+  const cli = path.join(path.dirname(require.resolve('@docusaurus/core/package.json')), 'bin/docusaurus.mjs');
+  await require('node:util').promisify(require('node:child_process').execFile)(
+    process.execPath, [cli, 'build', siteDir, '--no-minify'], {cwd: root, timeout: 120_000, maxBuffer: 10 * 1024 * 1024},
+  );
+  for (const [version, route] of expectedPages) {
+    const html = fs.readFileSync(path.join(siteDir, 'build', route, 'index.html'), 'utf8');
+    assert.ok(html.includes(`Unique content for release ${version}.`), `Wrong content at ${route}/`);
+    assert.ok(html.includes(`href="${config.url}/${route}/"`), `Wrong canonical URL at ${route}/`);
+    for (const [otherVersion] of expectedPages) {
+      if (otherVersion !== version) assert.ok(!html.includes(`Unique content for release ${otherVersion}.`));
+    }
   }
 });
 
