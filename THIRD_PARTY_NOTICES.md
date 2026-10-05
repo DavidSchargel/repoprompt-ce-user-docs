@@ -6,26 +6,27 @@ quoted material, or marks shown in screenshots.
 
 ## Direct site dependencies
 
-The inventory below records the versions declared in `package.json`, checked
-against installed package metadata. License copies preserve the upstream text
-from those installed packages. `pnpm-lock.yaml` records the resolved dependency
-graph, including transitive dependencies.
+The table below records licensing information for the listed direct site
+dependencies. `package.json` records the direct dependency versions, and
+`pnpm-lock.yaml` records the resolved dependency graph. License copies preserve
+the upstream text from the installed packages.
 
-| Component | Version | Declared license | Preserved upstream notices |
-| --- | --- | --- | --- |
-| [@docusaurus/core](https://github.com/facebook/docusaurus) | 3.10.2 | MIT | [LICENSE](ThirdPartyLicenses/docusaurus__core/LICENSE) |
-| [@docusaurus/faster](https://github.com/facebook/docusaurus) | 3.10.2 | MIT | [LICENSE](ThirdPartyLicenses/docusaurus__faster/LICENSE) |
-| [@docusaurus/plugin-client-redirects](https://github.com/facebook/docusaurus) | 3.10.2 | MIT | [LICENSE](ThirdPartyLicenses/docusaurus__plugin-client-redirects/LICENSE) |
-| [@docusaurus/plugin-ideal-image](https://github.com/facebook/docusaurus) | 3.10.2 | MIT | [LICENSE](ThirdPartyLicenses/docusaurus__plugin-ideal-image/LICENSE) |
-| [@docusaurus/preset-classic](https://github.com/facebook/docusaurus) | 3.10.2 | MIT | [LICENSE](ThirdPartyLicenses/docusaurus__preset-classic/LICENSE) |
-| [@mdx-js/react](https://github.com/mdx-js/mdx) | 3.1.1 | MIT | [license](ThirdPartyLicenses/mdx-js__react/license) |
-| [cosmos-docusaurus-theme](https://github.com/SckyzO/cosmos-docusaurus-theme) | 2.2.6 | MIT | [LICENSE](ThirdPartyLicenses/cosmos-docusaurus-theme/LICENSE) |
-| [docusaurus-plugin-copy-page-button](https://github.com/portdeveloper/docusaurus-plugin-copy-page-button) | 0.8.4 | MIT | License file absent from installed package; see note below. |
-| [docusaurus-plugin-llms](https://github.com/rachfop/docusaurus-plugin-llms) | 0.6.0 | MIT | License file absent from installed package; see note below. |
-| [react](https://github.com/facebook/react) | 19.2.4 | MIT | [LICENSE](ThirdPartyLicenses/react/LICENSE) |
-| [react-dom](https://github.com/facebook/react) | 19.2.4 | MIT | [LICENSE](ThirdPartyLicenses/react-dom/LICENSE) |
-| [react-icons](https://github.com/react-icons/react-icons) | 5.7.0 | MIT for package code; icon-set licenses apply separately | [LICENSE and icon-set notices](ThirdPartyLicenses/react-icons/LICENSE) |
-| [react-tweet](https://github.com/vercel/react-tweet) | 3.3.1 | MIT | [license.md](ThirdPartyLicenses/react-tweet/license.md) |
+| Component | Declared license | Preserved upstream notices |
+| --- | --- | --- |
+| [@docusaurus/core](https://github.com/facebook/docusaurus) | MIT | [LICENSE](ThirdPartyLicenses/docusaurus__core/LICENSE) |
+| [@docusaurus/faster](https://github.com/facebook/docusaurus) | MIT | [LICENSE](ThirdPartyLicenses/docusaurus__faster/LICENSE) |
+| [@docusaurus/plugin-client-redirects](https://github.com/facebook/docusaurus) | MIT | [LICENSE](ThirdPartyLicenses/docusaurus__plugin-client-redirects/LICENSE) |
+| [@docusaurus/plugin-ideal-image](https://github.com/facebook/docusaurus) | MIT | [LICENSE](ThirdPartyLicenses/docusaurus__plugin-ideal-image/LICENSE) |
+| [@docusaurus/preset-classic](https://github.com/facebook/docusaurus) | MIT | [LICENSE](ThirdPartyLicenses/docusaurus__preset-classic/LICENSE) |
+| [@mdx-js/react](https://github.com/mdx-js/mdx) | MIT | [license](ThirdPartyLicenses/mdx-js__react/license) |
+| [cosmos-docusaurus-theme](https://github.com/SckyzO/cosmos-docusaurus-theme) | MIT | [LICENSE](ThirdPartyLicenses/cosmos-docusaurus-theme/LICENSE) |
+| [docusaurus-plugin-copy-page-button](https://github.com/portdeveloper/docusaurus-plugin-copy-page-button) | MIT | License file absent from installed package; see note below. |
+| [docusaurus-plugin-image-zoom](https://github.com/gabrielcsapo/docusaurus-plugin-image-zoom) | MIT | [LICENSE](ThirdPartyLicenses/docusaurus-plugin-image-zoom/LICENSE) |
+| [docusaurus-plugin-llms](https://github.com/rachfop/docusaurus-plugin-llms) | MIT | License file absent from installed package; see note below. |
+| [react](https://github.com/facebook/react) | MIT | [LICENSE](ThirdPartyLicenses/react/LICENSE) |
+| [react-dom](https://github.com/facebook/react) | MIT | [LICENSE](ThirdPartyLicenses/react-dom/LICENSE) |
+| [react-icons](https://github.com/react-icons/react-icons) | MIT for package code; icon-set licenses apply separately | [LICENSE and icon-set notices](ThirdPartyLicenses/react-icons/LICENSE) |
+| [react-tweet](https://github.com/vercel/react-tweet) | MIT | [license.md](ThirdPartyLicenses/react-tweet/license.md) |
 
 The installed `docusaurus-plugin-copy-page-button` and `docusaurus-plugin-llms`
 packages declare MIT in their package metadata and READMEs but do not ship a
@@ -36,14 +37,14 @@ or their code as a separate bundle.
 
 ## Icons supplied through react-icons
 
-The site's source imports the following icon sets. Versions come from the
-installed `react-icons` 5.7.0 README; the package's MIT license does not replace
-these icon licenses.
+The site's source imports the following icon sets. Their licenses are identified
+in the installed `react-icons` package; the package's MIT license does not
+replace these icon licenses.
 
-| Icon set | Upstream version | License | Preserved upstream notices |
-| --- | --- | --- | --- |
-| [Feather](https://feathericons.com/) (`react-icons/fi`) | 4.29.1 | MIT | [LICENSE](ThirdPartyLicenses/feather/LICENSE) |
-| [Font Awesome Free 5](https://fontawesome.com/) (`react-icons/fa`) | 5.15.4-3-gafecf2a | CC BY 4.0 for SVG/JS icons | [Upstream license notice](ThirdPartyLicenses/font-awesome/LICENSE.txt), [CC BY 4.0 text](ThirdPartyLicenses/font-awesome/CC-BY-4.0.txt) |
+| Icon set | License | Preserved upstream notices |
+| --- | --- | --- |
+| [Feather](https://feathericons.com/) (`react-icons/fi`) | MIT | [LICENSE](ThirdPartyLicenses/feather/LICENSE) |
+| [Font Awesome Free](https://fontawesome.com/) (`react-icons/fa`) | CC BY 4.0 for SVG/JS icons | [Upstream license notice](ThirdPartyLicenses/font-awesome/LICENSE.txt), [CC BY 4.0 text](ThirdPartyLicenses/font-awesome/CC-BY-4.0.txt) |
 
 Feather is copyright (c) 2013–2023 Cole Bemis. The homepage uses its
 `FiArrowDown`, `FiArrowUpRight`, `FiCheck`, `FiDownload`, and `FiGithub` icons.
@@ -69,8 +70,8 @@ retain author names and links to the original posts.
 
 ## Bundled fonts
 
-Cosmos 2.2.6 includes Outfit and IBM Plex Mono, licensed under the SIL Open Font
-License 1.1. The theme's [font notices and full license text](ThirdPartyLicenses/cosmos-fonts/OFL.txt)
+The Cosmos theme includes Outfit and IBM Plex Mono, licensed under the SIL Open
+Font License 1.1. The theme's [font notices and full license text](ThirdPartyLicenses/cosmos-fonts/OFL.txt)
 are preserved together, including each font's copyright attribution. The font
 license is separate from the theme's MIT license.
 
@@ -100,9 +101,10 @@ license inventory of every transitive dependency or generated website asset.
 Build tooling and transitive packages retain their own licenses even when they
 are absent from this table.
 
-When updating dependencies, refresh the versions and preserved notices from the
-actual packages. Before redistributing a built site or dependency bundle, review
-the components included in that output and carry forward their required license,
-copyright, and NOTICE material, including notices in generated JavaScript and
-font assets. Keep [LICENSE](LICENSE) and [NOTICE](NOTICE) with distributions
-of this repository. These attribution files do not change upstream license terms.
+When updating dependencies, review the declared licenses and refresh preserved
+notices from the actual packages. Before redistributing a built site or
+dependency bundle, review the components included in that output and carry
+forward their required license, copyright, and NOTICE material, including
+notices in generated JavaScript and font assets. Keep [LICENSE](LICENSE) and
+[NOTICE](NOTICE) with distributions of this repository. These attribution files
+do not change upstream license terms.
