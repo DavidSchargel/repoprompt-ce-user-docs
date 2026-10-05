@@ -351,9 +351,14 @@ test('homepage mobile navigation contains focus and restores background state on
   const React = require('react');
   let effect;
   let toggles = 0;
+  let shown = true;
+  let pathname = '/';
+  let refHook = 0;
+  const refs = [];
   const listeners = new Map();
+  const sidebarListeners = new Map();
   const attributes = new Map();
-  const document = {activeElement: null};
+  const document = {activeElement: null, location: {href: 'https://docs.example/'}};
   const control = () => ({tabIndex: 0, disabled: false, isConnected: true,
     closest: () => null, getClientRects: () => [{}],
     focus() { document.activeElement = this; },
@@ -368,7 +373,8 @@ test('homepage mobile navigation contains focus and restores background state on
     removeAttribute: (name) => attributes.delete(name),
     querySelector: () => first,
     querySelectorAll: () => [first, last],
-    addEventListener() {}, removeEventListener() {},
+    addEventListener: (name, listener) => sidebarListeners.set(name, listener),
+    removeEventListener: (name) => sidebarListeners.delete(name),
   };
   const background = [false, true].map((inert) => ({inert, contains: () => false}));
   Object.assign(document, {
@@ -379,15 +385,19 @@ test('homepage mobile navigation contains focus and restores background state on
     removeEventListener: (name) => listeners.delete(name),
   });
   const Navigation = loadJsx(path.join(__dirname, '../src/theme/Navbar/MobileSidebar/index.js'), {
-    react: {...React, useEffect: (callback) => { effect = callback; }},
+    react: {...React, useEffect: (callback) => { effect = callback; }, useRef: (initial) => {
+      const slot = refHook++;
+      return refs[slot] || (refs[slot] = {current: initial});
+    }},
     '@theme-original/Navbar/MobileSidebar': () => null,
-    '@docusaurus/theme-common/internal': {useNavbarMobileSidebar: () => ({shown: true, toggle: () => { toggles++; }})},
-    '@docusaurus/router': {useLocation: () => ({pathname: '/'})},
+    '@docusaurus/theme-common/internal': {useNavbarMobileSidebar: () => ({shown, toggle: () => { toggles++; }})},
+    '@docusaurus/router': {useLocation: () => ({pathname})},
     '@docusaurus/useBaseUrl': () => '/',
   }, {document, requestAnimationFrame: (callback) => { callback(); return 1; }, cancelAnimationFrame() {},
     getComputedStyle: () => ({visibility: 'visible', display: 'block'}),
   });
-  Navigation({});
+  const render = () => { refHook = 0; Navigation({}); };
+  render();
   const cleanup = effect();
   assert.equal(attributes.get('aria-modal'), 'true');
   assert.equal(document.activeElement, first);
@@ -399,9 +409,40 @@ test('homepage mobile navigation contains focus and restores background state on
   assert.equal(document.activeElement, last);
   listeners.get('keydown')({key: 'Escape', preventDefault() {}});
   assert.equal(toggles, 1);
+  shown = false;
+  render();
   cleanup();
   assert.equal(document.activeElement, trigger);
   assert.deepEqual(background.map((element) => element.inert), [false, true]);
   assert.equal(listeners.size, 0);
+  assert.equal(sidebarListeners.size, 0);
   assert.equal(attributes.size, 0);
+
+  const clickLink = (href) => sidebarListeners.get('click')({target: {closest: () => ({href, target: '_self'})}});
+
+  shown = true;
+  render();
+  const sameRouteCleanup = effect();
+  assert.equal(document.activeElement, first);
+  clickLink(document.location.href);
+  shown = false;
+  render();
+  sameRouteCleanup();
+  assert.equal(document.activeElement, trigger, 'A current-route link must return focus when the sidebar closes');
+
+  shown = true;
+  render();
+  const routeCleanup = effect();
+  assert.equal(document.activeElement, first);
+  clickLink('https://docs.example/docs/');
+  shown = false;
+  render();
+  routeCleanup();
+  assert.equal(document.activeElement, first, 'Closing before navigation must not return focus to the old trigger');
+  pathname = '/docs/';
+  document.location.href = 'https://docs.example/docs/';
+  render();
+  assert.equal(document.activeElement, first, 'The destination route must retain control of focus');
+  assert.deepEqual(background.map((element) => element.inert), [false, true]);
+  assert.equal(sidebarListeners.size, 0);
 });

@@ -1,4 +1,4 @@
-import React, {useEffect} from 'react';
+import React, {useEffect, useRef} from 'react';
 import OriginalNavbarMobileSidebar from '@theme-original/Navbar/MobileSidebar';
 import {useNavbarMobileSidebar} from '@docusaurus/theme-common/internal';
 import {useLocation} from '@docusaurus/router';
@@ -8,6 +8,10 @@ export default function NavbarMobileSidebar(props) {
   const {shown, toggle} = useNavbarMobileSidebar();
   const {pathname} = useLocation();
   const homeUrl = useBaseUrl('/');
+  const shownRef = useRef(shown);
+  const pathnameRef = useRef(pathname);
+  shownRef.current = shown;
+  pathnameRef.current = pathname;
 
   useEffect(() => {
     if (!shown || (pathname !== homeUrl && pathname !== homeUrl.replace(/\/$/, ''))) return undefined;
@@ -33,6 +37,16 @@ export default function NavbarMobileSidebar(props) {
     };
     const frame = requestAnimationFrame(focusFirst);
     sidebar.addEventListener('transitionend', focusFirst);
+
+    let followingLink = false;
+    const onSidebarClick = (event) => {
+      const link = event.target?.closest?.('a[href]');
+      if (link && link.href !== document.location.href && (!link.target || link.target === '_self') &&
+        !event.metaKey && !event.ctrlKey && !event.shiftKey && !event.altKey) {
+        followingLink = true;
+      }
+    };
+    sidebar.addEventListener('click', onSidebarClick);
 
     const onKeyDown = (event) => {
       if (event.key === 'Escape') {
@@ -60,13 +74,17 @@ export default function NavbarMobileSidebar(props) {
     return () => {
       cancelAnimationFrame(frame);
       sidebar.removeEventListener('transitionend', focusFirst);
+      sidebar.removeEventListener('click', onSidebarClick);
       document.removeEventListener('keydown', onKeyDown);
       previousInert.forEach(([element, inert]) => { element.inert = inert; });
       previousAttributes.forEach(([name, value]) => {
         if (value === null) sidebar.removeAttribute(name);
         else sidebar.setAttribute(name, value);
       });
-      if (trigger?.isConnected && getComputedStyle(trigger).display !== 'none') trigger.focus({preventScroll: true});
+      if (!shownRef.current && pathnameRef.current === pathname && !followingLink &&
+        trigger?.isConnected && getComputedStyle(trigger).display !== 'none') {
+        trigger.focus({preventScroll: true});
+      }
     };
   }, [shown, toggle, pathname, homeUrl]);
 
