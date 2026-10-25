@@ -21,682 +21,854 @@ The Community Edition 1.x series is the first release in the Community Edition s
 - Public Sparkle update channel for signed, notarized releases.
 - Fully open source and free to use.
 
-<details>
+<span id="160---september-25-2026"></span>
+#### 1.6.0 - October 11, 2026
 
-<summary>View GitHub release notes (1.0.0 - 1.6.0)</summary>
+RepoPrompt CE v1.6.0 (build 39) brings major Agent workflow improvements, new model choices, and a smoother app experience.
 
-#### 1.6.0 - September 25, 2026
+**Highlights**
 
-What's Changed
+- **Overseer and Agent sessions:** Opt-in Overseer management now includes lanes, role-aware discovery, and stronger recovery after relaunch or compaction. — @baron · <a href="https://github.com/repoprompt/repoprompt-ce/pull/1080" target="_blank" rel="noopener noreferrer">#1080</a> · @crstdr · <a href="https://github.com/repoprompt/repoprompt-ce/pull/1131" target="_blank" rel="noopener noreferrer">#1131</a> · @crstdr · <a href="https://github.com/repoprompt/repoprompt-ce/pull/1308" target="_blank" rel="noopener noreferrer">#1308</a>
+- **More model choices:** Adds GPT-6.1 Sol and Claude Sonnet 5.5, refreshes Cursor models and effort choices, and adds usage-balanced routing for Codex and Claude plans. — @baron · <a href="https://github.com/repoprompt/repoprompt-ce/pull/1135" target="_blank" rel="noopener noreferrer">#1135</a> · @dsebban · <a href="https://github.com/repoprompt/repoprompt-ce/pull/1160" target="_blank" rel="noopener noreferrer">#1160</a> · @baron · <a href="https://github.com/repoprompt/repoprompt-ce/pull/1265" target="_blank" rel="noopener noreferrer">#1265</a>
+- **Codex Computer Use:** Opt-in computer interaction in Codex chats, with local tab consent and quieter companion activity. — @crstdr · <a href="https://github.com/repoprompt/repoprompt-ce/pull/1253" target="_blank" rel="noopener noreferrer">#1253</a> · @crstdr · <a href="https://github.com/repoprompt/repoprompt-ce/pull/1284" target="_blank" rel="noopener noreferrer">#1284</a>
+- **MCP and Context Builder reliability:** Safer bootstrap handshakes, clearer startup binding results, and a way to talk to in-app Overseers without taking them over. — @baron · <a href="https://github.com/repoprompt/repoprompt-ce/pull/1199" target="_blank" rel="noopener noreferrer">#1199</a> · @baron · <a href="https://github.com/repoprompt/repoprompt-ce/pull/1200" target="_blank" rel="noopener noreferrer">#1200</a> · @crstdr · <a href="https://github.com/repoprompt/repoprompt-ce/pull/1252" target="_blank" rel="noopener noreferrer">#1252</a>
+- **Code Maps and performance:** Code Maps work in non-Git folders; incremental indexing and idle-work fixes reduce background load. — @crstdr · <a href="https://github.com/repoprompt/repoprompt-ce/pull/994" target="_blank" rel="noopener noreferrer">#994</a> · @baron · <a href="https://github.com/repoprompt/repoprompt-ce/pull/1085" target="_blank" rel="noopener noreferrer">#1085</a> · @dsebban · <a href="https://github.com/repoprompt/repoprompt-ce/pull/1259" target="_blank" rel="noopener noreferrer">#1259</a>
 
-- MCP fix: skip deletion fencing for uncatalogued missing paths
-- Add support for multiple Oracles
-- Fix codemap indexing page restart on git churn
-- Fix selection mirror wedge recovery
-- Agent Session Oversight
-- Refactor Agent Session Oversight internals
-- Fix completed credential migration and blocked update recovery
-- Fix Sparkle startup update isolation
-- Fix Model Presets with multiple Oracles
-- Put workspace first in window titles
-- Reuse matching workspaces when opening folders
-- Fix workspace root removal and discovery readiness
-- Migrate release artifact actions to Node 24
-- feat(agent-mode): add Devin CLI provider
-- Expand sidebar checkbox hit targets
-- Fix seeded worktree publication deadlock and watchdog terminal errors
-- Fix Context Builder settled Oracle replies after primary failure
-- Fix cancellation handoff and Context Builder watchdog reliability
-- Make the OpenCode thinking level configurable
-- Make the subagent wait configurable in Settings
-- Fix: Clamp Context Builder budget slider values
-- Fix: Cache AgentModeViewModel binding snapshot to prevent O(N²) app hang
-- Fix JSON-valued MCP experimental capabilities
-- Fix Tip publisher API authentication and latest convergence
-- Fix composer cursor jumping during typing
-- Add persistent global model routing with Jev
-- Fix post-migration Keychain item creation
-- Fix Agent Mode sidebar render-loop performance
-- Improve agent orchestration observability and history analytics
-- Add Claude Opus 5.5 model choices
-- Update bundled Codex app-server to 0.156.0
-- Preserve dirty Copy and Chat overlays during Agent Models changes
-- Stop MCP read\_file from inventing a one-line success
-- Reduce composer keystroke latency
-- Diagnose canonical workspace state at Agent admission
-- Add bounded workspace projection decode measurements
-- Make physical file reads cancellation-responsive
-- Show captured Context Builder behavior during active runs
-- perf(git): bound diff cache retention with LRU eviction
-- Add bounded MCP lifecycle diagnostics for teardown investigation
-- Make passive appcast callback main-actor contract explicit
-- Add Jev multi-question judgment foundation
-- Fix Model Router persistence and refresh routing models
-- Stabilize workspace lifecycle regression tests
-- Fix Context Builder prerequisite error classification
-- Update bundled Codex app-server to 0.156.1
-- Preserve file authority across context binding
-- Add MCP controls for agent session pins and manual order
-- Guard protected Agent tabs during workspace replay
-- Fix app hang by caching sorted model options
-- Add independent Jev Auto effort for Codex and Claude
-- Add automatic APFS CoW cloning for app-managed worktrees
-- fix(mcp): allow background-tab selection mirrors to complete
-- fix(agent-mode): apply Auto effort to Claude MCP runs
+**[Full Changelog for 1.6.0](https://github.com/repoprompt/repoprompt-ce/compare/v1.5.0...v1.6.0)**
+
+#### 1.5.0 - September 25, 2026
+
+**What's Changed**
+- MCP fix: skip deletion fencing for uncatalogued missing paths — @w-winter · <a href="https://github.com/repoprompt/repoprompt-ce/pull/980" target="_blank" rel="noopener noreferrer">#980</a>
+- Add support for multiple Oracles — @dsebban · <a href="https://github.com/repoprompt/repoprompt-ce/pull/884" target="_blank" rel="noopener noreferrer">#884</a>
+- Fix: prevent codemap indexing page restart on git churn — @w-winter · <a href="https://github.com/repoprompt/repoprompt-ce/pull/984" target="_blank" rel="noopener noreferrer">#984</a>
+- Fix selection mirror wedge recovery — @mplibunao · <a href="https://github.com/repoprompt/repoprompt-ce/pull/472" target="_blank" rel="noopener noreferrer">#472</a>
+- Agent Session Oversight — @crstdr · <a href="https://github.com/repoprompt/repoprompt-ce/pull/872" target="_blank" rel="noopener noreferrer">#872</a>
+- Refactor Agent Session Oversight internals (stacked on #872) — @baron · <a href="https://github.com/repoprompt/repoprompt-ce/pull/938" target="_blank" rel="noopener noreferrer">#938</a>
+- Fix completed credential migration and blocked update recovery — @baron · <a href="https://github.com/repoprompt/repoprompt-ce/pull/988" target="_blank" rel="noopener noreferrer">#988</a>
+- Fix Sparkle startup update isolation — @baron · <a href="https://github.com/repoprompt/repoprompt-ce/pull/992" target="_blank" rel="noopener noreferrer">#992</a>
+- Fix Model Presets with multiple Oracles — @w-winter · <a href="https://github.com/repoprompt/repoprompt-ce/pull/1000" target="_blank" rel="noopener noreferrer">#1000</a>
+- Put workspace first in window titles — @crstdr · <a href="https://github.com/repoprompt/repoprompt-ce/pull/998" target="_blank" rel="noopener noreferrer">#998</a>
+- Reuse matching workspaces when opening folders — @aAtila · <a href="https://github.com/repoprompt/repoprompt-ce/pull/924" target="_blank" rel="noopener noreferrer">#924</a>
+- Fix workspace root removal and discovery readiness — @aAtila · <a href="https://github.com/repoprompt/repoprompt-ce/pull/986" target="_blank" rel="noopener noreferrer">#986</a>
+- chore: approve contributor luqmannurhakimbazman — @najibninaba · <a href="https://github.com/repoprompt/repoprompt-ce/pull/1006" target="_blank" rel="noopener noreferrer">#1006</a>
+- Migrate release artifact actions to Node 24 — @baron · <a href="https://github.com/repoprompt/repoprompt-ce/pull/1021" target="_blank" rel="noopener noreferrer">#1021</a>
+- feat(agent-mode): add Devin CLI provider — @dsebban · <a href="https://github.com/repoprompt/repoprompt-ce/pull/999" target="_blank" rel="noopener noreferrer">#999</a>
+- Expand sidebar checkbox hit targets — @aAtila · <a href="https://github.com/repoprompt/repoprompt-ce/pull/1008" target="_blank" rel="noopener noreferrer">#1008</a>
+- Fix seeded worktree publication deadlock and watchdog terminal errors — @luqmannurhakimbazman · <a href="https://github.com/repoprompt/repoprompt-ce/pull/1003" target="_blank" rel="noopener noreferrer">#1003</a>
+- Fix Context Builder settled Oracle replies after primary failure — @dsebban · <a href="https://github.com/repoprompt/repoprompt-ce/pull/1011" target="_blank" rel="noopener noreferrer">#1011</a>
+- Fix cancellation handoff and Context Builder watchdog reliability — @dsebban · <a href="https://github.com/repoprompt/repoprompt-ce/pull/1013" target="_blank" rel="noopener noreferrer">#1013</a>
+- Make the OpenCode thinking level configurable — @crstdr · <a href="https://github.com/repoprompt/repoprompt-ce/pull/1009" target="_blank" rel="noopener noreferrer">#1009</a>
+- Make the subagent wait configurable in Settings — @crstdr · <a href="https://github.com/repoprompt/repoprompt-ce/pull/1005" target="_blank" rel="noopener noreferrer">#1005</a>
+- Fix: Clamp Context Builder budget slider values — @sentry[bot] · <a href="https://github.com/repoprompt/repoprompt-ce/pull/834" target="_blank" rel="noopener noreferrer">#834</a>
+- Fix: Cache AgentModeViewModel binding snapshot to prevent O(N²) app hang — @sentry[bot] · <a href="https://github.com/repoprompt/repoprompt-ce/pull/990" target="_blank" rel="noopener noreferrer">#990</a>
+- Fix JSON-valued MCP experimental capabilities — @baron · <a href="https://github.com/repoprompt/repoprompt-ce/pull/1022" target="_blank" rel="noopener noreferrer">#1022</a>
+- Fix Tip publisher API authentication and latest convergence — @baron · <a href="https://github.com/repoprompt/repoprompt-ce/pull/1024" target="_blank" rel="noopener noreferrer">#1024</a>
+- Fix composer cursor jumping during typing — @jsmcx · <a href="https://github.com/repoprompt/repoprompt-ce/pull/1025" target="_blank" rel="noopener noreferrer">#1025</a>
+- Add persistent global model routing with Jev — @baron · <a href="https://github.com/repoprompt/repoprompt-ce/pull/1031" target="_blank" rel="noopener noreferrer">#1031</a>
+- Fix post-migration Keychain item creation — @baron · <a href="https://github.com/repoprompt/repoprompt-ce/pull/1034" target="_blank" rel="noopener noreferrer">#1034</a>
+- Fix Agent Mode sidebar render-loop performance — @baron · <a href="https://github.com/repoprompt/repoprompt-ce/pull/1035" target="_blank" rel="noopener noreferrer">#1035</a>
+- Improve agent orchestration observability and history analytics — @baron · <a href="https://github.com/repoprompt/repoprompt-ce/pull/1036" target="_blank" rel="noopener noreferrer">#1036</a>
+- Add Claude Opus 5.5 model choices — @baron · <a href="https://github.com/repoprompt/repoprompt-ce/pull/1053" target="_blank" rel="noopener noreferrer">#1053</a>
+- Update bundled Codex app-server to 0.156.0 — @baron · <a href="https://github.com/repoprompt/repoprompt-ce/pull/1051" target="_blank" rel="noopener noreferrer">#1051</a>
+- Preserve dirty Copy and Chat overlays during Agent Models changes — @baron · <a href="https://github.com/repoprompt/repoprompt-ce/pull/574" target="_blank" rel="noopener noreferrer">#574</a>
+- Stop MCP read_file from inventing a one-line success — @luqmannurhakimbazman · <a href="https://github.com/repoprompt/repoprompt-ce/pull/1015" target="_blank" rel="noopener noreferrer">#1015</a>
+- Reduce composer keystroke latency — @baron · <a href="https://github.com/repoprompt/repoprompt-ce/pull/1043" target="_blank" rel="noopener noreferrer">#1043</a>
+- Diagnose canonical workspace state at Agent admission — @baron · <a href="https://github.com/repoprompt/repoprompt-ce/pull/1044" target="_blank" rel="noopener noreferrer">#1044</a>
+- Add bounded workspace projection decode measurements — @baron · <a href="https://github.com/repoprompt/repoprompt-ce/pull/1046" target="_blank" rel="noopener noreferrer">#1046</a>
+- Make physical file reads cancellation-responsive — @mplibunao · <a href="https://github.com/repoprompt/repoprompt-ce/pull/983" target="_blank" rel="noopener noreferrer">#983</a>
+- Show captured Context Builder behavior during active runs — @bcgalvin · <a href="https://github.com/repoprompt/repoprompt-ce/pull/1028" target="_blank" rel="noopener noreferrer">#1028</a>
+- perf(git): bound diff cache retention with LRU eviction — @morluto · <a href="https://github.com/repoprompt/repoprompt-ce/pull/459" target="_blank" rel="noopener noreferrer">#459</a>
+- Add bounded MCP lifecycle diagnostics for teardown investigation — @baron · <a href="https://github.com/repoprompt/repoprompt-ce/pull/1048" target="_blank" rel="noopener noreferrer">#1048</a>
+- Make passive appcast callback main-actor contract explicit — @sentry[bot] · <a href="https://github.com/repoprompt/repoprompt-ce/pull/1030" target="_blank" rel="noopener noreferrer">#1030</a>
+- Add Jev multi-question judgment foundation — @baron · <a href="https://github.com/repoprompt/repoprompt-ce/pull/1045" target="_blank" rel="noopener noreferrer">#1045</a>
+- Fix Model Router persistence and refresh routing models — @baron · <a href="https://github.com/repoprompt/repoprompt-ce/pull/1052" target="_blank" rel="noopener noreferrer">#1052</a>
+- Stabilize workspace lifecycle regression tests (#1054) — @baron · <a href="https://github.com/repoprompt/repoprompt-ce/pull/1055" target="_blank" rel="noopener noreferrer">#1055</a>
+- Fix Context Builder prerequisite error classification — @bcgalvin · <a href="https://github.com/repoprompt/repoprompt-ce/pull/1049" target="_blank" rel="noopener noreferrer">#1049</a>
+- Update bundled Codex app-server to 0.156.1 — @baron · <a href="https://github.com/repoprompt/repoprompt-ce/pull/1056" target="_blank" rel="noopener noreferrer">#1056</a>
+- Preserve file authority across context binding — @mplibunao · <a href="https://github.com/repoprompt/repoprompt-ce/pull/982" target="_blank" rel="noopener noreferrer">#982</a>
+- Add MCP controls for agent session pins and manual order — @baron · <a href="https://github.com/repoprompt/repoprompt-ce/pull/1058" target="_blank" rel="noopener noreferrer">#1058</a>
+- Guard protected Agent tabs during workspace replay — @baron · <a href="https://github.com/repoprompt/repoprompt-ce/pull/1059" target="_blank" rel="noopener noreferrer">#1059</a>
+- Fix app hang by caching sorted model options — @sentry[bot] · <a href="https://github.com/repoprompt/repoprompt-ce/pull/1060" target="_blank" rel="noopener noreferrer">#1060</a>
+- Add independent Jev Auto effort for Codex and Claude — @baron · <a href="https://github.com/repoprompt/repoprompt-ce/pull/1062" target="_blank" rel="noopener noreferrer">#1062</a>
+- Add automatic APFS CoW cloning for app-managed worktrees — @baron · <a href="https://github.com/repoprompt/repoprompt-ce/pull/1064" target="_blank" rel="noopener noreferrer">#1064</a>
+- Prepare v1.5.0 stable release metadata — @baron · <a href="https://github.com/repoprompt/repoprompt-ce/pull/1066" target="_blank" rel="noopener noreferrer">#1066</a>
+- fix(mcp): allow background-tab selection mirrors to complete — @w-winter · <a href="https://github.com/repoprompt/repoprompt-ce/pull/1069" target="_blank" rel="noopener noreferrer">#1069</a>
+- fix(agent-mode): apply Auto effort to Claude MCP runs — @baron · <a href="https://github.com/repoprompt/repoprompt-ce/pull/1070" target="_blank" rel="noopener noreferrer">#1070</a>
+
+**New Contributors**
+- luqmannurhakimbazman made their first contribution.
+- jsmcx made their first contribution.
+- bcgalvin made their first contribution.
+
+**[Full Changelog for 1.5.0](https://github.com/repoprompt/repoprompt-ce/compare/v1.4.1...v1.5.0)**
 
 #### 1.4.1 - September 7, 2026
 
-What's Changed
+**What's Changed**
+- Fix split-root Stable release metadata — @baron · <a href="https://github.com/repoprompt/repoprompt-ce/pull/911" target="_blank" rel="noopener noreferrer">#911</a>
+- Test MCP stdio and terminal commit barriers — @baron · <a href="https://github.com/repoprompt/repoprompt-ce/pull/912" target="_blank" rel="noopener noreferrer">#912</a>
+- Fix: codemaps to index nested repo worktree sources — @w-winter · <a href="https://github.com/repoprompt/repoprompt-ce/pull/913" target="_blank" rel="noopener noreferrer">#913</a>
+- Fix Tip recovery after Stable 1.4.0 — @baron · <a href="https://github.com/repoprompt/repoprompt-ce/pull/914" target="_blank" rel="noopener noreferrer">#914</a>
+- Harden Tip publisher release observation — @baron · <a href="https://github.com/repoprompt/repoprompt-ce/pull/920" target="_blank" rel="noopener noreferrer">#920</a>
+- Add Claude Fable 5.1 to the Claude Code model catalogs — @datawisebets · <a href="https://github.com/repoprompt/repoprompt-ce/pull/932" target="_blank" rel="noopener noreferrer">#932</a>
+- Authenticate Tip protected-main preflight — @baron · <a href="https://github.com/repoprompt/repoprompt-ce/pull/925" target="_blank" rel="noopener noreferrer">#925</a>
+- Fix (MCP) - align context routing with active workspace — @w-winter · <a href="https://github.com/repoprompt/repoprompt-ce/pull/936" target="_blank" rel="noopener noreferrer">#936</a>
+- Fix: out-of-bounds access due to stale workspace index after async yield — @sentry[bot] · <a href="https://github.com/repoprompt/repoprompt-ce/pull/929" target="_blank" rel="noopener noreferrer">#929</a>
+- Add Claude Fable Latest and normalize model picker fonts — @w-winter · <a href="https://github.com/repoprompt/repoprompt-ce/pull/934" target="_blank" rel="noopener noreferrer">#934</a>
+- Fix Tip release publication races — @baron · <a href="https://github.com/repoprompt/repoprompt-ce/pull/943" target="_blank" rel="noopener noreferrer">#943</a>
+- Fix (HistoryMCP) - prevent crash in buildGroups due to force-unwrap — @sentry[bot] · <a href="https://github.com/repoprompt/repoprompt-ce/pull/942" target="_blank" rel="noopener noreferrer">#942</a>
+- Fix: Swift overflow when converting negative st_dev to UInt64 — @sentry[bot] · <a href="https://github.com/repoprompt/repoprompt-ce/pull/937" target="_blank" rel="noopener noreferrer">#937</a>
+- Fix: Sanitize AI narration text to prevent SwiftUI crashes — @sentry[bot] · <a href="https://github.com/repoprompt/repoprompt-ce/pull/940" target="_blank" rel="noopener noreferrer">#940</a>
+- Fix: App hang due to expensive Codex model display name computation — @sentry[bot] · <a href="https://github.com/repoprompt/repoprompt-ce/pull/941" target="_blank" rel="noopener noreferrer">#941</a>
+- Fix: Context menu crash on dynamic item changes — @sentry[bot] · <a href="https://github.com/repoprompt/repoprompt-ce/pull/939" target="_blank" rel="noopener noreferrer">#939</a>
+- Prefer Grok's direct model parser when configOptions accompany models — @datawisebets · <a href="https://github.com/repoprompt/repoprompt-ce/pull/933" target="_blank" rel="noopener noreferrer">#933</a>
+- Fix file search freshness after Add Folder — @aAtila · <a href="https://github.com/repoprompt/repoprompt-ce/pull/927" target="_blank" rel="noopener noreferrer">#927</a>
+- Fix duplicate workspace consolidation persistence — @crstdr · <a href="https://github.com/repoprompt/repoprompt-ce/pull/915" target="_blank" rel="noopener noreferrer">#915</a>
+- Fix release provisioning profile permissions — @baron · <a href="https://github.com/repoprompt/repoprompt-ce/pull/948" target="_blank" rel="noopener noreferrer">#948</a>
+- Remove artificial timeouts from Tip workflow — @baron · <a href="https://github.com/repoprompt/repoprompt-ce/pull/950" target="_blank" rel="noopener noreferrer">#950</a>
+- Keep new windows eligible for Merge All Windows — @nickdavis · <a href="https://github.com/repoprompt/repoprompt-ce/pull/853" target="_blank" rel="noopener noreferrer">#853</a>
+- Fix InterceptingWindowDelegateProxy unrecognized selector crash — @sentry[bot] · <a href="https://github.com/repoprompt/repoprompt-ce/pull/877" target="_blank" rel="noopener noreferrer">#877</a>
+- Fix: EXC_BREAKPOINT in duplicate workspace cleanup — @sentry[bot] · <a href="https://github.com/repoprompt/repoprompt-ce/pull/841" target="_blank" rel="noopener noreferrer">#841</a>
+- Fix GitWorktreeDefaultPathPlanner O(N^2) hang — @sentry[bot] · <a href="https://github.com/repoprompt/repoprompt-ce/pull/891" target="_blank" rel="noopener noreferrer">#891</a>
+- Reduce repeated transcript snapshot access in row construction — @sentry[bot] · <a href="https://github.com/repoprompt/repoprompt-ce/pull/820" target="_blank" rel="noopener noreferrer">#820</a>
+- Index hidden-session slice paths during rebase planning — @sentry[bot] · <a href="https://github.com/repoprompt/repoprompt-ce/pull/839" target="_blank" rel="noopener noreferrer">#839</a>
+- Give Codex model options a consistent sort order — @sentry[bot] · <a href="https://github.com/repoprompt/repoprompt-ce/pull/813" target="_blank" rel="noopener noreferrer">#813</a>
+- Preserve competing files during exclusive creation — @baron · <a href="https://github.com/repoprompt/repoprompt-ce/pull/964" target="_blank" rel="noopener noreferrer">#964</a>
+- Derive session deletion targets from validated files — @baron · <a href="https://github.com/repoprompt/repoprompt-ce/pull/959" target="_blank" rel="noopener noreferrer">#959</a>
+- Preserve settings after failed backup recovery — @baron · <a href="https://github.com/repoprompt/repoprompt-ce/pull/958" target="_blank" rel="noopener noreferrer">#958</a>
+- Retain physical authority for protected file mutations — @baron · <a href="https://github.com/repoprompt/repoprompt-ce/pull/969" target="_blank" rel="noopener noreferrer">#969</a>
+- Revalidate worktree identity before alternate-root operations — @baron · <a href="https://github.com/repoprompt/repoprompt-ce/pull/965" target="_blank" rel="noopener noreferrer">#965</a>
+- Preserve workspace affinity across MCP reconnects — @baron · <a href="https://github.com/repoprompt/repoprompt-ce/pull/966" target="_blank" rel="noopener noreferrer">#966</a>
+- Prevent load-time repair from resurrecting deleted sessions — @baron · <a href="https://github.com/repoprompt/repoprompt-ce/pull/967" target="_blank" rel="noopener noreferrer">#967</a>
+- Retain process ownership until child termination settles — @baron · <a href="https://github.com/repoprompt/repoprompt-ce/pull/968" target="_blank" rel="noopener noreferrer">#968</a>
+- Preserve settings across schema migration and recovery retries — @baron · <a href="https://github.com/repoprompt/repoprompt-ce/pull/970" target="_blank" rel="noopener noreferrer">#970</a>
+- Fix FSEvents delivery liveness — @baron · <a href="https://github.com/repoprompt/repoprompt-ce/pull/713" target="_blank" rel="noopener noreferrer">#713</a>
+- Enforce MCP readiness caller deadlines — @baron · <a href="https://github.com/repoprompt/repoprompt-ce/pull/711" target="_blank" rel="noopener noreferrer">#711</a>
+- Fix qualified reads stalling on unrelated roots — @mplibunao · <a href="https://github.com/repoprompt/repoprompt-ce/pull/889" target="_blank" rel="noopener noreferrer">#889</a>
+- Resolve advertised Codex Max and Ultra effort selections — @nickdavis · <a href="https://github.com/repoprompt/repoprompt-ce/pull/953" target="_blank" rel="noopener noreferrer">#953</a>
+- Allow selecting a local Codex runtime — @crstdr · <a href="https://github.com/repoprompt/repoprompt-ce/pull/956" target="_blank" rel="noopener noreferrer">#956</a>
+- Fix Context Builder shutdown during app termination — @mplibunao · <a href="https://github.com/repoprompt/repoprompt-ce/pull/955" target="_blank" rel="noopener noreferrer">#955</a>
+- Fix concurrent same-workspace Agent admission — @mplibunao · <a href="https://github.com/repoprompt/repoprompt-ce/pull/897" target="_blank" rel="noopener noreferrer">#897</a>
+- fix: support verified Cursor agent ACP entrypoint — @najibninaba · <a href="https://github.com/repoprompt/repoprompt-ce/pull/902" target="_blank" rel="noopener noreferrer">#902</a>
+- feat(agent-mode): add Cursor Effort and Speed controls — @najibninaba · <a href="https://github.com/repoprompt/repoprompt-ce/pull/960" target="_blank" rel="noopener noreferrer">#960</a>
+- Prevent concurrent settings writes from overwriting newer data — @baron · <a href="https://github.com/repoprompt/repoprompt-ce/pull/973" target="_blank" rel="noopener noreferrer">#973</a>
+- Protect large prompt exports from watchdog disconnects — @mplibunao · <a href="https://github.com/repoprompt/repoprompt-ce/pull/898" target="_blank" rel="noopener noreferrer">#898</a>
+- Fix workspace loading, cleanup, and settings preservation — @baron · <a href="https://github.com/repoprompt/repoprompt-ce/pull/974" target="_blank" rel="noopener noreferrer">#974</a>
+- Fix OpenCode launch validation for admin-writable Homebrew Cellar paths — @AmrMohamad · <a href="https://github.com/repoprompt/repoprompt-ce/pull/976" target="_blank" rel="noopener noreferrer">#976</a>
+- Make bundled Codex predictable and upgrade to 0.153.4 — @baron · <a href="https://github.com/repoprompt/repoprompt-ce/pull/979" target="_blank" rel="noopener noreferrer">#979</a>
+- Add Google Antigravity ACP support — @z23cc · <a href="https://github.com/repoprompt/repoprompt-ce/pull/975" target="_blank" rel="noopener noreferrer">#975</a>
+- Prepare v1.4.1 release metadata — @baron · <a href="https://github.com/repoprompt/repoprompt-ce/pull/978" target="_blank" rel="noopener noreferrer">#978</a>
 
-- Fix split-root Stable release metadata
-- Test MCP stdio and terminal commit barriers
-- Fix codemaps to index nested repo worktree sources
-- Fix Tip recovery after Stable 1.4.0
-- Harden Tip publisher release observation
-- Add Claude Fable 5.1 to the Claude Code model catalogs
-- Authenticate Tip protected-main preflight
-- Fix MCP context routing with the active workspace
-- Fix out-of-bounds access from a stale workspace index after async yield
-- Add Claude Fable Latest and normalize model picker fonts
-- Fix Tip release publication races
-- Fix HistoryMCP crash in buildGroups caused by force-unwrap
-- Fix Swift overflow when converting negative st\_dev to UInt64
-- Sanitize AI narration text to prevent SwiftUI crashes
-- Fix app hang from expensive Codex model display name computation
-- Fix context menu crash on dynamic item changes
-- Prefer Grok's direct model parser when configOptions accompany models
-- Fix file search freshness after Add Folder
-- Fix duplicate workspace consolidation persistence
-- Fix release provisioning profile permissions
-- Remove artificial timeouts from Tip workflow
-- Keep new windows eligible for Merge All Windows
-- Fix InterceptingWindowDelegateProxy unrecognized selector crash
-- Fix EXC\_BREAKPOINT in duplicate workspace cleanup
-- Fix GitWorktreeDefaultPathPlanner O(N^2) hang
-- Reduce repeated transcript snapshot access in row construction
-- Index hidden-session slice paths during rebase planning
-- Give Codex model options a consistent sort order
-- Preserve competing files during exclusive creation
-- Derive session deletion targets from validated files
-- Preserve settings after failed backup recovery
-- Retain physical authority for protected file mutations
-- Revalidate worktree identity before alternate-root operations
-- Preserve workspace affinity across MCP reconnects
-- Prevent load-time repair from resurrecting deleted sessions
-- Retain process ownership until child termination settles
-- Preserve settings across schema migration and recovery retries
-- Fix FSEvents delivery liveness
-- Enforce MCP readiness caller deadlines
-- Fix qualified reads stalling on unrelated roots
-- Resolve advertised Codex Max and Ultra effort selections
-- Allow selecting a local Codex runtime
-- Fix Context Builder shutdown during app termination
-- Fix concurrent same-workspace Agent admission
-- fix: support verified Cursor agent ACP entrypoint
-- feat(agent-mode): add Cursor Effort and Speed controls
-- Prevent concurrent settings writes from overwriting newer data
-- Protect large prompt exports from watchdog disconnects
-- Fix workspace loading, cleanup, and settings preservation
-- Fix OpenCode launch validation for admin-writable Homebrew Cellar paths
-- Make bundled Codex predictable and upgrade to 0.153.4
-- Add Google Antigravity ACP support
+**New Contributors**
+- AmrMohamad made their first contribution.
+- z23cc made their first contribution.
+
+**[Full Changelog for 1.4.1](https://github.com/repoprompt/repoprompt-ce/compare/v1.4.0...v1.4.1)**
 
 #### 1.4.0 - August 30, 2026
 
-What's Changed
+**What's Changed**
+- Scale MCP read_file concurrency to machine capacity — @baron · <a href="https://github.com/repoprompt/repoprompt-ce/pull/798" target="_blank" rel="noopener noreferrer">#798</a>
+- Globalize Context Builder Settings behavior and make Analysis Budget independent — @w-winter · <a href="https://github.com/repoprompt/repoprompt-ce/pull/801" target="_blank" rel="noopener noreferrer">#801</a>
+- Agent Mode: eliminate app hang from AgentImageInputAdapter init — @sentry[bot] · <a href="https://github.com/repoprompt/repoprompt-ce/pull/779" target="_blank" rel="noopener noreferrer">#779</a>
+- Stabilize AgentRunWorktreeStartTests production-capture selection race (#420) — @moonray · <a href="https://github.com/repoprompt/repoprompt-ce/pull/430" target="_blank" rel="noopener noreferrer">#430</a>
+- Dismiss tooltips when owner windows change lifecycle — @0xNino · <a href="https://github.com/repoprompt/repoprompt-ce/pull/564" target="_blank" rel="noopener noreferrer">#564</a>
+- Add multi-select + bulk actions to Agent Mode chats — @w-winter · <a href="https://github.com/repoprompt/repoprompt-ce/pull/802" target="_blank" rel="noopener noreferrer">#802</a>
+- Fix: Unify exact read and mutation paths — @w-winter · <a href="https://github.com/repoprompt/repoprompt-ce/pull/800" target="_blank" rel="noopener noreferrer">#800</a>
+- Add stored prompt management controls — @w-winter · <a href="https://github.com/repoprompt/repoprompt-ce/pull/799" target="_blank" rel="noopener noreferrer">#799</a>
+- Fix: decode legacy mutation journal status — @w-winter · <a href="https://github.com/repoprompt/repoprompt-ce/pull/815" target="_blank" rel="noopener noreferrer">#815</a>
+- Prevent ephemeral workspace leaks and add safe bulk cleanup — @baron · <a href="https://github.com/repoprompt/repoprompt-ce/pull/814" target="_blank" rel="noopener noreferrer">#814</a>
+- Route direct-headless agents through existing worktrees — @nickdavis · <a href="https://github.com/repoprompt/repoprompt-ce/pull/761" target="_blank" rel="noopener noreferrer">#761</a>
+- Add Grok Build CLI as an ACP Agent Mode provider — @datawisebets · <a href="https://github.com/repoprompt/repoprompt-ce/pull/817" target="_blank" rel="noopener noreferrer">#817</a>
+- Fix: bound MCP structure settlement recovery — @w-winter · <a href="https://github.com/repoprompt/repoprompt-ce/pull/822" target="_blank" rel="noopener noreferrer">#822</a>
+- Fix: expose global skills to Codex agents — @w-winter · <a href="https://github.com/repoprompt/repoprompt-ce/pull/824" target="_blank" rel="noopener noreferrer">#824</a>
+- Add inline file browser to manually add files/codemaps to selected set in Context Composer — @w-winter · <a href="https://github.com/repoprompt/repoprompt-ce/pull/823" target="_blank" rel="noopener noreferrer">#823</a>
+- Fix Codex session disconnect during worktree rebinding — @baron · <a href="https://github.com/repoprompt/repoprompt-ce/pull/826" target="_blank" rel="noopener noreferrer">#826</a>
+- Add Grok Build reasoning-effort selection — @datawisebets · <a href="https://github.com/repoprompt/repoprompt-ce/pull/825" target="_blank" rel="noopener noreferrer">#825</a>
+- Fix Codex wait-agent watchdog liveness — @baron · <a href="https://github.com/repoprompt/repoprompt-ce/pull/833" target="_blank" rel="noopener noreferrer">#833</a>
+- Fix replace-all matching with reused full-file indexes — @morluto · <a href="https://github.com/repoprompt/repoprompt-ce/pull/737" target="_blank" rel="noopener noreferrer">#737</a>
+- Add Grok Build CLI to Oracle and built-in chat models — @dsebban · <a href="https://github.com/repoprompt/repoprompt-ce/pull/838" target="_blank" rel="noopener noreferrer">#838</a>
+- test: stabilize worktree API smoke and agent-run startup — @dsebban · <a href="https://github.com/repoprompt/repoprompt-ce/pull/832" target="_blank" rel="noopener noreferrer">#832</a>
+- Add a Codex project hook approval flow to Agent Mode — @mplibunao · <a href="https://github.com/repoprompt/repoprompt-ce/pull/678" target="_blank" rel="noopener noreferrer">#678</a>
+- Bound release network operations and recover Sentry finalization — @baron · <a href="https://github.com/repoprompt/repoprompt-ce/pull/579" target="_blank" rel="noopener noreferrer">#579</a>
+- Fix bind_context active workspace routing — @nickdavis · <a href="https://github.com/repoprompt/repoprompt-ce/pull/812" target="_blank" rel="noopener noreferrer">#812</a>
+- Add session ID copying to Agent Mode sidebar menus — @aAtila · <a href="https://github.com/repoprompt/repoprompt-ce/pull/846" target="_blank" rel="noopener noreferrer">#846</a>
+- Reject rootless working_dirs tab bindings — @nickdavis · <a href="https://github.com/repoprompt/repoprompt-ce/pull/835" target="_blank" rel="noopener noreferrer">#835</a>
+- Enable Codex apps with runtime 0.149.0 — @nickdavis · <a href="https://github.com/repoprompt/repoprompt-ce/pull/851" target="_blank" rel="noopener noreferrer">#851</a>
+- Harden Apple identity migration bridge — @baron · <a href="https://github.com/repoprompt/repoprompt-ce/pull/857" target="_blank" rel="noopener noreferrer">#857</a>
+- Fix: App hang in MessageTimestampFormatterCache.CacheKey.init — @sentry[bot] · <a href="https://github.com/repoprompt/repoprompt-ce/pull/819" target="_blank" rel="noopener noreferrer">#819</a>
+- Include session title in handoff prompt — @baron · <a href="https://github.com/repoprompt/repoprompt-ce/pull/747" target="_blank" rel="noopener noreferrer">#747</a>
+- Fix Grok Oracle returning progress text instead of an answer — @dsebban · <a href="https://github.com/repoprompt/repoprompt-ce/pull/856" target="_blank" rel="noopener noreferrer">#856</a>
+- Harden identity rollover runtime safety — @baron · <a href="https://github.com/repoprompt/repoprompt-ce/pull/868" target="_blank" rel="noopener noreferrer">#868</a>
+- Add dormant identity transition release tooling — @baron · <a href="https://github.com/repoprompt/repoprompt-ce/pull/869" target="_blank" rel="noopener noreferrer">#869</a>
+- Enable Tip identity transition rehearsal — @baron · <a href="https://github.com/repoprompt/repoprompt-ce/pull/870" target="_blank" rel="noopener noreferrer">#870</a>
+- Fix Tip identity transition release credentials — @baron · <a href="https://github.com/repoprompt/repoprompt-ce/pull/873" target="_blank" rel="noopener noreferrer">#873</a>
+- Make Tip identity rollout dispatches reliable and truthful — @baron · <a href="https://github.com/repoprompt/repoprompt-ce/pull/874" target="_blank" rel="noopener noreferrer">#874</a>
+- Fail Tip identity credential errors before staging — @baron · <a href="https://github.com/repoprompt/repoprompt-ce/pull/876" target="_blank" rel="noopener noreferrer">#876</a>
+- Fix Tip staged rollout authority — @baron · <a href="https://github.com/repoprompt/repoprompt-ce/pull/879" target="_blank" rel="noopener noreferrer">#879</a>
+- Fix Tip signed artifact handoff — @baron · <a href="https://github.com/repoprompt/repoprompt-ce/pull/880" target="_blank" rel="noopener noreferrer">#880</a>
+- Fix Tip appcast generation without predecessors — @baron · <a href="https://github.com/repoprompt/repoprompt-ce/pull/883" target="_blank" rel="noopener noreferrer">#883</a>
+- Enable Tip identity transition role — @baron · <a href="https://github.com/repoprompt/repoprompt-ce/pull/885" target="_blank" rel="noopener noreferrer">#885</a>
+- Fix Tip transition stage identity validation — @baron · <a href="https://github.com/repoprompt/repoprompt-ce/pull/888" target="_blank" rel="noopener noreferrer">#888</a>
+- Fix Tip signer identity projection — @baron · <a href="https://github.com/repoprompt/repoprompt-ce/pull/890" target="_blank" rel="noopener noreferrer">#890</a>
+- Separate sidebar command progress from bulk selection UI — @aAtila · <a href="https://github.com/repoprompt/repoprompt-ce/pull/878" target="_blank" rel="noopener noreferrer">#878</a>
+- Refactor Apple identity transition release pipeline — @baron · <a href="https://github.com/repoprompt/repoprompt-ce/pull/894" target="_blank" rel="noopener noreferrer">#894</a>
+- Replace Tip release machinery with a direct protected-main publisher — @baron · <a href="https://github.com/repoprompt/repoprompt-ce/pull/895" target="_blank" rel="noopener noreferrer">#895</a>
+- Restore automatic Tip publication for all rollout roles — @baron · <a href="https://github.com/repoprompt/repoprompt-ce/pull/896" target="_blank" rel="noopener noreferrer">#896</a>
+- Remove manual Tip rollout role input — @baron · <a href="https://github.com/repoprompt/repoprompt-ce/pull/901" target="_blank" rel="noopener noreferrer">#901</a>
+- Refactor CI tests into deterministic contract and integration lanes — @baron · <a href="https://github.com/repoprompt/repoprompt-ce/pull/899" target="_blank" rel="noopener noreferrer">#899</a>
+- Fix redundant Tip package notarization — @baron · <a href="https://github.com/repoprompt/repoprompt-ce/pull/905" target="_blank" rel="noopener noreferrer">#905</a>
+- Fix Tip package signing key authorization — @baron · <a href="https://github.com/repoprompt/repoprompt-ce/pull/907" target="_blank" rel="noopener noreferrer">#907</a>
+- Fix: restore global Codex instructions in Agent Mode — @w-winter · <a href="https://github.com/repoprompt/repoprompt-ce/pull/906" target="_blank" rel="noopener noreferrer">#906</a>
+- Refactor test suite to remove low-value and timing-dependent coverage — @baron · <a href="https://github.com/repoprompt/repoprompt-ce/pull/908" target="_blank" rel="noopener noreferrer">#908</a>
+- Fix CLI single-shot selector routing — @mplibunao · <a href="https://github.com/repoprompt/repoprompt-ce/pull/904" target="_blank" rel="noopener noreferrer">#904</a>
+- Release v1.4.0 — @baron · <a href="https://github.com/repoprompt/repoprompt-ce/pull/909" target="_blank" rel="noopener noreferrer">#909</a>
 
-- Scale MCP read\_file concurrency to machine capacity
-- Globalize Context Builder Settings behavior and make Analysis Budget independent
-- Agent Mode: eliminate app hang from AgentImageInputAdapter init
-- Stabilize AgentRunWorktreeStartTests production-capture selection race
-- Dismiss tooltips when owner windows change lifecycle
-- Add multi-select and bulk actions to Agent Mode chats
-- Fix: Unify exact read and mutation paths
-- Add stored prompt management controls
-- Fix: decode legacy mutation journal status
-- Prevent ephemeral workspace leaks and add safe bulk cleanup
-- Route direct-headless agents through existing worktrees
-- Add Grok Build CLI as an ACP Agent Mode provider
-- Fix: bound MCP structure settlement recovery
-- Fix: expose global skills to Codex agents
-- Add inline file browser to manually add files and codemaps to selected set in Context Composer
-- Fix Codex session disconnect during worktree rebinding
-- Add Grok Build reasoning-effort selection
-- Fix Codex wait-agent watchdog liveness
-- Fix replace-all matching with reused full-file indexes
-- Add Grok Build CLI to Oracle and built-in chat models
-- test: stabilize worktree API smoke and agent-run startup
-- Add a Codex project hook approval flow to Agent Mode
-- Bound release network operations and recover Sentry finalization
-- Fix bind\_context active workspace routing
-- Add session ID copying to Agent Mode sidebar menus
-- Reject rootless working\_dirs tab bindings
-- Enable Codex apps with runtime 0.149.0
-- Harden Apple identity migration bridge
-- Fix app hang in MessageTimestampFormatterCache.CacheKey.init
-- Include session title in handoff prompt
-- Fix Grok Oracle returning progress text instead of an answer
-- Harden identity rollover runtime safety
-- Add dormant identity transition release tooling
-- Enable Tip identity transition rehearsal
-- Fix Tip identity transition release credentials
-- Make Tip identity rollout dispatches reliable and truthful
-- Fail Tip identity credential errors before staging
-- Fix Tip staged rollout authority
-- Fix Tip signed artifact handoff
-- Fix Tip appcast generation without predecessors
-- Enable Tip identity transition role
-- Fix Tip transition stage identity validation
-- Fix Tip signer identity projection
-- Separate sidebar command progress from bulk selection UI
-- Refactor Apple identity transition release pipeline
-- Replace Tip release machinery with a direct protected-main publisher
-- Restore automatic Tip publication for all rollout roles
-- Remove manual Tip rollout role input
-- Refactor CI tests into deterministic contract and integration lanes
-- Fix redundant Tip package notarization
-- Fix Tip package signing key authorization
-- Fix: restore global Codex instructions in Agent Mode
-- Refactor test suite to remove low-value and timing-dependent coverage
-- Fix CLI single-shot selector routing
+**New Contributors**
+- 0xNino made their first contribution.
+
+**[Full Changelog for 1.4.0](https://github.com/repoprompt/repoprompt-ce/compare/v1.3.0...v1.4.0)**
 
 #### 1.3.0 - August 11, 2026
 
-What's Changed
+**What's Changed**
+- Trace worktree startup stall in shard 2 — @baron · <a href="https://github.com/repoprompt/repoprompt-ce/pull/721" target="_blank" rel="noopener noreferrer">#721</a>
+- Remove the 500-tab background Agent limit — @baron · <a href="https://github.com/repoprompt/repoprompt-ce/pull/720" target="_blank" rel="noopener noreferrer">#720</a>
+- Use scoped locking for ACP async state transitions — @baron · <a href="https://github.com/repoprompt/repoprompt-ce/pull/719" target="_blank" rel="noopener noreferrer">#719</a>
+- fix: require authoritative context builder completion — @w-winter · <a href="https://github.com/repoprompt/repoprompt-ce/pull/722" target="_blank" rel="noopener noreferrer">#722</a>
+- feat: show sessionless compose tabs in agent chats — @w-winter · <a href="https://github.com/repoprompt/repoprompt-ce/pull/716" target="_blank" rel="noopener noreferrer">#716</a>
+- Fix automatic Agent Mode tab eviction — @baron · <a href="https://github.com/repoprompt/repoprompt-ce/pull/723" target="_blank" rel="noopener noreferrer">#723</a>
+- Cancel superseded pull request CI runs — @morluto · <a href="https://github.com/repoprompt/repoprompt-ce/pull/741" target="_blank" rel="noopener noreferrer">#741</a>
+- P0: Protect live Agent session identity during admission — @baron · <a href="https://github.com/repoprompt/repoprompt-ce/pull/742" target="_blank" rel="noopener noreferrer">#742</a>
+- Report preset save failures and roll back non-durable edits — @morluto · <a href="https://github.com/repoprompt/repoprompt-ce/pull/733" target="_blank" rel="noopener noreferrer">#733</a>
+- Fix workspace authority conflict recovery — @baron · <a href="https://github.com/repoprompt/repoprompt-ce/pull/744" target="_blank" rel="noopener noreferrer">#744</a>
+- Harden legacy defaults collection during startup — @baron · <a href="https://github.com/repoprompt/repoprompt-ce/pull/745" target="_blank" rel="noopener noreferrer">#745</a>
+- Prevent cancelled CLI requests from stalling or spawning — @morluto · <a href="https://github.com/repoprompt/repoprompt-ce/pull/724" target="_blank" rel="noopener noreferrer">#724</a>
+- Prevent cancelled tasks from entering an unlocked AsyncMutex — @morluto · <a href="https://github.com/repoprompt/repoprompt-ce/pull/725" target="_blank" rel="noopener noreferrer">#725</a>
+- Self-heal workspace authority revision races — @baron · <a href="https://github.com/repoprompt/repoprompt-ce/pull/746" target="_blank" rel="noopener noreferrer">#746</a>
+- Settle cancelled Codex stderr waiters promptly — @morluto · <a href="https://github.com/repoprompt/repoprompt-ce/pull/738" target="_blank" rel="noopener noreferrer">#738</a>
+- Allow MessageReaper to tear down with queued messages — @morluto · <a href="https://github.com/repoprompt/repoprompt-ce/pull/734" target="_blank" rel="noopener noreferrer">#734</a>
+- Synchronize transcript debug instrumentation callbacks — @morluto · <a href="https://github.com/repoprompt/repoprompt-ce/pull/736" target="_blank" rel="noopener noreferrer">#736</a>
+- Clear transcript refresh signatures after tab removal — @morluto · <a href="https://github.com/repoprompt/repoprompt-ce/pull/739" target="_blank" rel="noopener noreferrer">#739</a>
+- Migrate RepoPromptShared to Swift 6 — @baron · <a href="https://github.com/repoprompt/repoprompt-ce/pull/753" target="_blank" rel="noopener noreferrer">#753</a>
+- Fence tool-card presentation derivation from render recomputation — @baron · <a href="https://github.com/repoprompt/repoprompt-ce/pull/754" target="_blank" rel="noopener noreferrer">#754</a>
+- Establish neutral agent execution contracts — @baron · <a href="https://github.com/repoprompt/repoprompt-ce/pull/756" target="_blank" rel="noopener noreferrer">#756</a>
+- fix: make agent read_file selection converge — @w-winter · <a href="https://github.com/repoprompt/repoprompt-ce/pull/755" target="_blank" rel="noopener noreferrer">#755</a>
+- Agent Mode: classify terminal failures at settlement — @baron · <a href="https://github.com/repoprompt/repoprompt-ce/pull/759" target="_blank" rel="noopener noreferrer">#759</a>
+- Agent Mode: extract run-attempt lifecycle authority — @baron · <a href="https://github.com/repoprompt/repoprompt-ce/pull/763" target="_blank" rel="noopener noreferrer">#763</a>
+- Make agent run identity teardown stale-safe — @baron · <a href="https://github.com/repoprompt/repoprompt-ce/pull/764" target="_blank" rel="noopener noreferrer">#764</a>
+- Harden conductor control-plane resilience — @baron · <a href="https://github.com/repoprompt/repoprompt-ce/pull/765" target="_blank" rel="noopener noreferrer">#765</a>
+- Bundle Codex 0.147.0 and fix exec permissions — @nickdavis · <a href="https://github.com/repoprompt/repoprompt-ce/pull/748" target="_blank" rel="noopener noreferrer">#748</a>
+- Add durable conductor build cache — @baron · <a href="https://github.com/repoprompt/repoprompt-ce/pull/766" target="_blank" rel="noopener noreferrer">#766</a>
+- Harden workspace-switch runtime ownership transfer — @baron · <a href="https://github.com/repoprompt/repoprompt-ce/pull/767" target="_blank" rel="noopener noreferrer">#767</a>
+- fix(mcp): add Sonoma async frame compatibility barrier — @baron · <a href="https://github.com/repoprompt/repoprompt-ce/pull/768" target="_blank" rel="noopener noreferrer">#768</a>
+- Agent Mode: bind terminal settlement to exact sessions — @baron · <a href="https://github.com/repoprompt/repoprompt-ce/pull/772" target="_blank" rel="noopener noreferrer">#772</a>
+- Agent Mode: hoist terminal attachment disposition — @baron · <a href="https://github.com/repoprompt/repoprompt-ce/pull/773" target="_blank" rel="noopener noreferrer">#773</a>
+- Agent Mode: detach Claude coordinator from view model — @baron · <a href="https://github.com/repoprompt/repoprompt-ce/pull/776" target="_blank" rel="noopener noreferrer">#776</a>
+- feat(agent-mode): add pinned Claude Opus 4.8 picker model — @aAtila · <a href="https://github.com/repoprompt/repoprompt-ce/pull/774" target="_blank" rel="noopener noreferrer">#774</a>
+- Bound untrusted Agent Mode tool names before normalization — @baron · <a href="https://github.com/repoprompt/repoprompt-ce/pull/770" target="_blank" rel="noopener noreferrer">#770</a>
+- Enforce one accounting identity per prompt file — @baron · <a href="https://github.com/repoprompt/repoprompt-ce/pull/777" target="_blank" rel="noopener noreferrer">#777</a>
+- Agent Mode: centralize Claude settlement authority — @baron · <a href="https://github.com/repoprompt/repoprompt-ce/pull/778" target="_blank" rel="noopener noreferrer">#778</a>
+- feat: streamline Context Composer entry points — @w-winter · <a href="https://github.com/repoprompt/repoprompt-ce/pull/783" target="_blank" rel="noopener noreferrer">#783</a>
+- Agent Mode: extract top-level tab session — @baron · <a href="https://github.com/repoprompt/repoprompt-ce/pull/784" target="_blank" rel="noopener noreferrer">#784</a>
+- Update APPROVED_CONTRIBUTORS — @baron · <a href="https://github.com/repoprompt/repoprompt-ce/pull/785" target="_blank" rel="noopener noreferrer">#785</a>
+- Agent Mode: share transient execution classification — @baron · <a href="https://github.com/repoprompt/repoprompt-ce/pull/786" target="_blank" rel="noopener noreferrer">#786</a>
+- Oracle: extract headless streaming runtime — @baron · <a href="https://github.com/repoprompt/repoprompt-ce/pull/787" target="_blank" rel="noopener noreferrer">#787</a>
+- Prompt: extract stored-prompt persistence boundary — @baron · <a href="https://github.com/repoprompt/repoprompt-ce/pull/788" target="_blank" rel="noopener noreferrer">#788</a>
+- Reconstruct diff chunks without repeated array shifts — @morluto · <a href="https://github.com/repoprompt/repoprompt-ce/pull/735" target="_blank" rel="noopener noreferrer">#735</a>
+- Add focused-build cost reporting and high-output conductor diagnostics — @morluto · <a href="https://github.com/repoprompt/repoprompt-ce/pull/521" target="_blank" rel="noopener noreferrer">#521</a>
+- fix(agent-mode): eliminate O(N) snapshot copies in handoffConfig — @sentry[bot] · <a href="https://github.com/repoprompt/repoprompt-ce/pull/780" target="_blank" rel="noopener noreferrer">#780</a>
+- Preserve Context Builder pending context through routing — @morluto · <a href="https://github.com/repoprompt/repoprompt-ce/pull/566" target="_blank" rel="noopener noreferrer">#566</a>
+- Add built-in workflow parity to direct headless mode — @nickdavis · <a href="https://github.com/repoprompt/repoprompt-ce/pull/760" target="_blank" rel="noopener noreferrer">#760</a>
+- Agent Mode: share Codex transient execution classification — @baron · <a href="https://github.com/repoprompt/repoprompt-ce/pull/791" target="_blank" rel="noopener noreferrer">#791</a>
+- Agent Mode: share Claude transient execution classification — @baron · <a href="https://github.com/repoprompt/repoprompt-ce/pull/792" target="_blank" rel="noopener noreferrer">#792</a>
+- Agent Mode: share ACP transient execution classification — @baron · <a href="https://github.com/repoprompt/repoprompt-ce/pull/793" target="_blank" rel="noopener noreferrer">#793</a>
+- Add operation-level MCP concurrency evidence — @baron · <a href="https://github.com/repoprompt/repoprompt-ce/pull/794" target="_blank" rel="noopener noreferrer">#794</a>
+- Release v1.3.0 — @baron · <a href="https://github.com/repoprompt/repoprompt-ce/pull/797" target="_blank" rel="noopener noreferrer">#797</a>
 
-- Trace worktree startup stall in shard 2
-- Remove the 500-tab background Agent limit
-- Use scoped locking for ACP async state transitions
-- fix: require authoritative context builder completion
-- feat: show sessionless compose tabs in agent chats
-- Fix automatic Agent Mode tab eviction
-- Cancel superseded pull request CI runs
-- P0: Protect live Agent session identity during admission
-- Report preset save failures and roll back non-durable edits
-- Fix workspace authority conflict recovery
-- Harden legacy defaults collection during startup
-- Prevent cancelled CLI requests from stalling or spawning
-- Prevent cancelled tasks from entering an unlocked AsyncMutex
-- Self-heal workspace authority revision races
-- Settle cancelled Codex stderr waiters promptly
-- Allow MessageReaper to tear down with queued messages
-- Synchronize transcript debug instrumentation callbacks
-- Clear transcript refresh signatures after tab removal
-- Migrate RepoPromptShared to Swift 6
-- Fence tool-card presentation derivation from render recomputation
-- Establish neutral agent execution contracts
-- fix: make agent read\_file selection converge
-- Agent Mode: classify terminal failures at settlement
-- Agent Mode: extract run-attempt lifecycle authority
-- Make agent run identity teardown stale-safe
-- Harden conductor control-plane resilience
-- Bundle Codex 0.147.0 and fix exec permissions
-- Add durable conductor build cache
-- Harden workspace-switch runtime ownership transfer
-- fix(mcp): add Sonoma async frame compatibility barrier
-- Agent Mode: bind terminal settlement to exact sessions
-- Agent Mode: hoist terminal attachment disposition
-- Agent Mode: detach Claude coordinator from view model
-- feat(agent-mode): add pinned Claude Opus 4.8 picker model
-- Bound untrusted Agent Mode tool names before normalization
-- Enforce one accounting identity per prompt file
-- Agent Mode: centralize Claude settlement authority
-- feat: streamline Context Composer entry points
-- Agent Mode: extract top-level tab session
-- Update approved contributors
-- Agent Mode: share transient execution classification
-- Oracle: extract headless streaming runtime
-- Prompt: extract stored-prompt persistence boundary
-- Reconstruct diff chunks without repeated array shifts
-- Add focused-build cost reporting and high-output conductor diagnostics
-- fix(agent-mode): eliminate O(N) snapshot copies in handoffConfig
-- Preserve Context Builder pending context through routing
-- Add built-in workflow parity to direct headless mode
-- Agent Mode: share Codex transient execution classification
-- Agent Mode: share Claude transient execution classification
-- Add operation-level MCP concurrency evidence
+**[Full Changelog for 1.3.0](https://github.com/repoprompt/repoprompt-ce/compare/v1.2.0...v1.3.0)**
 
 #### 1.2.0 - August 3, 2026
 
-What's Changed
+**What's Changed**
+- Surface Code Map recovery exhaustion — @baron · <a href="https://github.com/repoprompt/repoprompt-ce/pull/689" target="_blank" rel="noopener noreferrer">#689</a>
+- Prevent file-action watchdog stalls during mutation I/O — @baron · <a href="https://github.com/repoprompt/repoprompt-ce/pull/688" target="_blank" rel="noopener noreferrer">#688</a>
+- Headless runtime M1: add runtime and catalog foundation — @provencher · <a href="https://github.com/repoprompt/repoprompt-ce/pull/640" target="_blank" rel="noopener noreferrer">#640</a>
+- Fix Oracle heartbeat liveness tracking — @dsebban · <a href="https://github.com/repoprompt/repoprompt-ce/pull/696" target="_blank" rel="noopener noreferrer">#696</a>
+- Fix App Hang: Disable text checking in AttributedTextView — @sentry[bot] · <a href="https://github.com/repoprompt/repoprompt-ce/pull/697" target="_blank" rel="noopener noreferrer">#697</a>
+- Fix App Hang: Optimize string prefix checks — @sentry[bot] · <a href="https://github.com/repoprompt/repoprompt-ce/pull/683" target="_blank" rel="noopener noreferrer">#683</a>
+- Fix AnchorGeometryView app hang — @sentry[bot] · <a href="https://github.com/repoprompt/repoprompt-ce/pull/685" target="_blank" rel="noopener noreferrer">#685</a>
+- Fix agent workspace performance regression — @baron · <a href="https://github.com/repoprompt/repoprompt-ce/pull/680" target="_blank" rel="noopener noreferrer">#680</a>
+- Improve ChatGPT login resilience and managed sign-out — @baron · <a href="https://github.com/repoprompt/repoprompt-ce/pull/698" target="_blank" rel="noopener noreferrer">#698</a>
+- Fix EXC_BREAKPOINT from dictionary mutation during iteration — @sentry[bot] · <a href="https://github.com/repoprompt/repoprompt-ce/pull/693" target="_blank" rel="noopener noreferrer">#693</a>
+- Headless runtime M2: move workspace/context authority — @provencher · <a href="https://github.com/repoprompt/repoprompt-ce/pull/643" target="_blank" rel="noopener noreferrer">#643</a>
+- Add opt-in Codex memories setting — @baron · <a href="https://github.com/repoprompt/repoprompt-ce/pull/691" target="_blank" rel="noopener noreferrer">#691</a>
+- Fix Tip socket ownership startup race — @baron · <a href="https://github.com/repoprompt/repoprompt-ce/pull/699" target="_blank" rel="noopener noreferrer">#699</a>
+- Headless runtime M3: migrate read and discovery families — @provencher · <a href="https://github.com/repoprompt/repoprompt-ce/pull/657" target="_blank" rel="noopener noreferrer">#657</a>
+- Keep failed CI from evicting Tip builds — @baron · <a href="https://github.com/repoprompt/repoprompt-ce/pull/700" target="_blank" rel="noopener noreferrer">#700</a>
+- M4: protect MCP mutations and security boundaries — @provencher · <a href="https://github.com/repoprompt/repoprompt-ce/pull/660" target="_blank" rel="noopener noreferrer">#660</a>
+- Provision Keychain for packaged release smoke — @baron · <a href="https://github.com/repoprompt/repoprompt-ce/pull/701" target="_blank" rel="noopener noreferrer">#701</a>
+- Remove test contract ledger system — @baron · <a href="https://github.com/repoprompt/repoprompt-ce/pull/704" target="_blank" rel="noopener noreferrer">#704</a>
+- Stabilize ledger-free CI routing and codemap contracts — @baron · <a href="https://github.com/repoprompt/repoprompt-ce/pull/705" target="_blank" rel="noopener noreferrer">#705</a>
+- [6/8] M5: move AI, Agent, Context Builder, and interaction into domain runtime — @provencher · <a href="https://github.com/repoprompt/repoprompt-ce/pull/664" target="_blank" rel="noopener noreferrer">#664</a>
+- Fix M5 credential pruning type inference — @baron · <a href="https://github.com/repoprompt/repoprompt-ce/pull/706" target="_blank" rel="noopener noreferrer">#706</a>
+- Optimize Agent Mode sidebar projection caching — @baron · <a href="https://github.com/repoprompt/repoprompt-ce/pull/703" target="_blank" rel="noopener noreferrer">#703</a>
+- Fix protected mutation commit boundary — @baron · <a href="https://github.com/repoprompt/repoprompt-ce/pull/707" target="_blank" rel="noopener noreferrer">#707</a>
+- Add Compose: context inspector inspired by RP Classic — @w-winter · <a href="https://github.com/repoprompt/repoprompt-ce/pull/535" target="_blank" rel="noopener noreferrer">#535</a>
+- [7/8] M6: Add direct headless MCP runtime — @provencher · <a href="https://github.com/repoprompt/repoprompt-ce/pull/674" target="_blank" rel="noopener noreferrer">#674</a>
+- M7: complete headless MCP runtime cutover — @provencher · <a href="https://github.com/repoprompt/repoprompt-ce/pull/677" target="_blank" rel="noopener noreferrer">#677</a>
+- perf: coalesce compose inspector refresh work — @baron · <a href="https://github.com/repoprompt/repoprompt-ce/pull/709" target="_blank" rel="noopener noreferrer">#709</a>
+- Fix current-main CI blockers after M7 merge — @baron · <a href="https://github.com/repoprompt/repoprompt-ce/pull/712" target="_blank" rel="noopener noreferrer">#712</a>
+- Release v1.2.0 — @baron · <a href="https://github.com/repoprompt/repoprompt-ce/pull/714" target="_blank" rel="noopener noreferrer">#714</a>
 
-- Surface Code Map recovery exhaustion
-- Prevent file-action watchdog stalls during mutation I/O
-- Headless runtime M1: add runtime and catalog foundation
-- Fix Oracle heartbeat liveness tracking
-- Fix App Hang: Disable text checking in AttributedTextView
-- Fix App Hang: Optimize string prefix checks
-- Fix AnchorGeometryView app hang
-- Fix agent workspace performance regression
-- Improve ChatGPT login resilience and managed sign-out
-- Fix EXC\_BREAKPOINT from dictionary mutation during iteration
-- Headless runtime M2: move workspace/context authority
-- Add opt-in Codex memories setting
-- Fix Tip socket ownership startup race
-- Headless runtime M3: migrate read and discovery families
-- Keep failed CI from evicting Tip builds
-- M4: protect MCP mutations and security boundaries
-- Provision Keychain for packaged release smoke
-- Remove test contract ledger system
-- Stabilize ledger-free CI routing and codemap contracts
-- \[6/8\] M5: move AI, Agent, Context Builder, and interaction into domain runtime
-- Fix M5 credential pruning type inference
-- Optimize Agent Mode sidebar projection caching
-- Fix protected mutation commit boundary
-- Add Compose: context inspector inspired by RP Classic
-- \[7/8\] M6: Add direct headless MCP runtime
-- M7: complete headless MCP runtime cutover
-- perf: coalesce compose inspector refresh work
-- Fix current-main CI blockers after M7 merge
+**[Full Changelog for 1.2.0](https://github.com/repoprompt/repoprompt-ce/compare/v1.1.2...v1.2.0)**
 
 #### 1.1.2 - July 30, 2026
 
-What's Changed
+**What's Changed**
+- Add semantic text-direction roles for app surfaces — @baron · <a href="https://github.com/repoprompt/repoprompt-ce/pull/670" target="_blank" rel="noopener noreferrer">#670</a>
+- Clamp Markdown selections before TextKit restoration — @baron · <a href="https://github.com/repoprompt/repoprompt-ce/pull/671" target="_blank" rel="noopener noreferrer">#671</a>
+- Preserve inline-code direction in mixed RTL Markdown — @baron · <a href="https://github.com/repoprompt/repoprompt-ce/pull/672" target="_blank" rel="noopener noreferrer">#672</a>
+- Rebase PR #70: Linkify Agent Mode prose URLs — @dah · <a href="https://github.com/repoprompt/repoprompt-ce/pull/684" target="_blank" rel="noopener noreferrer">#684</a>
+- Headless runtime M0: freeze contracts and evidence gates — @provencher · <a href="https://github.com/repoprompt/repoprompt-ce/pull/639" target="_blank" rel="noopener noreferrer">#639</a>
+- Fix Data.WritingOptions conflict in writeHandoffPayload — @sentry[bot] · <a href="https://github.com/repoprompt/repoprompt-ce/pull/690" target="_blank" rel="noopener noreferrer">#690</a>
+- Fix MCP settlement across Codex turns and file mutations — @provencher · <a href="https://github.com/repoprompt/repoprompt-ce/pull/687" target="_blank" rel="noopener noreferrer">#687</a>
+- Release v1.1.2 — @baron · <a href="https://github.com/repoprompt/repoprompt-ce/pull/692" target="_blank" rel="noopener noreferrer">#692</a>
 
-- Add semantic text-direction roles for app surfaces
-- Clamp Markdown selections before TextKit restoration
-- Preserve inline-code direction in mixed RTL Markdown
-- Linkify Agent Mode prose URLs
-- Headless runtime M0: freeze contracts and evidence gates
-- Fix Data.WritingOptions conflict in writeHandoffPayload
-- Fix MCP settlement across Codex turns and file mutations
+**[Full Changelog for 1.1.2](https://github.com/repoprompt/repoprompt-ce/compare/v1.1.1...v1.1.2)**
 
 #### 1.1.1 - July 29, 2026
 
-What's Changed
+**What's Changed**
+- Fix Codex app-server tool override policy — @baron · <a href="https://github.com/repoprompt/repoprompt-ce/pull/603" target="_blank" rel="noopener noreferrer">#603</a>
+- Add Codex app-server schema drift gate — @baron · <a href="https://github.com/repoprompt/repoprompt-ce/pull/604" target="_blank" rel="noopener noreferrer">#604</a>
+- perf: reduce codemap full-load latency — @provencher · <a href="https://github.com/repoprompt/repoprompt-ce/pull/600" target="_blank" rel="noopener noreferrer">#600</a>
+- build: bundle pinned Codex runtimes — @baron · <a href="https://github.com/repoprompt/repoprompt-ce/pull/605" target="_blank" rel="noopener noreferrer">#605</a>
+- Fix worktree-bound Codex app-server startup — @mplibunao · <a href="https://github.com/repoprompt/repoprompt-ce/pull/568" target="_blank" rel="noopener noreferrer">#568</a>
+- Fix bundled Codex release signing — @baron · <a href="https://github.com/repoprompt/repoprompt-ce/pull/606" target="_blank" rel="noopener noreferrer">#606</a>
+- Stabilize synthetic watcher integration tests — @baron · <a href="https://github.com/repoprompt/repoprompt-ce/pull/607" target="_blank" rel="noopener noreferrer">#607</a>
+- Optimize Swift and TypeScript CodeMap pipelines — @provencher · <a href="https://github.com/repoprompt/repoprompt-ce/pull/608" target="_blank" rel="noopener noreferrer">#608</a>
+- Add Agent Mode session handoff prompt — @baron · <a href="https://github.com/repoprompt/repoprompt-ce/pull/610" target="_blank" rel="noopener noreferrer">#610</a>
+- Fix packaged MCP smoke ownership checks — @baron · <a href="https://github.com/repoprompt/repoprompt-ce/pull/611" target="_blank" rel="noopener noreferrer">#611</a>
+- feat: make bundled Codex runtime authoritative — @baron · <a href="https://github.com/repoprompt/repoprompt-ce/pull/612" target="_blank" rel="noopener noreferrer">#612</a>
+- Make Codex session routing deterministic per tab — @baron · <a href="https://github.com/repoprompt/repoprompt-ce/pull/614" target="_blank" rel="noopener noreferrer">#614</a>
+- Add per-root Code Map generation controls — @provencher · <a href="https://github.com/repoprompt/repoprompt-ce/pull/609" target="_blank" rel="noopener noreferrer">#609</a>
+- feat(deep-plan): treat the context_builder export as a preservation baseline — @w-winter · <a href="https://github.com/repoprompt/repoprompt-ce/pull/615" target="_blank" rel="noopener noreferrer">#615</a>
+- Bound Codex app-server liveness and silent hangs — @baron · <a href="https://github.com/repoprompt/repoprompt-ce/pull/617" target="_blank" rel="noopener noreferrer">#617</a>
+- fix(mcp): preserve caller binding during agent runs — @w-winter · <a href="https://github.com/repoprompt/repoprompt-ce/pull/616" target="_blank" rel="noopener noreferrer">#616</a>
+- Fix Codex legacy thread resume by forwarding rollout path — @baron · <a href="https://github.com/repoprompt/repoprompt-ce/pull/618" target="_blank" rel="noopener noreferrer">#618</a>
+- Fix MCP reconnect abort and Git artifact fence spin — @baron · <a href="https://github.com/repoprompt/repoprompt-ce/pull/613" target="_blank" rel="noopener noreferrer">#613</a>
+- Replace codemap projections with root-local incremental graphs — @provencher · <a href="https://github.com/repoprompt/repoprompt-ce/pull/621" target="_blank" rel="noopener noreferrer">#621</a>
+- Fix Codex session tenacity recovery — @baron · <a href="https://github.com/repoprompt/repoprompt-ce/pull/623" target="_blank" rel="noopener noreferrer">#623</a>
+- Fix release codemap event type visibility — @baron · <a href="https://github.com/repoprompt/repoprompt-ce/pull/624" target="_blank" rel="noopener noreferrer">#624</a>
+- Optimize Codex thread startup memory policy — @baron · <a href="https://github.com/repoprompt/repoprompt-ce/pull/625" target="_blank" rel="noopener noreferrer">#625</a>
+- Preserve Codex completion across active reattach — @baron · <a href="https://github.com/repoprompt/repoprompt-ce/pull/626" target="_blank" rel="noopener noreferrer">#626</a>
+- Add Claude Opus 5 support — @baron · <a href="https://github.com/repoprompt/repoprompt-ce/pull/627" target="_blank" rel="noopener noreferrer">#627</a>
+- fix(agent-run): improve respond validation diagnostics — @w-winter · <a href="https://github.com/repoprompt/repoprompt-ce/pull/622" target="_blank" rel="noopener noreferrer">#622</a>
+- Fix stale codemap proof reclassification — @baron · <a href="https://github.com/repoprompt/repoprompt-ce/pull/628" target="_blank" rel="noopener noreferrer">#628</a>
+- Make async test oracles deterministic — @provencher · <a href="https://github.com/repoprompt/repoprompt-ce/pull/629" target="_blank" rel="noopener noreferrer">#629</a>
+- Automate guarded Codex runtime update candidates — @baron · <a href="https://github.com/repoprompt/repoprompt-ce/pull/633" target="_blank" rel="noopener noreferrer">#633</a>
+- Rebase 315/316 collapse nested threads and clean up provider conversations — @dah · <a href="https://github.com/repoprompt/repoprompt-ce/pull/630" target="_blank" rel="noopener noreferrer">#630</a>
+- Fix Finder launch and install commands when only Xcode beta is installed — @dah · <a href="https://github.com/repoprompt/repoprompt-ce/pull/631" target="_blank" rel="noopener noreferrer">#631</a>
+- Restore Codex messages rejected before dispatch — @baron · <a href="https://github.com/repoprompt/repoprompt-ce/pull/619" target="_blank" rel="noopener noreferrer">#619</a>
+- Update bundled Codex to 0.145.0 — @baron · <a href="https://github.com/repoprompt/repoprompt-ce/pull/635" target="_blank" rel="noopener noreferrer">#635</a>
+- Point fork dependencies at RepoPrompt organization — @provencher · <a href="https://github.com/repoprompt/repoprompt-ce/pull/638" target="_blank" rel="noopener noreferrer">#638</a>
+- Fix Codex watchdog for silent long-running tools — @baron · <a href="https://github.com/repoprompt/repoprompt-ce/pull/636" target="_blank" rel="noopener noreferrer">#636</a>
+- Add PR-ready validation timing receipts — @baron · <a href="https://github.com/repoprompt/repoprompt-ce/pull/634" target="_blank" rel="noopener noreferrer">#634</a>
+- Add MCP concurrency evidence telemetry — @baron · <a href="https://github.com/repoprompt/repoprompt-ce/pull/632" target="_blank" rel="noopener noreferrer">#632</a>
+- Improve tip update details — @baron · <a href="https://github.com/repoprompt/repoprompt-ce/pull/637" target="_blank" rel="noopener noreferrer">#637</a>
+- Show build numbers in Sparkle update alerts — @baron · <a href="https://github.com/repoprompt/repoprompt-ce/pull/641" target="_blank" rel="noopener noreferrer">#641</a>
+- Fix MCP read timeout settlement without bridge disconnect — @baron · <a href="https://github.com/repoprompt/repoprompt-ce/pull/644" target="_blank" rel="noopener noreferrer">#644</a>
+- Fix CollapsibleUserMessage performance on large messages — @sentry[bot] · <a href="https://github.com/repoprompt/repoprompt-ce/pull/601" target="_blank" rel="noopener noreferrer">#601</a>
+- Fix bundled Codex V8 JIT entitlements — @baron · <a href="https://github.com/repoprompt/repoprompt-ce/pull/647" target="_blank" rel="noopener noreferrer">#647</a>
+- Keep Tip update alerts compact — @baron · <a href="https://github.com/repoprompt/repoprompt-ce/pull/656" target="_blank" rel="noopener noreferrer">#656</a>
+- Add reusable Agent Mode handoff instructions — @erauner12 · <a href="https://github.com/repoprompt/repoprompt-ce/pull/645" target="_blank" rel="noopener noreferrer">#645</a>
+- Refresh approved contributors — @provencher · <a href="https://github.com/repoprompt/repoprompt-ce/pull/572" target="_blank" rel="noopener noreferrer">#572</a>
+- Fix Code Map stalls and manifest write amplification — @baron · <a href="https://github.com/repoprompt/repoprompt-ce/pull/659" target="_blank" rel="noopener noreferrer">#659</a>
+- Harden Code Map recovery after performance cutover — @baron · <a href="https://github.com/repoprompt/repoprompt-ce/pull/661" target="_blank" rel="noopener noreferrer">#661</a>
+- Fix Tip release optimizer ownership crash — @baron · <a href="https://github.com/repoprompt/repoprompt-ce/pull/663" target="_blank" rel="noopener noreferrer">#663</a>
+- Fix Codex watchdog for composite waits — @baron · <a href="https://github.com/repoprompt/repoprompt-ce/pull/667" target="_blank" rel="noopener noreferrer">#667</a>
+- Fix path-scoped Git artifact publication freezes — @baron · <a href="https://github.com/repoprompt/repoprompt-ce/pull/668" target="_blank" rel="noopener noreferrer">#668</a>
+- Fix duplicate physical root label traps — @erauner12 · <a href="https://github.com/repoprompt/repoprompt-ce/pull/673" target="_blank" rel="noopener noreferrer">#673</a>
+- Include steering text in Agent Mode wait interruptions — @erauner12 · <a href="https://github.com/repoprompt/repoprompt-ce/pull/669" target="_blank" rel="noopener noreferrer">#669</a>
+- Fix CodeHighlighter cache race condition — @sentry[bot] · <a href="https://github.com/repoprompt/repoprompt-ce/pull/676" target="_blank" rel="noopener noreferrer">#676</a>
+- Fix: Prevent duplicate worktree path crash — @sentry[bot] · <a href="https://github.com/repoprompt/repoprompt-ce/pull/553" target="_blank" rel="noopener noreferrer">#553</a>
+- Fix dirent struct copy causing EXC_BAD_ACCESS in FileSystemService — @sentry[bot] · <a href="https://github.com/repoprompt/repoprompt-ce/pull/602" target="_blank" rel="noopener noreferrer">#602</a>
+- Optimize Agent Mode: Transcript snapshot access — @sentry[bot] · <a href="https://github.com/repoprompt/repoprompt-ce/pull/658" target="_blank" rel="noopener noreferrer">#658</a>
+- Eliminate app hang from synchronous file open — @sentry[bot] · <a href="https://github.com/repoprompt/repoprompt-ce/pull/589" target="_blank" rel="noopener noreferrer">#589</a>
+- Release v1.1.1 — @baron · <a href="https://github.com/repoprompt/repoprompt-ce/pull/682" target="_blank" rel="noopener noreferrer">#682</a>
 
-- Fix Codex app-server tool override policy
-- Add Codex app-server schema drift gate
-- perf: reduce codemap full-load latency
-- build: bundle pinned Codex runtimes
-- Fix worktree-bound Codex app-server startup
-- Fix bundled Codex release signing
-- Stabilize synthetic watcher integration tests
-- Optimize Swift and TypeScript CodeMap pipelines
-- Add Agent Mode session handoff prompt
-- Fix packaged MCP smoke ownership checks
-- feat: make bundled Codex runtime authoritative
-- Make Codex session routing deterministic per tab
-- Add per-root Code Map generation controls
-- feat(deep-plan): treat the context\_builder export as a preservation baseline
-- Bound Codex app-server liveness and silent hangs
-- fix(mcp): preserve caller binding during agent runs
-- Fix Codex legacy thread resume by forwarding rollout path
-- Fix MCP reconnect abort and Git artifact fence spin
-- Replace codemap projections with root-local incremental graphs
-- Fix Codex session tenacity recovery
-- Fix release codemap event type visibility
-- Optimize Codex thread startup memory policy
-- Preserve Codex completion across active reattach
-- Add Claude Opus 5 support
-- fix(agent-run): improve respond validation diagnostics
-- Fix stale codemap proof reclassification
-- Make async test oracles deterministic
-- Automate guarded Codex runtime update candidates
-- Rebase 315/316 collapse nested threads and clean up provider conversations
-- Fix Finder launch and install commands when only Xcode beta is installed
-- Restore Codex messages rejected before dispatch
-- Update bundled Codex to 0.145.0
-- Point fork dependencies at RepoPrompt organization
-- Fix Codex watchdog for silent long-running tools
-- Add PR-ready validation timing receipts
-- Add MCP concurrency evidence telemetry
-- Improve tip update details
-- Show build numbers in Sparkle update alerts
-- Fix MCP read timeout settlement without bridge disconnect
-- Fix CollapsibleUserMessage performance on large messages
-- Fix bundled Codex V8 JIT entitlements
-- Keep Tip update alerts compact
-- Add reusable Agent Mode handoff instructions
-- Fix Code Map stalls and manifest write amplification
-- Harden Code Map recovery after performance cutover
-- Fix Tip release optimizer ownership crash
-- Fix Codex watchdog for composite waits
-- Fix path-scoped Git artifact publication freezes
-- Fix duplicate physical root label traps
-- Include steering text in Agent Mode wait interruptions
-- Fix CodeHighlighter cache race condition
-- Fix duplicate worktree path crash
-- Fix dirent struct copy causing EXC\_BAD\_ACCESS in FileSystemService
-- Optimize Agent Mode transcript snapshot access
-- Eliminate app hang from synchronous file open
+**New Contributors**
+- w-winter made their first contribution.
+
+**[Full Changelog for 1.1.1](https://github.com/repoprompt/repoprompt-ce/compare/v1.1.0...v1.1.1)**
 
 #### 1.1.0 - July 21, 2026
 
-What's Changed
+**What's Changed**
+- fix(release): support Sentry org:ci tokens — @baron · <a href="https://github.com/repoprompt/repoprompt-ce/pull/551" target="_blank" rel="noopener noreferrer">#551</a>
+- refactor(workspace): isolate path policy core — @provencher · <a href="https://github.com/repoprompt/repoprompt-ce/pull/559" target="_blank" rel="noopener noreferrer">#559</a>
+- Complete Agent Models workspace follow-ups — @crstdr · <a href="https://github.com/repoprompt/repoprompt-ce/pull/545" target="_blank" rel="noopener noreferrer">#545</a>
+- fix: update Codex app-server text payload key — @mplibunao · <a href="https://github.com/repoprompt/repoprompt-ce/pull/450" target="_blank" rel="noopener noreferrer">#450</a>
+- fix(mcp): avoid task-group teardown abort in runTransport retry backoff — @pnascimento9596 · <a href="https://github.com/repoprompt/repoprompt-ce/pull/517" target="_blank" rel="noopener noreferrer">#517</a>
+- Fail Codex child sessions closed when RepoPrompt MCP provisioning or routing never confirms — @mplibunao · <a href="https://github.com/repoprompt/repoprompt-ce/pull/532" target="_blank" rel="noopener noreferrer">#532</a>
+- Add durable MCP watchdog attribution — @baron · <a href="https://github.com/repoprompt/repoprompt-ce/pull/567" target="_blank" rel="noopener noreferrer">#567</a>
+- Stream Context Builder progress over standard MCP — @OCWC22 · <a href="https://github.com/repoprompt/repoprompt-ce/pull/510" target="_blank" rel="noopener noreferrer">#510</a>
+- Harden Context Builder MCP routing readiness — @baron · <a href="https://github.com/repoprompt/repoprompt-ce/pull/569" target="_blank" rel="noopener noreferrer">#569</a>
+- Preserve MCP connection on code structure timeout — @baron · <a href="https://github.com/repoprompt/repoprompt-ce/pull/570" target="_blank" rel="noopener noreferrer">#570</a>
+- Fix authenticated tip release lookup — @baron · <a href="https://github.com/repoprompt/repoprompt-ce/pull/571" target="_blank" rel="noopener noreferrer">#571</a>
+- perf(codemap): reduce manifest write amplification during indexing — @morluto · <a href="https://github.com/repoprompt/repoprompt-ce/pull/487" target="_blank" rel="noopener noreferrer">#487</a>
+- Avoid global manifest scans for access refreshes — @baron · <a href="https://github.com/repoprompt/repoprompt-ce/pull/552" target="_blank" rel="noopener noreferrer">#552</a>
+- fix: restore Sentry telemetry in Tip builds — @baron · <a href="https://github.com/repoprompt/repoprompt-ce/pull/555" target="_blank" rel="noopener noreferrer">#555</a>
+- perf(codemap): avoid repeated full-store scans when publishing manifests — @morluto · <a href="https://github.com/repoprompt/repoprompt-ce/pull/488" target="_blank" rel="noopener noreferrer">#488</a>
+- Make MCP watchdog deadlines independent of event ordering — @baron · <a href="https://github.com/repoprompt/repoprompt-ce/pull/575" target="_blank" rel="noopener noreferrer">#575</a>
+- Harden code-structure settlement lifecycle — @baron · <a href="https://github.com/repoprompt/repoprompt-ce/pull/576" target="_blank" rel="noopener noreferrer">#576</a>
+- Make MCP route confirmation and revocation authoritative — @baron · <a href="https://github.com/repoprompt/repoprompt-ce/pull/577" target="_blank" rel="noopener noreferrer">#577</a>
+- Bound MCP advisory progress backpressure — @baron · <a href="https://github.com/repoprompt/repoprompt-ce/pull/578" target="_blank" rel="noopener noreferrer">#578</a>
+- Bound agent session cleanup and preserve partial results — @baron · <a href="https://github.com/repoprompt/repoprompt-ce/pull/582" target="_blank" rel="noopener noreferrer">#582</a>
+- Bound history MCP work and preserve transport — @baron · <a href="https://github.com/repoprompt/repoprompt-ce/pull/583" target="_blank" rel="noopener noreferrer">#583</a>
+- Fix agent message bubble line counting performance — @sentry[bot] · <a href="https://github.com/repoprompt/repoprompt-ce/pull/584" target="_blank" rel="noopener noreferrer">#584</a>
+- Fix history tool catalog golden — @baron · <a href="https://github.com/repoprompt/repoprompt-ce/pull/585" target="_blank" rel="noopener noreferrer">#585</a>
+- Preserve codemap authority across publication retries — @baron · <a href="https://github.com/repoprompt/repoprompt-ce/pull/586" target="_blank" rel="noopener noreferrer">#586</a>
+- Fix Context Builder cancellation after discovery commit — @baron · <a href="https://github.com/repoprompt/repoprompt-ce/pull/588" target="_blank" rel="noopener noreferrer">#588</a>
+- Speed up Context Builder selection handoff — @baron · <a href="https://github.com/repoprompt/repoprompt-ce/pull/591" target="_blank" rel="noopener noreferrer">#591</a>
+- Fix Context Builder routing and settlement — @baron · <a href="https://github.com/repoprompt/repoprompt-ce/pull/592" target="_blank" rel="noopener noreferrer">#592</a>
+- Migrate CodeMap core to Swift 6 with exact official Tree-sitter pins — @provencher · <a href="https://github.com/repoprompt/repoprompt-ce/pull/580" target="_blank" rel="noopener noreferrer">#580</a>
+- Fix clean release dependency cloning — @baron · <a href="https://github.com/repoprompt/repoprompt-ce/pull/596" target="_blank" rel="noopener noreferrer">#596</a>
+- Remove Dart CodeMap support — @provencher · <a href="https://github.com/repoprompt/repoprompt-ce/pull/597" target="_blank" rel="noopener noreferrer">#597</a>
+- Release v1.1.0 — @baron · <a href="https://github.com/repoprompt/repoprompt-ce/pull/599" target="_blank" rel="noopener noreferrer">#599</a>
 
-- fix(release): support Sentry org:ci tokens
-- refactor(workspace): isolate path policy core
-- Complete Agent Models workspace follow-ups
-- fix: update Codex app-server text payload key
-- fix(mcp): avoid task-group teardown abort in runTransport retry backoff
-- Fail Codex child sessions closed when RepoPrompt MCP provisioning or routing never confirms
-- Add durable MCP watchdog attribution
-- Stream Context Builder progress over standard MCP
-- Harden Context Builder MCP routing readiness
-- Preserve MCP connection on code structure timeout
-- Fix authenticated tip release lookup
-- perf(codemap): reduce manifest write amplification during indexing
-- Avoid global manifest scans for access refreshes
-- fix: restore Sentry telemetry in Tip builds
-- perf(codemap): avoid repeated full-store scans when publishing manifests
-- Make MCP watchdog deadlines independent of event ordering
-- Harden code-structure settlement lifecycle
-- Make MCP route confirmation and revocation authoritative
-- Bound MCP advisory progress backpressure
-- Bound agent session cleanup and preserve partial results
-- Bound history MCP work and preserve transport
-- Fix agent message bubble line counting performance
-- Fix history tool catalog golden
-- Preserve codemap authority across publication retries
-- Fix Context Builder cancellation after discovery commit
-- Speed up Context Builder selection handoff
-- Fix Context Builder routing and settlement
-- Migrate CodeMap core to Swift 6 with exact official Tree-sitter pins
-- Fix clean release dependency cloning
-- Remove Dart CodeMap support
+**New Contributors**
+- pnascimento9596 made their first contribution.
+- OCWC22 made their first contribution.
+
+**[Full Changelog for 1.1.0](https://github.com/repoprompt/repoprompt-ce/compare/v1.0.29...v1.1.0)**
 
 #### 1.0.29 - July 15, 2026
 
-What's Changed
+**What's Changed**
+- Make Context Builder model selection globally authoritative — @morluto · <a href="https://github.com/repoprompt/repoprompt-ce/pull/463" target="_blank" rel="noopener noreferrer">#463</a>
+- Prepare hosted app tests for optional sharding — @morluto · <a href="https://github.com/repoprompt/repoprompt-ce/pull/440" target="_blank" rel="noopener noreferrer">#440</a>
+- fix(agent-mode): stop tool-result updates from remounting unrelated cards — @morluto · <a href="https://github.com/repoprompt/repoprompt-ce/pull/458" target="_blank" rel="noopener noreferrer">#458</a>
+- Add RPCE maintainer guidance skill — @baron · <a href="https://github.com/repoprompt/repoprompt-ce/pull/502" target="_blank" rel="noopener noreferrer">#502</a>
+- Harden Sentry privacy and release metadata — @baron · <a href="https://github.com/repoprompt/repoprompt-ce/pull/474" target="_blank" rel="noopener noreferrer">#474</a>
+- Add scoped Agent Models settings — @crstdr · <a href="https://github.com/repoprompt/repoprompt-ce/pull/275" target="_blank" rel="noopener noreferrer">#275</a>
+- Fix debug provenance JSON validation — @provencher · <a href="https://github.com/repoprompt/repoprompt-ce/pull/512" target="_blank" rel="noopener noreferrer">#512</a>
+- Add title-adjacent Agent chat options menu — @baron · <a href="https://github.com/repoprompt/repoprompt-ce/pull/516" target="_blank" rel="noopener noreferrer">#516</a>
+- Fail closed on unsigned Tip appcasts — @baron · <a href="https://github.com/repoprompt/repoprompt-ce/pull/497" target="_blank" rel="noopener noreferrer">#497</a>
+- Fix Oracle selection packaging and mutation ingress stalls — @provencher · <a href="https://github.com/repoprompt/repoprompt-ce/pull/520" target="_blank" rel="noopener noreferrer">#520</a>
+- Enforce strict ledger validation for suite plans — @baron · <a href="https://github.com/repoprompt/repoprompt-ce/pull/528" target="_blank" rel="noopener noreferrer">#528</a>
+- Fix global settings schema rollback compatibility — @baron · <a href="https://github.com/repoprompt/repoprompt-ce/pull/530" target="_blank" rel="noopener noreferrer">#530</a>
+- Harden Sentry privacy and release promotion — @baron · <a href="https://github.com/repoprompt/repoprompt-ce/pull/533" target="_blank" rel="noopener noreferrer">#533</a>
+- Fix typed Context Builder prompt handoff (#526) — @mplibunao · <a href="https://github.com/repoprompt/repoprompt-ce/pull/529" target="_blank" rel="noopener noreferrer">#529</a>
+- Fix scoped Agent Models state integrity — @baron · <a href="https://github.com/repoprompt/repoprompt-ce/pull/534" target="_blank" rel="noopener noreferrer">#534</a>
+- Fix inactive-workspace Context Builder authority — @baron · <a href="https://github.com/repoprompt/repoprompt-ce/pull/538" target="_blank" rel="noopener noreferrer">#538</a>
+- Harden Git process launch lifecycle — @baron · <a href="https://github.com/repoprompt/repoprompt-ce/pull/539" target="_blank" rel="noopener noreferrer">#539</a>
+- Prevent recursive workspace path-index teardown overflow — @baron · <a href="https://github.com/repoprompt/repoprompt-ce/pull/540" target="_blank" rel="noopener noreferrer">#540</a>
+- Make TextKit external replacements undo-safe — @baron · <a href="https://github.com/repoprompt/repoprompt-ce/pull/543" target="_blank" rel="noopener noreferrer">#543</a>
+- Prevent duplicate workspace root ID crashes — @baron · <a href="https://github.com/repoprompt/repoprompt-ce/pull/541" target="_blank" rel="noopener noreferrer">#541</a>
+- Bound applied-index fallbacks and harden workspace autosave — @baron · <a href="https://github.com/repoprompt/repoprompt-ce/pull/542" target="_blank" rel="noopener noreferrer">#542</a>
+- Fix app hang during date formatting by pre-warming locale cache — @sentry[bot] · <a href="https://github.com/repoprompt/repoprompt-ce/pull/438" target="_blank" rel="noopener noreferrer">#438</a>
+- Harden transcript export against duplicate turn IDs — @sentry[bot] · <a href="https://github.com/repoprompt/repoprompt-ce/pull/544" target="_blank" rel="noopener noreferrer">#544</a>
+- Improve Tip build update notices — @baron · <a href="https://github.com/repoprompt/repoprompt-ce/pull/537" target="_blank" rel="noopener noreferrer">#537</a>
+- Harden Agent chat titlebar safety — @baron · <a href="https://github.com/repoprompt/repoprompt-ce/pull/536" target="_blank" rel="noopener noreferrer">#536</a>
+- Fix execution-location popover resize crash — @baron · <a href="https://github.com/repoprompt/repoprompt-ce/pull/548" target="_blank" rel="noopener noreferrer">#548</a>
+- Release v1.0.29 — @baron · <a href="https://github.com/repoprompt/repoprompt-ce/pull/550" target="_blank" rel="noopener noreferrer">#550</a>
 
-- Make Context Builder model selection globally authoritative
-- Prepare hosted app tests for optional sharding
-- fix(agent-mode): stop tool-result updates from remounting unrelated cards
-- Add RPCE maintainer guidance skill
-- Harden Sentry privacy and release metadata
-- Add scoped Agent Models settings
-- Fix debug provenance JSON validation
-- Add title-adjacent Agent chat options menu
-- Fail closed on unsigned Tip appcasts
-- Fix Oracle selection packaging and mutation ingress stalls
-- Enforce strict ledger validation for suite plans
-- Fix global settings schema rollback compatibility
-- Harden Sentry privacy and release promotion
-- Fix typed Context Builder prompt handoff
-- Fix scoped Agent Models state integrity
-- Fix inactive-workspace Context Builder authority
-- Harden Git process launch lifecycle
-- Prevent recursive workspace path-index teardown overflow
-- Make TextKit external replacements undo-safe
-- Prevent duplicate workspace root ID crashes
-- Bound applied-index fallbacks and harden workspace autosave
-- Fix app hang during date formatting by pre-warming locale cache
-- Harden transcript export against duplicate turn IDs
-- Improve Tip build update notices
-- Harden Agent chat titlebar safety
-- Fix execution-location popover resize crash
+**New Contributors**
+- crstdr made their first contribution.
+- mplibunao made their first contribution.
+- sentry made their first contribution.
+
+**[Full Changelog for 1.0.29](https://github.com/repoprompt/repoprompt-ce/compare/v1.0.28...v1.0.29)**
 
 #### 1.0.28 - July 10, 2026
 
-What's Changed
+**What's Changed**
+- Harden release packaged smoke timeout — @baron · <a href="https://github.com/repoprompt/repoprompt-ce/pull/441" target="_blank" rel="noopener noreferrer">#441</a>
+- Split RepoPrompt into thin executable and app target — @provencher · <a href="https://github.com/repoprompt/repoprompt-ce/pull/437" target="_blank" rel="noopener noreferrer">#437</a>
+- Add opt-in tip update channel and rolling publish workflow — @baron · <a href="https://github.com/repoprompt/repoprompt-ce/pull/442" target="_blank" rel="noopener noreferrer">#442</a>
+- Fix Tip build number override — @baron · <a href="https://github.com/repoprompt/repoprompt-ce/pull/467" target="_blank" rel="noopener noreferrer">#467</a>
+- Improve conductor worktree parallelism — @baron · <a href="https://github.com/repoprompt/repoprompt-ce/pull/470" target="_blank" rel="noopener noreferrer">#470</a>
+- Fix Context Builder teardown finalization — @baron · <a href="https://github.com/repoprompt/repoprompt-ce/pull/448" target="_blank" rel="noopener noreferrer">#448</a>
+- Update Codex support for GPT-5.6 models — @baron · <a href="https://github.com/repoprompt/repoprompt-ce/pull/462" target="_blank" rel="noopener noreferrer">#462</a>
+- Release v1.0.28 — @baron · <a href="https://github.com/repoprompt/repoprompt-ce/pull/477" target="_blank" rel="noopener noreferrer">#477</a>
 
-- Harden release packaged smoke timeout
-- Split RepoPrompt into thin executable and app target
-- Add opt-in tip update channel and rolling publish workflow
-- Fix Tip build number override
-- Improve conductor worktree parallelism
-- Fix Context Builder teardown finalization
-- Update Codex support for GPT-5.6 models
+**[Full Changelog for 1.0.28](https://github.com/repoprompt/repoprompt-ce/compare/v1.0.27...v1.0.28)**
 
 #### 1.0.27 - July 9, 2026
 
-What's Changed
+**What's Changed**
 
-- History query MCP tools (\`list\_sessions\`, \`search\`, \`time\`) with tunable idle threshold, per-day attribution, duration fixes, and review hardening
-- Enhanced Agent session search HUD behavior and archived-session visibility
-- Faster, less noisy workspace switch load readiness
-- Hardened agent CLI startup in fragile user environments
-- Fixed git diff artifact export after alias authorization rejection
-- Hardened build storm coordination and process cleanup
-- Persist global defaults across restarts and propagate changes across windows
-- Speed up \`dev-lint\` SwiftLint discovery
-- Recover CLI installation from stale App Translocation symlinks
-- Harden test harness behavior against hangs and waiter leaks
-- Integrated full Sentry telemetry
-- Added release-pipeline dSYM generation and upload coverage
-- Refactored Sentry telemetry controls and added release coverage for official Sentry-enabled builds
+RepoPrompt CE 1.0.27 is the public release for everything merged after v1.0.24. It includes the intended but unpublished v1.0.25/v1.0.26 payloads plus the follow-up CLI, test-harness, and Sentry release fixes needed to make this train safe for in-app updates.
+
+**App and Agent Mode**
+
+- History query MCP tools (`list_sessions`, `search`, `time`) with tunable idle threshold, per-day attribution, duration fixes, and review hardening. — @moonray · <a href="https://github.com/repoprompt/repoprompt-ce/pull/303" target="_blank" rel="noopener noreferrer">#303</a>
+- Enhanced Agent session search HUD behavior and archived-session visibility. — @baron · <a href="https://github.com/repoprompt/repoprompt-ce/pull/397" target="_blank" rel="noopener noreferrer">#397</a>
+- Faster, less noisy workspace switch load readiness. — @baron · <a href="https://github.com/repoprompt/repoprompt-ce/pull/347" target="_blank" rel="noopener noreferrer">#347</a>
+- Hardened agent CLI startup in fragile user environments. — @baron · <a href="https://github.com/repoprompt/repoprompt-ce/pull/424" target="_blank" rel="noopener noreferrer">#424</a>
+- Fixed git diff artifact export after alias authorization rejection. — @baron · <a href="https://github.com/repoprompt/repoprompt-ce/pull/429" target="_blank" rel="noopener noreferrer">#429</a>
+- Hardened build storm coordination and process cleanup. — @baron · <a href="https://github.com/repoprompt/repoprompt-ce/pull/427" target="_blank" rel="noopener noreferrer">#427</a>
+
+**Settings, CLI, and Developer Workflow**
+
+- Persist global defaults across restarts and propagate changes across windows. — @moonray · <a href="https://github.com/repoprompt/repoprompt-ce/pull/418" target="_blank" rel="noopener noreferrer">#418</a>
+- Speed up `dev-lint` SwiftLint discovery. — @baron · <a href="https://github.com/repoprompt/repoprompt-ce/pull/428" target="_blank" rel="noopener noreferrer">#428</a>
+- Recover CLI installation from stale App Translocation symlinks. — @amittell · <a href="https://github.com/repoprompt/repoprompt-ce/pull/413" target="_blank" rel="noopener noreferrer">#413</a>
+- Harden test harness behavior against hangs and waiter leaks. — @morluto · <a href="https://github.com/repoprompt/repoprompt-ce/pull/435" target="_blank" rel="noopener noreferrer">#435</a>
+
+**Telemetry and Release Reliability**
+
+- Integrated full Sentry telemetry. — @baron · <a href="https://github.com/repoprompt/repoprompt-ce/pull/409" target="_blank" rel="noopener noreferrer">#409</a>
+- Added release-pipeline dSYM generation and upload coverage. — @cameroncooke · <a href="https://github.com/repoprompt/repoprompt-ce/pull/332" target="_blank" rel="noopener noreferrer">#332</a>
+- Fixed Sentry-enabled release build coverage for the v1.0.26 attempt. — @baron · <a href="https://github.com/repoprompt/repoprompt-ce/pull/433" target="_blank" rel="noopener noreferrer">#433</a>
+- Refactored Sentry telemetry controls and added release coverage for official Sentry-enabled builds. — @baron · <a href="https://github.com/repoprompt/repoprompt-ce/pull/436" target="_blank" rel="noopener noreferrer">#436</a>
+- Release preparation for the unpublished v1.0.25 train and this final v1.0.27 publish. — @baron · <a href="https://github.com/repoprompt/repoprompt-ce/pull/431" target="_blank" rel="noopener noreferrer">#431</a> · @baron · <a href="https://github.com/repoprompt/repoprompt-ce/pull/439" target="_blank" rel="noopener noreferrer">#439</a>
+
+**New Contributors**
+
+- amittell made their first contribution.
+
+**[Full Changelog for 1.0.27](https://github.com/repoprompt/repoprompt-ce/compare/v1.0.24...v1.0.27)**
 
 #### 1.0.24 - July 6, 2026
 
-What's Changed
+**What's Changed**
+- Add impacted XCTest lane and harden test tooling — @morluto · <a href="https://github.com/repoprompt/repoprompt-ce/pull/374" target="_blank" rel="noopener noreferrer">#374</a>
+- Refresh approved contributors — @provencher · <a href="https://github.com/repoprompt/repoprompt-ce/pull/378" target="_blank" rel="noopener noreferrer">#378</a>
+- fix(agent-mode): open live oracle from running tool card — @morluto · <a href="https://github.com/repoprompt/repoprompt-ce/pull/358" target="_blank" rel="noopener noreferrer">#358</a>
+- Stabilize CI app tests with sharding and lifecycle cleanup — @morluto · <a href="https://github.com/repoprompt/repoprompt-ce/pull/379" target="_blank" rel="noopener noreferrer">#379</a>
+- Polish agent sidebar worktree capsules (auto-naming, sizing, styling) — @provencher · <a href="https://github.com/repoprompt/repoprompt-ce/pull/380" target="_blank" rel="noopener noreferrer">#380</a>
+- Fix routed worktree inheritance for UI parents — @baron · <a href="https://github.com/repoprompt/repoprompt-ce/pull/388" target="_blank" rel="noopener noreferrer">#388</a>
+- Fix mutation tools when worktree scope is unavailable — @baron · <a href="https://github.com/repoprompt/repoprompt-ce/pull/387" target="_blank" rel="noopener noreferrer">#387</a>
+- Tail-window massive agent transcripts — @baron · <a href="https://github.com/repoprompt/repoprompt-ce/pull/391" target="_blank" rel="noopener noreferrer">#391</a>
+- Fix issue 390 targeted authority reconciliation — @baron · <a href="https://github.com/repoprompt/repoprompt-ce/pull/392" target="_blank" rel="noopener noreferrer">#392</a>
+- Add minimal Sentry runtime wiring — @baron · <a href="https://github.com/repoprompt/repoprompt-ce/pull/393" target="_blank" rel="noopener noreferrer">#393</a>
+- Release RepoPrompt CE 1.0.24 — @baron · <a href="https://github.com/repoprompt/repoprompt-ce/pull/395" target="_blank" rel="noopener noreferrer">#395</a>
 
-- Add impacted XCTest lane and harden test tooling
-- fix(agent-mode): open live oracle from running tool card
-- Stabilize CI app tests with sharding and lifecycle cleanup
-- Polish agent sidebar worktree capsules (auto-naming, sizing, styling)
-- Fix routed worktree inheritance for UI parents
-- Fix mutation tools when worktree scope is unavailable
-- Tail-window massive agent transcripts
-- Fix issue 390 targeted authority reconciliation
-- Add minimal Sentry runtime wiring
+**[Full Changelog for 1.0.24](https://github.com/repoprompt/repoprompt-ce/compare/v1.0.23...v1.0.24)**
 
 #### 1.0.23 - July 3, 2026
 
-What's Changed
+**What's Changed**
+- Add content-addressed codemaps and diff-seeded worktree startup — @provencher · <a href="https://github.com/repoprompt/repoprompt-ce/pull/314" target="_blank" rel="noopener noreferrer">#314</a>
+- Add Codex reasoning summary setting — @provencher · <a href="https://github.com/repoprompt/repoprompt-ce/pull/336" target="_blank" rel="noopener noreferrer">#336</a>
+- Collapse Interview toggle to icon-only — @baron · <a href="https://github.com/repoprompt/repoprompt-ce/pull/321" target="_blank" rel="noopener noreferrer">#321</a>
+- Refresh selected files popover UI and performance — @baron · <a href="https://github.com/repoprompt/repoprompt-ce/pull/333" target="_blank" rel="noopener noreferrer">#333</a>
+- [codex] Contain codemap selection decode failures — @provencher · <a href="https://github.com/repoprompt/repoprompt-ce/pull/339" target="_blank" rel="noopener noreferrer">#339</a>
+- Fix MCP token accounting freshness reporting — @provencher · <a href="https://github.com/repoprompt/repoprompt-ce/pull/343" target="_blank" rel="noopener noreferrer">#343</a>
+- Add Claude Sonnet 5 model support — @BetaFold3 · <a href="https://github.com/repoprompt/repoprompt-ce/pull/338" target="_blank" rel="noopener noreferrer">#338</a>
+- Start test-suite wallclock optimization reliability campaign — @provencher · <a href="https://github.com/repoprompt/repoprompt-ce/pull/346" target="_blank" rel="noopener noreferrer">#346</a>
+- build(telemetry): link Sentry conditionally and document privacy model — @cameroncooke · <a href="https://github.com/repoprompt/repoprompt-ce/pull/323" target="_blank" rel="noopener noreferrer">#323</a>
+- Resume inactive agent sessions when steering — @provencher · <a href="https://github.com/repoprompt/repoprompt-ce/pull/353" target="_blank" rel="noopener noreferrer">#353</a>
+- fix(agent-mode): stop listener leaks and orphaned Claude processes on close — @morluto · <a href="https://github.com/repoprompt/repoprompt-ce/pull/319" target="_blank" rel="noopener noreferrer">#319</a>
+- fix: omit nil Codex service tier — @dsebban · <a href="https://github.com/repoprompt/repoprompt-ce/pull/317" target="_blank" rel="noopener noreferrer">#317</a>
+- Fix Codex steer crash and resume handling — @provencher · <a href="https://github.com/repoprompt/repoprompt-ce/pull/354" target="_blank" rel="noopener noreferrer">#354</a>
+- Stabilize sidebar root updates during workspace switch — @baron · <a href="https://github.com/repoprompt/repoprompt-ce/pull/351" target="_blank" rel="noopener noreferrer">#351</a>
+- Add agent session switcher HUD — @baron · <a href="https://github.com/repoprompt/repoprompt-ce/pull/352" target="_blank" rel="noopener noreferrer">#352</a>
+- Fix MCP selection token freshness — @baron · <a href="https://github.com/repoprompt/repoprompt-ce/pull/359" target="_blank" rel="noopener noreferrer">#359</a>
+- Avoid applied-index hierarchy rebuilds for small deltas — @baron · <a href="https://github.com/repoprompt/repoprompt-ce/pull/361" target="_blank" rel="noopener noreferrer">#361</a>
+- Bump engineer role default to GPT-5.5 Medium — @baron · <a href="https://github.com/repoprompt/repoprompt-ce/pull/364" target="_blank" rel="noopener noreferrer">#364</a>
+- Fix crash restore settings persistence — @baron · <a href="https://github.com/repoprompt/repoprompt-ce/pull/365" target="_blank" rel="noopener noreferrer">#365</a>
+- Fix bound-tab token cache freshness — @baron · <a href="https://github.com/repoprompt/repoprompt-ce/pull/367" target="_blank" rel="noopener noreferrer">#367</a>
+- Prepare release 1.0.23 — @baron · <a href="https://github.com/repoprompt/repoprompt-ce/pull/369" target="_blank" rel="noopener noreferrer">#369</a>
 
-- Add content-addressed codemaps and diff-seeded worktree startup
-- Add Codex reasoning summary setting
-- Collapse Interview toggle to icon-only
-- Refresh selected files popover UI and performance
-- \[codex\] Contain codemap selection decode failures
-- Fix MCP token accounting freshness reporting
-- Add Claude Sonnet 5 model support
-- Start test-suite wallclock optimization reliability campaign
-- build(telemetry): link Sentry conditionally and document privacy model
-- Resume inactive agent sessions when steering
-- fix(agent-mode): stop listener leaks and orphaned Claude processes on close
-- fix: omit nil Codex service tier
-- Fix Codex steer crash and resume handling
-- Stabilize sidebar root updates during workspace switch
-- Add agent session switcher HUD
-- Fix MCP selection token freshness
-- Avoid applied-index hierarchy rebuilds for small deltas
-- Bump engineer role default to GPT-5.5 Medium
-- Fix crash restore settings persistence
-- Fix bound-tab token cache freshness
+**New Contributors**
+- dsebban made their first contribution.
+
+**[Full Changelog for 1.0.23](https://github.com/repoprompt/repoprompt-ce/compare/v1.0.22...v1.0.23)**
 
 #### 1.0.22 - June 28, 2026
 
-What's Changed
+**What's Changed**
+- Fix Context Builder worktree review selection authority and freshness — @provencher · <a href="https://github.com/repoprompt/repoprompt-ce/pull/277" target="_blank" rel="noopener noreferrer">#277</a>
+- keep @file tag paths pathful and non-absolute — @aAtila · <a href="https://github.com/repoprompt/repoprompt-ce/pull/274" target="_blank" rel="noopener noreferrer">#274</a>
+- build: Add Makefile help target — @cameroncooke · <a href="https://github.com/repoprompt/repoprompt-ce/pull/272" target="_blank" rel="noopener noreferrer">#272</a>
+- fix: resume MCP helper sessions after app restart — @clairernovotny · <a href="https://github.com/repoprompt/repoprompt-ce/pull/286" target="_blank" rel="noopener noreferrer">#286</a>
+- fix(claude-code): emit CLI identity preamble for GLM/z.ai backend — @moonray · <a href="https://github.com/repoprompt/repoprompt-ce/pull/296" target="_blank" rel="noopener noreferrer">#296</a>
+- Fix and modernize Codex agent_run transcripts — @provencher · <a href="https://github.com/repoprompt/repoprompt-ce/pull/299" target="_blank" rel="noopener noreferrer">#299</a>
+- Refresh approved contributors — @provencher · <a href="https://github.com/repoprompt/repoprompt-ce/pull/300" target="_blank" rel="noopener noreferrer">#300</a>
+- Fix symlinked global skill root readability — @BetaFold3 · <a href="https://github.com/repoprompt/repoprompt-ce/pull/289" target="_blank" rel="noopener noreferrer">#289</a>
+- Fix CE URL scheme routing — @baron · <a href="https://github.com/repoprompt/repoprompt-ce/pull/101" target="_blank" rel="noopener noreferrer">#101</a>
+- Restore Agent Mode Interview pill — @baron · <a href="https://github.com/repoprompt/repoprompt-ce/pull/147" target="_blank" rel="noopener noreferrer">#147</a>
+- Fix orphaned OpenCode ACP runtimes on tab teardown killing CPU memory — @morluto · <a href="https://github.com/repoprompt/repoprompt-ce/pull/292" target="_blank" rel="noopener noreferrer">#292</a>
+- Refresh approved contributors — @provencher · <a href="https://github.com/repoprompt/repoprompt-ce/pull/302" target="_blank" rel="noopener noreferrer">#302</a>
+- Fix Oracle and sub-agent role model selections resetting on restart — @datawisebets · <a href="https://github.com/repoprompt/repoprompt-ce/pull/305" target="_blank" rel="noopener noreferrer">#305</a>
+- Clarify sliced file selection summaries — @provencher · <a href="https://github.com/repoprompt/repoprompt-ce/pull/262" target="_blank" rel="noopener noreferrer">#262</a>
+- Surface OpenCode empty ACP completions — @baron · <a href="https://github.com/repoprompt/repoprompt-ce/pull/310" target="_blank" rel="noopener noreferrer">#310</a>
+- Prepare RepoPrompt CE 1.0.22 — @baron · <a href="https://github.com/repoprompt/repoprompt-ce/pull/311" target="_blank" rel="noopener noreferrer">#311</a>
 
-- Fix Context Builder worktree review selection authority and freshness
-- keep @file tag paths pathful and non-absolute
-- build: Add Makefile help target
-- fix: resume MCP helper sessions after app restart
-- fix(claude-code): emit CLI identity preamble for GLM/z.ai backend
-- Fix and modernize Codex agent\_run transcripts
-- Fix symlinked global skill root readability
-- Fix CE URL scheme routing
-- Restore Agent Mode Interview pill
-- Fix orphaned OpenCode ACP runtimes on tab teardown killing CPU memory
-- Fix Oracle and sub-agent role model selections resetting on restart
-- Clarify sliced file selection summaries
-- Surface OpenCode empty ACP completions
+**New Contributors**
+- clairernovotny made their first contribution.
+- datawisebets made their first contribution.
+
+**[Full Changelog for 1.0.22](https://github.com/repoprompt/repoprompt-ce/compare/v1.0.21...v1.0.22)**
 
 #### 1.0.21 - June 21, 2026
 
-What's Changed
+**What's Changed**
+- Stabilize workspace switch cleanup tests — @erauner12 · <a href="https://github.com/repoprompt/repoprompt-ce/pull/263" target="_blank" rel="noopener noreferrer">#263</a>
+- Refresh approved contributors — @provencher · <a href="https://github.com/repoprompt/repoprompt-ce/pull/269" target="_blank" rel="noopener noreferrer">#269</a>
+- Fix duplicate Check for Updates menu item — @BetaFold3 · <a href="https://github.com/repoprompt/repoprompt-ce/pull/268" target="_blank" rel="noopener noreferrer">#268</a>
+- Optimize workspace file search index readiness — @provencher · <a href="https://github.com/repoprompt/repoprompt-ce/pull/270" target="_blank" rel="noopener noreferrer">#270</a>
+- Add generated Xcode workspace workflow — @provencher · <a href="https://github.com/repoprompt/repoprompt-ce/pull/260" target="_blank" rel="noopener noreferrer">#260</a>
+- fix(xcode): Support generated workspace in Xcode 26 and 27 — @cameroncooke · <a href="https://github.com/repoprompt/repoprompt-ce/pull/271" target="_blank" rel="noopener noreferrer">#271</a>
+- Fix Oracle review diffs for worktrees — @provencher · <a href="https://github.com/repoprompt/repoprompt-ce/pull/265" target="_blank" rel="noopener noreferrer">#265</a>
+- Release RepoPrompt CE 1.0.21 — @provencher · <a href="https://github.com/repoprompt/repoprompt-ce/pull/273" target="_blank" rel="noopener noreferrer">#273</a>
 
-- Stabilize workspace switch cleanup tests
-- Fix duplicate Check for Updates menu item
-- Optimize workspace file search index readiness
-- Add generated Xcode workspace workflow
-- fix(xcode): Support generated workspace in Xcode 26 and 27
-- Fix Oracle review diffs for worktrees
+**New Contributors**
+- cameroncooke made their first contribution.
+
+**[Full Changelog for 1.0.21](https://github.com/repoprompt/repoprompt-ce/compare/v1.0.20...v1.0.21)**
 
 #### 1.0.20 - June 19, 2026
 
-What's Changed
+**What's Changed**
+- Preserve Agent chat order when opening sessions — @provencher · <a href="https://github.com/repoprompt/repoprompt-ce/pull/253" target="_blank" rel="noopener noreferrer">#253</a>
+- Fix Context Builder completion after discovery peer EOF — @provencher · <a href="https://github.com/repoprompt/repoprompt-ce/pull/254" target="_blank" rel="noopener noreferrer">#254</a>
+- Fix file search scope failures and cold catalog cost — @provencher · <a href="https://github.com/repoprompt/repoprompt-ce/pull/255" target="_blank" rel="noopener noreferrer">#255</a>
+- Reduce Agent Mode file-tool MainActor stalls — @provencher · <a href="https://github.com/repoprompt/repoprompt-ce/pull/256" target="_blank" rel="noopener noreferrer">#256</a>
+- Refactor Oracle routing policy boundaries — @provencher · <a href="https://github.com/repoprompt/repoprompt-ce/pull/251" target="_blank" rel="noopener noreferrer">#251</a>
+- Improve Cursor Agent CLI launch resolution diagnostics — @dlcen · <a href="https://github.com/repoprompt/repoprompt-ce/pull/208" target="_blank" rel="noopener noreferrer">#208</a>
+- Add smart Agent Mode timestamps — @antonioc-cl · <a href="https://github.com/repoprompt/repoprompt-ce/pull/182" target="_blank" rel="noopener noreferrer">#182</a>
+- Show a Built-in badge instead of a no-op Remove button for default trusted clients — @BetaFold3 · <a href="https://github.com/repoprompt/repoprompt-ce/pull/178" target="_blank" rel="noopener noreferrer">#178</a>
+- Fix Claude Safe Managed launch settings and MCP CLI wait bounds — @morluto · <a href="https://github.com/repoprompt/repoprompt-ce/pull/252" target="_blank" rel="noopener noreferrer">#252</a>
+- Release RepoPrompt CE 1.0.20 — @provencher · <a href="https://github.com/repoprompt/repoprompt-ce/pull/258" target="_blank" rel="noopener noreferrer">#258</a>
 
-- Preserve Agent chat order when opening sessions
-- Fix Context Builder completion after discovery peer EOF
-- Fix file search scope failures and cold catalog cost
-- Reduce Agent Mode file-tool MainActor stalls
-- Refactor Oracle routing policy boundaries
-- Improve Cursor Agent CLI launch resolution diagnostics
-- Add smart Agent Mode timestamps
-- Show a Built-in badge instead of a no-op Remove button for default trusted clients
-- Fix Claude Safe Managed launch settings and MCP CLI wait bounds
+**New Contributors**
+- dlcen made their first contribution.
+- antonioc-cl made their first contribution.
+- morluto made their first contribution.
+
+**[Full Changelog for 1.0.20](https://github.com/repoprompt/repoprompt-ce/compare/v1.0.19...v1.0.20)**
 
 #### 1.0.19 - June 18, 2026
 
-What's Changed
+**What's Changed**
+- Refresh approved contributors — @provencher · <a href="https://github.com/repoprompt/repoprompt-ce/pull/234" target="_blank" rel="noopener noreferrer">#234</a>
+- Optimize XCTest suite lifecycle and runtime — @provencher · <a href="https://github.com/repoprompt/repoprompt-ce/pull/236" target="_blank" rel="noopener noreferrer">#236</a>
+- Add repo skill for standardized issue creation — @erauner12 · <a href="https://github.com/repoprompt/repoprompt-ce/pull/237" target="_blank" rel="noopener noreferrer">#237</a>
+- Fix Agent Mode Oracle transcript routing — @provencher · <a href="https://github.com/repoprompt/repoprompt-ce/pull/247" target="_blank" rel="noopener noreferrer">#247</a>
+- Add MCP read latency diagnostics — @provencher · <a href="https://github.com/repoprompt/repoprompt-ce/pull/239" target="_blank" rel="noopener noreferrer">#239</a>
+- Fix canonical codemap selection and packaging — @provencher · <a href="https://github.com/repoprompt/repoprompt-ce/pull/245" target="_blank" rel="noopener noreferrer">#245</a>
+- Refresh approved contributors — @provencher · <a href="https://github.com/repoprompt/repoprompt-ce/pull/243" target="_blank" rel="noopener noreferrer">#243</a>
+- Add Z.ai GLM 5.2 model support — @baron · <a href="https://github.com/repoprompt/repoprompt-ce/pull/240" target="_blank" rel="noopener noreferrer">#240</a>
+- Fix Agent sidebar restore hierarchy and ordering — @provencher · <a href="https://github.com/repoprompt/repoprompt-ce/pull/246" target="_blank" rel="noopener noreferrer">#246</a>
+- Fix worktree readiness and parallel agent startup — @provencher · <a href="https://github.com/repoprompt/repoprompt-ce/pull/248" target="_blank" rel="noopener noreferrer">#248</a>
+- Release RepoPrompt CE 1.0.19 — @provencher · <a href="https://github.com/repoprompt/repoprompt-ce/pull/250" target="_blank" rel="noopener noreferrer">#250</a>
 
-- Optimize XCTest suite lifecycle and runtime
-- Add repo skill for standardized issue creation
-- Fix Agent Mode Oracle transcript routing
-- Add MCP read latency diagnostics
-- Fix canonical codemap selection and packaging
-- Add Z.ai GLM 5.2 model support
-- Fix Agent sidebar restore hierarchy and ordering
-- Fix worktree readiness and parallel agent startup
+**[Full Changelog for 1.0.19](https://github.com/repoprompt/repoprompt-ce/compare/v1.0.18...v1.0.19)**
 
 #### 1.0.18 - June 16, 2026
 
-What's Changed
+**What's Changed**
+- Reduce structural tests and harden test lifecycle — @provencher · <a href="https://github.com/repoprompt/repoprompt-ce/pull/218" target="_blank" rel="noopener noreferrer">#218</a>
+- Fix Agent Files preview loading state — @erauner12 · <a href="https://github.com/repoprompt/repoprompt-ce/pull/221" target="_blank" rel="noopener noreferrer">#221</a>
+- Avoid duplicate manage_selection freshness work — @provencher · <a href="https://github.com/repoprompt/repoprompt-ce/pull/220" target="_blank" rel="noopener noreferrer">#220</a>
+- Integrate MCP lifecycle and bounded search freshness fixes — @provencher · <a href="https://github.com/repoprompt/repoprompt-ce/pull/226" target="_blank" rel="noopener noreferrer">#226</a>
+- Fix role-default rows under filtered availability — @baron · <a href="https://github.com/repoprompt/repoprompt-ce/pull/224" target="_blank" rel="noopener noreferrer">#224</a>
+- Fix agent preview retention architecture — @baron · <a href="https://github.com/repoprompt/repoprompt-ce/pull/225" target="_blank" rel="noopener noreferrer">#225</a>
+- Reduce parallel MCP contention and preserve Agent selections — @provencher · <a href="https://github.com/repoprompt/repoprompt-ce/pull/231" target="_blank" rel="noopener noreferrer">#231</a>
+- Release RepoPrompt CE 1.0.18 — @baron · <a href="https://github.com/repoprompt/repoprompt-ce/pull/233" target="_blank" rel="noopener noreferrer">#233</a>
 
-- Reduce structural tests and harden test lifecycle
-- Fix Agent Files preview loading state
-- Avoid duplicate manage\_selection freshness work
-- Integrate MCP lifecycle and bounded search freshness fixes
-- Fix role-default rows under filtered availability
-- Fix agent preview retention architecture
-- Reduce parallel MCP contention and preserve Agent selections
+**[Full Changelog for 1.0.18](https://github.com/repoprompt/repoprompt-ce/compare/v1.0.17...v1.0.18)**
 
 #### 1.0.17 - June 14, 2026
 
-What's Changed
+**What's Changed**
+- Stabilize descriptor inheritance test — @provencher · <a href="https://github.com/repoprompt/repoprompt-ce/pull/198" target="_blank" rel="noopener noreferrer">#198</a>
+- Stabilize watcher restart barrier coverage — @provencher · <a href="https://github.com/repoprompt/repoprompt-ce/pull/199" target="_blank" rel="noopener noreferrer">#199</a>
+- Fix Git pipe drain descriptor race — @provencher · <a href="https://github.com/repoprompt/repoprompt-ce/pull/201" target="_blank" rel="noopener noreferrer">#201</a>
+- Stabilize codemap unload reentrancy test teardown — @provencher · <a href="https://github.com/repoprompt/repoprompt-ce/pull/203" target="_blank" rel="noopener noreferrer">#203</a>
+- Fix CC Zai availability refresh for preconfigured keys — @baron · <a href="https://github.com/repoprompt/repoprompt-ce/pull/188" target="_blank" rel="noopener noreferrer">#188</a>
+- Refresh approved contributors — @provencher · <a href="https://github.com/repoprompt/repoprompt-ce/pull/202" target="_blank" rel="noopener noreferrer">#202</a>
+- Fix test runtime lifecycle disposal — @provencher · <a href="https://github.com/repoprompt/repoprompt-ce/pull/209" target="_blank" rel="noopener noreferrer">#209</a>
+- Fix composer binding after chat handoff — @provencher · <a href="https://github.com/repoprompt/repoprompt-ce/pull/204" target="_blank" rel="noopener noreferrer">#204</a>
+- Integrate PR #195 worktree test settings stabilization — @provencher · <a href="https://github.com/repoprompt/repoprompt-ce/pull/200" target="_blank" rel="noopener noreferrer">#200</a>
+- Fix warm file_search validation stalls — @provencher · <a href="https://github.com/repoprompt/repoprompt-ce/pull/205" target="_blank" rel="noopener noreferrer">#205</a>
+- Show workspace names in window and native tab titles — @nickdavis · <a href="https://github.com/repoprompt/repoprompt-ce/pull/180" target="_blank" rel="noopener noreferrer">#180</a>
+- Improve Agent Mode workspace footer readability — @erauner12 · <a href="https://github.com/repoprompt/repoprompt-ce/pull/185" target="_blank" rel="noopener noreferrer">#185</a>
+- Fix Git cancellation output-drain stall — @provencher · <a href="https://github.com/repoprompt/repoprompt-ce/pull/210" target="_blank" rel="noopener noreferrer">#210</a>
+- Fix Context Builder MCP response teardown race — @provencher · <a href="https://github.com/repoprompt/repoprompt-ce/pull/211" target="_blank" rel="noopener noreferrer">#211</a>
+- Add active worktree context actions — @erauner12 · <a href="https://github.com/repoprompt/repoprompt-ce/pull/193" target="_blank" rel="noopener noreferrer">#193</a>
+- Prepare RepoPrompt CE 1.0.17 — @provencher · <a href="https://github.com/repoprompt/repoprompt-ce/pull/213" target="_blank" rel="noopener noreferrer">#213</a>
 
-- Stabilize descriptor inheritance test
-- Stabilize watcher restart barrier coverage
-- Fix Git pipe drain descriptor race
-- Stabilize codemap unload reentrancy test teardown
-- Fix CC Zai availability refresh for preconfigured keys
-- Fix test runtime lifecycle disposal
-- Fix composer binding after chat handoff
-- Integrate worktree test settings stabilization
-- Fix warm file\_search validation stalls
-- Show workspace names in window and native tab titles
-- Improve Agent Mode workspace footer readability
-- Fix Git cancellation output-drain stall
-- Fix Context Builder MCP response teardown race
-- Add active worktree context actions
+**New Contributors**
+- nickdavis made their first contribution.
+- erauner12 made their first contribution.
+
+**[Full Changelog for 1.0.17](https://github.com/repoprompt/repoprompt-ce/compare/v1.0.16...v1.0.17)**
 
 #### 1.0.16 - June 14, 2026
 
-What's Changed
+**What's Changed**
+- chore: update approved contributor handles — @provencher · <a href="https://github.com/repoprompt/repoprompt-ce/pull/179" target="_blank" rel="noopener noreferrer">#179</a>
+- Integrate MCP throughput remediation into staging — @baron · <a href="https://github.com/repoprompt/repoprompt-ce/pull/176" target="_blank" rel="noopener noreferrer">#176</a>
+- Promote MCP throughput remediation staging to main — @provencher · <a href="https://github.com/repoprompt/repoprompt-ce/pull/186" target="_blank" rel="noopener noreferrer">#186</a>
+- Fix MCP transport timeout recovery — @provencher · <a href="https://github.com/repoprompt/repoprompt-ce/pull/171" target="_blank" rel="noopener noreferrer">#171</a>
+- Fix Agent Mode wait recovery and Codex managed defaults — @provencher · <a href="https://github.com/repoprompt/repoprompt-ce/pull/190" target="_blank" rel="noopener noreferrer">#190</a>
+- Keep CLI provider disclosures user-controlled — @provencher · <a href="https://github.com/repoprompt/repoprompt-ce/pull/191" target="_blank" rel="noopener noreferrer">#191</a>
+- Fix resumed agent ownership and file-search tail latency — @provencher · <a href="https://github.com/repoprompt/repoprompt-ce/pull/192" target="_blank" rel="noopener noreferrer">#192</a>
+- Integrate PR #146 worktree-aware Context Builder on main — @provencher · <a href="https://github.com/repoprompt/repoprompt-ce/pull/194" target="_blank" rel="noopener noreferrer">#194</a>
+- Fix Context Builder model restoration on launch — @provencher · <a href="https://github.com/repoprompt/repoprompt-ce/pull/196" target="_blank" rel="noopener noreferrer">#196</a>
+- Prepare RepoPrompt CE 1.0.16 — @provencher · <a href="https://github.com/repoprompt/repoprompt-ce/pull/197" target="_blank" rel="noopener noreferrer">#197</a>
 
-- Integrate MCP throughput remediation into staging
-- Promote MCP throughput remediation staging to main
-- Fix MCP transport timeout recovery
-- Fix Agent Mode wait recovery and Codex managed defaults
-- Keep CLI provider disclosures user-controlled
-- Fix resumed agent ownership and file-search tail latency
-- Integrate worktree-aware Context Builder on main
-- Fix Context Builder model restoration on launch
+**[Full Changelog for 1.0.16](https://github.com/repoprompt/repoprompt-ce/compare/v1.0.15...v1.0.16)**
 
 #### 1.0.15 - June 11, 2026
 
-What's Changed
+**What's Changed**
+- Fix Codex steering and composer submission races — @provencher · <a href="https://github.com/repoprompt/repoprompt-ce/pull/152" target="_blank" rel="noopener noreferrer">#152</a>
+- Make MCP transport stderr diagnostics crash-safe on closed pipes — @provencher · <a href="https://github.com/repoprompt/repoprompt-ce/pull/163" target="_blank" rel="noopener noreferrer">#163</a>
+- Prepare RepoPrompt CE 1.0.15 — @baron · <a href="https://github.com/repoprompt/repoprompt-ce/pull/165" target="_blank" rel="noopener noreferrer">#165</a>
 
-- Fix Codex steering and composer submission races
-- Make MCP transport stderr diagnostics crash-safe on closed pipes
+**[Full Changelog for 1.0.15](https://github.com/repoprompt/repoprompt-ce/compare/v1.0.14...v1.0.15)**
 
 #### 1.0.14 - June 11, 2026
 
-What's Changed
+**What's Changed**
+- Add Claude Fable 5 across Agent Mode model catalogs — @BetaFold3 · <a href="https://github.com/repoprompt/repoprompt-ce/pull/142" target="_blank" rel="noopener noreferrer">#142</a>
+- Harden MCP concurrency and workspace switching — @provencher · <a href="https://github.com/repoprompt/repoprompt-ce/pull/155" target="_blank" rel="noopener noreferrer">#155</a>
+- Prefer OpenCode provider path before native defaults — @fitchmultz · <a href="https://github.com/repoprompt/repoprompt-ce/pull/148" target="_blank" rel="noopener noreferrer">#148</a>
+- Model picker missing Z.ai options at startup — @moonray · <a href="https://github.com/repoprompt/repoprompt-ce/pull/116" target="_blank" rel="noopener noreferrer">#116</a>
+- Fix Cursor CLI Composer ACP routing — @baron · <a href="https://github.com/repoprompt/repoprompt-ce/pull/126" target="_blank" rel="noopener noreferrer">#126</a>
+- Prepare RepoPrompt CE 1.0.14 — @baron · <a href="https://github.com/repoprompt/repoprompt-ce/pull/162" target="_blank" rel="noopener noreferrer">#162</a>
 
-- Add Claude Fable 5 across Agent Mode model catalogs
-- Harden MCP concurrency and workspace switching
-- Prefer OpenCode provider path before native defaults
-- Model picker missing Z.ai options at startup
-- Fix Cursor CLI Composer ACP routing
+**New Contributors**
+- BetaFold3 made their first contribution.
+
+**[Full Changelog for 1.0.14](https://github.com/repoprompt/repoprompt-ce/compare/v1.0.13...v1.0.14)**
 
 #### 1.0.10 - June 9, 2026
 
-What's Changed
+**What's Changed**
+- Harden runtime test coverage — @provencher · <a href="https://github.com/repoprompt/repoprompt-ce/pull/111" target="_blank" rel="noopener noreferrer">#111</a>
+- Fix Agent Mode capsule label compression — @provencher · <a href="https://github.com/repoprompt/repoprompt-ce/pull/112" target="_blank" rel="noopener noreferrer">#112</a>
+- Add worktree controls to agent_explore.start — @provencher · <a href="https://github.com/repoprompt/repoprompt-ce/pull/113" target="_blank" rel="noopener noreferrer">#113</a>
+- Fix ACP mode negotiation and OpenCode routing — @provencher · <a href="https://github.com/repoprompt/repoprompt-ce/pull/97" target="_blank" rel="noopener noreferrer">#97</a>
+- Prepare RepoPrompt CE 1.0.10 release — @provencher · <a href="https://github.com/repoprompt/repoprompt-ce/pull/119" target="_blank" rel="noopener noreferrer">#119</a>
 
-- Harden runtime test coverage
-- Fix Agent Mode capsule label compression
-- Add worktree controls to `agent_explore.start`
-- Fix ACP mode negotiation and OpenCode routing
+**[Full Changelog for 1.0.10](https://github.com/repoprompt/repoprompt-ce/compare/v1.0.9...v1.0.10)**
 
 #### 1.0.9 - June 9, 2026
 
-What's Changed
+**What's Changed**
+- [codex] Avoid stale descriptor assertions in socket cleanup tests — @provencher · <a href="https://github.com/repoprompt/repoprompt-ce/pull/91" target="_blank" rel="noopener noreferrer">#91</a>
+- Fix onboarding Skip All routing — @fitchmultz · <a href="https://github.com/repoprompt/repoprompt-ce/pull/93" target="_blank" rel="noopener noreferrer">#93</a>
+- Fix branch popover scroll containment — @strickvl · <a href="https://github.com/repoprompt/repoprompt-ce/pull/89" target="_blank" rel="noopener noreferrer">#89</a>
+- Add Dock New Window menu item — @dah · <a href="https://github.com/repoprompt/repoprompt-ce/pull/58" target="_blank" rel="noopener noreferrer">#58</a>
+- Harden MCP response delivery, execution, and agent waiters — @provencher · <a href="https://github.com/repoprompt/repoprompt-ce/pull/96" target="_blank" rel="noopener noreferrer">#96</a>
+- Distinguish web tool card action labels — @strickvl · <a href="https://github.com/repoprompt/repoprompt-ce/pull/68" target="_blank" rel="noopener noreferrer">#68</a>
+- Refresh approved contributors — @provencher · <a href="https://github.com/repoprompt/repoprompt-ce/pull/87" target="_blank" rel="noopener noreferrer">#87</a>
+- Document Homebrew tap install path — @najibninaba · <a href="https://github.com/repoprompt/repoprompt-ce/pull/88" target="_blank" rel="noopener noreferrer">#88</a>
+- Add expanded file mention picker style — @aAtila · <a href="https://github.com/repoprompt/repoprompt-ce/pull/95" target="_blank" rel="noopener noreferrer">#95</a>
+- Fix local self-signed production packaging — @fitchmultz · <a href="https://github.com/repoprompt/repoprompt-ce/pull/92" target="_blank" rel="noopener noreferrer">#92</a>
+- Enforce custom hover tooltips — @provencher · <a href="https://github.com/repoprompt/repoprompt-ce/pull/98" target="_blank" rel="noopener noreferrer">#98</a>
+- Refresh SwiftPM release lockfile — @provencher · <a href="https://github.com/repoprompt/repoprompt-ce/pull/99" target="_blank" rel="noopener noreferrer">#99</a>
+- Add PR batch merge skill — @provencher · <a href="https://github.com/repoprompt/repoprompt-ce/pull/100" target="_blank" rel="noopener noreferrer">#100</a>
+- Optimize store-backed file search performance — @provencher · <a href="https://github.com/repoprompt/repoprompt-ce/pull/104" target="_blank" rel="noopener noreferrer">#104</a>
+- Fix Codex submit during agent wait drain — @provencher · <a href="https://github.com/repoprompt/repoprompt-ce/pull/105" target="_blank" rel="noopener noreferrer">#105</a>
+- Fix Git process output drain race — @provencher · <a href="https://github.com/repoprompt/repoprompt-ce/pull/107" target="_blank" rel="noopener noreferrer">#107</a>
+- Add lean test quality skill — @provencher · <a href="https://github.com/repoprompt/repoprompt-ce/pull/106" target="_blank" rel="noopener noreferrer">#106</a>
+- Fix conductor daemon stdin handling for local install — @dah · <a href="https://github.com/repoprompt/repoprompt-ce/pull/103" target="_blank" rel="noopener noreferrer">#103</a>
+- Prepare RepoPrompt CE 1.0.9 release — @provencher · <a href="https://github.com/repoprompt/repoprompt-ce/pull/109" target="_blank" rel="noopener noreferrer">#109</a>
 
-- \[codex\] Avoid stale descriptor assertions in socket cleanup tests
-- Fix onboarding Skip All routing
-- Fix branch popover scroll containment
-- Add Dock New Window menu item
-- Harden MCP response delivery, execution, and agent waiters
-- Distinguish web tool card action labels
-- Document Homebrew tap install path
-- Add expanded file mention picker style
-- Fix local self-signed production packaging
-- Enforce custom hover tooltips
-- Refresh SwiftPM release lockfile
-- Add PR batch merge skill
-- Optimize store-backed file search performance
-- Fix Codex submit during agent wait drain
-- Fix Git process output drain race
-- Add lean test quality skill
-- Fix conductor daemon stdin handling for local install
+**New Contributors**
+- fitchmultz made their first contribution.
+- dah made their first contribution.
+
+**[Full Changelog for 1.0.9](https://github.com/repoprompt/repoprompt-ce/compare/v1.0.8...v1.0.9)**
 
 #### 1.0.8 - June 7, 2026
 
-What's Changed
+**What's Changed**
+- Allow ad-hoc release manifests without designated requirements — @provencher · <a href="https://github.com/repoprompt/repoprompt-ce/pull/83" target="_blank" rel="noopener noreferrer">#83</a>
+- Fix warm Agent Mode tab activation — @provencher · <a href="https://github.com/repoprompt/repoprompt-ce/pull/85" target="_blank" rel="noopener noreferrer">#85</a>
+- Prepare RepoPrompt CE 1.0.8 release — @provencher · <a href="https://github.com/repoprompt/repoprompt-ce/pull/86" target="_blank" rel="noopener noreferrer">#86</a>
 
-- Allow ad-hoc release manifests without designated requirements
-- Fix warm Agent Mode tab activation
+**[Full Changelog for 1.0.8](https://github.com/repoprompt/repoprompt-ce/compare/v1.0.7...v1.0.8)**
 
 #### 1.0.7 - June 7, 2026
 
-What's Changed
+**What's Changed**
+- [codex] Refresh approved contributors — @provencher · <a href="https://github.com/repoprompt/repoprompt-ce/pull/67" target="_blank" rel="noopener noreferrer">#67</a>
+- Harden flaky worktree CI tests — @strickvl · <a href="https://github.com/repoprompt/repoprompt-ce/pull/72" target="_blank" rel="noopener noreferrer">#72</a>
+- Refresh approved contributors — @provencher · <a href="https://github.com/repoprompt/repoprompt-ce/pull/75" target="_blank" rel="noopener noreferrer">#75</a>
+- Fix Keyboard Shortcuts settings crash — @strickvl · <a href="https://github.com/repoprompt/repoprompt-ce/pull/73" target="_blank" rel="noopener noreferrer">#73</a>
+- Fix stalls in long Agent Mode and Context Builder runs — @provencher · <a href="https://github.com/repoprompt/repoprompt-ce/pull/74" target="_blank" rel="noopener noreferrer">#74</a>
+- Document KeyboardShortcuts packaging workaround — @strickvl · <a href="https://github.com/repoprompt/repoprompt-ce/pull/78" target="_blank" rel="noopener noreferrer">#78</a>
+- Harden Keychain signing domains and MCP release packaging — @provencher · <a href="https://github.com/repoprompt/repoprompt-ce/pull/80" target="_blank" rel="noopener noreferrer">#80</a>
+- Prevent MCP frame starvation and lifecycle cleanup races — @provencher · <a href="https://github.com/repoprompt/repoprompt-ce/pull/81" target="_blank" rel="noopener noreferrer">#81</a>
+- Fix / improve Agent mode Git branch and worktree UI — @strickvl · <a href="https://github.com/repoprompt/repoprompt-ce/pull/69" target="_blank" rel="noopener noreferrer">#69</a>
+- Prepare RepoPrompt CE 1.0.7 release — @provencher · <a href="https://github.com/repoprompt/repoprompt-ce/pull/82" target="_blank" rel="noopener noreferrer">#82</a>
 
-- Harden flaky worktree CI tests
-- Fix Keyboard Shortcuts settings crash
-- Fix stalls in long Agent Mode and Context Builder runs
-- Document KeyboardShortcuts packaging workaround
-- Harden Keychain signing domains and MCP release packaging
-- Prevent MCP frame starvation and lifecycle cleanup races
-- Fix / improve Agent mode Git branch and worktree UI
+**[Full Changelog for 1.0.7](https://github.com/repoprompt/repoprompt-ce/compare/v1.0.6...v1.0.7)**
 
 #### 1.0.6 - June 4, 2026
 
-What's Changed
+**What's Changed**
+- Package CE releases with the CE bundle name — @provencher · <a href="https://github.com/repoprompt/repoprompt-ce/pull/65" target="_blank" rel="noopener noreferrer">#65</a>
+- Prepare RepoPrompt CE 1.0.6 release — @provencher · <a href="https://github.com/repoprompt/repoprompt-ce/pull/66" target="_blank" rel="noopener noreferrer">#66</a>
+- Add Agent Mode session row context menus — @strickvl · <a href="https://github.com/repoprompt/repoprompt-ce/pull/60" target="_blank" rel="noopener noreferrer">#60</a>
+- Add .worktreeinclude support for managed worktrees — @strickvl · <a href="https://github.com/repoprompt/repoprompt-ce/pull/61" target="_blank" rel="noopener noreferrer">#61</a>
+- Show Git worktree context in Agent sidebar — @strickvl · <a href="https://github.com/repoprompt/repoprompt-ce/pull/62" target="_blank" rel="noopener noreferrer">#62</a>
 
-- Package CE releases with the CE bundle name
-- Add Agent Mode session row context menus
-- Add `.worktreeinclude` support for managed worktrees
-- Show Git worktree context in Agent sidebar
+**[Full Changelog for 1.0.6](https://github.com/repoprompt/repoprompt-ce/compare/v1.0.5...v1.0.6)**
+
+#### 1.0.5 - June 4, 2026
+
+**What's Changed**
+- Sync MCP CLI version during release prep — @provencher · <a href="https://github.com/repoprompt/repoprompt-ce/pull/56" target="_blank" rel="noopener noreferrer">#56</a>
+- Prepare RepoPrompt CE 1.0.5 release — @provencher · <a href="https://github.com/repoprompt/repoprompt-ce/pull/63" target="_blank" rel="noopener noreferrer">#63</a>
+**[Full Changelog for 1.0.5](https://github.com/repoprompt/repoprompt-ce/compare/v1.0.4...v1.0.5)**
 
 #### 1.0.4 - June 3, 2026
 
-What's Changed
+**What's Changed**
+- Prepare RepoPrompt CE 1.0.4 release — @provencher · <a href="https://github.com/repoprompt/repoprompt-ce/pull/55" target="_blank" rel="noopener noreferrer">#55</a>
+- Harden signed test build workflow — @baron · <a href="https://github.com/repoprompt/repoprompt-ce/pull/45" target="_blank" rel="noopener noreferrer">#45</a>
+- Improve native Web Search tool cards — @HomunculusLabs · <a href="https://github.com/repoprompt/repoprompt-ce/pull/50" target="_blank" rel="noopener noreferrer">#50</a>
+- Fix `scripts/doctor.sh` SDK version detection — @strickvl · <a href="https://github.com/repoprompt/repoprompt-ce/pull/53" target="_blank" rel="noopener noreferrer">#53</a>
 
-- Harden signed test build workflow
-- Improve native Web Search tool cards
-- Fix `scripts/doctor.sh` SDK version detection
+**New Contributors**
+- baron made their first contribution.
+- HomunculusLabs made their first contribution.
+- strickvl made their first contribution.
+
+**[Full Changelog for 1.0.4](https://github.com/repoprompt/repoprompt-ce/compare/v1.0.3...v1.0.4)**
 
 #### 1.0.3 - June 2, 2026
 
-What's Changed
+**What's Changed**
+- Prepare RepoPrompt CE 1.0.3 release — @provencher · <a href="https://github.com/repoprompt/repoprompt-ce/pull/43" target="_blank" rel="noopener noreferrer">#43</a>
+- docs(readme): document debug signing setup — @aAtila · <a href="https://github.com/repoprompt/repoprompt-ce/pull/36" target="_blank" rel="noopener noreferrer">#36</a>
 
-- docs(readme): document debug signing setup
+**New Contributors**
+- aAtila made their first contribution.
+
+**[Full Changelog for 1.0.3](https://github.com/repoprompt/repoprompt-ce/compare/v1.0.2...v1.0.3)**
 
 #### 1.0.2 - June 2, 2026
 
-What's Changed
+**What's Changed**
+- Harden workspace file mutation paths — @provencher · <a href="https://github.com/repoprompt/repoprompt-ce/pull/39" target="_blank" rel="noopener noreferrer">#39</a>
+- Default-enable Codex goal support — @najibninaba · <a href="https://github.com/repoprompt/repoprompt-ce/pull/33" target="_blank" rel="noopener noreferrer">#33</a>
+- Harden OSS release validation — @provencher · <a href="https://github.com/repoprompt/repoprompt-ce/pull/40" target="_blank" rel="noopener noreferrer">#40</a>
+- Prepare RepoPrompt CE 1.0.2 release — @provencher · <a href="https://github.com/repoprompt/repoprompt-ce/pull/41" target="_blank" rel="noopener noreferrer">#41</a>
 
-- Harden workspace file mutation paths
-- Default-enable Codex goal support
-- Harden OSS release validation
+**[Full Changelog for 1.0.2](https://github.com/repoprompt/repoprompt-ce/compare/v1.0.1...v1.0.2)**
 
 #### 1.0.0 - June 1, 2026
 
-Highlights
+# RepoPrompt CE 1.0.0
+
+RepoPrompt CE is a native macOS app for orchestrating coding agents with a focus on context engineering.
+
+It builds an agent harness around an MCP server, giving you a shared place to prepare repository context, connect compatible CLI agents, run focused tasks, and inspect the work they produce. The goal is simple: make it easier to give agents the right context and keep multi-step engineering work understandable.
+
+**Highlights**
 
 - Native macOS workspace for context engineering and agent orchestration.
 - MCP-based harness for integrating compatible CLI agents.
@@ -704,8 +876,10 @@ Highlights
 - Public Sparkle update channel for signed, notarized releases.
 - Fully open source and free to use.
 
-First Public Release
+**Install The App**
 
-- Starts a new `1.0.0` version line with its own bundle identifier, signing setup, and update channel.
+Download `RepoPrompt-1.0.0-1.dmg`, open it, and install `RepoPrompt CE.app` in your Applications folder.
 
-</details>
+**First Public Release**
+
+This is the first RepoPrompt CE release. It starts a new `1.0.0` version line with its own bundle identifier, signing setup, and update channel.
