@@ -126,7 +126,8 @@
       "label": "FAQ",
       "className": "sidebar-cat-puzzle",
       "items": [
-        "historical-guides/faq/pay-for-services"
+        "faq/pay-for-services",
+        "faq/how-to-build"
       ]
     }
   ]

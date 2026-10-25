@@ -1,0 +1,70 @@
+---
+id: "how-to-build"
+title: "How can I build the application?"
+description: "Build and run RepoPrompt CE from source on macOS, or open the generated contributor workspace in Xcode."
+slug: "/faq/how-to-build"
+hide_table_of_contents: false
+toc_min_heading_level: 2
+toc_max_heading_level: 3
+---
+
+RepoPrompt CE is a native macOS application. To build it from source, use the public [RepoPrompt CE repository](https://github.com/repoprompt/repoprompt-ce).
+
+## Requirements
+
+- macOS 26 or later.
+- Xcode 26 or later, installed as the full `Xcode.app`. The Command Line Tools package alone is not enough because the app and its dependencies use Swift macros shipped with Xcode.
+- Python 3 for the Finder launchers and generated Xcode workflow.
+
+From Terminal, clone the repository and check the build toolchain:
+
+```bash
+git clone https://github.com/repoprompt/repoprompt-ce.git
+cd repoprompt-ce
+./Scripts/doctor.sh
+```
+
+The doctor script checks whether the required development tools are available. Resolve any reported Xcode or SDK issue before building.
+
+## Build and launch a debug app
+
+For a quick local build, double-click **Launch RepoPrompt CE.command** in Finder. The launcher builds the debug app, opens it, and leaves a small Terminal window available for rebuild and stop controls. It requires Python 3 and coordinates build and launch operations through the repository's developer daemon.
+
+If your Mac has an Apple Development signing identity, the launcher uses it. Without one, you can build and launch from Terminal with explicit ad-hoc signing:
+
+```bash
+ALLOW_ADHOC_SIGNING=1 ./conductor app relaunch
+```
+
+Ad-hoc debug builds use temporary in-memory secure storage. API keys and secure permission changes do not persist after the app closes. To use persistent Keychain storage for local development, set your installed Apple Development identity:
+
+```bash
+SIGN_IDENTITY="Apple Development: Your Name (TEAMID)" ./conductor app relaunch
+```
+
+Replace the example identity with one installed on your Mac. You can list available signing identities with `security find-identity -v -p codesigning`.
+
+## Open the project in Xcode
+
+Generate and open the disposable contributor workspace from the repository root:
+
+```bash
+make xcode
+```
+
+The generated workspace lives in `.build/xcode/RepoPromptCE.xcworkspace`; it is derived output and should not be edited or committed. In Xcode, use the **RepoPrompt CE App** scheme to build and run the packaged debug application. The **RepoPrompt CE MCP** scheme builds the coordinated MCP executable. The **RepoPrompt CE Tests** scheme delegates tests to the repository's conductor workflow.
+
+For generation, validation, cleanup, and scheme details, see the repository's [Generated Xcode Workspace guide](https://github.com/repoprompt/repoprompt-ce/blob/main/docs/architecture/xcode-workspace.md).
+
+## Install a local release-mode build
+
+To build and install a release-mode app locally, install Python 3 and double-click **Install RepoPrompt CE Local Production.command** in Finder. It builds from source and replaces `/Applications/RepoPrompt CE.app` with a locally signed app. macOS may ask you to approve the local self-signed certificate.
+
+This local build is not notarized. Keep it on your Mac; it is not the distribution method for another computer. For the signed, notarized public application, follow the repository's [Homebrew installation instructions](https://github.com/repoprompt/repoprompt-ce#install-with-homebrew), which install the released app rather than building from source.
+
+## Troubleshooting
+
+- If the toolchain check fails, install or select a full Xcode 26+ installation and run `./Scripts/doctor.sh` again.
+- If the debug app cannot sign, use the explicit ad-hoc command above or configure an Apple Development identity.
+- If an ad-hoc build appears to lose saved API keys or secure permission changes, that is expected: ad-hoc builds use ephemeral secure storage.
+- If you need more build detail, see the repository's [README build instructions](https://github.com/repoprompt/repoprompt-ce#build-and-launch-locally) and [contributor guide](https://github.com/repoprompt/repoprompt-ce/blob/main/AGENTS.md).

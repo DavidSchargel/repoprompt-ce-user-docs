@@ -1,0 +1,68 @@
+---
+id: "pay-for-services"
+title: "Do I need to pay for AI services?"
+description: "Understand RepoPrompt CE's cost and the separate costs of API providers, subscriptions, hosted model catalogs, and local models."
+slug: "/faq/pay-for-services"
+hide_table_of_contents: false
+toc_min_heading_level: 2
+toc_max_heading_level: 4
+---
+
+RepoPrompt Community Edition is free and open source. The cost of using an AI model depends on how you connect to it: API billing, a provider's subscription or account plan, or local compute.
+
+## What RepoPrompt charges
+
+RepoPrompt CE does not charge for the application and does not add a markup to provider bills. You supply your own provider account or local model service. The provider's terms, prices, quotas, and data practices apply to requests sent through that service. A provider account or API key may require billing to be enabled even when a provider advertises a free quota.
+
+## Supported AI providers
+
+The source code's **API Providers** settings currently contains **10 direct API or local provider configurations**:
+
+1. Anthropic
+2. OpenAI
+3. DeepSeek
+4. Fireworks AI
+5. Grok (xAI)
+6. Groq
+7. Z.AI
+8. Gemini (Google)
+9. Azure OpenAI
+10. Ollama or LM Studio (local model servers)
+
+OpenRouter and custom OpenAI-compatible endpoints are configured on their own settings pages, so they are separate from that count. Agent Mode's CLI integrations—such as Claude Code, Codex, OpenCode, and Cursor—are also configured separately under **CLI Providers**. They are not API providers, and their subscription or account terms are not the same as API token billing.
+
+### Provider setup and current model catalogs
+
+Provider model catalogs and availability change frequently. The app combines its built-in model catalog with models it can discover from a connected provider; what is selectable depends on the integration, account, region, deployment, and provider API. A model listed by a provider is not necessarily available to every RepoPrompt connection or account. Check the provider's live catalog before choosing a model, and use the model ID shown by the provider when a custom model ID is needed.
+
+| Provider | How it is configured in RepoPrompt | Current model or catalog reference |
+| --- | --- | --- |
+| **Anthropic** | API key; compatible custom model names can be entered. | Anthropic's active catalog includes Claude Sonnet 5, Claude Opus 5, Claude Fable 5, Claude Opus 4.8, Claude Sonnet 4.6, and Claude Haiku 4.5. Check [Claude model status and deprecations](https://docs.anthropic.com/en/docs/about-claude/model-deprecations) before using a saved model ID. |
+| **OpenAI** | API key; optional custom base URL and service-tier settings. | OpenAI's [API model catalog](https://platform.openai.com/docs/models) is the live reference for available models and capabilities. |
+| **DeepSeek** | API key; models can be discovered and custom names entered. | Current API IDs include `deepseek-flash` (served as DeepSeek-V4.1-Flash-1017) and `deepseek-v4-pro`; see [DeepSeek's model list](https://api-docs.deepseek.com/api/list-models/) and [API pricing](https://api-docs.deepseek.com/quick_start/pricing/). |
+| **Fireworks AI** | API key; models are discovered from the provider. | Use the current [Fireworks model library](https://fireworks.ai/models) and [pricing page](https://fireworks.ai/pricing); availability and pricing vary by model and serving option. |
+| **Grok (xAI)** | API key; model discovery is supported. The key may also be used by Grok Build in Agent Mode, Context Builder, Oracle, Chat, and model discovery. Requests that use the API key are billed to the xAI API account. | See xAI's live [model catalog](https://docs.x.ai/developers/models) and [release notes](https://docs.x.ai/developers/release-notes) for current Grok model IDs and changes. |
+| **Groq** | API key; models are discovered from the provider. | Check the [Groq model catalog](https://console.groq.com/docs/models) and [deprecation notices](https://console.groq.com/docs/deprecations); hosted models and retirement dates can change. |
+| **Z.AI** | API key; a compatible custom model can be selected. The key also activates the CC Z.AI CLI provider for Agent Mode. | See Z.AI's current [model overview](https://docs.z.ai/guides/llm/glm-5) for GLM model IDs, API support, and model updates. |
+| **Gemini (Google)** | API key; models can be discovered and compatible custom model names entered. | Google's [Gemini API model catalog](https://ai.google.dev/gemini-api/docs/models) identifies current stable, preview, and retired IDs. For example, Gemini 3.8 Flash and Gemini 3.1 Pro Preview appear in the current catalog; preview IDs can change or retire. |
+| **Azure OpenAI** | Azure resource base URL, API version, and API key; select an available deployment/model. | Models must be available for your Azure resource, region, and deployment type. Check Microsoft's [Azure model lifecycle and availability](https://learn.microsoft.com/en-us/azure/foundry/openai/concepts/model-retirements). |
+| **Ollama or LM Studio** | Local server URL and a model available from that server. Defaults are Ollama port `11434` and LM Studio port `1234`. | Browse [Ollama's model library](https://ollama.com/library) or the models available in your LM Studio installation. Local inference has no per-token API bill from RepoPrompt, but uses your computer's resources; Ollama also offers cloud models, which can have separate charges. |
+
+RepoPrompt also supports two separately configured routes:
+
+- **OpenRouter** uses an OpenRouter API key and a selectable set of fetched models. Its [model API](https://openrouter.ai/docs/api/api-reference/models/get-models) is the live source for model IDs, context, modalities, and prices. Your OpenRouter account and selected route determine the bill.
+- **Custom API** connects to an OpenAI-compatible API endpoint using its base URL, API key, and optional preferred model ID. The endpoint operator determines model availability, billing, privacy, and retention.
+
+For step-by-step connection instructions, see [API Providers](/docs/settings/api-providers/), [OpenRouter](/docs/settings/openrouter/), and [Custom API](/docs/settings/custom-api/).
+
+## How to keep costs predictable
+
+- Review the provider's current pricing and account billing controls before sending requests. Provider pricing, free quotas, and subscription entitlements change; RepoPrompt cannot guarantee any provider's free tier or price.
+- Choose a model that fits the task, and keep context focused. Longer prompts and conversations can increase usage-based costs.
+- In settings, use provider-side model selection and the app's model and context controls where available. Some workflows can make multiple model requests, so one action may not equal one billable request.
+- For local inference, use a model served by Ollama or LM Studio and account for the hardware and electricity costs. A local model avoids a hosted model API bill only when the request actually stays local.
+- Check usage and limits in the provider account that owns the API key. RepoPrompt does not control third-party quotas, rate limits, or billing alerts.
+
+## What is free and what is not
+
+The application itself is free. AI use is free only when the particular provider, account, model, and usage are free under the provider's current terms, or when you run the model locally. Subscription access to an agent CLI does not automatically pay for API requests made with a provider API key; likewise, an API key does not automatically include the provider's separate subscription products.
