@@ -25,12 +25,22 @@ function findResponsiveImages(pages) {
   return pages.flatMap((html) => tags(html, 'img')).filter((image) => image.src?.includes('/assets/ideal-img/'));
 }
 
+function assertSearchResultRoute(result, version, routes, config) {
+  const url = new URL(result.u, config.url);
+  assert.equal(url.origin, new URL(config.url).origin, `External search result for ${version}: ${result.u}`);
+  assert.ok(url.pathname.startsWith(config.baseUrl), `Search result outside base path for ${version}: ${result.u}`);
+  const route = url.pathname.slice(config.baseUrl.length);
+  assert.ok(routes.has('/' + route), `Wrong-version search result for ${version}: ${result.u}`);
+  return route;
+}
+
 async function main() {
   const root = path.join(__dirname, '..');
   const {createProcessor} = await import('@mdx-js/mdx');
   const {default: frontmatter} = await import('remark-frontmatter');
   const reviewedImagesByRoute = new Map();
-  for (const entry of readDocs(root)) {
+  const docs = readDocs(root);
+  for (const entry of docs) {
     const reviewed = new Set();
     const walk = node => {
       const image = assertImageAlt(node, entry.destination);
@@ -95,6 +105,7 @@ async function main() {
   }
   if (!config.themeConfig.algolia) {
     for (const [version, options] of Object.entries(docsOptions.versions)) {
+      const versionRoutes = new Set(docs.filter(entry => entry.version === version).map(entry => entry.route));
       const versionRoute = [docsOptions.routeBasePath, options.path].filter(Boolean).join('/') + '/';
       const indexDirectory = options.path ? path.join(directory, versionRoute) : directory;
       const indexFile = path.join(indexDirectory, 'search-index.json');
@@ -103,12 +114,7 @@ async function main() {
       const results = shards.flatMap((shard) => shard.documents || []);
       assert.ok(results.length > 0, `Empty local search index for ${version}`);
       for (const result of results) {
-        const url = new URL(result.u, config.url);
-        assert.equal(url.origin, config.url, `External search result for ${version}: ${result.u}`);
-        const route = url.pathname.startsWith(config.baseUrl)
-          ? url.pathname.slice(config.baseUrl.length)
-          : url.pathname.replace(/^\//, '');
-        assert.ok(route.startsWith(versionRoute), `Wrong-version search result for ${version}: ${result.u}`);
+        const route = assertSearchResultRoute(result, version, versionRoutes, config);
         assert.ok(fs.existsSync(path.join(directory, route, 'index.html')), `Dead search result for ${version}: ${result.u}`);
       }
     }
@@ -134,7 +140,7 @@ async function main() {
   console.log('Artifact QA passed: no Twitter metadata, SEO retained, routes/redirects intact, local search results valid when enabled, clean LLM exports, lazy responsive Markdown images.');
 }
 
-module.exports = {tags, assertNoTwitter, findResponsiveImages};
+module.exports = {tags, assertNoTwitter, findResponsiveImages, assertSearchResultRoute};
 if (require.main === module) {
   main().catch((error) => {
     console.error(error);
