@@ -174,7 +174,7 @@ test('active docs landing keeps a navigable outline and standalone link names', 
   assert.match(source, /\[!\[Podcast cover art\]\(\.\.\/\.\.\/static\/images\/docs\/images\/rate-limited_profile\.jpg\) Rate Limited Podcast AI coding workflows/);
   for (const route of [
     './agent-mode/workflows.mdx',
-    '../version-classic-2.1.0/mcp-server/mcp-overview.mdx',
+    './mcp-server/mcp-overview.mdx',
     '../version-classic-2.1.0/ai-providers/cli-providers.mdx',
   ]) assert.ok(source.includes(`](${route})`), `Preserve cross-version or current route: ${route}`);
 });
