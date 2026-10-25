@@ -1,5 +1,6 @@
 # Instructions
 
+- Do not use Xcode, execute application Swift code, run app diagnostic tests, invoke build scripts, or create/run self-contained Swift utilities unless instructed to do so. Prefer inspecting application source code (if available) and documentation assets directly.
 - Must adhere to WCAG 2.2 AA guidelines.
 - Do not create or edit files in the classic-2.1.0 directory which is the archive of the old docs.
 - Do not use ADRs for this project.
