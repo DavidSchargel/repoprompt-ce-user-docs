@@ -23,6 +23,22 @@
     },
     {
       "type": "category",
+      "label": "MCP Server",
+      "className": "sidebar-cat-code",
+      "items": [
+        "mcp-server/mcp-overview",
+        "mcp-server/mcp-setup",
+        "mcp-server/setup-wizard",
+        "mcp-server/mcp-tools",
+        "mcp-server/mcp-app-settings",
+        "mcp-server/mcp-transport",
+        "mcp-server/mcp-settings",
+        "mcp-server/mcp-connections",
+        "mcp-server/workflow-commands"
+      ]
+    },
+    {
+      "type": "category",
       "label": "Worktrees",
       "className": "sidebar-cat-folder",
       "items": [

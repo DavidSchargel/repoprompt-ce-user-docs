@@ -1,0 +1,93 @@
+---
+id: "workflow-commands"
+title: "Workflow Commands"
+description: "Install and use RepoPrompt workflow skills for external MCP clients and terminal integrations."
+slug: "/mcp-server/workflow-commands"
+keywords: ["slash commands","workflow commands","rp-build","rp-investigate","end-to-end","claude code commands","automation"]
+hide_table_of_contents: false
+toc_min_heading_level: 2
+toc_max_heading_level: 4
+---
+
+After installing the matching workflow skills, your external agent can use reusable RepoPrompt workflow commands. These guide the agent through a complete cycle: understand the task, use Context Builder to explore relevant code, generate an informed plan, then implement the full solution.
+
+Install these separately from the MCP server configuration through **Quick Setup → Skills**. Then use your client's skill or slash-command picker to find commands such as `/rp-build` and `/rp-investigate`. The picker and invocation syntax depend on the client; `/repo` is not a universal command that every integration provides.
+
+![Quick Setup Skills menu entry beside client installation and copy configuration](./images/mcp-quick-setup.png)
+
+## Installing Skills
+
+The **Skills** menu offers shared global or per-project `.agents/skills`, Claude Code integration, and RepoPrompt's isolated Codex prompts. Select the **MCP** variant when the agent uses native MCP tools, or the **CLI** variant when it calls `rpce-cli`. CLI variants use the corresponding `-cli` skill names. Install the CLI executable as well when choosing that variant.
+
+For Claude Code, the current installer creates managed `.claude/skills/<command>/SKILL.md` directories and migrates legacy `.claude/commands` files. Some UI labels still name the legacy commands location. Shared skills use `.agents/skills/<command>/SKILL.md`; Codex prompt installation is scoped to RepoPrompt's isolated Codex environment. Installing into that isolated location does not guarantee discovery by an unrelated external Codex installation.
+
+### Skills and Agent Mode Workflows
+
+External workflow skills, Agent Mode's built-in workflows, and Copy/Chat Workflow Presets are distinct configuration surfaces. The server connection alone does not install external skills. Use [Agent Workflows](../settings/agent-mode/agent-workflows.mdx) for the built-in picker and [Workflow Presets](../settings/prompting/workflow-presets.mdx) for copy and built-in chat templates.
+
+## How Workflow Commands Work
+
+Implementation, planning, review, and investigation skills guide the agent through repository discovery and the appropriate Context Builder/Oracle calls. The exact steps depend on the skill. When an agent runs a command like `/rp-build`, here's what happens behind the scenes:
+
+1. **Discovery Agent activates** — A specialized research model explores your entire codebase, following available code structure, references, and task evidence to identify relevant files
+2. **Context is curated** — The discovery agent selects files within a token budget, using codemaps for reference files and full content for key files
+3. **Analysis model reasons** — A powerful model receives the curated context and produces an analysis result — a plan, review, or investigation report
+4. **Agent acts on the result** — Your agent receives the analysis and proceeds with implementation, fixes, or next steps
+
+This separation means the agent gets architecturally-grounded guidance without spending its own context window on exploration. The agent stays focused on implementation while Context Builder handles the research. The external agent still reviews the returned context and decides its next action under your instructions.
+
+## Available Commands
+
+**/rp-build**
+
+End-to-end implementation workflow. Context Builder gathers all relevant files and architectural patterns, the analysis model creates a detailed implementation plan, then the agent implements it directly. Best for new features and significant additions.
+
+**/rp-review**
+
+AI-powered code review. Combines Git diffs with selected codebase context so the review model understands not just what changed, but the surrounding architecture. Catches issues that surface-level reviews miss.
+
+**/rp-refactor**
+
+Two-pass refactoring. First pass analyzes the codebase for improvement opportunities, second pass plans the implementation while preserving existing behavior. Great for cleaning up technical debt with confidence.
+
+**/rp-investigate**
+
+Systematic bug investigation. Context Builder explores the codebase to gather evidence, traces through code paths, and builds a root cause analysis. The agent keeps investigating while checking evidence and unresolved causes.
+
+**/rp-oracle-export**
+
+Builds optimized codebase context for your task, then exports a prompt file you can paste directly into a model on ChatGPT or another external service. Useful when you want a second opinion on a complex problem from a capable external model.
+
+## Additional Installed Commands
+
+The current installer also includes `/rp-deep-plan` for deeper planning, `/rp-reminder` for reinforcing the RepoPrompt workflow, `/rp-orchestrate` for delegated agent work, and `/rp-optimize` for measurement-led improvements. These join `/rp-build`, `/rp-investigate`, `/rp-oracle-export`, `/rp-review`, and `/rp-refactor` in the shared workflow catalog.
+
+Use the installed skill's instructions and your client's supported tool list. Workflow installation does not expand a connection's permissions, make an unavailable provider usable, or authorize a mutation by itself.
+
+## Context Builder Response Types
+
+The workflows above use the Context Builder's `context_builder` MCP tool with different response types. You can also invoke these directly for custom workflows:
+
+- **clarify** — Build file context only, returns curated selection for manual use (default)
+- **plan** — Generate an implementation plan grounded in your actual code patterns
+- **question** — Answer a question about the codebase using deep context
+- **review** — Generate a code review with git diff context and architectural understanding
+
+## Git Integration
+
+The `git` tool provides safe, token-efficient git operations for MCP agents: status, diff, log, show, blame, and diff-artifact generation. Use it to understand repository state and review changes before committing.
+
+For tool arguments and comparison modes, see the [Git reference](./mcp-tools.mdx#git).
+
+## Custom Skills
+
+Beyond the built-in workflow commands, you can create your own skills — markdown prompt templates with YAML frontmatter that agents discover and run as slash commands. Skills let you codify your team's workflows and share them across projects.
+
+Learn how to create and install custom skills in [Skills & Slash Commands](../agent-mode/skills.mdx).
+
+:::tip
+
+**Getting Started:** After setting up the MCP connection and installing skills, open your client’s skill or slash-command picker to discover the commands you installed. For more detail on each workflow and the Context Builder pipeline, see [Agent Mode Workflow Commands](../agent-mode/workflows.mdx).
+
+:::
+

@@ -19,7 +19,7 @@ The new Settings section follows the app’s navigation. Start with [Overview](.
 
 :::tip
 
-**Scripting these settings:** A subset of these preferences is also reachable from MCP and `rp-cli` through the `app_settings` tool — appearance, prompt packaging, edit-format defaults, preferred models, MCP auto-start, and the global Code Maps toggle. See [App Settings Tool](../../version-classic-2.1.0/mcp-server/mcp-app-settings.mdx) for the MCP surface and [App Settings from the CLI](../../version-classic-2.1.0/rp-cli/cli-app-settings.mdx) for the shell-focused guide. The in-app UI and the `app_settings` tool share the same underlying store for allowlisted keys; secrets, tool ACLs, and workspace-scoped settings remain UI-only by design.
+**Scripting these settings:** A subset of preferences is reachable from MCP and `rpce-cli` through `app_settings`, including appearance, prompt packaging, models, MCP preset visibility, Code Maps, file scanning, selected Agent Mode behavior, and notifications. See [App Settings Tool](../mcp-server/mcp-app-settings.mdx) for the current allowlist and [Setup Guide](../mcp-server/mcp-setup.mdx#terminal-access) for terminal access. The UI and tool share the underlying store for allowlisted keys. Credentials, permission policies, and workspace model overrides remain outside this tool; Classic editing and auto-start key examples no longer describe its registry.
 
 :::
 

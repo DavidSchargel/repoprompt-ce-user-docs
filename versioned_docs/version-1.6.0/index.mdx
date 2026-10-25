@@ -62,7 +62,7 @@ Agents waste context before they start thinking. Their context windows fill with
 
 [**Agent Mode** Hands off context engineering to your coding agents. The same best practices from the old IDE Mode in the Classic Edition — codemaps, slicing, token budgets — managed by agents (Codex, Claude Code, Cursor, OpenCode) on your behalf, with built-in workflows.](./agent-mode/overview.mdx)
 
-[**Built-in MCP Server** Any MCP-compatible tool gets access to RepoPrompt's context tools. Claude Code, Cursor, Codex, OpenCode — install with one click.](../version-classic-2.1.0/mcp-server/mcp-overview.mdx)
+[**Built-in MCP Server** Connect MCP-compatible clients to RepoPrompt's context tools. Set up external clients, workflow skills, Oracle models, and workspace context.](./mcp-server/mcp-overview.mdx)
 
 [**IDE Mode (Classic Edition only)** Craft precise prompts with full control over file selection, codemaps, and context.](../version-classic-2.1.0/ide-mode/overview.mdx)
 
@@ -92,9 +92,9 @@ Ready-made context engineering pipelines your agents run directly:
 - **Investigate** (`/rp-investigate`) — Systematic exploration with evidence gathering
 - **Refactor** (`/rp-refactor`) — Two-pass: analyze then implement preserving behavior
 
-## [Agent Orchestration](../version-classic-2.1.0/mcp-server/mcp-overview.mdx)
+## [Agent Orchestration](./mcp-server/mcp-tools.mdx#agent-control-plane)
 
-RepoPrompt is a full control plane for multi-agent workflows via MCP. The `agent_run` tool provides: start, wait/poll (multi-session), steer, respond, cancel. Any MCP-connected agent can orchestrate complex workflows — not just RepoPrompt's built-in agents.
+RepoPrompt supports multi-agent workflows via MCP. The policy-controlled `agent_run` tool provides start, wait/poll (multi-session), steer, respond, and cancel operations. Availability depends on the client's connection policy and session permissions.
 
 The `/rp-orchestrate` workflow automates this: Context Builder generates a plan → decomposes into tasks → dispatches sub-agents in parallel or sequence → verifies each result. [Explore Agent Orchestration workflows →](./agent-mode/workflows.mdx)
 
@@ -130,7 +130,7 @@ Ready to build better AI prompts? Here's where to go next:
 
 - **New to RepoPrompt?** Start with the [Installation guide](./overview/installation.mdx)
 - **Have an AI subscription?** Set up [CLI Providers](../version-classic-2.1.0/ai-providers/cli-providers.mdx) to use your existing plan
-- **Using Claude Code or Cursor?** Check out [MCP Server Integration](../version-classic-2.1.0/mcp-server/mcp-overview.mdx)
+- **Using Claude Code or Cursor?** Check out [MCP Server Integration](./mcp-server/mcp-overview.mdx)
 - **Want an integrated agent experience?** Try [Agent Mode](./agent-mode/overview.mdx) with Codex or Claude Code
 - **Want smarter file selection?** Learn about the [Context Builder](../version-classic-2.1.0/historical-guides/file-selection/context-builder.mdx)
 
@@ -168,6 +168,18 @@ RepoPrompt Classic and its `repoprompt-classic` repository are archived. **[Clas
 - [Providers](./agent-mode/providers.mdx)
 - [Sessions & Interface](./agent-mode/sessions.mdx)
 
+### MCP Server
+
+- [Overview](./mcp-server/mcp-overview.mdx)
+- [Setup Guide](./mcp-server/mcp-setup.mdx)
+- [Setup Wizard](./mcp-server/setup-wizard.mdx)
+- [Tools Reference](./mcp-server/mcp-tools.mdx)
+- [App Settings Tool](./mcp-server/mcp-app-settings.mdx)
+- [Transport Modes](./mcp-server/mcp-transport.mdx)
+- [Settings & Presets](./mcp-server/mcp-settings.mdx)
+- [Connection Management](./mcp-server/mcp-connections.mdx)
+- [Workflow Commands](./mcp-server/workflow-commands.mdx)
+
 ### Worktrees
 
 - [Worktrees overview](./worktrees/overview.mdx)
@@ -187,7 +199,7 @@ RepoPrompt Classic and its `repoprompt-classic` repository are archived. **[Clas
 
 ## Code examples: MCP and shell
 
-The following language tabs show the same read-only settings request. Code blocks provide a Copy button. The full historical references are [App Settings Tool](../version-classic-2.1.0/mcp-server/mcp-app-settings.mdx) and [App Settings from the CLI](../version-classic-2.1.0/rp-cli/cli-app-settings.mdx).
+The following language tabs show the same read-only settings request. Code blocks provide a Copy button. See [App Settings Tool](./mcp-server/mcp-app-settings.mdx) for the current allowlist and [Setup Guide](./mcp-server/mcp-setup.mdx#terminal-access) for terminal installation.
 
 <Tabs groupId="settings-language">
 <TabItem value="json" label="JSON · MCP" default>
@@ -199,10 +211,10 @@ Call `app_settings` with:
 ```
 
 </TabItem>
-<TabItem value="bash" label="Bash · rp-cli">
+<TabItem value="bash" label="Bash · rpce-cli">
 
 ```bash
-rp-cli -e 'app_settings op=get key=ui.appearance_mode'
+rpce-cli -e 'call app_settings {"op":"get","key":"ui.appearance_mode"}'
 ```
 
 </TabItem>
