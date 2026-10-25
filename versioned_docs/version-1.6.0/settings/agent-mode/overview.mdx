@@ -136,4 +136,12 @@ Open [Agent Workflows](./agent-workflows.mdx) to manage built-in workflow visibi
 
 Enable it to inspect and adjust those tabs’ selections, prompts, and Context Builder runs in Compose. Disable it to omit those not-yet-run chats from this view. The switch changes visibility; it does not delete the chats.
 
+## Usage Quota Telemetry
+
+Newer builds also include passive usage quota display preferences (not shown in the historical overview screenshot above) that are reachable via the [App Settings Tool](../../mcp-server/mcp-app-settings.mdx#agent_mode--selected-global-behavior):
+
+- **`agent_mode.claude_usage_quota_enabled`** — Passive run rate-limit diagnostics for Claude Code runs (does not connect an account or authorize external usage reads).
+- **`agent_mode.codex_usage_quota_enabled`** — Observe-only Codex quota display preference (quota readings are displayed in the UI and not returned over MCP).
+- **`agent_mode.usage_limits_display_enabled`** — Controls whether already-enabled usage sources are displayed in the UI, without changing routing or provider connections.
+
 </div>

@@ -20,51 +20,59 @@ Select a workflow from the **Workflow** dropdown in the Agent Mode toolbar, type
 
 ![Agent Mode running an Investigate workflow with Context Builder, Oracle, and file reads](../../../static/images/docs/images/investigation-workflow.jpg)
 
+*Note: This screenshot is a historical capture illustrating an earlier build's Investigate session.*
+
 ## Built-in Workflows
+
+Built-in workflows appear in the Agent Mode workflow picker in the following display order (`RepoPromptBuiltInAgentWorkflow.displayOrder`). Agent Mode sessions also support four specialized sub-agent roles: **Pair** (default when `model_id` is omitted in `agent_run`, for interactive pair programming and complex tasks), **Engineer** (balanced implementation), **Explore** (read-only reconnaissance), and **Design** (architecture and design critique producing markdown documents under `docs/`).
 
 ### Orchestrate
 
-Plans a complex task, decomposes it into discrete work items, and dispatches sub-agents to implement each one. The orchestrator stays lean — it coordinates and monitors, while worker agents handle the actual implementation. Works with both UI-started and MCP-started sessions.
+Plans a complex task, decomposes it into discrete work items, and dispatches sub-agents (`pair`, `engineer`, `design`, `explore`) to implement each one. The orchestrator stays lean — it coordinates and monitors, while worker agents handle the actual implementation in fresh context windows. Works with both UI-started and MCP-started sessions.
 
-**Flow:** Quick scan → Context Builder (plan) → Decompose into work items → Dispatch sub-agents → Monitor and verify
+**Flow:** Workspace verification → Contextualize task & Context Builder (`plan` + export) → Decompose into work items → Dispatch sub-agents → Monitor and verify
 
 ### Deep Plan
 
-Researches the code, asks how hands-on you want to be, and writes a clear implementation plan.
+Produces a polished, ready-to-execute architectural specification at `docs/plans/<topic>-<YYYY-MM-DD>.md` without implementing code. The workflow asks for your preferred involvement level (**Up front**, **Mid-flow**, or **Hands-off**), dispatches parallel `explore` agents across workspace seams, external research, and prior art, runs Context Builder (`plan` mode with export) to build a coverage ledger, dispatches a `design` agent to write an independent critique under `docs/reviews/`, and performs a fidelity-preserving editorial pass.
 
-### Review
-
-Surveys your git changes, determines the comparison scope (uncommitted, staged, vs main, etc.), and uses Context Builder to produce a thorough code review grounded in your full codebase — not just the diff.
-
-**Flow:** Survey git state → Confirm scope → Context Builder (with review) → Fill gaps if needed
-
-### Refactor
-
-A two-pass workflow: first analyzes your code for redundancies and complexity using Context Builder's review mode, then plans and implements improvements while preserving existing behavior.
-
-**Flow:** Analyze (Context Builder review) → Plan improvements → Implement (Context Builder plan)
+**Flow:** Involvement decision (`ask_user`) → Map seams (`explore` agents) → Scaffold plan → Context Builder (`plan` + coverage ledger) → Design critique (`design` agent) → Editorial polish & fidelity verification
 
 ### Optimize
 
-Finds what to measure, adds metrics, tries improvements, and uses evidence to keep iterating.
+Runs a delegation-first, evidence-driven performance optimization loop. The agent scouts bottleneck candidates with parallel `explore` agents, plans debug-gated instrumentation and a baseline procedure via Context Builder, dispatches a `pair` agent to capture baseline metrics in a persistent scoreboard (`prompt-exports/optimize-<slug>-runs.md`), and iterates one attributed change at a time — consulting the Oracle after each run until the target metric is met, diminishing returns are reached, or the 5-iteration cap is hit.
 
-### Investigate
-
-Systematic codebase exploration for debugging and research. The agent forms hypotheses, uses Context Builder for deep dives, gathers evidence, and documents findings — continuing until the root cause is identified.
-
-**Flow:** Assess → Explore (Context Builder) → Deep dive follow-ups → Evidence gathering → Findings report
+**Flow:** Bottleneck scouting (`explore` agents) → Plan metrics & instrumentation (Context Builder) → Land debug instrumentation & baseline (`pair` agent) → Serial optimization loop (Plan → Implement & measure → Verify scoreboard → Consult Oracle) → Final rollup
 
 ### Plan & Build
 
-The most comprehensive workflow. The agent does a quick scan of your codebase, calls Context Builder to gather deep context and generate an architectural plan, refines the plan through Oracle Chat, and then implements the solution directly.
+The comprehensive end-to-end implementation workflow. The agent does a quick scan of your codebase, calls Context Builder to gather deep context and generate an architectural plan, refines the plan through Oracle Chat when ambiguities arise, and then implements the solution directly.
 
-**Flow:** Quick scan → Context Builder (with plan) → Refine with Oracle Chat → Implement with editing tools
+**Flow:** Quick scan → Context Builder (with `plan`) → Refine with Oracle Chat → Implement with editing tools
 
-### ChatGPT Prompt Export
+### Review
 
-Builds optimized context for your task using Context Builder, then exports a prompt file ready to paste directly into GPT Pro models on ChatGPT (or any external AI) for a second opinion.
+Surveys your git changes, determines the comparison scope (uncommitted, staged, vs `main`, etc.), and uses Context Builder to produce a thorough code review grounded in your full codebase — not just the diff.
 
-**Flow:** Context Builder (clarify mode) → Export prompt file → Paste into ChatGPT (GPT Pro)
+**Flow:** Survey git state → Confirm scope → Context Builder (with `review`) → Clarify findings via Oracle if needed
+
+### Refactor
+
+Analyzes your code for redundancies and complexity using parallel `explore` scouts and Context Builder's `review` mode, generates an incremental refactoring plan via Context Builder's `plan` mode, and dispatches `pair` or `engineer` sub-agents to implement improvements step by step while verifying that existing behavior and tests are preserved.
+
+**Flow:** Scope & analyze (`explore` + Context Builder `review`) → Plan improvements (Context Builder `plan`) → Decompose & dispatch (`pair`/`engineer`) → Verify tests and diffs
+
+### Investigate
+
+Systematic, read-only codebase exploration for debugging and root-cause analysis. The agent triages symptoms into `docs/investigations/<topic>-<YYYY-MM-DD>.md`, optionally dispatches `explore` agents for git blame archaeology and external research, uses Context Builder for broad discovery, dispatches a `pair` investigator to test hypotheses, and synthesizes findings with the Oracle until the root cause is confirmed with line-level evidence.
+
+**Flow:** Triage & scaffold report → External fact-gathering (`explore`) → Broad discovery (Context Builder) → Deep investigation (`pair`) → Oracle synthesis & final report
+
+### ChatGPT Export
+
+Builds optimized context for your task using Context Builder (`clarify` mode), verifies selection and token counts, and exports a self-contained markdown prompt file under `prompt-exports/` ready to paste directly into GPT Pro models on ChatGPT (or any external AI) for a second opinion.
+
+**Flow:** Classify intent → Context Builder (`clarify` mode) → Verify workspace context → Export prompt file to `prompt-exports/`
 
 ## Interview Mode
 
@@ -81,6 +89,8 @@ RepoPrompt's workflow commands solve this by separating **discovery** from **imp
 Read more: [Context Over Convenience](/blog/context-over-convenience)
 
 ![Context Builder onboarding showing the two-stage pipeline and built-in workflows](../../../static/images/docs/images/onboarding-context-builder.jpg)
+
+*Note: This onboarding screenshot is a historical capture showing an earlier subset of built-in workflows.*
 
 ## The Context Builder Pipeline
 

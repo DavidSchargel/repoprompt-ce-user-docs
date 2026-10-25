@@ -20,7 +20,7 @@ Choose the Oracle analysis model, the Context Builder agent and model, and model
 
 </div>
 
-Open **Settings → Agent Mode → Agent Models**. This page chooses the models used by Oracle, Context Builder, and MCP-launched agent roles. The screenshot's model names and connected providers are examples, not fixed defaults.
+Open **Settings → Agent Mode → Agent Models**. This page chooses the models used by Oracle, Context Builder, and MCP-launched agent roles. The screenshots on this page are historical captures; the model names and connected providers shown are examples, not fixed defaults.
 
 ## Global settings and workspace overrides
 
@@ -63,10 +63,10 @@ These mappings supply models when an MCP client launches an agent using a role l
 
 | Role | Intended work |
 | --- | --- |
-| **Explore** | Fast exploration and codebase mapping. |
-| **Engineer** | Balanced engineering work. |
-| **Pair** | Interactive pair programming with highest-tier models. |
-| **Design** | Architecture, design discussion, and creative problem solving. |
+| **Explore** | Fast, read-only exploration and codebase mapping. |
+| **Engineer** | Balanced engineering and implementation work. |
+| **Pair** | Interactive pair programming with highest-tier models (default when `model_id` is omitted in `agent_run op="start"`). |
+| **Design** | Architecture, design critique, and creative problem solving (produces Markdown design/review documents under `docs/`). |
 
 Choose the provider/model from each row's menu. **Reset All to Recommended** appears when role defaults have overrides.
 

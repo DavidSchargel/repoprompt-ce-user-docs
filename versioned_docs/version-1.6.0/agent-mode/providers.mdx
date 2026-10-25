@@ -188,6 +188,14 @@ Cursor CLI connects through ACP (Agent Communication Protocol) with text streami
 2. Sign in with your Cursor Pro or Business account
 3. In RepoPrompt, go to Agent Mode settings and test the connection — available models will be discovered automatically
 
+## Grok Build
+
+Grok Build connects the installed `grok` CLI runtime to Agent Mode with dynamic model discovery and configurable launch approval behavior (`Default` or `Full Access` with `--always-approve`). Authenticate with `grok login` or configure a Grok API key in API Providers, then connect and test the integration in [CLI Providers settings](../settings/agent-mode/cli-providers.mdx#grok-build).
+
+## Google Antigravity and Devin CLI
+
+RepoPrompt also supports **Google Antigravity** (via a managed ACP runtime installed and updated from Settings) and **Devin CLI** (`devin acp`, with configurable permission modes including `Provider Default`, `Normal`, `Accept Edits`, `Smart`, and `Full Approval`). See [CLI Providers settings](../settings/agent-mode/cli-providers.mdx) for runtime setup and permission details.
+
 ## Using Your Existing Subscriptions
 
 Codex CLI, Claude Code, and Cursor CLI use your existing AI subscriptions — no additional API costs. If you're already paying for ChatGPT Plus / Pro / Codex, Claude Pro/Max, or Cursor Pro/Business, you can use those same accounts to power Agent Mode sessions. CC Zai, CC Moonshot, and CC Custom run through the Claude Code integration and require their own API keys (Z.AI, Moonshot/Kimi, or whichever Claude Code-compatible endpoint you configure), billed based on usage. OpenCode supports multiple providers including some free models — check OpenCode's documentation for available options.
