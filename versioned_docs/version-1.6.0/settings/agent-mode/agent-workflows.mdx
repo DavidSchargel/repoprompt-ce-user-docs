@@ -6,9 +6,11 @@ slug: "/settings/agent-workflows"
 hide_table_of_contents: false
 ---
 
-<div className="settings-intro">
+<div className="settings-reference">
 
-![](../images/agent-workflows.png)
+<div className="settings-intro settings-panel-intro">
+
+![Agent Workflows settings with cleanup guidance, featured workflows, built-in visibility, and custom workflow controls](../images/agent-workflows.png)
 
 <div>
 
@@ -18,10 +20,49 @@ Manage the built-in workflows shown in Agent Mode, featured workflows, custom Ma
 
 </div>
 
-Open **Settings → Agent Mode → Agent Workflows**.
+Open **Settings → Agent Mode → Agent Workflows**. These are Agent Mode prompt templates, separate from [Copy/Chat Workflow Presets](../prompting/workflow-presets.mdx). Select a workflow in Agent Mode before sending a task.
 
-1. Under the built-in workflows, toggle **Visible** to show or hide a workflow in Agent Mode. Use its feature control to place a visible workflow among the featured choices shown first.
-2. To add a custom workflow, click **New Workflow**, enter a name, and click **Create**. Alternatively, click **Clone** on a built-in workflow, enter a new name, and click **Clone**. Edit the resulting Markdown file in the Workflows folder; **Open Folder in Finder** opens that folder.
-3. Under **Prompt Behavior**, toggle **Include Session Cleanup Guidance** to control whether built-in workflows end with instructions to dismiss completed agent sessions. This setting does not change custom workflows or external slash skills.
+## Prompt Behavior
 
-Select your workflow from the **Workflow** dropdown in Agent Mode before sending a task. These options are separate from [Workflow Presets](../prompting/workflow-presets.mdx) used for Copy/Chat.
+![Include Session Cleanup Guidance switch](../images/agent-workflows-cleanup.png)
+
+**Include Session Cleanup Guidance** controls housekeeping instructions appended to built-in workflows, reminding the agent to dismiss completed agent sessions. Turn it off if that text conflicts with your session-management process. It does not change custom workflows or external slash skills, and it does not immediately dismiss sessions itself.
+
+## Featured Workflows
+
+![Featured workflow list with Add Featured Workflow, ordering arrows, and Remove](../images/agent-workflows-featured.png)
+
+Up to **four** workflows appear first in Agent Mode. **Add Featured Workflow** chooses from eligible workflows; it is disabled when the list is full or there are no more available choices.
+
+Use the up and down arrows to reorder this list. **Remove** removes a workflow from the featured list without deleting the workflow. The full visible catalog remains available in the workflow picker.
+
+## Built-in Workflows
+
+![Built-in workflow rows with Visible, Feature, and Clone controls](../images/agent-workflows-built-in.png)
+
+The built-in catalog includes:
+
+| Workflow | Purpose |
+| --- | --- |
+| **Orchestrate** | Break work into smaller tasks, delegate, and check results. |
+| **Deep Plan** | Research the code and produce an implementation plan. |
+| **Optimize** | Measure, add metrics, and iterate on improvements. |
+| **Plan & Build** | Plan and implement a change step by step. |
+| **Review** | Look for bugs, regressions, risks, and missed cases. |
+| **Refactor** | Improve structure while preserving behavior. |
+| **Investigate** | Investigate problems or research questions and report evidence. |
+| **ChatGPT Export** | Prepare code and context for a prompt to use in ChatGPT. |
+
+**Visible** shows or hides a built-in in the picker. Hiding it also removes it from Featured Workflows. **Feature** adds a visible workflow to the featured list, subject to the four-item limit. **Clone** creates an editable custom Markdown copy; it does not modify the shipped template.
+
+## Custom Workflows
+
+![Custom Workflows section with New, Reload, and Open Folder controls](../images/agent-workflows-custom.png)
+
+Choose **New**, enter a name, and select **Create** to create a Markdown workflow. Alternatively, clone a built-in and edit the resulting file.
+
+**Open Folder** opens the Workflows folder. You can add `.md` files there directly; **Reload** refreshes the catalog after external changes. Files can include optional frontmatter for a name, icon, accent color, tooltip, or description; otherwise the filename supplies the display name.
+
+Custom rows provide their own management actions. Deleting a custom workflow asks for confirmation and removes its file from the Workflows folder; it cannot be undone from RepoPrompt.
+
+</div>

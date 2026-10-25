@@ -1,26 +1,4 @@
 {
-  "advanced.png": "62adae1673dc10108f72532a9d021e9fa9d49fdc7b7c28398a6140142984f086",
-  "agent-models.png": "6cd16b6110ea7de34a5a7367a04eb03feadfd48fdeb90200470f30c94d041119",
-  "agent-permissions.png": "4a55c3b132ac85d5a964d82f81d72aedf6cbfd70cf83054556c280e97357ab28",
-  "agent-workflows.png": "cf802d117dbaf1c90514047425b1ffc959e712fd8233b5ce4d8b46b4053a5c87",
-  "api-providers.png": "6410d93cc8c5baa07b2c72cc6c46240c9d32ebd10f42ea369d69e350dd8ddaf5",
-  "appearance.png": "4a7c8190a758deda7ec0dc79a80287cbbf871097fd65ffa8a461ee806b27c718",
-  "chat-settings.png": "36b302174c1851fc4ec0baba02f95527b9e71d5cde689d9ce4fb28063731bbc0",
-  "context-builder.png": "cb5b7fadd5003e370edd6c437b46b4fadc7458faba01512c94abe8eb7ad2102e",
-  "copy-prompt-order.png": "def48d3854037384c582ea5115719f503bb4b440f339be2f1a5fda687ddc8180",
-  "custom-api.png": "fa5b604a5c7a56d453dfdd3dc457df97b1b019c007ad46acfb2befe39b6b7e4a",
-  "keyboard-shortcuts.png": "6dd299a2bd56b38fb2237476b99115f00d7b51c7ccc21328376453e2a316dcb7",
-  "manage-presets.png": "f506d88eaa25e11b4bfcb34926f799a269e3add624621b500fd8f42856e6c8ac",
-  "manage-workspaces.png": "fde0965e038d93ac077ea9e0d880d8f69f3ff397c63a3defb1df0ad5b2ce1976",
-  "mcp-server.png": "005989984e55aec4c8453cbb4ca6a3007a2d599b8c0332d25c435127be5cc192",
   "model-config.png": "dfa5415c25394555724115353036be34b0a3936549af5829b577649f2aad70b8",
-  "model-presets.png": "9bd9af622817b71c78cd7b7317cd9667132a5936fbd1f1ba189ebcbf4db03cab",
-  "model-router.png": "889e6ea8a56b91cf70678d1d26fece3770b988fa8f7a338d604fc62a01907004",
-  "openrouter.png": "be70450b5bf8d998e067f7b9a7df2123e3b1bc437c9a10bb4f02e926301dbe30",
-  "search-settings.png": "60d410135676445548157be8d50ea7a213506282a11c450a8c4f21b9fa28ed73",
-  "telemetry.png": "915e20df4d0d0bc33ba19a38ea3ef6b7b05299369f71a1048ae725377b4799f6",
-  "tools.png": "e3e550e9f7725b292f13052864a05c3d90e9aa9705e1aa55088975d86b044a63",
-  "updates.png": "c3add8f0bde9c26ae8a06383bbbd0a0cf9747372a1cb2d0af8faa891535c1411",
-  "workflow-presets.png": "e640a2e3ff7cb7c78c2c4e364796f7072c177919c710d66513a854286b654435",
-  "workspace-approvals.png": "576c05c494785567c6f081c4501572b077c9bf06b7629c654d1361e941573977"
+  "search-settings.png": "60d410135676445548157be8d50ea7a213506282a11c450a8c4f21b9fa28ed73"
 }

@@ -59,6 +59,7 @@
           "label": "General",
           "items": [
             "settings/general/appearance",
+            "settings/general/notifications",
             "settings/general/updates",
             "settings/general/keyboard-shortcuts",
             "settings/general/advanced",
