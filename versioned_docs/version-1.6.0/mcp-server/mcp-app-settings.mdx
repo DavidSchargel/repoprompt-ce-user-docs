@@ -186,10 +186,10 @@ Each example shows the arguments object passed to `app_settings`:
 
 This surface is intentionally narrow. The following are **not** reachable through `app_settings` and must be managed in the Settings UI:
 
-- API credentials for any provider.
-- MCP tool ACLs and agent permission documents.
+- API credentials and raw provider secrets for any provider.
+- MCP tool ACLs, auto-start lifecycle controls (`mcp.auto_start`), and agent permission documents.
 - Workspace approvals and workspace-scoped chat/copy settings.
-- Agent permission policies, human-only strict approval controls, and workspace model override dictionaries. Selected durable global Agent Mode preferences are explicitly allowlisted above.
+- Agent permission policies, human-only strict approval controls (specifically `agent_mode.codex_hook_approval_strict_mode_enabled`, which is classified in `humanOnlySettingKeys` and explicitly rejected over MCP), and workspace model override dictionaries. Selected durable global Agent Mode preferences are explicitly allowlisted above.
 - Internal migration flags and settings absent from the catalog. Development builds can expose additional diagnostic entries; do not assume they exist in release builds.
 
 If a preference is dangerous, secret, or workspace-specific, it is kept UI-only by design. Agents can still discover what *is* reachable with `op=list`.

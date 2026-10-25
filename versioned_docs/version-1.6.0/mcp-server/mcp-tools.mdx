@@ -11,7 +11,9 @@ toc_max_heading_level: 4
 
 This reference follows the current RepoPrompt CE source contracts. Tools are organized by category; ordinary tool toggles live in [MCP Tools settings](../settings/mcp-server/tools.mdx). Some tools are additionally limited to Agent Mode, discovery, or an authorized control relationship. Your connection's live schema determines which tools and arguments are available.
 
-The MCP settings status displays **21 available** tools for standard external client connections. RepoPrompt defines 31 canonical domain tools in total: the 21 tools listed below are advertised to standard external MCP clients, while an additional 10 policy-gated tools (`ask_user`, `ask_oracle`, `oracle_chat_log`, `agent_session_link`, `session_admin`, `become_overseer`, `self_compact`, `share_thoughts`, `set_status`, `wait_for_next_user_instruction`) are reserved for and dynamically activated within eligible Agent Mode and cross-session oversight contexts.
+The MCP settings status displays **21 available** tools for standard external client connections. RepoPrompt defines **31 total domain tools** (`MCPDomainToolCatalog.swift`):
+- **21 advertised tools** exposed to standard external MCP clients, consisting of **3 global tools** (`app_settings`, `bind_context`, `manage_workspaces`) and **18 window-scoped tools** (`agent_explore`, `agent_manage`, `agent_run`, `apply_edits`, `context_builder`, `file_actions`, `file_search`, `get_code_structure`, `get_file_tree`, `git`, `history`, `manage_selection`, `manage_worktree`, `oracle_send`, `oracle_utils`, `prompt`, `read_file`, `workspace_context`).
+- **10 policy-gated and sub-agent internal tools** (`ask_user`, `ask_oracle`, `oracle_chat_log`, `agent_session_link`, `session_admin`, `become_overseer`, `self_compact`, `share_thoughts`, `set_status`, `wait_for_next_user_instruction`) that are reserved for and dynamically activated within eligible Agent Mode and cross-session oversight contexts. See [Policy-Gated and Sub-Agent Internal Tools](#policy-gated-and-sub-agent-internal-tools).
 
 ## Tool catalog at a glance
 
@@ -531,6 +533,23 @@ agent_run op=start workflow_name="orchestrate" message="Refactor auth into separ
 **Tool Availability:** Individual tools can be enabled or disabled in **MCP Tools settings**. Disabled tools are withdrawn from the advertised list. Agent control tools are also gated by connection policy and may not appear on every connection.
 
 :::
+
+## Policy-Gated and Sub-Agent Internal Tools
+
+In addition to the 21 advertised tools above, RepoPrompt defines **10 policy-gated and sub-agent internal tools** that are omitted from the standard external catalog and activated dynamically within eligible Agent Mode and authorized cross-session oversight contexts:
+
+| Tool | Brief Description |
+| --- | --- |
+| [`ask_user`](#ask_user) | Prompts the user with structured questions, optional suggested answers, and configurable timeouts. |
+| [`ask_oracle`](#ask_oracle) | Consults the configured Oracle model directly from an eligible Agent Mode session. |
+| [`oracle_chat_log`](#oracle_chat_log) | Reads recent Oracle conversation history (`limit` 1–50) during an Agent Mode run without sending a new turn. |
+| `agent_session_link` | Manages cross-window and cross-session communication links, steering, model targeting, and auto-wake snoozing. |
+| `session_admin` | Administers sessions within a user-granted delegation scope, including session tree inspection, organization, worktree binding, and merge coordination. |
+| `become_overseer` | Requests promotion of the calling session to an overseer role to coordinate sibling sessions. |
+| `self_compact` | Requests self-compaction or context inspection (`op="context"` or `"compact"`) of the agent's own session context. |
+| `share_thoughts` | Publishes reasoning thoughts or plan progress to the session timeline. |
+| `set_status` | Updates the human-visible status indicator on the session card. |
+| `wait_for_next_user_instruction` | Signals that the agent has completed its turn and is waiting for the next user instruction. |
 
 ## Exploration, History, and Session Coordination
 

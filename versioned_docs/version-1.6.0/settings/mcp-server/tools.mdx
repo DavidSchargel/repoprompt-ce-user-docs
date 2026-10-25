@@ -20,10 +20,12 @@ Manage window-level MCP access, search the tool catalog, and configure individua
 
 </div>
 
-Open **Settings → MCP Server → Tools**. The screenshot shows all 21 visible tool descriptions expanded. Tool counts and descriptions depend on the build and discovered catalog; they are not a fixed promise that every client can use every tool. For current arguments, response behavior, and examples, see the [MCP Server Tools Reference](../../mcp-server/mcp-tools.mdx).
+Open **Settings → MCP Server → Tools**. RepoPrompt defines **31 total domain tools**, of which **21 are advertised** to standard external MCP clients (composed of **3 global tools** — `app_settings`, `bind_context`, and `manage_workspaces` — and **18 window-scoped tools**). The remaining **10 policy-gated and sub-agent internal tools** are reserved for eligible Agent Mode sessions and cross-session oversight.
+
+The screenshots on this page (`tools.png` and individual `tools-*.png` captures) are historical captures showing the 21 advertised tool descriptions expanded. There are minor differences in parameter naming (such as `search_pattern` vs `pattern` and regex flag descriptions) and legacy window-selector wording compared to the latest code (`MCPDomainToolCatalog.swift`). For current arguments, response behavior, and examples, see the [MCP Server Tools Reference](../../mcp-server/mcp-tools.mdx).
 
 <details>
-<summary>View the complete MCP Tools screenshot</summary>
+<summary>View the complete MCP Tools screenshot (historical capture)</summary>
 
 ![Complete MCP Tools pane with all 21 tool descriptions expanded](../images/tools.png)
 
@@ -206,5 +208,22 @@ Returns or exports the current workspace context. The default snapshot includes 
 Use include options to control the payload, or a copy-preset override to change rendering and token calculation. `export` writes the rendered context to disk; it does not send that context to an external service. See the [`workspace_context` contract](../../mcp-server/mcp-tools.mdx#workspace_context).
 
 ![workspace_context switch and expanded snapshot, export, token, and copy-preset options](../images/tools-workspace-context.png)
+
+## Policy-Gated and Sub-Agent Internal Tools
+
+In addition to the 21 advertised tools above, RepoPrompt defines **10 policy-gated and sub-agent internal tools** that are omitted from this general settings pane and dynamically exposed only within eligible Agent Mode sessions and authorized oversight contexts:
+
+- **`ask_user`** — Prompts the user with structured questions, optional suggested answers, and configurable timeouts.
+- **`ask_oracle`** — Consults the configured Oracle model directly from an eligible Agent Mode session.
+- **`oracle_chat_log`** — Reads recent Oracle conversation history (`limit` 1–50) during an Agent Mode run without sending a new turn.
+- **`agent_session_link`** — Manages cross-window and cross-session communication links, steering, model targeting, and auto-wake snoozing.
+- **`session_admin`** — Administers sessions within a user-granted delegation scope, including session tree inspection, organization, worktree binding, and merge coordination.
+- **`become_overseer`** — Requests promotion of the calling session to an overseer role to coordinate sibling sessions.
+- **`self_compact`** — Requests self-compaction or context inspection (`op="context"` or `"compact"`) of the agent's own session context.
+- **`share_thoughts`** — Publishes reasoning thoughts or plan progress to the session timeline.
+- **`set_status`** — Updates the human-visible status indicator on the session card.
+- **`wait_for_next_user_instruction`** — Signals that the agent has completed its turn and is waiting for the next user instruction.
+
+See [Policy-Gated and Sub-Agent Internal Tools](../../mcp-server/mcp-tools.mdx#policy-gated-and-sub-agent-internal-tools) in the Tools Reference for details.
 
 </div>

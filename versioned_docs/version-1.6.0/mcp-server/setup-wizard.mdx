@@ -20,7 +20,7 @@ The intro lists recommendations, provider status, and a **Best Models by Use Cas
 
 ![Setup Wizard intro with one Context Builder recommendation, provider status, best-model reference, Quick Apply All, and Start Wizard](./images/wizard-intro.png)
 
-The screenshots show particular models, connected providers, and a four-step walkthrough. They are examples from the captured build. Recommendations can change with the app's model catalog, provider availability, existing settings, and provider filter. The number and order of steps also vary: satisfied or muted recommendations can be omitted, while an available role-defaults review can still be shown.
+The screenshots on this page are historical captures showing particular models (such as placeholder names like `GPT-6 Luna Low`), connected providers, and a four-step walkthrough from an earlier build. Recommendations change dynamically with the app's model catalog, provider availability, existing settings, and provider filter. The number and order of steps also vary: satisfied or muted recommendations can be omitted, while an available role-defaults review can still be shown.
 
 ## Check the Settings Scope
 
@@ -62,10 +62,10 @@ The role-defaults step shows the recommended CLI agent and model for each task l
 
 | Role | Intended work |
 | --- | --- |
-| **Explore** | Fast exploration and codebase mapping. |
+| **Explore** | Fast, read-only exploration and codebase mapping. |
 | **Engineer** | Balanced engineering work. |
-| **Pair** | Interactive pair programming with a higher-capability model. |
-| **Design** | Architecture, design discussion, and creative problem solving. |
+| **Pair** | Interactive pair programming with a higher-capability model (default when `model_id` is omitted in `agent_run`). |
+| **Design** | Architecture, design critique, and creative problem solving (produces Markdown design/review documents under `docs/`). |
 
 ![Agent Role Defaults step with Explore, Engineer, Pair, and Design model choices and a Configure button](./images/wizard-role-defaults.png)
 
