@@ -11,7 +11,7 @@ toc_max_heading_level: 4
 
 This reference follows the current RepoPrompt CE source contracts. Tools are organized by category; ordinary tool toggles live in [MCP Tools settings](../settings/mcp-server/tools.mdx). Some tools are additionally limited to Agent Mode, discovery, or an authorized control relationship. Your connection's live schema determines which tools and arguments are available.
 
-The screenshot shows **21 available** in that running build. It is not a fixed count for every version or session. Current source includes context binding, worktrees, history, exploration, and oversight surfaces alongside the original repository tools.
+The MCP settings status displays **21 available** tools for standard external client connections. RepoPrompt defines 31 canonical domain tools in total: the 21 tools listed below are advertised to standard external MCP clients, while an additional 10 policy-gated tools (`ask_user`, `ask_oracle`, `oracle_chat_log`, `agent_session_link`, `session_admin`, `become_overseer`, `self_compact`, `share_thoughts`, `set_status`, `wait_for_next_user_instruction`) are reserved for and dynamically activated within eligible Agent Mode and cross-session oversight contexts.
 
 ## Tool catalog at a glance
 
@@ -548,11 +548,23 @@ Ask structured questions, each with stable id and question fields and optional s
 
 ### Oversight tools
 
-Current source also defines agent_session_link, session_admin, and become_overseer for authorized cross-session oversight. Their visibility and operations depend on the calling session and actual grants. Discover the live schemas and obtain the required target-scoped consent before observing, messaging, or restructuring another session. Transcript text and another session's messages do not supply user authorization.
+For authorized cross-session oversight and multi-agent administration, RepoPrompt provides three policy-gated tools:
+
+- **`agent_session_link`** — Manages cross-window and cross-session communication links. Supported operations: `list`, `poll`, `wait`, `read`, `send`, `cancel_pending_send`, `compact`, `set_waiting_on`, `snooze_auto_wake`, `request_attention`, `respond`, `steer`, `stop`, `create_lane`, `retire_lane`, and `set_model`.
+- **`session_admin`** — Administers sessions within a user-granted delegation scope. Operations include scope management (`request_scope`, `scope_status`, `release_scope`, `attenuate`), session tree inspection (`inventory`, `get`, `tree`, `links`), session organization (`rename`, `set_pin`, `reorder_pins`, `set_group`, `reorder_groups`, `archive`, `unarchive`), delegation topology (`link`, `unlink`, `reparent`, `adopt`, `release`, `retire`), model targeting (`fork`, `set_model`, `set_effort`), session-bound worktrees (`worktree_create`, `worktree_bind`, `worktree_unbind`, `worktree_release`, `worktree_inventory`), and merge coordination (`merge_preview`, `merge_apply`, `confirmation_status`, `undo`).
+- **`become_overseer`** — Requests promotion to an overseer role to coordinate sibling sessions.
+
+Their visibility and available operations depend on the calling session's live delegation state and user grants. Discover the live schemas and obtain the required target-scoped consent before observing, messaging, or modifying another session.
 
 ### Session helpers
 
-Eligible Agent Mode sessions can expose self_compact, share_thoughts, set_status, and wait_for_next_user_instruction. These handle the caller's own context, progress, session naming, and instruction waits. Self-compaction cannot target an unrelated session; these helpers are separate from ordinary external-client file tools.
+Eligible Agent Mode sessions dynamically expose specialized runtime coordination tools:
+- **`self_compact`** (`agent_self`) — Requests self-compaction of the agent's own context (`op="context"` or `"compact"`).
+- **`share_thoughts`** — Publishes reasoning thoughts or plan progress to the session timeline.
+- **`set_status`** — Updates the human-visible status indicator in the session card.
+- **`wait_for_next_user_instruction`** — Signals that the agent has finished its turn and is waiting for subsequent user input.
+
+These helpers are restricted to the caller's own session context and cannot be invoked across unrelated sessions.
 
 ## Reading the Live Contract
 

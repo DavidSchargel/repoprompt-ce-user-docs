@@ -63,7 +63,7 @@ Click the **MCP Server** indicator in the toolbar for quick access to the server
 - **Context Builder:** Review its selected CLI agent and model, and change them in Agent Models.
 - **Quick Setup:** Install the client integration and optional workflow skills.
 
-The screenshot shows 21 available tools and particular model selections. Counts and models are examples from that running build; current source includes additional tools and connection-specific filtering. This guide follows the current implementation where it differs from the screenshot or Classic tool names.
+The popover displays the count of currently advertised tools (typically **21 available** for standard external MCP clients, covering workspace lifecycle, file operations, Code Maps, context curation, Git, Oracle consultations, history, and the agent control plane). An additional set of policy-gated tools (`ask_user`, `ask_oracle`, `oracle_chat_log`, `agent_session_link`, `session_admin`, `become_overseer`, `self_compact`, `share_thoughts`, `set_status`, `wait_for_next_user_instruction`) are dynamically activated during eligible Agent Mode or oversight sessions. This guide follows the current implementation where it differs from Classic tool names.
 
 :::tip
 
@@ -125,10 +125,16 @@ The app bridge uses local UNIX sockets, without exposing an MCP TCP listener. Cl
 
 ### Compatible Clients
 
-- **Claude Code** - Anthropic's official CLI with full MCP support
-- **Cursor** - AI-powered editor with MCP integration
-- **Codex CLI** - OpenAI's CLI tool
-- **Any MCP Client** - The protocol is open and standardized
+RepoPrompt CE provides native one-click configuration for:
+- **Claude Code** — Anthropic's official coding CLI with deep MCP and skill integration
+- **Cursor** — AI-native code editor with deeplink MCP installation
+- **Codex CLI** — OpenAI's CLI agent with isolated prompt and skill discovery
+- **VS Code** — Visual Studio Code with standard stdio MCP configuration
+- **OpenCode** — Modern open-source terminal coding assistant
+- **Claude Desktop** — Anthropic's desktop application
+- **Any MCP Client** — Any client supporting the open Model Context Protocol standard
+
+Compatible clients can also install RepoPrompt's built-in [Workflow Commands](./workflow-commands.mdx), providing slash commands for orchestration, deep planning, optimization, code review, refactoring, implementation, bug investigation, and prompt exporting.
 
 ### Sibling: rpce-cli
 
