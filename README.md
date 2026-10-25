@@ -12,7 +12,7 @@ RepoPrompt CE also builds an agent harness around its bundled MCP server. Connec
 
 ## Local development
 
-Use the Node.js version specified in [`.node-version`](.node-version) and the
+Node.js 26 or later is required. Use the Node.js version specified in [`.node-version`](.node-version) and the
 pnpm version specified by `packageManager` in [`package.json`](package.json).
 The Pages workflow uses these same sources.
 

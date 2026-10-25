@@ -73,11 +73,23 @@ module.exports = {
         require.resolve('./src/css/responsive-tables.css'),
         require.resolve('./src/css/code-blocks.css'),
         require.resolve('./src/css/settings.css'),
+        require.resolve('./src/css/navbar.css'),
       ]},
       sitemap: {changefreq: 'weekly', priority: 0.5, ignorePatterns: ['**/privacy/**', '**/terms/**']},
     }],
   ],
-  themes: [['cosmos-docusaurus-theme', {injectFavicon: false}]],
+  themes: [
+    ['cosmos-docusaurus-theme', {injectFavicon: false}],
+    ...(!algoliaValues.every(Boolean) ? [[require.resolve('@easyops-cn/docusaurus-search-local'), {
+      indexDocs: true,
+      indexBlog: false,
+      indexPages: false,
+      docsRouteBasePath: '/docs',
+      docsDir: ['versioned_docs'],
+      forceIgnoreNoIndex: true,
+      hashed: true,
+    }]] : []),
+  ],
   plugins: [
     require.resolve('./plugins/seo-policy.cjs'),
     'docusaurus-plugin-image-zoom',
@@ -126,14 +138,16 @@ module.exports = {
     },
     image: 'images/blog/repo-prompt-community-edition.png',
     metadata: [{name: 'description', content: 'Documentation for RepoPrompt Community Edition and the Classic archive.'}],
-    // Follow the system until the visitor saves a choice; no cookies are used.
-    colorMode: {respectPrefersColorScheme: true},
+    // Offer explicit light and dark choices; no cookies are used.
+    colorMode: {respectPrefersColorScheme: false},
     navbar: {
       title: 'RepoPrompt',
       items: [
         {to: '/', label: 'Home', position: 'left', exact: true},
         {type: 'docSidebar', sidebarId: 'docsSidebar', label: 'Docs', position: 'left'},
         {to: '/blog/', label: 'Blog', position: 'left'},
+        {href: 'https://github.com/repoprompt/repoprompt-ce', label: 'RepoPrompt CE on GitHub', position: 'right', className: 'header-github-link'},
+        {type: 'search', position: 'right'},
         {type: 'docsVersionDropdown', position: 'right'},
       ],
     },

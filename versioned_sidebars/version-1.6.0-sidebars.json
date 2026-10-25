@@ -23,6 +23,14 @@
     },
     {
       "type": "category",
+      "label": "Worktrees",
+      "className": "sidebar-cat-folder",
+      "items": [
+        "worktrees/overview"
+      ]
+    },
+    {
+      "type": "category",
       "label": "Settings",
       "className": "sidebar-cat-sliders",
       "items": [
@@ -107,6 +115,7 @@
     {
       "type": "category",
       "label": "Changelog",
+      "className": "sidebar-cat-pencil",
       "items": [
         "changelog/ce-version-1-0"
       ]
@@ -114,6 +123,7 @@
     {
       "type": "category",
       "label": "FAQ",
+      "className": "sidebar-cat-puzzle",
       "items": [
         "historical-guides/faq/pay-for-services"
       ]

@@ -3,6 +3,25 @@ const assert = require('node:assert/strict');
 const fs = require('node:fs');
 const path = require('node:path');
 const vm = require('node:vm');
+test('color mode control toggles only light and dark without a tooltip', () => {
+  const React = require('react');
+  const Toggle = loadJsx(path.join(__dirname, '../src/theme/ColorModeToggle/index.js'), {
+    react: React,
+    '@docusaurus/useIsBrowser': () => true,
+    '@theme/Icon/LightMode': () => null,
+    '@theme/Icon/DarkMode': () => null,
+    './styles.module.css': {},
+  });
+  for (const [value, expected] of [['light', 'dark'], ['dark', 'light'], [null, 'dark']]) {
+    let selected;
+    const button = Toggle({value, onChange: (mode) => { selected = mode; }}).props.children;
+    assert.equal(button.props.title, undefined);
+    assert.equal(button.props['aria-label'], `Switch to ${expected} mode`);
+    button.props.onClick();
+    assert.equal(selected, expected);
+  }
+});
+
 const {assertResourceUrl, assertCosmosLayers} = require('../scripts/render-contracts.cjs');
 
 function loadJsx(file, dependencies, globals = {}) {
@@ -449,4 +468,48 @@ test('homepage mobile navigation contains focus and restores background state on
   assert.equal(document.activeElement, first, 'The destination route must retain control of focus');
   assert.deepEqual(background.map((element) => element.inert), [false, true]);
   assert.equal(sidebarListeners.size, 0);
+});
+
+test('header GitHub item has an accessible icon link on desktop and a visible mobile label', () => {
+  const React = require('react');
+  const {renderToStaticMarkup} = require('react-dom/server');
+  const GitHubNavbarItem = loadJsx(path.join(__dirname, '../src/theme/NavbarItem/GitHubNavbarItem.js'), {
+    react: React,
+    'react-icons/fi': {FiGithub: (props) => React.createElement('svg', props)},
+  });
+  const linkProps = {href: 'https://github.com/repoprompt/repoprompt-ce', label: 'RepoPrompt CE on GitHub'};
+  const desktop = renderToStaticMarkup(React.createElement(GitHubNavbarItem, linkProps));
+  assert.match(desktop, /href="https:\/\/github\.com\/repoprompt\/repoprompt-ce"/);
+  assert.match(desktop, /aria-label="RepoPrompt CE on GitHub"/);
+  assert.match(desktop, /aria-hidden="true"/);
+  const mobile = renderToStaticMarkup(React.createElement(GitHubNavbarItem, {...linkProps, mobile: true}));
+  assert.match(mobile, /RepoPrompt CE on GitHub/);
+  assert.match(mobile, /menu__list-item/);
+
+  const DefaultNavbarItem = loadJsx(path.join(__dirname, '../src/theme/NavbarItem/DefaultNavbarItem.js'), {
+    react: React,
+    '@theme-original/NavbarItem/DefaultNavbarItem': {__esModule: true, default: () => React.createElement('span', null, 'Original item')},
+    './GitHubNavbarItem': {__esModule: true, default: GitHubNavbarItem},
+  });
+  assert.match(renderToStaticMarkup(React.createElement(DefaultNavbarItem, {...linkProps, className: 'header-github-link'})), /aria-label="RepoPrompt CE on GitHub"/);
+  assert.match(renderToStaticMarkup(React.createElement(DefaultNavbarItem, {...linkProps, className: 'header-github-link', mobile: true})), /menu__list-item/);
+  assert.match(renderToStaticMarkup(React.createElement(DefaultNavbarItem, {...linkProps, className: 'other-link'})), /Original item/);
+});
+
+test('search navbar item appears only on docs routes, including versioned docs', () => {
+  const React = require('react');
+  const {renderToStaticMarkup} = require('react-dom/server');
+  let pathname = '/site/';
+  const SearchNavbarItem = loadJsx(path.join(__dirname, '../src/theme/NavbarItem/SearchNavbarItem.js'), {
+    react: React,
+    '@docusaurus/router': {useLocation: () => ({pathname})},
+    '@docusaurus/useBaseUrl': {__esModule: true, default: (url) => `/site${url}`},
+    '@theme-original/NavbarItem/SearchNavbarItem': {__esModule: true, default: () => React.createElement('button', {type: 'button'}, 'Search docs')},
+  });
+  for (pathname of ['/site/', '/site/blog/', '/site/docs-other/']) {
+    assert.equal(renderToStaticMarkup(React.createElement(SearchNavbarItem)), '');
+  }
+  for (pathname of ['/site/docs', '/site/docs/', '/site/docs/classic-2.1.0/']) {
+    assert.match(renderToStaticMarkup(React.createElement(SearchNavbarItem)), /Search docs/);
+  }
 });

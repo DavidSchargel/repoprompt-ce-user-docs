@@ -4,3 +4,5 @@ allowBuilds:
   core-js: false
   sharp: true
   '@swc/core': true
+minimumReleaseAgeExclude:
+  - cosmos-docusaurus-theme@2.2.7

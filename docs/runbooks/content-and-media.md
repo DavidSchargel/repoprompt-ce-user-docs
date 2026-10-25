@@ -45,7 +45,7 @@ pnpm run build
 
 ## Carrying Settings into later CE versions
 
-The Settings section belongs to the current CE collection, beginning with 1.5.0.
+The Settings section belongs to the current CE collection.
 When preparing a later CE documentation version, copy the current CE collection
 and its explicit sidebar together, including `settings/` and its local `images/`
 folder. Then update the version registration and version-specific content. Keep

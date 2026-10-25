@@ -324,6 +324,20 @@ test('version, theme, plugin, and redirect contracts are intact', () => {
   assert.equal(docs.versions['classic-2.1.0'].path, 'classic-2.1.0');
   assert.equal(config.future.v4, true);
   assert.equal(config.themes[0][0], 'cosmos-docusaurus-theme');
+  const navbarItems = config.themeConfig.navbar.items;
+  const githubIndex = navbarItems.findIndex((item) => item.className === 'header-github-link');
+  assert.notEqual(githubIndex, -1);
+  assert.equal(navbarItems[githubIndex].href, 'https://github.com/repoprompt/repoprompt-ce');
+  assert.equal(navbarItems[githubIndex].label, 'RepoPrompt CE on GitHub');
+  assert.equal(navbarItems[githubIndex + 1].type, 'search');
+  assert.equal(navbarItems[githubIndex + 2].type, 'docsVersionDropdown');
+  if (!config.themeConfig.algolia) {
+    const localSearch = config.themes.find((theme) => Array.isArray(theme) && theme[0] === require.resolve('@easyops-cn/docusaurus-search-local'));
+    assert.ok(localSearch, 'Docs search must work without Algolia credentials');
+    assert.equal(localSearch[1].indexDocs, true);
+    assert.equal(localSearch[1].indexBlog, false);
+    assert.equal(localSearch[1].forceIgnoreNoIndex, true);
+  }
   const plugins = config.plugins.map((plugin) => Array.isArray(plugin) ? plugin[0] : plugin);
   for (const name of ['docusaurus-plugin-llms', 'docusaurus-plugin-copy-page-button', '@docusaurus/plugin-ideal-image']) assert.ok(plugins.includes(name));
   assert.ok(plugins.includes('docusaurus-plugin-image-zoom'));
