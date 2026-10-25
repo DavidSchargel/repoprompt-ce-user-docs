@@ -1,0 +1,37 @@
+.header-github-link {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 2rem;
+  height: 2rem;
+  padding: 0;
+}
+
+.header-github-link svg {
+  width: 22px;
+  height: 22px;
+  flex: none;
+}
+
+.navbar__items--right .navbar__link.header-github-link {
+  border: none;
+  padding: 0;
+}
+
+.header-github-link--mobile {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.header-github-link--mobile svg {
+  width: 1.25rem;
+  height: 1.25rem;
+  flex: none;
+}
+
+.header-github-link:focus-visible,
+.header-github-link--mobile:focus-visible {
+  outline: 2px solid var(--ifm-color-primary);
+  outline-offset: 2px;
+}

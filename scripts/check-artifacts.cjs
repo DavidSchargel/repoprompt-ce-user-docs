@@ -90,6 +90,26 @@ async function main() {
   for (const file of exportFiles(directory)) {
     assert.equal((await localImageEdits(fs.readFileSync(file, 'utf8'))).length, 0, `${file}: unresolved local image in LLM export`);
   }
+  if (!config.themeConfig.algolia) {
+    for (const [version, options] of Object.entries(config.presets[0][1].docs.versions)) {
+      const versionRoute = ['docs', options.path].filter(Boolean).join('/') + '/';
+      const indexDirectory = options.path ? path.join(directory, versionRoute) : directory;
+      const indexFile = path.join(indexDirectory, 'search-index.json');
+      assert.ok(fs.existsSync(indexFile), `Missing local search index for ${version}`);
+      const shards = JSON.parse(fs.readFileSync(indexFile, 'utf8'));
+      const results = shards.flatMap((shard) => shard.documents || []);
+      assert.ok(results.length > 0, `Empty local search index for ${version}`);
+      for (const result of results) {
+        const url = new URL(result.u, config.url);
+        assert.equal(url.origin, config.url, `External search result for ${version}: ${result.u}`);
+        const route = url.pathname.startsWith(config.baseUrl)
+          ? url.pathname.slice(config.baseUrl.length)
+          : url.pathname.replace(/^\//, '');
+        assert.ok(route.startsWith(versionRoute), `Wrong-version search result for ${version}: ${result.u}`);
+        assert.ok(fs.existsSync(path.join(directory, route, 'index.html')), `Dead search result for ${version}: ${result.u}`);
+      }
+    }
+  }
   const docsDirectory = path.join(directory, 'docs') + path.sep;
   const docsPages = files.filter((file) => file.startsWith(docsDirectory) && file.endsWith('.html'));
   const images = findResponsiveImages(docsPages.map((file) => fs.readFileSync(file, 'utf8')));
@@ -108,7 +128,7 @@ async function main() {
       }
     }
   }
-  console.log('Artifact QA passed: no Twitter metadata, SEO retained, routes/redirects intact, clean LLM exports, lazy responsive Markdown images.');
+  console.log('Artifact QA passed: no Twitter metadata, SEO retained, routes/redirects intact, local search results valid when enabled, clean LLM exports, lazy responsive Markdown images.');
 }
 
 module.exports = {tags, assertNoTwitter, findResponsiveImages};

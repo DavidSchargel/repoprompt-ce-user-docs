@@ -18,6 +18,7 @@ the upstream text from the installed packages.
 | [@docusaurus/plugin-client-redirects](https://github.com/facebook/docusaurus) | MIT | [LICENSE](ThirdPartyLicenses/docusaurus__plugin-client-redirects/LICENSE) |
 | [@docusaurus/plugin-ideal-image](https://github.com/facebook/docusaurus) | MIT | [LICENSE](ThirdPartyLicenses/docusaurus__plugin-ideal-image/LICENSE) |
 | [@docusaurus/preset-classic](https://github.com/facebook/docusaurus) | MIT | [LICENSE](ThirdPartyLicenses/docusaurus__preset-classic/LICENSE) |
+| [@easyops-cn/docusaurus-search-local](https://github.com/easyops-cn/docusaurus-search-local) | MIT | [Upstream v0.55.3 LICENSE](ThirdPartyLicenses/docusaurus-search-local/LICENSE) |
 | [@mdx-js/react](https://github.com/mdx-js/mdx) | MIT | [license](ThirdPartyLicenses/mdx-js__react/license) |
 | [cosmos-docusaurus-theme](https://github.com/SckyzO/cosmos-docusaurus-theme) | MIT | [LICENSE](ThirdPartyLicenses/cosmos-docusaurus-theme/LICENSE) |
 | [docusaurus-plugin-copy-page-button](https://github.com/portdeveloper/docusaurus-plugin-copy-page-button) | MIT | License file absent from installed package; see note below. |
@@ -28,12 +29,33 @@ the upstream text from the installed packages.
 | [react-icons](https://github.com/react-icons/react-icons) | MIT for package code; icon-set licenses apply separately | [LICENSE and icon-set notices](ThirdPartyLicenses/react-icons/LICENSE) |
 | [react-tweet](https://github.com/vercel/react-tweet) | MIT | [license.md](ThirdPartyLicenses/react-tweet/license.md) |
 
+The local-search package declares MIT but does not ship a root license file; its
+preserved license is from the upstream v0.55.3 release. It ships JavaScript,
+CSS, and locale data, but no separate fonts or image assets. Its newly resolved
+transitive packages retain their own licenses as recorded in package metadata.
+
 The installed `docusaurus-plugin-copy-page-button` and `docusaurus-plugin-llms`
 packages declare MIT in their package metadata and READMEs but do not ship a
 standalone license file at the package root. Their source repositories are linked
 above. This inventory records that gap rather than inventing copyright notices;
 obtain the applicable upstream license text before redistributing those packages
 or their code as a separate bundle.
+
+## Search runtime dependencies
+
+The local-search dependency brings these packages into its search/build runtime.
+Their upstream license files are preserved from the installed packages;
+`pnpm-lock.yaml` records the resolved versions. No separate fonts or image
+assets were found in the installed local-search package.
+
+| Component | Declared license | Preserved upstream notice |
+| --- | --- | --- |
+| [@easyops-cn/autocomplete.js](https://github.com/easyops-cn/autocomplete.js) | MIT | [LICENSE](ThirdPartyLicenses/search-runtime/autocomplete.LICENSE) |
+| [Comlink](https://github.com/GoogleChromeLabs/comlink) | Apache-2.0 | [LICENSE](ThirdPartyLicenses/search-runtime/comlink.LICENSE) |
+| [entities](https://github.com/fb55/entities) | BSD-2-Clause | [LICENSE](ThirdPartyLicenses/search-runtime/entities.LICENSE) |
+| [lunr](https://github.com/olivernn/lunr.js) | MIT | [LICENSE](ThirdPartyLicenses/search-runtime/lunr.LICENSE) |
+| [lunr-languages](https://github.com/MihaiValentin/lunr-languages) | MPL-1.1 | [LICENSE](ThirdPartyLicenses/search-runtime/lunr-languages.LICENSE) |
+| [mark.js](https://github.com/julmot/mark.js) | MIT | [LICENSE](ThirdPartyLicenses/search-runtime/mark.js.LICENSE) |
 
 ## Icons supplied through react-icons
 
@@ -48,6 +70,7 @@ replace these icon licenses.
 
 Feather is copyright (c) 2013–2023 Cole Bemis. The homepage uses its
 `FiArrowDown`, `FiArrowUpRight`, `FiCheck`, `FiDownload`, and `FiGithub` icons.
+The header also uses `FiGithub`.
 
 Font Awesome Free icons are by [Font Awesome](https://fontawesome.com/), licensed
 under [Creative Commons Attribution 4.0 International](https://creativecommons.org/licenses/by/4.0/).

@@ -10,11 +10,16 @@ Third-party software, fonts, and other material retain their respective
 copyright notices and licenses. See THIRD_PARTY_NOTICES.md and
 ThirdPartyLicenses/ for the attribution material collected for this site.
 
-React, React DOM, docusaurus-plugin-image-zoom, and docusaurus-plugin-llms
-are licensed under the MIT License. See THIRD_PARTY_NOTICES.md for preserved
-license copies and package license-file availability.
+React, React DOM, docusaurus-plugin-image-zoom, docusaurus-plugin-llms,
+and @easyops-cn/docusaurus-search-local are licensed under the MIT License.
+See THIRD_PARTY_NOTICES.md for preserved license copies and package
+license-file availability.
 
 The homepage uses react-icons and react-tweet under the MIT License.
+The header also uses the Feather GitHub icon supplied by react-icons.
+The local-search runtime includes Comlink (Apache-2.0), entities
+(BSD-2-Clause), and lunr-languages (MPL-1.1); their license texts and
+other search-runtime notices are preserved in ThirdPartyLicenses/search-runtime/.
 Icons supplied through react-icons include Feather by Cole Bemis (MIT) and
 Font Awesome Free by Font Awesome (Creative Commons Attribution 4.0).
 See THIRD_PARTY_NOTICES.md for source links, icon attribution, and license copies.
