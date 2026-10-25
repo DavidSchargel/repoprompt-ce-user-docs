@@ -68,3 +68,11 @@ This local build is not notarized. Keep it on your Mac; it is not the distributi
 - If the debug app cannot sign, use the explicit ad-hoc command above or configure an Apple Development identity.
 - If an ad-hoc build appears to lose saved API keys or secure permission changes, that is expected: ad-hoc builds use ephemeral secure storage.
 - If you need more build detail, see the repository's [README build instructions](https://github.com/repoprompt/repoprompt-ce#build-and-launch-locally) and [contributor guide](https://github.com/repoprompt/repoprompt-ce/blob/main/AGENTS.md).
+
+## Build Tip code with Xcode
+
+Tip Builds follow development on the repository's `main` branch. To build that code locally, start with a fresh clone of the repository, or update an existing clean checkout to the latest `main`. If you want to reproduce the source used for a particular published Tip Build, check out the commit identified in that release before generating the workspace.
+
+From the repository root, run `make xcode` to generate and open the contributor workspace. In Xcode, select the **RepoPrompt CE App** scheme and the **My Mac** destination, then choose **Product → Run** to build and launch the packaged debug app. Use the same macOS, full Xcode, Python, and signing requirements described above. After updating your checkout, run `make xcode` again to regenerate the workspace for that source revision.
+
+This gives you a local development build of the Tip source. The official Tip distribution is signed and notarized by the project's release workflow; Xcode's contributor workspace builds the debug app and does not perform that release packaging. To install the published Tip Build instead, follow [Installing Tip Build](../overview/installation.mdx#installing-tip-build).

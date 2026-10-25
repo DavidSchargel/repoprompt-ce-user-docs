@@ -66,3 +66,11 @@ RepoPrompt checks for updates automatically. When an update is available, you'll
 ## Platform Availability
 
 RepoPrompt is built natively with Swift and SwiftUI, which means it's currently macOS-only. Multi-platform support is being worked on by various community members.
+
+## Installing Tip Build
+
+Tip Builds are official signed and notarized builds from the latest successful protected `main` commit. They offer development changes before the next Stable release. To install one, open RepoPrompt CE and go to **Settings → General → Updates**. Set **Update Channel** to **Tip Builds**, choose **Check for Updates**, and follow the updater's installation prompts when an eligible build is offered. If you have not installed RepoPrompt CE yet, install and launch the current Stable app using the instructions above, then select the Tip Builds channel.
+
+The selected channel controls which updates the app offers. To return to Stable, change **Update Channel** back to **Stable**. This may require waiting for a newer Stable release; to return immediately, reinstall the Stable application. See [Software Updates](../settings/general/updates.mdx) for more about update checks and channel behavior.
+
+If you want to compile the development source yourself, see [Build Tip code with Xcode](../faq/how-to-build.mdx#build-tip-code-with-xcode). A local Xcode build uses the contributor workflow and is separate from the official signed Tip distribution.
