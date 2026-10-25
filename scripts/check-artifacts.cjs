@@ -42,6 +42,9 @@ async function main() {
   }
   const directory = path.join(root, 'build');
   const config = require('../docusaurus.config.js');
+  const docsOptions = config.presets.find(([name]) => name === 'classic')[1].docs;
+  const docsRoutes = Object.values(docsOptions.versions).map(options =>
+    [docsOptions.routeBasePath, options.path].filter(Boolean).join('/') + '/');
   const files = walkFiles(directory);
   const home = fs.readFileSync(path.join(directory, 'index.html'), 'utf8');
   const homeStyles = tags(home, 'link').filter((link) => link.rel === 'stylesheet').map((link) => {
@@ -54,7 +57,7 @@ async function main() {
   for (const file of files.filter((name) => name.endsWith('.html'))) {
     assertNoTwitter(fs.readFileSync(file, 'utf8'), path.relative(directory, file));
   }
-  for (const route of ['', 'docs/', 'docs/classic-2.1.0/', 'blog/']) {
+  for (const route of ['', ...docsRoutes, 'blog/']) {
     const html = fs.readFileSync(path.join(directory, route, 'index.html'), 'utf8');
     const meta = tags(html, 'meta');
     assert.ok(/<title\b[^>]*>[^<]+<\/title>/i.test(html), `${route}: missing title`);
@@ -84,15 +87,15 @@ async function main() {
     const html = fs.readFileSync(path.join(directory, route, 'index.html'), 'utf8');
     assert.equal(tags(html, 'meta').find((entry) => entry['http-equiv'] === 'refresh')?.content, `0; url=${config.baseUrl}`, `${route}: redirect changed`);
   }
-  for (const file of ['llms.txt', 'llms-full.txt', 'docs.md', 'docs/classic-2.1.0.md']) {
+  for (const file of ['llms.txt', 'llms-full.txt', ...docsRoutes.map(route => route.replace(/\/$/, '.md'))]) {
     assert.ok(fs.readFileSync(path.join(directory, file), 'utf8').trim(), `${file}: missing or empty export`);
   }
   for (const file of exportFiles(directory)) {
     assert.equal((await localImageEdits(fs.readFileSync(file, 'utf8'))).length, 0, `${file}: unresolved local image in LLM export`);
   }
   if (!config.themeConfig.algolia) {
-    for (const [version, options] of Object.entries(config.presets[0][1].docs.versions)) {
-      const versionRoute = ['docs', options.path].filter(Boolean).join('/') + '/';
+    for (const [version, options] of Object.entries(docsOptions.versions)) {
+      const versionRoute = [docsOptions.routeBasePath, options.path].filter(Boolean).join('/') + '/';
       const indexDirectory = options.path ? path.join(directory, versionRoute) : directory;
       const indexFile = path.join(indexDirectory, 'search-index.json');
       assert.ok(fs.existsSync(indexFile), `Missing local search index for ${version}`);
@@ -110,7 +113,7 @@ async function main() {
       }
     }
   }
-  const docsDirectory = path.join(directory, 'docs') + path.sep;
+  const docsDirectory = path.join(directory, docsOptions.routeBasePath) + path.sep;
   const docsPages = files.filter((file) => file.startsWith(docsDirectory) && file.endsWith('.html'));
   const images = findResponsiveImages(docsPages.map((file) => fs.readFileSync(file, 'utf8')));
   assert.ok(images.length > 0, 'No responsive Markdown images found across the documentation');

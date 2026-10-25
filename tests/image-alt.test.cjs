@@ -2,6 +2,7 @@ const test = require('node:test');
 const assert = require('node:assert/strict');
 const {assertImageAlt} = require('../scripts/check-content.cjs');
 const currentDocsDirectory = `versioned_docs/version-${require('../versions.json')[0]}`;
+const classicDocsDirectory = `versioned_docs/version-${require('../versions.json').find(version => version.startsWith('classic-'))}`;
 
 test('Markdown and direct JSX images require reviewed paths for empty alt', async () => {
   const {createProcessor} = await import('@mdx-js/mdx');
@@ -27,7 +28,7 @@ test('Markdown and direct JSX images require reviewed paths for empty alt', asyn
   }
   assert.throws(() => validate('<img src="../images/advanced.png" role="presentation" />'), /missing image alt/);
   assert.throws(() => validate('![](../images/advanced.png)', `${currentDocsDirectory}/agent-mode/overview.mdx`), /missing image alt/);
-  assert.throws(() => validate('![](../images/advanced.png)', 'versioned_docs/version-classic-2.1.0/settings/agent-mode/overview.mdx'), /missing image alt/);
+  assert.throws(() => validate('![](../images/advanced.png)', `${classicDocsDirectory}/settings/agent-mode/overview.mdx`), /missing image alt/);
 });
 
 test('listing a new CE release does not approve its decorative images', () => {
@@ -35,14 +36,21 @@ test('listing a new CE release does not approve its decorative images', () => {
   const scriptPath = require.resolve('../scripts/check-content.cjs');
   const localRequire = require('node:module').createRequire(scriptPath);
   const nextVersion = '99.0.0';
-  const configRequire = name => name === '../versions.json'
-    ? [nextVersion, ...require('../versions.json')] : localRequire(name);
+  let futureBytes;
+  const configRequire = name => {
+    if (name === '../versions.json') return [nextVersion, ...require('../versions.json')];
+    if (name === 'node:fs') return {...fs, readFileSync(file, ...args) {
+      if (futureBytes && file.endsWith(`version-${nextVersion}/settings/images/advanced.png`)) return futureBytes;
+      return fs.readFileSync(file, ...args);
+    }};
+    return localRequire(name);
+  };
   const context = {module: {exports: {}}, require: configRequire, __dirname: require('node:path').dirname(scriptPath)};
   require('node:vm').runInNewContext(fs.readFileSync(scriptPath, 'utf8'), context, {filename: scriptPath});
   const validate = context.module.exports.assertImageAlt;
   const image = {type: 'image', alt: '', url: '../images/advanced.png'};
   const nextDirectory = `versioned_docs/version-${nextVersion}`;
-  for (const directory of ['versioned_docs/version-1.5.0']) {
+  for (const directory of [currentDocsDirectory]) {
     assert.doesNotThrow(() => validate(image, `${directory}/settings/agent-mode/overview.mdx`));
     assert.throws(() => validate({...image, url: '../images/unreviewed.png'}, `${directory}/settings/agent-mode/overview.mdx`), /missing image alt/);
     assert.throws(() => validate(image, `${directory}/agent-mode/overview.mdx`), /missing image alt/);
@@ -51,8 +59,12 @@ test('listing a new CE release does not approve its decorative images', () => {
       {type: 'mdxJsxAttribute', name: 'alt', value: ''},
     ]}, `${directory}/settings/agent-mode/overview.mdx`), /missing image alt/);
   }
-  for (const directory of [nextDirectory, 'versioned_docs/version-classic-2.1.0', 'versioned_docs/version-unlisted']) {
+  for (const directory of [nextDirectory, classicDocsDirectory, 'versioned_docs/version-unlisted']) {
     assert.throws(() => validate(image, `${directory}/settings/agent-mode/overview.mdx`), /missing image alt/);
     assert.doesNotThrow(() => validate({...image, alt: 'Settings screenshot'}, `${directory}/settings/agent-mode/overview.mdx`));
   }
+  futureBytes = fs.readFileSync(require('node:path').join(__dirname, '..', currentDocsDirectory, 'settings/images/advanced.png'));
+  assert.doesNotThrow(() => validate(image, `${nextDirectory}/settings/agent-mode/overview.mdx`), 'Identical reviewed images remain approved in future releases');
+  futureBytes = Buffer.from('changed image content');
+  assert.throws(() => validate(image, `${nextDirectory}/settings/agent-mode/overview.mdx`), /missing image alt/, 'Changed images require review');
 });

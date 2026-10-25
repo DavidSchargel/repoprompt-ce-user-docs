@@ -4,45 +4,28 @@ const assert = require('node:assert/strict');
 const {readDocs} = require('./doc-inventory.cjs');
 // These title-and-icon crops repeat the page heading and have no additional content.
 // Keep empty alt text limited to this reviewed set of decorative settings images.
-const decorativeSettingsImages150 = new Set([
-  'advanced.png',
-  'agent-models.png',
-  'agent-permissions.png',
-  'agent-workflows.png',
-  'api-providers.png',
-  'appearance.png',
-  'chat-settings.png',
-  'context-builder.png',
-  'copy-prompt-order.png',
-  'custom-api.png',
-  'keyboard-shortcuts.png',
-  'manage-presets.png',
-  'manage-workspaces.png',
-  'mcp-server.png',
-  'model-config.png',
-  'model-presets.png',
-  'model-router.png',
-  'openrouter.png',
-  'search-settings.png',
-  'telemetry.png',
-  'tools.png',
-  'updates.png',
-  'workflow-presets.png',
-  'workspace-approvals.png',
-]);
-
-
-// Approve each version's actual assets explicitly after review. Listing a new
-// release in versions.json must never grant it an empty-alt exemption.
-const decorativeImagesByDirectory = new Map([
-  ['versioned_docs/version-1.5.0/settings/', decorativeSettingsImages150],
-]);
+// Approval follows reviewed bytes, not a release number. New or changed images
+// require a reviewed fingerprint before they can use empty alt text.
+const {createHash} = require('node:crypto');
+const reviewedSettingsImages = require('./decorative-settings-images.json');
+const decorativeSettingsImages = new Set(Object.keys(reviewedSettingsImages));
+const decorativeImagesByDirectory = new Map(require('../versions.json')
+  .filter(version => !version.startsWith('classic-'))
+  .map(version => [`versioned_docs/version-${version}/settings/`, decorativeSettingsImages]));
 function isDecorativeSettingsImage(file, url) {
   const settingsDirectory = [...decorativeImagesByDirectory.keys()].find(directory => file.startsWith(directory));
   if (!settingsDirectory || typeof url !== 'string' || /^[a-z][\w+.-]*:|^\//i.test(url)) return false;
   const resolved = path.posix.normalize(path.posix.join(path.posix.dirname(file), decodeURIComponent(url.split(/[?#]/)[0])));
-  return path.posix.dirname(resolved) === `${settingsDirectory}images`
-    && decorativeImagesByDirectory.get(settingsDirectory).has(path.posix.basename(resolved));
+  const name = path.posix.basename(resolved);
+  if (path.posix.dirname(resolved) !== `${settingsDirectory}images`
+    || !decorativeImagesByDirectory.get(settingsDirectory).has(name)) return false;
+  try {
+    const bytes = fs.readFileSync(path.join(__dirname, '..', resolved));
+    return createHash('sha256').update(bytes).digest('hex') === reviewedSettingsImages[name];
+  } catch (error) {
+    if (error.code === 'ENOENT') return false;
+    throw error;
+  }
 }
 
 function assertImageAlt(node, file) {
