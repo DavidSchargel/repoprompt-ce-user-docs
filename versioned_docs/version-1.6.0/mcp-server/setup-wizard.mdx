@@ -20,7 +20,7 @@ The intro lists recommendations, provider status, and a **Best Models by Use Cas
 
 ![Setup Wizard intro with one Context Builder recommendation, provider status, best-model reference, Quick Apply All, and Start Wizard](./images/wizard-intro.png)
 
-The screenshots on this page are historical captures showing particular models (such as placeholder names like `GPT-6 Luna Low`), connected providers, and a four-step walkthrough from an earlier build. Recommendations change dynamically with the app's model catalog, provider availability, existing settings, and provider filter. The number and order of steps also vary: satisfied or muted recommendations can be omitted, while an available role-defaults review can still be shown.
+The screenshots capture particular model choices, connected providers, and a four-step walkthrough from an earlier build. Recommendations change with the app's catalog, provider availability, settings, and provider filter. See [Models → Recommendations and screenshots](../providers/models.mdx#recommendations-and-screenshots) for how to interpret these examples. The number and order of steps also vary: satisfied or muted recommendations can be omitted, while an available role-defaults review can still be shown.
 
 ## Check the Settings Scope
 
@@ -30,7 +30,7 @@ MCP preset exposure has its own global scope. A recommendation to hide or show p
 
 ## Choose Providers for Recommendations
 
-Open **Providers** to choose which provider families the recommendation engine may consider. The screenshot includes Claude Code, Codex CLI, Cursor CLI, Grok Build, and OpenAI API. Unchecked providers are excluded from the next recommendation calculation.
+Open **Providers** to choose which provider families the recommendation engine may consider. The screenshot includes Codex CLI, Claude Code, Cursor CLI, Grok Build, and OpenAI API. Unchecked providers are excluded from the next recommendation calculation.
 
 ![Providers for Recommendations popover with five checked provider families, Reset, and Apply](./images/wizard-providers.png)
 
@@ -40,7 +40,7 @@ Choose **Apply** to recompute recommendations using the selected set, or **Reset
 
 The Context Builder step shows a recommended agent, model, and explanation. Context Builder explores your codebase and selects files toward a context budget before the requested follow-up analysis. Its discovery model is distinct from the Oracle model used for a plan, review, or answer.
 
-![Context Builder recommendation showing Codex CLI, GPT-6 Luna Low, and the recommendation explanation](./images/wizard-context-recommendation.png)
+![Context Builder recommendation showing the selected Codex discovery model and its explanation](./images/wizard-context-recommendation.png)
 
 **Apply & Next** saves the recommendation to the displayed settings scope and advances. **Skip** advances without applying it. **Back** returns to an earlier step. The recommendation in the screenshot is not a model you must choose; configure a supported, authenticated provider that fits your account and task.
 

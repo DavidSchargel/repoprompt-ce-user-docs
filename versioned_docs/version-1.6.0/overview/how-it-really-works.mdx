@@ -209,29 +209,13 @@ When a session has completed a major phase and you want to start fresh in a new 
 
 ## 6. Variations and Limitations of Large Language Models (LLMs)
 
-Not all frontier LLMs think, plan, or use tools the same way. Treating every model as interchangeable leads to frustrating results.
+The workflow separates repository exploration and editing from Oracle consultation. A model suited to iterative tool use may serve a different purpose from one selected to reason over a prepared context package. Compare the capabilities needed by each stage rather than assigning permanent rankings to named model releases.
 
-### Interleaved Tool Use vs. "Think-Then-Act" Consensus
+Use the shared [Models reference](../providers/models.mdx) for availability, identifiers, reasoning effort, speed tiers, and choosing models for different tasks. The [provider directory](../providers/overview.mdx) owns connection requirements and official catalog references.
 
-A fundamental architectural difference separates today's frontier model families:
+### Role-Based Model Specialization
 
-- **Interleaved Tool-Use Models (e.g., Anthropic Claude Sonnet / Opus, Codex CLI models):** These models are trained to interleave short bursts of reasoning with iterative tool calls (`read_file` → think → `apply_edits` → run test). They excel as hands-on **Discovery Agents** and **Implementation Engineers**.
-- **Deep "Think-Then-Act" Reasoning Models (e.g., OpenAI GPT-5 Pro / o-series high-effort models, DeepSeek R1, Gemini Pro):** These models achieve their breakthrough reasoning accuracy when given complete context upfront and allowed to think uninterrupted before producing a synthesized response. In multi-strand architectures (like GPT-5 Pro, which runs parallel reasoning strands and reconciles them into a consensus answer), forcing the model to call file-editing tools _inside_ its chain of thought means only a single un-reconciled strand acts, throwing away the consensus wisdom of the ensemble.
-
-RepoPrompt's architecture is built around this exact split: **tool-native CLI agents** handle repository exploration and code edits, while the **tool-less Oracle** receives the complete curated context in a single payload to perform deep, uninterrupted architectural planning and review.
-
-### Role-Based Model Specialization (`AgentRole` in `ClaudeCodeAgentConfig.swift`)
-
-Rather than using one expensive, slow model for trivial searches or a small, fast model for complex architecture, RepoPrompt maps tasks to four canonical sub-agent roles:
-
-| Role           | Default Cognitive Profile                                                                  | Primary Responsibility                                                                                                        |
-| :------------- | :----------------------------------------------------------------------------------------- | :---------------------------------------------------------------------------------------------------------------------------- |
-| **`explore`**  | Fast, low-latency, cost-efficient (e.g., Claude Haiku 4.5, GPT-5.3 Codex Spark / 5.4 Mini) | Read-only codebase reconnaissance, path/content search, and dependency scouting.                                              |
-| **`engineer`** | High-accuracy coding & tool use (e.g., Claude Sonnet 4.6, GPT-5.3 Codex High)              | Scoped, multi-file feature implementation and refactoring from an established plan.                                           |
-| **`pair`**     | Frontier interactive reasoning (e.g., Claude Opus 4.6, GPT-5.4 / 5.5 High)                 | Default role for `agent_run` when `model_id` is omitted; handles orchestration, deep debugging, and complex pair programming. |
-| **`design`**   | Frontier specification & critique (e.g., Claude Opus 4.6, GPT-5.4 High)                    | Produces and critiques architectural plans and design documents under `docs/`.                                                |
-
-Each built-in workflow automatically selects its optimal role (`RepoPromptBuiltInAgentWorkflow.preferredAgentRole`): for example, `investigate` defaults to `.explore`, `build`/`refactor`/`review`/`optimize` default to `.engineer`, `orchestrate`/`deepPlan` default to `.pair`, and `oracleExport` defaults to `.design`.
+Role labels resolve through the effective Agent Models profile rather than a fixed list of model releases. See [Model roles](../providers/models.mdx#model-roles) for their responsibilities and [Agent Models settings](../settings/agent-mode/agent-models.mdx#sub-agent-role-defaults) for configuring mappings and workspace overrides. Model choice and permission policy remain separate decisions.
 
 ### Multi-Oracle Rosters & Reconciliation (`SystemPromptService.multiOracleGuidanceBlock`)
 

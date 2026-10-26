@@ -105,7 +105,7 @@ test('generated Markdown images retain empty alt without approving omitted JSX a
   assert.equal(jsx.attributes.find(attribute => attribute.name === 'alt'), undefined);
 });
 
-test('provider comparison MDX keeps its caption, scoped headers, and keyboard-scroll region', async () => {
+test('provider directory renders coding integrations as navigable wrapping lists', async () => {
   const React = require('react');
   const {renderToStaticMarkup} = require('react-dom/server');
   const {compile, run} = await import('@mdx-js/mdx');
@@ -118,7 +118,7 @@ test('provider comparison MDX keeps its caption, scoped headers, and keyboard-sc
     configFile: false,
     plugins: ['@babel/plugin-transform-react-jsx', '@babel/plugin-transform-modules-commonjs'],
   });
-  // The site uses intrinsic elements for the explicit table and overflow region.
+  // Render the directory through the real MDX content wrapper.
   const dependencies = {react: React, '@mdx-js/react': mdx, '@theme/MDXComponents': {}};
   const exports = {};
   require('node:vm').runInNewContext(code, {exports, require(name) {
@@ -126,7 +126,7 @@ test('provider comparison MDX keeps its caption, scoped headers, and keyboard-sc
     return dependencies[name];
   }});
   const MDXContent = exports.default;
-  const source = fs.readFileSync(path.join(root, currentDocsDirectory, 'agent-mode/providers.mdx'), 'utf8');
+  const source = fs.readFileSync(path.join(root, currentDocsDirectory, 'providers/overview.mdx'), 'utf8');
   const compiled = await compile(source, {
     remarkPlugins: [frontmatter],
     outputFormat: 'function-body',
@@ -134,21 +134,27 @@ test('provider comparison MDX keeps its caption, scoped headers, and keyboard-sc
   });
   const {default: Content} = await run(compiled, {...runtime, useMDXComponents: mdx.useMDXComponents});
   const html = renderToStaticMarkup(React.createElement(MDXContent, null, React.createElement(Content)));
-  const wrapper = html.match(/<div\b([^>]*)>\s*(<table>[\s\S]*?<\/table>)\s*<\/div>/);
-  assert.ok(wrapper, 'Expected a table inside an explicit overflow region');
-  for (const attribute of ['class="accessible-table-scroll"', 'role="region"', 'tabindex="0"']) {
-    assert.ok(wrapper[1].includes(attribute), `Missing table-region ${attribute}`);
+  assert.doesNotMatch(html, /<table|accessible-table-scroll/);
+  const codingList = html.match(/<ol>([\s\S]*?)<\/ol>/);
+  assert.ok(codingList, 'Coding providers need a readable ordered list');
+  assert.equal((codingList[1].match(/<li>/g) || []).length, 10);
+  for (const name of ['codex-cli', 'claude-code-cli', 'opencode-cli', 'cursor-cli', 'grok-build', 'google-antigravity', 'devin-cli', 'cc-zai', 'cc-moonshot', 'cc-custom']) {
+    assert.ok(codingList[1].includes(`href="./${name}.mdx"`), `Missing provider destination: ${name}`);
   }
-  const label = wrapper[1].match(/aria-labelledby="([^"]+)"/);
-  assert.ok(label, 'Table region needs a caption reference');
-  const caption = wrapper[2].match(/<caption id="([^"]+)">([^<]+)<\/caption>/);
-  assert.ok(caption, 'Table needs a nonempty caption');
-  assert.equal(label[1], caption[1], 'Table region must be labelled by its own caption');
-  assert.match(wrapper[2], /<thead>[\s\S]*?<th scope="col">Feature<\/th>/);
-  assert.equal((wrapper[2].match(/<th scope="col">/g) || []).length, 6);
-  assert.equal((wrapper[2].match(/<th scope="row">/g) || []).length, 8);
-  assert.doesNotMatch(wrapper[2], /<td>\s*[✓—-]\s*<\/td>/);
-  assert.match(html, /focus the table region/);
+  assert.match(html, /Provider comparison/);
+});
+
+test('archived source links export to moved CE guides with fragments and site prefix retained', async () => {
+  const {rewriteDocLinks} = require('../scripts/llm-links.cjs');
+  const routes = Object.fromEntries(require('../scripts/doc-inventory.cjs').readDocs(root)
+    .map(entry => [entry.destination, entry.route]));
+  const source = 'versioned_docs/version-classic-2.1.0/index.md';
+  const markdown = '[Providers](../version-1.6.0/agent-mode/providers.mdx#codex-cli)\n'
+    + '[Sessions](../version-1.6.0/agent-mode/sessions.mdx)';
+  const result = await rewriteDocLinks(markdown, source, routes, 'https://example.invalid/project/');
+  assert.ok(result.includes('https://example.invalid/project/docs/providers/overview/#codex-cli'));
+  assert.ok(result.includes('https://example.invalid/project/docs/sessions/overview/'));
+  assert.doesNotMatch(result, /\.mdx/);
 });
 
 test('active docs landing keeps a navigable outline and standalone link names', async () => {
@@ -168,14 +174,14 @@ test('active docs landing keeps a navigable outline and standalone link names', 
   for (const label of [
     'Explore the Context Builder workflow',
     'Explore Agent Orchestration workflows',
-    'Learn more about CLI Providers',
+    'Compare providers and model availability',
   ]) assert.ok(source.includes(`[${label} →]`));
   assert.match(source, /\[!\[Video preview image\]\(https:\/\/img\.youtube\.com\/vi\/ncY6cqOCd_Y\/maxresdefault\.jpg\) RepoPrompt 101 Video walkthroughs/);
   assert.match(source, /\[!\[Podcast cover art\]\(\.\.\/\.\.\/static\/images\/docs\/images\/rate-limited_profile\.jpg\) Rate Limited Podcast AI coding workflows/);
   for (const route of [
     './agent-mode/workflows.mdx',
     './mcp-server/mcp-overview.mdx',
-    '../version-classic-2.1.0/ai-providers/cli-providers.mdx',
+    './providers/overview.mdx',
   ]) assert.ok(source.includes(`](${route})`), `Preserve cross-version or current route: ${route}`);
 });
 
@@ -268,7 +274,7 @@ test('a new CE release keeps older CE docs and Classic on distinct routes', asyn
     trailingSlash: config.trailingSlash,
     onDuplicateRoutes: config.onDuplicateRoutes,
     presets: [[require.resolve('@docusaurus/preset-classic'), {
-      docs: {...docs, sidebarPath: false, remarkPlugins: []},
+      docs: {...docs, sidebarPath: false, beforeDefaultRemarkPlugins: [], remarkPlugins: []},
       blog: false,
     }]],
   })};`);

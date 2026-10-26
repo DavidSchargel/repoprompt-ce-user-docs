@@ -61,7 +61,7 @@ Agents waste context before they start thinking. Their context windows fill with
 
 ## Three Ways to Work
 
-[**Agent Mode** Hands off context engineering to your coding agents. The same best practices from the old IDE Mode in the Classic Edition — codemaps, slicing, token budgets — managed by agents (Codex, Claude Code, Cursor, OpenCode) on your behalf, with built-in workflows.](./agent-mode/overview.mdx)
+[**Agent Mode** Hands off context engineering to your coding agents. The same best practices from the old IDE Mode in the Classic Edition — codemaps, slicing, token budgets — managed by agents (Codex CLI, Claude Code CLI, OpenCode CLI, Cursor CLI) on your behalf, with built-in workflows.](./agent-mode/overview.mdx)
 
 [**Built-in MCP Server** Connect MCP-compatible clients to RepoPrompt's context tools. Set up external clients, workflow skills, Oracle models, and workspace context.](./mcp-server/mcp-overview.mdx)
 
@@ -115,9 +115,11 @@ The `/rp-orchestrate` workflow automates this: Context Builder generates a plan 
 - Finds simpler solutions using what's already there
 - Grounded feedback tied to real code
 
-## [CLI Providers](../version-classic-2.1.0/ai-providers/cli-providers.mdx)
+## [Providers & Models](./providers/overview.mdx)
 
-Already paying for Claude Pro/Max, ChatGPT Plus/Pro, or Google AI? Use those same models in RepoPrompt with **CLI Providers** — no additional API costs. These providers power Agent Mode, Chat Mode, and Context Builder workflows. [Learn more about CLI Providers →](../version-classic-2.1.0/ai-providers/cli-providers.mdx)
+Choose a coding-agent runtime, a direct API connection, or a local model service. The [Providers & Models reference](./providers/overview.mdx) explains connection requirements, account boundaries, capabilities, and model discovery. Each route uses its own account terms; a CLI subscription does not automatically cover separate API requests.
+
+[Compare providers and model availability →](./providers/overview.mdx)
 
 ## Who Is RepoPrompt For?
 
@@ -130,7 +132,7 @@ Already paying for Claude Pro/Max, ChatGPT Plus/Pro, or Google AI? Use those sam
 Ready to build better AI prompts? Here's where to go next:
 
 - **New to RepoPrompt?** Start with the [Installation guide](./overview/installation.mdx)
-- **Have an AI subscription?** Set up [CLI Providers](../version-classic-2.1.0/ai-providers/cli-providers.mdx) to use your existing plan
+- **Have an AI account?** Check [Providers & Models](./providers/overview.mdx) for the matching connection and setup requirements
 - **Using Claude Code or Cursor?** Check out [MCP Server Integration](./mcp-server/mcp-overview.mdx)
 - **Want an integrated agent experience?** Try [Agent Mode](./agent-mode/overview.mdx) with Codex or Claude Code
 - **Want smarter file selection?** Learn about the [Context Builder](../version-classic-2.1.0/historical-guides/file-selection/context-builder.mdx)
@@ -168,13 +170,35 @@ RepoPrompt Classic and its `repoprompt-classic` repository are archived. **[Clas
 
 - [Why RepoPrompt](./why-repoprompt.mdx)
 
+### Sessions & Interface
+
+- [Overview](./sessions/overview.mdx)
+- [Session History](./sessions/session-history.mdx)
+- [Execution Location](./sessions/execution-location.mdx)
+- [Workflow Templates](./sessions/workflow-templates.mdx)
+- [Overseer](./sessions/overseer.mdx)
+- [Interviewer](./sessions/interviewer.mdx)
+- [Re-Prompter](./sessions/re-prompter.mdx)
+- [Model Router](./sessions/model-router.mdx)
+- [Auto Effort](./sessions/auto-effort.mdx)
+- [Computer Use](./sessions/computer-use.mdx)
+- [Message Editor](./sessions/message-editor.mdx)
+- [Model and Effort](./sessions/model-and-effort.mdx)
+- [Tools](./sessions/tools.mdx)
+- [Oracle](./sessions/oracle.mdx)
+- [Context Builder](./sessions/context-builder.mdx)
+- [Image Support](./sessions/image-support.mdx)
+
+### Providers & Models
+
+- [Overview and provider directory](./providers/overview.mdx)
+- [Model availability, effort, tiers, and roles](./providers/models.mdx)
+
 ### Agent Mode
 
 - [Overview](./agent-mode/overview.mdx)
 - [Workflow Commands](./agent-mode/workflows.mdx)
 - [Skills & Slash Commands](./agent-mode/skills.mdx)
-- [Providers](./agent-mode/providers.mdx)
-- [Sessions & Interface](./agent-mode/sessions.mdx)
 
 ### MCP Server
 
@@ -187,6 +211,13 @@ RepoPrompt Classic and its `repoprompt-classic` repository are archived. **[Clas
 - [Settings & Presets](./mcp-server/mcp-settings.mdx)
 - [Connection Management](./mcp-server/mcp-connections.mdx)
 - [Workflow Commands](./mcp-server/workflow-commands.mdx)
+
+### Overseer Mode
+
+- [Overview](./overseer/overview.mdx)
+- [Lanes](./overseer/lanes.mdx)
+- [Linking Sessions](./overseer/linking-sessions.mdx)
+- [Best Practices](./overseer/best-practices.mdx)
 
 ### Worktrees
 

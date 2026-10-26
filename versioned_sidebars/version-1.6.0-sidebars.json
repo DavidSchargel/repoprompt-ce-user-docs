@@ -15,14 +15,78 @@
     },
     {
       "type": "category",
+      "label": "Sessions & Interface",
+      "className": "sidebar-cat-monitor",
+      "items": [
+        "sessions/overview",
+        "sessions/session-history",
+        "sessions/execution-location",
+        "sessions/workflow-templates",
+        "sessions/overseer",
+        "sessions/interviewer",
+        "sessions/re-prompter",
+        "sessions/model-router",
+        "sessions/auto-effort",
+        "sessions/computer-use",
+        "sessions/message-editor",
+        "sessions/model-and-effort",
+        "sessions/tools",
+        "sessions/oracle",
+        "sessions/context-builder",
+        "sessions/image-support"
+      ]
+    },
+    {
+      "type": "category",
+      "label": "Providers & Models",
+      "className": "sidebar-cat-puzzle",
+      "items": [
+        "providers/overview",
+        "providers/models",
+        {
+          "type": "category",
+          "label": "Coding Agents",
+          "items": [
+            "providers/codex-cli",
+            "providers/claude-code-cli",
+            "providers/opencode-cli",
+            "providers/cursor-cli",
+            "providers/grok-build",
+            "providers/google-antigravity",
+            "providers/devin-cli",
+            "providers/cc-zai",
+            "providers/cc-moonshot",
+            "providers/cc-custom"
+          ]
+        },
+        {
+          "type": "category",
+          "label": "API & Local Services",
+          "items": [
+            "providers/anthropic-api",
+            "providers/openai-api",
+            "providers/deepseek",
+            "providers/fireworks-ai",
+            "providers/xai-api",
+            "providers/groq",
+            "providers/zai-api",
+            "providers/gemini-api",
+            "providers/azure-openai",
+            "providers/local-models",
+            "providers/openrouter",
+            "providers/custom-api"
+          ]
+        }
+      ]
+    },
+    {
+      "type": "category",
       "label": "Agent Mode",
       "className": "sidebar-cat-code",
       "items": [
         "agent-mode/overview",
         "agent-mode/workflows",
-        "agent-mode/skills",
-        "agent-mode/providers",
-        "agent-mode/sessions"
+        "agent-mode/skills"
       ]
     },
     {
@@ -39,6 +103,17 @@
         "mcp-server/mcp-settings",
         "mcp-server/mcp-connections",
         "mcp-server/workflow-commands"
+      ]
+    },
+    {
+      "type": "category",
+      "label": "Overseer Mode",
+      "className": "sidebar-cat-rocket",
+      "items": [
+        "overseer/overview",
+        "overseer/lanes",
+        "overseer/linking-sessions",
+        "overseer/best-practices"
       ]
     },
     {

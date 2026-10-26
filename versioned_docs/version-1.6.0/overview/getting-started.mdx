@@ -24,10 +24,11 @@ After [installing RepoPrompt CE](./installation.mdx) and opening a project folde
 Every workflow begins with a prompt describing *what* you want to build or fix and *how* to verify it. Because RepoPrompt has a dedicated discovery phase, you do not need to manually hunt down and attach every file in your repository before you start.
 
 1. **Confirm your workspace is open:** In RepoPrompt (or via MCP using `bind_context` / `get_file_tree`), make sure your project folder is loaded as the active workspace.
-2. **Choose an entry workflow:**
-   - **Inside RepoPrompt (Agent Mode):** Select **Orchestrate** (for multi-step features) or **Plan & Build** (for single-session features) from the **Workflow** dropdown in the Agent Mode toolbar, then type your prompt.
+2. **Choose the execution location:** In Agent Mode, open **Work locally** and select the workspace checkout, a new worktree, or an existing worktree. Choose before sending so the task starts in the intended checkout. See [Execution Location](../sessions/execution-location.mdx).
+3. **Choose an entry workflow:**
+   - **Inside RepoPrompt (Agent Mode):** Select a **What are we building?** workflow card or use the **Workflow** selector above the editor. **Orchestrate** coordinates multi-step work; **Plan & Build** structures research, planning, and implementation. Your message is wrapped in the selected template. See [Workflow Templates](../sessions/workflow-templates.mdx).
    - **From an external terminal/IDE agent (via MCP):** Run `/rp-orchestrate <task>` or `/rp-build <task>` after installing RepoPrompt's [Workflow Commands](../mcp-server/workflow-commands.mdx).
-3. **Contextualize the request:** If your prompt uses high-level product terms (like *"improve login validation"*), the orchestrator first runs a quick scan or dispatches a read-only `explore` scout to translate your request into actual codebase nouns (exact module names, types, and file paths).
+4. **Contextualize the request:** If your prompt uses high-level product terms (like *"improve login validation"*), the orchestrator first runs a quick scan or dispatches a read-only `explore` scout to translate your request into actual codebase nouns (exact module names, types, and file paths).
 
 ### Step 2: Curate Relevant Code with Context Builder
 
@@ -82,9 +83,9 @@ The orchestrator uses a single deep reasoning session and **steers** it from one
 
 When tasks are independent and touch separate file boundaries — for example:
 
-- **OpenCode** sub-agent: *Explore codebase* (read-only reconnaissance via `agent_explore` or `model_id="explore"`)
-- **Codex** sub-agent: *Implement backend logic*
-- **Antigravity CLI** (or **Claude Code**) sub-agent: *Update configuration files*
+- **Codex CLI** sub-agent: *Implement backend logic*
+- **OpenCode CLI** sub-agent: *Explore codebase* (read-only reconnaissance via `agent_explore` or `model_id="explore"`)
+- **Google Antigravity** sub-agent: *Update configuration files*
 
 The orchestrator runs them concurrently across your connected CLI providers:
 
@@ -111,5 +112,5 @@ As sequential and parallel branches complete their work, they converge back at t
 ## Where to Go Next
 
 - **Understand the pipeline in depth:** Read [How It Works](./how-it-works.mdx) for a friendly guide to why Context Builder's Explore → Curate → Handoff pipeline outperforms standard agent loops.
-- **Connect your AI subscriptions:** Set up Codex CLI, Claude Code, OpenCode, Cursor CLI, or Grok Build in [Agent Mode Providers](../agent-mode/providers.mdx).
+- **Connect your providers:** Choose the account and runtime described in the [Providers & Models directory](../providers/overview.mdx), then follow its connection guide.
 - **Try built-in workflows:** Explore all 8 workflows in [Agent Workflow Commands](../agent-mode/workflows.mdx).

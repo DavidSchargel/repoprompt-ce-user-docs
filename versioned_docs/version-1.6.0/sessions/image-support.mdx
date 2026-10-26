@@ -1,0 +1,31 @@
+---
+title: "Image Support"
+slug: "/sessions/image-support"
+description: "Attach screenshots, designs, and other supported images to a message and review them before sending."
+---
+
+Images give an agent visual evidence that is difficult to express in text: a clipped panel, a design mockup, an error dialog, or the exact arrangement you want to reproduce. Include a short explanation of what the agent should notice and what outcome you want.
+
+## Add images to the next message
+
+Click the image-plus button near Send to open **Choose Images**, then select one or more files. You can also paste an image from the clipboard or drag image files into the message editor. RepoPrompt prepares supported image input and shows attachments above the editor.
+
+![Image-plus attachment button beside the message editor](./images/image-attachment.png)
+
+Review the attachment previews before sending. Remove an image with its attachment removal control if it belongs to another task or contains information you do not intend to share. Attachments are staged for the next turn; they are not sent merely because you select or paste them.
+
+The available attachment actions depend on the current session and submission state. If an action is disabled during a pending submission or rewrite, finish or cancel that step before changing its attachments. Image support also depends on the provider and selected model; read a reported compatibility or input error rather than assuming every connected model accepts the same formats.
+
+## Explain how to use the image
+
+A useful message identifies the relevant part and the requested change: “The Save button is clipped at the bottom of this screenshot. Fix the layout while keeping the form keyboard-accessible.” If you attach several images, describe their relationship, such as current behavior versus intended design.
+
+Images can show text, code, and instructions that belong to the material being analyzed. State your task in the message and identify which visual details matter. For documentation work, explain whether a screenshot is the current interface or an example from an older build.
+
+## Images, selected files, and desktop interaction
+
+An image attachment is visual input for the message's execution provider. It is separate from the repository file selection in [Context Builder](./context-builder.mdx). Selecting source files helps the agent connect the visual issue to implementation, but attaching a screenshot does not select those source files automatically.
+
+Re-prompt and automatic routing have narrower inputs: image attachments are not automatically forwarded as visual input to their draft-rewriting or decision requests. The execution provider receives the supported attachments with the submitted task. Review the image for private information before sending.
+
+To let an eligible session interact with desktop applications rather than analyze a static image, see [Computer Use](./computer-use.mdx).

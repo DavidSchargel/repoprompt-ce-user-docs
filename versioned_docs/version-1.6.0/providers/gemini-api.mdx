@@ -1,0 +1,19 @@
+---
+title: "Gemini API"
+slug: "/providers/gemini-api"
+description: "Connect Google's Gemini API with a credential and supported model identifiers, separately from Antigravity."
+---
+
+Gemini API connects supported RepoPrompt features directly to Google's model API. It uses the **Gemini** entry in API Providers and is separate from the [Google Antigravity](./google-antigravity.mdx) coding-agent runtime and its ACP authentication.
+
+## Connect and select a model
+
+Configure and validate the key in [API Providers → Gemini](../settings/models-and-providers/api-providers.mdx#gemini). Use the custom-model field where provided to save a compatible model identifier. The settings reference describes the field and its save control.
+
+Google's [Gemini API model catalog](https://ai.google.dev/gemini-api/docs/models) is the reference for current IDs, capabilities, and lifecycle status. Stable, preview, and retired selections can differ, and availability depends on the account and integration. Do not assume a similarly named model in another Google product is exposed through this API route.
+
+[Models](./models.mdx) explains identifier and capability selection. A per-model setting cannot grant access to a missing model or add unsupported image, streaming, or reasoning behavior.
+
+## Account and billing
+
+The API credential and Google's applicable account terms determine usage limits and charges. A separate Google subscription or Antigravity login does not automatically configure or pay for these API requests. Check the API account's current terms and usage rather than relying on a fixed free-tier claim in documentation.

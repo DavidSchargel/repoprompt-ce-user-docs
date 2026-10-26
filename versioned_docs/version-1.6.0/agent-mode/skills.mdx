@@ -27,7 +27,7 @@ Agent Mode has two ways to structure a task: the **Workflow** dropdown (built-in
 
 ## Skills for Terminal Agents
 
-The same on-disk skill files also work with external agents running in your terminal (Claude Code, Codex CLI). When those agents are connected via the MCP server, they discover skills from the same directories and can invoke them as slash commands.
+The same on-disk skill files also work with external agents running in your terminal (Codex CLI, Claude Code CLI). When those agents are connected via the MCP server, they discover skills from the same directories and can invoke them as slash commands.
 
 RepoPrompt ships workflow skills — `/rp-orchestrate`, `/rp-deep-plan`, `/rp-optimize`, `/rp-review`, `/rp-refactor`, `/rp-build`, `/rp-investigate`, and `/rp-oracle-export` (plus the `/rp-reminder` helper) — for external coding agents. Choose MCP or CLI variants through **Quick Setup → Skills**. They guide external agents through related workflows, with capabilities determined by the client's installed tools and permissions. See [MCP Workflow Commands](../mcp-server/workflow-commands.mdx) for the complete catalog and installation locations.
 

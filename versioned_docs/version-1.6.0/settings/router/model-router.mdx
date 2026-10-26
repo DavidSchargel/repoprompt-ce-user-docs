@@ -123,7 +123,7 @@ Newer builds place model availability and guidance under **Routing configuration
 
 ![Custom guidance editor with a 1,000-character counter and Save Guidance button](../images/model-router-guidance.png)
 
-Use **Custom guidance** for model preferences, such as “Prefer Claude Opus for execution.” Saved guidance shapes the service's starting recommendation among eligible models. It does not add unavailable models or bypass provider restrictions. With usage balancing enabled, RepoPrompt may subsequently choose a comparable model on another plan.
+Use **Custom guidance** for preferences, such as “Prefer my connected coding provider for implementation.” Saved guidance shapes the service's starting recommendation among eligible models. It does not add unavailable models or bypass provider restrictions. With usage balancing enabled, RepoPrompt may subsequently choose a comparable model on another plan. Use the shared [Models reference](../../providers/models.mdx) for model identities, effort, and service tiers.
 
 The editor accepts up to **1,000 characters**. **Save Guidance** is available when the draft has changed and is within the limit. Clear the text and save to remove saved guidance.
 
@@ -133,7 +133,7 @@ Guidance is sent with routing requests. Avoid putting credentials or private inf
 
 ![Automatic model selection summary with current target count and connected Claude Code and Codex CLI providers](../images/model-router-model-selection.png)
 
-RepoPrompt builds a curated set of eligible models from the connected Claude Code and Codex catalogs, using quality, cost, capability, and availability information. It chooses the base model first, then that model's reasoning effort separately.
+RepoPrompt builds a curated set of eligible models from the connected Codex CLI and Claude Code catalogs, using quality, cost, capability, and availability information. It chooses the base model first, then that model's reasoning effort separately.
 
 [Agent Models](../agent-mode/agent-models.mdx) role settings are reference signals, not a fixed shortlist or forced default. Provider preferences constrain candidates, custom guidance shapes the recommendation, and local usage balancing may adjust it afterward.
 
