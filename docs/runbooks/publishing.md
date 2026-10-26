@@ -18,6 +18,8 @@ The source of truth for CI behavior is [`.github/workflows/pages.yml`](../../.gi
 
 The `deploy` job requires a manual `workflow_dispatch` run on `main`, `publish` enabled, both approval variables exactly `true`, and a successful `build` job. **“This job was skipped” is expected on validation-only runs.** It is not a build failure.
 
+Every build job first runs the full validation pipeline for `/` and `/repoprompt-ce-user-docs/` using `https://example.invalid`, `noindex`, and local search. It then builds again with the repository variables. Only that final, repository-configured artifact can be uploaded for publication; the validation fixtures are replaced.
+
 For a publish-enabled run, **Check publication confirmations** also checks that `PAGES_OWNER/PAGES_REPOSITORY` exactly matches GitHub's `GITHUB_REPOSITORY`. A wrong ref, missing approval, or mismatched repository fails that build step. An unsuccessful build prevents deployment. Environment protection rules can require a separate reviewer approval; those rules are configured in GitHub, not created by the workflow.
 
 ## Local configuration

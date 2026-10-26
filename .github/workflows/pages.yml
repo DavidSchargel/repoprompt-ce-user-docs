@@ -66,8 +66,22 @@ jobs:
           }
           console.log(`Publishing site configured for ${origin.origin}`);
           NODE
-      - run: pnpm install --frozen-lockfile
-      - run: pnpm run build
+      - name: Install locked dependencies
+        run: pnpm install --frozen-lockfile
+      - name: Validate root and project URL layouts
+        env:
+          SITE_URL: https://example.invalid
+          SITE_INDEXABLE: 'false'
+          ALGOLIA_APP_ID: ''
+          ALGOLIA_SEARCH_API_KEY: ''
+          ALGOLIA_INDEX_NAME: ''
+        run: |
+          for base_url in / /repoprompt-ce-user-docs/; do
+            SITE_BASE_URL="$base_url" pnpm run build
+          done
+      # Restore the repository-configured artifact after the validation builds.
+      - name: Build configured site
+        run: pnpm run build
       - name: Configure Pages
         if: github.event_name == 'workflow_dispatch' && inputs.publish
         uses: actions/configure-pages@983d7736d9b0ae728b81ab479565c72886d7745b # v5
