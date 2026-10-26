@@ -36,6 +36,10 @@ pnpm run serve
 
 ## Contributing and support
 
+- Keep documentation evergreen:
+  - Minimize hardcoding of version numbers.
+  - For models and providers: emphasize providers and capabilities, minimize specific model names and versions, minimize comtext window sizes, and link shared facts to the current [Providers & Models reference](https://repoprompt.com/docs/providers/overview/).
+
 See [CONTRIBUTING.md](CONTRIBUTING.md) to improve these docs and
 [SUPPORT.md](SUPPORT.md) for help. Report vulnerabilities using
 [SECURITY.md](SECURITY.md).

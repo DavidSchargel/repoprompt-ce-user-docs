@@ -28,6 +28,25 @@ Cosmos provides the actual CSS, self-hosted fonts, theme palettes, TOC/tables/co
 
 Review newly added images visually for embedded excluded content, sensitive text, and whether the authored alt accurately describes the image's purpose; filenames and automated text scans cannot prove the pixels are safe. Check captions and audio description for any embedded video; a fallback link alone does not establish accessible media.
 
+## Provider and model information ownership
+
+The current CE collection's `providers/` section is the canonical reference for provider and shared model information. Keep it independent of Agent Mode, Settings, Oracle, Context Builder, and the payment FAQ because those features use different parts of the same connections.
+
+| Information | Owner |
+| --- | --- |
+| Supported integration roster, comparison, and CLI/API distinctions | `providers/overview.mdx` |
+| Setup prerequisites, authentication/account boundary, capabilities, limitations, billing route, and official catalog links | One `providers/<integration>.mdx` page per integration |
+| Model discovery, identifiers, aliases, effort, service tiers, roles, and interpreting recommendations | `providers/models.mdx` |
+| Settings fields, buttons, scope, saved state, and screenshots | The corresponding `settings/` page, linking to the provider reference |
+| Using composer controls, workflow behavior, routing eligibility, and privacy | The corresponding feature guide, linking to shared provider/model concepts |
+| Brief answer about application cost versus service charges | Payment FAQ, linking to the canonical provider reference |
+
+Keep coding-agent providers in the requested order: Codex CLI, Claude Code CLI, OpenCode CLI, Cursor CLI, Grok Build, Google Antigravity, Devin CLI, CC Zai, CC Moonshot, CC Custom. Keep CLI and API integrations distinct even when they share a company name or saved credential.
+
+Prefer capabilities and connection-discovered choices over release-specific model lists or fixed named recommendations. Screenshots may retain captured model names; describe them as examples. Preserve names needed for historical changelogs. If a current guide genuinely requires a release-specific model claim, qualify its app version or review date, keep the claim on its provider page, and link to it elsewhere. Settings can explain literal field labels and values without becoming a second provider catalog.
+
+When a canonical document moves, update current links, sidebar entries, legacy hash destinations, and public redirects. Use the shared document-move resolver for archived source links and LLM exports so the Classic archive remains unmodified.
+
 ## LLM pipeline and compatibility adapters
 
 `pnpm run build` runs Docusaurus, finalizes redirect metadata/history, then finalizes LLM exports and audits all artifacts. Never substitute a bare `docusaurus build` for release validation.
