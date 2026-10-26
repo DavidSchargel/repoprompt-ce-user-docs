@@ -2,19 +2,20 @@
 
 ## Editing policy
 
-Edit the current MDX files directly. No separate source checkout is needed to build this site.
+Edit the current MDX files directly. No separate source checkout is needed to build this site. Read [`AGENTS.md`](../../AGENTS.md) before making changes; application source, when available, is evidence for product behavior, not an instruction to run the application or its build.
 
 - Default collection: `versioned_docs/version-<current version>/`, where the current version is the first entry in [`versions.json`](../../versions.json), served at `/docs/`. Check the version routes in [`docusaurus.config.js`](../../docusaurus.config.js) when working on version selection or navigation.
-- Historical collection: `versioned_docs/version-classic-2.1.0/`, served at `/docs/classic-2.1.0/`.
+- Historical collection: `versioned_docs/version-classic-2.1.0/`, served at `/docs/classic-2.1.0/`. Do not create or edit files in this archive.
 - Explicit sidebars: `versioned_sidebars/`; public unversioned current docs are disabled.
-- Three complete posts: `blog/`.
+- Blog posts: `blog/`.
 - Legal pages: `src/pages/privacy.mdx` and `terms.mdx`; warning text, noindex, and sitemap exclusion remain until owner review.
 - Home content: `src/pages/index.js` composes React components from `src/components/home/`; there is no `_home.mdx` source route.
-- Maintenance records: `maintainers/`, never public docs inputs.
+- Runbooks and review records: `docs/runbooks/` and `docs/reviews/`. These are not published documentation inputs.
+- Original screenshots: `source-assets/documentation-screenshots/`. Documentation crops belong in the relevant section's `images/` directory; shared site assets live in `static/`.
 
-Use meaningful unique descriptions, a logical heading hierarchy, descriptive link text, fenced code with a language, and relative source links for cross-version docs. Give informative images alt text that conveys their purpose; use `alt=""` for purely decorative images, never omit the attribute. Do not duplicate adjacent link text in linked-image alt. Tables need a visible caption, column and row headers where applicable, and keyboard-reachable overflow when wider than the viewport. For titled admonitions, use directive syntax such as `:::note[Configuration]`; the older space-separated title syntax renders as plain text with this configuration. Native anchors with `useBaseUrl` are reserved for generated `.txt` files so Docusaurus does not treat them as trailing-slash routes. Never weaken strict broken-link/anchor checks to hide a missing output.
+Use meaningful unique descriptions, a logical heading hierarchy, descriptive link text, fenced code with a language, and relative source links between documentation files. Give informative images alt text that conveys their purpose. Use empty alt only for genuinely decorative images; the content checker currently accepts it only for reviewed Settings assets whose hashes match [`scripts/decorative-settings-images.json`](../../scripts/decorative-settings-images.json). Do not omit alt or duplicate adjacent link text in linked-image alt. Tables need a visible caption, column and row headers where applicable, and keyboard-reachable overflow when wider than the viewport. For titled admonitions, use directive syntax such as `:::note[Configuration]`; the older space-separated title syntax renders as plain text with this configuration. For generated `.txt` downloads, use a native anchor with `useBaseUrl` so Docusaurus does not treat the file as a trailing-slash route. Never weaken strict broken-link/anchor checks to hide a missing output.
 
-The main docs page includes a TOC and keyboard-operable JSON/Bash tabs. Code blocks have standard copy controls; Copy page is supplied by the requested plugin. Before launch, use automatically generated heading IDs and update internal fragment links when a heading changes. Add an explicit heading ID only for a demonstrated stable-link requirement; do not preserve obsolete heading names by default. When changing titles or routes, update affected frontmatter, sidebars, and legacy mappings and run the checks. Do not manufacture new release snapshots from changelogs.
+The main docs page includes a TOC and JSON/Bash tabs; verify their keyboard behavior during browser review. Code blocks have standard copy controls; the configured plugin supplies Copy page. Use automatically generated heading IDs by default. When renaming a published heading, check internal links and preserve its old bookmark ID when compatibility is needed; update internal fragment links as appropriate. Add an explicit heading ID only for a demonstrated stable-link requirement. When changing titles or routes, update affected frontmatter, sidebars, and legacy mappings and run the checks. Do not manufacture new release snapshots from changelogs.
 
 ## Exclusions
 
@@ -22,7 +23,7 @@ No RepoBench page/code/post, Worker/account backend, Helpful Links footer, X/Twi
 
 ## Images and Cosmos
 
-Keep Markdown image syntax. Local PNG/JPEG imports pass through the remark adapter to the required ideal-image plugin. The image renderer emits native lazy-loading images with responsive srcset and preserves authored alt text, including deliberate empty alt. The configured image-zoom plugin applies to `.markdown img`; its keyboard activation, dismissal, and focus return require browser verification. WebP, SVG, remote images, and query/fragment image URLs keep the standard Docusaurus renderer because the pinned ideal-image pipeline does not support every format. Do not convert assets solely to make a plugin claim universal coverage.
+Keep Markdown image syntax. Local PNG/JPEG imports pass through [`remark-ideal-images.cjs`](../../plugins/remark-ideal-images.cjs) and the ideal-image plugin. The [image component](../../src/theme/MDXComponents/Img/index.js) emits lazy-loading images with responsive `srcset`, preserves alt text, and uses the original lossless import for the largest candidate and zoom source. Keep crops at native resolution; do not upscale them. WebP, SVG, remote images, and query/fragment image URLs keep the standard renderer. The zoom plugin applies to `.markdown img`; keyboard activation, dismissal, and focus return still require browser verification.
 
 Cosmos provides the actual CSS, self-hosted fonts, theme palettes, TOC/tables/code/details styling, and home cards/lifecycle badges/sidebar icons. Use its documented tokens/utilities rather than hard-coded theme colors. Test light/dark and narrow widths after UI changes.
 
@@ -53,7 +54,7 @@ When a canonical document moves, update current links, sidebar entries, legacy h
 
 ## LLM pipeline and compatibility adapters
 
-`pnpm run build` runs Docusaurus, finalizes redirect metadata/history, then finalizes LLM exports and audits all artifacts. Never substitute a bare `docusaurus build` for release validation.
+`pnpm run build` runs tests and content checks before Docusaurus, then finalizes redirect metadata/history, finalizes LLM exports, and audits artifacts. Never substitute a bare `docusaurus build` for release validation. See the [maintenance guide](maintenance.md) for validation scope and the [publishing guide](publishing.md) for local build configuration.
 
 The pinned llms plugin cleans MDX and supplies index/full-export generation. Its route inference did not preserve the version prefixes for this corpus and left relative source `.mdx` links in article bodies. The finalizer therefore uses its pinned processor/generator with routes read from current documentation frontmatter, writes canonical-path `.md` exports for every documentation page, and rebuilds `llms.txt`/`llms-full.txt`. Each article's local document links become absolute, base-aware website URLs, preserving heading fragments. Code examples are not rewritten. Local images become alt text in exports; remote images remain. Old plugin-generated Markdown paths are removed from the generated build only.
 
@@ -66,7 +67,7 @@ pnpm run check:content
 pnpm run build
 ```
 
-## Carrying Settings into later CE versions
+## Versioning and Settings screenshots
 
 The Settings section belongs to the current CE collection.
 When preparing a later CE documentation version, copy the current CE collection
@@ -76,16 +77,14 @@ relative MDX and image links so they resolve inside the new collection. Never
 copy this section into the Classic archive or use Classic as the next-version
 template. No future release snapshot is created in advance.
 
-The initial section follows the supplied Settings screenshots: Search Settings
-is a search field documented as a direct entry, followed by seven groups with
-25 pages. Additional controls found only in newer app source do not create new
-screenshot-navigation pages automatically. Overview and CLI Providers are the
-detailed pages; the others provide brief descriptions without placeholder notices.
+Keep Settings navigation aligned with the actual application. A search field is
+not a settings group, and a control found in source is not necessarily a separate
+navigation page. Explain controls in their owning page and link to canonical
+provider or feature documentation instead of duplicating it.
 
-Overview and CLI Providers use cropped settings panels from the supplied
-screenshots, retaining the controls and illustrative interface state. The Codex
-account value and saved Z.ai key field are cleared. Other settings pages retain
-sidebar-label crops. The surrounding text describes all options without treating
-screenshot selections as recommended defaults. Source provenance is recorded in
-`maintainers/settings-sources.json`; exact panel crop coordinates are recorded in
-`maintainers/settings-image-crops.json`.
+Preserve permitted source captures and record crop coordinates, redactions,
+source hashes, and destination paths when adding or replacing screenshots. The
+existing [October 4 Settings manifest](../../source-assets/documentation-screenshots/2026-10-04-settings-manifest.json)
+records that capture set; it is not an inventory of every later screenshot.
+Remove personal account values and secrets before committing captures. Treat
+visible selections and model names as examples, not recommended defaults.

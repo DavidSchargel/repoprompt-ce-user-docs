@@ -2,49 +2,65 @@
 
 [![License: Apache 2.0](https://img.shields.io/badge/License-Apache_2.0-blue.svg)](LICENSE)
 
-Source code for https://repoprompt.com, the public-facing end user documentation for the [Community Edition of RepoPrompt](https://github.com/repoprompt/repoprompt-ce). Contains legacy documentation for the older "Classic" version of RepoPrompt.
+This public repository contains the RepoPrompt CE documentation website, published on GitHub Pages. It includes the Community Edition guides, the Classic archive, the blog, and the Docusaurus site. It is separate from the [RepoPrompt CE application repository](https://github.com/repoprompt/repoprompt-ce).
 
-RepoPrompt Classic and its `repoprompt-classic` repository are archived. The [Classic 2.1.0 documentation](https://repoprompt.com/docs/classic-2.1.0/) uses **Classic 2.1.0** as an archive label. Its instructions may describe earlier RepoPrompt Classic releases and are not specific to version 2.1.0. Check each guide against your installed version.
+The [Classic documentation](versioned_docs/version-classic-2.1.0/) is read-only. **Classic 2.1.0** is an archive label; its guides may describe earlier Classic releases. The first entry in [`versions.json`](versions.json) selects the current CE collection, served at `/docs/`; Classic is served at `/docs/classic-2.1.0/`.
 
 RepoPrompt CE is a free, open-source native macOS app and agent orchestrator for context engineering. It helps coding agents understand your codebase before they act. It assembles focused, reviewable context from files, CodeMaps, repository structure, and Git diffs, then hands that context to AI tools and CLI agents.
 
 RepoPrompt CE also builds an agent harness around its bundled MCP server. Connect MCP-compatible clients and CLI agents to search repositories, inspect files, curate context, run agent sessions, and orchestrate work through a shared native macOS interface.
 
-## Local development
+## Local documentation development
 
 Node.js 26 or later is required. Use the Node.js version specified in [`.node-version`](.node-version) and the
 pnpm version specified by `packageManager` in [`package.json`](package.json).
-The Pages workflow uses these same sources.
+The Pages workflow uses these same sources. Run the following from the repository root:
 
 ```sh
-pnpm install
+pnpm install --frozen-lockfile
 pnpm start
+```
+
+Open the local URL printed by Docusaurus. Stop the development server before using the same terminal for validation:
+
+```sh
 pnpm test
 pnpm run check:content
+```
+
+To produce and preview a release artifact:
+
+```sh
 pnpm run build
 pnpm run serve
 ```
 
-`pnpm run build` includes strict link/anchor/MDX checks, redirect finalization, version-correct LLM exports, and artifact audits. A bare `docusaurus build` is not the release pipeline. Local previews default to example.invalid with noindex. No secrets are required to build.
+`pnpm run build` runs the tests and content checks again, then compiles the site, finalizes redirects and LLM exports, and audits the generated artifacts. A bare `docusaurus build` omits those steps. No deployment occurs during local builds.
 
-## Theme and MDX utilities
+Without site environment variables, canonical URLs use `https://example.invalid`, the base path is `/`, and search-engine indexing is disabled. Local docs search needs no credentials. Environment files are not loaded automatically; see the [publishing runbook](docs/runbooks/publishing.md#local-configuration) for configuration and preview commands.
 
-This Docusaurus site uses [cosmos-docusaurus-theme](https://github.com/SckyzO/cosmos-docusaurus-theme). The theme provides utility classes for MDX pages, including buttons, badges, steps, timelines, and checklists.
+## GitHub Actions and publication
 
-Available icons: `rocket`, `monitor`, `pencil`, `puzzle`, `sliders`, `folder`, `server`, `database`, `layers`, `grid`, and `code`.
+The [Pages workflow](.github/workflows/pages.yml) validates pull requests, pushes to `main`, and manual runs. **A skipped `deploy` job is expected for pull requests, pushes, and manual runs with `publish` unchecked.**
+
+Initial publication required a manual run on `main` with `publish` checked, `PUBLISH_APPROVED=true`, `LEGAL_TEXT_APPROVED=true`, matching owner/repository variables, and a successful build. Updates to the live site use the same gates. Follow the [update procedure](docs/runbooks/publishing.md#deploy-an-update) to deploy a new revision; a push or merged pull request alone does not deploy it.
+
+## Content and theme
+
+Edit the current collection under `versioned_docs/`, its sidebar under `versioned_sidebars/`, and site components under `src/`. Preserve original screenshots under `source-assets/documentation-screenshots/`; put native-resolution crops beside the relevant documentation. Do not edit the Classic archive or generated `build/` and `.docusaurus/` files.
+
+The site uses Cosmos with local theme overrides. Follow the [content guide](docs/runbooks/content-and-media.md) for images, terminology, links, and source layout, and the [maintenance guide](docs/runbooks/maintenance.md) for rendering and accessibility checks.
 
 ## Runbooks
 
 - [Publishing, approvals, variables, and rollback](docs/runbooks/publishing.md)
-- [Algolia credentials, DocSearch crawler, and legacy redirects](docs/runbooks/search-and-redirects.md)
+- [Local search, optional Algolia, and legacy redirects](docs/runbooks/search-and-redirects.md)
 - [Content/version policy, Markdown images, theme, and LLM exports](docs/runbooks/content-and-media.md)
 - [Validation, upgrades, and legal review](docs/runbooks/maintenance.md)
 
 ## Contributing and support
 
-- Keep documentation evergreen:
-  - Minimize hardcoding of version numbers.
-  - For models and providers: emphasize providers and capabilities, minimize specific model names and versions, minimize comtext window sizes, and link shared facts to the current [Providers & Models reference](https://repoprompt.com/docs/providers/overview/).
+Keep documentation evergreen. Prefer capabilities over fixed model names, release numbers, or context-window sizes. Keep shared provider facts in the current collection's `providers/` section and link to that reference from feature guides.
 
 See [CONTRIBUTING.md](CONTRIBUTING.md) to improve these docs and
 [SUPPORT.md](SUPPORT.md) for help. Report vulnerabilities using
