@@ -27,6 +27,12 @@ pnpm run serve
 
 `pnpm run build` includes strict link/anchor/MDX checks, redirect finalization, version-correct LLM exports, and artifact audits. A bare `docusaurus build` is not the release pipeline. Local previews default to example.invalid with noindex. No secrets are required to build.
 
+## Theme and MDX utilities
+
+This Docusaurus site uses [cosmos-docusaurus-theme](https://github.com/SckyzO/cosmos-docusaurus-theme). The theme provides utility classes for MDX pages, including buttons, badges, steps, timelines, and checklists.
+
+Available icons: `rocket`, `monitor`, `pencil`, `puzzle`, `sliders`, `folder`, `server`, `database`, `layers`, `grid`, and `code`.
+
 ## Runbooks
 
 - [Publishing, approvals, variables, and rollback](docs/runbooks/publishing.md)
