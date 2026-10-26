@@ -32,7 +32,7 @@ Every workflow begins with a prompt describing *what* you want to build or fix a
 
 ### Step 2: Curate Relevant Code with Context Builder
 
-Before any model writes a plan or edits code, RepoPrompt runs **Context Builder** (`context_builder`), which launches a fast **Discovery Agent** to explore the repository and assemble a focused file selection within a strict token budget (defaulting to **120,000 tokens** for analysis runs):
+For this discovery-and-planning workflow, run **Context Builder** (`context_builder`) before implementation. It launches a discovery coding agent to explore the repository and assemble a focused file selection toward the configured context budget. Other workflows and routine turns can use direct repository tools without running Context Builder:
 
 1. **Navigate the repository:** The discovery agent inspects the project directory tree (`get_file_tree`) and runs regex or path searches (`file_search`) to locate candidate files.
 2. **Map APIs with Code Maps:** It calls `get_code_structure` to read **Code Maps** — compact summaries of classes, structs, function signatures, and dependency relationships (`uses` and `used_by`) — without loading thousands of lines of implementation bodies.
@@ -104,7 +104,7 @@ The orchestrator runs them concurrently across your connected CLI providers:
 As sequential and parallel branches complete their work, they converge back at the orchestrator for verification before the task is marked done:
 
 1. **Inspect actual changes:** The orchestrator runs `git op="status"` and `git op="diff"` (and reads modified sections with `read_file`) to confirm every sub-agent stayed within its assigned file boundaries and followed `Plan.md`.
-2. **Run tests and builds:** It verifies that unit tests and build checks pass for the combined changes.
+2. **Run the appropriate checks:** Ask it to verify the combined changes using the project's permitted test and build commands. A completed coding-agent turn does not itself prove that those checks passed.
 3. **Update the shared plan and continue:** As each work item passes verification, the orchestrator marks it complete in `Plan.md` using `apply_edits`. If any check fails or a gap is found, it dispatches or steers a targeted fix, repeating the cycle until the entire plan is verified and complete.
 
 ---
@@ -114,3 +114,4 @@ As sequential and parallel branches complete their work, they converge back at t
 - **Understand the pipeline in depth:** Read [How It Works](./how-it-works.mdx) for a friendly guide to why Context Builder's Explore → Curate → Handoff pipeline outperforms standard agent loops.
 - **Connect your providers:** Choose the account and runtime described in the [Providers & Models directory](../providers/overview.mdx), then follow its connection guide.
 - **Try built-in workflows:** Explore all 8 workflows in [Agent Workflow Commands](../agent-mode/workflows.mdx).
+- **Integrate isolated work:** Follow [Review and Merge](../worktrees/review-and-merge.mdx) when results live in separate worktrees.

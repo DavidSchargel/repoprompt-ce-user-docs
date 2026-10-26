@@ -35,7 +35,7 @@ RepoPrompt was explicitly architected to solve the **top failure modes in standa
 
 As conversation histories and file dumps expand past a model's effective sweet spot (64k–128k tokens), attention degrades sharply. When forced to reason inside a bloated context window filled with dead-end searches, models invent non-existent APIs, misremember types, and hallucinate implementations.
 
-- **How RepoPrompt solves it:** The **Context Builder** discovery agent curates a focused, token-budgeted selection (defaulting to 120,000 tokens) before the reasoning model starts, ensuring 100% of the model's thinking capacity is spent on the solution. See [Reliable, Useful Results](./overview/how-it-really-works.mdx#1-reliable-useful-results-context-over-convenience).
+- **How RepoPrompt addresses it:** The **Context Builder** discovery coding agent curates a focused selection toward a configurable context budget before follow-up Oracle analysis. This reduces search noise in the receiving model's context; it does not guarantee that every relevant file is found or that all reasoning is spent on the solution. See [Reliable, Useful Results](./overview/how-it-really-works.mdx#1-reliable-useful-results-context-over-convenience).
 
 ### 2. "Lost in the Middle" Forgetting
 
