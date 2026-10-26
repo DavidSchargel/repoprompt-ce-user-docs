@@ -36,7 +36,7 @@ Validate the connection before changing or removing old credentials. Keep legacy
 
 Generate a new MCP configuration from the CE app for each external client. Follow [MCP Setup](../mcp-server/mcp-setup.mdx), rather than reusing Classic executable paths or command examples. Check which integration is enabled, verify the CE connection, and bind the intended project before asking the client to work. Avoid letting Classic and CE sessions edit the same checkout at the same time.
 
-Install the matching CE [workflow skills](../agent-mode/skills.mdx) when needed; connecting MCP alone does not install them. Review custom prompts for old tool names, XML-editing instructions, paths, and assumptions about Classic features.
+Install the matching CE [workflow instructions](../mcp-server/workflow-commands.mdx) when needed; connecting MCP alone does not install their skill folders or prompt files. Review custom prompts for old tool names, XML-editing instructions, paths, and assumptions about Classic features.
 
 CE has **Import Prompts** and **Export Prompts** under [Advanced → Saved Prompts](../settings/general/advanced.mdx#saved-prompts). Import requires a compatible format; it is not a whole-application restore. Preserve the original export, inspect imported content, and copy prompt text manually if the old format is unsupported. Recreate the settings you need instead of assuming every old preset has an equivalent.
 

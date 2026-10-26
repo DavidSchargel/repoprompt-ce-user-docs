@@ -28,6 +28,10 @@ Cosmos provides the actual CSS, self-hosted fonts, theme palettes, TOC/tables/co
 
 Review newly added images visually for embedded excluded content, sensitive text, and whether the authored alt accurately describes the image's purpose; filenames and automated text scans cannot prove the pixels are safe. Check captions and audio description for any embedded video; a fallback link alone does not establish accessible media.
 
+## Workflow and skill terminology
+
+Use **workflow** for a task's process, **workflow template** for instructions selected in the in-app Workflow control, and **workflow instructions** for the procedure supplied to an external MCP or CLI host. Use **skill** when discussing a discoverable skill package, its files, or the host's skill mechanism. Preserve literal UI labels such as **Skills** and **MCP skills**, and filenames such as `SKILL.md`; some installation targets use prompt files instead of skill folders. Installing instructions and connecting MCP tools are separate operations.
+
 ## Provider and model information ownership
 
 The current CE collection's `providers/` section is the canonical reference for provider and shared model information. Keep it independent of Agent Mode, Settings, Oracle, Context Builder, and the payment FAQ because those features use different parts of the same connections.

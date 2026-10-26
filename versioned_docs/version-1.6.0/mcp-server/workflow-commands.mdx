@@ -1,7 +1,7 @@
 ---
 id: "workflow-commands"
 title: "Workflow Commands"
-description: "Install and use RepoPrompt workflow skills for external MCP clients and terminal integrations."
+description: "Install and use RepoPrompt workflow instructions with external MCP clients and terminal integrations."
 slug: "/mcp-server/workflow-commands"
 keywords:
   [
@@ -25,13 +25,15 @@ toc_min_heading_level: 2
 toc_max_heading_level: 4
 ---
 
-After installing the matching workflow skills, your external agent can use reusable RepoPrompt workflow commands. These guide the agent through structured cycles: understanding tasks, using Context Builder and explore agents to navigate codebases, generating architecturally grounded plans, delegating to specialized sub-agents, or implementing full solutions.
+RepoPrompt's workflow instructions guide an external coding agent through a process: understanding a task, finding relevant code, planning, delegating, implementing, or reviewing. Commands such as `/rp-build` select those instructions; they are not additional MCP tools or server-enforced execution pipelines.
+
+Depending on the installation target, the instructions are packaged as on-disk skills or prompt files. A **skill** is the discoverable package; the **workflow instructions** are the procedure it contains. The MCP connection supplies the tools that the procedure can request.
 
 Install these separately from the MCP server configuration through **Quick Setup → Skills**. Then use your client's skill or slash-command picker to find commands such as `/rp-orchestrate`, `/rp-deep-plan`, and `/rp-build`. The picker and invocation syntax depend on the client; `/repo` is not a universal command that every integration provides.
 
 ![Quick Setup Skills menu entry beside client installation and copy configuration](./images/mcp-quick-setup.png)
 
-## Installing Skills
+## Installing workflow instructions \{#installing-skills}
 
 The **Skills** menu offers shared global or per-project `.agents/skills`, Claude Code integration, and RepoPrompt's isolated Codex prompts. Select the **MCP** variant when the agent uses native MCP tools, or the **CLI** variant when it calls `rpce-cli`. CLI variants use the corresponding `-cli` skill names (such as `/rp-orchestrate-cli` or `/rp-deep-plan-cli`). Install the CLI executable as well when choosing that variant.
 
@@ -46,7 +48,7 @@ Each destination submenu offers **MCP skills**, **rpce-cli skills** (or the runn
 
 :::note[Skills and Agent Mode Workflows]
 
-External workflow skills, Agent Mode's built-in workflows, and Copy/Chat Workflow Presets are distinct configuration surfaces. The server connection alone does not install external skills. Use [Agent Workflows](../settings/agent-mode/agent-workflows.mdx) for the built-in picker and [Workflow Presets](../settings/prompting/workflow-presets.mdx) for copy and built-in chat templates.
+Installed workflow instructions, Agent Mode's workflow templates, and Copy/Chat Workflow Presets are distinct configuration surfaces. The server connection alone does not install the external instruction files. Use [Agent Workflows](../settings/agent-mode/agent-workflows.mdx) for the in-app Workflow picker and [Workflow Presets](../settings/prompting/workflow-presets.mdx) for copy and built-in chat packaging.
 
 :::
 
@@ -291,7 +293,7 @@ For complete tool arguments, comparison specs, and worktree options, see the [Gi
 
 ## Custom Skills
 
-Beyond the built-in workflow commands, you can author custom skills — markdown prompt templates with YAML frontmatter that external agents discover and execute. Skills allow you to codify specialized testing workflows, migration pipelines, and project-specific guidelines.
+Beyond the supplied workflow commands, you can write your own workflow instructions and package them as skills for a compatible external host to discover. The instructions can describe specialized testing, migrations, or project-specific procedures; the host determines how they are invoked and followed.
 
 Learn how to create and install custom skills in [Skills & Slash Commands](../agent-mode/skills.mdx).
 
