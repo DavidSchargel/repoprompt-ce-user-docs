@@ -1,4 +1,5 @@
 const remarkIdealImages = require('./plugins/remark-ideal-images.cjs');
+const remarkDocMoves = require('./plugins/remark-doc-moves.cjs');
 const docVersions = require('./versions.json');
 // versions.json is ordered newest first; Classic keeps its published archive route.
 const currentCEVersion = docVersions[0];
@@ -55,6 +56,7 @@ module.exports = {
       docs: {
         sidebarPath: require.resolve('./sidebars.js'),
         remarkPlugins: [remarkIdealImages],
+        beforeDefaultRemarkPlugins: [remarkDocMoves],
         routeBasePath: 'docs',
         includeCurrentVersion: false,
         lastVersion: currentCEVersion,
@@ -107,6 +109,8 @@ module.exports = {
       redirects: [
         {from: ['/claim', '/unsubscribe', '/appcast', '/pricing', '/roadmap', '/prompt-anatomy'], to: '/'},
         {from: '/documentation', to: '/docs/'},
+        {from: ['/docs/agent-mode/sessions', '/docs/sessions'], to: '/docs/sessions/overview/'},
+        {from: ['/docs/agent-mode/providers', '/docs/providers'], to: '/docs/providers/overview/'},
         {from: '/privacy-policy', to: '/privacy/'},
         {from: '/terms-and-conditions', to: '/terms/'},
       ],
