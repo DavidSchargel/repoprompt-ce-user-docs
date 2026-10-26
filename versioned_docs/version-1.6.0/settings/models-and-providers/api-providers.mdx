@@ -76,7 +76,7 @@ Provider reference: [Grok / xAI API](../../providers/xai-api.mdx).
 
 ![Grok xAI key validation and model discovery status](../images/api-providers-grok.png)
 
-Configure direct xAI API access and discover available models. This credential is separate from the Grok Build CLI runtime configured in CLI Providers.
+Configure direct xAI API access and discover available models. A saved xAI API key is also passed to Grok Build for Agent Mode, Context Builder, Oracle, Chat, and model discovery (including Connect), even when you are signed in with `grok login`. Grok chooses which credential each request uses; requests that use the key are billed to your xAI API account.
 
 ## Groq
 
