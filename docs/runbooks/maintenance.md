@@ -13,6 +13,8 @@ Use the Node.js version in [`.node-version`](../../.node-version) and the pnpm v
 
 For README or runbook edits, also verify every changed local path and heading link directly. For site changes, use the complete build when permitted, followed by browser checks appropriate to the change. Record commands actually run and any untested portions; do not reuse old pass counts as current results. Deploying an update to the live site and verifying remote Algolia results are separate steps in the [publishing](publishing.md) and [search](search-and-redirects.md) runbooks.
 
+Keep unit tests independent of current editorial content. Use synthetic Markdown, image bytes, versions, and temporary files instead of reading published articles or screenshots. Assert behavior rather than exact copy, testimonial counts, or incidental spacing. Validate the real content, assets, and routes through the content and artifact checks; compatibility URLs may remain explicit test cases because they are a navigation contract.
+
 `pnpm run check:artifacts` is read-only, but must receive the same SITE_URL/SITE_BASE_URL/SITE_INDEXABLE values used to build. The build directory always contains only the most recent configuration. Do not compare a project-path artifact against default root config.
 
 ## Cosmos rendering contract

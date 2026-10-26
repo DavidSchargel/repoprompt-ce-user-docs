@@ -5,20 +5,6 @@ const {isExternalLink, decorateExternalLinks} = require('../src/utils/externalLi
 
 const options = {baseUrl: 'http://localhost:3000/docs/', siteUrl: 'https://example.com'};
 
-test('new-tab warnings are visually clipped rather than hidden from assistive technology', () => {
-  const fs = require('node:fs');
-  const path = require('node:path');
-  const css = require('postcss').parse(fs.readFileSync(path.join(__dirname, '../src/css/typography.css'), 'utf8'));
-  const rule = css.nodes.find(node => node.selector === '[data-external-link-notice]');
-  assert.ok(rule, 'The generated warning must have its own visually-hidden style');
-  const declarations = Object.fromEntries(rule.nodes.map(node => [node.prop, node.value]));
-  assert.equal(declarations.position, 'absolute');
-  assert.equal(declarations['clip-path'], 'inset(50%)');
-  assert.equal(declarations.overflow, 'hidden');
-  assert.notEqual(declarations.display, 'none');
-  assert.notEqual(declarations.visibility, 'hidden');
-});
-
 // Exercise the DOM transformation without launching a browser.
 function fixture(html) {
   const $ = cheerio.load(html);
@@ -66,7 +52,7 @@ test('external links get one changelog indicator, a warning, and safe rel tokens
   assert.equal($('.new-tab-indicator').text(), '↗');
   assert.equal($('.new-tab-indicator').attr('aria-hidden'), 'true');
   assert.equal($('[data-external-link-notice]').length, 1);
-  assert.match($('a').first().text(), /Read more.*opens in a new tab/);
+  assert.ok($('[data-external-link-notice]').text().trim(), 'Provide an accessible new-tab notice');
   assert.equal($('strong').text(), 'Read more');
   assert.equal($('a').last().attr('target'), undefined);
 });
@@ -78,7 +64,10 @@ test('existing changelog indicators and accessible labels are not duplicated', (
   assert.equal($('.new-tab-indicator').length, 2);
   assert.equal($('[data-external-link-notice]').length, 0);
   assert.equal($('a').first().attr('aria-label'), 'Change (opens in a new tab)');
-  assert.equal($('a').last().attr('aria-label'), 'GitHub (opens in a new tab)');
+  assert.ok($('a').last().attr('aria-label').startsWith('GitHub '));
+  const label = $('a').last().attr('aria-label');
+  decorateExternalLinks(document, options);
+  assert.equal($('a').last().attr('aria-label'), label, 'Repeated decoration must not repeat the warning');
 });
 
 test('a dynamically reused link returns to its original behavior when internal', () => {

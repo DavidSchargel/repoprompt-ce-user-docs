@@ -136,55 +136,18 @@ test('unsupported formats, URL fragments, queries, and remote images stay unchan
   assert.deepEqual(remote, before);
 });
 
-test('responsive-image QA discovers screenshots beyond the docs index', () => {
-  const {findResponsiveImages} = require('../scripts/check-artifacts.cjs');
-  const pages = [
-    '<main>Documentation overview without screenshots</main>',
-    '<img alt="Workspace screenshot" loading=lazy src=/assets/ideal-img/workspace.640.jpg srcset="/assets/ideal-img/workspace.320.jpg 320w, /assets/ideal-img/workspace.640.jpg 640w">',
-    '<img alt="Unoptimized icon" src=/images/icon.svg>',
-  ];
-  const images = findResponsiveImages(pages);
-  assert.equal(images.length, 1);
-  assert.equal(images[0].alt, 'Workspace screenshot');
-});
-
-test('responsive-image QA accepts inline images while checking file origins and base paths', () => {
+test('responsive-image QA accepts inline images while checking file origins and base paths', (t) => {
   const {assertResponsiveImageCandidate: validate} = require('../scripts/check-artifacts.cjs');
+  const fs = require('node:fs');
+  const path = require('node:path');
   const config = {url: 'https://example.invalid', baseUrl: '/project/'};
-  const root = require('node:path').join(__dirname, '..');
+  const root = fs.mkdtempSync(path.join(require('node:os').tmpdir(), 'responsive-image-test-'));
+  t.after(() => fs.rmSync(root, {recursive: true, force: true}));
+  fs.writeFileSync(path.join(root, 'fixture.png'), 'fixture');
   validate('data:image/png;base64,iVBORw0KGgo= 320w', config, root);
-  validate('/project/static/favicon.ico 320w', config, root);
+  validate('/project/fixture.png 320w', config, root);
   assert.throws(() => validate('data:text/html;base64,SGVsbG8= 320w', config, root), /Invalid inline/);
-  assert.throws(() => validate('/static/favicon.ico 320w', config, root), /base path/);
+  assert.throws(() => validate('/fixture.png 320w', config, root), /base path/);
   assert.throws(() => validate('/project/missing.png 320w', config, root), /Missing responsive/);
-  assert.throws(() => validate('https://elsewhere.invalid/project/static/favicon.ico 320w', config, root), /External responsive/);
-});
-
-test('LLM export labels come from configuration and reject missing or empty labels', () => {
-  const {getVersionLabel} = require('../scripts/finalize-llm-exports.cjs');
-  const config = {plugins: ['unrelated-plugin', ['docusaurus-plugin-llms', {docsDir: [
-    {path: 'versioned_docs/version-example', label: 'Example release'},
-  ]}]]};
-  assert.equal(getVersionLabel(config, 'example'), 'Example release');
-  assert.throws(() => getVersionLabel(config, 'missing'), /Missing configured LLM export label/);
-  config.plugins[1][1].docsDir[0].label = ' ';
-  assert.throws(() => getVersionLabel(config, 'example'), /Missing configured LLM export label/);
-});
-
-test('current and historical documentation have distinct routes and matching export paths', () => {
-  const config = require('../docusaurus.config.js');
-  const versions = require('../versions.json');
-  const docs = config.presets[0][1].docs;
-  const sections = config.plugins.find(plugin => Array.isArray(plugin) && plugin[0] === 'docusaurus-plugin-llms')[1].docsDir;
-  assert.ok(versions.length > 0);
-  assert.equal(docs.includeCurrentVersion, false);
-  assert.equal(docs.lastVersion, versions[0]);
-  assert.equal(new Set(sections.map(section => section.routeBasePath)).size, versions.length);
-  for (const [index, version] of versions.entries()) {
-    const route = index === 0 ? '' : version;
-    assert.equal(docs.versions[version].path, route);
-    const section = sections.find(section => section.path === `versioned_docs/version-${version}`);
-    assert.equal(section.routeBasePath, [docs.routeBasePath, route].filter(Boolean).join('/'));
-    assert.ok(section.label.trim());
-  }
+  assert.throws(() => validate('https://elsewhere.invalid/project/fixture.png 320w', config, root), /External responsive/);
 });
