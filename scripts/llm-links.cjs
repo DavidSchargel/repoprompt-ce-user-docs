@@ -1,4 +1,5 @@
 const path = require('node:path');
+const {resolveMovedDocLink} = require('../plugins/remark-doc-moves.cjs');
 
 async function rewriteDocLinks(markdown, source, routes, siteUrl) {
   const {unified} = await import('unified');
@@ -7,7 +8,8 @@ async function rewriteDocLinks(markdown, source, routes, siteUrl) {
   const edits = [];
   function visit(node) {
     if (['link', 'definition'].includes(node.type) && node.url && !/^[a-z][\w+.-]*:|^\/\//i.test(node.url)) {
-      const [file, fragment] = node.url.split('#');
+      const resolvedUrl = resolveMovedDocLink(path.resolve(__dirname, '..', source), node.url);
+      const [file, fragment] = resolvedUrl.split('#');
       let route;
       if (!file) route = routes[source];
       else if (file.startsWith('/')) route = file;

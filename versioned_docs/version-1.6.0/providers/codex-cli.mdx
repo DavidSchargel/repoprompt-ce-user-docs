@@ -1,0 +1,23 @@
+---
+title: "Codex CLI"
+slug: "/providers/codex-cli"
+description: "Connect RepoPrompt's managed Codex runtime, understand its account boundary, and discover supported coding models and capabilities."
+---
+
+Codex CLI is a coding-agent integration with native session control, streaming, compaction, provider tools, and reasoning effort. It runs the agent that performs work in your selected checkout. It is separate from [OpenAI API](./openai-api.mdx) access.
+
+## Connect and authenticate
+
+RepoPrompt includes a managed Codex runtime and maintains its sign-in separately from the ordinary standalone Codex home. In [Codex CLI settings](../settings/agent-mode/cli-providers.mdx#codex-cli), choose **Connect**, then complete **Login with ChatGPT** or the device-code flow. Use **Test Connection** to recheck the integration.
+
+Advanced settings can select a custom executable. Runtime selection takes effect on the next app launch, when model availability is refreshed. A version check does not guarantee a custom runtime's compatibility. The settings guide explains executable selection, restoring the included runtime, and signing out.
+
+## Models and capabilities
+
+Select from the models and reasoning levels advertised by the active runtime. Available choices depend on the runtime, account, and feature. [Models](./models.mdx) explains identifiers, aliases, effort, and Fast tiers without assuming a fixed release catalog.
+
+Codex tool controls cover Bash, Search, Goals, Reasoning Summaries, Local Memories, and configured MCP servers. [Tools](../sessions/tools.mdx) explains the composer controls; [Codex settings](../settings/agent-mode/cli-providers.mdx#core-tools-and-runtime-features) documents the individual switches. Eligible direct sessions can also use [Computer Use](../sessions/computer-use.mdx) when its companion and local permission requirements are met.
+
+## Account and usage
+
+The account signed into RepoPrompt's managed runtime determines access and allowance. It need not be the account used by a separate terminal installation. CLI access does not save an OpenAI API key or pay for direct API requests. Check the connected account's plan and usage for the route being used.

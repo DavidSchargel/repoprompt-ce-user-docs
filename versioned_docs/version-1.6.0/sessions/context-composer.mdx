@@ -1,0 +1,37 @@
+---
+title: "Prepare and Copy Context"
+slug: "/sessions/context-composer"
+description: "Use Context Composer to select code, choose prompt packaging and Git changes, and copy a reviewable package to another model."
+---
+
+Use Context Composer when you want to prepare a focused package for an external model or coding agent. It combines your receiving-model instructions with selected code and the packaging options you choose. Copying a package does not send a session message or invoke the receiving model.
+
+Open the files/stack control beside the composer or press **⌘P** with the default shortcut. The drawer has **Selections**, **Prompt**, and **Context Builder** tabs. See [Context Builder](./context-builder.mdx) for automatic discovery; the steps below cover inspecting and copying the result yourself.
+
+## Choose the code to include
+
+In **Selections**, inspect the selected files and Code Maps. Use **Add** to browse more files; the browser can add Code Maps rather than full content. Check the available per-file actions before changing representation:
+
+- **Convert to Full File** includes implementation content where that action is available.
+- **Convert to Codemap** keeps a compact structural representation where supported.
+- **Clear Slices** removes selected slice ranges; inspect the resulting selection before copying.
+
+Full files suit code the receiving model must understand in detail. Code Maps suit supporting types and API surfaces. Slices focus a large file on selected ranges. These representations affect the package, not the coding agent's filesystem permissions.
+
+## Write receiving-model instructions
+
+Open **Prompt** and describe the question, constraints, and expected output. For example: “Review the selected authentication changes for regressions. Explain each finding using the surrounding code; do not implement fixes.” These instructions are distinct from the discovery task you give Context Builder.
+
+## Choose packaging
+
+**Copy Preset** offers choices including **Standard**, **Plan · Architect**, **Review**, and **Manual**, along with available custom presets. A preset can change what is included; a Review preset alone does not establish which repository or changes you meant to review.
+
+Inspect **Prompts**, **File Tree**, **Code Map**, and **Git**. Manual mode uses the current packaging settings. Stored prompt selection and preset editing are covered by [Workflow Presets](../settings/prompting/workflow-presets.mdx); section ordering is configured in [Copy Prompt Order](../settings/prompting/copy-prompt-order.mdx).
+
+In **Git**, confirm the repository **Root** and comparison target. **None** omits Git changes, **Selected** includes checked pending changes, and **All** includes the available pending changes. File context selection and checked Git changes serve different purposes: selecting a source file is not the same as selecting its diff.
+
+## Copy and check the package
+
+Choose **Copy Prompt**, then paste into a draft where you can inspect it before submitting. Confirm the instructions, file paths, relevant implementation, and intended Git changes. Reduce irrelevant full files or use narrower context if the receiving model cannot accept the package.
+
+The session's live context-usage ring describes runtime usage; it is not simply the size of this exported package. Copying context does not transfer a running conversation's entire history, provider permissions, or tool configuration. If the clipboard action reports **Copy failed**, retry after resolving the error rather than assuming the previous clipboard contents are the new package.

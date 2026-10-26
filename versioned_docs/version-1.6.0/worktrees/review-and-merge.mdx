@@ -1,0 +1,37 @@
+---
+title: "Review and Merge"
+slug: "/worktrees/review-and-merge"
+description: "Preview committed worktree changes, approve the intended merge, and resolve or abort conflicts in the target checkout."
+---
+
+A worktree merge integrates committed history into another checkout in the same repository. It does not copy an unfinished working directory. The **source** is the session-bound worktree supplying commits; the **target** is the checkout that receives them.
+
+## Prepare both checkouts
+
+Finish or stop work that could change either checkout. Review and commit the intended source edits, and ensure the target is clean. RepoPrompt blocks merges when either checkout is dirty, either already has a merge in progress, the repositories differ, or the source and target are the same worktree. If the source commit is already included in the target, there is no new source history to merge.
+
+If the session has bindings for several repository roots, identify which repository supplies the source. A session name alone does not identify a checkout.
+
+## Request a preview
+
+Ask the coding agent to use the worktree merge tools and name the target explicitly. For example:
+
+> Preview merging this session's committed worktree changes into the main workspace checkout. Report the source and target paths, commits, and any blockers. Wait for my review before applying the merge.
+
+The [manage_worktree tool](../mcp-server/mcp-tools.mdx#manage_worktree) separates `preview` from `apply`. A preview does not modify the repository. Its operation ID identifies the prepared operation; applying requires the corresponding confirmation or routed UI approval.
+
+## Read Worktree Merge Review
+
+When routed through the session's review interface, the card shows source and target endpoints, a merge graph, preflight information, and available diff artifacts. Check the paths as well as branch names. The inline diff is a bounded excerpt; inspect the referenced artifacts or repository changes when the excerpt is incomplete.
+
+Choose **Merge** to approve the prepared operation or **Cancel** to dismiss it without applying. If either checkout changed after preview, the operation can become stale. Request a fresh preview and review the new state rather than reusing old approval.
+
+## Resolve conflicts in the target
+
+Conflicts belong to the **target worktree**, whose path appears on the conflict card. Open that checkout, inspect Git status, resolve the listed files, and stage the resolutions there. Then choose **Continue after resolving**. When no conflicts remain, continuing creates the merge commit in the target.
+
+Choose **Abort merge** if you intend to discard the in-progress merge in the target. This is different from cancelling a preview before mutation. If continuing or aborting fails, read the reported error and inspect that target checkout before retrying.
+
+## Verify the integrated result
+
+After completion, inspect the target's Git history and diff and run the relevant checks there. A completed merge does not publish a branch or establish that tests pass. Keep the source checkout until you have verified the result; closing or unlinking the session is not evidence that integration succeeded.

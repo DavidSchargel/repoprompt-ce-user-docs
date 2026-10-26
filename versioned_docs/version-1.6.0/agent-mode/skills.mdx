@@ -3,17 +3,45 @@ id: "skills"
 title: "Skills & Slash Commands"
 description: "Create and organize reusable agent skills and slash commands, including workflow instructions and provider-specific skill locations."
 slug: "/agent-mode/skills"
-keywords: ["skills","slash commands","custom skills","SKILL.md","commands","templates",".claude",".agents","prompt templates","custom workflow","frontmatter","YAML","$ARGUMENTS","skill search","install skills","rp-build","rp-review","rp-refactor","rp-investigate","rp-oracle-export","terminal","terminal agent","mcp skills","rp-cli","global","markdown"]
+keywords:
+  [
+    "skills",
+    "slash commands",
+    "custom skills",
+    "SKILL.md",
+    "commands",
+    "templates",
+    ".claude",
+    ".agents",
+    "prompt templates",
+    "custom workflow",
+    "frontmatter",
+    "YAML",
+    "$ARGUMENTS",
+    "skill search",
+    "install skills",
+    "rp-build",
+    "rp-review",
+    "rp-refactor",
+    "rp-investigate",
+    "rp-oracle-export",
+    "terminal",
+    "terminal agent",
+    "mcp skills",
+    "rp-cli",
+    "global",
+    "markdown",
+  ]
 hide_table_of_contents: false
 toc_min_heading_level: 2
 toc_max_heading_level: 4
 ---
 
-Skills are reusable prompt templates that agents discover and run as slash commands. Use them in Agent Mode, install them for terminal agents, or create your own.
+Skills are discoverable instruction files or packages. A skill can contain workflow instructions, but the words are not interchangeable: the workflow describes a process, while the skill is how a compatible host discovers and loads its instructions. RepoPrompt also has in-app workflow templates selected through the **Workflow** control.
 
 ## What Are Skills?
 
-A skill is a Markdown file containing a structured prompt template with optional YAML frontmatter. When invoked, the template is expanded with your task description substituted in, giving the agent a detailed protocol to follow — without you writing it from scratch each time.
+RepoPrompt's slash-skill loader reads Markdown instruction files with optional YAML frontmatter, including folder-based `SKILL.md` files and supported legacy command files. In Agent Mode, invoking one expands its template with your task description. External coding hosts have their own discovery and invocation behavior.
 
 ## Skills in Agent Mode
 
@@ -21,15 +49,15 @@ Agent Mode discovers skills from on-disk directories and presents them in the in
 
 When you send a message with a slash skill, RepoPrompt expands the template (stripping frontmatter and substituting `$ARGUMENTS` with your task description) before sending it to the agent.
 
-**Skills vs. Workflows**
+**Skills vs. workflow templates**
 
-Agent Mode has two ways to structure a task: the **Workflow** dropdown (built-in workflows like Plan & Build, Review, etc.) and **slash skills** (on-disk templates typed as `/skill-name`). You can use one or the other per message, but not both. Workflows are ready to go out of the box — skills give you extensibility with custom templates.
+Agent Mode has two ways to load instructions for a task: the **Workflow** dropdown selects built-in or custom workflow templates, while a **slash skill** loads an on-disk instruction file typed as `/skill-name`. You can use one or the other per message, but not both. A custom in-app workflow template is not automatically an installed skill for an external coding host.
 
 ## Skills for Terminal Agents
 
-The same on-disk skill files also work with external agents running in your terminal (Claude Code, Codex CLI). When those agents are connected via the MCP server, they discover skills from the same directories and can invoke them as slash commands.
+External coding agents can usually discover installed on-disk skills from shared directories when their host supports those locations. Connecting to RepoPrompt's MCP server supplies tool access; it does not install workflow skills. To make RepoPrompt's workflow skills available, install the matching MCP or CLI variant through **Quick Setup → Skills**, then use the external host's skill or slash-command picker.
 
-RepoPrompt ships with built-in workflow skills (`/rp-build`, `/rp-review`, `/rp-refactor`, `/rp-investigate`, `/rp-oracle-export`) that you can install for your terminal agents. These give external agents the same workflow capabilities that are built into Agent Mode's Workflow dropdown. See [MCP Workflow Commands](../../version-classic-2.1.0/mcp-server/workflow-commands.mdx) for details.
+RepoPrompt supplies workflow instructions for external coding agents through commands such as `/rp-build` and `/rp-review`. **Quick Setup → Skills** installs the MCP or CLI variant as skill folders or prompt files for the selected host. These instructions guide the workflow; the client's tools and permissions determine what it can actually do. See [MCP Workflow Commands](../mcp-server/workflow-commands.mdx) for the complete catalog and installation locations.
 
 ## Creating Custom Skills
 
@@ -94,7 +122,7 @@ RepoPrompt scans provider-specific directories in order of priority. Project-lev
 3. `~/.claude/skills/` — Global folder-based skills
 4. `~/.claude/commands/` — Global flat file skills
 
-### For Codex CLI \{#for-gemini-cli}
+### For Codex CLI
 
 1. `<project>/.agents/skills/` — Project-level folder-based skills
 2. `<project>/.agents/slash/` — Project-level flat file skills
@@ -110,7 +138,7 @@ RepoPrompt can install its built-in workflow skills into the appropriate directo
 - **Onboarding wizard** — During initial setup, the MCP Setup step includes a "Skills" install button
 - **MCP Settings** — The settings panel has options to install skills for different providers
 
-Skills come in two variants: **MCP skills** (for agents connected via MCP server) and **rp-cli skills** (for agents using the command-line tool directly). Both give your terminal agents access to the same powerful workflows that are built into Agent Mode.
+The installer offers **MCP skills** for instructions that call native MCP tools and **rpce-cli skills** for instructions that use the terminal command. The CLI label can reflect the running build's command name. These are alternate instruction variants, not separate tool permissions or automatic installation of the CLI executable.
 
 :::tip
 

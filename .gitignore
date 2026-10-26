@@ -8,3 +8,7 @@ build/
 .DS_Store
 pnpm-debug.log*
 .pnpm-store/
+
+# Keep the documentation section visible when a global ignore excludes sessions/.
+!/versioned_docs/version-1.6.0/sessions/
+!/versioned_docs/version-1.6.0/sessions/**

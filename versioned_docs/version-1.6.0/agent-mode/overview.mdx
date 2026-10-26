@@ -4,7 +4,7 @@ title: "Agent Mode Overview"
 sidebar_label: "Overview"
 description: "Run coding agents inside RepoPrompt CE with curated repository context, built-in workflows, and reviewable file changes."
 slug: "/agent-mode/overview"
-keywords: ["agent mode","cli agent","codex","claude code","cc zai","cc moonshot","cc custom","moonshot","kimi","glm","opencode","cursor cli","session host","orchestrate","native","gpt-5.5","per-tab","session","tool calls","edit review","agent","oracle chat","context builder","parallel","parallel agents","images","streaming","live streaming","sub-agent","sub agent","subagent","spawn agent","delegate","worker agent","multi-agent","dispatch"]
+keywords: ["agent mode","cli agent","codex","claude code","cc zai","cc moonshot","cc custom","moonshot","kimi","glm","opencode","cursor cli","session host","orchestrate","native","per-tab","session","tool calls","edit review","agent","oracle chat","context builder","parallel","parallel agents","images","streaming","live streaming","sub-agent","sub agent","subagent","spawn agent","delegate","worker agent","multi-agent","dispatch"]
 hide_table_of_contents: false
 toc_min_heading_level: 2
 toc_max_heading_level: 4
@@ -20,33 +20,17 @@ Agent Mode runs CLI coding agents directly inside RepoPrompt, giving them full a
 
 ## Supported Providers
 
-### Codex CLI
+Choose a coding-agent integration from the [Providers & Models directory](../providers/overview.mdx#coding-agents). Each provider's reference explains setup prerequisites, authentication, capabilities, and account boundaries. Configure the corresponding fields and controls in [CLI Providers settings](../settings/agent-mode/cli-providers.mdx).
 
-**Recommended.** Native app server integration with full agent control, compaction, configurable tool preferences, and reasoning effort settings.
-
-### Claude Code
-
-Full-featured agentic sessions with compaction support, deep MCP integration, and context tools.
-
-### CC Zai / CC Moonshot / CC Custom
-
-Claude Code-compatible backends. **CC Zai** runs GLM (4.6, 4.7, 5) via a Z.AI API key, **CC Moonshot** runs Kimi via a Moonshot API key, and **CC Custom** points at any Claude Code-compatible endpoint you configure.
-
-### OpenCode
-
-ACP-based sessions with dynamic model discovery, bash tools, and support for multiple providers including free models.
-
-### Cursor CLI
-
-ACP-based sessions with dynamic model discovery and automatic model fallback. Uses your Cursor Pro or Business subscription.
+Use the models actually offered by that connection. The [Models guide](../providers/models.mdx) explains availability, identifiers, reasoning effort, and separate choices for execution, Oracle, and Context Builder.
 
 ## Key Capabilities
 
 - **Per-Tab Sessions:** Each compose tab gets its own agent session. Run multiple agents in parallel across different tasks with isolated context
 - **Context Builder Integration:** Agents trigger Context Builder directly — a discovery agent curates the right files, then an analysis model generates plans, reviews, or deep answers grounded in your actual code
-- **Oracle Chat:** A curated context window shared between the agent and a reasoning model. Leverages RepoPrompt's prompting best practices to get optimal insights, plans, and reviews — the agent's work is tracked so the Oracle always has full context
-- **Token-Efficient Tools:** Agents use RepoPrompt's MCP tools for file search, code structure, and editing — ~80% fewer tokens than built-in CLI equivalents
-- **Optional Edit Review:** Review and approve each edit the agent makes before it's applied
+- **Oracle Chat:** Consult separately configured reasoning models for plans, reviews, and answers based on prepared task context.
+- **Token-Efficient Tools:** Use Code Maps and line slices to supply relevant structure and implementation without including every file in full.
+- **Edit Review:** Inspect edits and control approval behavior through the provider's permissions and Auto Edit setting.
 - **Image Support:** Paste or drag-and-drop images into agent conversations
 - **Session Management:** Resume sessions, track token usage, and manage multiple agent conversations
 
@@ -54,20 +38,19 @@ ACP-based sessions with dynamic model discovery and automatic model fallback. Us
 
 The typical Agent Mode flow looks like this:
 
-1. **Open a workspace** — Load your project in RepoPrompt
-2. **Start an agent session** — Choose your provider and model from the Agent Mode interface
-3. **Describe your task** — Type what you want to accomplish, optionally selecting a workflow like **Plan & Build** from the Workflow dropdown
-4. **Watch and guide** — The agent streams its work in real time. You'll see tool calls, file reads, and edits as they happen
-5. **Review changes** — Approve, reject, or modify the agent's edits before they're applied
+1. **Open a workspace** and start a session for the task.
+2. **Choose its execution location** — work in the workspace checkout, create a new worktree, or choose an existing worktree.
+3. **Select a workflow template** from the **What are we building?** cards or the **Workflow** selector, then write your goal and constraints. The template wraps that message in a method for the task.
+4. **Check the model, effort, tools, and permissions**, then send.
+5. **Watch and guide** through conversation, tool cards, live questions, and approval requests. Inspect the resulting changes before accepting the result.
+
+Read [Sessions & Interface](../sessions/overview.mdx) for the complete composer walkthrough and individual control guides. For coordinated top-level sessions and managed lanes, see [Overseer Mode](../overseer/overview.mdx).
 
 ## Getting Started
 
-To set up Agent Mode:
+Open **Settings → Agent Mode → CLI Providers** and connect the provider you intend to use. Codex includes a managed runtime; other integrations may require an installed CLI or a managed runtime installation. Use **Test Connection** and complete any authentication the selected provider requests.
 
-1. Install your preferred CLI agent (`codex`, `claude`, `opencode`, or `cursor`)
-2. Open RepoPrompt and load a workspace
-3. Switch to Agent Mode using the mode selector
-4. Test your provider connection from the agent settings
+Open your project, choose the session's location and workflow, and send a specific task. Model availability and permission behavior depend on the connected provider.
 
 :::tip
 

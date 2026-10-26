@@ -1,0 +1,344 @@
+{
+  "title": "October 4 settings screenshot restoration",
+  "sourceDirectory": "source-assets/documentation-screenshots",
+  "cropCoordinates": "Original pixel coordinates from the upper-left corner; no crop was resized.",
+  "captures": [
+    {
+      "source": "2026-10-04_18-06-06.png",
+      "original": {
+        "width": 1710,
+        "height": 2595
+      },
+      "archivedSha256": "1960f66c72d28f0e164256106d611210df1b0f0f58016583e64e1d94a059307f",
+      "sourceRedactions": [],
+      "mappings": [
+        {
+          "destination": "versioned_docs/version-1.6.0/settings/images/cli-providers.png",
+          "previous": {
+            "width": 1678,
+            "height": 2595
+          },
+          "restored": {
+            "width": 1678,
+            "height": 2595
+          },
+          "crop": {
+            "left": 0,
+            "top": 0,
+            "width": 1678,
+            "height": 2595
+          },
+          "note": "Viewport crop retaining the scrollbar."
+        },
+        {
+          "destination": "versioned_docs/version-1.6.0/settings/images/cc-custom.png",
+          "previous": {
+            "width": 1554,
+            "height": 1145
+          },
+          "restored": {
+            "width": 1554,
+            "height": 1145
+          },
+          "crop": {
+            "left": 58,
+            "top": 850,
+            "width": 1554,
+            "height": 1145
+          }
+        }
+      ]
+    },
+    {
+      "source": "2026-10-04_18-01-29.png",
+      "original": {
+        "width": 576,
+        "height": 2124
+      },
+      "archivedSha256": "33ca02c9073ae4707fbe397f5f753205c1b240275d265097b131969bbd8ecabc",
+      "sourceRedactions": [],
+      "mappings": [
+        {
+          "destination": "versioned_docs/version-1.6.0/settings/images/search-settings.png",
+          "previous": {
+            "width": 552,
+            "height": 60
+          },
+          "restored": {
+            "width": 552,
+            "height": 60
+          },
+          "crop": {
+            "left": 15,
+            "top": 0,
+            "width": 552,
+            "height": 60
+          }
+        },
+        {
+          "destination": "versioned_docs/version-1.6.0/settings/images/model-config.png",
+          "previous": {
+            "width": 513,
+            "height": 49
+          },
+          "restored": {
+            "width": 513,
+            "height": 50
+          },
+          "crop": {
+            "left": 22,
+            "top": 1605,
+            "width": 513,
+            "height": 50
+          }
+        }
+      ]
+    },
+    {
+      "source": "2026-10-04_18-02-32.png",
+      "original": {
+        "width": 1710,
+        "height": 3762
+      },
+      "archivedSha256": "9dc0816e728f35eca0990d641c952dfa0ad345d5bfabe38a26d27b585b1df432",
+      "sourceRedactions": [
+        {
+          "reason": "Private account identifier",
+          "rect": {
+            "left": 210,
+            "top": 768,
+            "width": 230,
+            "height": 36
+          }
+        }
+      ],
+      "mappings": [
+        {
+          "destination": "versioned_docs/version-1.6.0/settings/images/codex.png",
+          "previous": {
+            "width": 1617,
+            "height": 2316
+          },
+          "restored": {
+            "width": 1617,
+            "height": 2316
+          },
+          "crop": {
+            "left": 30,
+            "top": 288,
+            "width": 1617,
+            "height": 2316
+          },
+          "destinationRedactions": [
+            {
+              "reason": "Private account identifier",
+              "inheritedFromSourceArchive": true
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "source": "2026-10-04_18-05-21.png",
+      "original": {
+        "width": 1710,
+        "height": 2684
+      },
+      "archivedSha256": "f8d3605fc32ddad54d121d2c31c65fda4899fc85fe89871ac3a7003e8638eaf6",
+      "sourceRedactions": [],
+      "mappings": [
+        {
+          "destination": "versioned_docs/version-1.6.0/settings/images/cc-zai.png",
+          "previous": {
+            "width": 1560,
+            "height": 1240
+          },
+          "restored": {
+            "width": 1560,
+            "height": 1240
+          },
+          "crop": {
+            "left": 58,
+            "top": 660,
+            "width": 1560,
+            "height": 1240
+          },
+          "destinationRedactions": [
+            {
+              "reason": "Masked credential display cleared",
+              "rect": {
+                "left": 42,
+                "top": 382,
+                "width": 1476,
+                "height": 39
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "source": "2026-10-04_18-30-03.png",
+      "original": {
+        "width": 1672,
+        "height": 2010
+      },
+      "archivedSha256": "34b659debb4bb10c09fc61ada6b0418bd0623a013e418eb1fa452fed394eebcc",
+      "sourceRedactions": [],
+      "mappings": [
+        {
+          "destination": "versioned_docs/version-1.6.0/settings/images/opencode.png",
+          "previous": {
+            "width": 1615,
+            "height": 563
+          },
+          "restored": {
+            "width": 1615,
+            "height": 563
+          },
+          "crop": {
+            "left": 28,
+            "top": 965,
+            "width": 1615,
+            "height": 563
+          },
+          "note": "The notification toast is outside the selected panel crop."
+        }
+      ]
+    },
+    {
+      "source": "2026-10-04_18-23-15.png",
+      "original": {
+        "width": 1672,
+        "height": 1690
+      },
+      "archivedSha256": "09022e6645e90fa597e6425e848168b72fa5be5876f7717fb7d03868f768ba12",
+      "sourceRedactions": [],
+      "mappings": [
+        {
+          "destination": "versioned_docs/version-1.6.0/settings/images/antigravity.png",
+          "previous": {
+            "width": 1616,
+            "height": 250
+          },
+          "restored": {
+            "width": 1616,
+            "height": 250
+          },
+          "crop": {
+            "left": 28,
+            "top": 1320,
+            "width": 1616,
+            "height": 250
+          }
+        }
+      ]
+    },
+    {
+      "source": "2026-10-04_18-05-46.png",
+      "original": {
+        "width": 1710,
+        "height": 2359
+      },
+      "archivedSha256": "9c478356891ffe9db09e9eec63858e75d747e0edb725a1c9caf6fb80ca6f731c",
+      "sourceRedactions": [],
+      "mappings": [
+        {
+          "destination": "versioned_docs/version-1.6.0/settings/images/cc-moonshot.png",
+          "previous": {
+            "width": 1565,
+            "height": 912
+          },
+          "restored": {
+            "width": 1565,
+            "height": 912
+          },
+          "crop": {
+            "left": 58,
+            "top": 745,
+            "width": 1565,
+            "height": 912
+          }
+        }
+      ]
+    },
+    {
+      "source": "2026-10-04_18-03-49.png",
+      "original": {
+        "width": 1710,
+        "height": 2399
+      },
+      "archivedSha256": "24494e832c236d7d34bbb1c3584a0b11068c31de08577b503d64ac539ce254a3",
+      "sourceRedactions": [],
+      "mappings": [
+        {
+          "destination": "versioned_docs/version-1.6.0/settings/images/claude.png",
+          "previous": {
+            "width": 1638,
+            "height": 959
+          },
+          "restored": {
+            "width": 1638,
+            "height": 959
+          },
+          "crop": {
+            "left": 36,
+            "top": 420,
+            "width": 1638,
+            "height": 959
+          }
+        }
+      ]
+    },
+    {
+      "source": "2026-10-04_18-01-54.png",
+      "original": {
+        "width": 2306,
+        "height": 3139
+      },
+      "archivedSha256": "d9d4e98c73a2979c39526b6e8a962b59fc6b8e4899adfe44f47e0cb1bfc04c07",
+      "sourceRedactions": [],
+      "mappings": [
+        {
+          "destination": "versioned_docs/version-1.6.0/settings/images/overview.png",
+          "previous": {
+            "width": 1678,
+            "height": 3073
+          },
+          "restored": {
+            "width": 1678,
+            "height": 3073
+          },
+          "crop": {
+            "left": 600,
+            "top": 66,
+            "width": 1678,
+            "height": 3073
+          },
+          "note": "The crop keeps the overview content and scrollbar while removing the titlebar and settings sidebar."
+        }
+      ]
+    },
+    {
+      "source": "2026-10-04_18-55-47.png",
+      "original": {
+        "width": 1632,
+        "height": 2288
+      },
+      "archivedSha256": "bcb266dd5e0d709f6b3bbe7d6ed98600b86cdd3c3ba6aa57e2208897fa4ab532",
+      "sourceRedactions": [
+        {
+          "reason": "Private account identifier",
+          "rect": {
+            "left": 205,
+            "top": 454,
+            "width": 224,
+            "height": 36
+          }
+        }
+      ],
+      "mappings": [],
+      "note": "Alternate Codex capture archived for provenance; the tooltip obscures part of the Goals section, so the unobstructed Codex capture was used for the documentation image."
+    }
+  ]
+}

@@ -14,7 +14,7 @@ Edit the current MDX files directly. No separate source checkout is needed to bu
 
 Use meaningful unique descriptions, a logical heading hierarchy, descriptive link text, fenced code with a language, and relative source links for cross-version docs. Give informative images alt text that conveys their purpose; use `alt=""` for purely decorative images, never omit the attribute. Do not duplicate adjacent link text in linked-image alt. Tables need a visible caption, column and row headers where applicable, and keyboard-reachable overflow when wider than the viewport. For titled admonitions, use directive syntax such as `:::note[Configuration]`; the older space-separated title syntax renders as plain text with this configuration. Native anchors with `useBaseUrl` are reserved for generated `.txt` files so Docusaurus does not treat them as trailing-slash routes. Never weaken strict broken-link/anchor checks to hide a missing output.
 
-The main docs page includes a TOC and keyboard-operable JSON/Bash tabs. Code blocks have standard copy controls; Copy page is supplied by the requested plugin. Changing a title/slug/heading can break bookmarks: update the frontmatter, sidebars, and legacy mapping together and run the checks. Do not manufacture new release snapshots from changelogs.
+The main docs page includes a TOC and keyboard-operable JSON/Bash tabs. Code blocks have standard copy controls; Copy page is supplied by the requested plugin. Before launch, use automatically generated heading IDs and update internal fragment links when a heading changes. Add an explicit heading ID only for a demonstrated stable-link requirement; do not preserve obsolete heading names by default. When changing titles or routes, update affected frontmatter, sidebars, and legacy mappings and run the checks. Do not manufacture new release snapshots from changelogs.
 
 ## Exclusions
 
@@ -27,6 +27,29 @@ Keep Markdown image syntax. Local PNG/JPEG imports pass through the remark adapt
 Cosmos provides the actual CSS, self-hosted fonts, theme palettes, TOC/tables/code/details styling, and home cards/lifecycle badges/sidebar icons. Use its documented tokens/utilities rather than hard-coded theme colors. Test light/dark and narrow widths after UI changes.
 
 Review newly added images visually for embedded excluded content, sensitive text, and whether the authored alt accurately describes the image's purpose; filenames and automated text scans cannot prove the pixels are safe. Check captions and audio description for any embedded video; a fallback link alone does not establish accessible media.
+
+## Workflow and skill terminology
+
+Use **workflow** for a task's process, **workflow template** for instructions selected in the in-app Workflow control, and **workflow instructions** for the procedure supplied to an external MCP or CLI host. Use **skill** when discussing a discoverable skill package, its files, or the host's skill mechanism. Preserve literal UI labels such as **Skills** and **MCP skills**, and filenames such as `SKILL.md`; some installation targets use prompt files instead of skill folders. Installing instructions and connecting MCP tools are separate operations.
+
+## Provider and model information ownership
+
+The current CE collection's `providers/` section is the canonical reference for provider and shared model information. Keep it independent of Agent Mode, Settings, Oracle, Context Builder, and the payment FAQ because those features use different parts of the same connections.
+
+| Information | Owner |
+| --- | --- |
+| Supported integration roster, comparison, and CLI/API distinctions | `providers/overview.mdx` |
+| Setup prerequisites, authentication/account boundary, capabilities, limitations, billing route, and official catalog links | One `providers/<integration>.mdx` page per integration |
+| Model discovery, identifiers, aliases, effort, service tiers, roles, and interpreting recommendations | `providers/models.mdx` |
+| Settings fields, buttons, scope, saved state, and screenshots | The corresponding `settings/` page, linking to the provider reference |
+| Using composer controls, workflow behavior, routing eligibility, and privacy | The corresponding feature guide, linking to shared provider/model concepts |
+| Brief answer about application cost versus service charges | Payment FAQ, linking to the canonical provider reference |
+
+Keep coding-agent providers in the requested order: Codex CLI, Claude Code CLI, OpenCode CLI, Cursor CLI, Grok Build, Google Antigravity, Devin CLI, CC Zai, CC Moonshot, CC Custom. Keep CLI and API integrations distinct even when they share a company name or saved credential.
+
+Prefer capabilities and connection-discovered choices over release-specific model lists or fixed named recommendations. Screenshots may retain captured model names; describe them as examples. Preserve names needed for historical changelogs. If a current guide genuinely requires a release-specific model claim, qualify its app version or review date, keep the claim on its provider page, and link to it elsewhere. Settings can explain literal field labels and values without becoming a second provider catalog.
+
+When a canonical document moves, update current links, sidebar entries, legacy hash destinations, and public redirects. Use the shared document-move resolver for archived source links and LLM exports so the Classic archive remains unmodified.
 
 ## LLM pipeline and compatibility adapters
 

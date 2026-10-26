@@ -35,3 +35,57 @@
   outline: 2px solid var(--ifm-color-primary);
   outline-offset: 2px;
 }
+
+/* ── Hide Cosmos theme version badge in docs sidebar ── */
+[class*='sidebarViewport']::after {
+  display: none !important;
+  content: none !important;
+}
+
+/* ── Sidebar icons for standalone doc links (matching cosmos-docusaurus-theme) ── */
+.menu__list-item[class*='sidebar-cat-'] > .menu__link::before {
+  content: '';
+  display: inline-block;
+  width: 16px;
+  height: 16px;
+  margin-right: 8px;
+  vertical-align: -2px;
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+  opacity: 0.6;
+  transition: opacity 0.12s;
+}
+
+[data-theme='dark'] .menu__list-item[class*='sidebar-cat-'] > .menu__link::before {
+  filter: invert(1);
+}
+
+.menu__list-item[class*='sidebar-cat-'] > .menu__link--active::before,
+.menu__list-item[class*='sidebar-cat-']:hover > .menu__link::before {
+  opacity: 1;
+}
+
+.sidebar-cat-rocket > .menu__link::before {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M4.5 16.5c-1.5 1.26-2 5-2 5s3.74-.5 5-2c.71-.84.7-2.13-.09-2.91a2.18 2.18 0 0 0-2.91-.09z'/%3E%3Cpath d='M12 15l-3-3a22 22 0 0 1 2-3.95A12.88 12.88 0 0 1 22 2c0 2.72-.78 7.5-6 11a22.35 22.35 0 0 1-4 2z'/%3E%3Cpath d='M9 12H4s.55-3.03 2-4c1.62-1.08 5 0 5 0'/%3E%3Cpath d='M12 15v5s3.03-.55 4-2c1.08-1.62 0-5 0-5'/%3E%3C/svg%3E");
+}
+
+.sidebar-cat-monitor > .menu__link::before {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Crect x='2' y='3' width='20' height='14' rx='2'/%3E%3Cline x1='8' y1='21' x2='16' y2='21'/%3E%3Cline x1='12' y1='17' x2='12' y2='21'/%3E%3C/svg%3E");
+}
+
+.sidebar-cat-pencil > .menu__link::before {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M17 3a2.85 2.83 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5z'/%3E%3C/svg%3E");
+}
+
+.sidebar-cat-puzzle > .menu__link::before {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M2 12h4a2 2 0 0 1 2 2v1a2 2 0 0 0 4 0v-1a2 2 0 0 1 2-2h4'/%3E%3Cpath d='M14 2v4a2 2 0 0 1-2 2h-1a2 2 0 0 0 0 4h1a2 2 0 0 1 2 2v4'/%3E%3C/svg%3E");
+}
+
+.sidebar-cat-sliders > .menu__link::before {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cline x1='21' y1='4' x2='14' y2='4'/%3E%3Cline x1='10' y1='4' x2='3' y2='4'/%3E%3Ccircle cx='12' cy='4' r='2'/%3E%3Cline x1='21' y1='12' x2='12' y2='12'/%3E%3Cline x1='8' y1='12' x2='3' y2='12'/%3E%3Ccircle cx='10' cy='12' r='2'/%3E%3Cline x1='21' y1='20' x2='16' y2='20'/%3E%3Cline x1='12' y1='20' x2='3' y2='20'/%3E%3Ccircle cx='14' cy='20' r='2'/%3E%3C/svg%3E");
+}
+
+.sidebar-cat-code > .menu__link::before {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='16 18 22 12 16 6'/%3E%3Cpolyline points='8 6 2 12 8 18'/%3E%3C/svg%3E");
+}

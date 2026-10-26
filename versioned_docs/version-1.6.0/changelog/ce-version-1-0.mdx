@@ -21,682 +21,854 @@ The Community Edition 1.x series is the first release in the Community Edition s
 - Public Sparkle update channel for signed, notarized releases.
 - Fully open source and free to use.
 
-<details>
-
-<summary>View GitHub release notes (1.0.0 - 1.6.0)</summary>
-
-#### 1.6.0 - September 25, 2026
-
-What's Changed
-
-- MCP fix: skip deletion fencing for uncatalogued missing paths
-- Add support for multiple Oracles
-- Fix codemap indexing page restart on git churn
-- Fix selection mirror wedge recovery
-- Agent Session Oversight
-- Refactor Agent Session Oversight internals
-- Fix completed credential migration and blocked update recovery
-- Fix Sparkle startup update isolation
-- Fix Model Presets with multiple Oracles
-- Put workspace first in window titles
-- Reuse matching workspaces when opening folders
-- Fix workspace root removal and discovery readiness
-- Migrate release artifact actions to Node 24
-- feat(agent-mode): add Devin CLI provider
-- Expand sidebar checkbox hit targets
-- Fix seeded worktree publication deadlock and watchdog terminal errors
-- Fix Context Builder settled Oracle replies after primary failure
-- Fix cancellation handoff and Context Builder watchdog reliability
-- Make the OpenCode thinking level configurable
-- Make the subagent wait configurable in Settings
-- Fix: Clamp Context Builder budget slider values
-- Fix: Cache AgentModeViewModel binding snapshot to prevent O(N²) app hang
-- Fix JSON-valued MCP experimental capabilities
-- Fix Tip publisher API authentication and latest convergence
-- Fix composer cursor jumping during typing
-- Add persistent global model routing with Jev
-- Fix post-migration Keychain item creation
-- Fix Agent Mode sidebar render-loop performance
-- Improve agent orchestration observability and history analytics
-- Add Claude Opus 5.5 model choices
-- Update bundled Codex app-server to 0.156.0
-- Preserve dirty Copy and Chat overlays during Agent Models changes
-- Stop MCP read\_file from inventing a one-line success
-- Reduce composer keystroke latency
-- Diagnose canonical workspace state at Agent admission
-- Add bounded workspace projection decode measurements
-- Make physical file reads cancellation-responsive
-- Show captured Context Builder behavior during active runs
-- perf(git): bound diff cache retention with LRU eviction
-- Add bounded MCP lifecycle diagnostics for teardown investigation
-- Make passive appcast callback main-actor contract explicit
-- Add Jev multi-question judgment foundation
-- Fix Model Router persistence and refresh routing models
-- Stabilize workspace lifecycle regression tests
-- Fix Context Builder prerequisite error classification
-- Update bundled Codex app-server to 0.156.1
-- Preserve file authority across context binding
-- Add MCP controls for agent session pins and manual order
-- Guard protected Agent tabs during workspace replay
-- Fix app hang by caching sorted model options
-- Add independent Jev Auto effort for Codex and Claude
-- Add automatic APFS CoW cloning for app-managed worktrees
-- fix(mcp): allow background-tab selection mirrors to complete
-- fix(agent-mode): apply Auto effort to Claude MCP runs
-
-#### 1.4.1 - September 7, 2026
-
-What's Changed
-
-- Fix split-root Stable release metadata
-- Test MCP stdio and terminal commit barriers
-- Fix codemaps to index nested repo worktree sources
-- Fix Tip recovery after Stable 1.4.0
-- Harden Tip publisher release observation
-- Add Claude Fable 5.1 to the Claude Code model catalogs
-- Authenticate Tip protected-main preflight
-- Fix MCP context routing with the active workspace
-- Fix out-of-bounds access from a stale workspace index after async yield
-- Add Claude Fable Latest and normalize model picker fonts
-- Fix Tip release publication races
-- Fix HistoryMCP crash in buildGroups caused by force-unwrap
-- Fix Swift overflow when converting negative st\_dev to UInt64
-- Sanitize AI narration text to prevent SwiftUI crashes
-- Fix app hang from expensive Codex model display name computation
-- Fix context menu crash on dynamic item changes
-- Prefer Grok's direct model parser when configOptions accompany models
-- Fix file search freshness after Add Folder
-- Fix duplicate workspace consolidation persistence
-- Fix release provisioning profile permissions
-- Remove artificial timeouts from Tip workflow
-- Keep new windows eligible for Merge All Windows
-- Fix InterceptingWindowDelegateProxy unrecognized selector crash
-- Fix EXC\_BREAKPOINT in duplicate workspace cleanup
-- Fix GitWorktreeDefaultPathPlanner O(N^2) hang
-- Reduce repeated transcript snapshot access in row construction
-- Index hidden-session slice paths during rebase planning
-- Give Codex model options a consistent sort order
-- Preserve competing files during exclusive creation
-- Derive session deletion targets from validated files
-- Preserve settings after failed backup recovery
-- Retain physical authority for protected file mutations
-- Revalidate worktree identity before alternate-root operations
-- Preserve workspace affinity across MCP reconnects
-- Prevent load-time repair from resurrecting deleted sessions
-- Retain process ownership until child termination settles
-- Preserve settings across schema migration and recovery retries
-- Fix FSEvents delivery liveness
-- Enforce MCP readiness caller deadlines
-- Fix qualified reads stalling on unrelated roots
-- Resolve advertised Codex Max and Ultra effort selections
-- Allow selecting a local Codex runtime
-- Fix Context Builder shutdown during app termination
-- Fix concurrent same-workspace Agent admission
-- fix: support verified Cursor agent ACP entrypoint
-- feat(agent-mode): add Cursor Effort and Speed controls
-- Prevent concurrent settings writes from overwriting newer data
-- Protect large prompt exports from watchdog disconnects
-- Fix workspace loading, cleanup, and settings preservation
-- Fix OpenCode launch validation for admin-writable Homebrew Cellar paths
-- Make bundled Codex predictable and upgrade to 0.153.4
-- Add Google Antigravity ACP support
-
-#### 1.4.0 - August 30, 2026
-
-What's Changed
-
-- Scale MCP read\_file concurrency to machine capacity
-- Globalize Context Builder Settings behavior and make Analysis Budget independent
-- Agent Mode: eliminate app hang from AgentImageInputAdapter init
-- Stabilize AgentRunWorktreeStartTests production-capture selection race
-- Dismiss tooltips when owner windows change lifecycle
-- Add multi-select and bulk actions to Agent Mode chats
-- Fix: Unify exact read and mutation paths
-- Add stored prompt management controls
-- Fix: decode legacy mutation journal status
-- Prevent ephemeral workspace leaks and add safe bulk cleanup
-- Route direct-headless agents through existing worktrees
-- Add Grok Build CLI as an ACP Agent Mode provider
-- Fix: bound MCP structure settlement recovery
-- Fix: expose global skills to Codex agents
-- Add inline file browser to manually add files and codemaps to selected set in Context Composer
-- Fix Codex session disconnect during worktree rebinding
-- Add Grok Build reasoning-effort selection
-- Fix Codex wait-agent watchdog liveness
-- Fix replace-all matching with reused full-file indexes
-- Add Grok Build CLI to Oracle and built-in chat models
-- test: stabilize worktree API smoke and agent-run startup
-- Add a Codex project hook approval flow to Agent Mode
-- Bound release network operations and recover Sentry finalization
-- Fix bind\_context active workspace routing
-- Add session ID copying to Agent Mode sidebar menus
-- Reject rootless working\_dirs tab bindings
-- Enable Codex apps with runtime 0.149.0
-- Harden Apple identity migration bridge
-- Fix app hang in MessageTimestampFormatterCache.CacheKey.init
-- Include session title in handoff prompt
-- Fix Grok Oracle returning progress text instead of an answer
-- Harden identity rollover runtime safety
-- Add dormant identity transition release tooling
-- Enable Tip identity transition rehearsal
-- Fix Tip identity transition release credentials
-- Make Tip identity rollout dispatches reliable and truthful
-- Fail Tip identity credential errors before staging
-- Fix Tip staged rollout authority
-- Fix Tip signed artifact handoff
-- Fix Tip appcast generation without predecessors
-- Enable Tip identity transition role
-- Fix Tip transition stage identity validation
-- Fix Tip signer identity projection
-- Separate sidebar command progress from bulk selection UI
-- Refactor Apple identity transition release pipeline
-- Replace Tip release machinery with a direct protected-main publisher
-- Restore automatic Tip publication for all rollout roles
-- Remove manual Tip rollout role input
-- Refactor CI tests into deterministic contract and integration lanes
-- Fix redundant Tip package notarization
-- Fix Tip package signing key authorization
-- Fix: restore global Codex instructions in Agent Mode
-- Refactor test suite to remove low-value and timing-dependent coverage
-- Fix CLI single-shot selector routing
-
-#### 1.3.0 - August 11, 2026
-
-What's Changed
-
-- Trace worktree startup stall in shard 2
-- Remove the 500-tab background Agent limit
-- Use scoped locking for ACP async state transitions
-- fix: require authoritative context builder completion
-- feat: show sessionless compose tabs in agent chats
-- Fix automatic Agent Mode tab eviction
-- Cancel superseded pull request CI runs
-- P0: Protect live Agent session identity during admission
-- Report preset save failures and roll back non-durable edits
-- Fix workspace authority conflict recovery
-- Harden legacy defaults collection during startup
-- Prevent cancelled CLI requests from stalling or spawning
-- Prevent cancelled tasks from entering an unlocked AsyncMutex
-- Self-heal workspace authority revision races
-- Settle cancelled Codex stderr waiters promptly
-- Allow MessageReaper to tear down with queued messages
-- Synchronize transcript debug instrumentation callbacks
-- Clear transcript refresh signatures after tab removal
-- Migrate RepoPromptShared to Swift 6
-- Fence tool-card presentation derivation from render recomputation
-- Establish neutral agent execution contracts
-- fix: make agent read\_file selection converge
-- Agent Mode: classify terminal failures at settlement
-- Agent Mode: extract run-attempt lifecycle authority
-- Make agent run identity teardown stale-safe
-- Harden conductor control-plane resilience
-- Bundle Codex 0.147.0 and fix exec permissions
-- Add durable conductor build cache
-- Harden workspace-switch runtime ownership transfer
-- fix(mcp): add Sonoma async frame compatibility barrier
-- Agent Mode: bind terminal settlement to exact sessions
-- Agent Mode: hoist terminal attachment disposition
-- Agent Mode: detach Claude coordinator from view model
-- feat(agent-mode): add pinned Claude Opus 4.8 picker model
-- Bound untrusted Agent Mode tool names before normalization
-- Enforce one accounting identity per prompt file
-- Agent Mode: centralize Claude settlement authority
-- feat: streamline Context Composer entry points
-- Agent Mode: extract top-level tab session
-- Update approved contributors
-- Agent Mode: share transient execution classification
-- Oracle: extract headless streaming runtime
-- Prompt: extract stored-prompt persistence boundary
-- Reconstruct diff chunks without repeated array shifts
-- Add focused-build cost reporting and high-output conductor diagnostics
-- fix(agent-mode): eliminate O(N) snapshot copies in handoffConfig
-- Preserve Context Builder pending context through routing
-- Add built-in workflow parity to direct headless mode
-- Agent Mode: share Codex transient execution classification
-- Agent Mode: share Claude transient execution classification
-- Add operation-level MCP concurrency evidence
-
-#### 1.2.0 - August 3, 2026
-
-What's Changed
-
-- Surface Code Map recovery exhaustion
-- Prevent file-action watchdog stalls during mutation I/O
-- Headless runtime M1: add runtime and catalog foundation
-- Fix Oracle heartbeat liveness tracking
-- Fix App Hang: Disable text checking in AttributedTextView
-- Fix App Hang: Optimize string prefix checks
-- Fix AnchorGeometryView app hang
-- Fix agent workspace performance regression
-- Improve ChatGPT login resilience and managed sign-out
-- Fix EXC\_BREAKPOINT from dictionary mutation during iteration
-- Headless runtime M2: move workspace/context authority
-- Add opt-in Codex memories setting
-- Fix Tip socket ownership startup race
-- Headless runtime M3: migrate read and discovery families
-- Keep failed CI from evicting Tip builds
-- M4: protect MCP mutations and security boundaries
-- Provision Keychain for packaged release smoke
-- Remove test contract ledger system
-- Stabilize ledger-free CI routing and codemap contracts
-- \[6/8\] M5: move AI, Agent, Context Builder, and interaction into domain runtime
-- Fix M5 credential pruning type inference
-- Optimize Agent Mode sidebar projection caching
-- Fix protected mutation commit boundary
-- Add Compose: context inspector inspired by RP Classic
-- \[7/8\] M6: Add direct headless MCP runtime
-- M7: complete headless MCP runtime cutover
-- perf: coalesce compose inspector refresh work
-- Fix current-main CI blockers after M7 merge
-
-#### 1.1.2 - July 30, 2026
-
-What's Changed
-
-- Add semantic text-direction roles for app surfaces
-- Clamp Markdown selections before TextKit restoration
-- Preserve inline-code direction in mixed RTL Markdown
-- Linkify Agent Mode prose URLs
-- Headless runtime M0: freeze contracts and evidence gates
-- Fix Data.WritingOptions conflict in writeHandoffPayload
-- Fix MCP settlement across Codex turns and file mutations
-
-#### 1.1.1 - July 29, 2026
-
-What's Changed
-
-- Fix Codex app-server tool override policy
-- Add Codex app-server schema drift gate
-- perf: reduce codemap full-load latency
-- build: bundle pinned Codex runtimes
-- Fix worktree-bound Codex app-server startup
-- Fix bundled Codex release signing
-- Stabilize synthetic watcher integration tests
-- Optimize Swift and TypeScript CodeMap pipelines
-- Add Agent Mode session handoff prompt
-- Fix packaged MCP smoke ownership checks
-- feat: make bundled Codex runtime authoritative
-- Make Codex session routing deterministic per tab
-- Add per-root Code Map generation controls
-- feat(deep-plan): treat the context\_builder export as a preservation baseline
-- Bound Codex app-server liveness and silent hangs
-- fix(mcp): preserve caller binding during agent runs
-- Fix Codex legacy thread resume by forwarding rollout path
-- Fix MCP reconnect abort and Git artifact fence spin
-- Replace codemap projections with root-local incremental graphs
-- Fix Codex session tenacity recovery
-- Fix release codemap event type visibility
-- Optimize Codex thread startup memory policy
-- Preserve Codex completion across active reattach
-- Add Claude Opus 5 support
-- fix(agent-run): improve respond validation diagnostics
-- Fix stale codemap proof reclassification
-- Make async test oracles deterministic
-- Automate guarded Codex runtime update candidates
-- Rebase 315/316 collapse nested threads and clean up provider conversations
-- Fix Finder launch and install commands when only Xcode beta is installed
-- Restore Codex messages rejected before dispatch
-- Update bundled Codex to 0.145.0
-- Point fork dependencies at RepoPrompt organization
-- Fix Codex watchdog for silent long-running tools
-- Add PR-ready validation timing receipts
-- Add MCP concurrency evidence telemetry
-- Improve tip update details
-- Show build numbers in Sparkle update alerts
-- Fix MCP read timeout settlement without bridge disconnect
-- Fix CollapsibleUserMessage performance on large messages
-- Fix bundled Codex V8 JIT entitlements
-- Keep Tip update alerts compact
-- Add reusable Agent Mode handoff instructions
-- Fix Code Map stalls and manifest write amplification
-- Harden Code Map recovery after performance cutover
-- Fix Tip release optimizer ownership crash
-- Fix Codex watchdog for composite waits
-- Fix path-scoped Git artifact publication freezes
-- Fix duplicate physical root label traps
-- Include steering text in Agent Mode wait interruptions
-- Fix CodeHighlighter cache race condition
-- Fix duplicate worktree path crash
-- Fix dirent struct copy causing EXC\_BAD\_ACCESS in FileSystemService
-- Optimize Agent Mode transcript snapshot access
-- Eliminate app hang from synchronous file open
-
-#### 1.1.0 - July 21, 2026
-
-What's Changed
-
-- fix(release): support Sentry org:ci tokens
-- refactor(workspace): isolate path policy core
-- Complete Agent Models workspace follow-ups
-- fix: update Codex app-server text payload key
-- fix(mcp): avoid task-group teardown abort in runTransport retry backoff
-- Fail Codex child sessions closed when RepoPrompt MCP provisioning or routing never confirms
-- Add durable MCP watchdog attribution
-- Stream Context Builder progress over standard MCP
-- Harden Context Builder MCP routing readiness
-- Preserve MCP connection on code structure timeout
-- Fix authenticated tip release lookup
-- perf(codemap): reduce manifest write amplification during indexing
-- Avoid global manifest scans for access refreshes
-- fix: restore Sentry telemetry in Tip builds
-- perf(codemap): avoid repeated full-store scans when publishing manifests
-- Make MCP watchdog deadlines independent of event ordering
-- Harden code-structure settlement lifecycle
-- Make MCP route confirmation and revocation authoritative
-- Bound MCP advisory progress backpressure
-- Bound agent session cleanup and preserve partial results
-- Bound history MCP work and preserve transport
-- Fix agent message bubble line counting performance
-- Fix history tool catalog golden
-- Preserve codemap authority across publication retries
-- Fix Context Builder cancellation after discovery commit
-- Speed up Context Builder selection handoff
-- Fix Context Builder routing and settlement
-- Migrate CodeMap core to Swift 6 with exact official Tree-sitter pins
-- Fix clean release dependency cloning
-- Remove Dart CodeMap support
-
-#### 1.0.29 - July 15, 2026
-
-What's Changed
-
-- Make Context Builder model selection globally authoritative
-- Prepare hosted app tests for optional sharding
-- fix(agent-mode): stop tool-result updates from remounting unrelated cards
-- Add RPCE maintainer guidance skill
-- Harden Sentry privacy and release metadata
-- Add scoped Agent Models settings
-- Fix debug provenance JSON validation
-- Add title-adjacent Agent chat options menu
-- Fail closed on unsigned Tip appcasts
-- Fix Oracle selection packaging and mutation ingress stalls
-- Enforce strict ledger validation for suite plans
-- Fix global settings schema rollback compatibility
-- Harden Sentry privacy and release promotion
-- Fix typed Context Builder prompt handoff
-- Fix scoped Agent Models state integrity
-- Fix inactive-workspace Context Builder authority
-- Harden Git process launch lifecycle
-- Prevent recursive workspace path-index teardown overflow
-- Make TextKit external replacements undo-safe
-- Prevent duplicate workspace root ID crashes
-- Bound applied-index fallbacks and harden workspace autosave
-- Fix app hang during date formatting by pre-warming locale cache
-- Harden transcript export against duplicate turn IDs
-- Improve Tip build update notices
-- Harden Agent chat titlebar safety
-- Fix execution-location popover resize crash
-
-#### 1.0.28 - July 10, 2026
-
-What's Changed
-
-- Harden release packaged smoke timeout
-- Split RepoPrompt into thin executable and app target
-- Add opt-in tip update channel and rolling publish workflow
-- Fix Tip build number override
-- Improve conductor worktree parallelism
-- Fix Context Builder teardown finalization
-- Update Codex support for GPT-5.6 models
-
-#### 1.0.27 - July 9, 2026
-
-What's Changed
-
-- History query MCP tools (\`list\_sessions\`, \`search\`, \`time\`) with tunable idle threshold, per-day attribution, duration fixes, and review hardening
-- Enhanced Agent session search HUD behavior and archived-session visibility
-- Faster, less noisy workspace switch load readiness
-- Hardened agent CLI startup in fragile user environments
-- Fixed git diff artifact export after alias authorization rejection
-- Hardened build storm coordination and process cleanup
-- Persist global defaults across restarts and propagate changes across windows
-- Speed up \`dev-lint\` SwiftLint discovery
-- Recover CLI installation from stale App Translocation symlinks
-- Harden test harness behavior against hangs and waiter leaks
-- Integrated full Sentry telemetry
-- Added release-pipeline dSYM generation and upload coverage
-- Refactored Sentry telemetry controls and added release coverage for official Sentry-enabled builds
-
-#### 1.0.24 - July 6, 2026
-
-What's Changed
-
-- Add impacted XCTest lane and harden test tooling
-- fix(agent-mode): open live oracle from running tool card
-- Stabilize CI app tests with sharding and lifecycle cleanup
-- Polish agent sidebar worktree capsules (auto-naming, sizing, styling)
-- Fix routed worktree inheritance for UI parents
-- Fix mutation tools when worktree scope is unavailable
-- Tail-window massive agent transcripts
-- Fix issue 390 targeted authority reconciliation
-- Add minimal Sentry runtime wiring
-
-#### 1.0.23 - July 3, 2026
-
-What's Changed
-
-- Add content-addressed codemaps and diff-seeded worktree startup
-- Add Codex reasoning summary setting
-- Collapse Interview toggle to icon-only
-- Refresh selected files popover UI and performance
-- \[codex\] Contain codemap selection decode failures
-- Fix MCP token accounting freshness reporting
-- Add Claude Sonnet 5 model support
-- Start test-suite wallclock optimization reliability campaign
-- build(telemetry): link Sentry conditionally and document privacy model
-- Resume inactive agent sessions when steering
-- fix(agent-mode): stop listener leaks and orphaned Claude processes on close
-- fix: omit nil Codex service tier
-- Fix Codex steer crash and resume handling
-- Stabilize sidebar root updates during workspace switch
-- Add agent session switcher HUD
-- Fix MCP selection token freshness
-- Avoid applied-index hierarchy rebuilds for small deltas
-- Bump engineer role default to GPT-5.5 Medium
-- Fix crash restore settings persistence
-- Fix bound-tab token cache freshness
-
-#### 1.0.22 - June 28, 2026
-
-What's Changed
-
-- Fix Context Builder worktree review selection authority and freshness
-- keep @file tag paths pathful and non-absolute
-- build: Add Makefile help target
-- fix: resume MCP helper sessions after app restart
-- fix(claude-code): emit CLI identity preamble for GLM/z.ai backend
-- Fix and modernize Codex agent\_run transcripts
-- Fix symlinked global skill root readability
-- Fix CE URL scheme routing
-- Restore Agent Mode Interview pill
-- Fix orphaned OpenCode ACP runtimes on tab teardown killing CPU memory
-- Fix Oracle and sub-agent role model selections resetting on restart
-- Clarify sliced file selection summaries
-- Surface OpenCode empty ACP completions
-
-#### 1.0.21 - June 21, 2026
-
-What's Changed
-
-- Stabilize workspace switch cleanup tests
-- Fix duplicate Check for Updates menu item
-- Optimize workspace file search index readiness
-- Add generated Xcode workspace workflow
-- fix(xcode): Support generated workspace in Xcode 26 and 27
-- Fix Oracle review diffs for worktrees
-
-#### 1.0.20 - June 19, 2026
-
-What's Changed
-
-- Preserve Agent chat order when opening sessions
-- Fix Context Builder completion after discovery peer EOF
-- Fix file search scope failures and cold catalog cost
-- Reduce Agent Mode file-tool MainActor stalls
-- Refactor Oracle routing policy boundaries
-- Improve Cursor Agent CLI launch resolution diagnostics
-- Add smart Agent Mode timestamps
-- Show a Built-in badge instead of a no-op Remove button for default trusted clients
-- Fix Claude Safe Managed launch settings and MCP CLI wait bounds
-
-#### 1.0.19 - June 18, 2026
-
-What's Changed
-
-- Optimize XCTest suite lifecycle and runtime
-- Add repo skill for standardized issue creation
-- Fix Agent Mode Oracle transcript routing
-- Add MCP read latency diagnostics
-- Fix canonical codemap selection and packaging
-- Add Z.ai GLM 5.2 model support
-- Fix Agent sidebar restore hierarchy and ordering
-- Fix worktree readiness and parallel agent startup
-
-#### 1.0.18 - June 16, 2026
-
-What's Changed
-
-- Reduce structural tests and harden test lifecycle
-- Fix Agent Files preview loading state
-- Avoid duplicate manage\_selection freshness work
-- Integrate MCP lifecycle and bounded search freshness fixes
-- Fix role-default rows under filtered availability
-- Fix agent preview retention architecture
-- Reduce parallel MCP contention and preserve Agent selections
-
-#### 1.0.17 - June 14, 2026
-
-What's Changed
-
-- Stabilize descriptor inheritance test
-- Stabilize watcher restart barrier coverage
-- Fix Git pipe drain descriptor race
-- Stabilize codemap unload reentrancy test teardown
-- Fix CC Zai availability refresh for preconfigured keys
-- Fix test runtime lifecycle disposal
-- Fix composer binding after chat handoff
-- Integrate worktree test settings stabilization
-- Fix warm file\_search validation stalls
-- Show workspace names in window and native tab titles
-- Improve Agent Mode workspace footer readability
-- Fix Git cancellation output-drain stall
-- Fix Context Builder MCP response teardown race
-- Add active worktree context actions
-
-#### 1.0.16 - June 14, 2026
-
-What's Changed
-
-- Integrate MCP throughput remediation into staging
-- Promote MCP throughput remediation staging to main
-- Fix MCP transport timeout recovery
-- Fix Agent Mode wait recovery and Codex managed defaults
-- Keep CLI provider disclosures user-controlled
-- Fix resumed agent ownership and file-search tail latency
-- Integrate worktree-aware Context Builder on main
-- Fix Context Builder model restoration on launch
-
-#### 1.0.15 - June 11, 2026
-
-What's Changed
-
-- Fix Codex steering and composer submission races
-- Make MCP transport stderr diagnostics crash-safe on closed pipes
-
-#### 1.0.14 - June 11, 2026
-
-What's Changed
-
-- Add Claude Fable 5 across Agent Mode model catalogs
-- Harden MCP concurrency and workspace switching
-- Prefer OpenCode provider path before native defaults
-- Model picker missing Z.ai options at startup
-- Fix Cursor CLI Composer ACP routing
-
-#### 1.0.10 - June 9, 2026
-
-What's Changed
-
-- Harden runtime test coverage
-- Fix Agent Mode capsule label compression
-- Add worktree controls to `agent_explore.start`
-- Fix ACP mode negotiation and OpenCode routing
-
-#### 1.0.9 - June 9, 2026
-
-What's Changed
-
-- \[codex\] Avoid stale descriptor assertions in socket cleanup tests
-- Fix onboarding Skip All routing
-- Fix branch popover scroll containment
-- Add Dock New Window menu item
-- Harden MCP response delivery, execution, and agent waiters
-- Distinguish web tool card action labels
-- Document Homebrew tap install path
-- Add expanded file mention picker style
-- Fix local self-signed production packaging
-- Enforce custom hover tooltips
-- Refresh SwiftPM release lockfile
-- Add PR batch merge skill
-- Optimize store-backed file search performance
-- Fix Codex submit during agent wait drain
-- Fix Git process output drain race
-- Add lean test quality skill
-- Fix conductor daemon stdin handling for local install
-
-#### 1.0.8 - June 7, 2026
-
-What's Changed
-
-- Allow ad-hoc release manifests without designated requirements
-- Fix warm Agent Mode tab activation
-
-#### 1.0.7 - June 7, 2026
-
-What's Changed
-
-- Harden flaky worktree CI tests
-- Fix Keyboard Shortcuts settings crash
-- Fix stalls in long Agent Mode and Context Builder runs
-- Document KeyboardShortcuts packaging workaround
-- Harden Keychain signing domains and MCP release packaging
-- Prevent MCP frame starvation and lifecycle cleanup races
-- Fix / improve Agent mode Git branch and worktree UI
-
-#### 1.0.6 - June 4, 2026
-
-What's Changed
-
-- Package CE releases with the CE bundle name
-- Add Agent Mode session row context menus
-- Add `.worktreeinclude` support for managed worktrees
-- Show Git worktree context in Agent sidebar
-
-#### 1.0.4 - June 3, 2026
-
-What's Changed
-
-- Harden signed test build workflow
-- Improve native Web Search tool cards
-- Fix `scripts/doctor.sh` SDK version detection
-
-#### 1.0.3 - June 2, 2026
-
-What's Changed
-
-- docs(readme): document debug signing setup
-
-#### 1.0.2 - June 2, 2026
-
-What's Changed
-
-- Harden workspace file mutation paths
-- Default-enable Codex goal support
-- Harden OSS release validation
-
-#### 1.0.0 - June 1, 2026
-
-Highlights
+<span id="160---september-25-2026"></span>
+### 1.6.0 - October 11, 2026
+
+RepoPrompt CE v1.6.0 (build 39) brings major Agent workflow improvements, new model choices, and a smoother app experience.
+
+**Highlights**
+
+- **Overseer and Agent sessions:** Opt-in Overseer management now includes lanes, role-aware discovery, and stronger recovery after relaunch or compaction. — @baron · <a href="https://github.com/repoprompt/repoprompt-ce/pull/1080" target="_blank" rel="noopener noreferrer" aria-label="#1080 (opens in a new tab)">#1080<span className="new-tab-indicator" aria-hidden="true">↗</span></a> · @crstdr · <a href="https://github.com/repoprompt/repoprompt-ce/pull/1131" target="_blank" rel="noopener noreferrer" aria-label="#1131 (opens in a new tab)">#1131<span className="new-tab-indicator" aria-hidden="true">↗</span></a> · @crstdr · <a href="https://github.com/repoprompt/repoprompt-ce/pull/1308" target="_blank" rel="noopener noreferrer" aria-label="#1308 (opens in a new tab)">#1308<span className="new-tab-indicator" aria-hidden="true">↗</span></a>
+- **More model choices:** Adds GPT-6.1 Sol and Claude Sonnet 5.5, refreshes Cursor models and effort choices, and adds usage-balanced routing for Codex and Claude plans. — @baron · <a href="https://github.com/repoprompt/repoprompt-ce/pull/1135" target="_blank" rel="noopener noreferrer" aria-label="#1135 (opens in a new tab)">#1135<span className="new-tab-indicator" aria-hidden="true">↗</span></a> · @dsebban · <a href="https://github.com/repoprompt/repoprompt-ce/pull/1160" target="_blank" rel="noopener noreferrer" aria-label="#1160 (opens in a new tab)">#1160<span className="new-tab-indicator" aria-hidden="true">↗</span></a> · @baron · <a href="https://github.com/repoprompt/repoprompt-ce/pull/1265" target="_blank" rel="noopener noreferrer" aria-label="#1265 (opens in a new tab)">#1265<span className="new-tab-indicator" aria-hidden="true">↗</span></a>
+- **Codex Computer Use:** Opt-in computer interaction in Codex chats, with local tab consent and quieter companion activity. — @crstdr · <a href="https://github.com/repoprompt/repoprompt-ce/pull/1253" target="_blank" rel="noopener noreferrer" aria-label="#1253 (opens in a new tab)">#1253<span className="new-tab-indicator" aria-hidden="true">↗</span></a> · @crstdr · <a href="https://github.com/repoprompt/repoprompt-ce/pull/1284" target="_blank" rel="noopener noreferrer" aria-label="#1284 (opens in a new tab)">#1284<span className="new-tab-indicator" aria-hidden="true">↗</span></a>
+- **MCP and Context Builder reliability:** Safer bootstrap handshakes, clearer startup binding results, and a way to talk to in-app Overseers without taking them over. — @baron · <a href="https://github.com/repoprompt/repoprompt-ce/pull/1199" target="_blank" rel="noopener noreferrer" aria-label="#1199 (opens in a new tab)">#1199<span className="new-tab-indicator" aria-hidden="true">↗</span></a> · @baron · <a href="https://github.com/repoprompt/repoprompt-ce/pull/1200" target="_blank" rel="noopener noreferrer" aria-label="#1200 (opens in a new tab)">#1200<span className="new-tab-indicator" aria-hidden="true">↗</span></a> · @crstdr · <a href="https://github.com/repoprompt/repoprompt-ce/pull/1252" target="_blank" rel="noopener noreferrer" aria-label="#1252 (opens in a new tab)">#1252<span className="new-tab-indicator" aria-hidden="true">↗</span></a>
+- **Code Maps and performance:** Code Maps work in non-Git folders; incremental indexing and idle-work fixes reduce background load. — @crstdr · <a href="https://github.com/repoprompt/repoprompt-ce/pull/994" target="_blank" rel="noopener noreferrer" aria-label="#994 (opens in a new tab)">#994<span className="new-tab-indicator" aria-hidden="true">↗</span></a> · @baron · <a href="https://github.com/repoprompt/repoprompt-ce/pull/1085" target="_blank" rel="noopener noreferrer" aria-label="#1085 (opens in a new tab)">#1085<span className="new-tab-indicator" aria-hidden="true">↗</span></a> · @dsebban · <a href="https://github.com/repoprompt/repoprompt-ce/pull/1259" target="_blank" rel="noopener noreferrer" aria-label="#1259 (opens in a new tab)">#1259<span className="new-tab-indicator" aria-hidden="true">↗</span></a>
+
+**[Full Changelog for 1.6.0](https://github.com/repoprompt/repoprompt-ce/compare/v1.5.0...v1.6.0)**
+
+### 1.5.0 - September 25, 2026
+
+**What's Changed**
+- MCP fix: skip deletion fencing for uncatalogued missing paths — @w-winter · <a href="https://github.com/repoprompt/repoprompt-ce/pull/980" target="_blank" rel="noopener noreferrer" aria-label="#980 (opens in a new tab)">#980<span className="new-tab-indicator" aria-hidden="true">↗</span></a>
+- Add support for multiple Oracles — @dsebban · <a href="https://github.com/repoprompt/repoprompt-ce/pull/884" target="_blank" rel="noopener noreferrer" aria-label="#884 (opens in a new tab)">#884<span className="new-tab-indicator" aria-hidden="true">↗</span></a>
+- Fix: prevent codemap indexing page restart on git churn — @w-winter · <a href="https://github.com/repoprompt/repoprompt-ce/pull/984" target="_blank" rel="noopener noreferrer" aria-label="#984 (opens in a new tab)">#984<span className="new-tab-indicator" aria-hidden="true">↗</span></a>
+- Fix selection mirror wedge recovery — @mplibunao · <a href="https://github.com/repoprompt/repoprompt-ce/pull/472" target="_blank" rel="noopener noreferrer" aria-label="#472 (opens in a new tab)">#472<span className="new-tab-indicator" aria-hidden="true">↗</span></a>
+- Agent Session Oversight — @crstdr · <a href="https://github.com/repoprompt/repoprompt-ce/pull/872" target="_blank" rel="noopener noreferrer" aria-label="#872 (opens in a new tab)">#872<span className="new-tab-indicator" aria-hidden="true">↗</span></a>
+- Refactor Agent Session Oversight internals (stacked on #872) — @baron · <a href="https://github.com/repoprompt/repoprompt-ce/pull/938" target="_blank" rel="noopener noreferrer" aria-label="#938 (opens in a new tab)">#938<span className="new-tab-indicator" aria-hidden="true">↗</span></a>
+- Fix completed credential migration and blocked update recovery — @baron · <a href="https://github.com/repoprompt/repoprompt-ce/pull/988" target="_blank" rel="noopener noreferrer" aria-label="#988 (opens in a new tab)">#988<span className="new-tab-indicator" aria-hidden="true">↗</span></a>
+- Fix Sparkle startup update isolation — @baron · <a href="https://github.com/repoprompt/repoprompt-ce/pull/992" target="_blank" rel="noopener noreferrer" aria-label="#992 (opens in a new tab)">#992<span className="new-tab-indicator" aria-hidden="true">↗</span></a>
+- Fix Model Presets with multiple Oracles — @w-winter · <a href="https://github.com/repoprompt/repoprompt-ce/pull/1000" target="_blank" rel="noopener noreferrer" aria-label="#1000 (opens in a new tab)">#1000<span className="new-tab-indicator" aria-hidden="true">↗</span></a>
+- Put workspace first in window titles — @crstdr · <a href="https://github.com/repoprompt/repoprompt-ce/pull/998" target="_blank" rel="noopener noreferrer" aria-label="#998 (opens in a new tab)">#998<span className="new-tab-indicator" aria-hidden="true">↗</span></a>
+- Reuse matching workspaces when opening folders — @aAtila · <a href="https://github.com/repoprompt/repoprompt-ce/pull/924" target="_blank" rel="noopener noreferrer" aria-label="#924 (opens in a new tab)">#924<span className="new-tab-indicator" aria-hidden="true">↗</span></a>
+- Fix workspace root removal and discovery readiness — @aAtila · <a href="https://github.com/repoprompt/repoprompt-ce/pull/986" target="_blank" rel="noopener noreferrer" aria-label="#986 (opens in a new tab)">#986<span className="new-tab-indicator" aria-hidden="true">↗</span></a>
+- chore: approve contributor luqmannurhakimbazman — @najibninaba · <a href="https://github.com/repoprompt/repoprompt-ce/pull/1006" target="_blank" rel="noopener noreferrer" aria-label="#1006 (opens in a new tab)">#1006<span className="new-tab-indicator" aria-hidden="true">↗</span></a>
+- Migrate release artifact actions to Node 24 — @baron · <a href="https://github.com/repoprompt/repoprompt-ce/pull/1021" target="_blank" rel="noopener noreferrer" aria-label="#1021 (opens in a new tab)">#1021<span className="new-tab-indicator" aria-hidden="true">↗</span></a>
+- feat(agent-mode): add Devin CLI provider — @dsebban · <a href="https://github.com/repoprompt/repoprompt-ce/pull/999" target="_blank" rel="noopener noreferrer" aria-label="#999 (opens in a new tab)">#999<span className="new-tab-indicator" aria-hidden="true">↗</span></a>
+- Expand sidebar checkbox hit targets — @aAtila · <a href="https://github.com/repoprompt/repoprompt-ce/pull/1008" target="_blank" rel="noopener noreferrer" aria-label="#1008 (opens in a new tab)">#1008<span className="new-tab-indicator" aria-hidden="true">↗</span></a>
+- Fix seeded worktree publication deadlock and watchdog terminal errors — @luqmannurhakimbazman · <a href="https://github.com/repoprompt/repoprompt-ce/pull/1003" target="_blank" rel="noopener noreferrer" aria-label="#1003 (opens in a new tab)">#1003<span className="new-tab-indicator" aria-hidden="true">↗</span></a>
+- Fix Context Builder settled Oracle replies after primary failure — @dsebban · <a href="https://github.com/repoprompt/repoprompt-ce/pull/1011" target="_blank" rel="noopener noreferrer" aria-label="#1011 (opens in a new tab)">#1011<span className="new-tab-indicator" aria-hidden="true">↗</span></a>
+- Fix cancellation handoff and Context Builder watchdog reliability — @dsebban · <a href="https://github.com/repoprompt/repoprompt-ce/pull/1013" target="_blank" rel="noopener noreferrer" aria-label="#1013 (opens in a new tab)">#1013<span className="new-tab-indicator" aria-hidden="true">↗</span></a>
+- Make the OpenCode thinking level configurable — @crstdr · <a href="https://github.com/repoprompt/repoprompt-ce/pull/1009" target="_blank" rel="noopener noreferrer" aria-label="#1009 (opens in a new tab)">#1009<span className="new-tab-indicator" aria-hidden="true">↗</span></a>
+- Make the subagent wait configurable in Settings — @crstdr · <a href="https://github.com/repoprompt/repoprompt-ce/pull/1005" target="_blank" rel="noopener noreferrer" aria-label="#1005 (opens in a new tab)">#1005<span className="new-tab-indicator" aria-hidden="true">↗</span></a>
+- Fix: Clamp Context Builder budget slider values — @sentry[bot] · <a href="https://github.com/repoprompt/repoprompt-ce/pull/834" target="_blank" rel="noopener noreferrer" aria-label="#834 (opens in a new tab)">#834<span className="new-tab-indicator" aria-hidden="true">↗</span></a>
+- Fix: Cache AgentModeViewModel binding snapshot to prevent O(N²) app hang — @sentry[bot] · <a href="https://github.com/repoprompt/repoprompt-ce/pull/990" target="_blank" rel="noopener noreferrer" aria-label="#990 (opens in a new tab)">#990<span className="new-tab-indicator" aria-hidden="true">↗</span></a>
+- Fix JSON-valued MCP experimental capabilities — @baron · <a href="https://github.com/repoprompt/repoprompt-ce/pull/1022" target="_blank" rel="noopener noreferrer" aria-label="#1022 (opens in a new tab)">#1022<span className="new-tab-indicator" aria-hidden="true">↗</span></a>
+- Fix Tip publisher API authentication and latest convergence — @baron · <a href="https://github.com/repoprompt/repoprompt-ce/pull/1024" target="_blank" rel="noopener noreferrer" aria-label="#1024 (opens in a new tab)">#1024<span className="new-tab-indicator" aria-hidden="true">↗</span></a>
+- Fix composer cursor jumping during typing — @jsmcx · <a href="https://github.com/repoprompt/repoprompt-ce/pull/1025" target="_blank" rel="noopener noreferrer" aria-label="#1025 (opens in a new tab)">#1025<span className="new-tab-indicator" aria-hidden="true">↗</span></a>
+- Add persistent global model routing with Jev — @baron · <a href="https://github.com/repoprompt/repoprompt-ce/pull/1031" target="_blank" rel="noopener noreferrer" aria-label="#1031 (opens in a new tab)">#1031<span className="new-tab-indicator" aria-hidden="true">↗</span></a>
+- Fix post-migration Keychain item creation — @baron · <a href="https://github.com/repoprompt/repoprompt-ce/pull/1034" target="_blank" rel="noopener noreferrer" aria-label="#1034 (opens in a new tab)">#1034<span className="new-tab-indicator" aria-hidden="true">↗</span></a>
+- Fix Agent Mode sidebar render-loop performance — @baron · <a href="https://github.com/repoprompt/repoprompt-ce/pull/1035" target="_blank" rel="noopener noreferrer" aria-label="#1035 (opens in a new tab)">#1035<span className="new-tab-indicator" aria-hidden="true">↗</span></a>
+- Improve agent orchestration observability and history analytics — @baron · <a href="https://github.com/repoprompt/repoprompt-ce/pull/1036" target="_blank" rel="noopener noreferrer" aria-label="#1036 (opens in a new tab)">#1036<span className="new-tab-indicator" aria-hidden="true">↗</span></a>
+- Add Claude Opus 5.5 model choices — @baron · <a href="https://github.com/repoprompt/repoprompt-ce/pull/1053" target="_blank" rel="noopener noreferrer" aria-label="#1053 (opens in a new tab)">#1053<span className="new-tab-indicator" aria-hidden="true">↗</span></a>
+- Update bundled Codex app-server to 0.156.0 — @baron · <a href="https://github.com/repoprompt/repoprompt-ce/pull/1051" target="_blank" rel="noopener noreferrer" aria-label="#1051 (opens in a new tab)">#1051<span className="new-tab-indicator" aria-hidden="true">↗</span></a>
+- Preserve dirty Copy and Chat overlays during Agent Models changes — @baron · <a href="https://github.com/repoprompt/repoprompt-ce/pull/574" target="_blank" rel="noopener noreferrer" aria-label="#574 (opens in a new tab)">#574<span className="new-tab-indicator" aria-hidden="true">↗</span></a>
+- Stop MCP read_file from inventing a one-line success — @luqmannurhakimbazman · <a href="https://github.com/repoprompt/repoprompt-ce/pull/1015" target="_blank" rel="noopener noreferrer" aria-label="#1015 (opens in a new tab)">#1015<span className="new-tab-indicator" aria-hidden="true">↗</span></a>
+- Reduce composer keystroke latency — @baron · <a href="https://github.com/repoprompt/repoprompt-ce/pull/1043" target="_blank" rel="noopener noreferrer" aria-label="#1043 (opens in a new tab)">#1043<span className="new-tab-indicator" aria-hidden="true">↗</span></a>
+- Diagnose canonical workspace state at Agent admission — @baron · <a href="https://github.com/repoprompt/repoprompt-ce/pull/1044" target="_blank" rel="noopener noreferrer" aria-label="#1044 (opens in a new tab)">#1044<span className="new-tab-indicator" aria-hidden="true">↗</span></a>
+- Add bounded workspace projection decode measurements — @baron · <a href="https://github.com/repoprompt/repoprompt-ce/pull/1046" target="_blank" rel="noopener noreferrer" aria-label="#1046 (opens in a new tab)">#1046<span className="new-tab-indicator" aria-hidden="true">↗</span></a>
+- Make physical file reads cancellation-responsive — @mplibunao · <a href="https://github.com/repoprompt/repoprompt-ce/pull/983" target="_blank" rel="noopener noreferrer" aria-label="#983 (opens in a new tab)">#983<span className="new-tab-indicator" aria-hidden="true">↗</span></a>
+- Show captured Context Builder behavior during active runs — @bcgalvin · <a href="https://github.com/repoprompt/repoprompt-ce/pull/1028" target="_blank" rel="noopener noreferrer" aria-label="#1028 (opens in a new tab)">#1028<span className="new-tab-indicator" aria-hidden="true">↗</span></a>
+- perf(git): bound diff cache retention with LRU eviction — @morluto · <a href="https://github.com/repoprompt/repoprompt-ce/pull/459" target="_blank" rel="noopener noreferrer" aria-label="#459 (opens in a new tab)">#459<span className="new-tab-indicator" aria-hidden="true">↗</span></a>
+- Add bounded MCP lifecycle diagnostics for teardown investigation — @baron · <a href="https://github.com/repoprompt/repoprompt-ce/pull/1048" target="_blank" rel="noopener noreferrer" aria-label="#1048 (opens in a new tab)">#1048<span className="new-tab-indicator" aria-hidden="true">↗</span></a>
+- Make passive appcast callback main-actor contract explicit — @sentry[bot] · <a href="https://github.com/repoprompt/repoprompt-ce/pull/1030" target="_blank" rel="noopener noreferrer" aria-label="#1030 (opens in a new tab)">#1030<span className="new-tab-indicator" aria-hidden="true">↗</span></a>
+- Add Jev multi-question judgment foundation — @baron · <a href="https://github.com/repoprompt/repoprompt-ce/pull/1045" target="_blank" rel="noopener noreferrer" aria-label="#1045 (opens in a new tab)">#1045<span className="new-tab-indicator" aria-hidden="true">↗</span></a>
+- Fix Model Router persistence and refresh routing models — @baron · <a href="https://github.com/repoprompt/repoprompt-ce/pull/1052" target="_blank" rel="noopener noreferrer" aria-label="#1052 (opens in a new tab)">#1052<span className="new-tab-indicator" aria-hidden="true">↗</span></a>
+- Stabilize workspace lifecycle regression tests (#1054) — @baron · <a href="https://github.com/repoprompt/repoprompt-ce/pull/1055" target="_blank" rel="noopener noreferrer" aria-label="#1055 (opens in a new tab)">#1055<span className="new-tab-indicator" aria-hidden="true">↗</span></a>
+- Fix Context Builder prerequisite error classification — @bcgalvin · <a href="https://github.com/repoprompt/repoprompt-ce/pull/1049" target="_blank" rel="noopener noreferrer" aria-label="#1049 (opens in a new tab)">#1049<span className="new-tab-indicator" aria-hidden="true">↗</span></a>
+- Update bundled Codex app-server to 0.156.1 — @baron · <a href="https://github.com/repoprompt/repoprompt-ce/pull/1056" target="_blank" rel="noopener noreferrer" aria-label="#1056 (opens in a new tab)">#1056<span className="new-tab-indicator" aria-hidden="true">↗</span></a>
+- Preserve file authority across context binding — @mplibunao · <a href="https://github.com/repoprompt/repoprompt-ce/pull/982" target="_blank" rel="noopener noreferrer" aria-label="#982 (opens in a new tab)">#982<span className="new-tab-indicator" aria-hidden="true">↗</span></a>
+- Add MCP controls for agent session pins and manual order — @baron · <a href="https://github.com/repoprompt/repoprompt-ce/pull/1058" target="_blank" rel="noopener noreferrer" aria-label="#1058 (opens in a new tab)">#1058<span className="new-tab-indicator" aria-hidden="true">↗</span></a>
+- Guard protected Agent tabs during workspace replay — @baron · <a href="https://github.com/repoprompt/repoprompt-ce/pull/1059" target="_blank" rel="noopener noreferrer" aria-label="#1059 (opens in a new tab)">#1059<span className="new-tab-indicator" aria-hidden="true">↗</span></a>
+- Fix app hang by caching sorted model options — @sentry[bot] · <a href="https://github.com/repoprompt/repoprompt-ce/pull/1060" target="_blank" rel="noopener noreferrer" aria-label="#1060 (opens in a new tab)">#1060<span className="new-tab-indicator" aria-hidden="true">↗</span></a>
+- Add independent Jev Auto effort for Codex and Claude — @baron · <a href="https://github.com/repoprompt/repoprompt-ce/pull/1062" target="_blank" rel="noopener noreferrer" aria-label="#1062 (opens in a new tab)">#1062<span className="new-tab-indicator" aria-hidden="true">↗</span></a>
+- Add automatic APFS CoW cloning for app-managed worktrees — @baron · <a href="https://github.com/repoprompt/repoprompt-ce/pull/1064" target="_blank" rel="noopener noreferrer" aria-label="#1064 (opens in a new tab)">#1064<span className="new-tab-indicator" aria-hidden="true">↗</span></a>
+- Prepare v1.5.0 stable release metadata — @baron · <a href="https://github.com/repoprompt/repoprompt-ce/pull/1066" target="_blank" rel="noopener noreferrer" aria-label="#1066 (opens in a new tab)">#1066<span className="new-tab-indicator" aria-hidden="true">↗</span></a>
+- fix(mcp): allow background-tab selection mirrors to complete — @w-winter · <a href="https://github.com/repoprompt/repoprompt-ce/pull/1069" target="_blank" rel="noopener noreferrer" aria-label="#1069 (opens in a new tab)">#1069<span className="new-tab-indicator" aria-hidden="true">↗</span></a>
+- fix(agent-mode): apply Auto effort to Claude MCP runs — @baron · <a href="https://github.com/repoprompt/repoprompt-ce/pull/1070" target="_blank" rel="noopener noreferrer" aria-label="#1070 (opens in a new tab)">#1070<span className="new-tab-indicator" aria-hidden="true">↗</span></a>
+
+**New Contributors**
+- luqmannurhakimbazman made their first contribution.
+- jsmcx made their first contribution.
+- bcgalvin made their first contribution.
+
+**[Full Changelog for 1.5.0](https://github.com/repoprompt/repoprompt-ce/compare/v1.4.1...v1.5.0)**
+
+### 1.4.1 - September 7, 2026
+
+**What's Changed**
+- Fix split-root Stable release metadata — @baron · <a href="https://github.com/repoprompt/repoprompt-ce/pull/911" target="_blank" rel="noopener noreferrer" aria-label="#911 (opens in a new tab)">#911<span className="new-tab-indicator" aria-hidden="true">↗</span></a>
+- Test MCP stdio and terminal commit barriers — @baron · <a href="https://github.com/repoprompt/repoprompt-ce/pull/912" target="_blank" rel="noopener noreferrer" aria-label="#912 (opens in a new tab)">#912<span className="new-tab-indicator" aria-hidden="true">↗</span></a>
+- Fix: codemaps to index nested repo worktree sources — @w-winter · <a href="https://github.com/repoprompt/repoprompt-ce/pull/913" target="_blank" rel="noopener noreferrer" aria-label="#913 (opens in a new tab)">#913<span className="new-tab-indicator" aria-hidden="true">↗</span></a>
+- Fix Tip recovery after Stable 1.4.0 — @baron · <a href="https://github.com/repoprompt/repoprompt-ce/pull/914" target="_blank" rel="noopener noreferrer" aria-label="#914 (opens in a new tab)">#914<span className="new-tab-indicator" aria-hidden="true">↗</span></a>
+- Harden Tip publisher release observation — @baron · <a href="https://github.com/repoprompt/repoprompt-ce/pull/920" target="_blank" rel="noopener noreferrer" aria-label="#920 (opens in a new tab)">#920<span className="new-tab-indicator" aria-hidden="true">↗</span></a>
+- Add Claude Fable 5.1 to the Claude Code model catalogs — @datawisebets · <a href="https://github.com/repoprompt/repoprompt-ce/pull/932" target="_blank" rel="noopener noreferrer" aria-label="#932 (opens in a new tab)">#932<span className="new-tab-indicator" aria-hidden="true">↗</span></a>
+- Authenticate Tip protected-main preflight — @baron · <a href="https://github.com/repoprompt/repoprompt-ce/pull/925" target="_blank" rel="noopener noreferrer" aria-label="#925 (opens in a new tab)">#925<span className="new-tab-indicator" aria-hidden="true">↗</span></a>
+- Fix (MCP) - align context routing with active workspace — @w-winter · <a href="https://github.com/repoprompt/repoprompt-ce/pull/936" target="_blank" rel="noopener noreferrer" aria-label="#936 (opens in a new tab)">#936<span className="new-tab-indicator" aria-hidden="true">↗</span></a>
+- Fix: out-of-bounds access due to stale workspace index after async yield — @sentry[bot] · <a href="https://github.com/repoprompt/repoprompt-ce/pull/929" target="_blank" rel="noopener noreferrer" aria-label="#929 (opens in a new tab)">#929<span className="new-tab-indicator" aria-hidden="true">↗</span></a>
+- Add Claude Fable Latest and normalize model picker fonts — @w-winter · <a href="https://github.com/repoprompt/repoprompt-ce/pull/934" target="_blank" rel="noopener noreferrer" aria-label="#934 (opens in a new tab)">#934<span className="new-tab-indicator" aria-hidden="true">↗</span></a>
+- Fix Tip release publication races — @baron · <a href="https://github.com/repoprompt/repoprompt-ce/pull/943" target="_blank" rel="noopener noreferrer" aria-label="#943 (opens in a new tab)">#943<span className="new-tab-indicator" aria-hidden="true">↗</span></a>
+- Fix (HistoryMCP) - prevent crash in buildGroups due to force-unwrap — @sentry[bot] · <a href="https://github.com/repoprompt/repoprompt-ce/pull/942" target="_blank" rel="noopener noreferrer" aria-label="#942 (opens in a new tab)">#942<span className="new-tab-indicator" aria-hidden="true">↗</span></a>
+- Fix: Swift overflow when converting negative st_dev to UInt64 — @sentry[bot] · <a href="https://github.com/repoprompt/repoprompt-ce/pull/937" target="_blank" rel="noopener noreferrer" aria-label="#937 (opens in a new tab)">#937<span className="new-tab-indicator" aria-hidden="true">↗</span></a>
+- Fix: Sanitize AI narration text to prevent SwiftUI crashes — @sentry[bot] · <a href="https://github.com/repoprompt/repoprompt-ce/pull/940" target="_blank" rel="noopener noreferrer" aria-label="#940 (opens in a new tab)">#940<span className="new-tab-indicator" aria-hidden="true">↗</span></a>
+- Fix: App hang due to expensive Codex model display name computation — @sentry[bot] · <a href="https://github.com/repoprompt/repoprompt-ce/pull/941" target="_blank" rel="noopener noreferrer" aria-label="#941 (opens in a new tab)">#941<span className="new-tab-indicator" aria-hidden="true">↗</span></a>
+- Fix: Context menu crash on dynamic item changes — @sentry[bot] · <a href="https://github.com/repoprompt/repoprompt-ce/pull/939" target="_blank" rel="noopener noreferrer" aria-label="#939 (opens in a new tab)">#939<span className="new-tab-indicator" aria-hidden="true">↗</span></a>
+- Prefer Grok's direct model parser when configOptions accompany models — @datawisebets · <a href="https://github.com/repoprompt/repoprompt-ce/pull/933" target="_blank" rel="noopener noreferrer" aria-label="#933 (opens in a new tab)">#933<span className="new-tab-indicator" aria-hidden="true">↗</span></a>
+- Fix file search freshness after Add Folder — @aAtila · <a href="https://github.com/repoprompt/repoprompt-ce/pull/927" target="_blank" rel="noopener noreferrer" aria-label="#927 (opens in a new tab)">#927<span className="new-tab-indicator" aria-hidden="true">↗</span></a>
+- Fix duplicate workspace consolidation persistence — @crstdr · <a href="https://github.com/repoprompt/repoprompt-ce/pull/915" target="_blank" rel="noopener noreferrer" aria-label="#915 (opens in a new tab)">#915<span className="new-tab-indicator" aria-hidden="true">↗</span></a>
+- Fix release provisioning profile permissions — @baron · <a href="https://github.com/repoprompt/repoprompt-ce/pull/948" target="_blank" rel="noopener noreferrer" aria-label="#948 (opens in a new tab)">#948<span className="new-tab-indicator" aria-hidden="true">↗</span></a>
+- Remove artificial timeouts from Tip workflow — @baron · <a href="https://github.com/repoprompt/repoprompt-ce/pull/950" target="_blank" rel="noopener noreferrer" aria-label="#950 (opens in a new tab)">#950<span className="new-tab-indicator" aria-hidden="true">↗</span></a>
+- Keep new windows eligible for Merge All Windows — @nickdavis · <a href="https://github.com/repoprompt/repoprompt-ce/pull/853" target="_blank" rel="noopener noreferrer" aria-label="#853 (opens in a new tab)">#853<span className="new-tab-indicator" aria-hidden="true">↗</span></a>
+- Fix InterceptingWindowDelegateProxy unrecognized selector crash — @sentry[bot] · <a href="https://github.com/repoprompt/repoprompt-ce/pull/877" target="_blank" rel="noopener noreferrer" aria-label="#877 (opens in a new tab)">#877<span className="new-tab-indicator" aria-hidden="true">↗</span></a>
+- Fix: EXC_BREAKPOINT in duplicate workspace cleanup — @sentry[bot] · <a href="https://github.com/repoprompt/repoprompt-ce/pull/841" target="_blank" rel="noopener noreferrer" aria-label="#841 (opens in a new tab)">#841<span className="new-tab-indicator" aria-hidden="true">↗</span></a>
+- Fix GitWorktreeDefaultPathPlanner O(N^2) hang — @sentry[bot] · <a href="https://github.com/repoprompt/repoprompt-ce/pull/891" target="_blank" rel="noopener noreferrer" aria-label="#891 (opens in a new tab)">#891<span className="new-tab-indicator" aria-hidden="true">↗</span></a>
+- Reduce repeated transcript snapshot access in row construction — @sentry[bot] · <a href="https://github.com/repoprompt/repoprompt-ce/pull/820" target="_blank" rel="noopener noreferrer" aria-label="#820 (opens in a new tab)">#820<span className="new-tab-indicator" aria-hidden="true">↗</span></a>
+- Index hidden-session slice paths during rebase planning — @sentry[bot] · <a href="https://github.com/repoprompt/repoprompt-ce/pull/839" target="_blank" rel="noopener noreferrer" aria-label="#839 (opens in a new tab)">#839<span className="new-tab-indicator" aria-hidden="true">↗</span></a>
+- Give Codex model options a consistent sort order — @sentry[bot] · <a href="https://github.com/repoprompt/repoprompt-ce/pull/813" target="_blank" rel="noopener noreferrer" aria-label="#813 (opens in a new tab)">#813<span className="new-tab-indicator" aria-hidden="true">↗</span></a>
+- Preserve competing files during exclusive creation — @baron · <a href="https://github.com/repoprompt/repoprompt-ce/pull/964" target="_blank" rel="noopener noreferrer" aria-label="#964 (opens in a new tab)">#964<span className="new-tab-indicator" aria-hidden="true">↗</span></a>
+- Derive session deletion targets from validated files — @baron · <a href="https://github.com/repoprompt/repoprompt-ce/pull/959" target="_blank" rel="noopener noreferrer" aria-label="#959 (opens in a new tab)">#959<span className="new-tab-indicator" aria-hidden="true">↗</span></a>
+- Preserve settings after failed backup recovery — @baron · <a href="https://github.com/repoprompt/repoprompt-ce/pull/958" target="_blank" rel="noopener noreferrer" aria-label="#958 (opens in a new tab)">#958<span className="new-tab-indicator" aria-hidden="true">↗</span></a>
+- Retain physical authority for protected file mutations — @baron · <a href="https://github.com/repoprompt/repoprompt-ce/pull/969" target="_blank" rel="noopener noreferrer" aria-label="#969 (opens in a new tab)">#969<span className="new-tab-indicator" aria-hidden="true">↗</span></a>
+- Revalidate worktree identity before alternate-root operations — @baron · <a href="https://github.com/repoprompt/repoprompt-ce/pull/965" target="_blank" rel="noopener noreferrer" aria-label="#965 (opens in a new tab)">#965<span className="new-tab-indicator" aria-hidden="true">↗</span></a>
+- Preserve workspace affinity across MCP reconnects — @baron · <a href="https://github.com/repoprompt/repoprompt-ce/pull/966" target="_blank" rel="noopener noreferrer" aria-label="#966 (opens in a new tab)">#966<span className="new-tab-indicator" aria-hidden="true">↗</span></a>
+- Prevent load-time repair from resurrecting deleted sessions — @baron · <a href="https://github.com/repoprompt/repoprompt-ce/pull/967" target="_blank" rel="noopener noreferrer" aria-label="#967 (opens in a new tab)">#967<span className="new-tab-indicator" aria-hidden="true">↗</span></a>
+- Retain process ownership until child termination settles — @baron · <a href="https://github.com/repoprompt/repoprompt-ce/pull/968" target="_blank" rel="noopener noreferrer" aria-label="#968 (opens in a new tab)">#968<span className="new-tab-indicator" aria-hidden="true">↗</span></a>
+- Preserve settings across schema migration and recovery retries — @baron · <a href="https://github.com/repoprompt/repoprompt-ce/pull/970" target="_blank" rel="noopener noreferrer" aria-label="#970 (opens in a new tab)">#970<span className="new-tab-indicator" aria-hidden="true">↗</span></a>
+- Fix FSEvents delivery liveness — @baron · <a href="https://github.com/repoprompt/repoprompt-ce/pull/713" target="_blank" rel="noopener noreferrer" aria-label="#713 (opens in a new tab)">#713<span className="new-tab-indicator" aria-hidden="true">↗</span></a>
+- Enforce MCP readiness caller deadlines — @baron · <a href="https://github.com/repoprompt/repoprompt-ce/pull/711" target="_blank" rel="noopener noreferrer" aria-label="#711 (opens in a new tab)">#711<span className="new-tab-indicator" aria-hidden="true">↗</span></a>
+- Fix qualified reads stalling on unrelated roots — @mplibunao · <a href="https://github.com/repoprompt/repoprompt-ce/pull/889" target="_blank" rel="noopener noreferrer" aria-label="#889 (opens in a new tab)">#889<span className="new-tab-indicator" aria-hidden="true">↗</span></a>
+- Resolve advertised Codex Max and Ultra effort selections — @nickdavis · <a href="https://github.com/repoprompt/repoprompt-ce/pull/953" target="_blank" rel="noopener noreferrer" aria-label="#953 (opens in a new tab)">#953<span className="new-tab-indicator" aria-hidden="true">↗</span></a>
+- Allow selecting a local Codex runtime — @crstdr · <a href="https://github.com/repoprompt/repoprompt-ce/pull/956" target="_blank" rel="noopener noreferrer" aria-label="#956 (opens in a new tab)">#956<span className="new-tab-indicator" aria-hidden="true">↗</span></a>
+- Fix Context Builder shutdown during app termination — @mplibunao · <a href="https://github.com/repoprompt/repoprompt-ce/pull/955" target="_blank" rel="noopener noreferrer" aria-label="#955 (opens in a new tab)">#955<span className="new-tab-indicator" aria-hidden="true">↗</span></a>
+- Fix concurrent same-workspace Agent admission — @mplibunao · <a href="https://github.com/repoprompt/repoprompt-ce/pull/897" target="_blank" rel="noopener noreferrer" aria-label="#897 (opens in a new tab)">#897<span className="new-tab-indicator" aria-hidden="true">↗</span></a>
+- fix: support verified Cursor agent ACP entrypoint — @najibninaba · <a href="https://github.com/repoprompt/repoprompt-ce/pull/902" target="_blank" rel="noopener noreferrer" aria-label="#902 (opens in a new tab)">#902<span className="new-tab-indicator" aria-hidden="true">↗</span></a>
+- feat(agent-mode): add Cursor Effort and Speed controls — @najibninaba · <a href="https://github.com/repoprompt/repoprompt-ce/pull/960" target="_blank" rel="noopener noreferrer" aria-label="#960 (opens in a new tab)">#960<span className="new-tab-indicator" aria-hidden="true">↗</span></a>
+- Prevent concurrent settings writes from overwriting newer data — @baron · <a href="https://github.com/repoprompt/repoprompt-ce/pull/973" target="_blank" rel="noopener noreferrer" aria-label="#973 (opens in a new tab)">#973<span className="new-tab-indicator" aria-hidden="true">↗</span></a>
+- Protect large prompt exports from watchdog disconnects — @mplibunao · <a href="https://github.com/repoprompt/repoprompt-ce/pull/898" target="_blank" rel="noopener noreferrer" aria-label="#898 (opens in a new tab)">#898<span className="new-tab-indicator" aria-hidden="true">↗</span></a>
+- Fix workspace loading, cleanup, and settings preservation — @baron · <a href="https://github.com/repoprompt/repoprompt-ce/pull/974" target="_blank" rel="noopener noreferrer" aria-label="#974 (opens in a new tab)">#974<span className="new-tab-indicator" aria-hidden="true">↗</span></a>
+- Fix OpenCode launch validation for admin-writable Homebrew Cellar paths — @AmrMohamad · <a href="https://github.com/repoprompt/repoprompt-ce/pull/976" target="_blank" rel="noopener noreferrer" aria-label="#976 (opens in a new tab)">#976<span className="new-tab-indicator" aria-hidden="true">↗</span></a>
+- Make bundled Codex predictable and upgrade to 0.153.4 — @baron · <a href="https://github.com/repoprompt/repoprompt-ce/pull/979" target="_blank" rel="noopener noreferrer" aria-label="#979 (opens in a new tab)">#979<span className="new-tab-indicator" aria-hidden="true">↗</span></a>
+- Add Google Antigravity ACP support — @z23cc · <a href="https://github.com/repoprompt/repoprompt-ce/pull/975" target="_blank" rel="noopener noreferrer" aria-label="#975 (opens in a new tab)">#975<span className="new-tab-indicator" aria-hidden="true">↗</span></a>
+- Prepare v1.4.1 release metadata — @baron · <a href="https://github.com/repoprompt/repoprompt-ce/pull/978" target="_blank" rel="noopener noreferrer" aria-label="#978 (opens in a new tab)">#978<span className="new-tab-indicator" aria-hidden="true">↗</span></a>
+
+**New Contributors**
+- AmrMohamad made their first contribution.
+- z23cc made their first contribution.
+
+**[Full Changelog for 1.4.1](https://github.com/repoprompt/repoprompt-ce/compare/v1.4.0...v1.4.1)**
+
+### 1.4.0 - August 30, 2026
+
+**What's Changed**
+- Scale MCP read_file concurrency to machine capacity — @baron · <a href="https://github.com/repoprompt/repoprompt-ce/pull/798" target="_blank" rel="noopener noreferrer" aria-label="#798 (opens in a new tab)">#798<span className="new-tab-indicator" aria-hidden="true">↗</span></a>
+- Globalize Context Builder Settings behavior and make Analysis Budget independent — @w-winter · <a href="https://github.com/repoprompt/repoprompt-ce/pull/801" target="_blank" rel="noopener noreferrer" aria-label="#801 (opens in a new tab)">#801<span className="new-tab-indicator" aria-hidden="true">↗</span></a>
+- Agent Mode: eliminate app hang from AgentImageInputAdapter init — @sentry[bot] · <a href="https://github.com/repoprompt/repoprompt-ce/pull/779" target="_blank" rel="noopener noreferrer" aria-label="#779 (opens in a new tab)">#779<span className="new-tab-indicator" aria-hidden="true">↗</span></a>
+- Stabilize AgentRunWorktreeStartTests production-capture selection race (#420) — @moonray · <a href="https://github.com/repoprompt/repoprompt-ce/pull/430" target="_blank" rel="noopener noreferrer" aria-label="#430 (opens in a new tab)">#430<span className="new-tab-indicator" aria-hidden="true">↗</span></a>
+- Dismiss tooltips when owner windows change lifecycle — @0xNino · <a href="https://github.com/repoprompt/repoprompt-ce/pull/564" target="_blank" rel="noopener noreferrer" aria-label="#564 (opens in a new tab)">#564<span className="new-tab-indicator" aria-hidden="true">↗</span></a>
+- Add multi-select + bulk actions to Agent Mode chats — @w-winter · <a href="https://github.com/repoprompt/repoprompt-ce/pull/802" target="_blank" rel="noopener noreferrer" aria-label="#802 (opens in a new tab)">#802<span className="new-tab-indicator" aria-hidden="true">↗</span></a>
+- Fix: Unify exact read and mutation paths — @w-winter · <a href="https://github.com/repoprompt/repoprompt-ce/pull/800" target="_blank" rel="noopener noreferrer" aria-label="#800 (opens in a new tab)">#800<span className="new-tab-indicator" aria-hidden="true">↗</span></a>
+- Add stored prompt management controls — @w-winter · <a href="https://github.com/repoprompt/repoprompt-ce/pull/799" target="_blank" rel="noopener noreferrer" aria-label="#799 (opens in a new tab)">#799<span className="new-tab-indicator" aria-hidden="true">↗</span></a>
+- Fix: decode legacy mutation journal status — @w-winter · <a href="https://github.com/repoprompt/repoprompt-ce/pull/815" target="_blank" rel="noopener noreferrer" aria-label="#815 (opens in a new tab)">#815<span className="new-tab-indicator" aria-hidden="true">↗</span></a>
+- Prevent ephemeral workspace leaks and add safe bulk cleanup — @baron · <a href="https://github.com/repoprompt/repoprompt-ce/pull/814" target="_blank" rel="noopener noreferrer" aria-label="#814 (opens in a new tab)">#814<span className="new-tab-indicator" aria-hidden="true">↗</span></a>
+- Route direct-headless agents through existing worktrees — @nickdavis · <a href="https://github.com/repoprompt/repoprompt-ce/pull/761" target="_blank" rel="noopener noreferrer" aria-label="#761 (opens in a new tab)">#761<span className="new-tab-indicator" aria-hidden="true">↗</span></a>
+- Add Grok Build CLI as an ACP Agent Mode provider — @datawisebets · <a href="https://github.com/repoprompt/repoprompt-ce/pull/817" target="_blank" rel="noopener noreferrer" aria-label="#817 (opens in a new tab)">#817<span className="new-tab-indicator" aria-hidden="true">↗</span></a>
+- Fix: bound MCP structure settlement recovery — @w-winter · <a href="https://github.com/repoprompt/repoprompt-ce/pull/822" target="_blank" rel="noopener noreferrer" aria-label="#822 (opens in a new tab)">#822<span className="new-tab-indicator" aria-hidden="true">↗</span></a>
+- Fix: expose global skills to Codex agents — @w-winter · <a href="https://github.com/repoprompt/repoprompt-ce/pull/824" target="_blank" rel="noopener noreferrer" aria-label="#824 (opens in a new tab)">#824<span className="new-tab-indicator" aria-hidden="true">↗</span></a>
+- Add inline file browser to manually add files/codemaps to selected set in Context Composer — @w-winter · <a href="https://github.com/repoprompt/repoprompt-ce/pull/823" target="_blank" rel="noopener noreferrer" aria-label="#823 (opens in a new tab)">#823<span className="new-tab-indicator" aria-hidden="true">↗</span></a>
+- Fix Codex session disconnect during worktree rebinding — @baron · <a href="https://github.com/repoprompt/repoprompt-ce/pull/826" target="_blank" rel="noopener noreferrer" aria-label="#826 (opens in a new tab)">#826<span className="new-tab-indicator" aria-hidden="true">↗</span></a>
+- Add Grok Build reasoning-effort selection — @datawisebets · <a href="https://github.com/repoprompt/repoprompt-ce/pull/825" target="_blank" rel="noopener noreferrer" aria-label="#825 (opens in a new tab)">#825<span className="new-tab-indicator" aria-hidden="true">↗</span></a>
+- Fix Codex wait-agent watchdog liveness — @baron · <a href="https://github.com/repoprompt/repoprompt-ce/pull/833" target="_blank" rel="noopener noreferrer" aria-label="#833 (opens in a new tab)">#833<span className="new-tab-indicator" aria-hidden="true">↗</span></a>
+- Fix replace-all matching with reused full-file indexes — @morluto · <a href="https://github.com/repoprompt/repoprompt-ce/pull/737" target="_blank" rel="noopener noreferrer" aria-label="#737 (opens in a new tab)">#737<span className="new-tab-indicator" aria-hidden="true">↗</span></a>
+- Add Grok Build CLI to Oracle and built-in chat models — @dsebban · <a href="https://github.com/repoprompt/repoprompt-ce/pull/838" target="_blank" rel="noopener noreferrer" aria-label="#838 (opens in a new tab)">#838<span className="new-tab-indicator" aria-hidden="true">↗</span></a>
+- test: stabilize worktree API smoke and agent-run startup — @dsebban · <a href="https://github.com/repoprompt/repoprompt-ce/pull/832" target="_blank" rel="noopener noreferrer" aria-label="#832 (opens in a new tab)">#832<span className="new-tab-indicator" aria-hidden="true">↗</span></a>
+- Add a Codex project hook approval flow to Agent Mode — @mplibunao · <a href="https://github.com/repoprompt/repoprompt-ce/pull/678" target="_blank" rel="noopener noreferrer" aria-label="#678 (opens in a new tab)">#678<span className="new-tab-indicator" aria-hidden="true">↗</span></a>
+- Bound release network operations and recover Sentry finalization — @baron · <a href="https://github.com/repoprompt/repoprompt-ce/pull/579" target="_blank" rel="noopener noreferrer" aria-label="#579 (opens in a new tab)">#579<span className="new-tab-indicator" aria-hidden="true">↗</span></a>
+- Fix bind_context active workspace routing — @nickdavis · <a href="https://github.com/repoprompt/repoprompt-ce/pull/812" target="_blank" rel="noopener noreferrer" aria-label="#812 (opens in a new tab)">#812<span className="new-tab-indicator" aria-hidden="true">↗</span></a>
+- Add session ID copying to Agent Mode sidebar menus — @aAtila · <a href="https://github.com/repoprompt/repoprompt-ce/pull/846" target="_blank" rel="noopener noreferrer" aria-label="#846 (opens in a new tab)">#846<span className="new-tab-indicator" aria-hidden="true">↗</span></a>
+- Reject rootless working_dirs tab bindings — @nickdavis · <a href="https://github.com/repoprompt/repoprompt-ce/pull/835" target="_blank" rel="noopener noreferrer" aria-label="#835 (opens in a new tab)">#835<span className="new-tab-indicator" aria-hidden="true">↗</span></a>
+- Enable Codex apps with runtime 0.149.0 — @nickdavis · <a href="https://github.com/repoprompt/repoprompt-ce/pull/851" target="_blank" rel="noopener noreferrer" aria-label="#851 (opens in a new tab)">#851<span className="new-tab-indicator" aria-hidden="true">↗</span></a>
+- Harden Apple identity migration bridge — @baron · <a href="https://github.com/repoprompt/repoprompt-ce/pull/857" target="_blank" rel="noopener noreferrer" aria-label="#857 (opens in a new tab)">#857<span className="new-tab-indicator" aria-hidden="true">↗</span></a>
+- Fix: App hang in MessageTimestampFormatterCache.CacheKey.init — @sentry[bot] · <a href="https://github.com/repoprompt/repoprompt-ce/pull/819" target="_blank" rel="noopener noreferrer" aria-label="#819 (opens in a new tab)">#819<span className="new-tab-indicator" aria-hidden="true">↗</span></a>
+- Include session title in handoff prompt — @baron · <a href="https://github.com/repoprompt/repoprompt-ce/pull/747" target="_blank" rel="noopener noreferrer" aria-label="#747 (opens in a new tab)">#747<span className="new-tab-indicator" aria-hidden="true">↗</span></a>
+- Fix Grok Oracle returning progress text instead of an answer — @dsebban · <a href="https://github.com/repoprompt/repoprompt-ce/pull/856" target="_blank" rel="noopener noreferrer" aria-label="#856 (opens in a new tab)">#856<span className="new-tab-indicator" aria-hidden="true">↗</span></a>
+- Harden identity rollover runtime safety — @baron · <a href="https://github.com/repoprompt/repoprompt-ce/pull/868" target="_blank" rel="noopener noreferrer" aria-label="#868 (opens in a new tab)">#868<span className="new-tab-indicator" aria-hidden="true">↗</span></a>
+- Add dormant identity transition release tooling — @baron · <a href="https://github.com/repoprompt/repoprompt-ce/pull/869" target="_blank" rel="noopener noreferrer" aria-label="#869 (opens in a new tab)">#869<span className="new-tab-indicator" aria-hidden="true">↗</span></a>
+- Enable Tip identity transition rehearsal — @baron · <a href="https://github.com/repoprompt/repoprompt-ce/pull/870" target="_blank" rel="noopener noreferrer" aria-label="#870 (opens in a new tab)">#870<span className="new-tab-indicator" aria-hidden="true">↗</span></a>
+- Fix Tip identity transition release credentials — @baron · <a href="https://github.com/repoprompt/repoprompt-ce/pull/873" target="_blank" rel="noopener noreferrer" aria-label="#873 (opens in a new tab)">#873<span className="new-tab-indicator" aria-hidden="true">↗</span></a>
+- Make Tip identity rollout dispatches reliable and truthful — @baron · <a href="https://github.com/repoprompt/repoprompt-ce/pull/874" target="_blank" rel="noopener noreferrer" aria-label="#874 (opens in a new tab)">#874<span className="new-tab-indicator" aria-hidden="true">↗</span></a>
+- Fail Tip identity credential errors before staging — @baron · <a href="https://github.com/repoprompt/repoprompt-ce/pull/876" target="_blank" rel="noopener noreferrer" aria-label="#876 (opens in a new tab)">#876<span className="new-tab-indicator" aria-hidden="true">↗</span></a>
+- Fix Tip staged rollout authority — @baron · <a href="https://github.com/repoprompt/repoprompt-ce/pull/879" target="_blank" rel="noopener noreferrer" aria-label="#879 (opens in a new tab)">#879<span className="new-tab-indicator" aria-hidden="true">↗</span></a>
+- Fix Tip signed artifact handoff — @baron · <a href="https://github.com/repoprompt/repoprompt-ce/pull/880" target="_blank" rel="noopener noreferrer" aria-label="#880 (opens in a new tab)">#880<span className="new-tab-indicator" aria-hidden="true">↗</span></a>
+- Fix Tip appcast generation without predecessors — @baron · <a href="https://github.com/repoprompt/repoprompt-ce/pull/883" target="_blank" rel="noopener noreferrer" aria-label="#883 (opens in a new tab)">#883<span className="new-tab-indicator" aria-hidden="true">↗</span></a>
+- Enable Tip identity transition role — @baron · <a href="https://github.com/repoprompt/repoprompt-ce/pull/885" target="_blank" rel="noopener noreferrer" aria-label="#885 (opens in a new tab)">#885<span className="new-tab-indicator" aria-hidden="true">↗</span></a>
+- Fix Tip transition stage identity validation — @baron · <a href="https://github.com/repoprompt/repoprompt-ce/pull/888" target="_blank" rel="noopener noreferrer" aria-label="#888 (opens in a new tab)">#888<span className="new-tab-indicator" aria-hidden="true">↗</span></a>
+- Fix Tip signer identity projection — @baron · <a href="https://github.com/repoprompt/repoprompt-ce/pull/890" target="_blank" rel="noopener noreferrer" aria-label="#890 (opens in a new tab)">#890<span className="new-tab-indicator" aria-hidden="true">↗</span></a>
+- Separate sidebar command progress from bulk selection UI — @aAtila · <a href="https://github.com/repoprompt/repoprompt-ce/pull/878" target="_blank" rel="noopener noreferrer" aria-label="#878 (opens in a new tab)">#878<span className="new-tab-indicator" aria-hidden="true">↗</span></a>
+- Refactor Apple identity transition release pipeline — @baron · <a href="https://github.com/repoprompt/repoprompt-ce/pull/894" target="_blank" rel="noopener noreferrer" aria-label="#894 (opens in a new tab)">#894<span className="new-tab-indicator" aria-hidden="true">↗</span></a>
+- Replace Tip release machinery with a direct protected-main publisher — @baron · <a href="https://github.com/repoprompt/repoprompt-ce/pull/895" target="_blank" rel="noopener noreferrer" aria-label="#895 (opens in a new tab)">#895<span className="new-tab-indicator" aria-hidden="true">↗</span></a>
+- Restore automatic Tip publication for all rollout roles — @baron · <a href="https://github.com/repoprompt/repoprompt-ce/pull/896" target="_blank" rel="noopener noreferrer" aria-label="#896 (opens in a new tab)">#896<span className="new-tab-indicator" aria-hidden="true">↗</span></a>
+- Remove manual Tip rollout role input — @baron · <a href="https://github.com/repoprompt/repoprompt-ce/pull/901" target="_blank" rel="noopener noreferrer" aria-label="#901 (opens in a new tab)">#901<span className="new-tab-indicator" aria-hidden="true">↗</span></a>
+- Refactor CI tests into deterministic contract and integration lanes — @baron · <a href="https://github.com/repoprompt/repoprompt-ce/pull/899" target="_blank" rel="noopener noreferrer" aria-label="#899 (opens in a new tab)">#899<span className="new-tab-indicator" aria-hidden="true">↗</span></a>
+- Fix redundant Tip package notarization — @baron · <a href="https://github.com/repoprompt/repoprompt-ce/pull/905" target="_blank" rel="noopener noreferrer" aria-label="#905 (opens in a new tab)">#905<span className="new-tab-indicator" aria-hidden="true">↗</span></a>
+- Fix Tip package signing key authorization — @baron · <a href="https://github.com/repoprompt/repoprompt-ce/pull/907" target="_blank" rel="noopener noreferrer" aria-label="#907 (opens in a new tab)">#907<span className="new-tab-indicator" aria-hidden="true">↗</span></a>
+- Fix: restore global Codex instructions in Agent Mode — @w-winter · <a href="https://github.com/repoprompt/repoprompt-ce/pull/906" target="_blank" rel="noopener noreferrer" aria-label="#906 (opens in a new tab)">#906<span className="new-tab-indicator" aria-hidden="true">↗</span></a>
+- Refactor test suite to remove low-value and timing-dependent coverage — @baron · <a href="https://github.com/repoprompt/repoprompt-ce/pull/908" target="_blank" rel="noopener noreferrer" aria-label="#908 (opens in a new tab)">#908<span className="new-tab-indicator" aria-hidden="true">↗</span></a>
+- Fix CLI single-shot selector routing — @mplibunao · <a href="https://github.com/repoprompt/repoprompt-ce/pull/904" target="_blank" rel="noopener noreferrer" aria-label="#904 (opens in a new tab)">#904<span className="new-tab-indicator" aria-hidden="true">↗</span></a>
+- Release v1.4.0 — @baron · <a href="https://github.com/repoprompt/repoprompt-ce/pull/909" target="_blank" rel="noopener noreferrer" aria-label="#909 (opens in a new tab)">#909<span className="new-tab-indicator" aria-hidden="true">↗</span></a>
+
+**New Contributors**
+- 0xNino made their first contribution.
+
+**[Full Changelog for 1.4.0](https://github.com/repoprompt/repoprompt-ce/compare/v1.3.0...v1.4.0)**
+
+### 1.3.0 - August 11, 2026
+
+**What's Changed**
+- Trace worktree startup stall in shard 2 — @baron · <a href="https://github.com/repoprompt/repoprompt-ce/pull/721" target="_blank" rel="noopener noreferrer" aria-label="#721 (opens in a new tab)">#721<span className="new-tab-indicator" aria-hidden="true">↗</span></a>
+- Remove the 500-tab background Agent limit — @baron · <a href="https://github.com/repoprompt/repoprompt-ce/pull/720" target="_blank" rel="noopener noreferrer" aria-label="#720 (opens in a new tab)">#720<span className="new-tab-indicator" aria-hidden="true">↗</span></a>
+- Use scoped locking for ACP async state transitions — @baron · <a href="https://github.com/repoprompt/repoprompt-ce/pull/719" target="_blank" rel="noopener noreferrer" aria-label="#719 (opens in a new tab)">#719<span className="new-tab-indicator" aria-hidden="true">↗</span></a>
+- fix: require authoritative context builder completion — @w-winter · <a href="https://github.com/repoprompt/repoprompt-ce/pull/722" target="_blank" rel="noopener noreferrer" aria-label="#722 (opens in a new tab)">#722<span className="new-tab-indicator" aria-hidden="true">↗</span></a>
+- feat: show sessionless compose tabs in agent chats — @w-winter · <a href="https://github.com/repoprompt/repoprompt-ce/pull/716" target="_blank" rel="noopener noreferrer" aria-label="#716 (opens in a new tab)">#716<span className="new-tab-indicator" aria-hidden="true">↗</span></a>
+- Fix automatic Agent Mode tab eviction — @baron · <a href="https://github.com/repoprompt/repoprompt-ce/pull/723" target="_blank" rel="noopener noreferrer" aria-label="#723 (opens in a new tab)">#723<span className="new-tab-indicator" aria-hidden="true">↗</span></a>
+- Cancel superseded pull request CI runs — @morluto · <a href="https://github.com/repoprompt/repoprompt-ce/pull/741" target="_blank" rel="noopener noreferrer" aria-label="#741 (opens in a new tab)">#741<span className="new-tab-indicator" aria-hidden="true">↗</span></a>
+- P0: Protect live Agent session identity during admission — @baron · <a href="https://github.com/repoprompt/repoprompt-ce/pull/742" target="_blank" rel="noopener noreferrer" aria-label="#742 (opens in a new tab)">#742<span className="new-tab-indicator" aria-hidden="true">↗</span></a>
+- Report preset save failures and roll back non-durable edits — @morluto · <a href="https://github.com/repoprompt/repoprompt-ce/pull/733" target="_blank" rel="noopener noreferrer" aria-label="#733 (opens in a new tab)">#733<span className="new-tab-indicator" aria-hidden="true">↗</span></a>
+- Fix workspace authority conflict recovery — @baron · <a href="https://github.com/repoprompt/repoprompt-ce/pull/744" target="_blank" rel="noopener noreferrer" aria-label="#744 (opens in a new tab)">#744<span className="new-tab-indicator" aria-hidden="true">↗</span></a>
+- Harden legacy defaults collection during startup — @baron · <a href="https://github.com/repoprompt/repoprompt-ce/pull/745" target="_blank" rel="noopener noreferrer" aria-label="#745 (opens in a new tab)">#745<span className="new-tab-indicator" aria-hidden="true">↗</span></a>
+- Prevent cancelled CLI requests from stalling or spawning — @morluto · <a href="https://github.com/repoprompt/repoprompt-ce/pull/724" target="_blank" rel="noopener noreferrer" aria-label="#724 (opens in a new tab)">#724<span className="new-tab-indicator" aria-hidden="true">↗</span></a>
+- Prevent cancelled tasks from entering an unlocked AsyncMutex — @morluto · <a href="https://github.com/repoprompt/repoprompt-ce/pull/725" target="_blank" rel="noopener noreferrer" aria-label="#725 (opens in a new tab)">#725<span className="new-tab-indicator" aria-hidden="true">↗</span></a>
+- Self-heal workspace authority revision races — @baron · <a href="https://github.com/repoprompt/repoprompt-ce/pull/746" target="_blank" rel="noopener noreferrer" aria-label="#746 (opens in a new tab)">#746<span className="new-tab-indicator" aria-hidden="true">↗</span></a>
+- Settle cancelled Codex stderr waiters promptly — @morluto · <a href="https://github.com/repoprompt/repoprompt-ce/pull/738" target="_blank" rel="noopener noreferrer" aria-label="#738 (opens in a new tab)">#738<span className="new-tab-indicator" aria-hidden="true">↗</span></a>
+- Allow MessageReaper to tear down with queued messages — @morluto · <a href="https://github.com/repoprompt/repoprompt-ce/pull/734" target="_blank" rel="noopener noreferrer" aria-label="#734 (opens in a new tab)">#734<span className="new-tab-indicator" aria-hidden="true">↗</span></a>
+- Synchronize transcript debug instrumentation callbacks — @morluto · <a href="https://github.com/repoprompt/repoprompt-ce/pull/736" target="_blank" rel="noopener noreferrer" aria-label="#736 (opens in a new tab)">#736<span className="new-tab-indicator" aria-hidden="true">↗</span></a>
+- Clear transcript refresh signatures after tab removal — @morluto · <a href="https://github.com/repoprompt/repoprompt-ce/pull/739" target="_blank" rel="noopener noreferrer" aria-label="#739 (opens in a new tab)">#739<span className="new-tab-indicator" aria-hidden="true">↗</span></a>
+- Migrate RepoPromptShared to Swift 6 — @baron · <a href="https://github.com/repoprompt/repoprompt-ce/pull/753" target="_blank" rel="noopener noreferrer" aria-label="#753 (opens in a new tab)">#753<span className="new-tab-indicator" aria-hidden="true">↗</span></a>
+- Fence tool-card presentation derivation from render recomputation — @baron · <a href="https://github.com/repoprompt/repoprompt-ce/pull/754" target="_blank" rel="noopener noreferrer" aria-label="#754 (opens in a new tab)">#754<span className="new-tab-indicator" aria-hidden="true">↗</span></a>
+- Establish neutral agent execution contracts — @baron · <a href="https://github.com/repoprompt/repoprompt-ce/pull/756" target="_blank" rel="noopener noreferrer" aria-label="#756 (opens in a new tab)">#756<span className="new-tab-indicator" aria-hidden="true">↗</span></a>
+- fix: make agent read_file selection converge — @w-winter · <a href="https://github.com/repoprompt/repoprompt-ce/pull/755" target="_blank" rel="noopener noreferrer" aria-label="#755 (opens in a new tab)">#755<span className="new-tab-indicator" aria-hidden="true">↗</span></a>
+- Agent Mode: classify terminal failures at settlement — @baron · <a href="https://github.com/repoprompt/repoprompt-ce/pull/759" target="_blank" rel="noopener noreferrer" aria-label="#759 (opens in a new tab)">#759<span className="new-tab-indicator" aria-hidden="true">↗</span></a>
+- Agent Mode: extract run-attempt lifecycle authority — @baron · <a href="https://github.com/repoprompt/repoprompt-ce/pull/763" target="_blank" rel="noopener noreferrer" aria-label="#763 (opens in a new tab)">#763<span className="new-tab-indicator" aria-hidden="true">↗</span></a>
+- Make agent run identity teardown stale-safe — @baron · <a href="https://github.com/repoprompt/repoprompt-ce/pull/764" target="_blank" rel="noopener noreferrer" aria-label="#764 (opens in a new tab)">#764<span className="new-tab-indicator" aria-hidden="true">↗</span></a>
+- Harden conductor control-plane resilience — @baron · <a href="https://github.com/repoprompt/repoprompt-ce/pull/765" target="_blank" rel="noopener noreferrer" aria-label="#765 (opens in a new tab)">#765<span className="new-tab-indicator" aria-hidden="true">↗</span></a>
+- Bundle Codex 0.147.0 and fix exec permissions — @nickdavis · <a href="https://github.com/repoprompt/repoprompt-ce/pull/748" target="_blank" rel="noopener noreferrer" aria-label="#748 (opens in a new tab)">#748<span className="new-tab-indicator" aria-hidden="true">↗</span></a>
+- Add durable conductor build cache — @baron · <a href="https://github.com/repoprompt/repoprompt-ce/pull/766" target="_blank" rel="noopener noreferrer" aria-label="#766 (opens in a new tab)">#766<span className="new-tab-indicator" aria-hidden="true">↗</span></a>
+- Harden workspace-switch runtime ownership transfer — @baron · <a href="https://github.com/repoprompt/repoprompt-ce/pull/767" target="_blank" rel="noopener noreferrer" aria-label="#767 (opens in a new tab)">#767<span className="new-tab-indicator" aria-hidden="true">↗</span></a>
+- fix(mcp): add Sonoma async frame compatibility barrier — @baron · <a href="https://github.com/repoprompt/repoprompt-ce/pull/768" target="_blank" rel="noopener noreferrer" aria-label="#768 (opens in a new tab)">#768<span className="new-tab-indicator" aria-hidden="true">↗</span></a>
+- Agent Mode: bind terminal settlement to exact sessions — @baron · <a href="https://github.com/repoprompt/repoprompt-ce/pull/772" target="_blank" rel="noopener noreferrer" aria-label="#772 (opens in a new tab)">#772<span className="new-tab-indicator" aria-hidden="true">↗</span></a>
+- Agent Mode: hoist terminal attachment disposition — @baron · <a href="https://github.com/repoprompt/repoprompt-ce/pull/773" target="_blank" rel="noopener noreferrer" aria-label="#773 (opens in a new tab)">#773<span className="new-tab-indicator" aria-hidden="true">↗</span></a>
+- Agent Mode: detach Claude coordinator from view model — @baron · <a href="https://github.com/repoprompt/repoprompt-ce/pull/776" target="_blank" rel="noopener noreferrer" aria-label="#776 (opens in a new tab)">#776<span className="new-tab-indicator" aria-hidden="true">↗</span></a>
+- feat(agent-mode): add pinned Claude Opus 4.8 picker model — @aAtila · <a href="https://github.com/repoprompt/repoprompt-ce/pull/774" target="_blank" rel="noopener noreferrer" aria-label="#774 (opens in a new tab)">#774<span className="new-tab-indicator" aria-hidden="true">↗</span></a>
+- Bound untrusted Agent Mode tool names before normalization — @baron · <a href="https://github.com/repoprompt/repoprompt-ce/pull/770" target="_blank" rel="noopener noreferrer" aria-label="#770 (opens in a new tab)">#770<span className="new-tab-indicator" aria-hidden="true">↗</span></a>
+- Enforce one accounting identity per prompt file — @baron · <a href="https://github.com/repoprompt/repoprompt-ce/pull/777" target="_blank" rel="noopener noreferrer" aria-label="#777 (opens in a new tab)">#777<span className="new-tab-indicator" aria-hidden="true">↗</span></a>
+- Agent Mode: centralize Claude settlement authority — @baron · <a href="https://github.com/repoprompt/repoprompt-ce/pull/778" target="_blank" rel="noopener noreferrer" aria-label="#778 (opens in a new tab)">#778<span className="new-tab-indicator" aria-hidden="true">↗</span></a>
+- feat: streamline Context Composer entry points — @w-winter · <a href="https://github.com/repoprompt/repoprompt-ce/pull/783" target="_blank" rel="noopener noreferrer" aria-label="#783 (opens in a new tab)">#783<span className="new-tab-indicator" aria-hidden="true">↗</span></a>
+- Agent Mode: extract top-level tab session — @baron · <a href="https://github.com/repoprompt/repoprompt-ce/pull/784" target="_blank" rel="noopener noreferrer" aria-label="#784 (opens in a new tab)">#784<span className="new-tab-indicator" aria-hidden="true">↗</span></a>
+- Update APPROVED_CONTRIBUTORS — @baron · <a href="https://github.com/repoprompt/repoprompt-ce/pull/785" target="_blank" rel="noopener noreferrer" aria-label="#785 (opens in a new tab)">#785<span className="new-tab-indicator" aria-hidden="true">↗</span></a>
+- Agent Mode: share transient execution classification — @baron · <a href="https://github.com/repoprompt/repoprompt-ce/pull/786" target="_blank" rel="noopener noreferrer" aria-label="#786 (opens in a new tab)">#786<span className="new-tab-indicator" aria-hidden="true">↗</span></a>
+- Oracle: extract headless streaming runtime — @baron · <a href="https://github.com/repoprompt/repoprompt-ce/pull/787" target="_blank" rel="noopener noreferrer" aria-label="#787 (opens in a new tab)">#787<span className="new-tab-indicator" aria-hidden="true">↗</span></a>
+- Prompt: extract stored-prompt persistence boundary — @baron · <a href="https://github.com/repoprompt/repoprompt-ce/pull/788" target="_blank" rel="noopener noreferrer" aria-label="#788 (opens in a new tab)">#788<span className="new-tab-indicator" aria-hidden="true">↗</span></a>
+- Reconstruct diff chunks without repeated array shifts — @morluto · <a href="https://github.com/repoprompt/repoprompt-ce/pull/735" target="_blank" rel="noopener noreferrer" aria-label="#735 (opens in a new tab)">#735<span className="new-tab-indicator" aria-hidden="true">↗</span></a>
+- Add focused-build cost reporting and high-output conductor diagnostics — @morluto · <a href="https://github.com/repoprompt/repoprompt-ce/pull/521" target="_blank" rel="noopener noreferrer" aria-label="#521 (opens in a new tab)">#521<span className="new-tab-indicator" aria-hidden="true">↗</span></a>
+- fix(agent-mode): eliminate O(N) snapshot copies in handoffConfig — @sentry[bot] · <a href="https://github.com/repoprompt/repoprompt-ce/pull/780" target="_blank" rel="noopener noreferrer" aria-label="#780 (opens in a new tab)">#780<span className="new-tab-indicator" aria-hidden="true">↗</span></a>
+- Preserve Context Builder pending context through routing — @morluto · <a href="https://github.com/repoprompt/repoprompt-ce/pull/566" target="_blank" rel="noopener noreferrer" aria-label="#566 (opens in a new tab)">#566<span className="new-tab-indicator" aria-hidden="true">↗</span></a>
+- Add built-in workflow parity to direct headless mode — @nickdavis · <a href="https://github.com/repoprompt/repoprompt-ce/pull/760" target="_blank" rel="noopener noreferrer" aria-label="#760 (opens in a new tab)">#760<span className="new-tab-indicator" aria-hidden="true">↗</span></a>
+- Agent Mode: share Codex transient execution classification — @baron · <a href="https://github.com/repoprompt/repoprompt-ce/pull/791" target="_blank" rel="noopener noreferrer" aria-label="#791 (opens in a new tab)">#791<span className="new-tab-indicator" aria-hidden="true">↗</span></a>
+- Agent Mode: share Claude transient execution classification — @baron · <a href="https://github.com/repoprompt/repoprompt-ce/pull/792" target="_blank" rel="noopener noreferrer" aria-label="#792 (opens in a new tab)">#792<span className="new-tab-indicator" aria-hidden="true">↗</span></a>
+- Agent Mode: share ACP transient execution classification — @baron · <a href="https://github.com/repoprompt/repoprompt-ce/pull/793" target="_blank" rel="noopener noreferrer" aria-label="#793 (opens in a new tab)">#793<span className="new-tab-indicator" aria-hidden="true">↗</span></a>
+- Add operation-level MCP concurrency evidence — @baron · <a href="https://github.com/repoprompt/repoprompt-ce/pull/794" target="_blank" rel="noopener noreferrer" aria-label="#794 (opens in a new tab)">#794<span className="new-tab-indicator" aria-hidden="true">↗</span></a>
+- Release v1.3.0 — @baron · <a href="https://github.com/repoprompt/repoprompt-ce/pull/797" target="_blank" rel="noopener noreferrer" aria-label="#797 (opens in a new tab)">#797<span className="new-tab-indicator" aria-hidden="true">↗</span></a>
+
+**[Full Changelog for 1.3.0](https://github.com/repoprompt/repoprompt-ce/compare/v1.2.0...v1.3.0)**
+
+### 1.2.0 - August 3, 2026
+
+**What's Changed**
+- Surface Code Map recovery exhaustion — @baron · <a href="https://github.com/repoprompt/repoprompt-ce/pull/689" target="_blank" rel="noopener noreferrer" aria-label="#689 (opens in a new tab)">#689<span className="new-tab-indicator" aria-hidden="true">↗</span></a>
+- Prevent file-action watchdog stalls during mutation I/O — @baron · <a href="https://github.com/repoprompt/repoprompt-ce/pull/688" target="_blank" rel="noopener noreferrer" aria-label="#688 (opens in a new tab)">#688<span className="new-tab-indicator" aria-hidden="true">↗</span></a>
+- Headless runtime M1: add runtime and catalog foundation — @provencher · <a href="https://github.com/repoprompt/repoprompt-ce/pull/640" target="_blank" rel="noopener noreferrer" aria-label="#640 (opens in a new tab)">#640<span className="new-tab-indicator" aria-hidden="true">↗</span></a>
+- Fix Oracle heartbeat liveness tracking — @dsebban · <a href="https://github.com/repoprompt/repoprompt-ce/pull/696" target="_blank" rel="noopener noreferrer" aria-label="#696 (opens in a new tab)">#696<span className="new-tab-indicator" aria-hidden="true">↗</span></a>
+- Fix App Hang: Disable text checking in AttributedTextView — @sentry[bot] · <a href="https://github.com/repoprompt/repoprompt-ce/pull/697" target="_blank" rel="noopener noreferrer" aria-label="#697 (opens in a new tab)">#697<span className="new-tab-indicator" aria-hidden="true">↗</span></a>
+- Fix App Hang: Optimize string prefix checks — @sentry[bot] · <a href="https://github.com/repoprompt/repoprompt-ce/pull/683" target="_blank" rel="noopener noreferrer" aria-label="#683 (opens in a new tab)">#683<span className="new-tab-indicator" aria-hidden="true">↗</span></a>
+- Fix AnchorGeometryView app hang — @sentry[bot] · <a href="https://github.com/repoprompt/repoprompt-ce/pull/685" target="_blank" rel="noopener noreferrer" aria-label="#685 (opens in a new tab)">#685<span className="new-tab-indicator" aria-hidden="true">↗</span></a>
+- Fix agent workspace performance regression — @baron · <a href="https://github.com/repoprompt/repoprompt-ce/pull/680" target="_blank" rel="noopener noreferrer" aria-label="#680 (opens in a new tab)">#680<span className="new-tab-indicator" aria-hidden="true">↗</span></a>
+- Improve ChatGPT login resilience and managed sign-out — @baron · <a href="https://github.com/repoprompt/repoprompt-ce/pull/698" target="_blank" rel="noopener noreferrer" aria-label="#698 (opens in a new tab)">#698<span className="new-tab-indicator" aria-hidden="true">↗</span></a>
+- Fix EXC_BREAKPOINT from dictionary mutation during iteration — @sentry[bot] · <a href="https://github.com/repoprompt/repoprompt-ce/pull/693" target="_blank" rel="noopener noreferrer" aria-label="#693 (opens in a new tab)">#693<span className="new-tab-indicator" aria-hidden="true">↗</span></a>
+- Headless runtime M2: move workspace/context authority — @provencher · <a href="https://github.com/repoprompt/repoprompt-ce/pull/643" target="_blank" rel="noopener noreferrer" aria-label="#643 (opens in a new tab)">#643<span className="new-tab-indicator" aria-hidden="true">↗</span></a>
+- Add opt-in Codex memories setting — @baron · <a href="https://github.com/repoprompt/repoprompt-ce/pull/691" target="_blank" rel="noopener noreferrer" aria-label="#691 (opens in a new tab)">#691<span className="new-tab-indicator" aria-hidden="true">↗</span></a>
+- Fix Tip socket ownership startup race — @baron · <a href="https://github.com/repoprompt/repoprompt-ce/pull/699" target="_blank" rel="noopener noreferrer" aria-label="#699 (opens in a new tab)">#699<span className="new-tab-indicator" aria-hidden="true">↗</span></a>
+- Headless runtime M3: migrate read and discovery families — @provencher · <a href="https://github.com/repoprompt/repoprompt-ce/pull/657" target="_blank" rel="noopener noreferrer" aria-label="#657 (opens in a new tab)">#657<span className="new-tab-indicator" aria-hidden="true">↗</span></a>
+- Keep failed CI from evicting Tip builds — @baron · <a href="https://github.com/repoprompt/repoprompt-ce/pull/700" target="_blank" rel="noopener noreferrer" aria-label="#700 (opens in a new tab)">#700<span className="new-tab-indicator" aria-hidden="true">↗</span></a>
+- M4: protect MCP mutations and security boundaries — @provencher · <a href="https://github.com/repoprompt/repoprompt-ce/pull/660" target="_blank" rel="noopener noreferrer" aria-label="#660 (opens in a new tab)">#660<span className="new-tab-indicator" aria-hidden="true">↗</span></a>
+- Provision Keychain for packaged release smoke — @baron · <a href="https://github.com/repoprompt/repoprompt-ce/pull/701" target="_blank" rel="noopener noreferrer" aria-label="#701 (opens in a new tab)">#701<span className="new-tab-indicator" aria-hidden="true">↗</span></a>
+- Remove test contract ledger system — @baron · <a href="https://github.com/repoprompt/repoprompt-ce/pull/704" target="_blank" rel="noopener noreferrer" aria-label="#704 (opens in a new tab)">#704<span className="new-tab-indicator" aria-hidden="true">↗</span></a>
+- Stabilize ledger-free CI routing and codemap contracts — @baron · <a href="https://github.com/repoprompt/repoprompt-ce/pull/705" target="_blank" rel="noopener noreferrer" aria-label="#705 (opens in a new tab)">#705<span className="new-tab-indicator" aria-hidden="true">↗</span></a>
+- [6/8] M5: move AI, Agent, Context Builder, and interaction into domain runtime — @provencher · <a href="https://github.com/repoprompt/repoprompt-ce/pull/664" target="_blank" rel="noopener noreferrer" aria-label="#664 (opens in a new tab)">#664<span className="new-tab-indicator" aria-hidden="true">↗</span></a>
+- Fix M5 credential pruning type inference — @baron · <a href="https://github.com/repoprompt/repoprompt-ce/pull/706" target="_blank" rel="noopener noreferrer" aria-label="#706 (opens in a new tab)">#706<span className="new-tab-indicator" aria-hidden="true">↗</span></a>
+- Optimize Agent Mode sidebar projection caching — @baron · <a href="https://github.com/repoprompt/repoprompt-ce/pull/703" target="_blank" rel="noopener noreferrer" aria-label="#703 (opens in a new tab)">#703<span className="new-tab-indicator" aria-hidden="true">↗</span></a>
+- Fix protected mutation commit boundary — @baron · <a href="https://github.com/repoprompt/repoprompt-ce/pull/707" target="_blank" rel="noopener noreferrer" aria-label="#707 (opens in a new tab)">#707<span className="new-tab-indicator" aria-hidden="true">↗</span></a>
+- Add Compose: context inspector inspired by RP Classic — @w-winter · <a href="https://github.com/repoprompt/repoprompt-ce/pull/535" target="_blank" rel="noopener noreferrer" aria-label="#535 (opens in a new tab)">#535<span className="new-tab-indicator" aria-hidden="true">↗</span></a>
+- [7/8] M6: Add direct headless MCP runtime — @provencher · <a href="https://github.com/repoprompt/repoprompt-ce/pull/674" target="_blank" rel="noopener noreferrer" aria-label="#674 (opens in a new tab)">#674<span className="new-tab-indicator" aria-hidden="true">↗</span></a>
+- M7: complete headless MCP runtime cutover — @provencher · <a href="https://github.com/repoprompt/repoprompt-ce/pull/677" target="_blank" rel="noopener noreferrer" aria-label="#677 (opens in a new tab)">#677<span className="new-tab-indicator" aria-hidden="true">↗</span></a>
+- perf: coalesce compose inspector refresh work — @baron · <a href="https://github.com/repoprompt/repoprompt-ce/pull/709" target="_blank" rel="noopener noreferrer" aria-label="#709 (opens in a new tab)">#709<span className="new-tab-indicator" aria-hidden="true">↗</span></a>
+- Fix current-main CI blockers after M7 merge — @baron · <a href="https://github.com/repoprompt/repoprompt-ce/pull/712" target="_blank" rel="noopener noreferrer" aria-label="#712 (opens in a new tab)">#712<span className="new-tab-indicator" aria-hidden="true">↗</span></a>
+- Release v1.2.0 — @baron · <a href="https://github.com/repoprompt/repoprompt-ce/pull/714" target="_blank" rel="noopener noreferrer" aria-label="#714 (opens in a new tab)">#714<span className="new-tab-indicator" aria-hidden="true">↗</span></a>
+
+**[Full Changelog for 1.2.0](https://github.com/repoprompt/repoprompt-ce/compare/v1.1.2...v1.2.0)**
+
+### 1.1.2 - July 30, 2026
+
+**What's Changed**
+- Add semantic text-direction roles for app surfaces — @baron · <a href="https://github.com/repoprompt/repoprompt-ce/pull/670" target="_blank" rel="noopener noreferrer" aria-label="#670 (opens in a new tab)">#670<span className="new-tab-indicator" aria-hidden="true">↗</span></a>
+- Clamp Markdown selections before TextKit restoration — @baron · <a href="https://github.com/repoprompt/repoprompt-ce/pull/671" target="_blank" rel="noopener noreferrer" aria-label="#671 (opens in a new tab)">#671<span className="new-tab-indicator" aria-hidden="true">↗</span></a>
+- Preserve inline-code direction in mixed RTL Markdown — @baron · <a href="https://github.com/repoprompt/repoprompt-ce/pull/672" target="_blank" rel="noopener noreferrer" aria-label="#672 (opens in a new tab)">#672<span className="new-tab-indicator" aria-hidden="true">↗</span></a>
+- Rebase PR #70: Linkify Agent Mode prose URLs — @dah · <a href="https://github.com/repoprompt/repoprompt-ce/pull/684" target="_blank" rel="noopener noreferrer" aria-label="#684 (opens in a new tab)">#684<span className="new-tab-indicator" aria-hidden="true">↗</span></a>
+- Headless runtime M0: freeze contracts and evidence gates — @provencher · <a href="https://github.com/repoprompt/repoprompt-ce/pull/639" target="_blank" rel="noopener noreferrer" aria-label="#639 (opens in a new tab)">#639<span className="new-tab-indicator" aria-hidden="true">↗</span></a>
+- Fix Data.WritingOptions conflict in writeHandoffPayload — @sentry[bot] · <a href="https://github.com/repoprompt/repoprompt-ce/pull/690" target="_blank" rel="noopener noreferrer" aria-label="#690 (opens in a new tab)">#690<span className="new-tab-indicator" aria-hidden="true">↗</span></a>
+- Fix MCP settlement across Codex turns and file mutations — @provencher · <a href="https://github.com/repoprompt/repoprompt-ce/pull/687" target="_blank" rel="noopener noreferrer" aria-label="#687 (opens in a new tab)">#687<span className="new-tab-indicator" aria-hidden="true">↗</span></a>
+- Release v1.1.2 — @baron · <a href="https://github.com/repoprompt/repoprompt-ce/pull/692" target="_blank" rel="noopener noreferrer" aria-label="#692 (opens in a new tab)">#692<span className="new-tab-indicator" aria-hidden="true">↗</span></a>
+
+**[Full Changelog for 1.1.2](https://github.com/repoprompt/repoprompt-ce/compare/v1.1.1...v1.1.2)**
+
+### 1.1.1 - July 29, 2026
+
+**What's Changed**
+- Fix Codex app-server tool override policy — @baron · <a href="https://github.com/repoprompt/repoprompt-ce/pull/603" target="_blank" rel="noopener noreferrer" aria-label="#603 (opens in a new tab)">#603<span className="new-tab-indicator" aria-hidden="true">↗</span></a>
+- Add Codex app-server schema drift gate — @baron · <a href="https://github.com/repoprompt/repoprompt-ce/pull/604" target="_blank" rel="noopener noreferrer" aria-label="#604 (opens in a new tab)">#604<span className="new-tab-indicator" aria-hidden="true">↗</span></a>
+- perf: reduce codemap full-load latency — @provencher · <a href="https://github.com/repoprompt/repoprompt-ce/pull/600" target="_blank" rel="noopener noreferrer" aria-label="#600 (opens in a new tab)">#600<span className="new-tab-indicator" aria-hidden="true">↗</span></a>
+- build: bundle pinned Codex runtimes — @baron · <a href="https://github.com/repoprompt/repoprompt-ce/pull/605" target="_blank" rel="noopener noreferrer" aria-label="#605 (opens in a new tab)">#605<span className="new-tab-indicator" aria-hidden="true">↗</span></a>
+- Fix worktree-bound Codex app-server startup — @mplibunao · <a href="https://github.com/repoprompt/repoprompt-ce/pull/568" target="_blank" rel="noopener noreferrer" aria-label="#568 (opens in a new tab)">#568<span className="new-tab-indicator" aria-hidden="true">↗</span></a>
+- Fix bundled Codex release signing — @baron · <a href="https://github.com/repoprompt/repoprompt-ce/pull/606" target="_blank" rel="noopener noreferrer" aria-label="#606 (opens in a new tab)">#606<span className="new-tab-indicator" aria-hidden="true">↗</span></a>
+- Stabilize synthetic watcher integration tests — @baron · <a href="https://github.com/repoprompt/repoprompt-ce/pull/607" target="_blank" rel="noopener noreferrer" aria-label="#607 (opens in a new tab)">#607<span className="new-tab-indicator" aria-hidden="true">↗</span></a>
+- Optimize Swift and TypeScript CodeMap pipelines — @provencher · <a href="https://github.com/repoprompt/repoprompt-ce/pull/608" target="_blank" rel="noopener noreferrer" aria-label="#608 (opens in a new tab)">#608<span className="new-tab-indicator" aria-hidden="true">↗</span></a>
+- Add Agent Mode session handoff prompt — @baron · <a href="https://github.com/repoprompt/repoprompt-ce/pull/610" target="_blank" rel="noopener noreferrer" aria-label="#610 (opens in a new tab)">#610<span className="new-tab-indicator" aria-hidden="true">↗</span></a>
+- Fix packaged MCP smoke ownership checks — @baron · <a href="https://github.com/repoprompt/repoprompt-ce/pull/611" target="_blank" rel="noopener noreferrer" aria-label="#611 (opens in a new tab)">#611<span className="new-tab-indicator" aria-hidden="true">↗</span></a>
+- feat: make bundled Codex runtime authoritative — @baron · <a href="https://github.com/repoprompt/repoprompt-ce/pull/612" target="_blank" rel="noopener noreferrer" aria-label="#612 (opens in a new tab)">#612<span className="new-tab-indicator" aria-hidden="true">↗</span></a>
+- Make Codex session routing deterministic per tab — @baron · <a href="https://github.com/repoprompt/repoprompt-ce/pull/614" target="_blank" rel="noopener noreferrer" aria-label="#614 (opens in a new tab)">#614<span className="new-tab-indicator" aria-hidden="true">↗</span></a>
+- Add per-root Code Map generation controls — @provencher · <a href="https://github.com/repoprompt/repoprompt-ce/pull/609" target="_blank" rel="noopener noreferrer" aria-label="#609 (opens in a new tab)">#609<span className="new-tab-indicator" aria-hidden="true">↗</span></a>
+- feat(deep-plan): treat the context_builder export as a preservation baseline — @w-winter · <a href="https://github.com/repoprompt/repoprompt-ce/pull/615" target="_blank" rel="noopener noreferrer" aria-label="#615 (opens in a new tab)">#615<span className="new-tab-indicator" aria-hidden="true">↗</span></a>
+- Bound Codex app-server liveness and silent hangs — @baron · <a href="https://github.com/repoprompt/repoprompt-ce/pull/617" target="_blank" rel="noopener noreferrer" aria-label="#617 (opens in a new tab)">#617<span className="new-tab-indicator" aria-hidden="true">↗</span></a>
+- fix(mcp): preserve caller binding during agent runs — @w-winter · <a href="https://github.com/repoprompt/repoprompt-ce/pull/616" target="_blank" rel="noopener noreferrer" aria-label="#616 (opens in a new tab)">#616<span className="new-tab-indicator" aria-hidden="true">↗</span></a>
+- Fix Codex legacy thread resume by forwarding rollout path — @baron · <a href="https://github.com/repoprompt/repoprompt-ce/pull/618" target="_blank" rel="noopener noreferrer" aria-label="#618 (opens in a new tab)">#618<span className="new-tab-indicator" aria-hidden="true">↗</span></a>
+- Fix MCP reconnect abort and Git artifact fence spin — @baron · <a href="https://github.com/repoprompt/repoprompt-ce/pull/613" target="_blank" rel="noopener noreferrer" aria-label="#613 (opens in a new tab)">#613<span className="new-tab-indicator" aria-hidden="true">↗</span></a>
+- Replace codemap projections with root-local incremental graphs — @provencher · <a href="https://github.com/repoprompt/repoprompt-ce/pull/621" target="_blank" rel="noopener noreferrer" aria-label="#621 (opens in a new tab)">#621<span className="new-tab-indicator" aria-hidden="true">↗</span></a>
+- Fix Codex session tenacity recovery — @baron · <a href="https://github.com/repoprompt/repoprompt-ce/pull/623" target="_blank" rel="noopener noreferrer" aria-label="#623 (opens in a new tab)">#623<span className="new-tab-indicator" aria-hidden="true">↗</span></a>
+- Fix release codemap event type visibility — @baron · <a href="https://github.com/repoprompt/repoprompt-ce/pull/624" target="_blank" rel="noopener noreferrer" aria-label="#624 (opens in a new tab)">#624<span className="new-tab-indicator" aria-hidden="true">↗</span></a>
+- Optimize Codex thread startup memory policy — @baron · <a href="https://github.com/repoprompt/repoprompt-ce/pull/625" target="_blank" rel="noopener noreferrer" aria-label="#625 (opens in a new tab)">#625<span className="new-tab-indicator" aria-hidden="true">↗</span></a>
+- Preserve Codex completion across active reattach — @baron · <a href="https://github.com/repoprompt/repoprompt-ce/pull/626" target="_blank" rel="noopener noreferrer" aria-label="#626 (opens in a new tab)">#626<span className="new-tab-indicator" aria-hidden="true">↗</span></a>
+- Add Claude Opus 5 support — @baron · <a href="https://github.com/repoprompt/repoprompt-ce/pull/627" target="_blank" rel="noopener noreferrer" aria-label="#627 (opens in a new tab)">#627<span className="new-tab-indicator" aria-hidden="true">↗</span></a>
+- fix(agent-run): improve respond validation diagnostics — @w-winter · <a href="https://github.com/repoprompt/repoprompt-ce/pull/622" target="_blank" rel="noopener noreferrer" aria-label="#622 (opens in a new tab)">#622<span className="new-tab-indicator" aria-hidden="true">↗</span></a>
+- Fix stale codemap proof reclassification — @baron · <a href="https://github.com/repoprompt/repoprompt-ce/pull/628" target="_blank" rel="noopener noreferrer" aria-label="#628 (opens in a new tab)">#628<span className="new-tab-indicator" aria-hidden="true">↗</span></a>
+- Make async test oracles deterministic — @provencher · <a href="https://github.com/repoprompt/repoprompt-ce/pull/629" target="_blank" rel="noopener noreferrer" aria-label="#629 (opens in a new tab)">#629<span className="new-tab-indicator" aria-hidden="true">↗</span></a>
+- Automate guarded Codex runtime update candidates — @baron · <a href="https://github.com/repoprompt/repoprompt-ce/pull/633" target="_blank" rel="noopener noreferrer" aria-label="#633 (opens in a new tab)">#633<span className="new-tab-indicator" aria-hidden="true">↗</span></a>
+- Rebase 315/316 collapse nested threads and clean up provider conversations — @dah · <a href="https://github.com/repoprompt/repoprompt-ce/pull/630" target="_blank" rel="noopener noreferrer" aria-label="#630 (opens in a new tab)">#630<span className="new-tab-indicator" aria-hidden="true">↗</span></a>
+- Fix Finder launch and install commands when only Xcode beta is installed — @dah · <a href="https://github.com/repoprompt/repoprompt-ce/pull/631" target="_blank" rel="noopener noreferrer" aria-label="#631 (opens in a new tab)">#631<span className="new-tab-indicator" aria-hidden="true">↗</span></a>
+- Restore Codex messages rejected before dispatch — @baron · <a href="https://github.com/repoprompt/repoprompt-ce/pull/619" target="_blank" rel="noopener noreferrer" aria-label="#619 (opens in a new tab)">#619<span className="new-tab-indicator" aria-hidden="true">↗</span></a>
+- Update bundled Codex to 0.145.0 — @baron · <a href="https://github.com/repoprompt/repoprompt-ce/pull/635" target="_blank" rel="noopener noreferrer" aria-label="#635 (opens in a new tab)">#635<span className="new-tab-indicator" aria-hidden="true">↗</span></a>
+- Point fork dependencies at RepoPrompt organization — @provencher · <a href="https://github.com/repoprompt/repoprompt-ce/pull/638" target="_blank" rel="noopener noreferrer" aria-label="#638 (opens in a new tab)">#638<span className="new-tab-indicator" aria-hidden="true">↗</span></a>
+- Fix Codex watchdog for silent long-running tools — @baron · <a href="https://github.com/repoprompt/repoprompt-ce/pull/636" target="_blank" rel="noopener noreferrer" aria-label="#636 (opens in a new tab)">#636<span className="new-tab-indicator" aria-hidden="true">↗</span></a>
+- Add PR-ready validation timing receipts — @baron · <a href="https://github.com/repoprompt/repoprompt-ce/pull/634" target="_blank" rel="noopener noreferrer" aria-label="#634 (opens in a new tab)">#634<span className="new-tab-indicator" aria-hidden="true">↗</span></a>
+- Add MCP concurrency evidence telemetry — @baron · <a href="https://github.com/repoprompt/repoprompt-ce/pull/632" target="_blank" rel="noopener noreferrer" aria-label="#632 (opens in a new tab)">#632<span className="new-tab-indicator" aria-hidden="true">↗</span></a>
+- Improve tip update details — @baron · <a href="https://github.com/repoprompt/repoprompt-ce/pull/637" target="_blank" rel="noopener noreferrer" aria-label="#637 (opens in a new tab)">#637<span className="new-tab-indicator" aria-hidden="true">↗</span></a>
+- Show build numbers in Sparkle update alerts — @baron · <a href="https://github.com/repoprompt/repoprompt-ce/pull/641" target="_blank" rel="noopener noreferrer" aria-label="#641 (opens in a new tab)">#641<span className="new-tab-indicator" aria-hidden="true">↗</span></a>
+- Fix MCP read timeout settlement without bridge disconnect — @baron · <a href="https://github.com/repoprompt/repoprompt-ce/pull/644" target="_blank" rel="noopener noreferrer" aria-label="#644 (opens in a new tab)">#644<span className="new-tab-indicator" aria-hidden="true">↗</span></a>
+- Fix CollapsibleUserMessage performance on large messages — @sentry[bot] · <a href="https://github.com/repoprompt/repoprompt-ce/pull/601" target="_blank" rel="noopener noreferrer" aria-label="#601 (opens in a new tab)">#601<span className="new-tab-indicator" aria-hidden="true">↗</span></a>
+- Fix bundled Codex V8 JIT entitlements — @baron · <a href="https://github.com/repoprompt/repoprompt-ce/pull/647" target="_blank" rel="noopener noreferrer" aria-label="#647 (opens in a new tab)">#647<span className="new-tab-indicator" aria-hidden="true">↗</span></a>
+- Keep Tip update alerts compact — @baron · <a href="https://github.com/repoprompt/repoprompt-ce/pull/656" target="_blank" rel="noopener noreferrer" aria-label="#656 (opens in a new tab)">#656<span className="new-tab-indicator" aria-hidden="true">↗</span></a>
+- Add reusable Agent Mode handoff instructions — @erauner12 · <a href="https://github.com/repoprompt/repoprompt-ce/pull/645" target="_blank" rel="noopener noreferrer" aria-label="#645 (opens in a new tab)">#645<span className="new-tab-indicator" aria-hidden="true">↗</span></a>
+- Refresh approved contributors — @provencher · <a href="https://github.com/repoprompt/repoprompt-ce/pull/572" target="_blank" rel="noopener noreferrer" aria-label="#572 (opens in a new tab)">#572<span className="new-tab-indicator" aria-hidden="true">↗</span></a>
+- Fix Code Map stalls and manifest write amplification — @baron · <a href="https://github.com/repoprompt/repoprompt-ce/pull/659" target="_blank" rel="noopener noreferrer" aria-label="#659 (opens in a new tab)">#659<span className="new-tab-indicator" aria-hidden="true">↗</span></a>
+- Harden Code Map recovery after performance cutover — @baron · <a href="https://github.com/repoprompt/repoprompt-ce/pull/661" target="_blank" rel="noopener noreferrer" aria-label="#661 (opens in a new tab)">#661<span className="new-tab-indicator" aria-hidden="true">↗</span></a>
+- Fix Tip release optimizer ownership crash — @baron · <a href="https://github.com/repoprompt/repoprompt-ce/pull/663" target="_blank" rel="noopener noreferrer" aria-label="#663 (opens in a new tab)">#663<span className="new-tab-indicator" aria-hidden="true">↗</span></a>
+- Fix Codex watchdog for composite waits — @baron · <a href="https://github.com/repoprompt/repoprompt-ce/pull/667" target="_blank" rel="noopener noreferrer" aria-label="#667 (opens in a new tab)">#667<span className="new-tab-indicator" aria-hidden="true">↗</span></a>
+- Fix path-scoped Git artifact publication freezes — @baron · <a href="https://github.com/repoprompt/repoprompt-ce/pull/668" target="_blank" rel="noopener noreferrer" aria-label="#668 (opens in a new tab)">#668<span className="new-tab-indicator" aria-hidden="true">↗</span></a>
+- Fix duplicate physical root label traps — @erauner12 · <a href="https://github.com/repoprompt/repoprompt-ce/pull/673" target="_blank" rel="noopener noreferrer" aria-label="#673 (opens in a new tab)">#673<span className="new-tab-indicator" aria-hidden="true">↗</span></a>
+- Include steering text in Agent Mode wait interruptions — @erauner12 · <a href="https://github.com/repoprompt/repoprompt-ce/pull/669" target="_blank" rel="noopener noreferrer" aria-label="#669 (opens in a new tab)">#669<span className="new-tab-indicator" aria-hidden="true">↗</span></a>
+- Fix CodeHighlighter cache race condition — @sentry[bot] · <a href="https://github.com/repoprompt/repoprompt-ce/pull/676" target="_blank" rel="noopener noreferrer" aria-label="#676 (opens in a new tab)">#676<span className="new-tab-indicator" aria-hidden="true">↗</span></a>
+- Fix: Prevent duplicate worktree path crash — @sentry[bot] · <a href="https://github.com/repoprompt/repoprompt-ce/pull/553" target="_blank" rel="noopener noreferrer" aria-label="#553 (opens in a new tab)">#553<span className="new-tab-indicator" aria-hidden="true">↗</span></a>
+- Fix dirent struct copy causing EXC_BAD_ACCESS in FileSystemService — @sentry[bot] · <a href="https://github.com/repoprompt/repoprompt-ce/pull/602" target="_blank" rel="noopener noreferrer" aria-label="#602 (opens in a new tab)">#602<span className="new-tab-indicator" aria-hidden="true">↗</span></a>
+- Optimize Agent Mode: Transcript snapshot access — @sentry[bot] · <a href="https://github.com/repoprompt/repoprompt-ce/pull/658" target="_blank" rel="noopener noreferrer" aria-label="#658 (opens in a new tab)">#658<span className="new-tab-indicator" aria-hidden="true">↗</span></a>
+- Eliminate app hang from synchronous file open — @sentry[bot] · <a href="https://github.com/repoprompt/repoprompt-ce/pull/589" target="_blank" rel="noopener noreferrer" aria-label="#589 (opens in a new tab)">#589<span className="new-tab-indicator" aria-hidden="true">↗</span></a>
+- Release v1.1.1 — @baron · <a href="https://github.com/repoprompt/repoprompt-ce/pull/682" target="_blank" rel="noopener noreferrer" aria-label="#682 (opens in a new tab)">#682<span className="new-tab-indicator" aria-hidden="true">↗</span></a>
+
+**New Contributors**
+- w-winter made their first contribution.
+
+**[Full Changelog for 1.1.1](https://github.com/repoprompt/repoprompt-ce/compare/v1.1.0...v1.1.1)**
+
+### 1.1.0 - July 21, 2026
+
+**What's Changed**
+- fix(release): support Sentry org:ci tokens — @baron · <a href="https://github.com/repoprompt/repoprompt-ce/pull/551" target="_blank" rel="noopener noreferrer" aria-label="#551 (opens in a new tab)">#551<span className="new-tab-indicator" aria-hidden="true">↗</span></a>
+- refactor(workspace): isolate path policy core — @provencher · <a href="https://github.com/repoprompt/repoprompt-ce/pull/559" target="_blank" rel="noopener noreferrer" aria-label="#559 (opens in a new tab)">#559<span className="new-tab-indicator" aria-hidden="true">↗</span></a>
+- Complete Agent Models workspace follow-ups — @crstdr · <a href="https://github.com/repoprompt/repoprompt-ce/pull/545" target="_blank" rel="noopener noreferrer" aria-label="#545 (opens in a new tab)">#545<span className="new-tab-indicator" aria-hidden="true">↗</span></a>
+- fix: update Codex app-server text payload key — @mplibunao · <a href="https://github.com/repoprompt/repoprompt-ce/pull/450" target="_blank" rel="noopener noreferrer" aria-label="#450 (opens in a new tab)">#450<span className="new-tab-indicator" aria-hidden="true">↗</span></a>
+- fix(mcp): avoid task-group teardown abort in runTransport retry backoff — @pnascimento9596 · <a href="https://github.com/repoprompt/repoprompt-ce/pull/517" target="_blank" rel="noopener noreferrer" aria-label="#517 (opens in a new tab)">#517<span className="new-tab-indicator" aria-hidden="true">↗</span></a>
+- Fail Codex child sessions closed when RepoPrompt MCP provisioning or routing never confirms — @mplibunao · <a href="https://github.com/repoprompt/repoprompt-ce/pull/532" target="_blank" rel="noopener noreferrer" aria-label="#532 (opens in a new tab)">#532<span className="new-tab-indicator" aria-hidden="true">↗</span></a>
+- Add durable MCP watchdog attribution — @baron · <a href="https://github.com/repoprompt/repoprompt-ce/pull/567" target="_blank" rel="noopener noreferrer" aria-label="#567 (opens in a new tab)">#567<span className="new-tab-indicator" aria-hidden="true">↗</span></a>
+- Stream Context Builder progress over standard MCP — @OCWC22 · <a href="https://github.com/repoprompt/repoprompt-ce/pull/510" target="_blank" rel="noopener noreferrer" aria-label="#510 (opens in a new tab)">#510<span className="new-tab-indicator" aria-hidden="true">↗</span></a>
+- Harden Context Builder MCP routing readiness — @baron · <a href="https://github.com/repoprompt/repoprompt-ce/pull/569" target="_blank" rel="noopener noreferrer" aria-label="#569 (opens in a new tab)">#569<span className="new-tab-indicator" aria-hidden="true">↗</span></a>
+- Preserve MCP connection on code structure timeout — @baron · <a href="https://github.com/repoprompt/repoprompt-ce/pull/570" target="_blank" rel="noopener noreferrer" aria-label="#570 (opens in a new tab)">#570<span className="new-tab-indicator" aria-hidden="true">↗</span></a>
+- Fix authenticated tip release lookup — @baron · <a href="https://github.com/repoprompt/repoprompt-ce/pull/571" target="_blank" rel="noopener noreferrer" aria-label="#571 (opens in a new tab)">#571<span className="new-tab-indicator" aria-hidden="true">↗</span></a>
+- perf(codemap): reduce manifest write amplification during indexing — @morluto · <a href="https://github.com/repoprompt/repoprompt-ce/pull/487" target="_blank" rel="noopener noreferrer" aria-label="#487 (opens in a new tab)">#487<span className="new-tab-indicator" aria-hidden="true">↗</span></a>
+- Avoid global manifest scans for access refreshes — @baron · <a href="https://github.com/repoprompt/repoprompt-ce/pull/552" target="_blank" rel="noopener noreferrer" aria-label="#552 (opens in a new tab)">#552<span className="new-tab-indicator" aria-hidden="true">↗</span></a>
+- fix: restore Sentry telemetry in Tip builds — @baron · <a href="https://github.com/repoprompt/repoprompt-ce/pull/555" target="_blank" rel="noopener noreferrer" aria-label="#555 (opens in a new tab)">#555<span className="new-tab-indicator" aria-hidden="true">↗</span></a>
+- perf(codemap): avoid repeated full-store scans when publishing manifests — @morluto · <a href="https://github.com/repoprompt/repoprompt-ce/pull/488" target="_blank" rel="noopener noreferrer" aria-label="#488 (opens in a new tab)">#488<span className="new-tab-indicator" aria-hidden="true">↗</span></a>
+- Make MCP watchdog deadlines independent of event ordering — @baron · <a href="https://github.com/repoprompt/repoprompt-ce/pull/575" target="_blank" rel="noopener noreferrer" aria-label="#575 (opens in a new tab)">#575<span className="new-tab-indicator" aria-hidden="true">↗</span></a>
+- Harden code-structure settlement lifecycle — @baron · <a href="https://github.com/repoprompt/repoprompt-ce/pull/576" target="_blank" rel="noopener noreferrer" aria-label="#576 (opens in a new tab)">#576<span className="new-tab-indicator" aria-hidden="true">↗</span></a>
+- Make MCP route confirmation and revocation authoritative — @baron · <a href="https://github.com/repoprompt/repoprompt-ce/pull/577" target="_blank" rel="noopener noreferrer" aria-label="#577 (opens in a new tab)">#577<span className="new-tab-indicator" aria-hidden="true">↗</span></a>
+- Bound MCP advisory progress backpressure — @baron · <a href="https://github.com/repoprompt/repoprompt-ce/pull/578" target="_blank" rel="noopener noreferrer" aria-label="#578 (opens in a new tab)">#578<span className="new-tab-indicator" aria-hidden="true">↗</span></a>
+- Bound agent session cleanup and preserve partial results — @baron · <a href="https://github.com/repoprompt/repoprompt-ce/pull/582" target="_blank" rel="noopener noreferrer" aria-label="#582 (opens in a new tab)">#582<span className="new-tab-indicator" aria-hidden="true">↗</span></a>
+- Bound history MCP work and preserve transport — @baron · <a href="https://github.com/repoprompt/repoprompt-ce/pull/583" target="_blank" rel="noopener noreferrer" aria-label="#583 (opens in a new tab)">#583<span className="new-tab-indicator" aria-hidden="true">↗</span></a>
+- Fix agent message bubble line counting performance — @sentry[bot] · <a href="https://github.com/repoprompt/repoprompt-ce/pull/584" target="_blank" rel="noopener noreferrer" aria-label="#584 (opens in a new tab)">#584<span className="new-tab-indicator" aria-hidden="true">↗</span></a>
+- Fix history tool catalog golden — @baron · <a href="https://github.com/repoprompt/repoprompt-ce/pull/585" target="_blank" rel="noopener noreferrer" aria-label="#585 (opens in a new tab)">#585<span className="new-tab-indicator" aria-hidden="true">↗</span></a>
+- Preserve codemap authority across publication retries — @baron · <a href="https://github.com/repoprompt/repoprompt-ce/pull/586" target="_blank" rel="noopener noreferrer" aria-label="#586 (opens in a new tab)">#586<span className="new-tab-indicator" aria-hidden="true">↗</span></a>
+- Fix Context Builder cancellation after discovery commit — @baron · <a href="https://github.com/repoprompt/repoprompt-ce/pull/588" target="_blank" rel="noopener noreferrer" aria-label="#588 (opens in a new tab)">#588<span className="new-tab-indicator" aria-hidden="true">↗</span></a>
+- Speed up Context Builder selection handoff — @baron · <a href="https://github.com/repoprompt/repoprompt-ce/pull/591" target="_blank" rel="noopener noreferrer" aria-label="#591 (opens in a new tab)">#591<span className="new-tab-indicator" aria-hidden="true">↗</span></a>
+- Fix Context Builder routing and settlement — @baron · <a href="https://github.com/repoprompt/repoprompt-ce/pull/592" target="_blank" rel="noopener noreferrer" aria-label="#592 (opens in a new tab)">#592<span className="new-tab-indicator" aria-hidden="true">↗</span></a>
+- Migrate CodeMap core to Swift 6 with exact official Tree-sitter pins — @provencher · <a href="https://github.com/repoprompt/repoprompt-ce/pull/580" target="_blank" rel="noopener noreferrer" aria-label="#580 (opens in a new tab)">#580<span className="new-tab-indicator" aria-hidden="true">↗</span></a>
+- Fix clean release dependency cloning — @baron · <a href="https://github.com/repoprompt/repoprompt-ce/pull/596" target="_blank" rel="noopener noreferrer" aria-label="#596 (opens in a new tab)">#596<span className="new-tab-indicator" aria-hidden="true">↗</span></a>
+- Remove Dart CodeMap support — @provencher · <a href="https://github.com/repoprompt/repoprompt-ce/pull/597" target="_blank" rel="noopener noreferrer" aria-label="#597 (opens in a new tab)">#597<span className="new-tab-indicator" aria-hidden="true">↗</span></a>
+- Release v1.1.0 — @baron · <a href="https://github.com/repoprompt/repoprompt-ce/pull/599" target="_blank" rel="noopener noreferrer" aria-label="#599 (opens in a new tab)">#599<span className="new-tab-indicator" aria-hidden="true">↗</span></a>
+
+**New Contributors**
+- pnascimento9596 made their first contribution.
+- OCWC22 made their first contribution.
+
+**[Full Changelog for 1.1.0](https://github.com/repoprompt/repoprompt-ce/compare/v1.0.29...v1.1.0)**
+
+### 1.0.29 - July 15, 2026
+
+**What's Changed**
+- Make Context Builder model selection globally authoritative — @morluto · <a href="https://github.com/repoprompt/repoprompt-ce/pull/463" target="_blank" rel="noopener noreferrer" aria-label="#463 (opens in a new tab)">#463<span className="new-tab-indicator" aria-hidden="true">↗</span></a>
+- Prepare hosted app tests for optional sharding — @morluto · <a href="https://github.com/repoprompt/repoprompt-ce/pull/440" target="_blank" rel="noopener noreferrer" aria-label="#440 (opens in a new tab)">#440<span className="new-tab-indicator" aria-hidden="true">↗</span></a>
+- fix(agent-mode): stop tool-result updates from remounting unrelated cards — @morluto · <a href="https://github.com/repoprompt/repoprompt-ce/pull/458" target="_blank" rel="noopener noreferrer" aria-label="#458 (opens in a new tab)">#458<span className="new-tab-indicator" aria-hidden="true">↗</span></a>
+- Add RPCE maintainer guidance skill — @baron · <a href="https://github.com/repoprompt/repoprompt-ce/pull/502" target="_blank" rel="noopener noreferrer" aria-label="#502 (opens in a new tab)">#502<span className="new-tab-indicator" aria-hidden="true">↗</span></a>
+- Harden Sentry privacy and release metadata — @baron · <a href="https://github.com/repoprompt/repoprompt-ce/pull/474" target="_blank" rel="noopener noreferrer" aria-label="#474 (opens in a new tab)">#474<span className="new-tab-indicator" aria-hidden="true">↗</span></a>
+- Add scoped Agent Models settings — @crstdr · <a href="https://github.com/repoprompt/repoprompt-ce/pull/275" target="_blank" rel="noopener noreferrer" aria-label="#275 (opens in a new tab)">#275<span className="new-tab-indicator" aria-hidden="true">↗</span></a>
+- Fix debug provenance JSON validation — @provencher · <a href="https://github.com/repoprompt/repoprompt-ce/pull/512" target="_blank" rel="noopener noreferrer" aria-label="#512 (opens in a new tab)">#512<span className="new-tab-indicator" aria-hidden="true">↗</span></a>
+- Add title-adjacent Agent chat options menu — @baron · <a href="https://github.com/repoprompt/repoprompt-ce/pull/516" target="_blank" rel="noopener noreferrer" aria-label="#516 (opens in a new tab)">#516<span className="new-tab-indicator" aria-hidden="true">↗</span></a>
+- Fail closed on unsigned Tip appcasts — @baron · <a href="https://github.com/repoprompt/repoprompt-ce/pull/497" target="_blank" rel="noopener noreferrer" aria-label="#497 (opens in a new tab)">#497<span className="new-tab-indicator" aria-hidden="true">↗</span></a>
+- Fix Oracle selection packaging and mutation ingress stalls — @provencher · <a href="https://github.com/repoprompt/repoprompt-ce/pull/520" target="_blank" rel="noopener noreferrer" aria-label="#520 (opens in a new tab)">#520<span className="new-tab-indicator" aria-hidden="true">↗</span></a>
+- Enforce strict ledger validation for suite plans — @baron · <a href="https://github.com/repoprompt/repoprompt-ce/pull/528" target="_blank" rel="noopener noreferrer" aria-label="#528 (opens in a new tab)">#528<span className="new-tab-indicator" aria-hidden="true">↗</span></a>
+- Fix global settings schema rollback compatibility — @baron · <a href="https://github.com/repoprompt/repoprompt-ce/pull/530" target="_blank" rel="noopener noreferrer" aria-label="#530 (opens in a new tab)">#530<span className="new-tab-indicator" aria-hidden="true">↗</span></a>
+- Harden Sentry privacy and release promotion — @baron · <a href="https://github.com/repoprompt/repoprompt-ce/pull/533" target="_blank" rel="noopener noreferrer" aria-label="#533 (opens in a new tab)">#533<span className="new-tab-indicator" aria-hidden="true">↗</span></a>
+- Fix typed Context Builder prompt handoff (#526) — @mplibunao · <a href="https://github.com/repoprompt/repoprompt-ce/pull/529" target="_blank" rel="noopener noreferrer" aria-label="#529 (opens in a new tab)">#529<span className="new-tab-indicator" aria-hidden="true">↗</span></a>
+- Fix scoped Agent Models state integrity — @baron · <a href="https://github.com/repoprompt/repoprompt-ce/pull/534" target="_blank" rel="noopener noreferrer" aria-label="#534 (opens in a new tab)">#534<span className="new-tab-indicator" aria-hidden="true">↗</span></a>
+- Fix inactive-workspace Context Builder authority — @baron · <a href="https://github.com/repoprompt/repoprompt-ce/pull/538" target="_blank" rel="noopener noreferrer" aria-label="#538 (opens in a new tab)">#538<span className="new-tab-indicator" aria-hidden="true">↗</span></a>
+- Harden Git process launch lifecycle — @baron · <a href="https://github.com/repoprompt/repoprompt-ce/pull/539" target="_blank" rel="noopener noreferrer" aria-label="#539 (opens in a new tab)">#539<span className="new-tab-indicator" aria-hidden="true">↗</span></a>
+- Prevent recursive workspace path-index teardown overflow — @baron · <a href="https://github.com/repoprompt/repoprompt-ce/pull/540" target="_blank" rel="noopener noreferrer" aria-label="#540 (opens in a new tab)">#540<span className="new-tab-indicator" aria-hidden="true">↗</span></a>
+- Make TextKit external replacements undo-safe — @baron · <a href="https://github.com/repoprompt/repoprompt-ce/pull/543" target="_blank" rel="noopener noreferrer" aria-label="#543 (opens in a new tab)">#543<span className="new-tab-indicator" aria-hidden="true">↗</span></a>
+- Prevent duplicate workspace root ID crashes — @baron · <a href="https://github.com/repoprompt/repoprompt-ce/pull/541" target="_blank" rel="noopener noreferrer" aria-label="#541 (opens in a new tab)">#541<span className="new-tab-indicator" aria-hidden="true">↗</span></a>
+- Bound applied-index fallbacks and harden workspace autosave — @baron · <a href="https://github.com/repoprompt/repoprompt-ce/pull/542" target="_blank" rel="noopener noreferrer" aria-label="#542 (opens in a new tab)">#542<span className="new-tab-indicator" aria-hidden="true">↗</span></a>
+- Fix app hang during date formatting by pre-warming locale cache — @sentry[bot] · <a href="https://github.com/repoprompt/repoprompt-ce/pull/438" target="_blank" rel="noopener noreferrer" aria-label="#438 (opens in a new tab)">#438<span className="new-tab-indicator" aria-hidden="true">↗</span></a>
+- Harden transcript export against duplicate turn IDs — @sentry[bot] · <a href="https://github.com/repoprompt/repoprompt-ce/pull/544" target="_blank" rel="noopener noreferrer" aria-label="#544 (opens in a new tab)">#544<span className="new-tab-indicator" aria-hidden="true">↗</span></a>
+- Improve Tip build update notices — @baron · <a href="https://github.com/repoprompt/repoprompt-ce/pull/537" target="_blank" rel="noopener noreferrer" aria-label="#537 (opens in a new tab)">#537<span className="new-tab-indicator" aria-hidden="true">↗</span></a>
+- Harden Agent chat titlebar safety — @baron · <a href="https://github.com/repoprompt/repoprompt-ce/pull/536" target="_blank" rel="noopener noreferrer" aria-label="#536 (opens in a new tab)">#536<span className="new-tab-indicator" aria-hidden="true">↗</span></a>
+- Fix execution-location popover resize crash — @baron · <a href="https://github.com/repoprompt/repoprompt-ce/pull/548" target="_blank" rel="noopener noreferrer" aria-label="#548 (opens in a new tab)">#548<span className="new-tab-indicator" aria-hidden="true">↗</span></a>
+- Release v1.0.29 — @baron · <a href="https://github.com/repoprompt/repoprompt-ce/pull/550" target="_blank" rel="noopener noreferrer" aria-label="#550 (opens in a new tab)">#550<span className="new-tab-indicator" aria-hidden="true">↗</span></a>
+
+**New Contributors**
+- crstdr made their first contribution.
+- mplibunao made their first contribution.
+- sentry made their first contribution.
+
+**[Full Changelog for 1.0.29](https://github.com/repoprompt/repoprompt-ce/compare/v1.0.28...v1.0.29)**
+
+### 1.0.28 - July 10, 2026
+
+**What's Changed**
+- Harden release packaged smoke timeout — @baron · <a href="https://github.com/repoprompt/repoprompt-ce/pull/441" target="_blank" rel="noopener noreferrer" aria-label="#441 (opens in a new tab)">#441<span className="new-tab-indicator" aria-hidden="true">↗</span></a>
+- Split RepoPrompt into thin executable and app target — @provencher · <a href="https://github.com/repoprompt/repoprompt-ce/pull/437" target="_blank" rel="noopener noreferrer" aria-label="#437 (opens in a new tab)">#437<span className="new-tab-indicator" aria-hidden="true">↗</span></a>
+- Add opt-in tip update channel and rolling publish workflow — @baron · <a href="https://github.com/repoprompt/repoprompt-ce/pull/442" target="_blank" rel="noopener noreferrer" aria-label="#442 (opens in a new tab)">#442<span className="new-tab-indicator" aria-hidden="true">↗</span></a>
+- Fix Tip build number override — @baron · <a href="https://github.com/repoprompt/repoprompt-ce/pull/467" target="_blank" rel="noopener noreferrer" aria-label="#467 (opens in a new tab)">#467<span className="new-tab-indicator" aria-hidden="true">↗</span></a>
+- Improve conductor worktree parallelism — @baron · <a href="https://github.com/repoprompt/repoprompt-ce/pull/470" target="_blank" rel="noopener noreferrer" aria-label="#470 (opens in a new tab)">#470<span className="new-tab-indicator" aria-hidden="true">↗</span></a>
+- Fix Context Builder teardown finalization — @baron · <a href="https://github.com/repoprompt/repoprompt-ce/pull/448" target="_blank" rel="noopener noreferrer" aria-label="#448 (opens in a new tab)">#448<span className="new-tab-indicator" aria-hidden="true">↗</span></a>
+- Update Codex support for GPT-5.6 models — @baron · <a href="https://github.com/repoprompt/repoprompt-ce/pull/462" target="_blank" rel="noopener noreferrer" aria-label="#462 (opens in a new tab)">#462<span className="new-tab-indicator" aria-hidden="true">↗</span></a>
+- Release v1.0.28 — @baron · <a href="https://github.com/repoprompt/repoprompt-ce/pull/477" target="_blank" rel="noopener noreferrer" aria-label="#477 (opens in a new tab)">#477<span className="new-tab-indicator" aria-hidden="true">↗</span></a>
+
+**[Full Changelog for 1.0.28](https://github.com/repoprompt/repoprompt-ce/compare/v1.0.27...v1.0.28)**
+
+### 1.0.27 - July 9, 2026
+
+**What's Changed**
+
+RepoPrompt CE 1.0.27 is the public release for everything merged after v1.0.24. It includes the intended but unpublished v1.0.25/v1.0.26 payloads plus the follow-up CLI, test-harness, and Sentry release fixes needed to make this train safe for in-app updates.
+
+**App and Agent Mode**
+
+- History query MCP tools (`list_sessions`, `search`, `time`) with tunable idle threshold, per-day attribution, duration fixes, and review hardening. — @moonray · <a href="https://github.com/repoprompt/repoprompt-ce/pull/303" target="_blank" rel="noopener noreferrer" aria-label="#303 (opens in a new tab)">#303<span className="new-tab-indicator" aria-hidden="true">↗</span></a>
+- Enhanced Agent session search HUD behavior and archived-session visibility. — @baron · <a href="https://github.com/repoprompt/repoprompt-ce/pull/397" target="_blank" rel="noopener noreferrer" aria-label="#397 (opens in a new tab)">#397<span className="new-tab-indicator" aria-hidden="true">↗</span></a>
+- Faster, less noisy workspace switch load readiness. — @baron · <a href="https://github.com/repoprompt/repoprompt-ce/pull/347" target="_blank" rel="noopener noreferrer" aria-label="#347 (opens in a new tab)">#347<span className="new-tab-indicator" aria-hidden="true">↗</span></a>
+- Hardened agent CLI startup in fragile user environments. — @baron · <a href="https://github.com/repoprompt/repoprompt-ce/pull/424" target="_blank" rel="noopener noreferrer" aria-label="#424 (opens in a new tab)">#424<span className="new-tab-indicator" aria-hidden="true">↗</span></a>
+- Fixed git diff artifact export after alias authorization rejection. — @baron · <a href="https://github.com/repoprompt/repoprompt-ce/pull/429" target="_blank" rel="noopener noreferrer" aria-label="#429 (opens in a new tab)">#429<span className="new-tab-indicator" aria-hidden="true">↗</span></a>
+- Hardened build storm coordination and process cleanup. — @baron · <a href="https://github.com/repoprompt/repoprompt-ce/pull/427" target="_blank" rel="noopener noreferrer" aria-label="#427 (opens in a new tab)">#427<span className="new-tab-indicator" aria-hidden="true">↗</span></a>
+
+**Settings, CLI, and Developer Workflow**
+
+- Persist global defaults across restarts and propagate changes across windows. — @moonray · <a href="https://github.com/repoprompt/repoprompt-ce/pull/418" target="_blank" rel="noopener noreferrer" aria-label="#418 (opens in a new tab)">#418<span className="new-tab-indicator" aria-hidden="true">↗</span></a>
+- Speed up `dev-lint` SwiftLint discovery. — @baron · <a href="https://github.com/repoprompt/repoprompt-ce/pull/428" target="_blank" rel="noopener noreferrer" aria-label="#428 (opens in a new tab)">#428<span className="new-tab-indicator" aria-hidden="true">↗</span></a>
+- Recover CLI installation from stale App Translocation symlinks. — @amittell · <a href="https://github.com/repoprompt/repoprompt-ce/pull/413" target="_blank" rel="noopener noreferrer" aria-label="#413 (opens in a new tab)">#413<span className="new-tab-indicator" aria-hidden="true">↗</span></a>
+- Harden test harness behavior against hangs and waiter leaks. — @morluto · <a href="https://github.com/repoprompt/repoprompt-ce/pull/435" target="_blank" rel="noopener noreferrer" aria-label="#435 (opens in a new tab)">#435<span className="new-tab-indicator" aria-hidden="true">↗</span></a>
+
+**Telemetry and Release Reliability**
+
+- Integrated full Sentry telemetry. — @baron · <a href="https://github.com/repoprompt/repoprompt-ce/pull/409" target="_blank" rel="noopener noreferrer" aria-label="#409 (opens in a new tab)">#409<span className="new-tab-indicator" aria-hidden="true">↗</span></a>
+- Added release-pipeline dSYM generation and upload coverage. — @cameroncooke · <a href="https://github.com/repoprompt/repoprompt-ce/pull/332" target="_blank" rel="noopener noreferrer" aria-label="#332 (opens in a new tab)">#332<span className="new-tab-indicator" aria-hidden="true">↗</span></a>
+- Fixed Sentry-enabled release build coverage for the v1.0.26 attempt. — @baron · <a href="https://github.com/repoprompt/repoprompt-ce/pull/433" target="_blank" rel="noopener noreferrer" aria-label="#433 (opens in a new tab)">#433<span className="new-tab-indicator" aria-hidden="true">↗</span></a>
+- Refactored Sentry telemetry controls and added release coverage for official Sentry-enabled builds. — @baron · <a href="https://github.com/repoprompt/repoprompt-ce/pull/436" target="_blank" rel="noopener noreferrer" aria-label="#436 (opens in a new tab)">#436<span className="new-tab-indicator" aria-hidden="true">↗</span></a>
+- Release preparation for the unpublished v1.0.25 train and this final v1.0.27 publish. — @baron · <a href="https://github.com/repoprompt/repoprompt-ce/pull/431" target="_blank" rel="noopener noreferrer" aria-label="#431 (opens in a new tab)">#431<span className="new-tab-indicator" aria-hidden="true">↗</span></a> · @baron · <a href="https://github.com/repoprompt/repoprompt-ce/pull/439" target="_blank" rel="noopener noreferrer" aria-label="#439 (opens in a new tab)">#439<span className="new-tab-indicator" aria-hidden="true">↗</span></a>
+
+**New Contributors**
+
+- amittell made their first contribution.
+
+**[Full Changelog for 1.0.27](https://github.com/repoprompt/repoprompt-ce/compare/v1.0.24...v1.0.27)**
+
+### 1.0.24 - July 6, 2026
+
+**What's Changed**
+- Add impacted XCTest lane and harden test tooling — @morluto · <a href="https://github.com/repoprompt/repoprompt-ce/pull/374" target="_blank" rel="noopener noreferrer" aria-label="#374 (opens in a new tab)">#374<span className="new-tab-indicator" aria-hidden="true">↗</span></a>
+- Refresh approved contributors — @provencher · <a href="https://github.com/repoprompt/repoprompt-ce/pull/378" target="_blank" rel="noopener noreferrer" aria-label="#378 (opens in a new tab)">#378<span className="new-tab-indicator" aria-hidden="true">↗</span></a>
+- fix(agent-mode): open live oracle from running tool card — @morluto · <a href="https://github.com/repoprompt/repoprompt-ce/pull/358" target="_blank" rel="noopener noreferrer" aria-label="#358 (opens in a new tab)">#358<span className="new-tab-indicator" aria-hidden="true">↗</span></a>
+- Stabilize CI app tests with sharding and lifecycle cleanup — @morluto · <a href="https://github.com/repoprompt/repoprompt-ce/pull/379" target="_blank" rel="noopener noreferrer" aria-label="#379 (opens in a new tab)">#379<span className="new-tab-indicator" aria-hidden="true">↗</span></a>
+- Polish agent sidebar worktree capsules (auto-naming, sizing, styling) — @provencher · <a href="https://github.com/repoprompt/repoprompt-ce/pull/380" target="_blank" rel="noopener noreferrer" aria-label="#380 (opens in a new tab)">#380<span className="new-tab-indicator" aria-hidden="true">↗</span></a>
+- Fix routed worktree inheritance for UI parents — @baron · <a href="https://github.com/repoprompt/repoprompt-ce/pull/388" target="_blank" rel="noopener noreferrer" aria-label="#388 (opens in a new tab)">#388<span className="new-tab-indicator" aria-hidden="true">↗</span></a>
+- Fix mutation tools when worktree scope is unavailable — @baron · <a href="https://github.com/repoprompt/repoprompt-ce/pull/387" target="_blank" rel="noopener noreferrer" aria-label="#387 (opens in a new tab)">#387<span className="new-tab-indicator" aria-hidden="true">↗</span></a>
+- Tail-window massive agent transcripts — @baron · <a href="https://github.com/repoprompt/repoprompt-ce/pull/391" target="_blank" rel="noopener noreferrer" aria-label="#391 (opens in a new tab)">#391<span className="new-tab-indicator" aria-hidden="true">↗</span></a>
+- Fix issue 390 targeted authority reconciliation — @baron · <a href="https://github.com/repoprompt/repoprompt-ce/pull/392" target="_blank" rel="noopener noreferrer" aria-label="#392 (opens in a new tab)">#392<span className="new-tab-indicator" aria-hidden="true">↗</span></a>
+- Add minimal Sentry runtime wiring — @baron · <a href="https://github.com/repoprompt/repoprompt-ce/pull/393" target="_blank" rel="noopener noreferrer" aria-label="#393 (opens in a new tab)">#393<span className="new-tab-indicator" aria-hidden="true">↗</span></a>
+- Release RepoPrompt CE 1.0.24 — @baron · <a href="https://github.com/repoprompt/repoprompt-ce/pull/395" target="_blank" rel="noopener noreferrer" aria-label="#395 (opens in a new tab)">#395<span className="new-tab-indicator" aria-hidden="true">↗</span></a>
+
+**[Full Changelog for 1.0.24](https://github.com/repoprompt/repoprompt-ce/compare/v1.0.23...v1.0.24)**
+
+### 1.0.23 - July 3, 2026
+
+**What's Changed**
+- Add content-addressed codemaps and diff-seeded worktree startup — @provencher · <a href="https://github.com/repoprompt/repoprompt-ce/pull/314" target="_blank" rel="noopener noreferrer" aria-label="#314 (opens in a new tab)">#314<span className="new-tab-indicator" aria-hidden="true">↗</span></a>
+- Add Codex reasoning summary setting — @provencher · <a href="https://github.com/repoprompt/repoprompt-ce/pull/336" target="_blank" rel="noopener noreferrer" aria-label="#336 (opens in a new tab)">#336<span className="new-tab-indicator" aria-hidden="true">↗</span></a>
+- Collapse Interview toggle to icon-only — @baron · <a href="https://github.com/repoprompt/repoprompt-ce/pull/321" target="_blank" rel="noopener noreferrer" aria-label="#321 (opens in a new tab)">#321<span className="new-tab-indicator" aria-hidden="true">↗</span></a>
+- Refresh selected files popover UI and performance — @baron · <a href="https://github.com/repoprompt/repoprompt-ce/pull/333" target="_blank" rel="noopener noreferrer" aria-label="#333 (opens in a new tab)">#333<span className="new-tab-indicator" aria-hidden="true">↗</span></a>
+- [codex] Contain codemap selection decode failures — @provencher · <a href="https://github.com/repoprompt/repoprompt-ce/pull/339" target="_blank" rel="noopener noreferrer" aria-label="#339 (opens in a new tab)">#339<span className="new-tab-indicator" aria-hidden="true">↗</span></a>
+- Fix MCP token accounting freshness reporting — @provencher · <a href="https://github.com/repoprompt/repoprompt-ce/pull/343" target="_blank" rel="noopener noreferrer" aria-label="#343 (opens in a new tab)">#343<span className="new-tab-indicator" aria-hidden="true">↗</span></a>
+- Add Claude Sonnet 5 model support — @BetaFold3 · <a href="https://github.com/repoprompt/repoprompt-ce/pull/338" target="_blank" rel="noopener noreferrer" aria-label="#338 (opens in a new tab)">#338<span className="new-tab-indicator" aria-hidden="true">↗</span></a>
+- Start test-suite wallclock optimization reliability campaign — @provencher · <a href="https://github.com/repoprompt/repoprompt-ce/pull/346" target="_blank" rel="noopener noreferrer" aria-label="#346 (opens in a new tab)">#346<span className="new-tab-indicator" aria-hidden="true">↗</span></a>
+- build(telemetry): link Sentry conditionally and document privacy model — @cameroncooke · <a href="https://github.com/repoprompt/repoprompt-ce/pull/323" target="_blank" rel="noopener noreferrer" aria-label="#323 (opens in a new tab)">#323<span className="new-tab-indicator" aria-hidden="true">↗</span></a>
+- Resume inactive agent sessions when steering — @provencher · <a href="https://github.com/repoprompt/repoprompt-ce/pull/353" target="_blank" rel="noopener noreferrer" aria-label="#353 (opens in a new tab)">#353<span className="new-tab-indicator" aria-hidden="true">↗</span></a>
+- fix(agent-mode): stop listener leaks and orphaned Claude processes on close — @morluto · <a href="https://github.com/repoprompt/repoprompt-ce/pull/319" target="_blank" rel="noopener noreferrer" aria-label="#319 (opens in a new tab)">#319<span className="new-tab-indicator" aria-hidden="true">↗</span></a>
+- fix: omit nil Codex service tier — @dsebban · <a href="https://github.com/repoprompt/repoprompt-ce/pull/317" target="_blank" rel="noopener noreferrer" aria-label="#317 (opens in a new tab)">#317<span className="new-tab-indicator" aria-hidden="true">↗</span></a>
+- Fix Codex steer crash and resume handling — @provencher · <a href="https://github.com/repoprompt/repoprompt-ce/pull/354" target="_blank" rel="noopener noreferrer" aria-label="#354 (opens in a new tab)">#354<span className="new-tab-indicator" aria-hidden="true">↗</span></a>
+- Stabilize sidebar root updates during workspace switch — @baron · <a href="https://github.com/repoprompt/repoprompt-ce/pull/351" target="_blank" rel="noopener noreferrer" aria-label="#351 (opens in a new tab)">#351<span className="new-tab-indicator" aria-hidden="true">↗</span></a>
+- Add agent session switcher HUD — @baron · <a href="https://github.com/repoprompt/repoprompt-ce/pull/352" target="_blank" rel="noopener noreferrer" aria-label="#352 (opens in a new tab)">#352<span className="new-tab-indicator" aria-hidden="true">↗</span></a>
+- Fix MCP selection token freshness — @baron · <a href="https://github.com/repoprompt/repoprompt-ce/pull/359" target="_blank" rel="noopener noreferrer" aria-label="#359 (opens in a new tab)">#359<span className="new-tab-indicator" aria-hidden="true">↗</span></a>
+- Avoid applied-index hierarchy rebuilds for small deltas — @baron · <a href="https://github.com/repoprompt/repoprompt-ce/pull/361" target="_blank" rel="noopener noreferrer" aria-label="#361 (opens in a new tab)">#361<span className="new-tab-indicator" aria-hidden="true">↗</span></a>
+- Bump engineer role default to GPT-5.5 Medium — @baron · <a href="https://github.com/repoprompt/repoprompt-ce/pull/364" target="_blank" rel="noopener noreferrer" aria-label="#364 (opens in a new tab)">#364<span className="new-tab-indicator" aria-hidden="true">↗</span></a>
+- Fix crash restore settings persistence — @baron · <a href="https://github.com/repoprompt/repoprompt-ce/pull/365" target="_blank" rel="noopener noreferrer" aria-label="#365 (opens in a new tab)">#365<span className="new-tab-indicator" aria-hidden="true">↗</span></a>
+- Fix bound-tab token cache freshness — @baron · <a href="https://github.com/repoprompt/repoprompt-ce/pull/367" target="_blank" rel="noopener noreferrer" aria-label="#367 (opens in a new tab)">#367<span className="new-tab-indicator" aria-hidden="true">↗</span></a>
+- Prepare release 1.0.23 — @baron · <a href="https://github.com/repoprompt/repoprompt-ce/pull/369" target="_blank" rel="noopener noreferrer" aria-label="#369 (opens in a new tab)">#369<span className="new-tab-indicator" aria-hidden="true">↗</span></a>
+
+**New Contributors**
+- dsebban made their first contribution.
+
+**[Full Changelog for 1.0.23](https://github.com/repoprompt/repoprompt-ce/compare/v1.0.22...v1.0.23)**
+
+### 1.0.22 - June 28, 2026
+
+**What's Changed**
+- Fix Context Builder worktree review selection authority and freshness — @provencher · <a href="https://github.com/repoprompt/repoprompt-ce/pull/277" target="_blank" rel="noopener noreferrer" aria-label="#277 (opens in a new tab)">#277<span className="new-tab-indicator" aria-hidden="true">↗</span></a>
+- keep @file tag paths pathful and non-absolute — @aAtila · <a href="https://github.com/repoprompt/repoprompt-ce/pull/274" target="_blank" rel="noopener noreferrer" aria-label="#274 (opens in a new tab)">#274<span className="new-tab-indicator" aria-hidden="true">↗</span></a>
+- build: Add Makefile help target — @cameroncooke · <a href="https://github.com/repoprompt/repoprompt-ce/pull/272" target="_blank" rel="noopener noreferrer" aria-label="#272 (opens in a new tab)">#272<span className="new-tab-indicator" aria-hidden="true">↗</span></a>
+- fix: resume MCP helper sessions after app restart — @clairernovotny · <a href="https://github.com/repoprompt/repoprompt-ce/pull/286" target="_blank" rel="noopener noreferrer" aria-label="#286 (opens in a new tab)">#286<span className="new-tab-indicator" aria-hidden="true">↗</span></a>
+- fix(claude-code): emit CLI identity preamble for GLM/z.ai backend — @moonray · <a href="https://github.com/repoprompt/repoprompt-ce/pull/296" target="_blank" rel="noopener noreferrer" aria-label="#296 (opens in a new tab)">#296<span className="new-tab-indicator" aria-hidden="true">↗</span></a>
+- Fix and modernize Codex agent_run transcripts — @provencher · <a href="https://github.com/repoprompt/repoprompt-ce/pull/299" target="_blank" rel="noopener noreferrer" aria-label="#299 (opens in a new tab)">#299<span className="new-tab-indicator" aria-hidden="true">↗</span></a>
+- Refresh approved contributors — @provencher · <a href="https://github.com/repoprompt/repoprompt-ce/pull/300" target="_blank" rel="noopener noreferrer" aria-label="#300 (opens in a new tab)">#300<span className="new-tab-indicator" aria-hidden="true">↗</span></a>
+- Fix symlinked global skill root readability — @BetaFold3 · <a href="https://github.com/repoprompt/repoprompt-ce/pull/289" target="_blank" rel="noopener noreferrer" aria-label="#289 (opens in a new tab)">#289<span className="new-tab-indicator" aria-hidden="true">↗</span></a>
+- Fix CE URL scheme routing — @baron · <a href="https://github.com/repoprompt/repoprompt-ce/pull/101" target="_blank" rel="noopener noreferrer" aria-label="#101 (opens in a new tab)">#101<span className="new-tab-indicator" aria-hidden="true">↗</span></a>
+- Restore Agent Mode Interview pill — @baron · <a href="https://github.com/repoprompt/repoprompt-ce/pull/147" target="_blank" rel="noopener noreferrer" aria-label="#147 (opens in a new tab)">#147<span className="new-tab-indicator" aria-hidden="true">↗</span></a>
+- Fix orphaned OpenCode ACP runtimes on tab teardown killing CPU memory — @morluto · <a href="https://github.com/repoprompt/repoprompt-ce/pull/292" target="_blank" rel="noopener noreferrer" aria-label="#292 (opens in a new tab)">#292<span className="new-tab-indicator" aria-hidden="true">↗</span></a>
+- Refresh approved contributors — @provencher · <a href="https://github.com/repoprompt/repoprompt-ce/pull/302" target="_blank" rel="noopener noreferrer" aria-label="#302 (opens in a new tab)">#302<span className="new-tab-indicator" aria-hidden="true">↗</span></a>
+- Fix Oracle and sub-agent role model selections resetting on restart — @datawisebets · <a href="https://github.com/repoprompt/repoprompt-ce/pull/305" target="_blank" rel="noopener noreferrer" aria-label="#305 (opens in a new tab)">#305<span className="new-tab-indicator" aria-hidden="true">↗</span></a>
+- Clarify sliced file selection summaries — @provencher · <a href="https://github.com/repoprompt/repoprompt-ce/pull/262" target="_blank" rel="noopener noreferrer" aria-label="#262 (opens in a new tab)">#262<span className="new-tab-indicator" aria-hidden="true">↗</span></a>
+- Surface OpenCode empty ACP completions — @baron · <a href="https://github.com/repoprompt/repoprompt-ce/pull/310" target="_blank" rel="noopener noreferrer" aria-label="#310 (opens in a new tab)">#310<span className="new-tab-indicator" aria-hidden="true">↗</span></a>
+- Prepare RepoPrompt CE 1.0.22 — @baron · <a href="https://github.com/repoprompt/repoprompt-ce/pull/311" target="_blank" rel="noopener noreferrer" aria-label="#311 (opens in a new tab)">#311<span className="new-tab-indicator" aria-hidden="true">↗</span></a>
+
+**New Contributors**
+- clairernovotny made their first contribution.
+- datawisebets made their first contribution.
+
+**[Full Changelog for 1.0.22](https://github.com/repoprompt/repoprompt-ce/compare/v1.0.21...v1.0.22)**
+
+### 1.0.21 - June 21, 2026
+
+**What's Changed**
+- Stabilize workspace switch cleanup tests — @erauner12 · <a href="https://github.com/repoprompt/repoprompt-ce/pull/263" target="_blank" rel="noopener noreferrer" aria-label="#263 (opens in a new tab)">#263<span className="new-tab-indicator" aria-hidden="true">↗</span></a>
+- Refresh approved contributors — @provencher · <a href="https://github.com/repoprompt/repoprompt-ce/pull/269" target="_blank" rel="noopener noreferrer" aria-label="#269 (opens in a new tab)">#269<span className="new-tab-indicator" aria-hidden="true">↗</span></a>
+- Fix duplicate Check for Updates menu item — @BetaFold3 · <a href="https://github.com/repoprompt/repoprompt-ce/pull/268" target="_blank" rel="noopener noreferrer" aria-label="#268 (opens in a new tab)">#268<span className="new-tab-indicator" aria-hidden="true">↗</span></a>
+- Optimize workspace file search index readiness — @provencher · <a href="https://github.com/repoprompt/repoprompt-ce/pull/270" target="_blank" rel="noopener noreferrer" aria-label="#270 (opens in a new tab)">#270<span className="new-tab-indicator" aria-hidden="true">↗</span></a>
+- Add generated Xcode workspace workflow — @provencher · <a href="https://github.com/repoprompt/repoprompt-ce/pull/260" target="_blank" rel="noopener noreferrer" aria-label="#260 (opens in a new tab)">#260<span className="new-tab-indicator" aria-hidden="true">↗</span></a>
+- fix(xcode): Support generated workspace in Xcode 26 and 27 — @cameroncooke · <a href="https://github.com/repoprompt/repoprompt-ce/pull/271" target="_blank" rel="noopener noreferrer" aria-label="#271 (opens in a new tab)">#271<span className="new-tab-indicator" aria-hidden="true">↗</span></a>
+- Fix Oracle review diffs for worktrees — @provencher · <a href="https://github.com/repoprompt/repoprompt-ce/pull/265" target="_blank" rel="noopener noreferrer" aria-label="#265 (opens in a new tab)">#265<span className="new-tab-indicator" aria-hidden="true">↗</span></a>
+- Release RepoPrompt CE 1.0.21 — @provencher · <a href="https://github.com/repoprompt/repoprompt-ce/pull/273" target="_blank" rel="noopener noreferrer" aria-label="#273 (opens in a new tab)">#273<span className="new-tab-indicator" aria-hidden="true">↗</span></a>
+
+**New Contributors**
+- cameroncooke made their first contribution.
+
+**[Full Changelog for 1.0.21](https://github.com/repoprompt/repoprompt-ce/compare/v1.0.20...v1.0.21)**
+
+### 1.0.20 - June 19, 2026
+
+**What's Changed**
+- Preserve Agent chat order when opening sessions — @provencher · <a href="https://github.com/repoprompt/repoprompt-ce/pull/253" target="_blank" rel="noopener noreferrer" aria-label="#253 (opens in a new tab)">#253<span className="new-tab-indicator" aria-hidden="true">↗</span></a>
+- Fix Context Builder completion after discovery peer EOF — @provencher · <a href="https://github.com/repoprompt/repoprompt-ce/pull/254" target="_blank" rel="noopener noreferrer" aria-label="#254 (opens in a new tab)">#254<span className="new-tab-indicator" aria-hidden="true">↗</span></a>
+- Fix file search scope failures and cold catalog cost — @provencher · <a href="https://github.com/repoprompt/repoprompt-ce/pull/255" target="_blank" rel="noopener noreferrer" aria-label="#255 (opens in a new tab)">#255<span className="new-tab-indicator" aria-hidden="true">↗</span></a>
+- Reduce Agent Mode file-tool MainActor stalls — @provencher · <a href="https://github.com/repoprompt/repoprompt-ce/pull/256" target="_blank" rel="noopener noreferrer" aria-label="#256 (opens in a new tab)">#256<span className="new-tab-indicator" aria-hidden="true">↗</span></a>
+- Refactor Oracle routing policy boundaries — @provencher · <a href="https://github.com/repoprompt/repoprompt-ce/pull/251" target="_blank" rel="noopener noreferrer" aria-label="#251 (opens in a new tab)">#251<span className="new-tab-indicator" aria-hidden="true">↗</span></a>
+- Improve Cursor Agent CLI launch resolution diagnostics — @dlcen · <a href="https://github.com/repoprompt/repoprompt-ce/pull/208" target="_blank" rel="noopener noreferrer" aria-label="#208 (opens in a new tab)">#208<span className="new-tab-indicator" aria-hidden="true">↗</span></a>
+- Add smart Agent Mode timestamps — @antonioc-cl · <a href="https://github.com/repoprompt/repoprompt-ce/pull/182" target="_blank" rel="noopener noreferrer" aria-label="#182 (opens in a new tab)">#182<span className="new-tab-indicator" aria-hidden="true">↗</span></a>
+- Show a Built-in badge instead of a no-op Remove button for default trusted clients — @BetaFold3 · <a href="https://github.com/repoprompt/repoprompt-ce/pull/178" target="_blank" rel="noopener noreferrer" aria-label="#178 (opens in a new tab)">#178<span className="new-tab-indicator" aria-hidden="true">↗</span></a>
+- Fix Claude Safe Managed launch settings and MCP CLI wait bounds — @morluto · <a href="https://github.com/repoprompt/repoprompt-ce/pull/252" target="_blank" rel="noopener noreferrer" aria-label="#252 (opens in a new tab)">#252<span className="new-tab-indicator" aria-hidden="true">↗</span></a>
+- Release RepoPrompt CE 1.0.20 — @provencher · <a href="https://github.com/repoprompt/repoprompt-ce/pull/258" target="_blank" rel="noopener noreferrer" aria-label="#258 (opens in a new tab)">#258<span className="new-tab-indicator" aria-hidden="true">↗</span></a>
+
+**New Contributors**
+- dlcen made their first contribution.
+- antonioc-cl made their first contribution.
+- morluto made their first contribution.
+
+**[Full Changelog for 1.0.20](https://github.com/repoprompt/repoprompt-ce/compare/v1.0.19...v1.0.20)**
+
+### 1.0.19 - June 18, 2026
+
+**What's Changed**
+- Refresh approved contributors — @provencher · <a href="https://github.com/repoprompt/repoprompt-ce/pull/234" target="_blank" rel="noopener noreferrer" aria-label="#234 (opens in a new tab)">#234<span className="new-tab-indicator" aria-hidden="true">↗</span></a>
+- Optimize XCTest suite lifecycle and runtime — @provencher · <a href="https://github.com/repoprompt/repoprompt-ce/pull/236" target="_blank" rel="noopener noreferrer" aria-label="#236 (opens in a new tab)">#236<span className="new-tab-indicator" aria-hidden="true">↗</span></a>
+- Add repo skill for standardized issue creation — @erauner12 · <a href="https://github.com/repoprompt/repoprompt-ce/pull/237" target="_blank" rel="noopener noreferrer" aria-label="#237 (opens in a new tab)">#237<span className="new-tab-indicator" aria-hidden="true">↗</span></a>
+- Fix Agent Mode Oracle transcript routing — @provencher · <a href="https://github.com/repoprompt/repoprompt-ce/pull/247" target="_blank" rel="noopener noreferrer" aria-label="#247 (opens in a new tab)">#247<span className="new-tab-indicator" aria-hidden="true">↗</span></a>
+- Add MCP read latency diagnostics — @provencher · <a href="https://github.com/repoprompt/repoprompt-ce/pull/239" target="_blank" rel="noopener noreferrer" aria-label="#239 (opens in a new tab)">#239<span className="new-tab-indicator" aria-hidden="true">↗</span></a>
+- Fix canonical codemap selection and packaging — @provencher · <a href="https://github.com/repoprompt/repoprompt-ce/pull/245" target="_blank" rel="noopener noreferrer" aria-label="#245 (opens in a new tab)">#245<span className="new-tab-indicator" aria-hidden="true">↗</span></a>
+- Refresh approved contributors — @provencher · <a href="https://github.com/repoprompt/repoprompt-ce/pull/243" target="_blank" rel="noopener noreferrer" aria-label="#243 (opens in a new tab)">#243<span className="new-tab-indicator" aria-hidden="true">↗</span></a>
+- Add Z.ai GLM 5.2 model support — @baron · <a href="https://github.com/repoprompt/repoprompt-ce/pull/240" target="_blank" rel="noopener noreferrer" aria-label="#240 (opens in a new tab)">#240<span className="new-tab-indicator" aria-hidden="true">↗</span></a>
+- Fix Agent sidebar restore hierarchy and ordering — @provencher · <a href="https://github.com/repoprompt/repoprompt-ce/pull/246" target="_blank" rel="noopener noreferrer" aria-label="#246 (opens in a new tab)">#246<span className="new-tab-indicator" aria-hidden="true">↗</span></a>
+- Fix worktree readiness and parallel agent startup — @provencher · <a href="https://github.com/repoprompt/repoprompt-ce/pull/248" target="_blank" rel="noopener noreferrer" aria-label="#248 (opens in a new tab)">#248<span className="new-tab-indicator" aria-hidden="true">↗</span></a>
+- Release RepoPrompt CE 1.0.19 — @provencher · <a href="https://github.com/repoprompt/repoprompt-ce/pull/250" target="_blank" rel="noopener noreferrer" aria-label="#250 (opens in a new tab)">#250<span className="new-tab-indicator" aria-hidden="true">↗</span></a>
+
+**[Full Changelog for 1.0.19](https://github.com/repoprompt/repoprompt-ce/compare/v1.0.18...v1.0.19)**
+
+### 1.0.18 - June 16, 2026
+
+**What's Changed**
+- Reduce structural tests and harden test lifecycle — @provencher · <a href="https://github.com/repoprompt/repoprompt-ce/pull/218" target="_blank" rel="noopener noreferrer" aria-label="#218 (opens in a new tab)">#218<span className="new-tab-indicator" aria-hidden="true">↗</span></a>
+- Fix Agent Files preview loading state — @erauner12 · <a href="https://github.com/repoprompt/repoprompt-ce/pull/221" target="_blank" rel="noopener noreferrer" aria-label="#221 (opens in a new tab)">#221<span className="new-tab-indicator" aria-hidden="true">↗</span></a>
+- Avoid duplicate manage_selection freshness work — @provencher · <a href="https://github.com/repoprompt/repoprompt-ce/pull/220" target="_blank" rel="noopener noreferrer" aria-label="#220 (opens in a new tab)">#220<span className="new-tab-indicator" aria-hidden="true">↗</span></a>
+- Integrate MCP lifecycle and bounded search freshness fixes — @provencher · <a href="https://github.com/repoprompt/repoprompt-ce/pull/226" target="_blank" rel="noopener noreferrer" aria-label="#226 (opens in a new tab)">#226<span className="new-tab-indicator" aria-hidden="true">↗</span></a>
+- Fix role-default rows under filtered availability — @baron · <a href="https://github.com/repoprompt/repoprompt-ce/pull/224" target="_blank" rel="noopener noreferrer" aria-label="#224 (opens in a new tab)">#224<span className="new-tab-indicator" aria-hidden="true">↗</span></a>
+- Fix agent preview retention architecture — @baron · <a href="https://github.com/repoprompt/repoprompt-ce/pull/225" target="_blank" rel="noopener noreferrer" aria-label="#225 (opens in a new tab)">#225<span className="new-tab-indicator" aria-hidden="true">↗</span></a>
+- Reduce parallel MCP contention and preserve Agent selections — @provencher · <a href="https://github.com/repoprompt/repoprompt-ce/pull/231" target="_blank" rel="noopener noreferrer" aria-label="#231 (opens in a new tab)">#231<span className="new-tab-indicator" aria-hidden="true">↗</span></a>
+- Release RepoPrompt CE 1.0.18 — @baron · <a href="https://github.com/repoprompt/repoprompt-ce/pull/233" target="_blank" rel="noopener noreferrer" aria-label="#233 (opens in a new tab)">#233<span className="new-tab-indicator" aria-hidden="true">↗</span></a>
+
+**[Full Changelog for 1.0.18](https://github.com/repoprompt/repoprompt-ce/compare/v1.0.17...v1.0.18)**
+
+### 1.0.17 - June 14, 2026
+
+**What's Changed**
+- Stabilize descriptor inheritance test — @provencher · <a href="https://github.com/repoprompt/repoprompt-ce/pull/198" target="_blank" rel="noopener noreferrer" aria-label="#198 (opens in a new tab)">#198<span className="new-tab-indicator" aria-hidden="true">↗</span></a>
+- Stabilize watcher restart barrier coverage — @provencher · <a href="https://github.com/repoprompt/repoprompt-ce/pull/199" target="_blank" rel="noopener noreferrer" aria-label="#199 (opens in a new tab)">#199<span className="new-tab-indicator" aria-hidden="true">↗</span></a>
+- Fix Git pipe drain descriptor race — @provencher · <a href="https://github.com/repoprompt/repoprompt-ce/pull/201" target="_blank" rel="noopener noreferrer" aria-label="#201 (opens in a new tab)">#201<span className="new-tab-indicator" aria-hidden="true">↗</span></a>
+- Stabilize codemap unload reentrancy test teardown — @provencher · <a href="https://github.com/repoprompt/repoprompt-ce/pull/203" target="_blank" rel="noopener noreferrer" aria-label="#203 (opens in a new tab)">#203<span className="new-tab-indicator" aria-hidden="true">↗</span></a>
+- Fix CC Zai availability refresh for preconfigured keys — @baron · <a href="https://github.com/repoprompt/repoprompt-ce/pull/188" target="_blank" rel="noopener noreferrer" aria-label="#188 (opens in a new tab)">#188<span className="new-tab-indicator" aria-hidden="true">↗</span></a>
+- Refresh approved contributors — @provencher · <a href="https://github.com/repoprompt/repoprompt-ce/pull/202" target="_blank" rel="noopener noreferrer" aria-label="#202 (opens in a new tab)">#202<span className="new-tab-indicator" aria-hidden="true">↗</span></a>
+- Fix test runtime lifecycle disposal — @provencher · <a href="https://github.com/repoprompt/repoprompt-ce/pull/209" target="_blank" rel="noopener noreferrer" aria-label="#209 (opens in a new tab)">#209<span className="new-tab-indicator" aria-hidden="true">↗</span></a>
+- Fix composer binding after chat handoff — @provencher · <a href="https://github.com/repoprompt/repoprompt-ce/pull/204" target="_blank" rel="noopener noreferrer" aria-label="#204 (opens in a new tab)">#204<span className="new-tab-indicator" aria-hidden="true">↗</span></a>
+- Integrate PR #195 worktree test settings stabilization — @provencher · <a href="https://github.com/repoprompt/repoprompt-ce/pull/200" target="_blank" rel="noopener noreferrer" aria-label="#200 (opens in a new tab)">#200<span className="new-tab-indicator" aria-hidden="true">↗</span></a>
+- Fix warm file_search validation stalls — @provencher · <a href="https://github.com/repoprompt/repoprompt-ce/pull/205" target="_blank" rel="noopener noreferrer" aria-label="#205 (opens in a new tab)">#205<span className="new-tab-indicator" aria-hidden="true">↗</span></a>
+- Show workspace names in window and native tab titles — @nickdavis · <a href="https://github.com/repoprompt/repoprompt-ce/pull/180" target="_blank" rel="noopener noreferrer" aria-label="#180 (opens in a new tab)">#180<span className="new-tab-indicator" aria-hidden="true">↗</span></a>
+- Improve Agent Mode workspace footer readability — @erauner12 · <a href="https://github.com/repoprompt/repoprompt-ce/pull/185" target="_blank" rel="noopener noreferrer" aria-label="#185 (opens in a new tab)">#185<span className="new-tab-indicator" aria-hidden="true">↗</span></a>
+- Fix Git cancellation output-drain stall — @provencher · <a href="https://github.com/repoprompt/repoprompt-ce/pull/210" target="_blank" rel="noopener noreferrer" aria-label="#210 (opens in a new tab)">#210<span className="new-tab-indicator" aria-hidden="true">↗</span></a>
+- Fix Context Builder MCP response teardown race — @provencher · <a href="https://github.com/repoprompt/repoprompt-ce/pull/211" target="_blank" rel="noopener noreferrer" aria-label="#211 (opens in a new tab)">#211<span className="new-tab-indicator" aria-hidden="true">↗</span></a>
+- Add active worktree context actions — @erauner12 · <a href="https://github.com/repoprompt/repoprompt-ce/pull/193" target="_blank" rel="noopener noreferrer" aria-label="#193 (opens in a new tab)">#193<span className="new-tab-indicator" aria-hidden="true">↗</span></a>
+- Prepare RepoPrompt CE 1.0.17 — @provencher · <a href="https://github.com/repoprompt/repoprompt-ce/pull/213" target="_blank" rel="noopener noreferrer" aria-label="#213 (opens in a new tab)">#213<span className="new-tab-indicator" aria-hidden="true">↗</span></a>
+
+**New Contributors**
+- nickdavis made their first contribution.
+- erauner12 made their first contribution.
+
+**[Full Changelog for 1.0.17](https://github.com/repoprompt/repoprompt-ce/compare/v1.0.16...v1.0.17)**
+
+### 1.0.16 - June 14, 2026
+
+**What's Changed**
+- chore: update approved contributor handles — @provencher · <a href="https://github.com/repoprompt/repoprompt-ce/pull/179" target="_blank" rel="noopener noreferrer" aria-label="#179 (opens in a new tab)">#179<span className="new-tab-indicator" aria-hidden="true">↗</span></a>
+- Integrate MCP throughput remediation into staging — @baron · <a href="https://github.com/repoprompt/repoprompt-ce/pull/176" target="_blank" rel="noopener noreferrer" aria-label="#176 (opens in a new tab)">#176<span className="new-tab-indicator" aria-hidden="true">↗</span></a>
+- Promote MCP throughput remediation staging to main — @provencher · <a href="https://github.com/repoprompt/repoprompt-ce/pull/186" target="_blank" rel="noopener noreferrer" aria-label="#186 (opens in a new tab)">#186<span className="new-tab-indicator" aria-hidden="true">↗</span></a>
+- Fix MCP transport timeout recovery — @provencher · <a href="https://github.com/repoprompt/repoprompt-ce/pull/171" target="_blank" rel="noopener noreferrer" aria-label="#171 (opens in a new tab)">#171<span className="new-tab-indicator" aria-hidden="true">↗</span></a>
+- Fix Agent Mode wait recovery and Codex managed defaults — @provencher · <a href="https://github.com/repoprompt/repoprompt-ce/pull/190" target="_blank" rel="noopener noreferrer" aria-label="#190 (opens in a new tab)">#190<span className="new-tab-indicator" aria-hidden="true">↗</span></a>
+- Keep CLI provider disclosures user-controlled — @provencher · <a href="https://github.com/repoprompt/repoprompt-ce/pull/191" target="_blank" rel="noopener noreferrer" aria-label="#191 (opens in a new tab)">#191<span className="new-tab-indicator" aria-hidden="true">↗</span></a>
+- Fix resumed agent ownership and file-search tail latency — @provencher · <a href="https://github.com/repoprompt/repoprompt-ce/pull/192" target="_blank" rel="noopener noreferrer" aria-label="#192 (opens in a new tab)">#192<span className="new-tab-indicator" aria-hidden="true">↗</span></a>
+- Integrate PR #146 worktree-aware Context Builder on main — @provencher · <a href="https://github.com/repoprompt/repoprompt-ce/pull/194" target="_blank" rel="noopener noreferrer" aria-label="#194 (opens in a new tab)">#194<span className="new-tab-indicator" aria-hidden="true">↗</span></a>
+- Fix Context Builder model restoration on launch — @provencher · <a href="https://github.com/repoprompt/repoprompt-ce/pull/196" target="_blank" rel="noopener noreferrer" aria-label="#196 (opens in a new tab)">#196<span className="new-tab-indicator" aria-hidden="true">↗</span></a>
+- Prepare RepoPrompt CE 1.0.16 — @provencher · <a href="https://github.com/repoprompt/repoprompt-ce/pull/197" target="_blank" rel="noopener noreferrer" aria-label="#197 (opens in a new tab)">#197<span className="new-tab-indicator" aria-hidden="true">↗</span></a>
+
+**[Full Changelog for 1.0.16](https://github.com/repoprompt/repoprompt-ce/compare/v1.0.15...v1.0.16)**
+
+### 1.0.15 - June 11, 2026
+
+**What's Changed**
+- Fix Codex steering and composer submission races — @provencher · <a href="https://github.com/repoprompt/repoprompt-ce/pull/152" target="_blank" rel="noopener noreferrer" aria-label="#152 (opens in a new tab)">#152<span className="new-tab-indicator" aria-hidden="true">↗</span></a>
+- Make MCP transport stderr diagnostics crash-safe on closed pipes — @provencher · <a href="https://github.com/repoprompt/repoprompt-ce/pull/163" target="_blank" rel="noopener noreferrer" aria-label="#163 (opens in a new tab)">#163<span className="new-tab-indicator" aria-hidden="true">↗</span></a>
+- Prepare RepoPrompt CE 1.0.15 — @baron · <a href="https://github.com/repoprompt/repoprompt-ce/pull/165" target="_blank" rel="noopener noreferrer" aria-label="#165 (opens in a new tab)">#165<span className="new-tab-indicator" aria-hidden="true">↗</span></a>
+
+**[Full Changelog for 1.0.15](https://github.com/repoprompt/repoprompt-ce/compare/v1.0.14...v1.0.15)**
+
+### 1.0.14 - June 11, 2026
+
+**What's Changed**
+- Add Claude Fable 5 across Agent Mode model catalogs — @BetaFold3 · <a href="https://github.com/repoprompt/repoprompt-ce/pull/142" target="_blank" rel="noopener noreferrer" aria-label="#142 (opens in a new tab)">#142<span className="new-tab-indicator" aria-hidden="true">↗</span></a>
+- Harden MCP concurrency and workspace switching — @provencher · <a href="https://github.com/repoprompt/repoprompt-ce/pull/155" target="_blank" rel="noopener noreferrer" aria-label="#155 (opens in a new tab)">#155<span className="new-tab-indicator" aria-hidden="true">↗</span></a>
+- Prefer OpenCode provider path before native defaults — @fitchmultz · <a href="https://github.com/repoprompt/repoprompt-ce/pull/148" target="_blank" rel="noopener noreferrer" aria-label="#148 (opens in a new tab)">#148<span className="new-tab-indicator" aria-hidden="true">↗</span></a>
+- Model picker missing Z.ai options at startup — @moonray · <a href="https://github.com/repoprompt/repoprompt-ce/pull/116" target="_blank" rel="noopener noreferrer" aria-label="#116 (opens in a new tab)">#116<span className="new-tab-indicator" aria-hidden="true">↗</span></a>
+- Fix Cursor CLI Composer ACP routing — @baron · <a href="https://github.com/repoprompt/repoprompt-ce/pull/126" target="_blank" rel="noopener noreferrer" aria-label="#126 (opens in a new tab)">#126<span className="new-tab-indicator" aria-hidden="true">↗</span></a>
+- Prepare RepoPrompt CE 1.0.14 — @baron · <a href="https://github.com/repoprompt/repoprompt-ce/pull/162" target="_blank" rel="noopener noreferrer" aria-label="#162 (opens in a new tab)">#162<span className="new-tab-indicator" aria-hidden="true">↗</span></a>
+
+**New Contributors**
+- BetaFold3 made their first contribution.
+
+**[Full Changelog for 1.0.14](https://github.com/repoprompt/repoprompt-ce/compare/v1.0.13...v1.0.14)**
+
+### 1.0.10 - June 9, 2026
+
+**What's Changed**
+- Harden runtime test coverage — @provencher · <a href="https://github.com/repoprompt/repoprompt-ce/pull/111" target="_blank" rel="noopener noreferrer" aria-label="#111 (opens in a new tab)">#111<span className="new-tab-indicator" aria-hidden="true">↗</span></a>
+- Fix Agent Mode capsule label compression — @provencher · <a href="https://github.com/repoprompt/repoprompt-ce/pull/112" target="_blank" rel="noopener noreferrer" aria-label="#112 (opens in a new tab)">#112<span className="new-tab-indicator" aria-hidden="true">↗</span></a>
+- Add worktree controls to agent_explore.start — @provencher · <a href="https://github.com/repoprompt/repoprompt-ce/pull/113" target="_blank" rel="noopener noreferrer" aria-label="#113 (opens in a new tab)">#113<span className="new-tab-indicator" aria-hidden="true">↗</span></a>
+- Fix ACP mode negotiation and OpenCode routing — @provencher · <a href="https://github.com/repoprompt/repoprompt-ce/pull/97" target="_blank" rel="noopener noreferrer" aria-label="#97 (opens in a new tab)">#97<span className="new-tab-indicator" aria-hidden="true">↗</span></a>
+- Prepare RepoPrompt CE 1.0.10 release — @provencher · <a href="https://github.com/repoprompt/repoprompt-ce/pull/119" target="_blank" rel="noopener noreferrer" aria-label="#119 (opens in a new tab)">#119<span className="new-tab-indicator" aria-hidden="true">↗</span></a>
+
+**[Full Changelog for 1.0.10](https://github.com/repoprompt/repoprompt-ce/compare/v1.0.9...v1.0.10)**
+
+### 1.0.9 - June 9, 2026
+
+**What's Changed**
+- [codex] Avoid stale descriptor assertions in socket cleanup tests — @provencher · <a href="https://github.com/repoprompt/repoprompt-ce/pull/91" target="_blank" rel="noopener noreferrer" aria-label="#91 (opens in a new tab)">#91<span className="new-tab-indicator" aria-hidden="true">↗</span></a>
+- Fix onboarding Skip All routing — @fitchmultz · <a href="https://github.com/repoprompt/repoprompt-ce/pull/93" target="_blank" rel="noopener noreferrer" aria-label="#93 (opens in a new tab)">#93<span className="new-tab-indicator" aria-hidden="true">↗</span></a>
+- Fix branch popover scroll containment — @strickvl · <a href="https://github.com/repoprompt/repoprompt-ce/pull/89" target="_blank" rel="noopener noreferrer" aria-label="#89 (opens in a new tab)">#89<span className="new-tab-indicator" aria-hidden="true">↗</span></a>
+- Add Dock New Window menu item — @dah · <a href="https://github.com/repoprompt/repoprompt-ce/pull/58" target="_blank" rel="noopener noreferrer" aria-label="#58 (opens in a new tab)">#58<span className="new-tab-indicator" aria-hidden="true">↗</span></a>
+- Harden MCP response delivery, execution, and agent waiters — @provencher · <a href="https://github.com/repoprompt/repoprompt-ce/pull/96" target="_blank" rel="noopener noreferrer" aria-label="#96 (opens in a new tab)">#96<span className="new-tab-indicator" aria-hidden="true">↗</span></a>
+- Distinguish web tool card action labels — @strickvl · <a href="https://github.com/repoprompt/repoprompt-ce/pull/68" target="_blank" rel="noopener noreferrer" aria-label="#68 (opens in a new tab)">#68<span className="new-tab-indicator" aria-hidden="true">↗</span></a>
+- Refresh approved contributors — @provencher · <a href="https://github.com/repoprompt/repoprompt-ce/pull/87" target="_blank" rel="noopener noreferrer" aria-label="#87 (opens in a new tab)">#87<span className="new-tab-indicator" aria-hidden="true">↗</span></a>
+- Document Homebrew tap install path — @najibninaba · <a href="https://github.com/repoprompt/repoprompt-ce/pull/88" target="_blank" rel="noopener noreferrer" aria-label="#88 (opens in a new tab)">#88<span className="new-tab-indicator" aria-hidden="true">↗</span></a>
+- Add expanded file mention picker style — @aAtila · <a href="https://github.com/repoprompt/repoprompt-ce/pull/95" target="_blank" rel="noopener noreferrer" aria-label="#95 (opens in a new tab)">#95<span className="new-tab-indicator" aria-hidden="true">↗</span></a>
+- Fix local self-signed production packaging — @fitchmultz · <a href="https://github.com/repoprompt/repoprompt-ce/pull/92" target="_blank" rel="noopener noreferrer" aria-label="#92 (opens in a new tab)">#92<span className="new-tab-indicator" aria-hidden="true">↗</span></a>
+- Enforce custom hover tooltips — @provencher · <a href="https://github.com/repoprompt/repoprompt-ce/pull/98" target="_blank" rel="noopener noreferrer" aria-label="#98 (opens in a new tab)">#98<span className="new-tab-indicator" aria-hidden="true">↗</span></a>
+- Refresh SwiftPM release lockfile — @provencher · <a href="https://github.com/repoprompt/repoprompt-ce/pull/99" target="_blank" rel="noopener noreferrer" aria-label="#99 (opens in a new tab)">#99<span className="new-tab-indicator" aria-hidden="true">↗</span></a>
+- Add PR batch merge skill — @provencher · <a href="https://github.com/repoprompt/repoprompt-ce/pull/100" target="_blank" rel="noopener noreferrer" aria-label="#100 (opens in a new tab)">#100<span className="new-tab-indicator" aria-hidden="true">↗</span></a>
+- Optimize store-backed file search performance — @provencher · <a href="https://github.com/repoprompt/repoprompt-ce/pull/104" target="_blank" rel="noopener noreferrer" aria-label="#104 (opens in a new tab)">#104<span className="new-tab-indicator" aria-hidden="true">↗</span></a>
+- Fix Codex submit during agent wait drain — @provencher · <a href="https://github.com/repoprompt/repoprompt-ce/pull/105" target="_blank" rel="noopener noreferrer" aria-label="#105 (opens in a new tab)">#105<span className="new-tab-indicator" aria-hidden="true">↗</span></a>
+- Fix Git process output drain race — @provencher · <a href="https://github.com/repoprompt/repoprompt-ce/pull/107" target="_blank" rel="noopener noreferrer" aria-label="#107 (opens in a new tab)">#107<span className="new-tab-indicator" aria-hidden="true">↗</span></a>
+- Add lean test quality skill — @provencher · <a href="https://github.com/repoprompt/repoprompt-ce/pull/106" target="_blank" rel="noopener noreferrer" aria-label="#106 (opens in a new tab)">#106<span className="new-tab-indicator" aria-hidden="true">↗</span></a>
+- Fix conductor daemon stdin handling for local install — @dah · <a href="https://github.com/repoprompt/repoprompt-ce/pull/103" target="_blank" rel="noopener noreferrer" aria-label="#103 (opens in a new tab)">#103<span className="new-tab-indicator" aria-hidden="true">↗</span></a>
+- Prepare RepoPrompt CE 1.0.9 release — @provencher · <a href="https://github.com/repoprompt/repoprompt-ce/pull/109" target="_blank" rel="noopener noreferrer" aria-label="#109 (opens in a new tab)">#109<span className="new-tab-indicator" aria-hidden="true">↗</span></a>
+
+**New Contributors**
+- fitchmultz made their first contribution.
+- dah made their first contribution.
+
+**[Full Changelog for 1.0.9](https://github.com/repoprompt/repoprompt-ce/compare/v1.0.8...v1.0.9)**
+
+### 1.0.8 - June 7, 2026
+
+**What's Changed**
+- Allow ad-hoc release manifests without designated requirements — @provencher · <a href="https://github.com/repoprompt/repoprompt-ce/pull/83" target="_blank" rel="noopener noreferrer" aria-label="#83 (opens in a new tab)">#83<span className="new-tab-indicator" aria-hidden="true">↗</span></a>
+- Fix warm Agent Mode tab activation — @provencher · <a href="https://github.com/repoprompt/repoprompt-ce/pull/85" target="_blank" rel="noopener noreferrer" aria-label="#85 (opens in a new tab)">#85<span className="new-tab-indicator" aria-hidden="true">↗</span></a>
+- Prepare RepoPrompt CE 1.0.8 release — @provencher · <a href="https://github.com/repoprompt/repoprompt-ce/pull/86" target="_blank" rel="noopener noreferrer" aria-label="#86 (opens in a new tab)">#86<span className="new-tab-indicator" aria-hidden="true">↗</span></a>
+
+**[Full Changelog for 1.0.8](https://github.com/repoprompt/repoprompt-ce/compare/v1.0.7...v1.0.8)**
+
+### 1.0.7 - June 7, 2026
+
+**What's Changed**
+- [codex] Refresh approved contributors — @provencher · <a href="https://github.com/repoprompt/repoprompt-ce/pull/67" target="_blank" rel="noopener noreferrer" aria-label="#67 (opens in a new tab)">#67<span className="new-tab-indicator" aria-hidden="true">↗</span></a>
+- Harden flaky worktree CI tests — @strickvl · <a href="https://github.com/repoprompt/repoprompt-ce/pull/72" target="_blank" rel="noopener noreferrer" aria-label="#72 (opens in a new tab)">#72<span className="new-tab-indicator" aria-hidden="true">↗</span></a>
+- Refresh approved contributors — @provencher · <a href="https://github.com/repoprompt/repoprompt-ce/pull/75" target="_blank" rel="noopener noreferrer" aria-label="#75 (opens in a new tab)">#75<span className="new-tab-indicator" aria-hidden="true">↗</span></a>
+- Fix Keyboard Shortcuts settings crash — @strickvl · <a href="https://github.com/repoprompt/repoprompt-ce/pull/73" target="_blank" rel="noopener noreferrer" aria-label="#73 (opens in a new tab)">#73<span className="new-tab-indicator" aria-hidden="true">↗</span></a>
+- Fix stalls in long Agent Mode and Context Builder runs — @provencher · <a href="https://github.com/repoprompt/repoprompt-ce/pull/74" target="_blank" rel="noopener noreferrer" aria-label="#74 (opens in a new tab)">#74<span className="new-tab-indicator" aria-hidden="true">↗</span></a>
+- Document KeyboardShortcuts packaging workaround — @strickvl · <a href="https://github.com/repoprompt/repoprompt-ce/pull/78" target="_blank" rel="noopener noreferrer" aria-label="#78 (opens in a new tab)">#78<span className="new-tab-indicator" aria-hidden="true">↗</span></a>
+- Harden Keychain signing domains and MCP release packaging — @provencher · <a href="https://github.com/repoprompt/repoprompt-ce/pull/80" target="_blank" rel="noopener noreferrer" aria-label="#80 (opens in a new tab)">#80<span className="new-tab-indicator" aria-hidden="true">↗</span></a>
+- Prevent MCP frame starvation and lifecycle cleanup races — @provencher · <a href="https://github.com/repoprompt/repoprompt-ce/pull/81" target="_blank" rel="noopener noreferrer" aria-label="#81 (opens in a new tab)">#81<span className="new-tab-indicator" aria-hidden="true">↗</span></a>
+- Fix / improve Agent mode Git branch and worktree UI — @strickvl · <a href="https://github.com/repoprompt/repoprompt-ce/pull/69" target="_blank" rel="noopener noreferrer" aria-label="#69 (opens in a new tab)">#69<span className="new-tab-indicator" aria-hidden="true">↗</span></a>
+- Prepare RepoPrompt CE 1.0.7 release — @provencher · <a href="https://github.com/repoprompt/repoprompt-ce/pull/82" target="_blank" rel="noopener noreferrer" aria-label="#82 (opens in a new tab)">#82<span className="new-tab-indicator" aria-hidden="true">↗</span></a>
+
+**[Full Changelog for 1.0.7](https://github.com/repoprompt/repoprompt-ce/compare/v1.0.6...v1.0.7)**
+
+### 1.0.6 - June 4, 2026
+
+**What's Changed**
+- Package CE releases with the CE bundle name — @provencher · <a href="https://github.com/repoprompt/repoprompt-ce/pull/65" target="_blank" rel="noopener noreferrer" aria-label="#65 (opens in a new tab)">#65<span className="new-tab-indicator" aria-hidden="true">↗</span></a>
+- Prepare RepoPrompt CE 1.0.6 release — @provencher · <a href="https://github.com/repoprompt/repoprompt-ce/pull/66" target="_blank" rel="noopener noreferrer" aria-label="#66 (opens in a new tab)">#66<span className="new-tab-indicator" aria-hidden="true">↗</span></a>
+- Add Agent Mode session row context menus — @strickvl · <a href="https://github.com/repoprompt/repoprompt-ce/pull/60" target="_blank" rel="noopener noreferrer" aria-label="#60 (opens in a new tab)">#60<span className="new-tab-indicator" aria-hidden="true">↗</span></a>
+- Add .worktreeinclude support for managed worktrees — @strickvl · <a href="https://github.com/repoprompt/repoprompt-ce/pull/61" target="_blank" rel="noopener noreferrer" aria-label="#61 (opens in a new tab)">#61<span className="new-tab-indicator" aria-hidden="true">↗</span></a>
+- Show Git worktree context in Agent sidebar — @strickvl · <a href="https://github.com/repoprompt/repoprompt-ce/pull/62" target="_blank" rel="noopener noreferrer" aria-label="#62 (opens in a new tab)">#62<span className="new-tab-indicator" aria-hidden="true">↗</span></a>
+
+**[Full Changelog for 1.0.6](https://github.com/repoprompt/repoprompt-ce/compare/v1.0.5...v1.0.6)**
+
+### 1.0.5 - June 4, 2026
+
+**What's Changed**
+- Sync MCP CLI version during release prep — @provencher · <a href="https://github.com/repoprompt/repoprompt-ce/pull/56" target="_blank" rel="noopener noreferrer" aria-label="#56 (opens in a new tab)">#56<span className="new-tab-indicator" aria-hidden="true">↗</span></a>
+- Prepare RepoPrompt CE 1.0.5 release — @provencher · <a href="https://github.com/repoprompt/repoprompt-ce/pull/63" target="_blank" rel="noopener noreferrer" aria-label="#63 (opens in a new tab)">#63<span className="new-tab-indicator" aria-hidden="true">↗</span></a>
+**[Full Changelog for 1.0.5](https://github.com/repoprompt/repoprompt-ce/compare/v1.0.4...v1.0.5)**
+
+### 1.0.4 - June 3, 2026
+
+**What's Changed**
+- Prepare RepoPrompt CE 1.0.4 release — @provencher · <a href="https://github.com/repoprompt/repoprompt-ce/pull/55" target="_blank" rel="noopener noreferrer" aria-label="#55 (opens in a new tab)">#55<span className="new-tab-indicator" aria-hidden="true">↗</span></a>
+- Harden signed test build workflow — @baron · <a href="https://github.com/repoprompt/repoprompt-ce/pull/45" target="_blank" rel="noopener noreferrer" aria-label="#45 (opens in a new tab)">#45<span className="new-tab-indicator" aria-hidden="true">↗</span></a>
+- Improve native Web Search tool cards — @HomunculusLabs · <a href="https://github.com/repoprompt/repoprompt-ce/pull/50" target="_blank" rel="noopener noreferrer" aria-label="#50 (opens in a new tab)">#50<span className="new-tab-indicator" aria-hidden="true">↗</span></a>
+- Fix `scripts/doctor.sh` SDK version detection — @strickvl · <a href="https://github.com/repoprompt/repoprompt-ce/pull/53" target="_blank" rel="noopener noreferrer" aria-label="#53 (opens in a new tab)">#53<span className="new-tab-indicator" aria-hidden="true">↗</span></a>
+
+**New Contributors**
+- baron made their first contribution.
+- HomunculusLabs made their first contribution.
+- strickvl made their first contribution.
+
+**[Full Changelog for 1.0.4](https://github.com/repoprompt/repoprompt-ce/compare/v1.0.3...v1.0.4)**
+
+### 1.0.3 - June 2, 2026
+
+**What's Changed**
+- Prepare RepoPrompt CE 1.0.3 release — @provencher · <a href="https://github.com/repoprompt/repoprompt-ce/pull/43" target="_blank" rel="noopener noreferrer" aria-label="#43 (opens in a new tab)">#43<span className="new-tab-indicator" aria-hidden="true">↗</span></a>
+- docs(readme): document debug signing setup — @aAtila · <a href="https://github.com/repoprompt/repoprompt-ce/pull/36" target="_blank" rel="noopener noreferrer" aria-label="#36 (opens in a new tab)">#36<span className="new-tab-indicator" aria-hidden="true">↗</span></a>
+
+**New Contributors**
+- aAtila made their first contribution.
+
+**[Full Changelog for 1.0.3](https://github.com/repoprompt/repoprompt-ce/compare/v1.0.2...v1.0.3)**
+
+### 1.0.2 - June 2, 2026
+
+**What's Changed**
+- Harden workspace file mutation paths — @provencher · <a href="https://github.com/repoprompt/repoprompt-ce/pull/39" target="_blank" rel="noopener noreferrer" aria-label="#39 (opens in a new tab)">#39<span className="new-tab-indicator" aria-hidden="true">↗</span></a>
+- Default-enable Codex goal support — @najibninaba · <a href="https://github.com/repoprompt/repoprompt-ce/pull/33" target="_blank" rel="noopener noreferrer" aria-label="#33 (opens in a new tab)">#33<span className="new-tab-indicator" aria-hidden="true">↗</span></a>
+- Harden OSS release validation — @provencher · <a href="https://github.com/repoprompt/repoprompt-ce/pull/40" target="_blank" rel="noopener noreferrer" aria-label="#40 (opens in a new tab)">#40<span className="new-tab-indicator" aria-hidden="true">↗</span></a>
+- Prepare RepoPrompt CE 1.0.2 release — @provencher · <a href="https://github.com/repoprompt/repoprompt-ce/pull/41" target="_blank" rel="noopener noreferrer" aria-label="#41 (opens in a new tab)">#41<span className="new-tab-indicator" aria-hidden="true">↗</span></a>
+
+**[Full Changelog for 1.0.2](https://github.com/repoprompt/repoprompt-ce/compare/v1.0.1...v1.0.2)**
+
+### 1.0.0 - June 1, 2026
+
+# RepoPrompt CE 1.0.0
+
+RepoPrompt CE is a native macOS app for orchestrating coding agents with a focus on context engineering.
+
+It builds an agent harness around an MCP server, giving you a shared place to prepare repository context, connect compatible CLI agents, run focused tasks, and inspect the work they produce. The goal is simple: make it easier to give agents the right context and keep multi-step engineering work understandable.
+
+**Highlights**
 
 - Native macOS workspace for context engineering and agent orchestration.
 - MCP-based harness for integrating compatible CLI agents.
@@ -704,8 +876,10 @@ Highlights
 - Public Sparkle update channel for signed, notarized releases.
 - Fully open source and free to use.
 
-First Public Release
+**Install The App**
 
-- Starts a new `1.0.0` version line with its own bundle identifier, signing setup, and update channel.
+Download `RepoPrompt-1.0.0-1.dmg`, open it, and install `RepoPrompt CE.app` in your Applications folder.
 
-</details>
+**First Public Release**
+
+This is the first RepoPrompt CE release. It starts a new `1.0.0` version line with its own bundle identifier, signing setup, and update channel.

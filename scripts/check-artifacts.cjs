@@ -25,6 +25,21 @@ function findResponsiveImages(pages) {
   return pages.flatMap((html) => tags(html, 'img')).filter((image) => image.src?.includes('/assets/ideal-img/'));
 }
 
+function assertResponsiveImageCandidate(candidate, config, directory) {
+  const url = candidate.split(' ')[0];
+  // Webpack can inline the native source of small screenshots in srcset.
+  // These images have no filesystem path or deployment base path.
+  if (url.startsWith('data:')) {
+    assert.match(url, /^data:image\/(?:png|jpeg|gif|webp);base64,[A-Za-z0-9+/]+={0,2}$/, 'Invalid inline responsive image');
+    return;
+  }
+  const resolved = new URL(url, config.url);
+  assert.equal(resolved.origin, new URL(config.url).origin, 'External responsive image');
+  const pathname = resolved.pathname;
+  assert.ok(pathname.startsWith(config.baseUrl), 'Image escaped the configured base path');
+  assert.ok(fs.existsSync(path.join(directory, decodeURIComponent(pathname.slice(config.baseUrl.length)))), `Missing responsive image ${pathname}`);
+}
+
 function assertSearchResultRoute(result, version, routes, config) {
   const url = new URL(result.u, config.url);
   assert.equal(url.origin, new URL(config.url).origin, `External search result for ${version}: ${result.u}`);
@@ -131,16 +146,14 @@ async function main() {
       assert.ok((image.alt?.trim() || (image.alt === '' && reviewed.has(name))) && image.srcset, `Markdown ideal-image alt text or srcset missing: ${image.src}`);
       assert.equal(image.loading, 'lazy', `Image is not lazy-loaded: ${image.src}`);
       for (const candidate of image.srcset.split(', ')) {
-        const pathname = new URL(candidate.split(' ')[0], config.url).pathname;
-        assert.ok(pathname.startsWith(config.baseUrl), 'Image escaped the configured base path');
-        assert.ok(fs.existsSync(path.join(directory, decodeURIComponent(pathname.slice(config.baseUrl.length)))), `Missing responsive image ${pathname}`);
+        assertResponsiveImageCandidate(candidate, config, directory);
       }
     }
   }
   console.log('Artifact QA passed: no Twitter metadata, SEO retained, routes/redirects intact, local search results valid when enabled, clean LLM exports, lazy responsive Markdown images.');
 }
 
-module.exports = {tags, assertNoTwitter, findResponsiveImages, assertSearchResultRoute};
+module.exports = {tags, assertNoTwitter, findResponsiveImages, assertSearchResultRoute, assertResponsiveImageCandidate};
 if (require.main === module) {
   main().catch((error) => {
     console.error(error);

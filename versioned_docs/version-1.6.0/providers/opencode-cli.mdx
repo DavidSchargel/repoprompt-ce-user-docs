@@ -1,0 +1,23 @@
+---
+title: "OpenCode CLI"
+slug: "/providers/opencode-cli"
+description: "Connect OpenCode's ACP runtime and discover models from the providers configured in OpenCode."
+---
+
+OpenCode CLI connects coding sessions through Agent Client Protocol (ACP). The app may label it **OpenCode**. Its available models come from the providers configured in OpenCode, which can differ from the direct API connections configured in RepoPrompt.
+
+## Connect and authenticate
+
+Make the `opencode` runtime available and configure the intended providers in OpenCode. Authenticate there as needed, for example with `opencode auth login`. Open [OpenCode CLI settings](../settings/agent-mode/cli-providers.mdx#opencode-cli), choose **Connect**, and inspect the discovered-model summary.
+
+**Test Connection** rechecks access. Signing out in RepoPrompt clears its connection and cached availability; manage OpenCode's credentials through OpenCode itself.
+
+## Models and capabilities
+
+RepoPrompt discovers the runtime's model choices and supported parameters. Use the current picker rather than copying model IDs from another connection. [Models](./models.mdx) explains why provider aliases, effort parameters, and direct API models are not interchangeable.
+
+Interactive sessions use ACP and provider tools alongside RepoPrompt's integration. Headless discovery uses a separate managed tool configuration. The provider's [ACP Session Mode controls](../settings/agent-mode/cli-providers.mdx#opencode-cli) govern approval behavior for supported requests; do not assume that another provider's sandbox or MCP switches have identical effects here.
+
+## Account and usage
+
+The upstream providers configured in OpenCode determine authentication, model availability, quotas, and charges. Some configurations can offer free access, but RepoPrompt does not establish the terms of that access. Review the provider route selected in OpenCode when comparing usage or troubleshooting a missing model.

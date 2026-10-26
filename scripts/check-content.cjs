@@ -2,6 +2,7 @@ const fs = require('node:fs');
 const path = require('node:path');
 const assert = require('node:assert/strict');
 const {readDocs} = require('./doc-inventory.cjs');
+const remarkDocMoves = require('../plugins/remark-doc-moves.cjs');
 // These title-and-icon crops repeat the page heading and have no additional content.
 // Keep empty alt text limited to this reviewed set of decorative settings images.
 // Approval follows reviewed bytes, not a release number. New or changed images
@@ -48,12 +49,12 @@ async function main() {
   const {default: frontmatter} = await import('remark-frontmatter');
   const {default: gfm} = await import('remark-gfm');
   const {default: GithubSlugger} = await import('github-slugger');
-  const plugins = [frontmatter, gfm];
+  const plugins = [frontmatter, gfm, remarkDocMoves];
   const docs = new Map();
   const walk = (node, fn) => { fn(node); (node.children || []).forEach(child => walk(child, fn)); };
   assert.equal(new Set(entries.map(entry => entry.route)).size, entries.length, 'Duplicate document route');
   for (const entry of entries) {
-    await compile(entry.content, {remarkPlugins: plugins});
+    await compile({value: entry.content, path: path.join(root, entry.destination)}, {remarkPlugins: plugins});
     const tree = createProcessor({remarkPlugins: plugins}).parse(entry.content);
     const ids = new Set(), slugger = new GithubSlugger();
     walk(tree, node => {
@@ -68,8 +69,9 @@ async function main() {
   for (const [file, doc] of docs) walk(doc.tree, node => {
     assertImageAlt(node, file);
     if (!['link', 'image', 'definition'].includes(node.type)) return;
-    if (/^[a-z][\w+.-]*:|^\/\//i.test(node.url)) return;
-    const [base, anchor] = node.url.split('#');
+    const url = remarkDocMoves.resolveMovedDocLink(path.join(root, file), node.url);
+    if (/^[a-z][\w+.-]*:|^\/\//i.test(url)) return;
+    const [base, anchor] = url.split('#');
     if (base.startsWith('/')) return; // Public routes are checked by the production build.
     const resolved = base ? path.posix.normalize(path.posix.join(path.posix.dirname(file), decodeURIComponent(base))) : file;
     assert.ok(fs.existsSync(path.join(root, resolved)), `${file}: broken link ${node.url}`);

@@ -1,4 +1,5 @@
 const remarkIdealImages = require('./plugins/remark-ideal-images.cjs');
+const remarkDocMoves = require('./plugins/remark-doc-moves.cjs');
 const docVersions = require('./versions.json');
 // versions.json is ordered newest first; Classic keeps its published archive route.
 const currentCEVersion = docVersions[0];
@@ -55,6 +56,7 @@ module.exports = {
       docs: {
         sidebarPath: require.resolve('./sidebars.js'),
         remarkPlugins: [remarkIdealImages],
+        beforeDefaultRemarkPlugins: [remarkDocMoves],
         routeBasePath: 'docs',
         includeCurrentVersion: false,
         lastVersion: currentCEVersion,
@@ -73,6 +75,7 @@ module.exports = {
         require.resolve('./src/css/responsive-tables.css'),
         require.resolve('./src/css/code-blocks.css'),
         require.resolve('./src/css/settings.css'),
+        require.resolve('./src/css/typography.css'),
         require.resolve('./src/css/navbar.css'),
       ]},
       sitemap: {changefreq: 'weekly', priority: 0.5, ignorePatterns: ['**/privacy/**', '**/terms/**']},
@@ -101,11 +104,19 @@ module.exports = {
       docsDir: llmDocsDirectories,
     }],
     ['docusaurus-plugin-copy-page-button', {enabledActions: ['copy'], placement: 'article'}],
-    ['@docusaurus/plugin-ideal-image', {quality: 85, min: 320, max: 1600, steps: 4, disableInDev: false}],
+    ['@docusaurus/plugin-ideal-image', {
+      quality: 85,
+      // The loader clamps each size to the source width without upscaling.
+      // Include native dimensions even for captures wider than 1600 pixels.
+      sizes: [320, 640, 960, 1600, 2560, Number.MAX_SAFE_INTEGER],
+      disableInDev: false,
+    }],
     ['@docusaurus/plugin-client-redirects', {
       redirects: [
         {from: ['/claim', '/unsubscribe', '/appcast', '/pricing', '/roadmap', '/prompt-anatomy'], to: '/'},
         {from: '/documentation', to: '/docs/'},
+        {from: ['/docs/agent-mode/sessions', '/docs/sessions'], to: '/docs/sessions/overview/'},
+        {from: ['/docs/agent-mode/providers', '/docs/providers'], to: '/docs/providers/overview/'},
         {from: '/privacy-policy', to: '/privacy/'},
         {from: '/terms-and-conditions', to: '/terms/'},
       ],
@@ -144,7 +155,7 @@ module.exports = {
       title: 'RepoPrompt',
       items: [
         {to: '/', label: 'Home', position: 'left', exact: true},
-        {type: 'docSidebar', sidebarId: 'docsSidebar', label: 'Docs', position: 'left'},
+        {to: '/docs/', label: 'Docs', position: 'left'},
         {to: '/blog/', label: 'Blog', position: 'left'},
         {href: 'https://github.com/repoprompt/repoprompt-ce', label: 'RepoPrompt CE on GitHub', position: 'right', className: 'header-github-link'},
         {type: 'search', position: 'right'},
