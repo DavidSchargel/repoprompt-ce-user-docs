@@ -38,6 +38,50 @@ function loadJsx(file, dependencies, globals = {}) {
   return exports.default;
 }
 
+test('blog post Intro preserves content metadata and precedes existing TOC entries', () => {
+  const React = require('react');
+  const {renderToStaticMarkup} = require('react-dom/server');
+  let received;
+  const BlogPostPage = loadJsx(path.join(__dirname, '../src/theme/BlogPostPage/index.js'), {
+    react: React,
+    '@theme-original/BlogPostPage': (props) => {
+      received = props;
+      return React.createElement(props.content, {message: 'Original article'});
+    },
+  });
+  for (const toc of [[], [{value: 'Details', id: 'details', level: 3}]]) {
+    const Content = ({message}) => React.createElement('p', null, message);
+    Object.assign(Content, {
+      toc,
+      frontMatter: {toc_min_heading_level: 3},
+      metadata: {title: 'Article'},
+      assets: {image: '/cover.png'},
+    });
+    const sidebar = {items: []};
+    const html = renderToStaticMarkup(React.createElement(BlogPostPage, {content: Content, sidebar}));
+    assert.match(html, /Original article/);
+    assert.equal(received.sidebar, sidebar);
+    for (const key of ['metadata', 'assets', 'frontMatter']) assert.equal(received.content[key], Content[key]);
+    assert.deepEqual(JSON.parse(JSON.stringify(received.content.toc)), [{value: 'Intro', id: 'blog-post-intro', level: 3}, ...toc]);
+    assert.equal(Content.toc, toc);
+    assert.notEqual(received.content.toc, toc);
+  }
+});
+
+test('blog post Intro target is focusable and absent from listing articles', () => {
+  const React = require('react');
+  const {renderToStaticMarkup} = require('react-dom/server');
+  let isBlogPostPage = true;
+  const Container = loadJsx(path.join(__dirname, '../src/theme/BlogPostItem/Container/index.js'), {
+    react: React,
+    '@docusaurus/plugin-content-blog/client': {useBlogPost: () => ({isBlogPostPage})},
+  });
+  const render = () => renderToStaticMarkup(React.createElement(Container, {className: 'post'}, 'Article'));
+  assert.match(render(), /<article id="blog-post-intro" tabindex="-1" class="post">Article<\/article>/);
+  isBlogPostPage = false;
+  assert.equal(render(), '<article class="post">Article</article>');
+});
+
 test('MDX receives the responsive image adapter through the real MDX provider', async () => {
   const React = require('react');
   const mdx = await import('@mdx-js/react');
