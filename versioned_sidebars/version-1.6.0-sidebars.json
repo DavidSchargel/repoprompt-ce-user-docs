@@ -225,7 +225,7 @@
       "label": "FAQ",
       "className": "sidebar-cat-puzzle",
       "items": [
-        "faq/what-is-repo-prompt",
+        "faq/what-is-an-oracle",
         "faq/paid-version",
         "faq/pay-for-services",
         "faq/api-keys",
