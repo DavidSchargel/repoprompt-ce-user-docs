@@ -145,7 +145,7 @@ module.exports = {
       title: 'RepoPrompt',
       items: [
         {to: '/', label: 'Home', position: 'left', exact: true},
-        {type: 'docSidebar', sidebarId: 'docsSidebar', label: 'Docs', position: 'left'},
+        {to: '/docs/', label: 'Docs', position: 'left'},
         {to: '/blog/', label: 'Blog', position: 'left'},
         {href: 'https://github.com/repoprompt/repoprompt-ce', label: 'RepoPrompt CE on GitHub', position: 'right', className: 'header-github-link'},
         {type: 'search', position: 'right'},

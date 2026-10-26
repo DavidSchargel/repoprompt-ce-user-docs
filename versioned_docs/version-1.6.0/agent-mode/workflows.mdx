@@ -129,6 +129,16 @@ The Oracle's strength is *context density*. Rather than working from whatever ha
 - **During /rp-refactor:** Understanding dependencies and usage patterns before proposing changes
 - **Mid-implementation:** When the agent needs to understand how something works before editing it
 
+### Multi-Oracle Rosters (Parallel Second Opinions)
+
+You are not limited to a single reasoning model. In **Settings → Agent Mode → Agent Models**, you can configure an **Oracle Roster** comprising 1 Primary Oracle plus up to 4 additional models (up to 5 models total). 
+
+When an agent calls `ask_oracle` or an MCP client invokes `oracle_send`, RepoPrompt queries all roster models in parallel against the exact same curated context package. Responses return the primary analysis alongside `<additional_oracle_perspectives>` with automated reconciliation guidance:
+- Where models agree, your agent proceeds with higher confidence.
+- Where recommendations diverge, the agent evaluates the trade-offs against the codebase rather than blindly following a single model's blind spots.
+
+For named configurations exposed through MCP, see [Oracle Model Presets](../settings/mcp-server/model-presets.mdx).
+
 ## Customizing Workflows
 
 You can toggle built-in workflows on or off, clone them as starting points for your own, or create entirely new ones from scratch. Open the **Configure...** option at the bottom of the Workflow dropdown to manage your workflow list.

@@ -71,7 +71,7 @@ Once the selection is curated, RepoPrompt assembles a clean, deterministic conte
 Depending on the `response_type` requested by the workflow, RepoPrompt also enhances your prompt (rewriting or augmenting vague terms into exact file and symbol names) and performs the handoff:
 
 - **`clarify` (Context-Only Handoff):** Returns the curated selection and clarified prompt directly to your agent (or exports a prompt file) so it can begin working immediately.
-- **`plan`, `review`, or `question` (Oracle Analysis Handoff):** Passes the structured prompt to the **Oracle** — a high-capability reasoning model — which starts with a fresh context window containing zero search noise and returns an architectural plan, code review, or deep answer.
+- **`plan`, `review`, or `question` (Oracle Analysis Handoff):** Passes the structured prompt to the **Oracle** — a high-capability reasoning model (or a configured **Multi-Oracle Roster** evaluating up to 5 models in parallel) — which starts with a fresh context window containing zero search noise and returns an architectural plan, code review, or deep answer. Multi-Oracle rosters include automated reconciliation guidance so agents can weigh differing perspectives.
 
 ---
 

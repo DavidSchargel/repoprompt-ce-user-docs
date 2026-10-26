@@ -36,6 +36,12 @@
   outline-offset: 2px;
 }
 
+/* ── Hide Cosmos theme version badge in docs sidebar ── */
+[class*='sidebarViewport']::after {
+  display: none !important;
+  content: none !important;
+}
+
 /* ── Sidebar icons for standalone doc links (matching cosmos-docusaurus-theme) ── */
 .menu__list-item[class*='sidebar-cat-'] > .menu__link::before {
   content: '';
