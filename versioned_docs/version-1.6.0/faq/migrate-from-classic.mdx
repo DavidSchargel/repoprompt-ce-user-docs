@@ -1,0 +1,55 @@
+---
+title: "How Do I Safely Migrate from Classic to CE?"
+slug: "/faq/migrate-from-classic"
+description: "Move from RepoPrompt Classic to Community Edition while preserving project work, settings, credentials, and a recovery path."
+---
+
+Treat the move as setting up a different application and verifying the workflows you need. CE is the active community codebase, but it is not a feature-for-feature replacement for Classic. Keep your working Classic setup and backups until you have confirmed that CE meets your needs.
+
+## The simple answer: As your favorite AI Harness to do it for you. Or...
+
+## 1. Preserve your work before changing anything
+
+Finish or stop active coding sessions, then back up your project folders, including uncommitted work and local files you need. A Git commit does not preserve ignored files, application settings, or credentials.
+
+Quit Classic before copying its application data. Preserve its installed app, saved workspace data, custom storage location if you use one, and custom prompts or workflow files. Keep a macOS backup that includes the Keychain rather than copying secrets into a plaintext migration note.
+
+Record which features and external clients you rely on. The [Classic documentation archive](../../version-classic-2.1.0/index.md) remains available for reference. Its **Classic 2.1.0** label is an archive label, not necessarily the version of your installed application.
+
+## 2. Install CE and start with one project
+
+Follow [Installation](../overview/installation.mdx) and start with the Stable channel unless you specifically need a Tip change. Keep the Classic installation available while evaluating CE. Check that you launched the intended app before changing settings or reconnecting clients.
+
+Open an existing project folder in CE and create or select a CE workspace. Opening a project references its files; it does not copy them. A coding agent working in that folder can modify the same source files you used with Classic. Choose a [separate worktree](../worktrees/create-and-use.mdx) when you want to isolate trial edits.
+
+Do not replace CE's application-data directory with Classic's directory or assume that copying a preferences file migrates every workspace, conversation, and setting. CE's preference and storage migrations serve specific schemas and application identities; they are not a general guarantee of Classic compatibility.
+
+## 3. Reconnect providers and credentials
+
+Use [Providers & Models](../providers/overview.mdx) to configure the coding runtime and the model connections your workflow needs. Check Oracle and Context Builder choices separately. A working CLI login does not automatically configure direct API access.
+
+If an expected credential is missing, inspect the relevant provider settings. [Credential Recovery](./credential-recovery.mdx) describes the explicit repair flow for known legacy CE Keychain accounts. That flow is not a complete Classic credential import. If it finds no suitable value, authenticate or enter the credential through the provider's current setup controls.
+
+Validate the connection before changing or removing old credentials. Keep legacy values while you still need rollback access; deleting a local key is different from revoking it with the provider.
+
+## 4. Reconnect external tools and review custom prompts
+
+Generate a new MCP configuration from the CE app for each external client. Follow [MCP Setup](../mcp-server/mcp-setup.mdx), rather than reusing Classic executable paths or command examples. Check which integration is enabled, verify the CE connection, and bind the intended project before asking the client to work. Avoid letting Classic and CE sessions edit the same checkout at the same time.
+
+Install the matching CE [workflow skills](../agent-mode/skills.mdx) when needed; connecting MCP alone does not install them. Review custom prompts for old tool names, XML-editing instructions, paths, and assumptions about Classic features.
+
+CE has **Import Prompts** and **Export Prompts** under [Advanced → Saved Prompts](../settings/general/advanced.mdx#saved-prompts). Import requires a compatible format; it is not a whole-application restore. Preserve the original export, inspect imported content, and copy prompt text manually if the old format is unsupported. Recreate the settings you need instead of assuming every old preset has an equivalent.
+
+## 5. Verify a small workflow
+
+Start with a bounded request such as explaining a function without editing files. Confirm the selected provider, project path, returned context, and any usage charges. Then try a small, isolated change and inspect its diff and validation results.
+
+Check the features you actually use: [Context Builder](../sessions/context-builder.mdx), [Oracle](./what-is-an-oracle.mdx), [manual context copying](../sessions/context-composer.mdx), and [approval behavior](../sessions/approvals.mdx). Keep Classic for a workflow you still need if CE does not provide an equivalent.
+
+## 6. Retire the old setup only after verification
+
+Once your normal work succeeds in CE, you can remove obsolete client integrations and decide whether to retain the Classic app. Keep dated backups of its data and exported prompts. Uninstalling an app is not a substitute for checking which configurations and credentials your external tools still use.
+
+If you return to Classic, use its preserved data or backup; do not overwrite it with CE data and assume backward compatibility. Project-file changes remain project changes regardless of which app created them. Review or restore those separately.
+
+CE does not require an old paid license. See [What Happened to the Paid Version?](./paid-version.mdx) for the transition history and [Issue Reporting](./report-issue.mdx) if a reproducible migration problem remains.
