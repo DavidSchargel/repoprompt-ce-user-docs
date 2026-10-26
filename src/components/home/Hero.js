@@ -3,7 +3,6 @@ import Link from '@docusaurus/Link';
 import React from "react";
 import {
   FiArrowDown,
-  FiArrowUpRight,
   FiCheck,
   FiDownload,
   FiGithub,
@@ -75,7 +74,6 @@ function DownloadOptions() {
               >
                 <FaApple aria-hidden="true" />
                 Download Community Edition’s latest release
-                <FiArrowUpRight aria-hidden="true" />
               </a>
               <a
                 href="https://github.com/repoprompt/repoprompt-ce"
@@ -159,7 +157,6 @@ function DownloadOptions() {
             rel="noopener noreferrer"
           >
             Join the Discord community
-            <FiArrowUpRight aria-hidden="true" />
           </a>
         </div>
       </div>

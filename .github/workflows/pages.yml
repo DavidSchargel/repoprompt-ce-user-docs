@@ -48,14 +48,40 @@ jobs:
           PUBLISH_APPROVED: ${{ vars.PUBLISH_APPROVED }}
           LEGAL_TEXT_APPROVED: ${{ vars.LEGAL_TEXT_APPROVED }}
         run: |
+          set -eu
           test "$GITHUB_REF" = refs/heads/main
           test "$PUBLISH_APPROVED" = true
           test "$LEGAL_TEXT_APPROVED" = true
           test -n "$PAGES_OWNER"
           test -n "$PAGES_REPOSITORY"
           test "$PAGES_OWNER/$PAGES_REPOSITORY" = "$GITHUB_REPOSITORY"
-      - run: pnpm install --frozen-lockfile
-      - run: pnpm run build
+          node <<'NODE'
+          const origin = new URL(process.env.SITE_URL || `https://${process.env.PAGES_OWNER}.github.io`);
+          const hostname = origin.hostname;
+          if (hostname === 'localhost' || hostname.endsWith('.invalid') || hostname === '127.0.0.1') {
+            throw new Error('Publication requires a public SITE_URL, not a local or placeholder origin.');
+          }
+          if (origin.protocol !== 'https:' || origin.pathname !== '/' || origin.search || origin.hash || origin.username || origin.password) {
+            throw new Error('Publication requires SITE_URL to be an HTTPS origin without a path, query, fragment, or credentials.');
+          }
+          console.log(`Publishing site configured for ${origin.origin}`);
+          NODE
+      - name: Install locked dependencies
+        run: pnpm install --frozen-lockfile
+      - name: Validate root and project URL layouts
+        env:
+          SITE_URL: https://example.invalid
+          SITE_INDEXABLE: 'false'
+          ALGOLIA_APP_ID: ''
+          ALGOLIA_SEARCH_API_KEY: ''
+          ALGOLIA_INDEX_NAME: ''
+        run: |
+          for base_url in / /repoprompt-ce-user-docs/; do
+            SITE_BASE_URL="$base_url" pnpm run build
+          done
+      # Restore the repository-configured artifact after the validation builds.
+      - name: Build configured site
+        run: pnpm run build
       - name: Configure Pages
         if: github.event_name == 'workflow_dispatch' && inputs.publish
         uses: actions/configure-pages@983d7736d9b0ae728b81ab479565c72886d7745b # v5

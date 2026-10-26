@@ -2,10 +2,52 @@ h4 {
   font-size: 1.125rem;
 }
 
+.blog-list-page article header h2 {
+  font-size: 1.75rem;
+  line-height: 1.3;
+}
+
+.blog-list-page .blog-post-list-item {
+  margin-bottom: 2.25rem;
+}
+
+.blog-list-page article .markdown > :last-child {
+  margin-bottom: 0;
+}
+
+.blog-list-page article > footer {
+  margin-top: 1rem !important;
+}
+
+.blog-post-page #blog-post-intro {
+  scroll-margin-top: calc(var(--ifm-navbar-height) + 0.5rem);
+}
+
+/* Cosmos matches both the tag list item and its link; style only the link. */
+.blog-wrapper li[class*="tag_"] {
+  border: 0;
+  padding: 0;
+  background: transparent;
+}
+
 .new-tab-indicator {
   display: inline-block;
   margin-inline-start: 0.12em;
   font-size: 0.7em;
   line-height: 1;
   vertical-align: super;
+}
+
+/* Keep the new-tab warning in the accessible name without displaying it. */
+[data-external-link-notice] {
+  position: absolute !important;
+  width: 1px !important;
+  height: 1px !important;
+  padding: 0 !important;
+  margin: -1px !important;
+  overflow: hidden !important;
+  clip: rect(0, 0, 0, 0) !important;
+  clip-path: inset(50%) !important;
+  white-space: nowrap !important;
+  border: 0 !important;
 }

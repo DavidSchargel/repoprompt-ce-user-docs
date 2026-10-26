@@ -1,58 +1,34 @@
 <!--
-Use this template for documentation and Docusaurus website changes.
-Read CONTRIBUTING.md, AGENTS.md, and docs/runbooks/content-and-media.md first.
-Keep the description brief for small corrections; remove optional sections and
-checklist items that do not apply. Explain any checks you could not complete.
+Keep this brief. See CONTRIBUTING.md for requirements and local checks.
+App fixes and features belong at https://github.com/repoprompt/repoprompt-ce.
 -->
 
-Application changes, including app bug fixes and new features, belong in the
-[RepoPrompt CE repository](https://github.com/repoprompt/repoprompt-ce).
-This repository accepts changes to the documentation and its Docusaurus website.
+## What changed?
 
-## Summary and reader benefit
-
-<!-- Explain what was wrong or missing, what changed, and how this helps readers.
-For a substantial rewrite, new section, or site feature, link the issue where
-the scope was discussed before implementation. -->
-
-## Affected pages and versions
-
-<!-- List the page URLs or source paths and documentation versions affected.
-For app workflows, identify the RepoPrompt version used to verify the steps.
-For shared site changes, describe the affected components or routes. -->
-
-## Related issues and references
-
-<!-- Optional. Use "Closes #123" only when this fully resolves an issue here.
-Link related application issues, release notes, or source evidence with full URLs.
-Identify any dependency on another PR or release. -->
+<!-- Explain the change and how it helps readers. Mention affected pages/versions
+and link a related issue, if applicable. -->
 
 ## Validation
 
-<!-- Describe what you checked and the results, including anything not run and why.
-`pnpm run build` runs the tests and content checks, builds Docusaurus, and checks
-generated artifacts. The checks can also be run individually while iterating:
-  pnpm test
-  pnpm run check:content
-Preview changed pages with `pnpm start`. Verify instructions and examples against
-the app when applicable. For site behavior changes, describe reproduction steps
-and relevant automated checks. -->
+<!-- Describe checks and results, or explain what you couldn't check.
 
-## Screenshots or preview
+Local checks:
+  pnpm run build — runs tests, content checks, the site build, and artifact checks.
+  pnpm test / pnpm run check:content — focused checks while editing.
+  pnpm start — preview changed pages, links, images, and formatting.
 
-<!-- For visible site changes, include before/after screenshots or a preview URL
-with review steps. Check narrow and wide screens in light and dark themes.
-Describe important differences in text. Remove this section for prose-only edits.
-Use sample data and remove credentials and private information. -->
+For app instructions, verify steps and examples and note the app version used.
+
+For visible site changes, include before/after screenshots and check narrow/wide
+screens, light/dark themes, keyboard access, and visible focus. -->
 
 ## Review checklist
 
-<!-- Check completed items. Remove items that do not apply instead of checking
-them as if tested. Note any remaining work in the validation section above. -->
+<!-- Check completed items; remove those that don't apply.
+Explain any remaining work in Validation above. -->
 
-- [ ] Instructions match available app behavior and use the app's actual labels; examples have been verified.
-- [ ] Markdown/MDX renders correctly, including headings, code blocks, images, and admonitions.
-- [ ] Links and anchors work; sidebar entries and redirects are updated for added, moved, or renamed pages.
-- [ ] Accessibility meets WCAG 2.2 AA for the affected content or UI, including meaningful alt text, descriptive links, keyboard access, visible focus, and contrast as applicable.
-- [ ] Changes target the intended documentation version; Classic 2.1.0 archives and generated `build/` and `.docusaurus/` files are untouched.
-- [ ] Added or updated dependencies have been reviewed for license, copyright, and bundled-asset changes; `THIRD_PARTY_NOTICES.md`, `NOTICE`, and `ThirdPartyLicenses/` are updated where attribution changed. Other third-party material retains its source and license attribution.
+- [ ] Instructions use the app's actual labels and match verified behavior.
+- [ ] Content renders correctly; links, anchors, navigation, and redirects work.
+- [ ] Affected content or UI meets WCAG 2.2 AA, including alt text, descriptive links, keyboard access, visible focus, and contrast as applicable.
+- [ ] Changes target the intended documentation version; older versions, Classic 2.1.0 archives, and generated files are untouched.
+- [ ] Third-party material retains attribution. Dependency changes have been reviewed for license, copyright, and bundled assets; required notices are updated in `THIRD_PARTY_NOTICES.md`, `NOTICE`, and `ThirdPartyLicenses/`.

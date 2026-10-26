@@ -2,19 +2,17 @@ import React, {useEffect, useRef} from 'react';
 import OriginalNavbarMobileSidebar from '@theme-original/Navbar/MobileSidebar';
 import {useNavbarMobileSidebar} from '@docusaurus/theme-common/internal';
 import {useLocation} from '@docusaurus/router';
-import useBaseUrl from '@docusaurus/useBaseUrl';
 
 export default function NavbarMobileSidebar(props) {
   const {shown, toggle} = useNavbarMobileSidebar();
   const {pathname} = useLocation();
-  const homeUrl = useBaseUrl('/');
   const shownRef = useRef(shown);
   const pathnameRef = useRef(pathname);
   shownRef.current = shown;
   pathnameRef.current = pathname;
 
   useEffect(() => {
-    if (!shown || (pathname !== homeUrl && pathname !== homeUrl.replace(/\/$/, ''))) return undefined;
+    if (!shown) return undefined;
     const sidebar = document.querySelector('.navbar-sidebar');
     const trigger = document.querySelector('.navbar__toggle');
     if (!sidebar) return undefined;
@@ -86,7 +84,7 @@ export default function NavbarMobileSidebar(props) {
         trigger.focus({preventScroll: true});
       }
     };
-  }, [shown, toggle, pathname, homeUrl]);
+  }, [shown, toggle, pathname]);
 
   return <OriginalNavbarMobileSidebar {...props} />;
 }
