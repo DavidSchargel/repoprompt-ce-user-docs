@@ -9,7 +9,7 @@ toc_min_heading_level: 2
 toc_max_heading_level: 4
 ---
 
-RepoPrompt's MCP server uses secure local UNIX sockets for communication between external clients and the main application. All traffic stays local to your machine with no network ports exposed.
+RepoPrompt's app-backed MCP bridge uses local UNIX sockets between the CLI bridge and the main application, with no MCP TCP listener exposed by this path. This describes the local transport, not every action a tool can perform: configured coding runtimes, Oracle, and Context Builder can contact external AI services.
 
 ## How It Works
 
