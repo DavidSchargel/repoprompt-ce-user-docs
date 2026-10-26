@@ -41,7 +41,7 @@ Modern coding agents optimize for _convenience_: you type a one-line prompt, and
 
 Frontier models advertise massive context windows (200,000 to 1,000,000+ tokens), but empirical research and production benchmarks show a sharp gap between an **advertised context window** and an **effective context window**:
 
-- **The 64k–128k Sweet Spot:** Most frontier models reason reliably inside the **64,000 to 128,000 token** range. Beyond that threshold, reasoning quality degrades proportionally to context length — a phenomenon known as **context rot**.
+- **The 64k–128k Sweet Spot:** As of fall of 2026, most frontier models reason quite reliably inside the **64,000 to 128,000 token** range for agentic coding. Beyond that threshold, reasoning quality degrades proportionally to context length — a phenomenon known as **context rot**. Providers train LLMs with exceptionally long context windows that helps various applications, but coding is not one of them.
 - **Attention Dilution & "Lost in the Middle":** Transformer attention follows a U-shaped curve. Models attend strongly to tokens at the very beginning and very end of the prompt, while accuracy drops significantly (often by 30% or more) for constraints and code buried in the middle.
 - **Burning the Budget on Orientation:** When an unguided agent starts a task, its context window is already loaded with harness system prompts, tool JSON schemas, and project rules (`AGENTS.md` / `CLAUDE.md`). It then spends 20 to 40 turns running `grep` and reading unrelated files just to orient itself. By the time the agent finishes **orientation**, its context window is already past the effective reasoning sweet spot — forcing it to design and implement the solution with degraded intelligence.
 
