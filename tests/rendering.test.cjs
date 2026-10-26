@@ -79,7 +79,9 @@ test('blog post Intro target is focusable and absent from listing articles', () 
   const render = () => renderToStaticMarkup(React.createElement(Container, {className: 'post'}, 'Article'));
   assert.match(render(), /<article id="blog-post-intro" tabindex="-1" class="post">Article<\/article>/);
   isBlogPostPage = false;
-  assert.equal(render(), '<article class="post">Article</article>');
+  assert.equal(render(), '<article class="blog-post-list-item post">Article</article>');
+  const listing = renderToStaticMarkup(React.createElement(Container, {className: 'margin-bottom--xl post'}, 'Article'));
+  assert.equal(listing, '<article class="blog-post-list-item post">Article</article>');
 });
 
 test('MDX receives the responsive image adapter through the real MDX provider', async () => {
