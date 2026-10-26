@@ -1,12 +1,16 @@
 {
   "docsSidebar": [
     "overview",
+    "why-repoprompt",
     {
       "type": "category",
       "label": "Overview",
       "className": "sidebar-cat-rocket",
       "items": [
-        "overview/installation"
+        "overview/installation",
+        "overview/getting-started",
+        "overview/how-it-works",
+        "overview/how-it-really-works"
       ]
     },
     {

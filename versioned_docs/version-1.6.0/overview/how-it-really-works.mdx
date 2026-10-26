@@ -1,0 +1,318 @@
+---
+id: "how-it-really-works"
+title: "How It (Really) Works"
+description: "An under-the-hood architectural deep dive into how RepoPrompt CE solves context rot, tool bloat, multi-turn compaction, LLM limitations, and diff-only code review blindness."
+slug: "/overview/how-it-really-works"
+keywords:
+  [
+    "how it really works",
+    "advanced context engineering",
+    "context over convenience",
+    "effective context window",
+    "lost in the middle",
+    "compaction",
+    "self_compact",
+    "model context",
+    "tool context",
+    "multi-turn agents",
+    "oversight",
+    "auto-wake",
+    "multi-oracle",
+    "code review",
+    "fast path",
+    "when not to use",
+  ]
+hide_table_of_contents: false
+toc_min_heading_level: 2
+toc_max_heading_level: 4
+---
+
+In [How It Works](./how-it-works.mdx), we introduced the three-stage **Explore → Curate → Handoff** pipeline, and in [Why RepoPrompt](../why-repoprompt.mdx), we outlined the top failure modes of standard coding agents. This page goes under the hood of the RepoPrompt Community Edition source code to explain *why* standard AI coding workflows break down on real production repositories — and the exact mechanisms RepoPrompt implements to solve those failure modes.
+
+Here's our "Secret Sauce" with a deep, deep dive into why senior software engineers are using RepoPrompt.
+
+---
+
+## 1. Reliable, Useful Results ("Context Over Convenience")
+
+Modern coding agents optimize for _convenience_: you type a one-line prompt, and the agent immediately starts running shell commands and editing files. On small scripts, this feels magical. On real codebases, raw convenience is the primary cause of hallucinated APIs, architectural drift, and broken edge cases.
+
+### The "Agent Orientation" Problem & Effective Context Windows
+
+Frontier models advertise massive context windows (200,000 to 1,000,000+ tokens), but empirical research and production benchmarks show a sharp gap between an **advertised context window** and an **effective context window**:
+
+- **The 64k–128k Sweet Spot:** Most frontier models reason reliably inside the **64,000 to 128,000 token** range. Beyond that threshold, reasoning quality degrades proportionally to context length — a phenomenon known as **context rot**.
+- **Attention Dilution & "Lost in the Middle":** Transformer attention follows a U-shaped curve. Models attend strongly to tokens at the very beginning and very end of the prompt, while accuracy drops significantly (often by 30% or more) for constraints and code buried in the middle.
+- **Burning the Budget on Orientation:** When an unguided agent starts a task, its context window is already loaded with harness system prompts, tool JSON schemas, and project rules (`AGENTS.md` / `CLAUDE.md`). It then spends 20 to 40 turns running `grep` and reading unrelated files just to orient itself. By the time the agent finishes **orientation**, its context window is already past the effective reasoning sweet spot — forcing it to design and implement the solution with degraded intelligence.
+
+### How RepoPrompt Solves It in Code
+
+RepoPrompt enforces a **Context Over Convenience** architecture:
+
+1. **Strict Token Budgeting (`ContextBuilderSettingsValues.swift`):** Context Builder enforces configurable token targets (`analysisTokenBudget = 120,000` tokens by default when generating a plan, review, or answer; `contextTokenBudget = 160,000` tokens for context-only packaging, adjustable across `40,000...200,000` tokens) and automatically reserves `1,500` tokens for wrapper metadata (`adjustedBudget = max(0, runBehavior.tokenBudget - 1500)`). Most complex problems in large repositories fit cleanly inside ~120k tokens when properly curated.
+2. **Non-Opinionated Discovery (`SystemPromptService.discoverPrompt`):** If a discovery agent forms an opinion about _how_ to solve the bug while searching, it will only select files that support its first guess. RepoPrompt's discovery system prompt explicitly instructs the discovery agent to remain factual and non-opinionated:
+   > _"Don't assume a solution: Select context that enables different approaches, not just your imagined solution."_
+3. **100% Reasoning on the First Turn:** By delegating orientation to the Discovery Agent and handing only the curated result to the Oracle or implementation agent, the reasoning model spends 100% of its effective attention budget solving the problem rather than hunting for files.
+
+---
+
+## 2. Advanced Context Engineering
+
+Basic prompt engineering asks _"How should I phrase my instructions?"_ **Advanced Context Engineering** asks _"What exact structural representation of the repository should occupy the model's working memory on this turn?"_
+
+In RepoPrompt's codebase (`PromptAssemblyBuilder.swift` and `PromptPackagingService.swift`), context is assembled as a deterministic, multi-layered artifact rather than an append-only chat log:
+
+### Multi-Resolution Code Representation
+
+Through `PromptPackagingService.generatePartitionedFileBlocks`, RepoPrompt partitions selected workspace files into two structural zones — `<file_map>` and `<file_contents>` — using three levels of granularity:
+
+| Representation                                                       | How RepoPrompt Renders It                                                                                                                                                                                             | Token Engineering Purpose                                                                                                      |
+| :------------------------------------------------------------------- | :-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | :----------------------------------------------------------------------------------------------------------------------------- |
+| **Directory Tree + Code Maps** (`<file_map>`)                        | `combinedFileMapContent` merges the ASCII file tree (`+` marks files with Code Maps) with Tree-sitter structural extractions (`CodeMapService`) showing types, method signatures, and `uses`/`used_by` relationships. | Gives the model a bird's-eye architectural map of the subsystem at roughly 5–10% of the token cost of full source files.       |
+| **Auto-Codemap Dependency Graph** (`WorkspaceCodemapSelectionGraph`) | When you or an agent select files in `full` or `slices` mode, `WorkspaceCodemapBindingEngine` automatically attaches Code Maps for referenced dependency files.                                                       | Prevents hallucinated function calls or parameter mismatches on neighboring modules without manual selection.                  |
+| **Line Slices & Full Files** (`<file_contents>`)                     | `SliceAssemblyBuilder` and `renderSliceFileBlock` extract specific line ranges (with `Lines start-end (description)` headers and `...` separators), while core edit targets are included in full.                     | Eliminates hundreds of lines of irrelevant boilerplate from large files while preserving exact line numbers for `apply_edits`. |
+
+### Instruction Sandwiching (`PromptAssemblyBuilder.swift`)
+
+To counter the U-shaped **"Lost in the Middle"** attention curve across 60k–160k token prompts, `PromptAssemblyBuilder` orders sections deterministically:
+
+1. **File Tree & Code Maps** (`.fileMap`)
+2. **File Contents & Slices** (`.fileContents`)
+3. **Git Diffs** (`.gitDiff`)
+4. **Meta Prompts** (`.metaPrompts`)
+5. **User Instructions** (`.userInstructions`)
+
+When **Duplicate User Instructions at Top** (`prompt_packaging.duplicate_user_instructions_at_top`) is enabled, `PromptAssemblyBuilder.build()` emits `<user_instructions>` at the **very beginning** of the assembled payload _and_ again at the **very end**. Even when 100,000 tokens of source code sit in the middle, both peaks of the transformer's attention curve remain anchored to your exact requirements.
+
+### Structured Prompt Enhancement & Load-Bearing Clarification
+
+Before handoff, Context Builder can transform rough prompts via `PromptEnhancementMode` (`SystemPromptService.promptSection`):
+
+- **`Rewrite` (`.fullRewrite`, default):** Replaces vague instructions with a structured specification containing `<task>`, `<architecture>`, `<selected_context>`, `<relationships>`, and `<ambiguities>`, plus a `<taskname="..."/>` tag used to automatically title the Compose tab.
+- **`Augment` (`.augment`):** Preserves your original wording verbatim and appends a `<discovered_architecture>` block mapping selected files, relationships, patterns, and open ambiguities.
+- **`Preserve` (`.preserve`):** Modifies only the file selection and leaves the prompt text untouched.
+
+Similarly, in the Agent Mode composer, the built-in **Re-prompter** (`AgentRepromptGuidance.swift` and `AgentRepromptStreamParser.swift`) structures rough notes into `Objective`, `Requirements & Constraints`, `Relevant Context`, and `Validation / Done Criteria` without inventing unverified repository facts — and if a critical product decision is missing, it surfaces **at most one load-bearing question** (`<<<REPROMPT_QUESTIONS_V2>>>`) before execution begins.
+
+---
+
+## 3. Model Context vs. Tool Context
+
+A critical distinction in modern agent engineering is the separation between **Model Context** and **Tool Context**:
+
+- **Model Context** is the curated working memory of the problem: system instructions, architectural plans, relevant source files, type signatures, and diffs.
+- **Tool Context** is the operational residue of tool use: MCP JSON schemas injected into the system prompt (**schema bloat**) and the raw stdout/stderr logs, search hits, and file dumps returned by dozens of tool calls (**response bloat**).
+
+When Tool Context and Model Context share the same buffer, every failed search and 500-line file inspection permanently pollutes the model's reasoning space and invalidates prompt caches.
+
+### How RepoPrompt Separates Them
+
+1. **Selection Is the Single Source of Truth for the Oracle:** When an agent consults the Oracle (`ask_oracle` or `oracle_send`), the Oracle **never** receives the coding agent's messy tool-call transcript. It receives _only_ the curated workspace selection (`manage_selection`) and the Oracle conversation history.
+2. **Fast-Lane Auto-Selection (`MCPReadFileAutoSelectionCoordinator.swift`):** In Agent Mode, whenever the coding agent calls `read_file` or `file_search`, `MCPReadFileAutoSelectionCoordinator` records a lightweight selection intent (`.full` or `.slices`) on a non-blocking fast lane. The moment an explicit consumer (`ask_oracle`, `workspace_context`, or `manage_selection`) runs, RepoPrompt drains the high-water mark (`drainThroughGeneration`) so the Oracle's Model Context automatically includes every file and slice the agent inspected — without carrying over the agent's intermediate search commands.
+3. **Suppressing Redundant Native CLI Tools (`ClaudeCompatibleToolPolicy` & `CLIPathInstaller.swift`):**
+   - The `claude-rpce` wrapper (`CLIPathInstaller.swift`) launches Claude Code with `--strict-mcp-config` and `--disallowedTools Read,Write,Edit,Glob,Grep`, forcing all file navigation and editing through RepoPrompt's token-efficient MCP tools.
+   - Inside integrated Agent Mode (`ClaudeCodeIntegrationConfiguration.swift`), RepoPrompt disallows native `Write`, `Edit`, `Glob`, `Grep`, `Agent`, `Task`, `EnterWorktree`, and related native tools. Native `Read` is retained in Agent Mode **strictly for non-text binary assets** (images, screenshots, PDFs), while all text and source code reads are routed through `RepoPrompt__read_file`.
+   - During Context Builder discovery (`discoverDisallowedTools`), `Bash` and native `Read` are also disallowed so the discovery agent stays strictly inside read-only RepoPrompt MCP primitives.
+4. **Preloaded Tools vs. Lazy Tool Loading (`ClaudeAgentToolPreferences.swift`):** By default, RepoPrompt preloads its compact 21-tool catalog (`claudeCodeToolSearchEnabled = false`, setting `ENABLE_TOOL_SEARCH="false"`) so agents do not burn extra turns discovering tools; users who connect many third-party MCP servers can toggle **Lazy Tool Loading** on in Settings to defer schema loading.
+5. **Configurable System Prompt Delivery (`ClaudeCodePromptDelivery.swift`):** Because different models and tasks respond differently to system-level vs. user-level framing, Claude Code CLI settings expose **Sys Prompt Packaging** (`Replace System Prompt`, `User Message (Keep Native)` wrapped in `<claude_code_instructions>`, or `User Message (No Native)`).
+
+---
+
+## 4. Agents Operating Over Multiple Turns and Longer Time Horizons
+
+Single-session coding agents degrade over long time horizons (30+ turns) because errors compound: a slight misunderstanding in turn 5 becomes a broken interface in turn 20 and a failing test suite in turn 35.
+
+RepoPrompt enables multi-hour, long-horizon engineering through **delegation-first orchestration** and a **cross-session oversight control plane**.
+
+### Coordinator vs. Worker Separation (`/rp-orchestrate`)
+
+In `WorkflowPrompt+Orchestrate.swift` and `docs/architecture/agent-orchestration-guidance.md`, the orchestrator is strictly a **Coordinator**:
+
+- **Right-Sized Sub-Agent Work Items:** Anything spanning more than ~30 lines or touching more than 2 files is delegated to a fresh sub-agent (`agent_run op="start"`). The ideal sub-agent task touches **1–4 files**, addresses **one coherent concern**, and has explicit acceptance criteria.
+- **Fresh Context Per Work Item:** Each worker sub-agent starts with a clean context window, reads the exported architectural plan (`Plan.md`), completes its scoped files, and returns a concise summary. When the worker finishes, its 30 turns of implementation tool calls are discarded rather than polluting the orchestrator.
+- **The Phase Gate Invariant:** Parallel sub-agents are instructed **not** to run full-repository builds or test suites concurrently (which causes build-lock contention and noisy failures). Instead, workers complete their scoped edits, and the orchestrator runs the build and test gate **once at the phase boundary**.
+- **Anti-Interference Rule:** While a delegated sub-agent is running, the orchestrator is forbidden from calling `steer` to hurry it or editing overlapping files in the same scope.
+
+### Capability-Scoped Control Plane (`AgentModeMCPToolPolicy.swift`)
+
+To prevent runaway recursive agent spawning, `AgentModeMCPToolPolicy` enforces strict hierarchy boundaries:
+
+- Top-level sessions can spawn sub-agents (`agent_run`) and read-only reconnaissance scouts (`agent_explore`) and monitor them in parallel with `session_ids` **multi-wait**.
+- Nested sub-agents have `agent_run`, `agent_manage`, `agent_session_link`, `session_admin`, and `become_overseer` withheld by default.
+- For cross-window and multi-session administration, a session can request promotion via `become_overseer` or a user-approved **Delegation Scope** (`DomainDelegationScopeAuthority` / `session_admin`), where every authority check verifies live consent, generation counters, and provenance-based membership proofs (`DelegationMembershipProjector`) before allowing an overseer to inspect, steer, bind worktrees, or retire sibling sessions.
+
+### Event-Driven Auto-Wake & Snooze (`AgentModeViewModel+OversightAutoWake.swift`)
+
+When an overseer monitors long-running target sessions via `agent_session_link`, it does not need to burn tokens polling in a loop. RepoPrompt implements an event-driven **Auto-Wake** subsystem divided across four disjoint state owners:
+
+1. **Link Authority (`DomainAgentSessionLinkAuthority`):** Manages user-granted directional links, leases, and cursors.
+2. **Passive Reducer (`AgentSessionLinkPassiveStatusNotices`):** Coalesces target status transitions and non-lossy attention requests.
+3. **Claim / Receipt Context (`AgentSessionLinkPromptContext`):** Freezes the exact `<repoprompt_oversight_updates>` XML batch delivered to the provider.
+4. **Wake Coordinator (`AgentModeViewModel+SessionLinkAutoWake`):** Determines whether an idle overseer tab may start an automatic follow-up turn right now.
+
+Two subtle concurrency invariants in the source code keep long-horizon oversight reliable:
+
+- **Snooze Suppresses Admission, Never Delivery:** While an overseer is actively blocked inside an `agent_session_link(op="wait")` call, RepoPrompt records a snooze for those `(overseer, target)` pairs so the wait return itself delivers the update without triggering a duplicate auto-wake turn. However, any notice _already admitted_ to the queue is never filtered out at drain time — ensuring no child completion or question is ever silently stranded.
+- **The `.cancelledBeforeDispatch` Tombstone Fence:** If you send a manual chat message to the overseer while an asynchronous auto-wake `Task` is already scheduled, your message synchronously drains the queued oversight updates and attaches them inline. RepoPrompt writes a `.cancelledBeforeDispatch(generation)` tombstone into `pendingDispatchByOverseer` so the already-scheduled background task wakes up, sees the tombstone, and exits cleanly without firing a duplicate turn.
+
+---
+
+## 5. Compaction (and Preventing "Compaction Amnesia")
+
+As a multi-turn session approaches its context limit, coding agents use **compaction** — summarizing the conversation history so the session can continue.
+
+### Why Naive Compaction Fails
+
+In standard coding agents, compaction triggers automatically when a token buffer hits an arbitrary threshold (often right in the middle of debugging a failing test). Standard summarizers suffer from two well-documented failure modes:
+
+1. **Loss of Side Constraints:** Summarizers focus on _what was done_ and frequently drop negative constraints given earlier (such as _"do not modify the public auth signature"_ or _"keep backwards compatibility with v1"_), causing post-compaction agents to immediately violate project rules.
+2. **Loss of File & Architectural Detail:** Compaction strips raw file contents and earlier Oracle design discussions from the transcript, forcing the agent to re-read files or guess at architectural decisions it made 40 turns ago.
+
+### RepoPrompt's Four-Part Compaction Architecture
+
+RepoPrompt replaces blind threshold truncation with four coordinated mechanisms implemented under `Sources/RepoPrompt/Features/AgentMode/Runtime/SelfCompact/` and `MCPOracleToolService.swift`:
+
+#### 1. Agent-Initiated Self-Compaction (`self_compact` / `agent_self`)
+
+Instead of compacting mid-thought, an Agent Mode session can call `self_compact`:
+
+- `op="context"` inspects its own current context load and compaction state.
+- `op="compact"` schedules native compaction at a clean task boundary and records a structured continuation `note` (capped at **10% of the session's context window** in tokens × 4 UTF-8 bytes/token, or **65,536 bytes**, with a SHA digest integrity check).
+- Calling `op="compact"` returns `scheduled` immediately (`AgentSelfCompactInstantReturn.swift`) and instructs the agent to finish its current turn cleanly. Compaction runs **only** after the active turn settles with `.completed` (never after `.failed`), supervised by a **300-second monotonic deadline** (`AgentSelfCompactNativeCompletionCoordinator.swift`).
+
+#### 2. Dedicated Continuation-Note Turn (`AgentSelfCompactNoteEnvelope.swift`)
+
+Once the underlying provider finishes its native compaction (`/compact` in Claude Code or `thread/compact/start` in Codex), RepoPrompt does not inject the saved note as a system log (which many providers ignore) or a normal user prompt (which the model would misinterpret as a new command from you). Instead, `AgentSelfCompactNoteEnvelope` dispatches a dedicated continuation turn that bypasses workflow wrappers and prompt augmentation:
+
+```xml
+<repoprompt_self_compact_note>
+This is your own continuation note, recorded before this session was compacted. It is not a new instruction from the user.
+</repoprompt_self_compact_note>
+<note>
+{agent's saved architectural state, side constraints, and next steps}
+</note>
+```
+
+If the session closes before the note turn can be delivered, `AgentSelfCompactParkedPrefix.reparkUnattemptedDedicatedNote` re-parks and persists the note so it is never lost.
+
+#### 3. Post-Compaction Oracle Recovery (`oracle_chat_log`)
+
+Because the Oracle conversation lives in RepoPrompt's workspace state outside the coding agent's compacted transcript, `SystemPromptService.agentModePrompt` equips the agent with `oracle_chat_log` (reading 1–50 recent Oracle messages without sending a new turn):
+
+> _"After compaction: Call `oracle_chat_log` with `limit:1` to read the Oracle's most recent message, then continue with `ask_oracle` (`new_chat:false`) to pick up where you left off."_
+
+#### 4. Session Handoff Extraction (`agent_manage op="extract_handoff"`)
+
+When a session has completed a major phase and you want to start fresh in a new tab or provider without carrying _any_ compacted residue, `extract_handoff` (`AgentHandoffOutputFile.swift` and `AgentProviderContextBuilder.swift`) exports a structured `<forked_session>` XML package containing curated instructions (up to 20,000 characters), bounded transcript items, and the active file selection (or a token-capped `<selection_summary>`).
+
+---
+
+## 6. Variations and Limitations of Large Language Models (LLMs)
+
+Not all frontier LLMs think, plan, or use tools the same way. Treating every model as interchangeable leads to frustrating results.
+
+### Interleaved Tool Use vs. "Think-Then-Act" Consensus
+
+A fundamental architectural difference separates today's frontier model families:
+
+- **Interleaved Tool-Use Models (e.g., Anthropic Claude Sonnet / Opus, Codex CLI models):** These models are trained to interleave short bursts of reasoning with iterative tool calls (`read_file` → think → `apply_edits` → run test). They excel as hands-on **Discovery Agents** and **Implementation Engineers**.
+- **Deep "Think-Then-Act" Reasoning Models (e.g., OpenAI GPT-5 Pro / o-series high-effort models, DeepSeek R1, Gemini Pro):** These models achieve their breakthrough reasoning accuracy when given complete context upfront and allowed to think uninterrupted before producing a synthesized response. In multi-strand architectures (like GPT-5 Pro, which runs parallel reasoning strands and reconciles them into a consensus answer), forcing the model to call file-editing tools _inside_ its chain of thought means only a single un-reconciled strand acts, throwing away the consensus wisdom of the ensemble.
+
+RepoPrompt's architecture is built around this exact split: **tool-native CLI agents** handle repository exploration and code edits, while the **tool-less Oracle** receives the complete curated context in a single payload to perform deep, uninterrupted architectural planning and review.
+
+### Role-Based Model Specialization (`AgentRole` in `ClaudeCodeAgentConfig.swift`)
+
+Rather than using one expensive, slow model for trivial searches or a small, fast model for complex architecture, RepoPrompt maps tasks to four canonical sub-agent roles:
+
+| Role           | Default Cognitive Profile                                                                  | Primary Responsibility                                                                                                        |
+| :------------- | :----------------------------------------------------------------------------------------- | :---------------------------------------------------------------------------------------------------------------------------- |
+| **`explore`**  | Fast, low-latency, cost-efficient (e.g., Claude Haiku 4.5, GPT-5.3 Codex Spark / 5.4 Mini) | Read-only codebase reconnaissance, path/content search, and dependency scouting.                                              |
+| **`engineer`** | High-accuracy coding & tool use (e.g., Claude Sonnet 4.6, GPT-5.3 Codex High)              | Scoped, multi-file feature implementation and refactoring from an established plan.                                           |
+| **`pair`**     | Frontier interactive reasoning (e.g., Claude Opus 4.6, GPT-5.4 / 5.5 High)                 | Default role for `agent_run` when `model_id` is omitted; handles orchestration, deep debugging, and complex pair programming. |
+| **`design`**   | Frontier specification & critique (e.g., Claude Opus 4.6, GPT-5.4 High)                    | Produces and critiques architectural plans and design documents under `docs/`.                                                |
+
+Each built-in workflow automatically selects its optimal role (`RepoPromptBuiltInAgentWorkflow.preferredAgentRole`): for example, `investigate` defaults to `.explore`, `build`/`refactor`/`review`/`optimize` default to `.engineer`, `orchestrate`/`deepPlan` default to `.pair`, and `oracleExport` defaults to `.design`.
+
+### Multi-Oracle Rosters & Reconciliation (`SystemPromptService.multiOracleGuidanceBlock`)
+
+Even the strongest single reasoning model has blind spots. In **Settings → Agent Mode → Agent Models**, you can configure **1 Primary Oracle** plus up to **4 Additional Oracles** (`OracleGroupStore`).
+
+When an agent calls `ask_oracle` or `oracle_send`, RepoPrompt queries every model in the roster in parallel and returns the primary answer alongside `<additional_oracle_perspectives>`. RepoPrompt injects explicit reconciliation rules (`multiOracleGuidanceBlock`) into the calling agent:
+
+- Where perspectives **agree**, proceed with higher confidence.
+- Where perspectives **diverge**, evaluate the trade-offs against the actual codebase rather than blindly following either model.
+- If a secondary Oracle surfaces a **risk or edge case** the primary model missed, investigate it in the code before proceeding.
+
+### Adaptive Routing, Auto Effort, & Local Usage Balancing
+
+Through [Model Router](../settings/router/model-router.mdx), RepoPrompt can dynamically select the base model and reasoning effort per task (using a decision service such as TypeSafe Jev with a strict 5-second non-retried deadline), while **Usage Balancing** stays 100% local on your Mac to shift eligible new tasks across your connected Claude and Codex subscriptions (`Only near limits`, `Even pace`, or `Use expiring quota first`) so you don't burn through one provider's weekly quota prematurely.
+
+---
+
+## 7. Code Reviews: Diff-Only vs. Codebase-Context Reviews
+
+Most AI pull-request reviewers operate in **Diff-Only Mode**: they send your `git diff` patch to an LLM and ask _"Find bugs in this diff."_
+
+### Why Diff-Only Reviews Fail
+
+A raw diff shows _what lines changed_, but hides _how the rest of the repository interacts with those lines_:
+
+- **False Negatives (Missed Breakage):** If a commit changes a function's return behavior or deletes a fallback branch, a diff-only reviewer cannot see the five callers in other modules that depended on the old contract.
+- **False Positives (Hallucinated Bugs):** Diff-only reviewers frequently complain about "missing null checks" or "unvalidated inputs" that are already guaranteed by an upstream caller one hop outside the diff.
+
+### How RepoPrompt Implements Codebase-Context Reviews
+
+RepoPrompt's review pipeline (`WorkflowPrompt+Review.swift`, `SystemPromptService.reviewPrompt`, and `GitDiffPrimaryArtifacts.swift`) grounds every code review in the surrounding architecture:
+
+1. **Worktree-Aware Git Inspection (`git` tool):** Supports `status`, `diff`, `log`, `show`, and `blame` across uncommitted changes, staged changes, commit ranges (`back:N`), and merge-base branch comparisons (`main`, `trunk`, `@main:<branch>`) with native Git worktree and Jujutsu (`jj`) support.
+2. **Materialized Selectable Diff Artifacts (`GitDiffPrimaryArtifacts.swift`):** When `git(op="diff", artifacts=true)` runs (automatically triggered by `context_builder(response_type="review")`), `GitDiffSnapshotStore` writes structured diff artifacts into `_git_data/<snapshotDir>/`:
+   - `MAP.txt` — A summary map of all modified files and line-change counts.
+   - `all.patch` — The combined patch artifact.
+   - `diff/per-file/NNN-<slug>.patch` — Individual per-file patches exposed as selectable workspace paths.
+3. **Outside-Diff Impact Curation (`reviewDiscoveryGuidanceBlock`):** The discovery agent selects the relevant `.patch` artifacts via `manage_selection` **alongside** the full files, line slices, and Code Maps of the modified files, their upstream callers, downstream callees, and test suites.
+4. **Prioritized Contract Evaluation (`SystemPromptService.reviewPrompt`):** The Oracle receives both the exact diff hunks and the surrounding codebase contracts, evaluating **Correctness, Security, API/Contract Breakage, Consistency, and Test Coverage**, and organizing findings into actionable tiers: **Must Fix**, **Should Fix**, **Consider**, and **Positive Notes**.
+
+---
+
+## 8. When RepoPrompt Would Not Be Helpful
+
+Engineering tools are defined as much by when _not_ to use them as by when to use them. Because Context Builder discovery, Oracle consultation, and multi-agent orchestration take extra time and tokens to run, RepoPrompt explicitly encodes **Fast Paths** and stop rules directly in its system and workflow prompts (`SystemPromptService.swift`, `WorkflowPrompt+Build.swift`, `WorkflowPrompt+Investigate.swift`, and `WorkflowPrompt+Orchestrate.swift`).
+
+Here is when full RepoPrompt workflows or Context Builder pipelines are **not** helpful — and what to do instead:
+
+### 1. Localized, Obvious 1–3 File Edits (Use the Fast Path)
+
+If you already know which file needs to change, the edit is confined to **1–3 files**, and there are no architectural unknowns (for example, fixing a typo, adding a straightforward prop to a React component, or updating a single validation regex), running `context_builder` and consulting an Oracle adds unnecessary latency.
+
+- **How RepoPrompt handles this:** Both `/rp-build` (`WorkflowPrompt+Build.swift`) and `/rp-investigate` (`WorkflowPrompt+Investigate.swift`) include an explicit **Phase 1 Fast Path** rule: when the target is localized (1–3 files) and unambiguous, the agent is instructed to **skip `context_builder`, `agent_explore`, and Oracle planning**, read the target file directly with `read_file`, and apply the change with `apply_edits`.
+
+### 2. Micro-Tasks Under ~30 Lines (Skip Sub-Agent Orchestration)
+
+Spawning a sub-agent (`agent_run op="start"`) requires spinning up a new session, reading the plan file, and reporting back.
+
+- **How RepoPrompt handles this:** `WorkflowPrompt+Orchestrate.swift` defines explicit **Sub-Agent Sizing Heuristics**: if a change is **under ~30 lines and touches ≤ 2 files** (such as a single-line fix or a simple symbol rename), the agent should execute it directly or batch it with related work rather than delegating to a sub-agent.
+
+### 3. Routine Turn-by-Turn Agent Exploration (Skip Automatic `context_builder`)
+
+If you are already in the middle of an interactive coding session and ask a quick follow-up question about a file you are looking at, launching a full two-stage `context_builder` discovery sub-agent is overkill.
+
+- **How RepoPrompt handles this:** Section 3 of `SystemPromptService.agentModePrompt` (`Context Builder — Disabled Unless Explicitly Requested`) explicitly instructs Agent Mode sessions **not** to invoke `context_builder` on routine turns unless you ask for it by name or select a workflow that requires it. Instead, the agent uses lightweight direct calls (`get_file_tree`, `file_search`, `get_code_structure`, `read_file`) that return in milliseconds.
+
+### 4. Standalone Scripts, LeetCode-Style Puzzles, or Zero-Context Tasks
+
+RepoPrompt is an architectural context engine for multi-file repositories. If you are writing a self-contained 50-line Python script from scratch, solving an isolated algorithm puzzle, or drafting prose with no codebase dependencies, there are no cross-file contracts, call graphs, or Code Maps to curate — a direct chat with your model is faster and simpler.
+
+---
+
+## Summary Matrix: Problem vs. RepoPrompt Architecture
+
+| Failure Mode in Standard Agents     | Root Cause                                                                                        | RepoPrompt CE Architectural Solution                                                                                                                                                                          |
+| :---------------------------------- | :------------------------------------------------------------------------------------------------ | :------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| **Context Rot & Hallucinations**    | Agent burns 40+ turns of its 64k–128k effective context window on `grep` and dead-end file reads. | **Non-opinionated Discovery Agent** curates a 120k-token budgeted selection before the reasoning model starts (`ContextBuilderSettingsValues.swift`).                                                         |
+| **"Lost in the Middle" Forgetting** | Transformer attention drops in the middle of long prompts, losing user constraints.               | **Instruction Sandwiching** (`PromptAssemblyBuilder.swift`) duplicates `<user_instructions>` at the top and bottom of the packaged prompt, paired with Tree-sitter **Code Maps** and **Line Slices**.         |
+| **MCP & Tool Context Bloat**        | Verbose tool schemas and raw stdout logs permanently clutter the model's working memory.          | **Model vs. Tool Context Separation**: Oracle sees only `manage_selection`; `MCPReadFileAutoSelectionCoordinator` syncs reads asynchronously; `ClaudeCompatibleToolPolicy` blocks redundant native CLI tools. |
+| **Multi-Turn Drift on Large Tasks** | A single session accumulates conflicting edits and test noise over dozens of turns.               | **Coordinator / Worker Split** (`/rp-orchestrate`), **Phase Gate Invariant**, capability-scoped sub-agents (`AgentModeMCPToolPolicy`), and event-driven **Oversight Auto-Wake**.                              |
+| **Compaction Amnesia**              | Automatic mid-task truncation drops negative side constraints and architectural context.          | **Intentional `self_compact`** at turn boundaries, dedicated `<repoprompt_self_compact_note>` delivery, `oracle_chat_log` recovery, and `<forked_session>` handoffs.                                          |
+| **Single-Model Blind Spots**        | Forcing think-then-act models to edit mid-thought, or relying on one model for every task.        | **Tool-less Oracle** paired with tool-native agents, **4 Agent Roles** (`explore`, `engineer`, `pair`, `design`), **Multi-Oracle Rosters** (up to 5 models in parallel), and local **Usage Balancing**.       |
+| **Diff-Only Review Blindness**      | Reviewing a git patch in isolation misses broken upstream callers and downstream contracts.       | **Selectable Diff Artifacts** (`_git_data/.../MAP.txt`, `all.patch`, per-file patches) combined with curated caller/callee context in `context_builder(response_type="review")`.                              |
+| **Over-Engineering Simple Edits**   | Running heavy discovery and multi-agent orchestration on a 2-file bug fix wastes time.            | Built-in **Fast Path** gates in `/rp-build` and `/rp-investigate` (≤ 3 files), **~30-line threshold** in `/rp-orchestrate`, and disabled-by-default `context_builder` on routine turns.                       |
