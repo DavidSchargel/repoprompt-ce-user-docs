@@ -46,6 +46,7 @@ module.exports = {
   clientModules: [
     require.resolve('./src/clientModules/legacyHashRedirect.js'),
     require.resolve('./src/clientModules/externalLinks.js'),
+    require.resolve('./src/clientModules/imageZoom.js'),
   ],
   noIndex: process.env.SITE_INDEXABLE !== 'true',
   future: {v4: true},
@@ -78,6 +79,7 @@ module.exports = {
         require.resolve('./src/css/responsive-tables.css'),
         require.resolve('./src/css/code-blocks.css'),
         require.resolve('./src/css/settings.css'),
+        require.resolve('./src/css/accessibility.css'),
         require.resolve('./src/css/typography.css'),
         require.resolve('./src/css/navbar.css'),
       ]},
@@ -98,7 +100,6 @@ module.exports = {
   ],
   plugins: [
     require.resolve('./plugins/seo-policy.cjs'),
-    'docusaurus-plugin-image-zoom',
     ['docusaurus-plugin-llms', {
       generateLLMsTxt: true,
       generateLLMsFullTxt: true,
@@ -106,7 +107,11 @@ module.exports = {
       excludeImports: true,
       docsDir: llmDocsDirectories,
     }],
-    ['docusaurus-plugin-copy-page-button', {enabledActions: ['copy'], placement: 'article'}],
+    ['docusaurus-plugin-copy-page-button', {
+      enabledActions: ['copy'],
+      placement: 'article',
+      customStyles: {button: {className: 'accessible-copy-page-button'}},
+    }],
     ['@docusaurus/plugin-ideal-image', {
       quality: 85,
       // The loader clamps each size to the source width without upscaling.
@@ -141,13 +146,6 @@ module.exports = {
           {types: ['function', 'class-name'], style: {color: '#8250df'}},
           {types: ['tag', 'selector', 'attr-name', 'inserted'], style: {color: '#116329'}},
         ],
-      },
-    },
-    zoom: {
-      selector: '.markdown img',
-      background: {
-        light: 'rgb(255, 255, 255)',
-        dark: 'rgb(50, 50, 50)',
       },
     },
     image: 'images/blog/repo-prompt-community-edition.png',

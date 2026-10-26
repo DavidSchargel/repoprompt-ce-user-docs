@@ -203,18 +203,19 @@ test('resource checks reject serialized objects and validate relative as well as
   }
 });
 
-test('homepage mobile navigation contains focus and restores background state on close', () => {
+for (const initialPath of ['/', '/docs/', '/blog/', '/project/docs/classic-2.1.0/']) {
+test(`mobile navigation contains focus and restores background on ${initialPath}`, () => {
   const React = require('react');
   let effect;
   let toggles = 0;
   let shown = true;
-  let pathname = '/';
+  let pathname = initialPath;
   let refHook = 0;
   const refs = [];
   const listeners = new Map();
   const sidebarListeners = new Map();
   const attributes = new Map();
-  const document = {activeElement: null, location: {href: 'https://docs.example/'}};
+  const document = {activeElement: null, location: {href: `https://docs.example${initialPath}`}};
   const control = () => ({tabIndex: 0, disabled: false, isConnected: true,
     closest: () => null, getClientRects: () => [{}],
     focus() { document.activeElement = this; },
@@ -248,7 +249,6 @@ test('homepage mobile navigation contains focus and restores background state on
     '@theme-original/Navbar/MobileSidebar': () => null,
     '@docusaurus/theme-common/internal': {useNavbarMobileSidebar: () => ({shown, toggle: () => { toggles++; }})},
     '@docusaurus/router': {useLocation: () => ({pathname})},
-    '@docusaurus/useBaseUrl': () => '/',
   }, {document, requestAnimationFrame: (callback) => { callback(); return 1; }, cancelAnimationFrame() {},
     getComputedStyle: () => ({visibility: 'visible', display: 'block'}),
   });
@@ -273,6 +273,9 @@ test('homepage mobile navigation contains focus and restores background state on
   assert.equal(listeners.size, 0);
   assert.equal(sidebarListeners.size, 0);
   assert.equal(attributes.size, 0);
+
+  pathname = '/';
+  document.location.href = 'https://docs.example/';
 
   const clickLink = (href) => sidebarListeners.get('click')({target: {closest: () => ({href, target: '_self'})}});
 
@@ -302,3 +305,4 @@ test('homepage mobile navigation contains focus and restores background state on
   assert.deepEqual(background.map((element) => element.inert), [false, true]);
   assert.equal(sidebarListeners.size, 0);
 });
+}
