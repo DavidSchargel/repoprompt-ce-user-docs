@@ -55,22 +55,24 @@ brew install --cask repoprompt-ce
 
 :::tip
 
-**Tip:** You can open RepoPrompt from Terminal with `open -a "RepoPrompt" /path/to/folder` or use the URL scheme `repoprompt://open?path=/path/to/folder`
+**Tip:** Use the CE URL scheme `repoprompt-ce://open//Users/example/Project` to open a project, replacing the example with your folder's absolute path. See [URL Opener](../settings/general/advanced.mdx#url-opener) for encoded prompts and other parameters.
 
 :::
 
 ## Updates
 
-RepoPrompt checks for updates automatically. When an update is available, you'll see a notification in the app. You can also manually check via **Settings → Updates**.
+When automatic checks are enabled and the updater is configured, RepoPrompt checks for updates in the background. You can also check manually through **Settings → General → Updates**. See [Software Updates](../settings/general/updates.mdx).
 
 ## Platform Availability
 
-RepoPrompt is built natively with Swift and SwiftUI, which means it's currently macOS-only. Multi-platform support is being worked on by various community members.
+The documented CE desktop app is macOS-only. Open-source portability work does not itself establish an official release for another platform. See [Does RepoPrompt Run on Windows or Linux?](../faq/windows-linux.mdx).
 
 ## Installing Tip Build
 
 Tip Builds are official signed and notarized builds from the latest successful protected `main` commit. They offer development changes before the next Stable release. To install one, open RepoPrompt CE and go to **Settings → General → Updates**. Set **Update Channel** to **Tip Builds**, choose **Check for Updates**, and follow the updater's installation prompts when an eligible build is offered. If you have not installed RepoPrompt CE yet, install and launch the current Stable app using the instructions above, then select the Tip Builds channel.
 
 The selected channel controls which updates the app offers. To return to Stable, change **Update Channel** back to **Stable**. This may require waiting for a newer Stable release; to return immediately, reinstall the Stable application. See [Software Updates](../settings/general/updates.mdx) for more about update checks and channel behavior.
+
+For the tradeoff between channels, see [What Is the Tip Version and Should I Use It?](../faq/tip-version.mdx).
 
 If you want to compile the development source yourself, see [Build Tip code with Xcode](../faq/how-to-build.mdx#build-tip-code-with-xcode). A local Xcode build uses the contributor workflow and is separate from the official signed Tip distribution.

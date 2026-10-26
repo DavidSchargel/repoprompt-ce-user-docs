@@ -1,0 +1,23 @@
+---
+title: "Does RepoPrompt Run on Windows or Linux?"
+slug: "/faq/windows-linux"
+description: "Distinguish the macOS application from source-code portability, CLI integrations, and possible community ports."
+---
+
+The RepoPrompt CE desktop application documented here is a native macOS app. These installation and interface instructions do not describe an official Windows or Linux desktop release.
+
+## Does open source mean it runs on every platform?
+
+No. The application uses macOS interfaces and services. Making source code available lets contributors adapt it, but it does not establish that the complete app builds or behaves the same way on another operating system.
+
+Community experiments and package-level portability work are different from a supported desktop distribution. Check the project's actual release artifacts before treating a port as available. This FAQ does not promise a port or a release date, and the old Classic waitlist is not the installation path for CE.
+
+## Can I use the CLI instead?
+
+The documented app-backed `rpce-cli` and MCP bridge connect to the running macOS app. Installing a client or copying its configuration does not install an equivalent Windows or Linux application. Individual source components can have different requirements from that app-backed workflow.
+
+For macOS installation, see [Installation](../overview/installation.mdx). Building the development source has its own toolchain requirements in [How to Build](./how-to-build.mdx); those are not a universal compatibility statement for every previously published binary.
+
+## Can I help with another platform?
+
+Read [How Can I Contribute?](./contributing.mdx) and the application's contribution policy before proposing a port. A proposal should identify the target platform, which UI and system integrations it replaces, and how it will be maintained and tested.

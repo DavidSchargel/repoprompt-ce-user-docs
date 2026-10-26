@@ -1,0 +1,35 @@
+---
+title: "Why Is My MCP Connection Not Working?"
+slug: "/faq/mcp-troubleshooting"
+description: "Find the right troubleshooting path for missing MCP executables, connection failures, unavailable tools, and wrong workspace bindings."
+---
+
+Start by identifying the symptom. Installing an MCP connection, authenticating a coding runtime, and configuring an Oracle model are separate operations. A failure in one does not necessarily mean the others are broken.
+
+## The client cannot find the executable
+
+Copy configuration from the running CE app using **Quick Setup** or **Settings → MCP Server**. Confirm that the generated command path exists and belongs to the intended release or debug build. Do not reuse a Classic executable path. If the CLI Tools row reports **Needs update**, use **Update**, then reconnect the client.
+
+Follow the [Setup Guide](../mcp-server/mcp-setup.mdx) for installation and a connection check. Installing workflow skills alone does not install the MCP server connection.
+
+## The executable starts, but the client cannot connect
+
+Keep RepoPrompt open and enable MCP access for the intended window. **Active** indicates that the listener and that window's access are ready; **Waiting for listener…** does not. Bring the app forward to inspect any pending connection request, then check **Status Dashboard** and its errors.
+
+The app-backed bridge uses local UNIX sockets. Changing a firewall, VPN, or TCP port is not the first troubleshooting step for this path. See [Transport Modes](../mcp-server/mcp-transport.mdx) and [Connection Management](../mcp-server/mcp-connections.mdx#troubleshooting-connections).
+
+## The client connects, but tools are missing
+
+Check window access and [MCP Tools settings](../settings/mcp-server/tools.mdx). Disabled tools and connection policy affect the advertised list; some tools are available only in eligible session contexts. Reconnect a client that cached an earlier tool list. A connection approval is not a blanket grant for all tools or workspace mutations.
+
+## Tools use the wrong project or conversation
+
+Use `bind_context` with `op="list"` to discover contexts and `op="status"` to inspect the binding. Bind the intended workspace roots or a returned context ID. Switching the visible tab does not reliably replace an explicit connection binding. See [Context Binding](../mcp-server/mcp-connections.mdx#context-binding).
+
+Multiple clients and windows are supported. Diagnose their bindings rather than disconnecting every other client as a general rule.
+
+## Oracle or Context Builder fails after connection
+
+Check the selected model connection, authentication, and provider response. [Agent Models](../settings/agent-mode/agent-models.mdx) configures Oracle and discovery choices; they need not use the same connection. Use the current [Tools Reference](../mcp-server/mcp-tools.mdx), rather than Classic examples for obsolete planning tools.
+
+If the failure persists, record the exact error, app version, client, and a minimal reproduction. Follow [Issue Reporting](./report-issue.mdx); remove credentials and private repository content from shared diagnostics.

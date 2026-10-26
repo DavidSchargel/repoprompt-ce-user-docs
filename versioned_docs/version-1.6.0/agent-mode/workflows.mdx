@@ -70,7 +70,9 @@ Systematic, read-only codebase exploration for debugging and root-cause analysis
 
 ### ChatGPT Export
 
-Builds optimized context for your task using Context Builder (`clarify` mode), verifies selection and token counts, and exports a self-contained markdown prompt file under `prompt-exports/` ready to paste directly into GPT Pro models on ChatGPT (or any external AI) for a second opinion.
+Builds focused context for your task using Context Builder (`clarify` mode), checks selection and token counts, and exports a self-contained Markdown prompt file under `prompt-exports/`. Use it with a model available in ChatGPT or another external AI service for a second opinion; the export does not select or grant access to a model.
+
+See [How Do I Find the ChatGPT Pro Interface?](../faq/chatgpt-pro.mdx) for the browser workflow, account/model distinction, and how to return the analysis to a coding session.
 
 **Flow:** Classify intent → Context Builder (`clarify` mode) → Verify workspace context → Export prompt file to `prompt-exports/`
 

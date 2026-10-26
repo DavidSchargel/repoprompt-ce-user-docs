@@ -225,8 +225,18 @@
       "label": "FAQ",
       "className": "sidebar-cat-puzzle",
       "items": [
+        "faq/what-is-repo-prompt",
+        "faq/paid-version",
         "faq/pay-for-services",
+        "faq/api-keys",
+        "faq/chatgpt-pro",
         "faq/credential-recovery",
+        "faq/mcp-troubleshooting",
+        "faq/windows-linux",
+        "faq/tip-version",
+        "faq/solo-project",
+        "faq/contributing",
+        "faq/report-issue",
         "faq/how-to-build"
       ]
     }

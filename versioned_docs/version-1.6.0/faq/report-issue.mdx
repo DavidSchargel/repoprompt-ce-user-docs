@@ -1,0 +1,32 @@
+---
+title: "How Do I Report an Issue or Submit a Feature Request?"
+slug: "/faq/report-issue"
+description: "Route application bugs, documentation corrections, feature proposals, and private security reports to the appropriate project."
+---
+
+Search for an existing report first. Add useful reproduction details to a matching issue rather than creating duplicates. Then choose the project responsible for the problem.
+
+## Application bugs and feature requests
+
+Use the [RepoPrompt CE application issue tracker](https://github.com/repoprompt/repoprompt-ce/issues). Read its [contribution policy](https://github.com/repoprompt/repoprompt-ce/blob/main/CONTRIBUTING.md) first: the project automatically closes issues from accounts without issue approval. An automatic closure can reflect that gate rather than a decision on the report's technical merits; maintainers may review and reopen worthwhile submissions. Do not assume that opening a public issue bypasses the gate.
+
+For a bug, include:
+
+- The app version/build, Stable or Tip channel, and macOS version.
+- Steps to reproduce, what you expected, and what happened.
+- The affected feature and provider/runtime when relevant.
+- The exact error and a small example or redacted screenshot that demonstrates it.
+
+For a feature request, describe the user problem, the current workaround, and a concrete example of the desired outcome. Explain why the existing workflow does not address it. A request starts a discussion; it does not establish a release commitment.
+
+## Documentation or website problems
+
+Use the [documentation issue tracker](https://github.com/DavidSchargel/repoprompt-ce-user-docs/issues) for incorrect instructions, broken links, confusing explanations, screenshots, and website behavior. Include the page URL, documentation version, and the exact sentence or step. Add browser/device details for a display problem and app-version details for an application instruction.
+
+The documentation repository has its own participation rules; application contributor approval does not automatically describe its process. See [How Can I Contribute?](./contributing.mdx) if you want to submit a correction.
+
+## Security problems and exposed credentials
+
+Report suspected vulnerabilities privately through the affected repository's **Security → Report a vulnerability** flow, following its security policy. Do not put credentials, private project content, or exploit details in a public issue. If private reporting is unavailable, ask a maintainer to enable a private channel without disclosing the sensitive details publicly.
+
+For a connection problem, first try [MCP Troubleshooting](./mcp-troubleshooting.mdx). For a paused coding session, see [Approvals and Paused Sessions](../sessions/approvals.mdx). Community support has no guaranteed response time.
