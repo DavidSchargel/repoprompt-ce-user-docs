@@ -359,7 +359,7 @@ Read and update allowlisted global preferences for appearance, prompt packaging,
 | `group` | `ui`, `prompt_packaging`, `models`, `context_builder`, `mcp`, `code_maps`, `file_system`, `agent_mode`, `notifications`. Filter on list or selector on get. |
 | `key` | Fully-qualified key (e.g. `ui.appearance_mode`). Required on `set`; optional selector on `get`. |
 | `keys` | Array of keys for batch `get`. Mutually exclusive with `key` and `group`. |
-| `value` | Boolean, number, string, null, or the ordered additional-Oracle string array. Validated against the setting's declared type. |
+| `value` | Boolean, number, string, string array, or null, matching the catalog's declared type. The additional Oracle roster is an array; `prompt_packaging.prompt_sections_order` is a string containing a JSON array, not a native array. |
 | `agent` | For options: filter to a supported CLI backend, such as claudeCode or codexExec. |
 | `limit` | For `options`: maximum number of candidates returned (1–200, default 60). |
 | `detailed` | For `options`: include descriptions and model metadata in each candidate. |

@@ -31,10 +31,10 @@ The bridge uses local filesystem-backed IPC and process admission:
 
 ## Connection Management
 
-The MCP dashboard (accessible from the status bar icon) shows all active connections and allows you to:
+Open **Status Dashboard** in **Settings → MCP Server** to inspect connection diagnostics. The current source defines controls to:
 
 - View connected clients and their activity
-- Disconnect specific clients
+- Terminate a specific client using its row's **Terminate this client (CLI will exit)** action
 - Inspect connection and listener errors before changing configuration
 
 ## Automatic Reconnection
@@ -45,7 +45,7 @@ If RepoPrompt restarts or becomes temporarily unavailable, the bridge or client 
 
 - **Connection refused:** Ensure MCP Server is enabled in Settings and RepoPrompt is running
 - **Approval not appearing:** Check that the client is using a compatible version of the CLI
-- **Stale connections:** Use the MCP dashboard to disconnect old sessions
+- **Unwanted client connection:** Inspect its identity in **Status Dashboard**, then use the row's terminate action if you intend to make that client's CLI exit
 
 :::tip
 

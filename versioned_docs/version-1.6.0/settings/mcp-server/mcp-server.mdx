@@ -68,7 +68,7 @@ Each row reports whether its command is installed and offers **Install**, **Upda
 
 ![Collapsed JSON Configuration disclosure](../images/mcp-server-json.png)
 
-Expand **JSON Configuration** to inspect and copy the JSON for an external client's MCP configuration. Use the generated command path: it is designed to remain valid when the app moves or updates. Add the configuration in your client, then connect it to RepoPrompt.
+Expand **JSON Configuration** to inspect and copy the JSON for an external client's MCP configuration. The generated command normally uses a managed link that survives app updates, with a bundled-path fallback. Add the configuration in your client, then connect it to RepoPrompt. If the client cannot find `repoprompt-mcp` after moving the app or switching app builds, copy the configuration again from the intended running app and update the client.
 
 Use [Tools](./tools.mdx) to control individual tool availability. Tool access also remains subject to the target workspace and applicable approval rules.
 

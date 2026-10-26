@@ -42,7 +42,7 @@ The `app_settings` MCP tool lets agents read and write an allowlisted set of Rep
 | `group` | string | `ui`, `prompt_packaging`, `models`, `context_builder`, `mcp`, `code_maps`, `file_system`, `agent_mode`, or `notifications`. Used by `list` and as a selector for `get`. |
 | `key` | string | Fully-qualified key (e.g. `ui.appearance_mode`). Required for `set`; optional selector for `get`. |
 | `keys` | array of string | Multi-key selector for `get`. Mutually exclusive with `key` and `group`. |
-| `value` | boolean, number, string, string array, or null | Required on `set`. Accepted types match the entry's declared `type` in the catalog. The additional Oracle roster uses an array. |
+| `value` | boolean, number, string, string array, or null | Required on `set`. Match the catalog's declared `type`: the additional Oracle roster uses an array, while `prompt_packaging.prompt_sections_order` uses a string containing a JSON array. |
 | `agent` | string | For `options` on model settings: filter candidates to a supported CLI backend, such as `claudeCode` or `codexExec`. |
 | `limit` | integer | For `options`: maximum number of candidates returned (1–200, default 60). |
 | `detailed` | boolean | For `options`: include descriptions and model metadata in each candidate. |
@@ -64,7 +64,7 @@ The allowlist is organized into nine groups so an agent can browse narrowly befo
 
 | Key | Type | Details |
 | --- | --- | --- |
-| `prompt_packaging.prompt_sections_order` | JSON string array | Serialized ordering of prompt sections; must contain each prompt section exactly once. Call `{"op":"list","group":"prompt_packaging"}` first and read the `allowed_items` array for this key to get the canonical list of prompt section raw values before sending `set`. |
+| `prompt_packaging.prompt_sections_order` | string containing a JSON array | The wire value is a string, not a native JSON array. Its decoded array must contain each prompt section exactly once. Call `{"op":"list","group":"prompt_packaging"}` first and read `allowed_items` for the canonical section raw values before sending `set`. |
 | `prompt_packaging.duplicate_user_instructions_at_top` | boolean | Whether user instructions are duplicated at the top of packaged prompts. |
 | `prompt_packaging.file_path_display_option` | string enum | `Full` \| `Relative`. How file paths are displayed in packaged context. |
 | `prompt_packaging.selected_files_sort_method` | string enum | `nameAscending` \| `nameDescending` \| `tokenAscending` \| `tokenDescending`. |
@@ -141,6 +141,16 @@ The registry exposes notification descriptor keys as booleans. Call `{"op":"list
 ## Examples (MCP JSON)
 
 Each example shows the arguments object passed to `app_settings`:
+
+The prompt-section order is JSON encoded inside the string-valued `value`. This example uses the section names declared in the application source; compare them with the running catalog's `allowed_items` before changing the order:
+
+```json
+{
+  "op": "set",
+  "key": "prompt_packaging.prompt_sections_order",
+  "value": "[\"fileMap\",\"fileContents\",\"gitDiff\",\"metaPrompts\",\"userInstructions\"]"
+}
+```
 
 ```text
 // Browse the full catalog (values always included)
