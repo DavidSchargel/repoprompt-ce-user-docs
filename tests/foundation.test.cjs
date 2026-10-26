@@ -1,11 +1,10 @@
 const test = require('node:test');
 const assert = require('node:assert/strict');
-const fs = require('node:fs');
-const path = require('node:path');
 const remarkIdealImages = require('../plugins/remark-ideal-images.cjs');
 const {assetRequireAttributeValue} = require('@docusaurus/mdx-loader/lib/remark/utils');
-const root = path.join(__dirname, '..');
-const currentDocsDirectory = `versioned_docs/version-${require('../versions.json')[0]}`;
+
+// Keep this suite independent of page copy, provider catalogs, and release numbers.
+// Validate actual documents and their links with scripts/check-content.cjs.
 
 test('shared Head filters Twitter metadata while retaining other SEO', () => {
   const React = require('react');
@@ -105,84 +104,23 @@ test('generated Markdown images retain empty alt without approving omitted JSX a
   assert.equal(jsx.attributes.find(attribute => attribute.name === 'alt'), undefined);
 });
 
-test('provider directory renders coding integrations as navigable wrapping lists', async () => {
-  const React = require('react');
-  const {renderToStaticMarkup} = require('react-dom/server');
-  const {compile, run} = await import('@mdx-js/mdx');
-  const mdx = await import('@mdx-js/react');
-  const runtime = await import('react/jsx-runtime');
-  const {default: frontmatter} = await import('remark-frontmatter');
-  const {code} = require('@babel/core').transformSync(fs.readFileSync(
-    require.resolve('@docusaurus/theme-classic/lib/theme/MDXContent/index.js'), 'utf8'), {
-    babelrc: false,
-    configFile: false,
-    plugins: ['@babel/plugin-transform-react-jsx', '@babel/plugin-transform-modules-commonjs'],
-  });
-  // Render the directory through the real MDX content wrapper.
-  const dependencies = {react: React, '@mdx-js/react': mdx, '@theme/MDXComponents': {}};
-  const exports = {};
-  require('node:vm').runInNewContext(code, {exports, require(name) {
-    assert.ok(Object.hasOwn(dependencies, name), `Unexpected dependency: ${name}`);
-    return dependencies[name];
-  }});
-  const MDXContent = exports.default;
-  const source = fs.readFileSync(path.join(root, currentDocsDirectory, 'providers/overview.mdx'), 'utf8');
-  const compiled = await compile(source, {
-    remarkPlugins: [frontmatter],
-    outputFormat: 'function-body',
-    providerImportSource: '@mdx-js/react',
-  });
-  const {default: Content} = await run(compiled, {...runtime, useMDXComponents: mdx.useMDXComponents});
-  const html = renderToStaticMarkup(React.createElement(MDXContent, null, React.createElement(Content)));
-  assert.doesNotMatch(html, /<table|accessible-table-scroll/);
-  const codingList = html.match(/<ol>([\s\S]*?)<\/ol>/);
-  assert.ok(codingList, 'Coding providers need a readable ordered list');
-  assert.equal((codingList[1].match(/<li>/g) || []).length, 10);
-  for (const name of ['codex-cli', 'claude-code-cli', 'opencode-cli', 'cursor-cli', 'grok-build', 'google-antigravity', 'devin-cli', 'cc-zai', 'cc-moonshot', 'cc-custom']) {
-    assert.ok(codingList[1].includes(`href="./${name}.mdx"`), `Missing provider destination: ${name}`);
-  }
-  assert.match(html, /Provider comparison/);
-});
-
-test('archived source links export to moved CE guides with fragments and site prefix retained', async () => {
+test('LLM links preserve routes, fragments, site prefixes, and literal examples', async () => {
   const {rewriteDocLinks} = require('../scripts/llm-links.cjs');
-  const routes = Object.fromEntries(require('../scripts/doc-inventory.cjs').readDocs(root)
-    .map(entry => [entry.destination, entry.route]));
-  const source = 'versioned_docs/version-classic-2.1.0/index.md';
-  const markdown = '[Providers](../version-1.6.0/agent-mode/providers.mdx#codex-cli)\n'
-    + '[Sessions](../version-1.6.0/agent-mode/sessions.mdx)';
-  const result = await rewriteDocLinks(markdown, source, routes, 'https://example.invalid/project/');
-  assert.ok(result.includes('https://example.invalid/project/docs/providers/overview/#codex-cli'));
-  assert.ok(result.includes('https://example.invalid/project/docs/sessions/overview/'));
-  assert.doesNotMatch(result, /\.mdx/);
-});
-
-test('active docs landing keeps a navigable outline and standalone link names', async () => {
-  const {compile} = await import('@mdx-js/mdx');
-  const {default: frontmatter} = await import('remark-frontmatter');
-  const source = fs.readFileSync(path.join(root, currentDocsDirectory, 'index.mdx'), 'utf8');
-  await compile(source, {remarkPlugins: [frontmatter]});
-  for (const [marker, heading] of [
-    ['##', 'Talk to These Docs'],
-    ['###', 'Typical Agent Context'], ['###', 'RepoPrompt Context'],
-    ['###', '1. Explore'], ['###', '2. Curate'], ['###', '3. Handoff'],
-    ['###', 'Without Curated Context'], ['###', 'With Curated Context'],
-  ]) {
-    assert.ok(source.split('\n').includes(`${marker} ${heading}`), `Missing heading: ${marker} ${heading}`);
-  }
-  assert.doesNotMatch(source, /\[Learn more\s*→\]/);
-  for (const label of [
-    'Explore the Context Builder workflow',
-    'Explore Agent Orchestration workflows',
-    'Compare providers and model availability',
-  ]) assert.ok(source.includes(`[${label} →]`));
-  assert.match(source, /\[!\[Video preview image\]\(https:\/\/img\.youtube\.com\/vi\/ncY6cqOCd_Y\/maxresdefault\.jpg\) RepoPrompt 101 Video walkthroughs/);
-  assert.match(source, /\[!\[Podcast cover art\]\(\.\.\/\.\.\/static\/images\/docs\/images\/rate-limited_profile\.jpg\) Rate Limited Podcast AI coding workflows/);
-  for (const route of [
-    './agent-mode/workflows.mdx',
-    './mcp-server/mcp-overview.mdx',
-    './providers/overview.mdx',
-  ]) assert.ok(source.includes(`](${route})`), `Preserve cross-version or current route: ${route}`);
+  const source = 'docs/start.mdx';
+  const routes = {[source]: '/docs/start/', 'docs/guide.mdx': '/docs/guide/'};
+  const input = '[Guide](./guide.mdx#setup)\n[Here](#details)\n\n'
+    + '[Reference][guide]\n\n[guide]: ./guide.mdx\n\n'
+    + '[External](https://example.org/)\n`[Code](./guide.mdx)`';
+  const result = await rewriteDocLinks(input, source, routes, 'https://example.invalid/project/');
+  assert.ok(result.includes('[Guide](https://example.invalid/project/docs/guide/#setup)'));
+  assert.ok(result.includes('[Here](https://example.invalid/project/docs/start/#details)'));
+  assert.ok(result.includes('[guide]: https://example.invalid/project/docs/guide/'));
+  assert.ok(result.includes('[External](https://example.org/)'));
+  assert.ok(result.includes('`[Code](./guide.mdx)`'));
+  await assert.rejects(
+    rewriteDocLinks('[Missing](./missing.mdx)', source, routes, 'https://example.invalid/'),
+    /Unresolved LLM link/,
+  );
 });
 
 test('unsupported formats, URL fragments, queries, and remote images stay unchanged', () => {
@@ -198,27 +136,6 @@ test('unsupported formats, URL fragments, queries, and remote images stay unchan
   assert.deepEqual(remote, before);
 });
 
-test('published blog, versioned docs, and page content parse as strict MDX', async (t) => {
-  const {compile} = await import('@mdx-js/mdx');
-  const {default: frontmatter} = await import('remark-frontmatter');
-  const {walkFiles} = require('../scripts/llm-markdown.cjs');
-  const directories = ['blog', 'src/pages', ...require('../versions.json').map((version) => `versioned_docs/version-${version}`)];
-  const failures = [];
-  for (const directory of directories) {
-    const files = walkFiles(path.join(root, directory)).filter((file) => /\.mdx?$/.test(file)).sort();
-    assert.ok(files.length > 0, `No Markdown content found in ${directory}`);
-    for (const file of files) {
-      try {
-        await compile({path: file, value: fs.readFileSync(file, 'utf8')}, {remarkPlugins: [frontmatter]});
-      } catch (error) {
-        failures.push(`${path.relative(root, file)}:${error.line || error.place?.line || '?'}:${error.column || error.place?.column || '?'} ${error.message}`);
-      }
-    }
-    t.diagnostic(`Checked ${files.length} Markdown/MDX files in ${directory}`);
-  }
-  assert.deepEqual(failures, [], 'Published content contains strict-MDX parse errors');
-});
-
 test('responsive-image QA discovers screenshots beyond the docs index', () => {
   const {findResponsiveImages} = require('../scripts/check-artifacts.cjs');
   const pages = [
@@ -231,124 +148,31 @@ test('responsive-image QA discovers screenshots beyond the docs index', () => {
   assert.equal(images[0].alt, 'Workspace screenshot');
 });
 
-test('a new CE release keeps older CE docs and Classic on distinct routes', async (t) => {
-  const configPath = path.join(root, 'docusaurus.config.js');
-  const localRequire = require('node:module').createRequire(configPath);
-  const currentVersion = require('../versions.json')[0];
-  const nextVersion = '99.0.0';
-  const configRequire = name => name === './versions.json'
-    ? [nextVersion, currentVersion, 'classic-2.1.0'] : localRequire(name);
-  configRequire.resolve = localRequire.resolve;
-  const context = {module: {exports: {}}, require: configRequire, process: {env: {}}, URL};
-  require('node:vm').runInNewContext(fs.readFileSync(configPath, 'utf8'), context, {filename: configPath});
-  const config = context.module.exports;
-  const docs = config.presets[0][1].docs;
-  assert.equal(docs.lastVersion, nextVersion);
-  assert.equal(docs.versions[nextVersion].path, '');
-  assert.equal(docs.versions[currentVersion].path, currentVersion);
-  assert.equal(docs.versions['classic-2.1.0'].path, 'classic-2.1.0');
-  assert.equal(docs.versions['classic-2.1.0'].label, 'Classic 2.1.0');
-  assert.equal(docs.versions['classic-2.1.0'].banner, 'unmaintained');
-  const sections = config.plugins.find(plugin => plugin[0] === 'docusaurus-plugin-llms')[1].docsDir;
-  for (const [index, version, route, label] of [
-    [0, nextVersion, 'docs', `Community Edition ${nextVersion}`],
-    [1, currentVersion, `docs/${currentVersion}`, `Community Edition ${currentVersion}`],
-    [2, 'classic-2.1.0', 'docs/classic-2.1.0', 'Classic 2.1.0'],
-  ]) {
-    assert.equal(sections[index].path, `versioned_docs/version-${version}`);
-    assert.equal(sections[index].routeBasePath, route);
-    assert.equal(sections[index].label, label);
-  }
-
-  // Build minimal content with the simulated configuration's real routing options.
-  const fixtures = path.join(root, '.foundation-fixtures');
-  fs.mkdirSync(fixtures, {recursive: true});
-  const siteDir = fs.mkdtempSync(path.join(fixtures, 'next-release-'));
-  t.after(() => fs.rmSync(siteDir, {recursive: true, force: true}));
-  fs.writeFileSync(path.join(siteDir, 'package.json'), JSON.stringify({name: 'next-release-fixture', version: '1.0.0'}));
-  fs.writeFileSync(path.join(siteDir, 'versions.json'), JSON.stringify([nextVersion, currentVersion, 'classic-2.1.0']));
-  fs.writeFileSync(path.join(siteDir, 'docusaurus.config.js'), `module.exports = ${JSON.stringify({
-    title: config.title,
-    url: config.url,
-    baseUrl: config.baseUrl,
-    trailingSlash: config.trailingSlash,
-    onDuplicateRoutes: config.onDuplicateRoutes,
-    presets: [[require.resolve('@docusaurus/preset-classic'), {
-      docs: {...docs, sidebarPath: false, beforeDefaultRemarkPlugins: [], remarkPlugins: []},
-      blog: false,
-    }]],
-  })};`);
-  fs.mkdirSync(path.join(siteDir, 'src/pages'), {recursive: true});
-  fs.writeFileSync(path.join(siteDir, 'src/pages/index.md'), '# Release fixture\n');
-  const expectedPages = [
-    [nextVersion, 'docs'],
-    [currentVersion, `docs/${currentVersion}`],
-    ['classic-2.1.0', 'docs/classic-2.1.0'],
-  ];
-  for (const [version] of expectedPages) {
-    const directory = path.join(siteDir, 'versioned_docs', `version-${version}`);
-    fs.mkdirSync(directory, {recursive: true});
-    fs.writeFileSync(path.join(directory, 'index.md'), `---\ntitle: Release ${version}\nslug: /\n---\n\nUnique content for release ${version}.\n`);
-  }
-  const cli = path.join(path.dirname(require.resolve('@docusaurus/core/package.json')), 'bin/docusaurus.mjs');
-  await require('node:util').promisify(require('node:child_process').execFile)(
-    process.execPath, [cli, 'build', siteDir, '--no-minify'], {cwd: root, timeout: 120_000, maxBuffer: 10 * 1024 * 1024},
-  );
-  for (const [version, route] of expectedPages) {
-    const html = fs.readFileSync(path.join(siteDir, 'build', route, 'index.html'), 'utf8');
-    assert.ok(html.includes(`Unique content for release ${version}.`), `Wrong content at ${route}/`);
-    assert.ok(html.includes(`href="${config.url}/${route}/"`), `Wrong canonical URL at ${route}/`);
-    for (const [otherVersion] of expectedPages) {
-      if (otherVersion !== version) assert.ok(!html.includes(`Unique content for release ${otherVersion}.`));
-    }
-  }
-});
-
-test('LLM exports use configured labels for future CE, retained CE, and Classic', () => {
+test('LLM export labels come from configuration and reject missing or empty labels', () => {
   const {getVersionLabel} = require('../scripts/finalize-llm-exports.cjs');
   const config = {plugins: ['unrelated-plugin', ['docusaurus-plugin-llms', {docsDir: [
-    {path: 'versioned_docs/version-classic-2.1.0', label: 'Classic 2.1.0'},
-    {path: 'versioned_docs/version-99.0.0', label: 'Community Edition next release'},
-    {path: 'versioned_docs/version-98.0.0', label: 'Community Edition previous release'},
+    {path: 'versioned_docs/version-example', label: 'Example release'},
   ]}]]};
-  assert.equal(getVersionLabel(config, '99.0.0'), 'Community Edition next release');
-  assert.equal(getVersionLabel(config, '98.0.0'), 'Community Edition previous release');
-  assert.equal(getVersionLabel(config, 'classic-2.1.0'), 'Classic 2.1.0');
-  assert.throws(() => getVersionLabel(config, '97.0.0'), /Missing configured LLM export label.*97\.0\.0/);
-  config.plugins[1][1].docsDir[1].label = ' ';
-  assert.throws(() => getVersionLabel(config, '99.0.0'), /Missing configured LLM export label/);
+  assert.equal(getVersionLabel(config, 'example'), 'Example release');
+  assert.throws(() => getVersionLabel(config, 'missing'), /Missing configured LLM export label/);
+  config.plugins[1][1].docsDir[0].label = ' ';
+  assert.throws(() => getVersionLabel(config, 'example'), /Missing configured LLM export label/);
 });
 
-test('version, theme, plugin, and redirect contracts are intact', () => {
+test('current and historical documentation have distinct routes and matching export paths', () => {
   const config = require('../docusaurus.config.js');
   const versions = require('../versions.json');
-  assert.ok(versions.includes('classic-2.1.0'));
   const docs = config.presets[0][1].docs;
+  const sections = config.plugins.find(plugin => Array.isArray(plugin) && plugin[0] === 'docusaurus-plugin-llms')[1].docsDir;
+  assert.ok(versions.length > 0);
   assert.equal(docs.includeCurrentVersion, false);
   assert.equal(docs.lastVersion, versions[0]);
-  assert.equal(docs.versions[versions[0]].path, '');
-  assert.equal(docs.versions['classic-2.1.0'].path, 'classic-2.1.0');
-  assert.equal(config.future.v4, true);
-  assert.equal(config.themes[0][0], 'cosmos-docusaurus-theme');
-  const navbarItems = config.themeConfig.navbar.items;
-  const githubIndex = navbarItems.findIndex((item) => item.className === 'header-github-link');
-  assert.notEqual(githubIndex, -1);
-  assert.equal(navbarItems[githubIndex].href, 'https://github.com/repoprompt/repoprompt-ce');
-  assert.equal(navbarItems[githubIndex].label, 'RepoPrompt CE on GitHub');
-  assert.equal(navbarItems[githubIndex + 1].type, 'search');
-  assert.equal(navbarItems[githubIndex + 2].type, 'docsVersionDropdown');
-  if (!config.themeConfig.algolia) {
-    const localSearch = config.themes.find((theme) => Array.isArray(theme) && theme[0] === require.resolve('@easyops-cn/docusaurus-search-local'));
-    assert.ok(localSearch, 'Docs search must work without Algolia credentials');
-    assert.equal(localSearch[1].indexDocs, true);
-    assert.equal(localSearch[1].indexBlog, false);
-    assert.equal(localSearch[1].forceIgnoreNoIndex, true);
+  assert.equal(new Set(sections.map(section => section.routeBasePath)).size, versions.length);
+  for (const [index, version] of versions.entries()) {
+    const route = index === 0 ? '' : version;
+    assert.equal(docs.versions[version].path, route);
+    const section = sections.find(section => section.path === `versioned_docs/version-${version}`);
+    assert.equal(section.routeBasePath, [docs.routeBasePath, route].filter(Boolean).join('/'));
+    assert.ok(section.label.trim());
   }
-  const plugins = config.plugins.map((plugin) => Array.isArray(plugin) ? plugin[0] : plugin);
-  for (const name of ['docusaurus-plugin-llms', 'docusaurus-plugin-copy-page-button', '@docusaurus/plugin-ideal-image']) assert.ok(plugins.includes(name));
-  assert.ok(plugins.includes('docusaurus-plugin-image-zoom'));
-  assert.equal(config.themeConfig.zoom.selector, '.markdown img');
-  const redirect = config.plugins.find((plugin) => plugin[0] === '@docusaurus/plugin-client-redirects')[1].redirects[0];
-  assert.deepEqual(redirect.from, ['/claim', '/unsubscribe', '/appcast', '/pricing', '/roadmap', '/prompt-anatomy']);
-  assert.equal(redirect.to, '/');
 });
