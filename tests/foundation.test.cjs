@@ -148,6 +148,18 @@ test('responsive-image QA discovers screenshots beyond the docs index', () => {
   assert.equal(images[0].alt, 'Workspace screenshot');
 });
 
+test('responsive-image QA accepts inline images while checking file origins and base paths', () => {
+  const {assertResponsiveImageCandidate: validate} = require('../scripts/check-artifacts.cjs');
+  const config = {url: 'https://example.invalid', baseUrl: '/project/'};
+  const root = require('node:path').join(__dirname, '..');
+  validate('data:image/png;base64,iVBORw0KGgo= 320w', config, root);
+  validate('/project/static/favicon.ico 320w', config, root);
+  assert.throws(() => validate('data:text/html;base64,SGVsbG8= 320w', config, root), /Invalid inline/);
+  assert.throws(() => validate('/static/favicon.ico 320w', config, root), /base path/);
+  assert.throws(() => validate('/project/missing.png 320w', config, root), /Missing responsive/);
+  assert.throws(() => validate('https://elsewhere.invalid/project/static/favicon.ico 320w', config, root), /External responsive/);
+});
+
 test('LLM export labels come from configuration and reject missing or empty labels', () => {
   const {getVersionLabel} = require('../scripts/finalize-llm-exports.cjs');
   const config = {plugins: ['unrelated-plugin', ['docusaurus-plugin-llms', {docsDir: [
