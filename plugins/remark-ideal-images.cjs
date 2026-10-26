@@ -20,6 +20,12 @@ module.exports = function remarkIdealImages() {
           }
           const imagePath = request.slice(request.lastIndexOf('!') + 1);
           if (/\.(png|jpe?g)$/i.test(imagePath)) {
+            // Keep Docusaurus's lossless file import for zoom and the largest
+            // srcset candidate; the ordinary import still generates variants.
+            node.attributes.push({
+              type: 'mdxJsxAttribute', name: 'data-zoom-src',
+              value: structuredClone(source.value),
+            });
             call.arguments[0] = {type: 'Literal', value: imagePath, raw: JSON.stringify(imagePath)};
             statement.expression = call;
             source.value.value = `require(${JSON.stringify(imagePath)})`;

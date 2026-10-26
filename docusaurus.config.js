@@ -104,7 +104,13 @@ module.exports = {
       docsDir: llmDocsDirectories,
     }],
     ['docusaurus-plugin-copy-page-button', {enabledActions: ['copy'], placement: 'article'}],
-    ['@docusaurus/plugin-ideal-image', {quality: 85, min: 320, max: 1600, steps: 4, disableInDev: false}],
+    ['@docusaurus/plugin-ideal-image', {
+      quality: 85,
+      // The loader clamps each size to the source width without upscaling.
+      // Include native dimensions even for captures wider than 1600 pixels.
+      sizes: [320, 640, 960, 1600, 2560, Number.MAX_SAFE_INTEGER],
+      disableInDev: false,
+    }],
     ['@docusaurus/plugin-client-redirects', {
       redirects: [
         {from: ['/claim', '/unsubscribe', '/appcast', '/pricing', '/roadmap', '/prompt-anatomy'], to: '/'},

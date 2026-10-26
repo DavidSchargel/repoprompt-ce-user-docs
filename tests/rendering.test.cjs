@@ -70,6 +70,46 @@ test('MDX receives the responsive image adapter through the real MDX provider', 
   }
 });
 
+test('Markdown images retain responsive variants and use lossless native pixels for high density and zoom', () => {
+  const React = require('react');
+  const Img = loadJsx(path.join(__dirname, '../src/theme/MDXComponents/Img/index.js'), {
+    react: React,
+    '@theme-original/MDXComponents/Img': (props) => React.createElement('img', props),
+  });
+  const src = {src: {src: '/small.png', images: [
+    {path: '/small.png', width: 320, height: 55},
+    {path: '/large.png', width: 1764, height: 304},
+  ]}};
+  const element = Img({src, alt: 'Session composer', 'data-zoom-src': '/original.png'});
+  assert.equal(element.props.srcSet, '/small.png 320w, /original.png 1764w');
+  assert.equal(element.props['data-zoom-src'], '/original.png');
+  assert.equal(element.props.width, 1764);
+  assert.equal(element.props.height, 304);
+  assert.equal(element.props.style.maxWidth, '100%');
+  assert.equal(element.props.style.height, 'auto');
+  const config = require('../docusaurus.config.js');
+  const options = config.plugins.find(plugin => plugin[0] === '@docusaurus/plugin-ideal-image')[1];
+  assert.ok(options.sizes.includes(Number.MAX_SAFE_INTEGER), 'Responsive loader must include native width');
+});
+
+test('remark preserves the original file import separately from responsive variants', () => {
+  const plugin = require('../plugins/remark-ideal-images.cjs');
+  const request = '!url-loader!./composer.png';
+  const expression = {
+    type: 'BinaryExpression', operator: '+', right: {type: 'Literal', value: ''},
+    left: {type: 'MemberExpression', property: {name: 'default'}, object: {
+      type: 'CallExpression', callee: {name: 'require'}, arguments: [{type: 'Literal', value: request}],
+    }},
+  };
+  const value = {value: 'original import', data: {estree: {body: [{expression}]}}};
+  const node = {type: 'mdxJsxTextElement', name: 'img', attributes: [{name: 'src', value}], children: []};
+  plugin()({children: [node]});
+  const zoom = node.attributes.find(attribute => attribute.name === 'data-zoom-src').value;
+  assert.equal(zoom.data.estree.body[0].expression.left.object.arguments[0].value, request);
+  assert.equal(value.data.estree.body[0].expression.arguments[0].value, './composer.png');
+  assert.notEqual(zoom, value);
+});
+
 test('blog listing has one page heading inside its existing main landmark', () => {
   const React = require('react');
   const {renderToStaticMarkup} = require('react-dom/server');
