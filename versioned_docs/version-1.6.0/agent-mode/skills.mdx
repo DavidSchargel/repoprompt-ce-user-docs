@@ -3,7 +3,35 @@ id: "skills"
 title: "Skills & Slash Commands"
 description: "Create and organize reusable agent skills and slash commands, including workflow instructions and provider-specific skill locations."
 slug: "/agent-mode/skills"
-keywords: ["skills","slash commands","custom skills","SKILL.md","commands","templates",".claude",".agents","prompt templates","custom workflow","frontmatter","YAML","$ARGUMENTS","skill search","install skills","rp-build","rp-review","rp-refactor","rp-investigate","rp-oracle-export","terminal","terminal agent","mcp skills","rp-cli","global","markdown"]
+keywords:
+  [
+    "skills",
+    "slash commands",
+    "custom skills",
+    "SKILL.md",
+    "commands",
+    "templates",
+    ".claude",
+    ".agents",
+    "prompt templates",
+    "custom workflow",
+    "frontmatter",
+    "YAML",
+    "$ARGUMENTS",
+    "skill search",
+    "install skills",
+    "rp-build",
+    "rp-review",
+    "rp-refactor",
+    "rp-investigate",
+    "rp-oracle-export",
+    "terminal",
+    "terminal agent",
+    "mcp skills",
+    "rp-cli",
+    "global",
+    "markdown",
+  ]
 hide_table_of_contents: false
 toc_min_heading_level: 2
 toc_max_heading_level: 4
@@ -27,7 +55,7 @@ Agent Mode has two ways to structure a task: the **Workflow** dropdown (built-in
 
 ## Skills for Terminal Agents
 
-The same on-disk skill files also work with external agents running in your terminal (Codex CLI, Claude Code CLI). When those agents are connected via the MCP server, they discover skills from the same directories and can invoke them as slash commands.
+External coding agents can usually discover installed on-disk skills from shared directories when their host supports those locations. Connecting to RepoPrompt's MCP server supplies tool access; it does not install workflow skills. To make RepoPrompt's workflow skills available, install the matching MCP or CLI variant through **Quick Setup → Skills**, then use the external host's skill or slash-command picker.
 
 RepoPrompt ships workflow skills — `/rp-orchestrate`, `/rp-deep-plan`, `/rp-optimize`, `/rp-review`, `/rp-refactor`, `/rp-build`, `/rp-investigate`, and `/rp-oracle-export` (plus the `/rp-reminder` helper) — for external coding agents. Choose MCP or CLI variants through **Quick Setup → Skills**. They guide external agents through related workflows, with capabilities determined by the client's installed tools and permissions. See [MCP Workflow Commands](../mcp-server/workflow-commands.mdx) for the complete catalog and installation locations.
 

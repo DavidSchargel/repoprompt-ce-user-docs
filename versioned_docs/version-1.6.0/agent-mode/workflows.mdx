@@ -64,7 +64,7 @@ Analyzes your code for redundancies and complexity using parallel `explore` scou
 
 ### Investigate
 
-Systematic, read-only codebase exploration for debugging and root-cause analysis. The agent triages symptoms into `docs/investigations/<topic>-<YYYY-MM-DD>.md`, optionally dispatches `explore` agents for git blame archaeology and external research, uses Context Builder for broad discovery, dispatches a `pair` investigator to test hypotheses, and synthesizes findings with the Oracle until the root cause is confirmed with line-level evidence.
+Systematic codebase exploration for debugging and root-cause analysis. The current workflow template calls for read-only source inspection while creating and updating an investigation report; it explicitly rules out source-code changes. The coding agent triages symptoms into `docs/investigations/<topic>-<YYYY-MM-DD>.md`, optionally dispatches `explore` agents for git blame archaeology and external research, uses Context Builder for broad discovery, dispatches a `pair` investigator to test hypotheses, and synthesizes findings with the Oracle until the root cause is confirmed with line-level evidence.
 
 **Flow:** Triage & scaffold report → External fact-gathering (`explore`) → Broad discovery (Context Builder) → Deep investigation (`pair`) → Oracle synthesis & final report
 
