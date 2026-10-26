@@ -2,7 +2,7 @@
 id: "overview"
 title: "Introduction"
 sidebar_class_name: sidebar-cat-monitor
-description: "Learn how RepoPrompt CE curates code context, connects coding agents, and guides discovery, planning, implementation, and review."
+description: "Understand unfamiliar code, plan and review changes, and coordinate AI coding tools with RepoPrompt CE, a free, open-source macOS app."
 slug: "/"
 keywords:
   [
@@ -11,16 +11,17 @@ keywords:
     "features",
     "benefits",
     "prompt engineering",
+    "context engineering",
     "context window",
     "token",
     "macos",
     "mac app",
     "code assistant",
     "ai coding",
-    "overview",
+    "ai harness",
     "introduction",
     "getting started",
-    "ide mode",
+    "ai coding agent",
     "agent mode",
     "mcp server",
   ]
@@ -29,113 +30,125 @@ toc_min_heading_level: 2
 toc_max_heading_level: 4
 ---
 
+import Link from "@docusaurus/Link";
 import Tabs from "@theme/Tabs";
 import TabItem from "@theme/TabItem";
 import useBaseUrl from "@docusaurus/useBaseUrl";
 
-RepoPrompt is an AI-powered context IDE. It gives you precise control over what a model sees — so you get the best responses from the most powerful reasoning models.
+**RepoPrompt understands the code, plans the change, and keeps the work in view.**
 
-## Talk to These Docs
+RepoPrompt CE is unified interface of tools over native harnesses that brings your code, AI coding tools, and task context into one workspace. It's first-class tooling to explore an extensive repository, work through an architectural decision, review a change, or coordinate implementation across several coding agents.
 
-Open all documentation in an AI assistant for guided help. Use the Copy page button to copy this article for an AI assistant. Complete machine-readable documentation is available in the <a href={useBaseUrl('/llms.txt')}>LLM index</a> and <a href={useBaseUrl('/llms-full.txt')}>full documentation export</a>.
+The macOS application is **free and open source**. Connect your own coding-runtime account, API provider, or local model service; [AI service costs](./faq/pay-for-services.mdx) depend on the connection you use.
 
-## Why Context Engineering Matters
+## Give your coding work the right tools and the right context \{#why-context-engineering-matters}
 
-Agents waste context before they start thinking. Their context windows fill with tool calls, duplicate file reads, and irrelevant code — leaving little room for actual reasoning. RepoPrompt solves this by structuring context upfront: the model reasons about the problem from the first token instead of spending its thinking budget on figuring out what to read next.
+Good AI-assisted coding work starts with understanding what is already there: the relevant files, the interfaces they depend on, the changes in progress, and the constraints that matter. Finding and sharing that context can take more effort than writing the prompt.
 
-### Typical Agent Context
+RepoPrompt helps you build a focused view of the task. Include full files when implementation details matter, line slices when only part of a file is relevant, and Code Maps when you need to see structure and signatures without every line of code. Add Git changes and clear instructions so the receiving model knows what you want it to evaluate.
 
-- ~16% system prompts & tool definitions
-- ~38% wasted on duplicate reads & unrelated code
-- ~16% relevant code (finally)
-- ~14% actual reasoning
-- ~16% missing context the agent never found
+<span id="typical-agent-context" />
+<span id="repoprompt-context" />
 
-### RepoPrompt Context
+The result is a package you can inspect and refine before asking for a plan, a review, or an implementation. You still judge the answer and verify the changes; the model has better material to work with.
 
-- File tree for project orientation
-- Codemaps for API surface at a glance
-- Complete relevant file contents
-- Git diffs for change awareness
-- Task description — 100% of reasoning spent solving the problem
+[See how context preparation works →](./overview/how-it-works.mdx)
 
-## Three Ways to Work
+## Choose how you want to work \{#three-ways-to-work}
 
-[**Agent Mode** Hands off context engineering to your coding agents. The same best practices from the old IDE Mode in the Classic Edition — codemaps, slicing, token budgets — managed by agents (Codex CLI, Claude Code CLI, OpenCode CLI, Cursor CLI) on your behalf, with built-in workflows.](./agent-mode/overview.mdx)
+### Run a coding session in RepoPrompt
 
-[**Built-in MCP Server** Connect MCP-compatible clients to RepoPrompt's context tools. Set up external clients, workflow skills, Oracle models, and workspace context.](./mcp-server/mcp-overview.mdx)
+Describe the task, choose a connected coding runtime, and watch the work in one conversation. Inspect tool activity and changes, answer questions, and steer the next step without switching between terminal sessions.
 
-[**IDE Mode (Classic Edition only)** Craft precise prompts with full control over file selection, codemaps, and context.](../version-classic-2.1.0/ide-mode/overview.mdx)
+![RepoPrompt session composer with workflow, context, model, tools, and permission controls](./sessions/images/composer.png)
 
-## [How Context Builder Works](./agent-mode/workflows.mdx)
+[Get to know the session interface →](./sessions/overview.mdx)
 
-Context Builder is a three-stage pipeline that gives your agents the right context, every time. [Explore the Context Builder workflow →](./agent-mode/workflows.mdx)
+### Keep using your preferred coding tools
+
+Connect an MCP-compatible client to RepoPrompt's repository and context tools. Your external coding agent can search files, inspect Code Maps, assemble context, and consult an Oracle while you review the work in RepoPrompt.
+
+[Connect an external coding tool →](./mcp-server/mcp-setup.mdx)
+
+### Prepare a prompt for another model
+
+Select code, add instructions and Git changes, then copy a self-contained package. Use it for a design discussion or an independent review in ChatGPT or another service, and bring the useful findings back to your coding session.
+
+[Prepare and copy your context →](./sessions/context-composer.mdx)
+
+## Start with the task you need to finish \{#built-in-workflows}
+
+Built-in workflows give a request a method. Choose one from the welcome cards or the **Workflow** selector, then describe your actual goal.
+
+| What you want to do                      | Where to start                                                                           |
+| ---------------------------------------- | ---------------------------------------------------------------------------------------- |
+| Coordinate a larger piece of work        | **Orchestrate** breaks down the task, delegates work, and checks the results.            |
+| Check changes for bugs and regressions   | **Review** examines the change with its surrounding code.                                |
+| Understand a bug or unfamiliar behavior  | **Investigate** gathers evidence and explores the relevant code.                         |
+| Plan a substantial change before editing | **Deep Plan** develops an implementation plan grounded in the repository.                |
+| Build a feature or fix                   | **Plan & Build** guides research, planning, and implementation.                          |
+| Improve code structure                   | **Refactor** focuses on preserving intended behavior while improving the implementation. |
+| Get an independent perspective           | **ChatGPT Export** prepares context for a conversation outside RepoPrompt.               |
+
+[Choose a workflow for your task →](./sessions/workflow-templates.mdx)
+
+## Let Context Builder do the discovery \{#how-context-builder-works}
+
+You do not have to know every relevant filename before you begin. Give Context Builder a task and any useful starting points, then inspect what it finds.
 
 ### 1. Explore
 
-A discovery agent navigates your codebase, reading files and understanding relationships.
+A discovery coding agent searches the repository and follows the code related to your question.
 
 ### 2. Curate
 
-Relevant files are selected within a token budget, using codemaps and line slices for maximum density.
+It assembles relevant files, slices, and Code Maps toward your context budget. You can inspect the selection, remove distractions, and add missing material.
 
 ### 3. Handoff
 
-A structured prompt with curated context is passed to an analysis model for planning, review, or deep Q&A.
+Use the prepared context for an Oracle plan, review, or answer, or export it for another model. Discovery and analysis can use different models, so each stage can serve a different purpose.
 
-## [Built-in Workflows](./agent-mode/workflows.mdx)
+[Explore the Context Builder workflow →](./sessions/context-builder.mdx)
 
-Ready-made context engineering pipelines your agents run directly:
+<span id="why-it-matters" />
+<span id="without-curated-context" />
+<span id="with-curated-context" />
 
-- **Orchestrate** (`/rp-orchestrate`) — Plans, decomposes, dispatches sub-agents across providers
-- **Plan & Build** (`/rp-build`) — Discovery → plan → implement in one session
-- **Review** (`/rp-review`) — Git diffs + codebase context for grounded code reviews
-- **Investigate** (`/rp-investigate`) — Systematic exploration with evidence gathering
-- **Refactor** (`/rp-refactor`) — Two-pass: analyze then implement preserving behavior
+## Coordinate larger changes without losing sight of them \{#agent-orchestration}
 
-## [Agent Orchestration](./mcp-server/mcp-tools.mdx#agent-control-plane)
+For work that benefits from several perspectives, use separate coding sessions for investigation, implementation, and review. **Overseer Mode** lets one coordinating conversation follow linked sessions and direct the next steps.
 
-RepoPrompt supports multi-agent workflows via MCP. The policy-controlled `agent_run` tool provides start, wait/poll (multi-session), steer, respond, and cancel operations. Availability depends on the client's connection policy and session permissions.
+Use **worktrees** when parallel tasks need separate checkouts. Review the completed work, merge it into the intended target, and verify the integrated result. Separate conversations alone do not keep edits to a shared checkout apart.
 
-The `/rp-orchestrate` workflow automates this: Context Builder generates a plan → decomposes into tasks → dispatches sub-agents in parallel or sequence → verifies each result. [Explore Agent Orchestration workflows →](./agent-mode/workflows.mdx)
+[Coordinate sessions with Overseer →](./overseer/overview.mdx) · [Create and use a worktree →](./worktrees/create-and-use.mdx) · [Review and merge the result →](./worktrees/review-and-merge.mdx)
 
-## Why It Matters
+## Keep control as the work develops
 
-### Without Curated Context
+- **Make the request clearer.** Use [Interviewer](./sessions/interviewer.mdx) to resolve open questions or [Re-Prompter](./sessions/re-prompter.mdx) to refine a draft before sending.
+- **Show the problem.** Attach a [screenshot or mockup](./sessions/image-support.mdx). Eligible Codex sessions can also use [Computer Use](./sessions/computer-use.mdx) for tasks that need the visible interface.
+- **Choose how the model works.** Set the [model and reasoning effort](./sessions/model-and-effort.mdx) yourself, or configure [Model Router](./sessions/model-router.mdx) for eligible new tasks.
+- **Review the decisions that matter.** Inspect [approval requests and edit reviews](./sessions/approvals.mdx), then return to [session history](./sessions/session-history.mdx) when you need the context behind a result.
 
-- Misses tradeoffs and edge cases
-- Architectural drift from existing patterns
-- Duplicates functionality that already exists
-- Generic advice disconnected from your codebase
+## Use the connection that fits your work \{#providers--models}
 
-### With Curated Context
+Connect a supported coding runtime for implementation, a direct API for model features, or a local model server. Configure Oracle consultations separately when you want another model to assess a plan or review the code.
 
-- Considers the full picture before acting
-- Follows existing patterns and conventions
-- Finds simpler solutions using what's already there
-- Grounded feedback tied to real code
-
-## [Providers & Models](./providers/overview.mdx)
-
-Choose a coding-agent runtime, a direct API connection, or a local model service. The [Providers & Models reference](./providers/overview.mdx) explains connection requirements, account boundaries, capabilities, and model discovery. Each route uses its own account terms; a CLI subscription does not automatically cover separate API requests.
+The **Providers & Models** reference explains what each integration needs and which capabilities it offers. Your connected accounts determine the available models; you do not need to choose every model and setting before trying a focused task.
 
 [Compare providers and model availability →](./providers/overview.mdx)
 
-## Who Is RepoPrompt For?
+<span id="who-is-repoprompt-for" />
 
-- **Developers, researchers, or anyone working with AI on their files** — RepoPrompt gives you precise control over what context AI sees, whether you're writing code, analyzing documents, or exploring data
-- **Professionals shipping production-ready code** — Context Builder helps plan architecturally sound changes that fit naturally into existing codebases, so AI suggestions don't fight your patterns
-- **Teams that care about code quality** — the `/rp-review` workflow provides world-class AI code reviews powered by Context Builder, grounding feedback in your actual codebase rather than generic advice
+## Try it on one real task \{#get-started}
 
-## Get Started
+Start with a question you can evaluate: understand an unfamiliar function, investigate a reproducible bug, or review a small change. A narrow first task makes it easier to see what RepoPrompt adds to your existing workflow.
 
-Ready to build better AI prompts? Here's where to go next:
+1. **Open your project** and connect the provider you want to use.
+2. **Describe the outcome.** Include the behavior you care about, known constraints, and how you will check the result.
+3. **Choose the workflow and location.** Use a separate worktree when you want an isolated checkout.
+4. **Inspect and guide the work.** Review the selected context, answer questions, and check the resulting code and validation evidence.
 
-- **New to RepoPrompt?** Start with the [Installation guide](./overview/installation.mdx)
-- **Have an AI account?** Check [Providers & Models](./providers/overview.mdx) for the matching connection and setup requirements
-- **Using Claude Code or Cursor?** Check out [MCP Server Integration](./mcp-server/mcp-overview.mdx)
-- **Want an integrated agent experience?** Try [Agent Mode](./agent-mode/overview.mdx) with Codex or Claude Code
-- **Want smarter file selection?** Learn about the [Context Builder](../version-classic-2.1.0/historical-guides/file-selection/context-builder.mdx)
+[Follow the getting-started walkthrough →](./overview/getting-started.mdx)
 
 ## Learn More
 
@@ -143,13 +156,16 @@ Ready to build better AI prompts? Here's where to go next:
 
 [![Podcast cover art](../../static/images/docs/images/rate-limited_profile.jpg) Rate Limited Podcast AI coding workflows with Eric, Ray Fernando, Adam Larson](https://www.youtube.com/@ratelimitedpod)
 
-:::tip
+Some walkthroughs show Classic. Use the current guides below for CE controls and supported workflows.
 
-**Quick Win:** Download RepoPrompt, open a project, select a few files, and copy your first prompt. You'll immediately see how much cleaner the context is compared to manual copy-paste.
+## Talk to These Docs
 
-:::
+Use **Copy page** to bring an article into your AI conversation. For the complete documentation, use the <a href={useBaseUrl('/llms.txt')}>LLM index</a> or <a href={useBaseUrl('/llms-full.txt')}>full documentation export</a>. Include the app version and the task you want help with so the answer can use the relevant guidance.
 
 ## Documentation table of contents
+
+<details>
+<summary>Browse every guide</summary>
 
 The current documentation version is **1.6.0** and may refer to versions in the 1.6.x series.
 
@@ -237,7 +253,7 @@ RepoPrompt Classic and its `repoprompt-classic` repository are archived. **[Clas
 
 ### FAQ
 
-- [What Is RepoPrompt?](./faq/what-is-repo-prompt.mdx)
+- [What Is an Oracle?](./faq/what-is-an-oracle.mdx)
 - [What Happened to the Paid Version?](./faq/paid-version.mdx)
 - [Do I need to pay for AI services?](./faq/pay-for-services.mdx)
 - [Do I Need an API Key?](./faq/api-keys.mdx)
@@ -251,7 +267,12 @@ RepoPrompt Classic and its `repoprompt-classic` repository are archived. **[Clas
 - [How Do I Report an Issue or Submit a Feature Request?](./faq/report-issue.mdx)
 - [How can I build the application?](./faq/how-to-build.mdx)
 
+</details>
+
 ## Code examples: MCP and shell
+
+<details>
+<summary>Compare MCP and CLI examples</summary>
 
 The following language tabs show the same read-only settings request. Code blocks provide a Copy button. See [App Settings Tool](./mcp-server/mcp-app-settings.mdx) for the current allowlist and [Setup Guide](./mcp-server/mcp-setup.mdx#terminal-access) for terminal installation.
 
@@ -273,3 +294,5 @@ rpce-cli -e 'call app_settings {"op":"get","key":"ui.appearance_mode"}'
 
 </TabItem>
 </Tabs>
+
+</details>
