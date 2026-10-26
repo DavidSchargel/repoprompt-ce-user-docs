@@ -19,7 +19,11 @@ The main docs page includes a TOC and JSON/Bash tabs; verify their keyboard beha
 
 ## Exclusions
 
-No RepoBench page/code/post, Worker/account backend, Helpful Links footer, X/Twitter links/metadata, contact/email/officer blocks, translated pages, locale switchers, or localization feature content. The existing Classic screenshots are an owner-approved exception for historical media in Classic only; their pixels may show Bench or Worker text, but no corresponding page, code, post, or backend is imported. Other excluded screenshots remain prohibited. `/claim`, `/unsubscribe`, `/appcast`, `/pricing`, `/roadmap`, and `/prompt-anatomy` are redirect artifacts only. Framework English metadata and a literal code variable named X are not prohibited content. Never publish credentials from examples or screenshots.
+No RepoBench page/code/post, Worker/account backend, Helpful Links footer, X/Twitter links/metadata (except the blog author attribution below), contact/email/officer blocks, translated pages, locale switchers, or localization feature content. The existing Classic screenshots are an owner-approved exception for historical media in Classic only; their pixels may show Bench or Worker text, but no corresponding page, code, post, or backend is imported. Other excluded screenshots remain prohibited. `/claim`, `/unsubscribe`, `/appcast`, `/pricing`, `/roadmap`, and `/prompt-anatomy` are redirect artifacts only. Framework English metadata and a literal code variable named X are not prohibited content. Never publish credentials from examples or screenshots.
+
+## Blog authorship
+
+The first-person blog posts prior to October 2026 are by **Eric Provencher**, RepoPrompt's original author. Keep a visible attribution before the opening paragraph so “I” and “my” cannot be mistaken for the documentation maintainer's voice. Preserve Eric's first-person prose. Links to [his X profile](https://x.com/pvncher) in blog author attribution are explicitly allowed; this does not enable X/Twitter metadata or unrelated social links.
 
 ## Images and Cosmos
 
@@ -37,14 +41,14 @@ Use **workflow** for a task's process, **workflow template** for instructions se
 
 The current CE collection's `providers/` section is the canonical reference for provider and shared model information. Keep it independent of Agent Mode, Settings, Oracle, Context Builder, and the payment FAQ because those features use different parts of the same connections.
 
-| Information | Owner |
-| --- | --- |
-| Supported integration roster, comparison, and CLI/API distinctions | `providers/overview.mdx` |
-| Setup prerequisites, authentication/account boundary, capabilities, limitations, billing route, and official catalog links | One `providers/<integration>.mdx` page per integration |
-| Model discovery, identifiers, aliases, effort, service tiers, roles, and interpreting recommendations | `providers/models.mdx` |
-| Settings fields, buttons, scope, saved state, and screenshots | The corresponding `settings/` page, linking to the provider reference |
-| Using composer controls, workflow behavior, routing eligibility, and privacy | The corresponding feature guide, linking to shared provider/model concepts |
-| Brief answer about application cost versus service charges | Payment FAQ, linking to the canonical provider reference |
+| Information                                                                                                                | Owner                                                                      |
+| -------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------- |
+| Supported integration roster, comparison, and CLI/API distinctions                                                         | `providers/overview.mdx`                                                   |
+| Setup prerequisites, authentication/account boundary, capabilities, limitations, billing route, and official catalog links | One `providers/<integration>.mdx` page per integration                     |
+| Model discovery, identifiers, aliases, effort, service tiers, roles, and interpreting recommendations                      | `providers/models.mdx`                                                     |
+| Settings fields, buttons, scope, saved state, and screenshots                                                              | The corresponding `settings/` page, linking to the provider reference      |
+| Using composer controls, workflow behavior, routing eligibility, and privacy                                               | The corresponding feature guide, linking to shared provider/model concepts |
+| Brief answer about application cost versus service charges                                                                 | Payment FAQ, linking to the canonical provider reference                   |
 
 Keep coding-agent providers in the requested order: Codex CLI, Claude Code CLI, OpenCode CLI, Cursor CLI, Grok Build, Google Antigravity, Devin CLI, CC Zai, CC Moonshot, CC Custom. Keep CLI and API integrations distinct even when they share a company name or saved credential.
 
