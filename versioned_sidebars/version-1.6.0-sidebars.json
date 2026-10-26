@@ -31,8 +31,10 @@
         "sessions/message-editor",
         "sessions/model-and-effort",
         "sessions/tools",
+        "sessions/approvals",
         "sessions/oracle",
         "sessions/context-builder",
+        "sessions/context-composer",
         "sessions/image-support"
       ]
     },
@@ -121,7 +123,9 @@
       "label": "Worktrees",
       "className": "sidebar-cat-folder",
       "items": [
-        "worktrees/overview"
+        "worktrees/overview",
+        "worktrees/create-and-use",
+        "worktrees/review-and-merge"
       ]
     },
     {
@@ -222,6 +226,7 @@
       "className": "sidebar-cat-puzzle",
       "items": [
         "faq/pay-for-services",
+        "faq/credential-recovery",
         "faq/how-to-build"
       ]
     }

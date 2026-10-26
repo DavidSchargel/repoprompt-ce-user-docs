@@ -345,6 +345,8 @@ List, inspect, create, and bind Git worktrees for Agent sessions, or preview and
 
 Use returned worktree IDs and an explicit session_id when routing does not resolve an active Agent session. Preview is non-mutating; apply requires its operation_id and the applicable confirmation or routed UI approval. Continue and abort require confirmation outside routed UI flows. See [Worktrees](../worktrees/overview.mdx).
 
+The source must be clean and committed, and the target must be clean. For the human review card, stale previews, and conflict recovery in the target checkout, see [Review and Merge](../worktrees/review-and-merge.mdx).
+
 ## App Settings
 
 ### `app_settings`

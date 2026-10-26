@@ -23,11 +23,13 @@ Tool settings are locked during an active Codex run. If a setting is unavailable
 
 ## Choose permission behavior
 
-Open **Permissions** beside Tools to inspect the current provider's approval mode. For Codex, the pictured choices are **Read Only**, **Default**, **Auto Review**, and **Full Access**. Auto Review evaluates tool requests automatically before asking you. Full Access removes the normal sandbox restriction and approval prompts.
+Open **Permissions** beside Tools to inspect the current provider's approval mode. For Codex, the pictured choices are **Read Only**, **Default**, **Auto Review**, and **Full Access**. Auto Review evaluates tool requests automatically before asking you. Full Access removes the normal provider sandbox restriction and per-request tool approval prompts; separate RepoPrompt edit reviews, hook-trust decisions, and worktree merge reviews can still apply.
 
 ![Permissions popover with Codex sandbox levels and the separate Auto Edit switch](./images/permissions.png)
 
 **Auto Edit** applies file edits without a separate edit approval. It is distinct from a tool being available and from the provider's sandbox or approval policy. Read the current labels and explanation instead of assuming an enabled Tools switch approves every operation.
+
+For the actual decision cards, including rejection reasons and remembered approvals, see [Approvals and Paused Sessions](./approvals.mdx).
 
 ## RepoPrompt tools and sub-agents
 
