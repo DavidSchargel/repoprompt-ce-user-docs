@@ -27,6 +27,10 @@ References: [Docusaurus cascade-layer configuration](https://docusaurus.io/docs/
 
 ## Accessibility verification gate
 
+The target is [WCAG 2.2 Level AA](https://www.w3.org/TR/WCAG22/) across the published site's content and interactions. Treat accessibility as a release concern, not a one-time audit. The target includes the user experience of the Classic archive and embedded third-party content; a read-only archive or third-party implementation does not establish an accessibility exception. Fix shared rendering where possible and record remaining barriers with their affected routes.
+
+Keep three types of evidence distinct: source/unit checks, browser and assistive-technology checks, and checks against the deployed revision. A source test can verify an accessible label exists, but cannot establish that it is announced correctly, that focus moves as intended, or that rendered colors meet contrast requirements.
+
 For a release or changes affecting shared rendering, run the **full** `pnpm run build` for both `SITE_BASE_URL=/` and `/repoprompt-ce-user-docs/`, following the [local build procedure](publishing.md#validate-a-release-artifact). Record `SITE_URL`, `SITE_BASE_URL`, and `SITE_INDEXABLE` for each artifact. The build already runs the unit and content checks. Inventory generated routes before testing; do not assume every source file becomes a page. Use the local build or record the exact deployed URL and revision. Never call the site WCAG 2.2 AA compliant from Node tests, Lighthouse, or screenshots alone.
 
 For each result, record route, browser and assistive-technology versions, viewport/zoom, theme, keyboard sequence, observed behavior, criterion, status (`pass`, `fail`, `not tested`, or reasoned `not applicable`), and an issue link for failures. Check at minimum:
@@ -38,7 +42,21 @@ For each result, record route, browser and assistive-technology versions, viewpo
 - CE changelog, privacy, terms, blog index/listings, and an actual 404: headings, native details, navigation, focus, and reflow.
 - Shared desktop/mobile navigation and version dropdown; local docs search by default, or Algolia when configured. Test Escape and focus return for overlays, and confirm search is absent outside docs routes.
 
+### Link and navigation checks
+
+The external-link behavior is a site design choice. W3C's [G201 guidance](https://www.w3.org/WAI/WCAG22/Techniques/general/G201) recommends advance warning for new tabs/windows; the technique is advisory, not a standalone AA conformance requirement.
+
+- Check a text link, an icon-only link, an existing changelog link, and a link inserted dynamically after navigation. Each should show one `↗`, open externally when activated, and communicate the new-tab behavior once to a screen reader. Internal links and fragment links should keep their existing navigation behavior.
+- Verify the visible label remains part of the accessible name. For a link with an `aria-label`, retain its meaningful description and append the warning. For ordinary text links, the warning uses a visually clipped span. It must not use `display: none`, `visibility: hidden`, or `aria-hidden`, which would also remove the warning from assistive technology.
+- Confirm the clipped warning occupies no visible space at normal size or zoom, while the arrow stays visible. Test actual speech output; checking the DOM is only supporting evidence. W3C's [C7 technique](https://www.w3.org/WAI/WCAG22/Techniques/css/C7) describes this distinction between visually hidden and inaccessible text.
+- The shared rule runs client-side after navigation and observes later link changes. Test initial load, client-side navigation, and delayed content; do not infer equivalent behavior before JavaScript runs or inside cross-origin iframes. Third-party iframe controls need their own review.
+- On individual blog posts, check that **Intro** is first in the table of contents and returns to the article top without the fixed navbar obscuring it. Confirm post titles remain headings and keyboard focus remains understandable.
+
 Test light and dark themes, keyboard-only use, VoiceOver/Safari and NVDA/Firefox, rendered contrast (record computed foreground/background and ratios), 200% text resizing, reduced motion, forced colors where available, and focus not obscured. Separately apply WCAG text-spacing overrides without lost content or functionality: line height 1.5× font size, paragraph spacing 2× font size, letter spacing 0.12× font size, and word spacing 0.16× font size. Use a view-only Classic regression check; never edit the archive. Record new evidence in `docs/reviews/`. The existing [accessibility ledger](../reviews/wcag-2.2-aa-remediation.md) is historical evidence for its stated revision, not proof that the current site passes. Keep untested combinations and unresolved third-party behavior explicit.
+
+### Reporting and follow-through
+
+For an accessibility report, capture the affected URL and revision, the user's task, expected and observed behavior, and the relevant browser/assistive technology when available. Link the report to a reproducible check and retest the fix. Do not close a barrier solely because a lint rule or unit test passes. Summarize unresolved barriers and untested combinations in the release notes or review record; make a conformance statement only when evidence supports its stated scope.
 
 ## Upgrades
 

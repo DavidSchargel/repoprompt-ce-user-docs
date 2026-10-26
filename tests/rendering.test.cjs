@@ -221,7 +221,9 @@ test('React homepage component SSR preserves authored structure and base-path as
   assert.equal((html.match(/<h1\b/g) || []).length, 1);
   assert.ok(html.indexOf('</main>') < html.indexOf('<footer'), 'Page footer must be outside main');
   assert.match(html, /<footer[^>]*>[\s\S]*?<nav aria-label="Footer">/);
-  assert.doesNotMatch(html, /target="_blank"/, 'Authored homepage links should not force new tabs');
+  for (const [anchor] of html.matchAll(/<a\b[^>]*href="(?:\/|#)[^"]*"[^>]*>/g)) {
+    assert.doesNotMatch(anchor, /target="_blank"/, 'Internal homepage links should stay in the same tab');
+  }
   assert.match(html, /role="group" aria-label="Choose a testimonial"/);
   assert.match(html, /id="home-testimonial-content"/);
   assert.match(html, /role="status" aria-live="polite" aria-atomic="true"/);

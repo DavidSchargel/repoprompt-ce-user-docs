@@ -102,6 +102,8 @@ GitHub supplies `GITHUB_TOKEN`, `GITHUB_REF`, and `GITHUB_REPOSITORY`; the setup
 5. Open the deployment URL from the run. Check the homepage, current and Classic docs, blog, legal pages, a deep-page refresh, search, redirects, images, and machine-readable exports. Confirm that the deployed commit is the one reviewed.
 6. Record the commit, Actions run URL, deployment URL, configuration, and checks performed. A successful deployment alone does not establish accessibility conformance or correct Algolia results.
 
+Include the [accessibility verification record](maintenance.md#accessibility-verification-gate) in release review. After deployment, recheck the affected keyboard flows, focus visibility, link announcements, and responsive layouts on the published revision. Keep known barriers and untested cases explicit. A green workflow confirms the automated checks ran; it is not a WCAG 2.2 AA certification.
+
 Validation runs for the same ref share a concurrency group. Publish-enabled manual runs share a separate publication group. A newer run in the same group can cancel one already in progress; inspect the latest run before interpreting cancellation or deployment status.
 
 ## Rollback

@@ -43,7 +43,10 @@ module.exports = {
     {tagName: 'link', attributes: {rel: 'apple-touch-icon', sizes: '180x180', href: `${baseUrl}apple-touch-icon.png`}},
     {tagName: 'link', attributes: {rel: 'manifest', href: `${baseUrl}site.webmanifest`}},
   ],
-  clientModules: [require.resolve('./src/clientModules/legacyHashRedirect.js')],
+  clientModules: [
+    require.resolve('./src/clientModules/legacyHashRedirect.js'),
+    require.resolve('./src/clientModules/externalLinks.js'),
+  ],
   noIndex: process.env.SITE_INDEXABLE !== 'true',
   future: {v4: true},
   storage: {type: 'localStorage'},

@@ -21,6 +21,22 @@ The main docs page includes a TOC and JSON/Bash tabs; verify their keyboard beha
 
 No RepoBench page/code/post, Worker/account backend, Helpful Links footer, X/Twitter links/metadata (except the blog author attribution below), contact/email/officer blocks, translated pages, locale switchers, or localization feature content. The existing Classic screenshots are an owner-approved exception for historical media in Classic only; their pixels may show Bench or Worker text, but no corresponding page, code, post, or backend is imported. Other excluded screenshots remain prohibited. `/claim`, `/unsubscribe`, `/appcast`, `/pricing`, `/roadmap`, and `/prompt-anatomy` are redirect artifacts only. Framework English metadata and a literal code variable named X are not prohibited content. Never publish credentials from examples or screenshots.
 
+## External links
+
+The shared [external-link client module](../../src/clientModules/externalLinks.js) applies to rendered links across the site, including links inserted after navigation or by embedded components. Off-site HTTP(S) links open in a new tab with `noopener noreferrer`, the changelog's `↗` indicator, and an accessible announcement. Internal links, page fragments, email links, and telephone links keep their existing behavior. Keep authored link text descriptive; do not add another arrow or repeat the announcement. Existing changelog markup is recognized and preserved. Check this behavior after changes to the navigation or third-party components.
+
+The arrow is hidden from assistive technology to avoid announcing a meaningless symbol. The words “opens in a new tab” remain in the accessible label or in a visually clipped `[data-external-link-notice]` span styled by [`typography.css`](../../src/css/typography.css). They should not appear as extra visible link text. Preserve that style when changing themes; do not hide the span with `display: none`, `visibility: hidden`, or `aria-hidden`.
+
+## Accessible authoring
+
+Follow the site's [accessibility intent](../../README.md#accessibility-intent) and [manual verification process](maintenance.md#accessibility-verification-gate).
+
+- Use headings for document structure, not font sizing. Keep one clear page title and logical subsection levels. Make link text identify its destination or purpose without relying on the nearby paragraph.
+- Preserve visible labels in accessible names. Icon-only controls need meaningful names; decorative icons should not repeat those names. Do not use color, position, or an icon alone to communicate essential instructions or status.
+- Write image alternatives for the information the image adds. Put complex explanations in nearby text. Include captions and an appropriate description of essential visual information for video; a viewing link alone is not an equivalent alternative.
+- Use native links, buttons, lists, tables, and disclosure controls where possible. Keep keyboard focus visible, preserve logical focus order, and provide a way to dismiss overlays and return focus. Tables and code blocks must remain usable when zoomed or horizontally scrolled.
+- Keep instructions concise and explain errors with a recovery step. Review narrow layouts, text spacing, reduced motion, and both color themes when content or presentation changes could affect them. Record checks that could not be completed rather than claiming a pass.
+
 ## Blog authorship
 
 The first-person blog posts prior to October 2026 are by **Eric Provencher**, RepoPrompt's original author. Keep a visible attribution before the opening paragraph so “I” and “my” cannot be mistaken for the documentation maintainer's voice. Preserve Eric's first-person prose. Links to [his X profile](https://x.com/pvncher) in blog author attribution are explicitly allowed; this does not enable X/Twitter metadata or unrelated social links.

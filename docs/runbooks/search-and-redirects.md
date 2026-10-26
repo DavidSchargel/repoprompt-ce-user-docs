@@ -37,6 +37,7 @@ a production build; a development preview alone does not verify the generated in
 - With real Algolia credentials and a completed docs-only crawl, search a distinctive phrase on CE and on Classic; confirm the appropriate version filter, no non-docs hits, and no duplicate cross-edition hits.
 - Open results and heading anchors under the project prefix. Check desktop modal, mobile search, keyboard focus/Escape, and empty/error states.
 - Verify normal navigation with search requests blocked/offline.
+- Check the search control's accessible name, keyboard entry, result navigation and activation, Escape behavior, and focus return. Review how loading, empty results, and errors are communicated without relying only on color or animation. Test both narrow and wide layouts at zoom; an automated index check does not establish that the search interface is accessible.
 - Confirm no Algolia requests occur when all credentials are removed; local index requests are expected on docs routes. Partial configuration must fail; complete test values validate shape only, not service behavior.
 - Recheck disclosures before enabling or changing the external search service on the live site. Record the commit, search mode, base path, tested routes, and result. For Algolia, also record the crawl date and index name, never keys.
 
