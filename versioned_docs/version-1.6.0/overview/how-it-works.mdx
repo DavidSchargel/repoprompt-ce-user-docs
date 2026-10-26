@@ -106,7 +106,7 @@ RepoPrompt ships included slash commands that wrap this three-stage pipeline int
 
 **When to use it:** Debugging a tricky crash, tracing a regression, or understanding how an unfamiliar subsystem works.
 
-- Operates as a strictly read-only, hypothesis-driven workflow that documents its progress in `docs/investigations/<topic>-<YYYY-MM-DD>.md`.
+- Follows a hypothesis-driven workflow that writes an investigation report to `docs/investigations/<topic>-<YYYY-MM-DD>.md` without changing source code.
 - Uses `explore` scouts for git blame archaeology and Context Builder to gather cross-file evidence, then consults the Oracle (`oracle_send` / `ask_oracle`) to test hypotheses until the root cause is proven with exact file and line citations.
 
 :::tip[Additional Specialized Workflows]
