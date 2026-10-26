@@ -18,14 +18,20 @@ Start with a small group. More lanes add usage, coordination work, and possible 
 
 Status updates are attached to the overseer's next turn even when routine automatic waking is disabled. The wake controls decide whether updates can also start additional model turns:
 
-| Control | Use and limitation |
-| --- | --- |
-| **Auto-wake on all updates** | Enables routine follow-up turns for selected linked sessions. It is on by default and saved for the overseer session. |
-| Lane **Auto-wake** | Selects an individual lane for routine wake behavior. |
-| **Snooze status Auto-wake…** | Temporarily defers that lane's routine status wakes. |
-| **Routine wake-ups no more often than** | Sets a minimum interval across routine oversight wakes. Deferred updates remain queued. |
-| **Wake when idle for** | Adds a wake after the chosen idle interval while overseeing another session, even without an update. Each wake uses a model turn. |
-| **Wake now** | Processes pending updates immediately when the overseer is able to accept a turn. |
+<table>
+  <caption>Overseer wake controls and their effects</caption>
+  <thead>
+    <tr><th scope="col">Control</th><th scope="col">Use and limitation</th></tr>
+  </thead>
+  <tbody>
+    <tr><th scope="row"><strong>Auto-wake on all updates</strong></th><td>Enables routine follow-up turns for selected linked sessions. It is on by default and saved for the overseer session.</td></tr>
+    <tr><th scope="row">Lane <strong>Auto-wake</strong></th><td>Selects an individual lane for routine wake behavior.</td></tr>
+    <tr><th scope="row"><strong>Snooze status Auto-wake…</strong></th><td>Temporarily defers that lane's routine status wakes.</td></tr>
+    <tr><th scope="row"><strong>Routine wake-ups no more often than</strong></th><td>Sets a minimum interval across routine oversight wakes. Deferred updates remain queued.</td></tr>
+    <tr><th scope="row"><strong>Wake when idle for</strong></th><td>Adds a wake after the chosen idle interval while overseeing another session, even without an update. Each wake uses a model turn.</td></tr>
+    <tr><th scope="row"><strong>Wake now</strong></th><td>Processes pending updates immediately when the overseer is able to accept a turn.</td></tr>
+  </tbody>
+</table>
 
 An explicit attention request from an exactly linked session can bypass the routine master switch, lane selection, snooze, and routine interval without changing those settings. **Wake now** also bypasses the routine interval. Use **Unlink** to end the relationship when you need to prevent further purposeful attention through that link.
 
