@@ -13,6 +13,10 @@
   flex: none;
 }
 
+.header-github-link .new-tab-indicator {
+  display: none;
+}
+
 .navbar__items--right .navbar__link.header-github-link {
   border: none;
   padding: 0;
