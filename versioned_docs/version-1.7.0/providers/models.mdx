@@ -14,6 +14,10 @@ A CLI runtime can expose a different model set from the same company's direct AP
 
 Some integrations discover models. Others accept an exact custom model identifier, a deployment choice, or a backend that chooses its own model. OpenRouter requires registering the fetched models you want to expose. Custom API can use discovered models or a preferred model ID. Follow the individual provider guide for the supported route.
 
+### Model catalog
+
+Choose the model and effort exposed by your connection; the [Codex integration](./codex-cli.mdx) and [OpenAI API integration](./openai-api.mdx) have separate runtimes, authentication, and availability. A new-task default does not replace an established session's model. Use [Agent Models settings](../settings/agent-mode/agent-models.mdx) to inspect effective defaults and workspace overrides.
+
 ## Names, identifiers, aliases, and presets
 
 The human-readable label in a picker can differ from the identifier sent to a runtime or API. Reuse the choice returned by that connection instead of guessing an identifier from a screenshot or another provider's catalog.

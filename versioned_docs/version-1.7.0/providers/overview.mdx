@@ -53,6 +53,14 @@ Use [Model and Effort](../sessions/model-and-effort.mdx) to operate the session 
 
 <span id="using-your-existing-subscriptions" />
 
+## Provider environment filtering
+
+If your shell environment contains credentials or endpoint settings for several providers, **Provider environment filtering (opt-in)** can withhold selected ambient variables from new provider processes. In **Settings → Agent Mode → Overview**, enter exact, case-sensitive variable names to withhold, then add per-provider pass-through exceptions for names that connection needs. Enter names only, separated by spaces or commas; values and wildcards are not accepted.
+
+Empty lists preserve the existing environment. Choose **Apply**, then start a new provider process to use the saved rules. Filtering also applies to provider probes and headless launches, but does not change already-running processes or your interactive terminal. Explicit app/runtime launch overrides remain available.
+
+If authentication or a tool stops working after filtering, check whether it depends on a withheld variable and add a narrow exception for that provider. This is a partial mitigation: it does not isolate credential files, shell profiles, or other resources available to the same macOS user. See [Agent Mode settings](../settings/agent-mode/overview.mdx) for the controls.
+
 ## Accounts and billing
 
 RepoPrompt is free and does not add a provider markup. The selected account and route determine usage charges and quotas. A CLI subscription does not automatically pay for API calls, and an API credential does not establish access to a separate CLI subscription product. Each provider page explains the relevant distinction and links to its catalog where applicable.
