@@ -37,6 +37,12 @@ An explicit attention request from an exactly linked session can bypass the rout
 
 Automatic turns can generate more updates, so even one relationship can sustain repeated activity. Sessions that oversee each other can keep waking one another. Prefer a clear coordination direction and enable periodic waking only for work that needs it. A busy overseer finishes its current and already-accepted work before taking eligible update-driven follow-up work.
 
+### Keep routine check-ins quiet
+
+For supported Codex and Claude Code sessions, RepoPrompt can recognize a routine automatic check-in that has nothing actionable to report and suppress its routine transcript noise. This reduces repeated coordination chatter; it does not eliminate the model turn or its usage. A meaningful result, failure, or request for input still deserves review.
+
+Quiet display does not erase the saved conversation or exported history, and it is separate from turning Auto-wake off. Use the wake interval and snooze controls above to reduce unnecessary turns. Give the overseer an explicit instruction such as “Notify me when a result is ready, work fails, or you need a decision; keep unchanged routine checks quiet.”
+
 ## Review results and approvals
 
 An **Idle** row means the session is not working; it does not prove the task met its acceptance criteria. Ask the overseer to identify evidence, remaining risks, and unfinished work. Open the lane's transcript and inspect key diffs or tool results before accepting a consequential conclusion.
@@ -44,6 +50,10 @@ An **Idle** row means the session is not working; it does not prove the task met
 Oversight can handle eligible one-time approvals, but session-wide permission grants, secret inputs, hook trust, and merge reviews remain with you. The optional **Auto-approve read-only commands** switch is off by default and applies only to a restricted set of simple commands on managed lanes. It does not approve arbitrary shell work, setup scripts, or all Git operations.
 
 ## Finish and recover deliberately
+
+For scoped administration, preview bulk changes before applying them. RepoPrompt can present a batch confirmation card with the affected sessions; retirement and worktree release require that confirmation unless covered by the full-access setting. Reversible organization operations can return an undo action. Deleting sessions and physically removing worktrees remain separate user actions.
+
+When delegated coordination is finished, release the scope as well as ending unneeded links. Releasing a parent scope also revokes its nested scopes. A permission refusal can mean an expired grant, missing capability, or a reached limit; inspect that reason before requesting broader access.
 
 Retire completed lanes only after their work is inactive and reviewed. Retirement stashes the session without deleting it or integrating its changes. Unlink independently created sessions when their coordination purpose ends.
 

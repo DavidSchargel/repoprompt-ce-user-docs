@@ -1,0 +1,42 @@
+---
+title: "Approvals and Paused Sessions"
+slug: "/sessions/approvals"
+description: "Recognize pending tool approvals, edit reviews, and project-hook decisions, and understand what each response authorizes."
+---
+
+A paused coding session can be waiting for a tool decision, an edit review, project-hook trust, or an answer to a question. Read the active card before changing permission settings or sending another task. Different cards authorize different actions; a provider's tool approval does not stand in for every RepoPrompt review.
+
+## Tool approval
+
+An approval card shows **Needs your approval**, the requested operation, and available details such as the command or working directory. Read the proposed action and its scope.
+
+- **Approve** accepts the current request where supported.
+- **Decline** refuses the request and lets the runtime handle that outcome.
+- A session-approval option, when offered, has a broader scope than one request.
+- **Approve & Remember** accepts the proposed execution-policy amendment supplied with the request. Inspect that proposal before choosing it; it is not merely a second label for one-time approval.
+
+The available choices depend on the provider and request. A separate **Permission Approval** card does not offer remembered decisions through this interface. For default provider modes and the separate MCP sub-agent policy, see [Tools](./tools.mdx) and [Agent Permissions](../settings/agent-mode/agent-permissions.mdx).
+
+## Apply Edits Review
+
+This card shows the file path and a proposed unified diff. Read the additions and deletions before choosing **Accept**. To choose **Reject**, enter a **Rejection reason** first; rejection is disabled while that field is empty. Give an actionable reason, such as “Preserve the existing public method signature.”
+
+**⌘Return** accepts and **⌘Delete** rejects when the corresponding action is available. If the card says **No diff available**, obtain the information you need before accepting. The **Auto Edit** preference can bypass this separate edit review; it does not establish that generated changes are correct.
+
+## Project Hooks Need Approval
+
+Codex can pause its initial turn to review repository-provided hooks. Check the **Execution directory**, hook details, and warnings. No hook is selected by default.
+
+Select the hooks you intend to trust and choose **Approve Selected & Continue**, or use **Trust All Shown** only after reviewing the full list. These choices concern project hooks, not general approval of every later tool request.
+
+Where available, **Continue Without Hooks** asks for confirmation before continuing without enabling those hooks. Strict hook mode hides this option. If discovery fails, the card offers **Retry**; inspect the displayed error and directory before retrying.
+
+## Other reasons a session is waiting
+
+An external MCP client's **Connection Request** is separate from an agent tool approval. With **Strict connection approval** enabled, built-in and saved client-name approvals are ignored and the client must be approved for the current RepoPrompt run. Reconnects from the same running app can reuse that approval. Agents launched inside RepoPrompt do not need this external-client prompt. See [Connection Management](../mcp-server/mcp-connections.mdx#connection-approval) for admission details; allowing a connection does not grant broader agent permissions.
+
+An overseer can also be waiting for a [delegation-scope approval](../overseer/overview.mdx#organize-sessions-with-delegated-permissions) or a batch confirmation for session administration. Review the affected sessions and proposed capabilities in that card. Scope approval is distinct from changing a provider's permission mode.
+
+A question needs an answer in its input card. A [worktree merge review or conflict](../worktrees/review-and-merge.mdx) needs its own integration decision. An overseer can handle eligible one-time requests, but [oversight](../overseer/overview.mdx) does not transfer every approval: hook trust, merge reviews, session-wide grants, and secret inputs remain with you.
+
+If the session still appears paused, check the currently displayed blocker and any error after your response. Another pending decision may be shown next; repeated approval is not a general recovery procedure.

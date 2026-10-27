@@ -1,0 +1,41 @@
+---
+title: "Message Editor"
+slug: "/sessions/message-editor"
+description: "Compose a task, stage a workflow, attach context, and send or steer an Agent Mode session."
+---
+
+The message editor is the **Send a message…** field at the bottom of a session. It combines the request you write with the workflow, context, model, and permissions selected around it. Check these surrounding controls before sending, especially when you have switched sessions.
+
+![Agent Mode composer showing the message field and its toolbar and submission controls](./images/composer.png)
+
+## Write the outcome and constraints
+
+Describe the result you need, the relevant behavior, and how you will judge success. Include known files or components as starting points without assuming you must select every file the agent will need. Agents can search the repository and use [Context Builder](./context-builder.mdx) to discover relevant code.
+
+For example: “Fix the session list so renaming a chat preserves its selection. Keep keyboard navigation working and explain the affected behavior.” Add scope limits, compatibility requirements, or review expectations in the message. A [Workflow Template](./workflow-templates.mdx) supplies the approach around that task; it does not supply missing product requirements.
+
+## Stage the message
+
+Choose the [execution location](./execution-location.mdx), then select a workflow card or the **Workflow** selector if needed. Use the file/context control to inspect selected files and receiving-model instructions. File mentions can add explicit file attachments when enabled; review the attachment strip rather than assuming a typed path was attached.
+
+The attachment button opens **Choose Files**. Select files, drop them into the editor, or paste supported clipboard content. Review the attachment strip and remove anything that should not accompany the next turn. Attachments are separate from repository selection: typing a path is not the same as attaching the file.
+
+Delivery depends on the selected provider and file type. Supported images are visual input; supported text files can supply their contents to the request. An unsupported file or a request that exceeds a limit produces an error instead of silently omitting the file. See [Image Support](./image-support.mdx) and [Providers & Models](../providers/overview.mdx) for related capabilities. Re-prompting does not inspect attachment contents.
+
+## Submit and follow up
+
+**Return** or the paper-plane button submits the message in the normal composer state. Use **Shift+Return** for a line break. With [Re-prompt](./re-prompter.mdx) enabled, the first Send can instead rewrite the draft for review; inspect the visible state before sending again.
+
+A follow-up sent to a running session can steer its work. It is different from starting a fresh session, and it does not necessarily interrupt a tool action at the exact moment you type. For a question or approval already waiting in the transcript, use that interaction's response controls so the answer reaches the right pending request.
+
+## Work from the keyboard
+
+Use **Command+L** to focus the composer and **Command+.** to stop the current run. These actions target the current session. Return sends and Shift+Return inserts a line break in the normal editing state; [Re-prompt](./re-prompter.mdx) can change what the first Send does.
+
+Command and composer shortcuts can be remapped in [Keyboard Shortcuts](../settings/general/keyboard-shortcuts.mdx). The bindings shown here are defaults; check your saved bindings if a shortcut behaves differently.
+
+## Review the conversation
+
+Replies and tool cards appear above the editor. Expand a card for arguments, results, or a diff. Provider permissions and the **Auto Edit** setting determine whether a file change is applied automatically or needs a decision. Use the session's stop/cancel control when you intend to stop active work; an unsent draft does not stop the agent.
+
+Use [Session History](./session-history.mdx) to return to earlier conversations or [Overseer](./overseer.mdx) when coordinating several active sessions.

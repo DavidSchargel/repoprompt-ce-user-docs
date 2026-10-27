@@ -37,6 +37,39 @@ For a properly linked target, the confirmation describes access to status and co
 
 An overseer can coordinate work across RepoPrompt windows, but it does not combine every session into a single conversation or automatically merge their file changes. Review results and integration decisions in the target checkout.
 
+## Organize sessions with delegated permissions
+
+An overseer can also administer sessions through a **delegation scope**. A scope defines the sessions it covers, permitted actions, and limits. It is separate from an oversight link, which carries conversation updates and coordination between a pair of sessions.
+
+Ask for the outcome and boundaries in ordinary language, for example:
+
+> Organize this workspace's completed investigations into groups, pin the active implementation, and archive finished sessions. Leave running work alone.
+
+When the request needs authority the overseer does not already hold, RepoPrompt presents a scope approval card. Review its coverage, capabilities, and limits; you can narrow the proposed grant. Existing standing consent can cover a later request. The optional **Overseer full access** setting grants broader authority and can avoid these scope cards; enabling Overseer mode alone does not grant that access.
+
+| Capability | What it permits within the scope |
+| --- | --- |
+| Observe | List, search, and inspect sessions and progress. |
+| Organize | Rename, pin, reorder, group, archive, and unarchive sessions. |
+| Control | Send or steer work, answer eligible prompts, stop runs, compact context, and change available model or effort choices. |
+| Restructure | Manage links and session organization, release sessions, and retire eligible work. |
+| Spawn | Create or fork sessions and delegate to nested overseers. |
+| Worktree | Create and manage session worktree bindings, prepare merge previews, and request a merge review. |
+
+Scopes can cover one exact session, a session tree, a workspace, or all sessions. An ordinary all-sessions scope supports observation, organization, and restructuring; it does not by itself grant control over every running task. Deleting sessions, removing or pruning worktrees, changing provider permission modes, approving MCP clients, and changing app settings remain user actions. Oversight can manage eligible approvals within a task without granting permission to change those underlying controls.
+
+### Nested delegation
+
+An overseer with the required scope can give a member session a narrower scope to coordinate part of the work. The nested scope cannot expand its parent's capabilities, membership, or limits. Session, depth, and worktree limits apply across the delegated tree; a nested overseer does not receive a fresh unrestricted budget.
+
+Releasing a scope revokes its nested scopes too. Moving a session in the sidebar or linking it to another session does not grant new scope membership. Use explicit tasks and review the scope status when a nested coordinator cannot perform an operation.
+
+### Worktrees on behalf of linked agents
+
+With the required authority, ask the overseer to create or bind a worktree for a target session, inspect its worktrees, or prepare integration. RepoPrompt resolves the repository from the **target session**; when it has several worktree bindings, specify which repository or worktree you mean. A bind can be deferred until the target reaches an idle boundary.
+
+Releasing a worktree unbinds it and marks it for user cleanup; it does not delete the checkout. Merge application still uses the target session's user review. See [Worktrees](../worktrees/overview.mdx) for setup and integration.
+
 ## Keep coordination visible
 
 The dashboard distinguishes **Idle**, **Running**, **Waiting for input**, and **Unavailable**. Open a session to inspect its actual result; an idle state alone does not prove its goal is complete. Pending updates and **New** indicators help you spot changes since the overseer last handled them.

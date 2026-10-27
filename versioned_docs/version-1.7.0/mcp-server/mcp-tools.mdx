@@ -248,6 +248,7 @@ Start or continue Oracle conversations for questions, planning, or review using 
 | `mode` | chat \| plan \| review |
 | `model` | Exposed preset name/UUID or available raw primary model override; valid only with explicit new_chat=true. |
 | `chat_id` | Specific chat to continue |
+| `attachments` | App-backed file inputs: an array of `{ "path": "/absolute/path", "title": "Optional label" }` entries. See below for supported types and path boundaries. |
 | `export_response` | Write the response to a shareable file and return its export information. |
 
 **Modes:**
@@ -258,9 +259,24 @@ Start or continue Oracle conversations for questions, planning, or review using 
 
 An exact exposed preset identity wins over a raw model ID and supplies the complete Oracle roster and mapped Chat Preset. A raw override replaces the primary while retaining configured additional Oracles. Continuation preserves the established conversation configuration and rejects model overrides. Oracle consultation is separate from the agent applying file edits.
 
+**Attachments:** Use `attachments` for supported images (PNG, JPEG, GIF, WebP), UTF-8 text, and PDFs on routes that accept native documents. Each path must be canonical and absolute, inside a loaded workspace root or the exact path of a file the user attached to this agent session. Unsupported input is refused; files are not silently omitted. Remote URLs and direct-headless attachment requests are not supported. The older `images` argument is an image-only compatibility alias; do not send it together with `attachments`.
+
+```json
+{
+  "message": "Review the layout against this screenshot.",
+  "new_chat": true,
+  "mode": "review",
+  "attachments": [{"path": "/Users/example/Project/design/current.png", "title": "Current layout"}]
+}
+```
+
+Originals are sent for this turn only, and to each lane in a grouped request. Continue with the returned conversation IDs and explicitly attach files again if needed. Inspect individual lane statuses and export errors before retrying. See [Oracle](../sessions/oracle.mdx) for grouped-result review and attachment usage.
+
+Oracle attachment limits are **10 files**, **20 MiB per file**, and **50 MiB total** before provider encoding. UTF-8 text files must also fit the **512 KiB** inline-text limit; larger files are refused rather than truncated. Provider request and model-context limits still apply.
+
 ### `ask_oracle`
 
-During eligible Agent Mode runs, consult an Oracle in the current agent context with `message`, optional `chat_id`, `new_chat`, `mode`, and `export_response`. Omit chat_id or set new_chat=true to start; otherwise continue that conversation. Current source also allows a primary `model` override on a new conversation and rejects it on continuation. Use the tool actually advertised to your connection.
+During eligible Agent Mode runs, consult an Oracle in the current agent context with `message`, optional `chat_id`, `new_chat`, `mode`, `attachments`, and `export_response`. Omit chat_id or set new_chat=true to start; otherwise continue that conversation. A primary `model` override is allowed on a new conversation and rejected on continuation. Use the tool actually advertised to your connection.
 
 ### `oracle_utils`
 

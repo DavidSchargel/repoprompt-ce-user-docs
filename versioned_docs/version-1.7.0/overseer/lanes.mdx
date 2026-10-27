@@ -24,7 +24,7 @@ Define its deliverable, scope, and stopping point. “Investigate why cancellati
 
 Specify the intended workspace when work spans projects. Lane creation needs an unambiguous open workspace destination. A created lane is a top-level session, so do not assume it inherits the safety profile of an MCP sub-agent or a separate checkout. Inspect its permissions and [execution location](../sessions/execution-location.mdx). Use worktrees for concurrent edits that may overlap.
 
-Lanes created by an overseer cannot activate themselves as overseers. Keep the coordinating plan in the parent conversation and let the lane concentrate on its assigned result.
+A lane does not inherit its creator's authority. A coordinator with the required delegation scope can explicitly grant a narrower scope to a member session for nested coordination. Keep the overall plan in the parent conversation, define the nested coordinator's task, and review the [delegation boundaries](./overview.mdx#nested-delegation).
 
 ## Follow progress and continue work
 

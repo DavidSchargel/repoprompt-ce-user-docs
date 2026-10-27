@@ -1,0 +1,29 @@
+---
+title: "Model and Effort"
+slug: "/sessions/model-and-effort"
+description: "Choose a provider, execution model, reasoning effort, and available speed tier from the session composer."
+---
+
+The model selector below the editor chooses the provider and model for the session's work. The adjacent menu selects an available reasoning effort. This guide explains those controls; the shared [Models reference](../providers/models.mdx) owns model availability, identifiers, aliases, effort, and service-tier concepts.
+
+![Composer model and effort controls with a selected Codex model and Medium effort](./images/model-effort.png)
+
+## Select a connected model
+
+Open the provider/model menu and choose an available entry. Models come from connected runtimes and configured compatible backends, so the list can differ between installations. Connect a missing provider through [CLI Providers](../settings/agent-mode/cli-providers.mdx). The [Providers guide](../providers/overview.mdx) compares the supported integrations in a compact format.
+
+An explicit selection establishes the intended provider and model. Read locks and disabled-state explanations when a choice cannot be changed: controls can be locked while an agent controls the session, and some provider settings are locked during an active run. A provider or backend change can require a fresh provider context, so review any restart behavior before switching during a task.
+
+## Choose effort and speed deliberately
+
+Open the effort menu and select one of the choices returned for this model. Some connections display provider-specific parameter controls or omit effort when it is not available. See [Reasoning effort](../providers/models.mdx#reasoning-effort) for the meaning of those choices.
+
+When a speed or Fast option is available, inspect its selected state separately from effort. [Speed and service tiers](../providers/models.mdx#speed-and-service-tiers) explains the capability and billing distinctions.
+
+## How automatic decisions interact
+
+With model routing enabled through [Agent Decisions](./model-router.mdx) for a new session, the composer can replace the ordinary picker with the routing-service label. Model routing chooses the model and initial effort for that task. Existing sessions retain their established targets.
+
+[Auto Effort](./auto-effort.mdx) keeps an explicitly selected supported model and chooses effort before eligible turns. It does not change effort between tool calls in an active turn. If automatic decisions are unavailable, the manual selection or applicable default is used.
+
+Other features have their own model controls. See [Model roles](../providers/models.mdx#model-roles) and the corresponding [Re-prompt](./re-prompter.mdx), [Context Builder](./context-builder.mdx), and [Oracle](./oracle.mdx) guides.

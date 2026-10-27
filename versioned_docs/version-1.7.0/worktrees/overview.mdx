@@ -18,6 +18,12 @@ RepoPrompt can create worktrees for MCP tools and Agent Mode. App-managed worktr
 
 On APFS, RepoPrompt automatically attempts copy-on-write cloning when the new worktree starts from the same tree as a clean source checkout on the same volume. Tracked files initially share disk blocks with the source and consume additional space only when changed. RepoPrompt verifies the cloned checkout by refreshing its index and requiring a clean Git status. It uses an ordinary Git checkout when the source is dirty, the requested base differs, or repository features such as sparse checkout, submodules, Git LFS filters, special line-ending or encoding attributes, hooks, path collisions, different volumes, or an external destination make cloning unsuitable. Set `clone_tracked_checkout=false` when checkout speed matters more than disk space.
 
+## Coordinate worktrees through an overseer
+
+An [Overseer](../overseer/overview.mdx#worktrees-on-behalf-of-linked-agents) with worktree authority can create, inspect, bind, or unbind worktrees for sessions in its delegation scope. Repository selection follows the target session's workspace and bindings. Tell the coordinator which repository to use if the target has several bindings.
+
+A binding change can wait until the target is idle. Releasing a worktree unbinds it and marks it for cleanup without removing files. The overseer can prepare a merge preview and request application, but you still review the merge in the target session. These operations do not make an isolated checkout a credential or process sandbox.
+
 ## Copying local ignored files with `.worktreeinclude`
 
 Add `.worktreeinclude` at the main repository root using `.gitignore` patterns. Matching ignored files are copied; tracked edits are excluded. MCP creation can explicitly include matching untracked files with `copy_worktree_include_untracked_files=true`.
