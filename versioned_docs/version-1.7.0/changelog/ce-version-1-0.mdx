@@ -19,12 +19,14 @@ RepoPrompt v1.7.0 (build 40) adds Agent workflow capabilities and improves relia
 
 **Highlights**
 
-- **Overseer coordination:** Session organization, nested delegation scopes, worktree operations for linked agents, and quieter routine check-ins.
-- **Re-prompting:** Revise drafts before submission, review clarification questions, and configure the rewriting model and guidance.
-- **Model decisions:** Additional services for model routing and Auto Effort in Agent Decisions, revised new-task defaults, improved usage balancing, updated model choices, and bundled Codex 0.164.0.
-- **Attachments and Oracle:** Broader file-attachment support, images in `oracle_send`, and clearer grouped Oracle responses and guidance.
-- **Keyboard controls:** Remap command and composer shortcuts, stop runs, focus the composer, reopen stashed sessions, and find sessions awaiting attention.
-- **Recovery and performance:** Improved restoration of sessions, worktrees, and windows; less repetitive MCP approval; and fixes for interrupted processes, Git reads, diff context, and background indexing.
+- **Provider environment filtering:** Opt in to withholding named ambient variables from new provider processes, with per-provider exceptions. See [Providers & Models](../providers/overview.mdx#provider-environment-filtering).
+- **Strict MCP connection approval:** Require external-client admission for the current app run instead of relying on built-in or saved client names. See [Connection Management](../mcp-server/mcp-connections.mdx#connection-approval).
+- **Overseer coordination:** [Session organization and nested delegation scopes](../overseer/overview.mdx#organize-sessions-with-delegated-permissions), [worktree operations for linked agents](../overseer/overview.mdx#worktrees-on-behalf-of-linked-agents), and quieter routine check-ins.
+- **Re-prompting:** Revise drafts before submission, review clarification questions, and configure the rewriting model and guidance. See [Re-Prompter](../sessions/re-prompter.mdx).
+- **Model decisions:** Additional services for [Model Router](../sessions/model-router.mdx) and [Auto Effort](../sessions/auto-effort.mdx) in Agent Decisions, revised new-task defaults, improved usage balancing, updated model choices, and bundled Codex 0.164.0.
+- **Attachments and Oracle:** Broader [file-attachment support](../sessions/oracle.mdx#attach-files-to-an-oracle-consultation), images in [`oracle_send`](../mcp-server/mcp-tools.mdx#oracle_send), and clearer grouped Oracle responses and guidance.
+- **Keyboard controls:** Remap [keyboard shortcuts](../settings/general/keyboard-shortcuts.mdx), stop runs, focus the composer, reopen stashed sessions, and find sessions awaiting attention.
+- **Recovery and performance:** Improved restoration of [sessions](../sessions/session-history.mdx), [worktrees](../worktrees/overview.mdx), and windows; less repetitive [MCP approval](../mcp-server/mcp-connections.mdx#connection-approval); and fixes for interrupted processes, Git reads, diff context, and background indexing.
 
 **Computer Use:** In the official build, this feature needs an OpenAI-signed Codex executable. Choose a compatible local executable in **Settings → Codex CLI → Advanced**, then restart the app. Ordinary Codex conversations continue to use the included runtime.
 
