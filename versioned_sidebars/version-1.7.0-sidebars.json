@@ -1,0 +1,245 @@
+{
+  "docsSidebar": [
+    "overview",
+    "why-repoprompt",
+    {
+      "type": "category",
+      "label": "Overview",
+      "className": "sidebar-cat-rocket",
+      "items": [
+        "overview/installation",
+        "overview/getting-started",
+        "overview/how-it-works",
+        "overview/how-it-really-works"
+      ]
+    },
+    {
+      "type": "category",
+      "label": "Sessions & Interface",
+      "className": "sidebar-cat-monitor",
+      "items": [
+        "sessions/overview",
+        "sessions/session-history",
+        "sessions/execution-location",
+        "sessions/workflow-templates",
+        "sessions/overseer",
+        "sessions/interviewer",
+        "sessions/re-prompter",
+        "sessions/model-router",
+        "sessions/auto-effort",
+        "sessions/computer-use",
+        "sessions/message-editor",
+        "sessions/model-and-effort",
+        "sessions/tools",
+        "sessions/approvals",
+        "sessions/oracle",
+        "sessions/context-builder",
+        "sessions/context-composer",
+        "sessions/image-support"
+      ]
+    },
+    {
+      "type": "category",
+      "label": "Providers & Models",
+      "className": "sidebar-cat-puzzle",
+      "items": [
+        "providers/overview",
+        "providers/models",
+        {
+          "type": "category",
+          "label": "Coding Agents",
+          "items": [
+            "providers/codex-cli",
+            "providers/claude-code-cli",
+            "providers/opencode-cli",
+            "providers/cursor-cli",
+            "providers/grok-build",
+            "providers/google-antigravity",
+            "providers/devin-cli",
+            "providers/cc-zai",
+            "providers/cc-moonshot",
+            "providers/cc-custom"
+          ]
+        },
+        {
+          "type": "category",
+          "label": "API & Local Services",
+          "items": [
+            "providers/anthropic-api",
+            "providers/openai-api",
+            "providers/deepseek",
+            "providers/fireworks-ai",
+            "providers/xai-api",
+            "providers/groq",
+            "providers/zai-api",
+            "providers/gemini-api",
+            "providers/azure-openai",
+            "providers/local-models",
+            "providers/openrouter",
+            "providers/custom-api"
+          ]
+        }
+      ]
+    },
+    {
+      "type": "category",
+      "label": "Agent Mode",
+      "className": "sidebar-cat-code",
+      "items": [
+        "agent-mode/overview",
+        "agent-mode/workflows",
+        "agent-mode/skills"
+      ]
+    },
+    {
+      "type": "category",
+      "label": "MCP Server",
+      "className": "sidebar-cat-code",
+      "items": [
+        "mcp-server/mcp-overview",
+        "mcp-server/mcp-setup",
+        "mcp-server/setup-wizard",
+        "mcp-server/mcp-tools",
+        "mcp-server/mcp-app-settings",
+        "mcp-server/mcp-transport",
+        "mcp-server/mcp-settings",
+        "mcp-server/mcp-connections",
+        "mcp-server/workflow-commands"
+      ]
+    },
+    {
+      "type": "category",
+      "label": "Overseer Mode",
+      "className": "sidebar-cat-rocket",
+      "items": [
+        "overseer/overview",
+        "overseer/lanes",
+        "overseer/linking-sessions",
+        "overseer/best-practices"
+      ]
+    },
+    {
+      "type": "category",
+      "label": "Worktrees",
+      "className": "sidebar-cat-folder",
+      "items": [
+        "worktrees/overview",
+        "worktrees/create-and-use",
+        "worktrees/review-and-merge"
+      ]
+    },
+    {
+      "type": "category",
+      "label": "Settings",
+      "className": "sidebar-cat-sliders",
+      "items": [
+        "settings/search-settings",
+        {
+          "type": "category",
+          "label": "Agent Mode",
+          "items": [
+            "settings/agent-mode/overview",
+            "settings/agent-mode/cli-providers",
+            "settings/agent-mode/agent-models",
+            "settings/agent-mode/agent-permissions",
+            "settings/agent-mode/agent-workflows",
+            "settings/agent-mode/context-builder"
+          ]
+        },
+        {
+          "type": "category",
+          "label": "Router",
+          "items": [
+            "settings/router/model-router"
+          ]
+        },
+        {
+          "type": "category",
+          "label": "General",
+          "items": [
+            "settings/general/appearance",
+            "settings/general/notifications",
+            "settings/general/updates",
+            "settings/general/keyboard-shortcuts",
+            "settings/general/advanced",
+            "settings/general/telemetry"
+          ]
+        },
+        {
+          "type": "category",
+          "label": "MCP Server",
+          "items": [
+            "settings/mcp-server/mcp-server",
+            "settings/mcp-server/tools",
+            "settings/mcp-server/workspace-approvals",
+            "settings/mcp-server/model-presets"
+          ]
+        },
+        {
+          "type": "category",
+          "label": "Models & Providers",
+          "items": [
+            "settings/models-and-providers/api-providers",
+            "settings/models-and-providers/openrouter",
+            "settings/models-and-providers/custom-api",
+            "settings/models-and-providers/model-config"
+          ]
+        },
+        {
+          "type": "category",
+          "label": "Workspaces",
+          "items": [
+            "settings/workspaces/manage-workspaces",
+            "settings/workspaces/manage-presets"
+          ]
+        },
+        {
+          "type": "category",
+          "label": "Prompting",
+          "items": [
+            "settings/prompting/chat-settings",
+            "settings/prompting/workflow-presets",
+            "settings/prompting/copy-prompt-order"
+          ]
+        }
+      ]
+    },
+    {
+      "type": "category",
+      "label": "Reference",
+      "className": "sidebar-cat-sliders",
+      "items": [
+        "reference/settings"
+      ]
+    },
+    {
+      "type": "category",
+      "label": "Changelog",
+      "className": "sidebar-cat-pencil",
+      "items": [
+        "changelog/ce-version-1-0"
+      ]
+    },
+    {
+      "type": "category",
+      "label": "FAQ",
+      "className": "sidebar-cat-puzzle",
+      "items": [
+        "faq/what-is-an-oracle",
+        "faq/paid-version",
+        "faq/migrate-from-classic",
+        "faq/pay-for-services",
+        "faq/api-keys",
+        "faq/chatgpt-pro",
+        "faq/credential-recovery",
+        "faq/mcp-troubleshooting",
+        "faq/windows-linux",
+        "faq/tip-version",
+        "faq/solo-project",
+        "faq/contributing",
+        "faq/report-issue",
+        "faq/how-to-build"
+      ]
+    }
+  ]
+}

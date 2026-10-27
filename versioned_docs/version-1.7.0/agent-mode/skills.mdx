@@ -1,0 +1,147 @@
+---
+id: "skills"
+title: "Skills & Slash Commands"
+description: "Create and organize reusable agent skills and slash commands, including workflow instructions and provider-specific skill locations."
+slug: "/agent-mode/skills"
+keywords:
+  [
+    "skills",
+    "slash commands",
+    "custom skills",
+    "SKILL.md",
+    "commands",
+    "templates",
+    ".claude",
+    ".agents",
+    "prompt templates",
+    "custom workflow",
+    "frontmatter",
+    "YAML",
+    "$ARGUMENTS",
+    "skill search",
+    "install skills",
+    "rp-build",
+    "rp-review",
+    "rp-refactor",
+    "rp-investigate",
+    "rp-oracle-export",
+    "terminal",
+    "terminal agent",
+    "mcp skills",
+    "rp-cli",
+    "global",
+    "markdown",
+  ]
+hide_table_of_contents: false
+toc_min_heading_level: 2
+toc_max_heading_level: 4
+---
+
+Skills are discoverable instruction files or packages. A skill can contain workflow instructions, but the words are not interchangeable: the workflow describes a process, while the skill is how a compatible host discovers and loads its instructions. RepoPrompt also has in-app workflow templates selected through the **Workflow** control.
+
+## What Are Skills?
+
+RepoPrompt's slash-skill loader reads Markdown instruction files with optional YAML frontmatter, including folder-based `SKILL.md` files and supported legacy command files. In Agent Mode, invoking one expands its template with your task description. External coding hosts have their own discovery and invocation behavior.
+
+## Skills in Agent Mode
+
+Agent Mode discovers skills from on-disk directories and presents them in the input bar. Type `/` at the start of your message to see available skills — they filter as you type by name and description.
+
+When you send a message with a slash skill, RepoPrompt expands the template (stripping frontmatter and substituting `$ARGUMENTS` with your task description) before sending it to the agent.
+
+**Skills vs. workflow templates**
+
+Agent Mode has two ways to load instructions for a task: the **Workflow** dropdown selects built-in or custom workflow templates, while a **slash skill** loads an on-disk instruction file typed as `/skill-name`. You can use one or the other per message, but not both. A custom in-app workflow template is not automatically an installed skill for an external coding host.
+
+## Skills for Terminal Agents
+
+External coding agents can usually discover installed on-disk skills from shared directories when their host supports those locations. Connecting to RepoPrompt's MCP server supplies tool access; it does not install workflow skills. To make RepoPrompt's workflow skills available, install the matching MCP or CLI variant through **Quick Setup → Skills**, then use the external host's skill or slash-command picker.
+
+RepoPrompt supplies workflow instructions for external coding agents through commands such as `/rp-build` and `/rp-review`. **Quick Setup → Skills** installs the MCP or CLI variant as skill folders or prompt files for the selected host. These instructions guide the workflow; the client's tools and permissions determine what it can actually do. See [MCP Workflow Commands](../mcp-server/workflow-commands.mdx) for the complete catalog and installation locations.
+
+## Creating Custom Skills
+
+Custom skills are Markdown files placed in specific directories. RepoPrompt automatically discovers them and makes them available — both in Agent Mode and for any terminal agents that share the same skill directories.
+
+### Skill File Format
+
+Each skill file starts with optional YAML frontmatter followed by the prompt template:
+
+```bash
+---
+name: my-workflow
+description: My custom workflow for specific tasks
+---
+
+# My Custom Workflow
+
+Task: $ARGUMENTS
+
+Your detailed instructions here. The agent will follow
+these instructions when the skill is invoked.
+
+## Steps
+1. First, do this...
+2. Then do that...
+```
+
+The `$ARGUMENTS` placeholder is replaced with whatever the user types after the slash command.
+
+### Folder-Based Skills (Recommended)
+
+Create a folder for each skill containing a `SKILL.md` file:
+
+```text
+.claude/skills/
+  my-skill/
+    SKILL.md          ← skill definition
+  deploy-workflow/
+    SKILL.md          ← another skill
+```
+
+The folder name becomes the default command name (overridden by the `name` field in frontmatter if present).
+
+### Flat File Skills
+
+You can also place individual `.md` files directly in a commands directory:
+
+```text
+.claude/commands/
+  review.md           ← becomes /review
+  deploy.md           ← becomes /deploy
+```
+
+## Skill Search Locations
+
+RepoPrompt scans provider-specific directories in order of priority. Project-level skills take precedence over global ones:
+
+### For Claude Code
+
+1. `<project>/.claude/skills/` — Project-level folder-based skills
+2. `<project>/.claude/commands/` — Project-level flat file skills
+3. `~/.claude/skills/` — Global folder-based skills
+4. `~/.claude/commands/` — Global flat file skills
+
+### For Codex CLI
+
+1. `<project>/.agents/skills/` — Project-level folder-based skills
+2. `<project>/.agents/slash/` — Project-level flat file skills
+3. `~/.agents/skills/` — Global folder-based skills
+4. `~/.agents/slash/` — Global flat file skills
+
+If two skills have the same name, the one found first (higher priority location) wins. Agent Mode watches these directories for changes, so newly created or modified skills appear automatically.
+
+## Installing Built-in Skills
+
+RepoPrompt can install its built-in workflow skills into the appropriate directories for your terminal agents. You can do this from:
+
+- **Onboarding wizard** — During initial setup, the MCP Setup step includes a "Skills" install button
+- **MCP Settings** — The settings panel has options to install skills for different providers
+
+The installer offers **MCP skills** for instructions that call native MCP tools and **rpce-cli skills** for instructions that use the terminal command. The CLI label can reflect the running build's command name. These are alternate instruction variants, not separate tool permissions or automatic installation of the CLI executable.
+
+:::tip
+
+**Tip:** Global skills (`~/.claude/skills/` or `~/.agents/skills/`) are available across all your projects. Project-level skills let you create workflows specific to a particular codebase. Skills work in both Agent Mode and with terminal agents.
+
+:::

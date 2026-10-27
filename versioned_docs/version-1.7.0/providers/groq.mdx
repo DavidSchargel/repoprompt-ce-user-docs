@@ -1,0 +1,19 @@
+---
+title: "Groq"
+slug: "/providers/groq"
+description: "Connect Groq's hosted API and discover supported model choices independently of Grok and xAI."
+---
+
+Groq is a direct API provider configured with its own credential. **Groq** and **Grok (xAI)** are different services and settings entries; credentials and model selections do not transfer between them.
+
+## Connect and select a model
+
+Use [API Providers → Groq](../settings/models-and-providers/api-providers.mdx#groq), validate the key, and inspect the discovered models. The [Groq model catalog](https://console.groq.com/docs/models) describes the hosted models, while [deprecation notices](https://console.groq.com/docs/deprecations) identify retirement changes.
+
+Actual availability depends on the connected account and integration. Use the current returned identifier instead of assuming a model hosted by another service has the same ID or capabilities here. [Models](./models.mdx) explains that distinction and the separate roles of context limits, effort, and output controls.
+
+## Account and billing
+
+Requests use the Groq account associated with the saved credential. The provider controls its usage terms, quotas, rate limits, and charges. RepoPrompt cannot guarantee that a particular account or hosted model has free allowance.
+
+The [settings reference](../settings/models-and-providers/api-providers.mdx#groq) describes credential and discovered-model controls. If the list changes after a refresh, check both connection access and the provider's lifecycle notices before reusing an older saved ID.

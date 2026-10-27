@@ -1,0 +1,25 @@
+---
+title: "Custom API"
+slug: "/providers/custom-api"
+description: "Connect an OpenAI-compatible endpoint with its own authentication, model discovery, and preferred-model behavior."
+---
+
+Custom API connects a separate OpenAI-compatible model endpoint to supported RepoPrompt features. It is distinct from [CC Custom](./cc-custom.mdx), which routes the Claude Code coding runtime through an Anthropic-compatible endpoint.
+
+## Configure the connection
+
+Open [Custom API settings](../settings/models-and-providers/custom-api.mdx) and enter the provider URL, including its API version path where required, and the credential expected by that endpoint. An endpoint that requires no authentication can use an empty key.
+
+Leave **Preferred Model ID** blank to discover models. If the endpoint cannot list models, supply its exact compatible model ID instead. Validation with a preferred model sends a short test completion request, so it contacts the provider rather than merely checking the field format.
+
+The settings reference describes output-token limits, model enablement, the Content-Type option, credential handling, and removal. Validate changes before relying on the route.
+
+## Models and compatibility
+
+The endpoint operator determines available models and protocol behavior. OpenAI compatibility does not guarantee support for every streaming, tool, image, or reasoning feature. Follow the endpoint's documentation and [Models](./models.mdx) when choosing an identifier and capabilities.
+
+Per-model overrides in [Model Config](../settings/models-and-providers/model-config.mdx) can adapt supported request behavior; they cannot implement missing endpoint functionality.
+
+## Account and billing
+
+The endpoint's operator controls billing, quotas, privacy, and retention. A credential or subscription for another service does not establish entitlement here. Confirm the destination before saving credentials; the app can request consent before sending them to a non-HTTPS endpoint.

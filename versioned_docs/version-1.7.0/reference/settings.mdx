@@ -1,0 +1,156 @@
+---
+id: "settings"
+title: "Settings Reference"
+description: "Find RepoPrompt settings for appearance, editor behavior, AI models, context generation, and agent workflows."
+slug: "/reference/settings"
+keywords: ["preferences","options","configuration","general","chat settings","appearance","theme","dark mode","light mode","api keys"]
+hide_table_of_contents: false
+toc_min_heading_level: 2
+toc_max_heading_level: 4
+---
+
+Open Settings with `⌘+,` or from the gear icon.
+
+:::tip[Settings pages]
+
+The new Settings section follows the app’s navigation. Start with [Overview](../settings/agent-mode/overview.mdx) or [CLI Providers](../settings/agent-mode/cli-providers.mdx) for detailed controls, or use [Search Settings](../settings/search-settings.mdx) to find a page. These pages supersede the corresponding summaries below.
+
+:::
+
+:::tip
+
+**Scripting these settings:** A subset of preferences is reachable from MCP and `rpce-cli` through `app_settings`, including appearance, prompt packaging, models, MCP preset visibility, Code Maps, file scanning, selected Agent Mode behavior, and notifications. See [App Settings Tool](../mcp-server/mcp-app-settings.mdx) for the current allowlist and [Setup Guide](../mcp-server/mcp-setup.mdx#terminal-access) for terminal access. The UI and tool share the underlying store for allowlisted keys. Credentials, permission policies, and workspace model overrides remain outside this tool; Classic editing and auto-start key examples no longer describe its registry.
+
+:::
+
+## General Settings
+
+### Appearance
+
+- **Theme:** Light, Dark, or System (follows macOS)
+- **Font size:** Adjust text size throughout the app
+- **Syntax highlighting:** Color scheme for code blocks
+
+### Updates
+
+- **Auto-update:** Enable automatic update checks
+- **Update channel:** Stable or Beta releases
+
+### Prompt Order
+
+- **Section ordering:** Customize the order of prompt sections (files, instructions, etc.)
+- **Include datetime:** Add timestamp to prompts
+
+### Advanced
+
+- **Path display:** Relative or absolute paths in prompts
+- **Gitignore:** Respect .gitignore when scanning files
+- **Empty folders:** Show or hide empty directories
+- **URL scheme:** Enable `repoprompt://` URLs
+- **Saved prompts:** Export/import your stored prompts
+
+## API Settings
+
+### API Providers
+
+Configure API keys for each provider:
+
+- Anthropic, OpenAI, Google (Gemini)
+- DeepSeek, Fireworks AI, Grok (xAI), Groq, Z.AI
+- Azure OpenAI (requires base URL + key + API version)
+- GitHub Models (OAuth sign-in, 8K context limit)
+- Ollama/Local (URL + model selection)
+
+### CLI Providers
+
+Use the [Providers & Models reference](../providers/overview.mdx) for the supported integrations, account requirements, and model availability. [CLI Providers settings](../settings/agent-mode/cli-providers.mdx) documents connection buttons and configuration controls.
+
+### OpenRouter
+
+Single API key for access to multiple providers through OpenRouter.
+
+### Custom API
+
+Configure custom OpenAI-compatible endpoints:
+
+- Base URL
+- API Key (optional)
+- Model name
+
+### Model Config
+
+Override default model parameters:
+
+- Temperature
+- Max tokens
+- Context window size
+- Custom parameters
+
+## Chat Settings
+
+### Chat Settings
+
+- **Default model:** Model used for new chats
+- **Auto-format:** Markdown rendering in chat
+- **Code block style:** Syntax highlighting theme
+
+### Pro Edit (Classic Edition)
+
+Configure delegate agent behavior:
+
+- **Model routing:** How models are selected for tasks
+- **Parallel agents:** Maximum concurrent file editors
+- **Planning model:** Model used for task decomposition
+
+## MCP Settings
+
+### MCP Server
+
+Configure the Model Context Protocol server:
+
+- **Enable/Disable:** Turn MCP server on or off
+- **Connection status:** View connected clients
+- **Server settings:** Port and access controls
+
+### Model Presets
+
+Create and manage model presets for quick switching:
+
+- Save current model configuration as preset
+- Edit preset name and parameters
+- Delete unused presets
+
+## Workspace Settings
+
+### Manage Workspaces
+
+- **Recent workspaces:** Quick access to previous projects
+- **Add/remove folders:** Manage workspace roots
+- **Workspace settings:** Per-workspace configurations
+
+### Manage Presets
+
+Workspace-specific presets:
+
+- Save current selection and settings as preset
+- Load presets to restore context
+- Export/import presets
+
+## Prompt Presets
+
+### Copy Presets
+
+Configure how prompts are formatted when copied:
+
+- **Standard:** Clean format for any AI
+- **Pro Edit:** XML format for structured changes
+- **Plan:** Optimized for architectural planning
+- **Custom presets:** Create your own formats
+
+### Chat Presets
+
+Preset configurations for chat sessions:
+
+- System prompt templates
+- Default mode (chat/plan/edit)
+- Model selection

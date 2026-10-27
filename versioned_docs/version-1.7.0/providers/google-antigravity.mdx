@@ -1,0 +1,23 @@
+---
+title: "Google Antigravity"
+slug: "/providers/google-antigravity"
+description: "Install RepoPrompt's managed Antigravity ACP runtime and complete its Google authentication."
+---
+
+Google Antigravity is a coding-agent integration using a managed ACP runtime. It is distinct from saving a [Gemini API](./gemini-api.mdx) key for direct model requests.
+
+## Install and connect
+
+Open [Google Antigravity settings](../settings/agent-mode/cli-providers.mdx#google-antigravity) and choose **Install Runtime**. Use **Update Runtime** for an existing installation and **Test Connection** to check support and refresh model discovery.
+
+Google authentication is requested through ACP when needed. An installation indicator means the runtime is available; it does not establish that login is complete or that selectable models were returned. Follow the authentication request and inspect the connection result before starting a task.
+
+## Models and capabilities
+
+The connected runtime supplies its supported model choices and session capabilities. Use that catalog rather than assuming it matches the direct Gemini API catalog. [Models](./models.mdx) explains the shared availability and parameter concepts.
+
+Antigravity uses its ACP session modes and manages its runtime capabilities. Its CLI Providers card has no separate sign-out or inline permission picker. Review the available [Direct Agent permission controls](../settings/agent-mode/agent-permissions.mdx#direct-agents) for the installed runtime instead of applying another provider's permission descriptions to it.
+
+## Account and usage
+
+The authenticated Google account and runtime's service terms determine access and allowance. A Gemini API key or a separate Google subscription does not, by itself, establish access through this managed runtime. Check the actual login and runtime state when troubleshooting availability.

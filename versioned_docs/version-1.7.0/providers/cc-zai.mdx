@@ -1,0 +1,26 @@
+---
+title: "Claude Code Compatible Backend: CC Zai"
+sidebar_label: "CC Zai"
+slug: "/providers/cc-zai"
+description: "Route the Claude Code runtime to Z.ai using a shared Z.AI credential and configurable Claude model-slot mappings."
+---
+
+CC Zai reuses the installed Claude Code executable with Z.ai's Anthropic-compatible endpoint. It needs the Claude executable and a Z.ai credential, but does not require an Anthropic account login for this backend route. The app's default display name is **CC Zai**; a saved custom display name can replace it.
+
+## Configure the backend
+
+Open [CC Zai settings](../settings/agent-mode/cli-providers.mdx#cc-zai), save the credential, inspect the model-slot mappings, and choose **Test Backend**. The test uses the backend's configured endpoint and authentication overrides rather than the standard Claude login.
+
+The credential is shared with [Z.AI API](./zai-api.mdx). Changing or deleting it in either settings location affects that saved secret. Endpoint and model configuration remain specific to the relevant integration.
+
+## Model-slot mappings
+
+The Claude **Haiku**, **Sonnet**, and **Opus** slots map to backend model IDs. Fill all three slots for mapped-model operation. The slot label alone does not identify the actual model requested from Z.ai.
+
+**Reset to GLM defaults** restores the app's preset mappings. Inspect the current fields for their exact IDs rather than relying on a fixed list in documentation. See [Z.ai documentation](https://docs.z.ai/) for model availability and endpoint support, and [Models](./models.mdx) for slot and identifier concepts.
+
+## Capabilities and account boundary
+
+The backend uses the Claude Code integration's tool and permission machinery while its endpoint supplies model behavior and usage terms. Test changes to endpoint, authentication mode, or mappings. Switching between standard Claude Code and compatible backends starts a fresh provider context.
+
+Z.ai's account or coding-plan terms apply. An Anthropic subscription does not pay for this route, and a shared API credential does not make every Z.ai product's billing or limits identical.

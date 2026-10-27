@@ -1,0 +1,78 @@
+---
+id: "installation"
+title: "Installation"
+description: "Download RepoPrompt Community Edition for macOS and follow the installation and first-launch guidance."
+slug: "/overview/installation"
+keywords: ["download","install","setup","dmg","homebrew","requirements","system requirements","macos","get started","community edition","classic edition"]
+hide_table_of_contents: false
+toc_min_heading_level: 2
+toc_max_heading_level: 4
+---
+
+RepoPrompt is a native macOS application available for [download via the Community Edition Repository](https://github.com/repoprompt/repoprompt-ce/releases).
+
+## Onboarding Walkthrough
+
+Ray Fernando put together an excellent end-to-end onboarding video that walks through RepoPrompt from install through your first orchestrated workflow. Even though this video was done for the Classic Edition, it still applies to the Community Edition:
+
+[Watch the Installation video walkthrough](https://youtu.be/G8TLeEdcdAM)
+
+## Manual Download
+
+Get the latest version directly from RepoPrompt CE Repository:
+
+[Download for macOS](https://github.com/repoprompt/repoprompt-ce/releases)
+
+## Manual Installation
+
+1. Download the most recent `.dmg` file from the link above
+2. Open the downloaded file
+3. Drag the RepoPrompt CE to your Applications folder
+4. Eject the disk image
+5. Open RepoPrompt from Applications or Spotlight
+
+## Homebrew Installation
+
+You can install the pre-built RepoPrompt CE macOS binaries via Homebrew
+
+```bash
+brew tap repoprompt/repoprompt-ce
+brew trust --tap repoprompt/repoprompt-ce
+brew install --cask repoprompt-ce
+```
+
+## System Requirements
+
+- **macOS 14.0 (Sonoma)** or later
+- Apple Silicon (M1/M2/M3) or Intel Mac
+- ~50MB disk space
+
+## First Launch
+
+1. Open RepoPrompt from Applications or Spotlight
+2. Grant folder access when prompted (required to read your code)
+3. Open a workspace: **File → Open** or drag a folder onto the app
+
+:::tip
+
+**Tip:** Use the CE URL scheme `repoprompt-ce://open//Users/example/Project` to open a project, replacing the example with your folder's absolute path. See [URL Opener](../settings/general/advanced.mdx#url-opener) for encoded prompts and other parameters.
+
+:::
+
+## Updates
+
+When automatic checks are enabled and the updater is configured, RepoPrompt checks for updates in the background. You can also check manually through **Settings → General → Updates**. See [Software Updates](../settings/general/updates.mdx).
+
+## Platform Availability
+
+The documented CE desktop app is macOS-only. Open-source portability work does not itself establish an official release for another platform. See [Does RepoPrompt Run on Windows or Linux?](../faq/windows-linux.mdx).
+
+## Installing Tip Build
+
+Tip Builds are official signed and notarized builds from the latest successful protected `main` commit. They offer development changes before the next Stable release. To install one, open RepoPrompt CE and go to **Settings → General → Updates**. Set **Update Channel** to **Tip Builds**, choose **Check for Updates**, and follow the updater's installation prompts when an eligible build is offered. If you have not installed RepoPrompt CE yet, install and launch the current Stable app using the instructions above, then select the Tip Builds channel.
+
+The selected channel controls which updates the app offers. To return to Stable, change **Update Channel** back to **Stable**. This may require waiting for a newer Stable release; to return immediately, reinstall the Stable application. See [Software Updates](../settings/general/updates.mdx) for more about update checks and channel behavior.
+
+For the tradeoff between channels, see [What Is the Tip Version and Should I Use It?](../faq/tip-version.mdx).
+
+If you want to compile the development source yourself, see [Build Tip code with Xcode](../faq/how-to-build.mdx#build-tip-code-with-xcode). A local Xcode build uses the contributor workflow and is separate from the official signed Tip distribution.

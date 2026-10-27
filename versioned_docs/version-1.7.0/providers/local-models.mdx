@@ -1,0 +1,24 @@
+---
+title: "Local Models: Ollama and LM Studio"
+sidebar_label: "Local Models"
+slug: "/providers/local-models"
+description: "Connect a running local model server, fetch its models, and distinguish local inference from hosted routes."
+---
+
+The local-model integration connects RepoPrompt to a model server you run, such as Ollama or LM Studio. You install the server and obtain its models separately; saving a URL in RepoPrompt does not install or start either service.
+
+## Prepare and connect
+
+Start the model server and make the intended model available there. Open [API Providers → Local Model Settings](../settings/models-and-providers/api-providers.mdx#local-model-settings), enter its URL, and choose **Validate & fetch models**. After discovery succeeds, select a model.
+
+Common local ports are **11434** for Ollama and **1234** for LM Studio. Use the actual address configured by your server rather than assuming a default port proves the service is running. The settings guide explains refreshing discovery and resetting the saved configuration.
+
+## Models and capabilities
+
+Model availability comes from the connected server. Browse [Ollama's model library](https://ollama.com/library) or inspect the models installed in LM Studio, then confirm what the server exposes to RepoPrompt. Capabilities and practical context limits depend on the model, server, and hardware.
+
+See [Models](./models.mdx) for selection concepts. A local-server connection does not automatically provide the coding-agent runtime or feature set of a CLI provider.
+
+## Local resources and hosted routes
+
+Inference that actually runs locally has no hosted per-token API bill from RepoPrompt, but uses your computer's memory, processing, storage, and electricity. A server configured to call a cloud model or remote endpoint can have separate provider charges and data practices. Check where the chosen request runs before treating it as local.

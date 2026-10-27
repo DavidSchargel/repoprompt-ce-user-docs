@@ -1,0 +1,23 @@
+---
+title: "Azure OpenAI"
+slug: "/providers/azure-openai"
+description: "Connect an Azure OpenAI resource using its endpoint, API version, key, and available deployments."
+---
+
+Azure OpenAI is a direct model connection to your Azure resource. It requires resource-specific configuration and is distinct from the standard [OpenAI API](./openai-api.mdx) connection and [Codex CLI](./codex-cli.mdx) account login.
+
+## Configure the resource
+
+In [API Providers → Azure OpenAI](../settings/models-and-providers/api-providers.mdx#azure-openai), provide the resource **Base URL**, supported **API Version**, and **API Key**, then validate. Use a version appropriate to that resource and requested functionality; a version shown in a settings screenshot is illustrative.
+
+When discovery offers deployments, select the intended deployment or use the supported custom-deployment control. A deployment name belongs to the Azure resource and need not equal a public model ID used by another API.
+
+## Availability and lifecycle
+
+Models must be available for your Azure resource, region, and deployment type. Check Microsoft's [model lifecycle and availability guidance](https://learn.microsoft.com/en-us/azure/foundry/openai/concepts/model-retirements) when a deployment changes or stops serving requests.
+
+[Models](./models.mdx) explains deployment identities and the relationship between model capabilities and RepoPrompt controls. Selecting a public model name does not provision an Azure deployment.
+
+## Account and billing
+
+Your Azure subscription, resource, deployment, and service terms determine usage and charges. A separate OpenAI API balance or ChatGPT subscription does not automatically pay for calls to this resource. Review billing and quota at the Azure resource used by the connection.

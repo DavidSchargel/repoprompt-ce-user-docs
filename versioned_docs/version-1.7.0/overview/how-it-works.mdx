@@ -1,0 +1,135 @@
+---
+id: "how-it-works"
+title: "How It Works"
+description: "An engineer's guide to how Context Builder workflows separate codebase exploration, token-budgeted curation, and structured handoff."
+slug: "/overview/how-it-works"
+keywords: ["how it works","context builder","context engineering","explore","curate","handoff","token budget","codemaps","line slices","workflows","rp-orchestrate","rp-review","rp-refactor","rp-investigate"]
+hide_table_of_contents: false
+toc_min_heading_level: 2
+toc_max_heading_level: 4
+---
+
+If you are a software engineer using RepoPrompt for the first time, the most important concept to understand is **Context Builder Workflows**.
+
+Whether you run agents inside RepoPrompt's **Agent Mode** or trigger slash commands (like `/rp-orchestrate` or `/rp-review`) from an external MCP client, Context Builder is the engine that prevents AI coding agents from getting lost in your repository.
+
+---
+
+## Why Standard Coding Agents Get Confused
+
+To understand what RepoPrompt does, imagine onboarding to a new engineering team and being assigned a ticket to update user authentication.
+
+If a senior teammate helps you, they do not print out all 54 files in the repository and hand you a 10,000-line stack of paper. Instead, they point you to the 5 or 9 files that actually matter — showing you the specific lines in `auth.ts` and `api.ts` where tokens are validated, and giving you a quick summary of the helper functions in `useAuth.ts`, `Header.tsx`, and `Sidebar.tsx`.
+
+When you use a standard AI coding agent *without* RepoPrompt, it has no senior teammate:
+
+1. The agent starts with an empty **context window** (its working memory, measured in **tokens**).
+2. To orient itself, it runs shell commands like `grep` and `find` and reads whole files one by one.
+3. Most of the files it reads turn out to be dead ends, but **every search result and unrelated file stays in its context window**.
+4. Even if a model advertises a 200k+ token window, its *effective* reasoning quality drops sharply once its working memory fills past 64k–128k tokens of noisy tool logs. By the time the agent finds the right code, it has very little "thinking budget" left to write a clean solution.
+
+RepoPrompt solves this by separating **finding the right code (Discovery)** from **solving the problem (Analysis & Implementation)**.
+
+---
+
+## The Three-Stage Context Builder Pipeline
+
+Whenever a Context Builder workflow runs (via the UI or the `context_builder` MCP tool), RepoPrompt executes a three-stage pipeline behind the scenes: **01 Explore → 02 Curate → 03 Handoff**.
+
+### Stage 01: Explore — Agent Navigates the Codebase
+
+First, RepoPrompt launches a fast, specialized **Discovery Agent** whose only job is to map the codebase around your task.
+
+- **How it navigates:** Rather than using raw shell `grep` or `cat`, the discovery agent uses RepoPrompt's gitignore-aware repository tools:
+  - `get_file_tree` to inspect the directory hierarchy (where files with available Code Maps are marked with `+`).
+  - `file_search` to search file paths, contents, or both using regular expressions and directory filters.
+  - `get_code_structure` to inspect **Code Maps** — root-local structural summaries showing classes, structs, function signatures, and dependency edges (`uses` and `used_by`).
+- **Neutral fact-gathering:** In RepoPrompt's architecture, the discovery agent is deliberately instructed to be **non-opinionated**. It does not try to design your feature or guess a fix prematurely; it gathers facts, traces callers and callees, and identifies every candidate file across the project.
+
+### Stage 02: Curate — Select Within a Token Budget
+
+Suppose your project or subsystem has **54 files**, and the discovery agent's exploration touches 14 of them. Loading every file in full would waste tokens on boilerplate.
+
+In Stage 02, the agent narrows and shapes the selection (`manage_selection`) to fit strictly inside RepoPrompt's configured **Token Budget** (for example, curating **9 of 54 files** within the default **120,000-token Analysis Budget** or **160,000-token Context Budget**):
+
+- **Full Content (`mode="full"`):** Selected for the primary files where logic needs to be understood line-by-line or edited directly.
+- **Line Slices (`mode="slices"`):** Selected when a file is large (say, 1,200 lines) but only one function or component matters. The agent selects exact line ranges (such as `auth.ts` lines `5–89` or `api.ts` lines `22–58`) and omits the rest.
+- **Code Maps Only (`mode="codemap_only"`):** Selected for supporting files and dependencies. In fact, RepoPrompt includes **Auto-Codemap** behavior: when full files or slices are added, related dependency files automatically receive Code Maps so the reasoning model sees their exact API signatures without paying for their implementation bodies.
+
+### Stage 03: Handoff — Structured Prompt for Analysis
+
+Once the selection is curated, RepoPrompt assembles a clean, deterministic context package (`workspace_context`). For example, a curated handoff for an authentication task might look like this:
+
+| Selected File | Representation / Line Range | Why It Is Included |
+| :--- | :--- | :--- |
+| `auth.ts` | `L5–89` (Slice) | Core authentication token logic being modified |
+| `api.ts` | `L22–58` (Slice) | API request interceptor that consumes auth state |
+| `useAuth.ts` | `L1–41` (Full / Slice) | React hook exposing session state to components |
+| `Header.tsx` | `L12–67` (Slice) | UI component rendering the sign-in/sign-out controls |
+| `Sidebar.tsx` | `L1–34` (Full / Slice) | Navigation gating based on authenticated user role |
+
+Depending on the `response_type` requested by the workflow, RepoPrompt also enhances your prompt (rewriting or augmenting vague terms into exact file and symbol names) and performs the handoff:
+
+- **`clarify` (Context-Only Handoff):** Returns the curated selection and clarified prompt directly to your agent (or exports a prompt file) so it can begin working immediately.
+- **`plan`, `review`, or `question` (Oracle Analysis Handoff):** Passes the structured prompt to the **Oracle** — a high-capability reasoning model (or a configured **Multi-Oracle Roster** evaluating up to 5 models in parallel) — which starts with a fresh context window containing zero search noise and returns an architectural plan, code review, or deep answer. Multi-Oracle rosters include automated reconciliation guidance so agents can weigh differing perspectives.
+
+---
+
+## Core Context Builder Workflows
+
+RepoPrompt ships included slash commands that wrap this three-stage pipeline into repeatable engineering workflows. You can run these from the **Workflow** dropdown in Agent Mode or type them as slash commands in any connected MCP client:
+
+### 1. Orchestrate (`/rp-orchestrate`)
+
+**When to use it:** Large features, multi-file changes, or cross-cutting tasks that are too big for a single agent session.
+
+- Runs Context Builder (`response_type: "plan"`, `export_response: true`) to produce a shared architectural plan file.
+- Decomposes the plan into up to 5 scoped work items with explicit file boundaries.
+- Dispatches specialized sub-agents (`pair`, `engineer`, `design`, `explore`) across your connected providers in sequence or in parallel, then verifies every change against the plan and test suite.
+
+### 2. Code Reviews (`/rp-review`)
+
+**When to use it:** Before opening a pull request, merging a branch, or committing staged changes.
+
+- Surveys your repository state using RepoPrompt's read-only `git` tool (`status`, `log`, `diff` against `uncommitted`, `staged`, or a branch merge-base like `main`).
+- Calls Context Builder (`response_type: "review"`), which publishes your Git diffs **alongside** curated codebase context (callers, interfaces, and related modules outside the diff).
+- Because the Oracle sees how the rest of the codebase interacts with your diff, it catches subtle breaking changes, missing error handling, and security bugs that diff-only tools cannot see.
+
+### 3. Refactor Code (`/rp-refactor`)
+
+**When to use it:** Cleaning up technical debt, splitting a monolithic module, or eliminating duplicated logic without changing how the app behaves.
+
+- **Pass 1 (Analyze):** Scouts the target folder with read-only `explore` agents and runs Context Builder in `review` mode to identify structural opportunities and hidden coupling.
+- **Pass 2 (Plan & Implement):** Runs Context Builder in `plan` mode to design safe, incremental refactoring steps that preserve existing behavior, then dispatches sub-agents to apply edits (`apply_edits`) and run tests after each step.
+
+### 4. Investigate Issues (`/rp-investigate`)
+
+**When to use it:** Debugging a tricky crash, tracing a regression, or understanding how an unfamiliar subsystem works.
+
+- Follows a hypothesis-driven workflow that writes an investigation report to `docs/investigations/<topic>-<YYYY-MM-DD>.md` without changing source code.
+- Uses `explore` scouts for git blame archaeology and Context Builder to gather cross-file evidence, then consults the Oracle (`oracle_send` / `ask_oracle`) to test hypotheses until the root cause is proven with exact file and line citations.
+
+:::tip[Additional Specialized Workflows]
+
+RepoPrompt also includes **Deep Plan** (`/rp-deep-plan` for producing standalone specification docs under `docs/plans/` with an interactive interview and `design` critique), **Optimize** (`/rp-optimize` for metric-driven performance loops with a persistent scoreboard), **Plan & Build** (`/rp-build` for single-session feature implementation), and **ChatGPT Export** (`/rp-oracle-export` for exporting self-contained prompts to `prompt-exports/`).
+
+:::
+
+---
+
+## Summary for New Users
+
+| Concept | What It Means in RepoPrompt |
+| :--- | :--- |
+| **Discovery Agent** | The fast agent in Stage 01 that searches your repo and selects files without writing code. |
+| **Code Map** | A token-efficient summary of a file's types and function signatures (`get_code_structure`). |
+| **Line Slice** | A specific range of lines from a file (`manage_selection mode="slices"`), skipping unrelated lines. |
+| **Oracle** | The deep reasoning model in Stage 03 that receives the curated context to generate plans, reviews, or answers. |
+| **Sub-Agent Roles** | Task-specific agent profiles: `pair` (default for complex work), `engineer` (scoped coding), `explore` (read-only scouting), and `design` (architecture/UI specs). |
+
+## Next Steps
+
+- Read [How It (Really) Works](./how-it-really-works.mdx) for an under-the-hood architectural deep dive into compaction, Model Context vs. Tool Context, LLM limitations, and when *not* to use Context Builder.
+- Follow the step-by-step [Starting Workflow in Getting Started](./getting-started.mdx).
+- Explore the full [Agent Workflow Commands](../agent-mode/workflows.mdx) and [MCP Workflow Commands](../mcp-server/workflow-commands.mdx) guides.
+- Learn how to adjust token budgets in [Context Builder Settings](../settings/agent-mode/context-builder.mdx).

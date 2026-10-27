@@ -1,0 +1,19 @@
+---
+title: "DeepSeek"
+slug: "/providers/deepseek"
+description: "Configure direct DeepSeek API access and select a supported model from its available catalog."
+---
+
+DeepSeek provides direct API access for supported RepoPrompt model features. Configure the credential through [API Providers → DeepSeek](../settings/models-and-providers/api-providers.mdx#deepseek), validate it, and select an available model or supported custom identifier.
+
+## Models and availability
+
+Use the [DeepSeek model-list documentation](https://api-docs.deepseek.com/api/list-models/) for current API identifiers and the connection's discovered choices for actual availability. A model ID can change its backing release or retire; a name captured in a screenshot is not a permanent default.
+
+Check the selected model's capabilities and limits for the feature you intend to use. [Models](./models.mdx) explains how model IDs, context capacity, effort, and output settings differ. A per-model override cannot add functionality the provider does not implement.
+
+## Account and billing
+
+Requests are associated with the account owning the DeepSeek credential. Review its current [API pricing](https://api-docs.deepseek.com/quick_start/pricing/) and account usage rather than relying on a price or free quota copied into a guide. RepoPrompt does not add a markup or transfer allowance from another provider.
+
+The [settings reference](../settings/models-and-providers/api-providers.mdx#deepseek) explains validation, model selection, and credential removal. Removing the key in RepoPrompt does not close the provider account.

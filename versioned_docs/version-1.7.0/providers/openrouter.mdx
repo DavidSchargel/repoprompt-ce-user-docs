@@ -1,0 +1,23 @@
+---
+title: "OpenRouter"
+slug: "/providers/openrouter"
+description: "Connect OpenRouter, fetch its catalog, and register the models you want available in RepoPrompt."
+---
+
+OpenRouter is a separate API route for models served through your OpenRouter account. It has its own settings page rather than a row in the direct API-provider pane. A model available through OpenRouter can have a different identifier, route, availability, and price from a direct connection to its originating provider.
+
+## Connect and register models
+
+Open [OpenRouter settings](../settings/models-and-providers/openrouter.mdx), validate an API key, and fetch the catalog. Search the fetched models and register the choices you want to appear in RepoPrompt. Fetching the catalog does not automatically register every entry.
+
+The settings reference owns the descriptions of registered-model removal, catalog refresh, custom headers, and output limits. Removing a registration hides that selection in RepoPrompt; it does not remove the model from the provider's service.
+
+## Model metadata
+
+OpenRouter's [model API](https://openrouter.ai/docs/api/api-reference/models/get-models) is the provider reference for IDs, context information, modalities, and pricing metadata. Use the current account-accessible catalog and exact returned identifier. A similarly named model on another route is not necessarily interchangeable.
+
+[Models](./models.mdx) explains these naming and capability distinctions. Request settings and headers cannot add a capability the selected model or route lacks.
+
+## Account and billing
+
+Your OpenRouter account and selected service route determine charges and allowance. An account or subscription with the model's originating provider does not automatically fund OpenRouter requests. Review the actual route and account when assessing usage, privacy, and retention.
