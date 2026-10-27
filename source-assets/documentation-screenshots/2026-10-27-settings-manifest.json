@@ -1115,6 +1115,35 @@
           1440
         ]
       ]
+    },
+    {
+      "file": "2026-10-27-settings-mcp-server-json-unredacted.png",
+      "size": [
+        2306,
+        1664
+      ],
+      "sha256": "a8058b6c50a40ef9e45c7ef8ab6a991a74e43af47b300b2abf1160331a197010",
+      "blurred_regions": []
+    },
+    {
+      "file": "2026-10-27-settings-agent-permissions-subagents-recaptured.png",
+      "size": [
+        2306,
+        1664
+      ],
+      "sha256": "415beee1b9688d65e73a8b7e6c686e8e70d83b42cd0e0b2152832d89de88f70c",
+      "blurred_regions": [],
+      "note": "Recaptured with pointer outside all documentation crops; original capture retained."
+    },
+    {
+      "file": "2026-10-27-settings-model-config-recaptured.png",
+      "size": [
+        2306,
+        1664
+      ],
+      "sha256": "b82aa2ccd5fe2a9f2c0bcd5291d642efbdd1103b2e9d66b3d6ee32cc354b524c",
+      "blurred_regions": [],
+      "note": "Recaptured with pointer outside all documentation crops; original capture retained."
     }
   ],
   "crops": [
@@ -1219,25 +1248,27 @@
     },
     {
       "file": "versioned_docs/version-1.7.0/settings/images/agent-permissions-subagents.png",
-      "source": "2026-10-27-settings-agent-permissions-subagents-preview.png",
+      "source": "2026-10-27-settings-agent-permissions-subagents-recaptured.png",
       "box": [
         550,
         85,
         2240,
         1620
       ],
-      "sha256": "0a4159c2bc2f2693b20720377ff2bc5adb02281b5173a2b99b1908546ec665fe"
+      "sha256": "a42bfd98cda172695093188212fe3f62d93845d15adec05362557a0323db6819",
+      "note": "Recaptured to exclude the mouse pointer and halo."
     },
     {
       "file": "versioned_docs/version-1.7.0/settings/images/agent-permissions-subagents-preview.png",
-      "source": "2026-10-27-settings-agent-permissions-subagents-preview.png",
+      "source": "2026-10-27-settings-agent-permissions-subagents-recaptured.png",
       "box": [
         550,
         540,
         2240,
         900
       ],
-      "sha256": "42401e60de069d975779d37ea224186894050d154540710716a070ba0e5e43c5"
+      "sha256": "fd5257df3158a1d6d9a9ea24329787b784514634552e7684eeb6beb84f86b402",
+      "note": "Recaptured to exclude the mouse pointer and halo."
     },
     {
       "file": "versioned_docs/version-1.7.0/settings/images/agent-permissions-subagents-profiles.png",
@@ -1373,25 +1404,26 @@
     },
     {
       "file": "versioned_docs/version-1.7.0/settings/images/model-config.png",
-      "source": "2026-10-27-settings-model-config-expanded.png",
+      "source": "2026-10-27-settings-model-config-recaptured.png",
       "box": [
         550,
         85,
         2240,
         530
       ],
-      "sha256": "749a766278cdc487b213ae4d52f71419dfbb07307bde6e8e3799437eb23ecce5"
+      "sha256": "689fd86b856563c62d785c1ae2b0f8fdcef56e8c31763a0dd48bc49babf698b2",
+      "note": "Recaptured to exclude the mouse pointer and halo."
     },
     {
       "file": "versioned_docs/version-1.7.0/settings/images/mcp-server-json.png",
-      "source": "2026-10-27-settings-mcp-server-json-complete.png",
+      "source": "2026-10-27-settings-mcp-server-json-unredacted.png",
       "box": [
         550,
         1155,
         2240,
         1630
       ],
-      "sha256": "de960c6690dc1a912f0a2ce7e1f5df031d060645c7ff9798f4af57d492c7a811"
+      "sha256": "735e5652d7e601fae448eb2a33a5fcd3b32e7128c3a914ccdf1d4d3d1f38d82e"
     }
   ],
   "canonical_source": {
