@@ -1117,13 +1117,20 @@
       ]
     },
     {
-      "file": "2026-10-27-settings-mcp-server-json-unredacted.png",
+      "file": "2026-10-27-settings-mcp-server-json-recaptured.png",
       "size": [
         2306,
         1664
       ],
-      "sha256": "a8058b6c50a40ef9e45c7ef8ab6a991a74e43af47b300b2abf1160331a197010",
-      "blurred_regions": []
+      "sha256": "3b4cc8eac9116cbdf527d465e6871153cc161ec14c5e2800b8fbf7c1749ba76b",
+      "blurred_regions": [
+        [
+          848,
+          1392,
+          1580,
+          1440
+        ]
+      ]
     },
     {
       "file": "2026-10-27-settings-agent-permissions-subagents-recaptured.png",
@@ -1416,14 +1423,14 @@
     },
     {
       "file": "versioned_docs/version-1.7.0/settings/images/mcp-server-json.png",
-      "source": "2026-10-27-settings-mcp-server-json-unredacted.png",
+      "source": "2026-10-27-settings-mcp-server-json-recaptured.png",
       "box": [
         550,
         1155,
         2240,
         1630
       ],
-      "sha256": "735e5652d7e601fae448eb2a33a5fcd3b32e7128c3a914ccdf1d4d3d1f38d82e"
+      "sha256": "35d3180e8a38b3213136fc5b0ba8a75389b010031ecf3f60c65336475a6dd017"
     }
   ],
   "canonical_source": {
