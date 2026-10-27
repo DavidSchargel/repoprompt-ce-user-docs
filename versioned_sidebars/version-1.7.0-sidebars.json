@@ -143,14 +143,8 @@
             "settings/agent-mode/agent-models",
             "settings/agent-mode/agent-permissions",
             "settings/agent-mode/agent-workflows",
+            "settings/agent-mode/agent-decisions",
             "settings/agent-mode/context-builder"
-          ]
-        },
-        {
-          "type": "category",
-          "label": "Router",
-          "items": [
-            "settings/router/model-router"
           ]
         },
         {

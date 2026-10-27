@@ -405,7 +405,7 @@ Call list first to discover the actual keys and types in the running build. Obso
 
 Session-based control surface for long-running Agent Mode runs. Each start returns a session_id for poll, wait, steer, respond, and cancel. Use agent_manage for durable session history and metadata. Discover authoritative role mappings in its task_labels response; an omitted start model_id resolves through the pair role. Explicit model/effort targets come from the live catalog. Start-only worktree arguments can establish an isolated checkout before provider startup.
 
-When Model Router is enabled, new starts with an omitted model_id or a role label can be routed across configured sub-agent targets. A compound model_id or explicit model_parameters pins the target and bypasses that automatic routing. A wait timeout bounds the waiting call; inspect the returned status and keep monitoring an active run rather than starting a duplicate.
+When model routing is enabled in Agent Decisions, new starts with an omitted model_id or a role label can be routed across configured sub-agent targets. A compound model_id or explicit model_parameters pins the target and bypasses that automatic routing. A wait timeout bounds the waiting call; inspect the returned status and keep monitoring an active run rather than starting a duplicate.
 
 **Operations:**
 

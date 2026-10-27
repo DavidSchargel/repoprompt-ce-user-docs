@@ -60,7 +60,7 @@ Click the **MCP Server** indicator in the toolbar for quick access to the server
 - **Window access:** Enable MCP tools for the workspace window you want clients to use.
 - **Auto-Start:** Request automatic listener startup when you launch RepoPrompt.
 - **Oracle Model Presets:** Expose named Oracle configurations to external clients. Current source uses `oracle_utils` and `oracle_send`; Agent Mode also provides `ask_oracle`.
-- **Context Builder:** Review its selected CLI agent and model, and change them in Agent Models.
+- **Context Builder:** Review its selected CLI agent and model, and change them in [Agent Models](../settings/agent-mode/agent-models.mdx).
 - **Quick Setup:** Install the client integration and optional workflow instructions separately.
 
 The popover displays the count of currently advertised tools (typically **21 available** for standard external MCP clients, covering workspace lifecycle, file operations, Code Maps, context curation, Git, Oracle consultations, history, and the agent control plane). An additional set of policy-gated tools (`ask_user`, `ask_oracle`, `oracle_chat_log`, `agent_session_link`, `session_admin`, `become_overseer`, `self_compact`, `share_thoughts`, `set_status`, `wait_for_next_user_instruction`) are dynamically activated during eligible Agent Mode or oversight sessions. This guide follows the current implementation where it differs from Classic tool names.

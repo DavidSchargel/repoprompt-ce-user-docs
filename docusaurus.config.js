@@ -123,6 +123,7 @@ module.exports = {
       redirects: [
         {from: ['/claim', '/unsubscribe', '/appcast', '/pricing', '/roadmap', '/prompt-anatomy'], to: '/'},
         {from: '/documentation', to: '/docs/'},
+        {from: '/docs/settings/model-router', to: '/docs/settings/agent-decisions/'},
         {from: ['/docs/agent-mode/sessions', '/docs/sessions'], to: '/docs/sessions/overview/'},
         {from: ['/docs/agent-mode/providers', '/docs/providers'], to: '/docs/providers/overview/'},
         {from: '/privacy-policy', to: '/privacy/'},

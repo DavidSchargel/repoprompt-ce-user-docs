@@ -1,0 +1,101 @@
+{
+  "source": "source-assets/documentation-screenshots/2026-10-27_15-07-17.png",
+  "sha256": "8a8690a7567d6fcece9214467417223dfb47fcd0eedd545cc0ad7e4b2cc6016d",
+  "source_dimensions": [
+    1752,
+    6394
+  ],
+  "crops": [
+    {
+      "destination": "versioned_docs/version-1.7.0/settings/images/agent-decisions.png",
+      "crop_box": [
+        40,
+        35,
+        1712,
+        6370
+      ],
+      "dimensions": [
+        1672,
+        6335
+      ],
+      "redactions": []
+    },
+    {
+      "destination": "versioned_docs/version-1.7.0/settings/images/agent-decisions-router.png",
+      "crop_box": [
+        48,
+        199,
+        1704,
+        1860
+      ],
+      "dimensions": [
+        1656,
+        1661
+      ],
+      "redactions": []
+    },
+    {
+      "destination": "versioned_docs/version-1.7.0/settings/images/agent-decisions-auto-effort.png",
+      "crop_box": [
+        48,
+        1915,
+        1704,
+        2910
+      ],
+      "dimensions": [
+        1656,
+        995
+      ],
+      "redactions": []
+    },
+    {
+      "destination": "versioned_docs/version-1.7.0/settings/images/agent-decisions-usage-balancing.png",
+      "crop_box": [
+        48,
+        2965,
+        1704,
+        4010
+      ],
+      "dimensions": [
+        1656,
+        1045
+      ],
+      "redactions": []
+    },
+    {
+      "destination": "versioned_docs/version-1.7.0/settings/images/agent-decisions-jev.png",
+      "crop_box": [
+        80,
+        4235,
+        1670,
+        4990
+      ],
+      "dimensions": [
+        1590,
+        755
+      ],
+      "redactions": []
+    },
+    {
+      "destination": "versioned_docs/version-1.7.0/settings/images/agent-decisions-openai.png",
+      "crop_box": [
+        80,
+        5020,
+        1670,
+        6310
+      ],
+      "dimensions": [
+        1590,
+        1290
+      ],
+      "redactions": []
+    }
+  ],
+  "source_repository": "/Users/david/Developer/Projects/synced-repos/repoprompt/repoprompt-ce",
+  "source_revision": "3253f289a69a366b3e55bd28f47d024f932d77a5",
+  "reviewed_sources": [
+    "Sources/RepoPrompt/Features/Settings/Views/SettingsView.swift",
+    "Sources/RepoPrompt/Features/Settings/Views/Router/RouterSettingsView.swift",
+    "Sources/RepoPrompt/Features/AgentMode/Routing/Backends/OpenAIDecisions/OpenAIDecisionsDecisionService.swift"
+  ]
+}

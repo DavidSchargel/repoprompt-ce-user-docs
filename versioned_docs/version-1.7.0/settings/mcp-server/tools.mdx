@@ -61,7 +61,7 @@ Lists agent choices, model and role mappings, sessions, and workflows. It also r
 
 Starts and controls Agent Mode runs. `start` creates a new session; `steer` continues an existing one. `poll` checks immediately, `wait` waits for completion or input, `respond` resolves a pending interaction, and `cancel` stops an active run.
 
-Use the returned session and interaction identifiers for follow-up calls. Role labels use the configured Agent Models mapping; an exact compound model identifier pins a target. Model Router can choose for eligible starts using a role or omitted model. See the [`agent_run` contract](../../mcp-server/mcp-tools.mdx#agent_run) and [Model Router](../router/model-router.mdx).
+Use the returned session and interaction identifiers for follow-up calls. Role labels use the configured Agent Models mapping; an exact compound model identifier pins a target. Model Router can choose for eligible starts using a role or omitted model. See the [`agent_run` contract](../../mcp-server/mcp-tools.mdx#agent_run) and [Model Router](../agent-mode/agent-decisions.mdx).
 
 ![agent_run switch and expanded start, wait, steering, and interaction description](../images/tools-agent-run.png)
 
