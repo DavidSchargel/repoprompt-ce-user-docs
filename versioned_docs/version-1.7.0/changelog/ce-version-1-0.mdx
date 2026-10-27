@@ -1,7 +1,7 @@
 ---
 id: "ce-version-1-0"
-title: "CE Version 1"
-description: "Browse RepoPrompt Community Edition Version 1 release notes covering agent integrations, workflow improvements, and fixes."
+title: "Version 1.x Series"
+description: "Browse RepoPrompt Community Edition Version 1.x release notes covering agent integrations, workflow improvements, and fixes."
 slug: "/changelog/ce-version-1-0"
 keywords: ["ce","community edition","1.0","latest","agent mode","open source"]
 hide_table_of_contents: false
@@ -11,15 +11,24 @@ toc_max_heading_level: 4
 
 ## Community Edition Version 1.x Series
 
-The Community Edition 1.x series is the first release in the Community Edition series. RepoPrompt CE is a native macOS app for orchestrating coding agents with a focus on context engineering. It builds an agent harness around an MCP server, giving you a shared place to prepare repository context, connect compatible CLI agents, run focused tasks, and inspect the work they produce. The goal is simple: make it easier to give agents the right context and keep multi-step engineering work understandable.
+This changelog covers RepoPrompt Community Edition releases, starting with the first CE release. The original, unsupported Classic edition [legacy documentation remains available](../../version-classic-2.1.0/index.md).
 
-### Key Features in Community Edition 1.x
+### 1.7.0 - October 27, 2026
 
-- Native macOS workspace for context engineering and agent orchestration.
-- MCP-based harness for integrating compatible CLI agents.
-- Repository-aware context selection, search, diffs, and worktree workflows.
-- Public Sparkle update channel for signed, notarized releases.
-- Fully open source and free to use.
+RepoPrompt v1.7.0 (build 40) adds Agent workflow capabilities and improves reliability across sessions and workspaces.
+
+**Highlights**
+
+- **Overseer coordination:** Session organization, nested delegation scopes, worktree operations for linked agents, and quieter routine check-ins.
+- **Re-prompting:** Revise drafts before submission, review clarification questions, and configure the rewriting model and guidance.
+- **Model decisions:** Additional services for Model Router and Auto Effort, revised new-task defaults, improved usage balancing, updated model choices, and bundled Codex 0.164.0.
+- **Attachments and Oracle:** Broader file-attachment support, images in `oracle_send`, and clearer grouped Oracle responses and guidance.
+- **Keyboard controls:** Remap command and composer shortcuts, stop runs, focus the composer, reopen stashed sessions, and find sessions awaiting attention.
+- **Recovery and performance:** Improved restoration of sessions, worktrees, and windows; less repetitive MCP approval; and fixes for interrupted processes, Git reads, diff context, and background indexing.
+
+**Computer Use:** In the official build, this feature needs an OpenAI-signed Codex executable. Choose a compatible local executable in **Settings → Codex CLI → Advanced**, then restart the app. Ordinary Codex conversations continue to use the included runtime.
+
+**[Release notes](https://github.com/repoprompt/repoprompt-ce/releases/tag/v1.7.0)** · **[Full Changelog for 1.7.0](https://github.com/repoprompt/repoprompt-ce/compare/v1.6.0...v1.7.0)**
 
 <span id="160---september-25-2026"></span>
 ### 1.6.0 - October 11, 2026
