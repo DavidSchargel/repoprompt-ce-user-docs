@@ -23,7 +23,7 @@ Get RepoPrompt's MCP server connected to your preferred AI tool. The server enab
 
 ## Client-Specific Instructions
 
-The installer generates configuration for the CE app you are running. Use it instead of carrying an old Classic executable path into the new client configuration.
+The installer generates configuration for the RepoPrompt CE app you are running. Use it instead of carrying an old Classic executable path into the new client configuration.
 
 ### Cursor
 
@@ -60,7 +60,7 @@ The generated app-backed configuration has this shape. The command below is a pl
 }
 ```
 
-The `--backend app` arguments explicitly select the running app backend. The command normally uses a managed user-space link, with a bundled executable path as a fallback. CE release and debug builds have distinct identities. Always copy the configuration for the build you intend to connect to.
+The `--backend app` arguments explicitly select the running app backend. The command normally uses a managed user-space link, with a bundled executable path as a fallback. RepoPrompt release and debug builds have distinct identities. Always copy the configuration for the build you intend to connect to.
 
 ## Connection Approval
 
@@ -96,7 +96,7 @@ Use the [MCP Troubleshooting FAQ](../faq/mcp-troubleshooting.mdx) to distinguish
 
 ### Client can't find repoprompt-mcp
 
-Re-copy the configuration from the installed CE app and check that its command path exists. Avoid pointing a CE client at an old Classic app or a different debug build. If the CLI Tools row reports **Needs update**, use **Update** before reconnecting.
+Re-copy the configuration from the installed RepoPrompt app and check that its command path exists. Avoid pointing a RepoPrompt client at an old Classic app or a different debug build. If the CLI Tools row reports **Needs update**, use **Update** before reconnecting.
 
 ### No approval dialog appears
 

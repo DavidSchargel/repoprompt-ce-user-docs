@@ -9,7 +9,7 @@ toc_min_heading_level: 2
 toc_max_heading_level: 4
 ---
 
-This reference follows the current RepoPrompt CE source contracts. Tools are organized by category; ordinary tool toggles live in [MCP Tools settings](../settings/mcp-server/tools.mdx). Some tools are additionally limited to Agent Mode, discovery, or an authorized control relationship. Your connection's live schema determines which tools and arguments are available.
+This reference follows the current RepoPrompt source contracts. Tools are organized by category; ordinary tool toggles live in [MCP Tools settings](../settings/mcp-server/tools.mdx). Some tools are additionally limited to Agent Mode, discovery, or an authorized control relationship. Your connection's live schema determines which tools and arguments are available.
 
 The MCP settings status displays **21 available** tools for standard external client connections. RepoPrompt defines **31 total domain tools** (`MCPDomainToolCatalog.swift`):
 - **21 advertised tools** exposed to standard external MCP clients, consisting of **3 global tools** (`app_settings`, `bind_context`, `manage_workspaces`) and **18 window-scoped tools** (`agent_explore`, `agent_manage`, `agent_run`, `apply_edits`, `context_builder`, `file_actions`, `file_search`, `get_code_structure`, `get_file_tree`, `git`, `history`, `manage_selection`, `manage_worktree`, `oracle_send`, `oracle_utils`, `prompt`, `read_file`, `workspace_context`).
