@@ -149,7 +149,7 @@ opencode auth login
 
 - **Test Connection** rechecks the integration. A summary reports discovered models; discovery can refresh in the background.
 - **Sign Out** clears the connection and cached model availability in RepoPrompt. Manage the standalone CLI’s credentials through OpenCode.
-- **ACP Session Mode → Default** asks before tools that need approval.
+- **ACP Session Mode → Default** asks before running tools that need approval.
 - **ACP Session Mode → Full Access** runs available tools without approval prompts.
 
 Interactive Agent Mode uses OpenCode’s Agent Client Protocol (ACP) runtime. Headless OpenCode runs use a managed mode without native tools.
@@ -165,7 +165,7 @@ Provider reference: [Cursor CLI](../../providers/cursor-cli.mdx).
 - **Test Connection** rechecks access.
 - **Refresh Models** requests an updated list from the runtime.
 - **Sign Out** disconnects Cursor in RepoPrompt and clears its cached model availability.
-- **ACP Auto-Approve → Default** asks before tools requiring approval.
+- **ACP Auto-Approve → Default** asks before running tools requiring approval.
 - **ACP Auto-Approve → Full Access** makes RepoPrompt automatically approve Cursor ACP tool-permission requests.
 
 RepoPrompt supplies its MCP integration through the ACP session. The provider’s **Auto** model option lets Cursor choose the model.

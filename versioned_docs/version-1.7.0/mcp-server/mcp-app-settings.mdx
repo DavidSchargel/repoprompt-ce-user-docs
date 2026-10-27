@@ -40,8 +40,8 @@ The `app_settings` MCP tool lets agents read and write an allowlisted set of Rep
 | --- | --- | --- |
 | `op` | `list \| get \| set \| options` | Required. |
 | `group` | string | `ui`, `prompt_packaging`, `models`, `context_builder`, `mcp`, `code_maps`, `file_system`, `agent_mode`, or `notifications`. Used by `list` and as a selector for `get`. |
-| `key` | string | Fully-qualified key (e.g. `ui.appearance_mode`). Required for `set`; optional selector for `get`. |
-| `keys` | array of string | Multi-key selector for `get`. Mutually exclusive with `key` and `group`. |
+| `key` | string | Fully qualified key (e.g., `ui.appearance_mode`). Required for `set`; optional selector for `get`. |
+| `keys` | array of strings | Multi-key selector for `get`. Mutually exclusive with `key` and `group`. |
 | `value` | boolean, number, string, string array, or null | Required on `set`. Match the catalog's declared `type`: the additional Oracle roster uses an array, while `prompt_packaging.prompt_sections_order` uses a string containing a JSON array. |
 | `agent` | string | For `options` on model settings: filter candidates to a supported CLI backend, such as `claudeCode` or `codexExec`. |
 | `limit` | integer | For `options`: maximum number of candidates returned (1–200, default 60). |
@@ -188,7 +188,7 @@ The prompt-section order is JSON encoded inside the string-valued `value`. This 
 
 - **Unknown keys:** Rejected with a clear error. Call `list` (or `list` with a `group`) to discover the correct key.
 - **Wrong types:** Booleans, numbers, strings, and `null` are each validated against the entry's declared `type`.
-- **Out-of-range values:** Numeric ranges (e.g. `models.temperature` 0.0–2.0) and enum values are enforced.
+- **Out-of-range values:** Numeric ranges (e.g., `models.temperature` 0.0–2.0) and enum values are enforced.
 - **No partial application:** Validation fails closed — if any check fails, nothing is written.
 - **One key per `set`:** Passing `keys` or `group` on `set` is rejected.
 

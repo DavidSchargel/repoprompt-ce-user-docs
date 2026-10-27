@@ -290,7 +290,7 @@ See [Workflow Commands](./workflow-commands.mdx#git-integration) for review-orie
 | Parameter | Description |
 | --- | --- |
 | `op` | status \| diff \| log \| show \| blame |
-| `repo_root` | Repo path or loaded root name (defaults to first loaded root). Supports suffixes: `:worktree` or `:main` to target specific checkout |
+| `repo_root` | Repo path or loaded root name (defaults to first loaded root). Supports suffixes: `:worktree` or `:main` to target a specific checkout |
 | `repo_roots` | Array of repo paths or names (for multi-root operations) |
 | `compare` | Compare spec: uncommitted (default), staged, unstaged, mergebase:X, back:N, last, main, trunk, or any revspec. `main`/`trunk` and `*:main` use merge-base semantics. |
 | `detail` | summary (default) \| files \| patches \| full |
@@ -309,9 +309,9 @@ See [Workflow Commands](./workflow-commands.mdx#git-integration) for review-orie
 - **show:** Single commit details
 - **blame:** Line-by-line attribution
 
-**Worktrees:** Full support for git worktrees. Status and diff output includes worktree metadata (branch, main checkout path). Use `repo_root` suffixes to target specific checkouts in multi-worktree setups.
+**Worktrees:** Full support for git worktrees. Status and diff output include worktree metadata (branch, main checkout path). Use `repo_root` suffixes to target specific checkouts in multi-worktree setups.
 
-**Safety:** All git commands use `--no-ext-diff`, `--no-textconv`,`--color=never`, and `GIT_TERMINAL_PROMPT=0` to ensure predictable, safe output.
+**Safety:** All git commands use `--no-ext-diff`, `--no-textconv`, `--color=never`, and `GIT_TERMINAL_PROMPT=0` to ensure predictable, safe output.
 
 ## Workspace Management Tools
 
@@ -357,7 +357,7 @@ Read and update allowlisted global preferences for appearance, prompt packaging,
 | --- | --- |
 | `op` | `list` \| `get` \| `set` \| `options` |
 | `group` | `ui`, `prompt_packaging`, `models`, `context_builder`, `mcp`, `code_maps`, `file_system`, `agent_mode`, `notifications`. Filter on list or selector on get. |
-| `key` | Fully-qualified key (e.g. `ui.appearance_mode`). Required on `set`; optional selector on `get`. |
+| `key` | Fully qualified key (e.g., `ui.appearance_mode`). Required on `set`; optional selector on `get`. |
 | `keys` | Array of keys for batch `get`. Mutually exclusive with `key` and `group`. |
 | `value` | Boolean, number, string, string array, or null, matching the catalog's declared type. The additional Oracle roster is an array; `prompt_packaging.prompt_sections_order` is a string containing a JSON array, not a native array. |
 | `agent` | For options: filter to a supported CLI backend, such as claudeCode or codexExec. |
@@ -459,7 +459,7 @@ When running multiple agents in parallel, use `session_ids` (array) instead of `
 
 ### `agent_manage`
 
-Session and workflow management surface for Agent Mode. Use this tool to discover available agents, list and inspect sessions, and read transcript logs.`agent_run` controls the current run for a session, while session data itself persists across runs.
+Session and workflow management surface for Agent Mode. Use this tool to discover available agents, list and inspect sessions, and read transcript logs. `agent_run` controls the current run for a session, while session data itself persists across runs.
 
 **Operations:**
 

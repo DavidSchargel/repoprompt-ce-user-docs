@@ -27,7 +27,7 @@ toc_min_heading_level: 2
 toc_max_heading_level: 4
 ---
 
-In [How It Works](./how-it-works.mdx), we introduced the three-stage **Explore → Curate → Handoff** pipeline, and in [Why RepoPrompt](../why-repoprompt.mdx), we outlined the top failure modes of standard coding agents. This page goes under the hood of the RepoPrompt Community Edition source code to explain *why* standard AI coding workflows break down on real production repositories — and the exact mechanisms RepoPrompt implements to solve those failure modes.
+In [How It Works](./how-it-works.mdx), we introduced the three-stage **Explore → Curate → Handoff** pipeline, and in [Why RepoPrompt](../why-repoprompt.mdx), we outlined the top failure modes of standard coding agents. This page goes under the hood of the RepoPrompt source code to explain *why* standard AI coding workflows break down on real production repositories — and the exact mechanisms RepoPrompt implements to solve those failure modes.
 
 Here's our "Secret Sauce" with a deep, deep dive into why senior software engineers are using RepoPrompt.
 
@@ -35,13 +35,13 @@ Here's our "Secret Sauce" with a deep, deep dive into why senior software engine
 
 ## 1. Reliable, Useful Results ("Context Over Convenience")
 
-Modern coding agents optimize for _convenience_: you type a one-line prompt, and the agent immediately starts running shell commands and editing files. On small scripts, this feels magical. On real codebases, raw convenience is the primary cause of hallucinated APIs, architectural drift, and broken edge cases.
+Context Builder creates a boundary between discovery and analysis. The discovery run searches the repository and builds a selection; the receiving model works from the resulting package. The implementation decisions at that boundary are the token budget, the discovery instructions, and the material included in the handoff.
 
 ### The "Agent Orientation" Problem & Effective Context Windows
 
 Frontier models advertise massive context windows (200,000 to 1,000,000+ tokens), but empirical research and production benchmarks show a sharp gap between an **advertised context window** and an **effective context window**:
 
-- **The 64k–128k Sweet Spot:** As of fall of 2026, most frontier models reason quite reliably inside the **64,000 to 128,000 token** range for agentic coding. Beyond that threshold, reasoning quality degrades proportionally to context length — a phenomenon known as **context rot**. Providers train LLMs with exceptionally long context windows that helps various applications, but coding is not one of them.
+- **The 64k–128k Sweet Spot:** As of the fall of 2026, most frontier models reason quite reliably inside the **64,000 to 128,000 token** range for agentic coding. Beyond that threshold, reasoning quality degrades proportionally to context length — a phenomenon known as **context rot**. Providers train LLMs with exceptionally long context windows that help various applications, but coding is not one of them.
 - **Attention Dilution & "Lost in the Middle":** Transformer attention follows a U-shaped curve. Models attend strongly to tokens at the very beginning and very end of the prompt, while accuracy drops significantly (often by 30% or more) for constraints and code buried in the middle.
 - **Burning the Budget on Orientation:** When an unguided agent starts a task, its context window is already loaded with harness system prompts, tool JSON schemas, and project rules (`AGENTS.md` / `CLAUDE.md`). It then spends 20 to 40 turns running `grep` and reading unrelated files just to orient itself. By the time the agent finishes **orientation**, its context window is already past the effective reasoning sweet spot — forcing it to design and implement the solution with degraded intelligence.
 
@@ -58,9 +58,7 @@ RepoPrompt enforces a **Context Over Convenience** architecture:
 
 ## 2. Advanced Context Engineering
 
-Basic prompt engineering asks _"How should I phrase my instructions?"_ **Advanced Context Engineering** asks _"What exact structural representation of the repository should occupy the model's working memory on this turn?"_
-
-In RepoPrompt's codebase (`PromptAssemblyBuilder.swift` and `PromptPackagingService.swift`), context is assembled as a deterministic, multi-layered artifact rather than an append-only chat log:
+Once discovery has selected the relevant files, `PromptPackagingService.swift` determines how to represent them and `PromptAssemblyBuilder.swift` places them alongside diffs and instructions. These are separate decisions: a file can contribute a structural summary, selected lines, or its full contents without changing the ordering of the surrounding prompt sections.
 
 ### Multi-Resolution Code Representation
 

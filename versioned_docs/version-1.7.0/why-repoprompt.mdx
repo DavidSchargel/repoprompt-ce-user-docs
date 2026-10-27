@@ -35,7 +35,7 @@ RepoPrompt was explicitly architected to solve the **top failure modes in standa
 
 As conversation histories and file dumps expand past a model's effective sweet spot (64k–128k tokens), attention degrades sharply. When forced to reason inside a bloated context window filled with dead-end searches, models invent non-existent APIs, misremember types, and hallucinate implementations.
 
-- **How RepoPrompt addresses it:** The **Context Builder** discovery coding agent curates a focused selection toward a configurable context budget before follow-up Oracle analysis. This reduces search noise in the receiving model's context; nearly guaranteeing that every relevant file is found or that all reasoning is spent on the solution. See [Reliable, Useful Results](./overview/how-it-really-works.mdx#1-reliable-useful-results-context-over-convenience).
+- **How RepoPrompt addresses it:** The **Context Builder** discovery coding agent curates a focused selection toward a configurable context budget before follow-up Oracle analysis. This reduces search noise in the receiving model's context, nearly guaranteeing that every relevant file is found or that all reasoning is spent on the solution. See [Reliable, Useful Results](./overview/how-it-really-works.mdx#1-reliable-useful-results-context-over-convenience).
 
 ### 2. "Lost in the Middle" Forgetting
 
@@ -69,7 +69,7 @@ Naive token-limit compaction summarizes conversation history by focusing on _wha
 
 ### 6. Single-Model Blind Spots
 
-Forcing a single model to act as search engine, architect, and coder causes failures—especially when reasoning models (trained to "think then act" in consensus) are forced to execute tool calls mid-thought.
+Forcing a single model to act as a search engine, architect, and coder causes failures—especially when reasoning models (trained to "think then act" in consensus) are forced to execute tool calls mid-thought.
 
 - **How RepoPrompt solves it:** Tool-less **Oracle** reasoning paired with tool-native CLI agents, 4 specialized **Agent Roles** (`explore`, `engineer`, `pair`, `design`), parallel **Multi-Oracle Rosters** (up to 5 models) with reconciliation guidance, and local **Usage Balancing**. See [LLM Variations & Limitations](./overview/how-it-really-works.mdx#6-variations-and-limitations-of-large-language-models-llms).
 
