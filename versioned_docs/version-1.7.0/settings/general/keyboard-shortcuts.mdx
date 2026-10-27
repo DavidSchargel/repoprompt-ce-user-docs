@@ -10,7 +10,7 @@ hide_table_of_contents: false
 
 <div className="settings-intro settings-panel-intro">
 
-![Full Keyboard Shortcuts pane showing the master switch and all four shortcut groups](../images/keyboard-shortcuts.png)
+![Keyboard Shortcuts master switch, Application group, and current-session actions](../images/keyboard-shortcuts.png)
 
 <div>
 
@@ -30,7 +30,35 @@ The tables below list the implementation defaults. Your current bindings can dif
 
 Turn off **Enable keyboard shortcuts** to stop these registered shortcuts from running while keeping your custom bindings saved. [Advanced](./advanced.mdx#keyboard-shortcuts) exposes the same master setting.
 
-Although this pane calls them global hotkeys, action handlers still check the app and window context. Workspace and session actions need an appropriate focused RepoPrompt window; agent shortcuts need a real workspace.
+These shortcuts apply while RepoPrompt is active; standard text-editing and dialog keys retain their native behavior. Workspace and session actions need an appropriate focused RepoPrompt window; agent shortcuts need a real workspace.
+
+## Application
+
+![Application and current-session shortcut recorders](../images/keyboard-shortcuts-application.png)
+
+| Action | Default |
+| --- | --- |
+| New workspace window | Command+N |
+| Settings | Command+, |
+| Close window | Shift+Command+W |
+| Check for updates / install available update | Option+Command+U |
+
+Clear or change **New workspace window** before assigning Command+N to a new Agent chat or session tab.
+
+## Current Agent session
+
+| Action | Default |
+| --- | --- |
+| Stop current run | Command+. |
+| Focus message composer | Command+L |
+| Pin / unpin session | Shift+Command+P |
+| Rename session | Shift+Command+R |
+| Stash session | Shift+Command+E |
+| Copy handoff prompt | Shift+Command+H |
+| Copy session ID | Option+Command+C |
+| Delete session… | Unassigned |
+
+These actions target the current session, matching its titlebar menu. Delete always asks for confirmation. With no run to stop, Command+. keeps its normal cancel behavior.
 
 ## Agent & layout
 
@@ -43,8 +71,23 @@ Although this pane calls them global hotkeys, action handlers still check the ap
 | Toggle Context Composer | Command+P |
 | Show Agent Session Switcher | Command+K |
 | Search all Agent sessions | Shift+Command+K |
+| Next session needing attention | Shift+Command+A |
+| Reopen last stashed session | Shift+Command+T |
 
 **New Agent chat** follows the titlebar's New Session action. The session switcher navigates sessions in the focused window; searching all sessions includes active and recent sessions across windows.
+
+**Next session needing attention** cycles through sessions with unseen completed, failed, or waiting badges in the current window. **Reopen last stashed session** restores the most recently stashed session, including one closed with Command+W.
+
+## Composer
+
+![Composer shortcuts for rewriting a draft and sending the original message](../images/keyboard-shortcuts-composer.png)
+
+| Action | Default |
+| --- | --- |
+| Re-prompt draft again | Command+Return |
+| Send original (during Re-prompt) | Shift+Command+O |
+
+Re-prompt shortcuts apply while the message composer has focus. **Send original** applies while a rewrite is shown and sends your original draft instead. A matching shortcut elsewhere in this settings list takes priority. Configure rewriting in [Agent Models → Re-prompt](../agent-mode/agent-models.mdx#re-prompt).
 
 ## Workspace & presets
 
@@ -78,8 +121,8 @@ Numbered session shortcuts follow the Agent session sidebar order. Parent-sessio
 
 ## Display
 
-![Increase and decrease font size shortcut recorders](../images/keyboard-shortcuts-display.png)
+![Increase, decrease, and reset font size shortcut recorders](../images/keyboard-shortcuts-display.png)
 
-**Command+=** increases text size and **Command+-** decreases it. These step through the same global text-size presets as [Appearance](./appearance.mdx#text-size).
+**Command+=** increases text size and **Command+-** decreases it. **Command+0** resets text size. These shortcuts use the same global text-size presets as [Appearance](./appearance.mdx#text-size).
 
 </div>

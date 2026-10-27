@@ -10,7 +10,7 @@ hide_table_of_contents: false
 
 <div className="settings-intro settings-panel-intro">
 
-![Agent Permissions Direct Agents tab showing provider summaries, disconnected providers, and related settings](../images/agent-permissions.png)
+![Direct Agents tab showing connected provider summaries and unavailable providers](../images/agent-permissions.png)
 
 <div>
 
@@ -79,23 +79,28 @@ Custom mode exposes **Per-provider sub-agent modes**. These affect future sub-ag
 
 ### Preview Safe Managed profile
 
-![Expanded Safe Managed policy explanation in the captured build](../images/agent-permissions-subagents-preview.png)
+![Expanded Safe Managed policy preview](../images/agent-permissions-subagents-preview.png)
 
 The preview explains the policy and shows an effective profile for each available provider.
 
-:::note[The captured policy differs from the current source]
+Safe Managed disables Claude Bash, forces Claude to strict MCP, and suppresses user-enabled third-party MCP servers for Codex. Codex Bash remains enabled under its managed Auto Review workspace sandbox.
 
-The screenshot says shell tools are disabled for both Claude and Codex. The current implementation disables Claude Bash but **enables Codex Bash**, using Codex's managed Auto Review sandbox/approval profile. It still forces Claude to strict MCP and suppresses user-enabled third-party MCP servers for Codex.
+Grok Build uses its Default mode for MCP launches. Its own rules, including inherited Claude Code permission rules, can allow requests without asking RepoPrompt. Safe Managed therefore does not guarantee an approval prompt for every provider action.
 
-Current source also notes a Grok Build exception: MCP launches use its Default mode, and its own rules, including inherited Claude Code permission rules, can allow requests without asking RepoPrompt. Safe Managed does not guarantee an approval prompt for every provider action.
-
-:::
 
 ### Effective per-provider profile
 
 ![Safe Managed profiles for connected providers and unavailable-provider indicators](../images/agent-permissions-subagents-profiles.png)
 
-Read these summaries for the active build and connected providers. They show the resulting sandbox or permission mode and third-party MCP handling. The rows are a preview of policy, not a second set of editable Direct Agents settings.
+Read these summaries for the connected providers. They show the resulting sandbox or permission mode and third-party MCP handling. The rows are a preview of policy, not a second set of editable Direct Agents settings.
+
+## Overseer
+
+![Overseer full access switch and explanation of its session-wide permissions](../images/agent-permissions-overseer.png)
+
+**Overseer full access (no approvals)** grants an Overseer access to every session without approval or confirmation cards. It can observe, organize, control, restructure, spawn, manage worktrees, retire, and delete sessions. The switch is off by default and appears on both permission tabs.
+
+Review its access in **Active delegations**. Turn the switch off to revoke this standing access immediately. This is a separate, app-wide grant; the Direct Agents and Sub-Agents settings above do not limit it. Only you can change this switch in the UI; it is not exposed through the MCP App Settings tool.
 
 ## Related settings and storage
 

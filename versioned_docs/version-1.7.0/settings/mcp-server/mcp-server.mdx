@@ -10,7 +10,7 @@ hide_table_of_contents: false
 
 <div className="settings-intro settings-panel-intro">
 
-![Full MCP Server pane with window status, Oracle presets, Context Builder, Quick Setup, CLI Tools, and JSON Configuration](../images/mcp-server.png)
+![MCP Server settings with window status, strict connection approval, Oracle presets, Context Builder, and setup controls](../images/mcp-server.png)
 
 <div>
 
@@ -20,7 +20,7 @@ Manage RepoPrompt’s Model Context Protocol server, inspect connection status, 
 
 </div>
 
-Open **Settings → MCP Server**. The window number identifies the workspace window whose MCP access you are configuring. Connection counts and available tool counts are live values; the screenshots on this page are historical captures showing `21 available` tools (out of **31 total domain tools**, **21 are advertised** to external clients — **3 global** and **18 window-scoped** — while **10 policy-gated and sub-agent internal tools** are reserved for Agent Mode and oversight sessions).
+Open **Settings → MCP Server**. The window number identifies the workspace window whose MCP access you are configuring. Connection counts and available tool counts reflect the running app and enabled tools.
 
 ## Status and window access
 
@@ -31,6 +31,17 @@ The main switch enables or disables MCP tools **for this window**. A running lis
 **Auto-Start** controls automatic MCP server startup when RepoPrompt launches. The connection badge summarizes connected clients. **Status Dashboard** opens diagnostics, and an error indicator, when present, opens error details.
 
 **Force Stop Listener** shuts down the shared listener for **every window and client**. Use the window switch when you only intend to disable access to the current window. A **Cancel** button can appear while a tool is running to abort that call.
+
+## Strict connection approval
+
+![Strict connection approval checkbox and explanation of saved and per-run approvals](../images/mcp-server-strict-approval.png)
+
+**Strict connection approval** controls admission of external MCP clients and applies to new connections:
+
+- **Off (default):** common client names are approved automatically. **Always allow this client** saves approval by app name. A program using an approved name can also be admitted, so name-based trust does not verify its executable identity.
+- **On:** saved and built-in approved names are ignored. Each app is asked once per run; reconnects from the same running app do not ask again. These approvals do not survive a RepoPrompt restart.
+
+Agents started inside RepoPrompt do not show connection prompts. Connection admission is separate from [workspace-operation approvals](./workspace-approvals.mdx) and [agent permissions](../agent-mode/agent-permissions.mdx).
 
 ## Oracle Model Presets
 
@@ -66,9 +77,9 @@ Each row reports whether its command is installed and offers **Install**, **Upda
 
 ## JSON Configuration
 
-![Collapsed JSON Configuration disclosure](../images/mcp-server-json.png)
+![Expanded JSON Configuration with the local command path blurred](../images/mcp-server-json.png)
 
-Expand **JSON Configuration** to inspect and copy the JSON for an external client's MCP configuration. The generated command normally uses a managed link that survives app updates, with a bundled-path fallback. Add the configuration in your client, then connect it to RepoPrompt. If the client cannot find `repoprompt-mcp` after moving the app or switching app builds, copy the configuration again from the intended running app and update the client.
+Expand **JSON Configuration** to inspect and copy the JSON for an external client's MCP configuration. The generated command normally uses a managed link that survives app updates, with a bundled-path fallback. Add the configuration in your client, then connect it to RepoPrompt. If the client cannot find the generated command after moving the app or switching app builds, copy the configuration again from the intended running app and update the client.
 
 Use [Tools](./tools.mdx) to control individual tool availability. Tool access also remains subject to the target workspace and applicable approval rules.
 

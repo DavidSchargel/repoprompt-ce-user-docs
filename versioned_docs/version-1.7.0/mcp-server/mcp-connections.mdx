@@ -27,7 +27,11 @@ The connection badge opens client details. In Settings, **Status Dashboard** ope
 
 ## Connection Approval
 
-A new external client process can trigger a **Connection Request** overlay showing its identity and executable information when available. Choose **Allow Session** or **Allow Once**, according to the displayed choice, or **Deny**. The current overlay does not offer Classic's name-based **Always Allow** action. A client name alone is not a trustworthy standing identity; review the process information and the connection you initiated.
+A new external client process can trigger a **Connection Request** overlay showing its identity and executable information when available. Review the process and the connection you initiated before approving.
+
+With [Strict connection approval](../settings/mcp-server/mcp-server.mdx#strict-connection-approval) off, common client names are approved automatically and **Always allow this client** can save approval by name. Clear that option to use **Allow Session** (when executable identity is available) or **Allow Once** instead. Name-based trust can admit another program using the same name.
+
+With strict approval on, saved and built-in names are ignored. Approvals last for the current RepoPrompt run, including reconnects from the same running app. **Deny** rejects the request. Agents started inside RepoPrompt do not require this connection prompt.
 
 Connection admission, workspace-operation approval, and agent permissions are distinct. Allowing a client to connect does not authorize it to create or delete a workspace, approve an agent shell command, or widen its tools. See [Workspace Approvals](../settings/mcp-server/workspace-approvals.mdx) and [Agent Permissions](../settings/agent-mode/agent-permissions.mdx).
 

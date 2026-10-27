@@ -64,7 +64,7 @@ The `--backend app` arguments explicitly select the running app backend. The com
 
 ## Connection Approval
 
-When an external client needs approval, RepoPrompt shows a **Connection Request** overlay with its client and, when available, executable information. The current implementation offers **Allow Session** or **Allow Once**, depending on whether an executable identity is available, and **Deny**. Review the actual client process before approving. The older Classic instructions about an **Always Allow** choice do not describe this overlay.
+When an external client needs approval, RepoPrompt shows a **Connection Request** overlay with its client and, when available, executable information. Review the process before choosing **Allow Session**, **Allow Once**, or **Deny**. With strict connection approval off, **Always allow this client** can save approval by app name, and common names may connect automatically. Enable [Strict connection approval](../settings/mcp-server/mcp-server.mdx#strict-connection-approval) to require per-run approval instead of trusting saved or built-in client names.
 
 Connection approval admits the client; it does not approve every workspace mutation, file edit, or agent operation. Those actions remain subject to their own policies. See [Connection Management](./mcp-connections.mdx).
 

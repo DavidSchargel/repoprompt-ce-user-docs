@@ -11,7 +11,7 @@ hide_table_of_contents: false
 
 <div className="settings-intro settings-panel-intro">
 
-![Full CLI Providers settings pane showing the setup banner, all provider rows, and expanded custom backend controls](../images/cli-providers.png)
+![CLI Providers overview showing runtime and compatible-backend cards](../images/cli-providers.png)
 
 <div>
 
@@ -22,12 +22,6 @@ Connect coding-agent runtimes and configure their authentication, permissions, t
 </div>
 
 Open **Settings → Agent Mode → CLI Providers**. Expand a provider’s row to see its available controls. The information button opens the provider’s website or documentation. Controls change with runtime availability and connection state. Screenshots illustrate the controls; the selections shown are examples rather than recommended defaults.
-
-:::note[Historical Screenshot Note]
-
-The overview screenshot (`cli-providers.png`) is a historical capture that may not reflect the expanded details or latest layout for newer provider integrations such as **Grok Build** and **OpenCode CLI**. Refer to the dedicated [OpenCode CLI](#opencode-cli) and [Grok Build](#grok-build) sections below for complete setup, authentication, and permission controls.
-
-:::
 
 ## Connection and setup controls
 
@@ -45,7 +39,7 @@ The inline **Permissions** or **Permissions & Runtime** controls apply to agents
 
 ## Plan usage
 
-The current source places **Plan usage** controls inside the connected Codex CLI and Claude Code CLI cards. Usage-source setup is separate from connecting the coding runtime. The **Show usage limits when available** preference in [Agent Mode Overview](./overview.mdx) controls visibility; the provider's source must also be enabled or connected before readings are available. Use **Refresh** to request an updated reading. These controls report account usage; [Usage balancing](../agent-mode/agent-decisions.mdx#usage-balancing) separately controls whether it influences model selection.
+**Plan usage** controls appear inside the connected Codex CLI and Claude Code CLI cards. Usage-source setup is separate from connecting the coding runtime. The **Show usage limits when available** preference in [Agent Mode Overview](./overview.mdx) controls visibility; the provider's source must also be enabled or connected before readings are available. Use **Refresh** to request an updated reading. These controls report account usage; [Usage balancing](../agent-mode/agent-decisions.mdx#usage-balancing) separately controls whether it influences model selection.
 
 ## Codex CLI
 
@@ -56,6 +50,8 @@ Provider reference: [Codex CLI](../../providers/codex-cli.mdx).
 RepoPrompt uses a managed Codex runtime and a managed sign-in separate from your ordinary `~/.codex` sign-in.
 
 ### Runtime and sign-in
+
+ChatGPT may require identity verification (KYC) before Codex access is available.
 
 - **Included with RepoPrompt** shows the bundled runtime’s version and availability. The active-runtime summary identifies what this app launch is using.
 - Under **Advanced**, open the runtime menu and select a detected executable, or choose **Choose…** to select a custom Codex executable. RepoPrompt checks its version and reports availability or compatibility problems.
@@ -77,6 +73,7 @@ Runtime selection takes effect on the next RepoPrompt launch, when the model lis
 - **Auto Review** allows workspace writes and uses automatic review of tool requests before asking you.
 - **Full Access** removes the sandbox restriction and runs without approval prompts.
 
+
 ### Core tools and runtime features
 
 Each switch enables or disables the named capability:
@@ -87,8 +84,17 @@ Each switch enables or disables the named capability:
 - **Reasoning Summaries** shows Codex reasoning summaries in Agent Mode. It does not change model reasoning effort or Chat/Oracle behavior.
 - **Local Memories** permits Codex to generate and reuse local memories across Agent Mode chats. Memories are stored under the runtime’s Codex home. Generation can perform background or startup model work and consume Codex quota; applying the change may require a new or restarted session.
 
+### Import user Codex MCP servers
+
+![Import user Codex MCP servers control with server names blurred](../images/codex-import-mcp.png)
+
+RepoPrompt's managed Codex sign-in and configuration are separate from your standalone Codex setup. **Import user Codex MCP servers…** reviews servers from your user Codex configuration for import; they are not shared with Agent Mode automatically. The summary lists servers available to import. Review the requested servers before importing them, then control their availability in **MCP servers**.
+
 ### Optional Codex Features
 
+![Optional Codex features, including Computer Use and connected-app controls](../images/codex-optional-features.png)
+
+- **Computer Use** enables `/computer-use` in direct Codex sessions. It requires the Computer Use companion and an OpenAI-signed Codex executable, plus macOS Screen Recording and Accessibility permissions when requested. A re-signed runtime can fail companion authentication; select a compatible local runtime under **Codex CLI → Advanced** and restart the session if needed. This option is off by default.
 - **Apps** permits use of connected apps.
 - **Plugins** permits loading installed plugins.
 - **MCP Elicitation** permits MCP servers to request additional input during a run.
@@ -288,9 +294,13 @@ Provider reference: [CC Custom](../../providers/cc-custom.mdx).
 
 Use CC Custom for your own Claude-compatible endpoint:
 
+![Custom backend request timeout and context-window settings](../images/cc-custom-limits.png)
+
 - **Enable custom backend** controls whether the configured backend is active.
 - **Display name** sets its label in the app.
 - **Base URL** identifies the compatible endpoint.
+- **Request timeout (milliseconds)** sets the timeout for new launches. The default is **600000 ms (10 minutes)**. Enter milliseconds, not seconds; leave it blank to use the default.
+- **Context window (tokens)** sets the window for unrecognized model IDs on new launches. The default is **200000 tokens**, shared by all three model slots. IDs with `[1m]`, bare `claude-` names, and recognized Claude models follow Claude Code's own window rules. Leave it blank to use the default.
 - **Auth header** chooses **ANTHROPIC_API_KEY** or **ANTHROPIC_AUTH_TOKEN**, the environment variable through which the Claude process receives the credential.
 - **API Key** or **Auth Token** accepts that credential. **Save** or **Change** stores it; **Delete** removes it.
 - **Model behavior → No model flag** leaves model selection to the backend. RepoPrompt sends no Claude slot or Claude Code effort level.

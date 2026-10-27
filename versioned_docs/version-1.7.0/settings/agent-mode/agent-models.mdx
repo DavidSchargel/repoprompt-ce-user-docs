@@ -10,7 +10,7 @@ hide_table_of_contents: false
 
 <div className="settings-intro settings-panel-intro">
 
-![Agent Models settings with workspace scope, recommendations, Oracle roster, Context Builder, and sub-agent role defaults](../images/agent-models.png)
+![Agent Models workspace scope, recommendations, and Oracle roster; workspace names blurred](../images/agent-models.png)
 
 <div>
 
@@ -20,7 +20,7 @@ Choose the Oracle analysis model, the Context Builder agent and model, and model
 
 </div>
 
-Open **Settings → Agent Mode → Agent Models**. This page chooses the models used by Oracle, Context Builder, and MCP-launched agent roles. The screenshots on this page are historical captures; the model names and connected providers shown are examples, not fixed defaults.
+Open **Settings → Agent Mode → Agent Models**. This page chooses the models used by Oracle, Context Builder, and MCP-launched agent roles. The model names and connected providers shown are examples, not fixed defaults.
 
 Use the [Models reference](../../providers/models.mdx#model-roles) for the meaning of these model roles and shared selection concepts, and the [provider directory](../../providers/overview.mdx) for connection requirements. The sections below explain settings scope and controls.
 
@@ -47,9 +47,25 @@ Recommendations come from the same engine as the setup wizard. **Apply Recommend
 
 Choose a primary Oracle and up to **four additional models**. **Add Oracle** adds another entry; the minus control removes an additional entry. Grouped requests run each model independently and retain separate results in roster order.
 
-Newer builds also expose **Reconciliation guidance** for the calling agent when multiple answers return. The calling agent reconciles those answers; this does not launch another synthesis model. Saved guidance affects future requests, and blank guidance restores the default.
+Set **Reconciliation guidance** for the calling agent when multiple answers return. The calling agent reconciles those answers; this does not launch another synthesis model. Saved guidance affects future requests, and blank guidance restores the default. The response-lane manifest and end marker remain fixed.
 
 For named configurations exposed to MCP clients, see [Oracle Model Presets](../mcp-server/model-presets.mdx).
+
+## Re-prompt
+
+![Re-prompt model, mode, recent-context option, rewrite guidance, and Save controls](../images/agent-models-reprompt.png)
+
+Re-prompt turns your draft message into a clearer task brief before sending it to the agent. Its settings follow the global or workspace scope selected at the top of this page.
+
+- **Model** selects the model that rewrites the draft. The default uses a fast model from a connected Claude or ChatGPT subscription. See [Providers & Models](../../providers/models.mdx) for model availability.
+- **Effort** is Low unless [Auto Effort](./agent-decisions.mdx#auto-effort) chooses the level.
+- **Mode → Review before sending** lets you inspect the rewritten draft before sending. **Send automatically** sends the completed rewrite without that review step.
+- **Include recent chat context** supplies recent conversation context to help interpret the draft.
+- **Rewrite guidance (advanced)** lets you customize the rewriting instructions. **Restore Default** loads the default guidance into the draft.
+
+Choose **Save** to store changes. Guidance must fit within **16 KiB**; an oversized draft is not truncated or saved. If settings or scope change while you edit, use **Reload Current Settings** before saving; this discards your draft.
+
+While reviewing a rewrite, press **Return** to send it, **Command+Return** to rewrite again, or **Shift+Command+O** to send the original text. These shortcuts can be changed in [Keyboard Shortcuts](../general/keyboard-shortcuts.mdx#composer).
 
 ## Context Builder Agent
 

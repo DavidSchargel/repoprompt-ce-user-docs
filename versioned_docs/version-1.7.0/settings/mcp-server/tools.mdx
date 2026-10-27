@@ -22,10 +22,10 @@ Manage window-level MCP access, search the tool catalog, and configure individua
 
 Open **Settings → MCP Server → Tools**. RepoPrompt defines **31 total domain tools**, of which **21 are advertised** to standard external MCP clients (composed of **3 global tools** — `app_settings`, `bind_context`, and `manage_workspaces` — and **18 window-scoped tools**). The remaining **10 policy-gated and sub-agent internal tools** are reserved for eligible Agent Mode sessions and cross-session oversight.
 
-The screenshots on this page (`tools.png` and individual `tools-*.png` captures) are historical captures showing the 21 advertised tool descriptions expanded. There are minor differences in parameter naming (such as `search_pattern` vs `pattern` and regex flag descriptions) and legacy window-selector wording compared to the latest code (`MCPDomainToolCatalog.swift`). For current arguments, response behavior, and examples, see the [MCP Server Tools Reference](../../mcp-server/mcp-tools.mdx).
+Expand **More…** beneath a tool to inspect its description. For supported arguments, response behavior, and examples, use the [MCP Server Tools Reference](../../mcp-server/mcp-tools.mdx); the connected client’s advertised schema is the contract for that connection.
 
 <details>
-<summary>View the complete MCP Tools screenshot (historical capture)</summary>
+<summary>View the MCP Tools settings</summary>
 
 ![Complete MCP Tools pane with all 21 tool descriptions expanded](../images/tools.png)
 
@@ -85,7 +85,7 @@ Replacements are literal text. A rewrite can opt into creating a missing file wi
 
 Lists available contexts, reports the connection's current binding, and binds a client to a specific workspace context. Prefer absolute workspace root paths in `working_dirs`, or use a returned `context_id`.
 
-The binding is retained for that MCP connection. Switching the visible tab does not redirect an existing binding. The captured description includes legacy window selectors; newer builds make this a global context tool without an app-window selector. Use the schema advertised by your connected build. See the [`bind_context` contract](../../mcp-server/mcp-tools.mdx#bind_context) and [Connection Management](../../mcp-server/mcp-connections.mdx#context-binding).
+The binding is retained for that MCP connection. Switching the visible tab does not redirect an existing binding. This is a global context tool. Its external schema does not accept an app-window selector; discover and bind by workspace roots or context UUID. See the [`bind_context` contract](../../mcp-server/mcp-tools.mdx#bind_context) and [Connection Management](../../mcp-server/mcp-connections.mdx#context-binding).
 
 ![bind_context switch and expanded context listing and binding description](../images/tools-bind-context.png)
 
