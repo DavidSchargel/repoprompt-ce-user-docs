@@ -227,7 +227,7 @@ When an agent calls `ask_oracle` or `oracle_send`, RepoPrompt queries every mode
 
 ### Adaptive Routing, Auto Effort, & Local Usage Balancing
 
-Through [Agent Decisions](../settings/agent-mode/agent-decisions.mdx), RepoPrompt can dynamically select the base model and reasoning effort per task (using a decision service such as TypeSafe Jev with a strict 5-second non-retried deadline), while **Usage Balancing** stays 100% local on your Mac to shift eligible new tasks across your connected Claude and Codex subscriptions (`Only near limits`, `Even pace`, or `Use expiring quota first`) so you don't burn through one provider's weekly quota prematurely.
+Through [Agent Decisions](../settings/agent-mode/agent-decisions.mdx), RepoPrompt can dynamically select the base model and reasoning effort per task (using **Jev by TypeSafe** or **Decisions by OpenAI**, both with a five-second deadline and no automatic retries), while **Usage Balancing** stays 100% local on your Mac to shift eligible new tasks across your connected Claude and Codex subscriptions (`Only near limits`, `Even pace`, or `Use expiring quota first`) so you don't burn through one provider's weekly quota prematurely.
 
 ---
 

@@ -97,6 +97,48 @@ With the app active, task activity can trigger checks at most once per **30 minu
 
 Each service card shows supported features, selection badges, and configuration status. Expand a card to review its credential controls and disclosures. Configuring a service does not automatically select it for both features; use each feature's **Decision service** menu.
 
+### Choosing Decisions by OpenAI or Jev
+
+Both integrations can select a model for a new task or select effort for an eligible turn. They make a decision from RepoPrompt's supplied choices; they do not execute the coding task. You can choose one service for routing and another for Auto Effort.
+
+**Consider Decisions by OpenAI** when your team already manages OpenAI API projects and wants decision usage within that account structure. OpenAI documents typed choices, probabilities, and scores in its [Decisions guide](https://developers.openai.com/api/docs/guides/decisions). Check its [data-control documentation](https://developers.openai.com/api/docs/guides/your-data) against your account's requirements; documented service options do not mean this RepoPrompt integration enables them automatically.
+
+**Consider Jev** when you already use TypeSafe or want a separately managed decision service. TypeSafe describes Jev as designed for [typed decisions and calibrated confidence](https://typesafe.ai/). Its [System One API reference](https://docs.typesafe.ai/api/system-one) documents named questions and structured answers. That focus is a reason to evaluate Jev on your tasks, not proof it will choose better models than OpenAI.
+
+#### Account setup
+
+- **Jev by TypeSafe:** TypeSafe API key; configure and verify it in the Jev card.
+- **Decisions by OpenAI:** OpenAI API key; the settings card recommends a dedicated project and project key for attribution.
+
+#### Verification in RepoPrompt
+
+- **Jev by TypeSafe:** Checks account/model access without sending a task for evaluation.
+- **Decisions by OpenAI:** Sends a fixed test decision, which may incur an input-token charge.
+
+#### Provider's API focus
+
+- **Jev by TypeSafe:** Named, typed questions over supplied state, with calibrated confidence as a stated design goal.
+- **Decisions by OpenAI:** Typed classification, choices, and scoring, including probability estimates.
+
+#### Data handling
+
+- **Jev by TypeSafe:** TypeSafe's policy says it does not train or fine-tune models on submitted input; retention is governed separately by that policy.
+- **Decisions by OpenAI:** API input is not used to train models by default unless you opt in. Retention and additional data controls depend on the endpoint and account configuration.
+
+#### What RepoPrompt uses
+
+- **Jev by TypeSafe:** The same text-based decision roles; the provider's additional question types are not separate settings here.
+- **Decisions by OpenAI:** Text-based choices for routing and effort; broader API capabilities do not automatically become app features.
+
+#### Failure behavior
+
+- **Jev by TypeSafe:** The same deadline and fallback approach; choosing Jev does not remove RepoPrompt's eligibility checks.
+- **Decisions by OpenAI:** Five-second deadline without automatic retries; invalid or unavailable decisions fall back to the applicable selection.
+
+The account, verification, and app-behavior comparisons describe RepoPrompt's integrations. Provider capabilities come from the guides linked above. For TypeSafe's input-use and retention terms, read its [privacy policy](https://typesafe.ai/legal/privacy-policy); a no-training commitment is not a zero-retention commitment.
+
+For either service, compare actual decision quality, response time, and billed usage on representative tasks. Neither provider's general speed claims establish which is faster or cheaper for your workflow. Check current pricing and account terms before enabling automatic decisions. Keep the comparison fair by using the same candidates and guidance; local Usage Balancing can change the final execution choice after the service responds.
+
 ### Jev by TypeSafe
 
 ![Jev service card with Model Router and Auto Effort selection badges, API key controls, privacy disclosure, and technical limits](../images/agent-decisions-jev.png)
