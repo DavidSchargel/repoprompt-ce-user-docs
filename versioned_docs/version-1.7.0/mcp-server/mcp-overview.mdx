@@ -2,7 +2,7 @@
 id: "mcp-overview"
 title: "MCP Server Overview"
 sidebar_label: "Overview"
-description: "Connect external coding agents to RepoPrompt CE for code exploration, context building, Oracle consultations, and session orchestration."
+description: "Connect external coding agents to RepoPrompt for code exploration, context building, Oracle consultations, and session orchestration."
 slug: "/mcp-server"
 keywords:
   [
@@ -40,7 +40,7 @@ toc_max_heading_level: 4
 
 ### What is MCP?
 
-MCP (Model Context Protocol) is an open standard for AI tools to communicate with external services. RepoPrompt CE's MCP server exposes file selection, Code Maps, Context Builder, Oracle conversations, edits, workspace and tab lifecycle, allowlisted app preferences, and policy-controlled Agent Mode session operations. Clients discover the tools available to their connection rather than assuming every tool is always exposed. The app-backed tools are reachable two ways:
+MCP (Model Context Protocol) is an open standard for AI tools to communicate with external services. RepoPrompt's MCP server exposes file selection, Code Maps, Context Builder, Oracle conversations, edits, workspace and tab lifecycle, allowlisted app preferences, and policy-controlled Agent Mode session operations. Clients discover the tools available to their connection rather than assuming every tool is always exposed. The app-backed tools are reachable two ways:
 
 - **Direct MCP** — persistent connections for agents that natively speak MCP.
 - **[rpce-cli](./mcp-setup.mdx#terminal-access)** — ephemeral shell invocations for agents and humans that prefer a terminal.
@@ -125,7 +125,7 @@ The app bridge uses local UNIX sockets, without exposing an MCP TCP listener. Cl
 
 ### Compatible Clients
 
-RepoPrompt CE provides native one-click configuration for:
+RepoPrompt provides native one-click configuration for:
 - **Claude Code** — Anthropic's official coding CLI with deep MCP and skill integration
 - **Cursor** — AI-native code editor with deeplink MCP installation
 - **Codex CLI** — OpenAI's CLI agent with isolated prompt and skill discovery

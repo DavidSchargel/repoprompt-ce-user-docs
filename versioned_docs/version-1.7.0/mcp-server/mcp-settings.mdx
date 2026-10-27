@@ -119,7 +119,7 @@ The two **Install to PATH** and **Uninstall from PATH** pairs belong to differen
 
 Under **CLI (rpce-cli)**, **Install to PATH** installs the managed `rpce-cli` command in `/usr/local/bin` for terminal access to RepoPrompt's MCP tools. This enables scripting, automation, and interactive codebase exploration. macOS can request administrator authorization to write that location; the directory must be on your shell's PATH to invoke the command by name.
 
-**Uninstall from PATH** removes that managed terminal command. It does not uninstall RepoPrompt CE or remove MCP configurations already added to external clients. Debug builds use `rpce-cli-debug`, so use the command name displayed by the running build.
+**Uninstall from PATH** removes that managed terminal command. It does not uninstall RepoPrompt or remove MCP configurations already added to external clients. Debug builds use `rpce-cli-debug`, so use the command name displayed by the running build.
 
 ```bash
 rpce-cli -e 'call get_file_tree {"type":"roots"}'

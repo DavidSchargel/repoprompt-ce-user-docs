@@ -1,7 +1,7 @@
 ---
 id: "how-it-really-works"
 title: "How It (Really) Works"
-description: "An under-the-hood architectural deep dive into how RepoPrompt CE solves context rot, tool bloat, multi-turn compaction, LLM limitations, and diff-only code review blindness."
+description: "An under-the-hood architectural deep dive into how RepoPrompt solves context rot, tool bloat, multi-turn compaction, LLM limitations, and diff-only code review blindness."
 slug: "/overview/how-it-really-works"
 keywords:
   [
@@ -288,7 +288,7 @@ RepoPrompt is an architectural context engine for multi-file repositories. If yo
 
 ## Summary Matrix: Problem vs. RepoPrompt Architecture
 
-| Failure Mode in Standard Agents     | Root Cause                                                                                        | RepoPrompt CE Architectural Solution                                                                                                                                                                          |
+| Failure Mode in Standard Agents     | Root Cause                                                                                        | RepoPrompt Architectural Solution                                                                                                                                                                          |
 | :---------------------------------- | :------------------------------------------------------------------------------------------------ | :------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
 | **Context Rot & Hallucinations**    | Agent burns 40+ turns of its 64k–128k effective context window on `grep` and dead-end file reads. | **Non-opinionated Discovery Agent** curates a 120k-token budgeted selection before the reasoning model starts (`ContextBuilderSettingsValues.swift`).                                                         |
 | **"Lost in the Middle" Forgetting** | Transformer attention drops in the middle of long prompts, losing user constraints.               | **Instruction Sandwiching** (`PromptAssemblyBuilder.swift`) duplicates `<user_instructions>` at the top and bottom of the packaged prompt, paired with Tree-sitter **Code Maps** and **Line Slices**.         |
