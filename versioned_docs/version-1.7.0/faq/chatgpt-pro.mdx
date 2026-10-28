@@ -1,0 +1,41 @@
+---
+title: "How Do I Find the ChatGPT Pro Interface?"
+slug: "/faq/chatgpt-pro"
+description: "Find ChatGPT in your browser, select an available reasoning model, send prepared RepoPrompt context, and bring the analysis back for implementation."
+---
+
+For this workflow, use ChatGPT's browser conversation at [chatgpt.com](https://chatgpt.com). **ChatGPT Pro** is an account plan; it is not a separate RepoPrompt interface or a model name. A model or reasoning option labeled **Pro**, when offered, is a separate selection inside ChatGPT. Account access and labels can change, so confirm the option actually selected in your conversation.
+
+## Why use it with RepoPrompt?
+
+Use a separate reasoning conversation for architectural planning, a difficult diagnosis, or a second review of a proposed change. RepoPrompt supplies focused code context; the receiving model can concentrate on the question rather than reconstructing the repository through a long series of searches.
+
+This is useful when you want an independent analysis before implementation. It can be slower than a quick response, and neither a paid plan nor a higher reasoning setting guarantees a better answer. Compare the result with the actual code and your acceptance criteria. OpenAI's [model-selection guidance](https://learn.chatgpt.com/docs/model-selection) explains the depth, speed, and usage tradeoff.
+
+## Find it manually on chatgpt.com
+
+1. Open [chatgpt.com](https://chatgpt.com) in your browser and sign in to the account with the access you intend to use.
+2. Start a new conversation. If the interface offers **Chat** and **Work**, choose **Chat** for this question-and-answer workflow. You do not need to start a Codex task to paste a prepared prompt.
+3. Open the conversation's model selector and inspect its model and reasoning choices. Use the displayed model control rather than assuming the account's Pro badge identifies the selected model.
+4. If your account offers a **Pro** reasoning/model choice, select it explicitly. Otherwise, choose an available reasoning model suited to the task, or check your account/workspace access if you specifically need the Pro option. A missing choice is not evidence that a direct URL will unlock it.
+5. Confirm the selected model and any reasoning setting before sending the prompt. Increase reasoning effort when deeper analysis is useful and the additional time and usage fit the task.
+
+OpenAI's [web quickstart](https://learn.chatgpt.com/docs/web) documents signing in, choosing Chat or Work, and model selection. The exact controls depend on your account and rollout; this guide does not promise a permanently named Pro menu item or fixed model release.
+
+## Prepare and send the context
+
+In RepoPrompt, use **ChatGPT Export** to assemble a self-contained prompt, or use [Prepare and Copy Context](../agent-mode/context-composer.mdx) to inspect the selected code, receiving-model instructions, and Git changes before copying. The [export workflow](../agent-mode/workflow-templates.mdx#chatgpt-export) can produce a Markdown prompt under `prompt-exports/`; inspect the actual result before using it.
+
+Paste the prepared prompt into the browser conversation. Check that the instructions and code arrived intact and fit the receiving interface's limits. If they do not fit, reduce irrelevant context rather than assuming a Pro plan accepts an unlimited repository. Send a concrete analysis request, for example:
+
+> Review the attached context and propose an implementation plan. Identify assumptions, affected files, risks, and verification steps. Do not implement changes. Ask for missing code rather than inventing its behavior.
+
+Use context you are permitted to share with that service. Pasting the export does not connect the conversation to your live checkout or automatically send later file changes.
+
+## Bring the result back to RepoPrompt
+
+Read the analysis, resolve open questions, and copy the useful plan or findings into the intended RepoPrompt session. Include the source context and note any repository changes made since export. For a long plan, save it as a project document and tell the coding agent which file to read.
+
+Ask the coding agent to verify the analysis against the current checkout before implementing it. For example: “Check this plan against the current code, flag mismatches, then implement the agreed changes and run the permitted checks.” Review the resulting diff and validation evidence. ChatGPT's answer does not itself apply edits, merge a worktree, or prove the implementation works.
+
+ChatGPT account access, API billing, and RepoPrompt's provider connections are separate. See [AI Service Costs](./pay-for-services.mdx) and [Models](../providers/models.mdx) for those distinctions.

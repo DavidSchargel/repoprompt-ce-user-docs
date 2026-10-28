@@ -35,22 +35,22 @@ import Tabs from "@theme/Tabs";
 import TabItem from "@theme/TabItem";
 import useBaseUrl from "@docusaurus/useBaseUrl";
 
-**RepoPrompt understands the code, plans the change, and keeps the work in view.**
+**Bring your code, context, and AI coding tools together.**
 
-RepoPrompt CE is unified interface of tools over native harnesses that brings your code, AI coding tools, and task context into one workspace. It's first-class tooling to explore an extensive repository, work through an architectural decision, review a change, or coordinate implementation across several coding agents.
+RepoPrompt CE gives you a well-thought-out, unified workspace for exploring a repository and working with your go-to AI coding tools. Use its first-class tooling to explore an extensive repo, trace unfamiliar code, work through an architectural decision, review a series of changes, or coordinate work across coding agents you already use.
 
 The macOS application is **free and open source**. Connect your own coding-runtime account, API provider, or local model service; [AI service costs](./faq/pay-for-services.mdx) depend on the connection you use.
 
 ## Give your coding work the right tools and the right context
 
-Good AI-assisted coding work starts with understanding what is already there: the relevant files, the interfaces they depend on, the changes in progress, and the constraints that matter. Finding and sharing that context can take more effort than writing the prompt.
+Before any coding agent can make production-ready changes, it needs to understand the code already there: the relevant files, their interfaces, the changes in progress, and the constraints that matter. We all know that finding and sharing that context can take longer than writing the plan or prompt.
 
-RepoPrompt helps you build a focused view of the task. Include full files when implementation details matter, line slices when only part of a file is relevant, and Code Maps when you need to see structure and signatures without every line of code. Add Git changes and clear instructions so the receiving model knows what you want it to evaluate.
+RepoPrompt helps you build a focused view of the task and assemble that context accurately and narrowly so you get the best results from your favorite models from your preferred providers. It gathers full files when implementation details matter, slices when only a few lines are relevant, and delivers Code Maps when structure and signatures are enough. Add Git changes and clear instructions to show the model what you want it to examine.
 
 <span id="typical-agent-context" />
 <span id="repoprompt-context" />
 
-The result is a package you can inspect and refine before asking for a plan, a review, or an implementation. You still judge the answer and verify the changes; the model has better material to work with.
+Then select a battle-tested, pre-built workflow or manually inspect and adjust the package before asking for a plan, review, or implementation. You still judge the answer and verify the resulting changes.
 
 [See how context preparation works →](./overview/how-it-works.mdx)
 
@@ -58,7 +58,7 @@ The result is a package you can inspect and refine before asking for a plan, a r
 
 ### Run a coding session in RepoPrompt
 
-Describe the task, choose a connected coding runtime, and watch the work in one conversation. Inspect tool activity and changes, answer questions, and steer the next step without switching between terminal sessions.
+Choose a connected coding runtime, then describe the task, choose a workflow, and follow the work in conversations and the Oracles that guide the results. You can inspect tool activity and changes, answer questions, and steer the agent as it works, all without switching between terminal sessions.
 
 ![RepoPrompt session composer with workflow, context, model, tools, and permission controls](./sessions/images/composer.png)
 
@@ -78,7 +78,7 @@ Select code, add instructions and Git changes, then copy a self-contained packag
 
 ## Start with the task you need to finish
 
-Built-in workflows give a request a method. Choose one from the welcome cards or the **Workflow** selector, then describe your actual goal.
+Choose a built-in workflow from the welcome cards or the **Workflow** selector, then describe what you want to accomplish. Let RepoPrompt go from there.
 
 | What you want to do                      | Where to start                                                                           |
 | ---------------------------------------- | ---------------------------------------------------------------------------------------- |
@@ -94,7 +94,7 @@ Built-in workflows give a request a method. Choose one from the welcome cards or
 
 ## Let Context Builder do the discovery
 
-You do not have to know every relevant filename before you begin. Give Context Builder a task and any useful starting points, then inspect what it finds.
+You don't need to know every relevant filename before you start. Give Context Builder a task and any useful starting points, then inspect what it finds.
 
 ### 1. Explore
 
@@ -102,11 +102,11 @@ A discovery coding agent searches the repository and follows the code related to
 
 ### 2. Curate
 
-It assembles relevant files, slices, and Code Maps toward your context budget. You can inspect the selection, remove distractions, and add missing material.
+It selects relevant files, slices, and Code Maps within your context budget (which is what context engineering is all about). You can optionally review the selection, remove anything unnecessary, and add what it missed.
 
 ### 3. Handoff
 
-Use the prepared context for an Oracle plan, review, or answer, or export it for another model. Discovery and analysis can use different models, so each stage can serve a different purpose.
+Use the prepared context to ask an Oracle for a plan, review, or answer, or export it for another model. Discovery and analysis can use different models.
 
 [Explore the Context Builder workflow →](./sessions/context-builder.mdx)
 
@@ -116,9 +116,9 @@ Use the prepared context for an Oracle plan, review, or answer, or export it for
 
 ## Coordinate larger changes without losing sight of them
 
-For work that benefits from several perspectives, use separate coding sessions for investigation, implementation, and review. **Overseer Mode** lets one coordinating conversation follow linked sessions and direct the next steps.
+RepoPrompt overcomes the AI-assisted nightmare of big edits. For a larger change, you can use separate sessions for investigation, implementation, and review. **Overseer Mode** lets a coordinating conversation follow linked sessions and direct the next steps.
 
-Use **worktrees** when parallel tasks need separate checkouts. Review the completed work, merge it into the intended target, and verify the integrated result. Separate conversations alone do not keep edits to a shared checkout apart.
+Use **worktrees** when parallel tasks need separate checkouts; separate conversations can still edit the same checkout. Review the work, merge it into the intended target, and verify the combined result.
 
 [Coordinate sessions with Overseer →](./overseer/overview.mdx) · [Create and use a worktree →](./worktrees/create-and-use.mdx) · [Review and merge the result →](./worktrees/review-and-merge.mdx)
 
@@ -133,7 +133,7 @@ Use **worktrees** when parallel tasks need separate checkouts. Review the comple
 
 Connect a supported coding runtime for implementation, a direct API for model features, or a local model server. Configure Oracle consultations separately when you want another model to assess a plan or review the code.
 
-The **Providers & Models** reference explains what each integration needs and which capabilities it offers. Your connected accounts determine the available models; you do not need to choose every model and setting before trying a focused task.
+The **Providers & Models** reference explains what each integration needs and what it supports. Available models depend on your connected accounts or APIs you bring to the table. You can start with a focused task and adjust the settings as you go; you do not need to choose every model and experiment with thinking levels and settings before trying.
 
 [Compare providers and model availability →](./providers/overview.mdx)
 
@@ -146,7 +146,7 @@ Start with a question you can evaluate: understand an unfamiliar function, inves
 1. **Open your project** and connect the provider you want to use.
 2. **Describe the outcome.** Include the behavior you care about, known constraints, and how you will check the result.
 3. **Choose the workflow and location.** Use a separate worktree when you want an isolated checkout.
-4. **Inspect and guide the work.** Review the selected context, answer questions, and check the resulting code and validation evidence.
+4. **Inspect and guide the work.** Review the selected context, answer questions, and check the resulting code and test results.
 
 [Follow the getting-started walkthrough →](./overview/getting-started.mdx)
 
@@ -160,7 +160,7 @@ Some walkthroughs show Classic. Use the current guides below for CE controls and
 
 ## Talk to These Docs
 
-Use **Copy page** to bring an article into your AI conversation. For the complete documentation, use the <a href={useBaseUrl('/llms.txt')}>LLM index</a> or <a href={useBaseUrl('/llms-full.txt')}>full documentation export</a>. Include the app version and the task you want help with so the answer can use the relevant guidance.
+Use **Copy page** to bring an article into an AI conversation. For the complete documentation, use the <a href={useBaseUrl('/llms.txt')}>LLM index</a> or <a href={useBaseUrl('/llms-full.txt')}>full documentation export</a>. Include your app version and the task you need help with.
 
 ## Documentation table of contents
 

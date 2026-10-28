@@ -1,0 +1,38 @@
+---
+title: "What Is an Oracle?"
+slug: "/faq/what-is-an-oracle"
+description: "Understand how an Oracle analyzes prepared project context, supports coding decisions, and differs from the coding agent doing the work."
+---
+
+An **Oracle** is a model consultation that helps you or your coding agent think through a problem using prepared project context. It returns analysis: an implementation plan, a code review, an explanation, or a second perspective on a difficult decision.
+
+Think of it as asking a reviewer who has been given the relevant code and a clear question. The value comes from both the model's reasoning and the context it receives.
+
+## How is it different from the coding agent?
+
+The execution coding agent carries out the task: it searches the repository, edits files, and runs permitted tools. The Oracle reasons over the context supplied to its consultation and returns an answer. Consulting it does not automatically apply changes or replace the execution model in your session.
+
+An Oracle is a role in the workflow, not a particular model brand. You can choose its model separately from the model doing the coding. See [Models and their roles](../providers/models.mdx#model-roles).
+
+## When would I use one?
+
+- **Before a substantial change:** ask for a plan that considers existing interfaces, dependencies, and constraints.
+- **During an investigation:** ask it to explain how the selected code could produce a particular failure.
+- **Before accepting a change:** ask for a review of the diff together with the surrounding implementation.
+- **When an approach is uncertain:** ask it to compare alternatives and identify assumptions that need checking.
+
+For example: “Review this change for cancellation bugs. Use the selected implementation and callers to explain any findings, and identify missing context before drawing conclusions.”
+
+## Where does its context come from?
+
+The consultation uses a prepared package that can include selected files, Code Maps, instructions, conversation context, and relevant Git changes. [Context Builder](../agent-mode/context-builder.mdx) can discover and assemble the code before an Oracle analyzes it. Discovery and analysis are separate stages; they can use different models.
+
+The Oracle does not automatically know your entire repository. If an answer overlooks an important dependency, inspect the supplied context, add what is missing, and ask a focused follow-up.
+
+## How do I configure it and read the answer?
+
+Choose the Oracle model in **Settings → Agent Mode → Agent Models**. You can configure additional Oracles for independent perspectives; their answers remain separate, so compare their reasoning rather than assuming agreement or automatic synthesis.
+
+The brain-shaped **Oracle** control above the session editor opens the associated consultations. They can be created by a workflow, a coding-agent request, or a Context Builder analysis follow-up. Follow the [Oracle interface guide](../agent-mode/oracle.mdx) for the controls and [Agent Models settings](../settings/agent-mode/agent-models.mdx) for configuration.
+
+Bring useful findings back into the coding task, verify them against the current code, and review the resulting changes. An Oracle answer is advice, not proof that a change is correct. Consultations also use the selected provider's allowance or billing; see [AI Service Costs](./pay-for-services.mdx).

@@ -55,17 +55,7 @@ jobs:
           test -n "$PAGES_OWNER"
           test -n "$PAGES_REPOSITORY"
           test "$PAGES_OWNER/$PAGES_REPOSITORY" = "$GITHUB_REPOSITORY"
-          node <<'NODE'
-          const origin = new URL(process.env.SITE_URL || `https://${process.env.PAGES_OWNER}.github.io`);
-          const hostname = origin.hostname;
-          if (hostname === 'localhost' || hostname.endsWith('.invalid') || hostname === '127.0.0.1') {
-            throw new Error('Publication requires a public SITE_URL, not a local or placeholder origin.');
-          }
-          if (origin.protocol !== 'https:' || origin.pathname !== '/' || origin.search || origin.hash || origin.username || origin.password) {
-            throw new Error('Publication requires SITE_URL to be an HTTPS origin without a path, query, fragment, or credentials.');
-          }
-          console.log(`Publishing site configured for ${origin.origin}`);
-          NODE
+          node scripts/check-publication-origin.cjs
       - name: Install locked dependencies
         run: pnpm install --frozen-lockfile
       - name: Validate root and project URL layouts

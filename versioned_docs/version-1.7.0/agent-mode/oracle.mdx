@@ -1,0 +1,45 @@
+---
+title: "Oracle"
+slug: "/agent-mode/oracle"
+description: "Consult other models for plans, reviews, and answers without replacing the coding agent in your session."
+---
+
+**Oracle** is the brain-shaped control above the message editor. It opens Oracle conversations associated with the current context so you can inspect the reasoning model's questions, plans, reviews, and answers. Use Oracle when the executing agent would benefit from a second perspective or a model with different strengths.
+
+For an introduction to its role and when to use it, read [What Is an Oracle?](../faq/what-is-an-oracle.mdx).
+
+## Execution agent and Oracle
+
+The execution agent continues to own the coding task: it searches, edits, runs tools, and responds to your instructions. Oracle is a consultation that receives its prepared context and returns analysis. Consulting Oracle does not automatically replace the model shown below the message editor or apply its suggested changes.
+
+Choose the primary Oracle and up to four additional Oracles in [Agent Models](../settings/agent-mode/agent-models.mdx). A grouped request runs those models independently and keeps their results separate in roster order. The control can display **Oracles · 2**, for example, when multiple Oracles are configured or represented in the current grouped consultation. A displayed count is not a count of coding agents editing your files.
+
+![Composer toolbar showing Oracle access beside the selected-context control](./images/composer.png)
+
+## Open and review consultations
+
+Click **Oracle** to inspect the relevant conversation. Oracle consultations can be created by a workflow, a direct agent request, or a Context Builder analysis follow-up. The popover favors conversations associated with the current agent session so results remain connected to the task you are viewing.
+
+Read each model's result when a consultation has several lanes. They can disagree or focus on different risks. Bring the useful conclusions back into the coding task with a clear follow-up rather than assuming every suggestion should be implemented. Where offered, **Copy All** collects a grouped consultation's results for reuse.
+
+## Attach files to an Oracle consultation
+
+App-backed `oracle_send` and `ask_oracle` can receive an `attachments` array. Each entry names a local file through an absolute `path`, with an optional `title`. Supported types are PNG, JPEG, GIF, WebP, UTF-8 text, and PDFs where the selected route supports native documents. Images are sent as images, text is inlined, and unsupported files are refused with a reason.
+
+The file must be inside a currently loaded workspace root or be the exact file attached by the user to the current agent session. An agent can forward a pasted or dropped attachment during that turn using the path supplied with the user message. Remote URLs, relative paths, another session's attachments, and arbitrary files outside the loaded roots are not accepted. The direct headless backend does not support these attachments.
+
+Attachments apply to that Oracle turn. A continuation does not automatically resend earlier originals or transcript thumbnails. Grouped consultations send the originals to each Oracle, which increases total usage across the group; attachments are additional to text-context estimates. See the [tool reference](../mcp-server/mcp-tools.mdx#oracle_send) for the request format.
+
+## Read grouped results
+
+A grouped consultation returns a group identity and separate results for its Oracle lanes. Check each lane's status and answer, including any failure or cancellation. A useful answer from one lane does not mean every lane succeeded. Retain the returned conversation IDs to inspect or continue the relevant consultation rather than repeating the entire group blindly.
+
+Treat Oracle guidance as input to the coding agent's decision. Compare disagreements against the task and repository evidence, then tell the execution agent which changes to pursue. Export failures are reported separately from the consultation results, so a failed export does not by itself mean all model answers were lost.
+
+## Supply useful context
+
+Oracle's answer depends on the context assembled for the consultation. Check selected files, relevant Code Maps, instructions, and any requested Git diff. For a review, identify which changes should be inspected; for a plan, state constraints and the intended outcome.
+
+[Context Builder](./context-builder.mdx) can discover files first and then generate a plan, review, or answer using Oracle. Its discovery model is configured separately from the Oracle roster. External clients can use exposed [Oracle Model Presets](../settings/mcp-server/model-presets.mdx) to select named consultation configurations.
+
+For tool-level send, continuation, model-selection, and export behavior, see [Oracle tools](../mcp-server/mcp-tools.mdx#oracle--model-tools).

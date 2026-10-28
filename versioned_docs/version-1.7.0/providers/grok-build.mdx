@@ -1,0 +1,21 @@
+---
+title: "Grok Build"
+slug: "/providers/grok-build"
+description: "Connect the installed Grok coding runtime and distinguish its login and API-key routes."
+---
+
+Grok Build connects the installed `grok` runtime to Agent Mode. It is a coding-agent integration with model discovery and provider-native shell and editing capabilities. Direct [Grok / xAI API](./xai-api.mdx) model access is a separate integration.
+
+## Connect and authenticate
+
+Make the Grok runtime available, authenticate with `grok login` or configure the API credential supported by the integration, then open [Grok Build settings](../settings/agent-mode/cli-providers.mdx#grok-build). Choose **Connect** and inspect the model-discovery result. **Test Connection** rechecks access; **Sign Out** disconnects Grok Build in RepoPrompt and clears cached availability.
+
+## Models and permissions
+
+Use models discovered from the connected runtime. A model visible in xAI's public API catalog does not automatically identify the same selection in the coding runtime. See [Models](./models.mdx) for discovery and identifier guidance.
+
+Grok's launch approval choice applies to newly started processes. Its Full Access option starts the runtime with always-approve behavior for shell and editing tools. The [settings reference](../settings/agent-mode/cli-providers.mdx#grok-build) explains the exact launch controls. Grok's own rules can also affect approval behavior; do not treat its modes as identical to Codex's sandbox levels.
+
+## Account and usage
+
+The route used by the runtime determines the account and usage terms. When the integration supplies an xAI API key, requests using that credential are billed to the corresponding API account. Check whether a run is using account login or an API credential before assuming that one account plan covers it.

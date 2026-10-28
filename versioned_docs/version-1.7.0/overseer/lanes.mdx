@@ -1,0 +1,41 @@
+---
+title: "Lanes"
+slug: "/overseer/lanes"
+description: "Create separate managed Agent sessions for defined tasks and coordinate their progress through an overseer."
+---
+
+A **lane** is a separate top-level Agent session created by an overseer for a defined piece of work. It has its own conversation, provider/model selection, and task state, and is linked to its creator so the overseer can coordinate it. Use lanes for work you want to inspect and continue as ordinary sessions rather than treating every task as a short-lived probe.
+
+## Create lanes from the coordinating session
+
+Start an eligible session, open its oversight control, and choose **Enable overseer mode**. Then ask the agent to create lanes with names and clear responsibilities. You can describe the roles in ordinary language:
+
+> Create an implementation lane for the cancellation fix and a review lane to inspect it independently. Give each a clear completion criterion. Confirm their execution locations before editing shared files.
+
+The agent can choose an available role mapping—**Explore**, **Engineer**, **Pair**, or **Design**—or an explicit supported model. Role mappings come from [Agent Models](../settings/agent-mode/agent-models.mdx); they are model choices for lane creation, not blanket approval to use every tool. A lane can be created without starting work, or with an initial task and optional workflow.
+
+A session with an eligible existing oversight relationship can already create lanes through that relationship. The separate **Enable overseer mode** activation is useful when starting without links; you do not need to unlink working relationships just to create lanes.
+
+The current lane limit is **12 per overseer**. Availability, workspace admission, and applicable delegation limits can reduce what can be created. A refusal does not mean another lane should be allocated blindly; inspect existing sessions and any saving warning first.
+
+## Give every lane an independent job
+
+Define its deliverable, scope, and stopping point. “Investigate why cancellation leaves a stale row and report evidence” is a useful investigation. “Fix everything” makes ownership and completion harder to assess.
+
+Specify the intended workspace when work spans projects. Lane creation needs an unambiguous open workspace destination. A created lane is a top-level session, so do not assume it inherits the safety profile of an MCP sub-agent or a separate checkout. Inspect its permissions and [execution location](../agent-mode/execution-location.mdx). Use worktrees for concurrent edits that may overlap.
+
+A lane does not inherit its creator's authority. A coordinator with the required delegation scope can explicitly grant a narrower scope to a member session for nested coordination. Keep the overall plan in the parent conversation, define the nested coordinator's task, and review the [delegation boundaries](./overview.mdx#nested-delegation).
+
+## Follow progress and continue work
+
+The oversight popover shows the lane's state, identity, location information, and recent activity. Open it directly to inspect messages or tool cards. The overseer can read progress, send more instructions, handle eligible pending interactions, and stop a run within the granted relationship.
+
+For an idle managed lane, the overseer can adjust an available model within the same provider for the next turn. This does not change the model in the middle of an active task or switch it silently to another provider. Ask for a fresh session when a different execution environment is required.
+
+## Retire a finished lane
+
+Ask the overseer to retire a lane it created after its work and relevant descendants are inactive. Retirement unlinks and stashes the lane; it does not delete the conversation or merge its changes. Inspect the result, record remaining follow-ups, and integrate the repository work separately.
+
+**Unlink** can end oversight without retiring the session. **Delete** in session management is a separate, permanent action. If lane creation or retirement reports an incomplete save, use the existing session identity and resolve the saving condition before asking for a replacement.
+
+See [Linking Sessions](./linking-sessions.mdx) to coordinate conversations that were created independently of the overseer.

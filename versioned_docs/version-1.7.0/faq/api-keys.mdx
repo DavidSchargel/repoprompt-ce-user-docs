@@ -1,0 +1,27 @@
+---
+title: "Do I Need an API Key?"
+slug: "/faq/api-keys"
+description: "Understand when an API key is required, how credentials are stored, and how provider login differs from API access."
+---
+
+It depends on the connection you use. A coding-agent runtime can use its own account sign-in, while direct hosted API requests usually require an API credential. A local model server can provide another route. Use [Providers & Models](../providers/overview.mdx) to choose the connection before obtaining a key.
+
+## Does my coding subscription include API access?
+
+Do not assume so. Signing into a coding runtime does not automatically configure the same company's direct API. API usage, coding-plan allowances, and local inference have separate requirements. See [AI service costs](./pay-for-services.mdx) for the billing distinction.
+
+Oracle and Context Builder can use different connections from your execution session. A working coding-agent login therefore does not prove that every model feature is configured.
+
+## Where do I add or remove a key?
+
+Use the corresponding provider's settings. [API Providers](../settings/models-and-providers/api-providers.mdx) documents direct-provider controls; [OpenRouter](../settings/models-and-providers/openrouter.mdx) and [Custom API](../settings/models-and-providers/custom-api.mdx) have their own pages. Runtime-specific credentials and login controls belong under [CLI Providers](../settings/agent-mode/cli-providers.mdx).
+
+You can configure several provider connections. This does not mean every provider supports multiple saved keys or automatic key rotation. Follow its actual controls. Deleting a saved key removes that local credential; revoke it with the issuing service if you intend to invalidate the key itself.
+
+## Where are credentials stored and used?
+
+Official builds use local macOS Keychain-backed secure storage for credentials managed by the app. Coding runtimes can maintain separate login state. Ad-hoc debug builds use temporary secure storage; see [source-build behavior](./how-to-build.mdx).
+
+Credentials are used by the configured connection, including validation and model requests. Some integrations also pass a saved key to a child coding runtime; a custom endpoint receives requests routed to that endpoint. Local storage does not mean the credential never leaves the app process. The provider reference explains shared credentials and account boundaries.
+
+If a credential appears missing after an upgrade, use [Credential Recovery](./credential-recovery.mdx) before replacing it. Storage repair and successful authentication with the service are separate checks.

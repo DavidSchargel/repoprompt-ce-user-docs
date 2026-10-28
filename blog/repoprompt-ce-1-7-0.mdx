@@ -1,0 +1,113 @@
+---
+title: "RepoPrompt CE 1.7.0: More control over your coding agents"
+slug: repoprompt-ce-1-7-0
+date: 2026-10-27
+description: "RepoPrompt CE 1.7.0 adds provider environment filtering, stricter MCP admission, scoped agent coordination, prompt rewriting, and improvements to model decisions, Oracle, and session recovery."
+tags: [repo-prompt, community-edition, coding-agents, workflows]
+---
+
+**RepoPrompt Community Edition 1.7.0 has landed.** This version expands what you can delegate to your agents and gives you more control over how they start, connect, and work together.
+
+You already know it...getting useful code from a coding agent takes more than choosing a model. You need to give it a clear task, decide what it can access, keep parallel work organized, and review the result. That's where RepoPrompt comes in and levels you up. This release improves those parts of the workflow, from revising a prompt before submission to recovering a session when you return to work.
+
+{/* truncate */}
+
+You already use a coding agent and the reason to try RepoPrompt is the workspace around it: a place to coordinate compatible agents, prepare their context, consult other models, and inspect their work. RepoPrompt users already get it, and version 1.7.0 makes that workflow easier to manage as your tasks grow beyond a single conversation.
+
+## NEW: Control which environment variables reach each provider
+
+A development shell can accumulate credentials and endpoint settings for several services. Those variables may be useful to one provider and unnecessary—or confusing—to another.
+
+The new opt-in **provider environment filtering** lets you name ambient variables to withhold from newly started provider processes, then add per-provider exceptions for the variables a connection actually needs. The same filtering applies to provider probes and headless launches.
+
+For an engineer switching between providers, this offers a more deliberate setup than starting every agent with the same inherited environment. You can keep a shared development shell while tailoring which named variables reach each provider process.
+
+The rules apply to new processes after you save them. They do not change running processes or your interactive terminal, and they do not isolate credential files or other resources available to your macOS user.
+
+Read [Provider environment filtering](/docs/providers/overview/#provider-environment-filtering) for configuration and exceptions.
+
+## NEW: Approve external MCP connections for the current app run
+
+MCP makes it possible to use RepoPrompt's tools from an external coding client. Connection admission matters because a familiar client name alone does not establish which program is connecting.
+
+With **Strict connection approval** enabled, RepoPrompt ignores built-in and saved client-name approvals and requires admission for the current app run. Approved connections can reconnect within that run. Agents started inside RepoPrompt do not need this external-client prompt.
+
+This gives you a clearer checkpoint when connecting external tools to your workspace. Compared with relying on remembered client names, you can review the connection you initiated and its available executable information before admitting it. Connection admission remains separate from workspace-operation approvals and the agent's own permissions.
+
+See [Connection Management](/docs/mcp-server/mcp-connections/#connection-approval).
+
+## NEW: Delegate coordination with explicit boundaries
+
+Parallel agents become useful when their tasks are distinct and their results are easy to bring together. They also create administrative work: naming sessions, grouping investigations, tracking progress, and arranging separate checkouts.
+
+Version 1.7.0 expands **Overseer coordination** with delegation scopes for session organization and other permitted actions. You can ask an overseer to group completed investigations, pin the active implementation, or archive finished work. A scope defines which sessions it covers, what actions it permits, and its limits.
+
+Nested delegation lets an authorized overseer give another session a narrower coordination scope. That scope cannot expand its parent's capabilities, membership, or limits. With the required authority, an overseer can also create or bind worktrees for target sessions and prepare integration. Merge application still goes through the target session's user review.
+
+For a change spanning a backend, client, and test suite, this means you can delegate more of the coordination instead of manually relaying every update between independent agent conversations. Quieter routine check-ins also reduce the noise around that work. You still decide the boundaries and review integration.
+
+Explore [session organization and nested delegation](/docs/overseer/#organize-sessions-with-delegated-permissions) and [worktree operations for linked agents](/docs/overseer/#worktrees-on-behalf-of-linked-agents).
+
+## NEW: Improve the task before the agent starts
+
+A rough prompt often mixes the desired outcome, implementation guesses, and constraints. Discovering that ambiguity after an agent has edited several files is an expensive time to clarify it.
+
+**Re-prompt** uses a separate model to revise the draft in your composer. In normal review mode, the first Send rewrites the request; you review or edit the result, then send it to the execution agent. The rewriter can offer a clarification question, and you can configure its model and rewrite guidance.
+
+For example, you can ask the rewriter to preserve acceptance criteria and file paths while separating required changes from open questions. This adds a review point before execution instead of making the coding agent infer every constraint from an informal request. It is especially useful when you know what should change but have not yet organized the brief.
+
+The rewriting provider receives your message and supporting metadata, with recent chat excerpts included when enabled. It does not receive file contents, attachments, Git output, or tool results as part of that rewriting request. Review the draft for assumptions before sending it.
+
+See [Re-Prompter](/docs/agent-mode/re-prompter/) for review mode, optional automatic sending, clarification, and guidance settings.
+
+## NEW: Make model and effort decisions fit the task
+
+Choosing a model, choosing its reasoning effort, and managing remaining plan usage are related decisions, but they are not the same decision.
+
+Version 1.7.0 adds decision-service choices for **Model Router** and **Auto Effort** in Agent Decisions, revises new-task defaults, improves usage balancing, and updates available model choices. It also bundles Codex 0.164.0.
+
+Model Router can choose an eligible execution model and initial effort for a new task. Auto Effort can choose reasoning effort for eligible turns while keeping your selected model. Optional local usage balancing considers connected plans' remaining allowances and reset times, with policies for approaching limits, pacing usage, or using expiring quota first.
+
+If your workflow currently means manually switching agents or changing effort for each task, these controls can reduce that repeated setup. You can use routing where it helps and keep explicit choices where predictability matters. Established sessions and explicit model pins retain their targets; routing does not replace the model on every follow-up. Decision services receive task excerpts, so review their data-sharing settings as well as their recommendations.
+
+Read [Model Router and Agent Decisions](/docs/agent-mode/model-router/) and [Auto Effort](/docs/agent-mode/auto-effort/). [Providers & Models](/docs/providers/overview/) remains the reference for supported connections and model availability.
+
+## NEW: Give Oracle the evidence it needs
+
+Sometimes the best next step is a second opinion on the implementation. For UI work, that opinion may need a screenshot. For a requirements question, it may need the document itself.
+
+Version 1.7.0 broadens file-attachment support for app-backed Oracle consultations, including images through `oracle_send`. Supported inputs include images, UTF-8 text, and PDFs where the selected route supports native documents. Grouped consultations also have clearer responses and guidance for inspecting each Oracle's answer and status.
+
+This makes it easier to ask another model about the same evidence your coding task depends on, without manually translating a screenshot into prose or copying each response between separate chats. You can compare findings, identify disagreements, and bring the useful conclusions back to the execution agent.
+
+Attachment support depends on the route, and grouped consultations send the originals to each Oracle, increasing total usage. Attachments belong to that consultation turn; continuations do not automatically resend them.
+
+See [Oracle file attachments](/docs/agent-mode/oracle/#attach-files-to-an-oracle-consultation) and the [`oracle_send` reference](/docs/mcp-server/mcp-tools/#oracle_send).
+
+## NEW: Move between active tasks from the keyboard
+
+When several agents are running, the next useful action is often to answer a question, stop a run, or review a finished task.
+
+The updated **keyboard controls** let you remap shortcuts, focus the composer, stop the current run, reopen the last stashed session, and jump to sessions needing attention. By default, Command+L focuses the composer, Command+. stops the current run, Shift+Command+T reopens the last stashed session, and Shift+Command+A cycles through sessions with unseen completed, failed, or waiting badges in the current window.
+
+For engineers juggling multiple conversations, these controls reduce the navigation between noticing a task and acting on it. You can move through the work that needs review without checking every conversation in turn.
+
+Review and customize them in [Keyboard Shortcuts](/docs/settings/keyboard-shortcuts/).
+
+## NEW: Return to work with less recovery overhead
+
+Version 1.7.0 improves restoration of **sessions, worktrees, and windows**, reduces repetitive MCP approval, and includes fixes for interrupted processes, Git reads, diff context, and background indexing.
+
+These improvements matter when an engineering task lasts longer than one sitting. Returning to the relevant conversation and checkout helps you pick up the investigation; reliable Git reads and diff context help you assess what actually changed. The benefit is less time reconstructing your working state around the agent.
+
+After an interruption, still inspect the latest session result and repository state before continuing. A restored conversation does not by itself establish that an interrupted operation completed.
+
+See [Session History](/docs/agent-mode/session-history/), [Worktrees](/docs/worktrees/), and [MCP connection approval](/docs/mcp-server/mcp-connections/#connection-approval).
+
+## Get RepoPrompt CE 1.7.0
+
+Download the release and try it on a task where coordination matters: a refactor with an independent review, a UI change that needs visual evidence, or several investigations that should run in separate worktrees.
+
+**Computer Use setup:** In the official build, Computer Use requires an OpenAI-signed Codex executable. Choose a compatible local executable in **Settings → Codex CLI → Advanced**, then restart RepoPrompt. Ordinary Codex conversations continue to use the included runtime.
+
+[Download RepoPrompt CE 1.7.0 and read the release notes](https://github.com/repoprompt/repoprompt-ce/releases/tag/v1.7.0), browse the [full changelog from 1.6.0 to 1.7.0](https://github.com/repoprompt/repoprompt-ce/compare/v1.6.0...v1.7.0), or open the [1.7.0 documentation changelog](/docs/changelog/ce-version-1-0/#170---october-27-2026).

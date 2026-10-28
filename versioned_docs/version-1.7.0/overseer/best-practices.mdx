@@ -1,0 +1,62 @@
+---
+title: "Best Practices"
+slug: "/overseer/best-practices"
+description: "Organize overseen work, control automatic wake-ups, verify results, and end coordination cleanly."
+---
+
+An overseer works best when it has a clear goal, a small set of independently useful tasks, and explicit rules for bringing the results together. Give it enough authority to coordinate the work you intend, and keep the review points visible in the conversation.
+
+## Divide work by deliverable
+
+Choose lanes with distinct outcomes: an investigation report, an implementation in a specified checkout, a focused regression review, or documentation of a completed change. Give each a completion criterion and identify dependencies. Ask the overseer to summarize who owns each task before overlapping implementation starts.
+
+Use [execution locations](../agent-mode/execution-location.mdx) and worktrees to separate simultaneous edits. Conversation isolation does not prevent two agents from changing the same file in a shared checkout. Tell the overseer how results should be compared or integrated and who should resolve conflicting changes.
+
+Start with a small group. More lanes add usage, coordination work, and possible conflicting assumptions. Use a short read-only exploration task when you need one narrow answer rather than a durable session.
+
+## Choose how updates wake the overseer
+
+Status updates are attached to the overseer's next turn even when routine automatic waking is disabled. The wake controls decide whether updates can also start additional model turns:
+
+<table>
+  <caption>Overseer wake controls and their effects</caption>
+  <thead>
+    <tr><th scope="col">Control</th><th scope="col">Use and limitation</th></tr>
+  </thead>
+  <tbody>
+    <tr><th scope="row"><strong>Auto-wake on all updates</strong></th><td>Enables routine follow-up turns for selected linked sessions. It is on by default and saved for the overseer session.</td></tr>
+    <tr><th scope="row">Lane <strong>Auto-wake</strong></th><td>Selects an individual lane for routine wake behavior.</td></tr>
+    <tr><th scope="row"><strong>Snooze status Auto-wake…</strong></th><td>Temporarily defers that lane's routine status wakes.</td></tr>
+    <tr><th scope="row"><strong>Routine wake-ups no more often than</strong></th><td>Sets a minimum interval across routine oversight wakes. Deferred updates remain queued.</td></tr>
+    <tr><th scope="row"><strong>Wake when idle for</strong></th><td>Adds a wake after the chosen idle interval while overseeing another session, even without an update. Each wake uses a model turn.</td></tr>
+    <tr><th scope="row"><strong>Wake now</strong></th><td>Processes pending updates immediately when the overseer is able to accept a turn.</td></tr>
+  </tbody>
+</table>
+
+An explicit attention request from an exactly linked session can bypass the routine master switch, lane selection, snooze, and routine interval without changing those settings. **Wake now** also bypasses the routine interval. Use **Unlink** to end the relationship when you need to prevent further purposeful attention through that link.
+
+Automatic turns can generate more updates, so even one relationship can sustain repeated activity. Sessions that oversee each other can keep waking one another. Prefer a clear coordination direction and enable periodic waking only for work that needs it. A busy overseer finishes its current and already-accepted work before taking eligible update-driven follow-up work.
+
+### Keep routine check-ins quiet
+
+For supported Codex and Claude Code sessions, RepoPrompt can recognize a routine automatic check-in that has nothing actionable to report and suppress its routine transcript noise. This reduces repeated coordination chatter; it does not eliminate the model turn or its usage. A meaningful result, failure, or request for input still deserves review.
+
+Quiet display does not erase the saved conversation or exported history, and it is separate from turning Auto-wake off. Use the wake interval and snooze controls above to reduce unnecessary turns. Give the overseer an explicit instruction such as “Notify me when a result is ready, work fails, or you need a decision; keep unchanged routine checks quiet.”
+
+## Review results and approvals
+
+An **Idle** row means the session is not working; it does not prove the task met its acceptance criteria. Ask the overseer to identify evidence, remaining risks, and unfinished work. Open the lane's transcript and inspect key diffs or tool results before accepting a consequential conclusion.
+
+Oversight can handle eligible one-time approvals, but session-wide permission grants, secret inputs, hook trust, and merge reviews remain with you. The optional **Auto-approve read-only commands** switch is off by default and applies only to a restricted set of simple commands on managed lanes. It does not approve arbitrary shell work, setup scripts, or all Git operations.
+
+## Finish and recover deliberately
+
+For scoped administration, preview bulk changes before applying them. RepoPrompt can present a batch confirmation card with the affected sessions; retirement and worktree release require that confirmation unless covered by the full-access setting. Reversible organization operations can return an undo action. Under ordinary scopes, session deletion remains a user action. **Overseer full access** allows session deletion without confirmation cards, subject to the remaining target and run-state checks; verify the intended sessions before requesting deletion. Physically removing worktrees remains a separate user action.
+
+When delegated coordination is finished, release the scope as well as ending unneeded links. Releasing a parent scope also revokes its nested scopes. A permission refusal can mean an expired grant, missing capability, or a reached limit; inspect that reason before requesting broader access.
+
+Retire completed lanes only after their work is inactive and reviewed. Retirement stashes the session without deleting it or integrating its changes. Unlink independently created sessions when their coordination purpose ends.
+
+If a row is unavailable or a saving warning appears, inspect the session and resolve the displayed condition. Use **Retry saving** where offered. Avoid asking the overseer to allocate another lane just because a previous response was incomplete; first determine whether the earlier session exists and has begun work.
+
+For setup and relationship direction, revisit [Overview](./overview.mdx), [Lanes](./lanes.mdx), and [Linking Sessions](./linking-sessions.mdx).

@@ -1,0 +1,25 @@
+---
+title: "What Is the Tip Version and Should I Use It?"
+slug: "/faq/tip-version"
+description: "Choose between Stable releases and official Tip Builds, understand the tradeoff, and return to Stable when needed."
+---
+
+**Tip Builds** are official signed and notarized builds from the latest passing main branch. They make development changes available before the next curated Stable release. **Stable** is the default update channel.
+
+## Which should I choose?
+
+Use Stable for routine work when you do not need a particular development change. Consider Tip when you want to try a recent fix or feature, help test ongoing development, and can tolerate regressions or changing behavior. A passing build and notarization do not guarantee that every workflow is free of bugs.
+
+Tip is a distribution channel, not a different subscription or an included model plan. A locally compiled source build is also different from the official signed Tip distribution; see [How to Build](./how-to-build.mdx).
+
+## How do I install it?
+
+Install and launch RepoPrompt, then open **Settings → General → Updates**. Change **Update Channel** to **Tip Builds**, choose **Check for Updates**, and follow the updater's prompts if an eligible build is offered. Changing the selector or checking alone does not establish that a new version was installed.
+
+Read the offered build information and preserve work you need before changing versions. If you report a regression, include the exact build and Tip channel in the [issue report](./report-issue.mdx).
+
+## How do I return to Stable?
+
+Set **Update Channel** back to **Stable**. The updater switches with the next applicable Stable release; it does not necessarily downgrade an installed Tip build immediately. To return immediately, reinstall the Stable app using the official installation or recovery download path.
+
+Reinstalling the application is separate from reverting repository changes or migrating saved application data. Do not delete workspace data or Keychain entries merely to switch channels. See [Software Updates](../settings/general/updates.mdx) for channel controls and [Installation](../overview/installation.mdx) for getting the application.

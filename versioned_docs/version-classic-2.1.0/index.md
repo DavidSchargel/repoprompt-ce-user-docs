@@ -8,11 +8,11 @@ hide_table_of_contents: false
 
 ## About this archive
 
-This archive preserves the Classic documentation and historical guides, including older material no longer linked from the source navigation. Commands, model recommendations, prices, limits, and feature descriptions reflect the source rather than a newly verified current specification. For CE installation and agent workflows, start with [RepoPrompt CE 1.6.0](../version-1.6.0/index.mdx).
+This archive preserves the Classic documentation and historical guides, including older material no longer linked from the source navigation. Commands, model recommendations, prices, limits, and feature descriptions reflect the source rather than a newly verified current specification. For CE installation and agent workflows, start with [current RepoPrompt CE documentation](/docs/).
 
 :::note Version history
 
-All Classic changelogs are retained here. The CE Version 1 changelog belongs to the [1.6.0 documentation](../version-1.6.0/changelog/ce-version-1-0.mdx).
+All Classic changelogs are retained here. The CE Version 1 changelog belongs to the [current CE documentation](/docs/changelog/ce-version-1-0/).
 
 :::
 
@@ -118,6 +118,6 @@ All Classic changelogs are retained here. The CE Version 1 changelog belongs to 
 
 ## Agent session handoff image
 
-This screenshot accompanied the later [CE Agent Sessions guide](../version-1.6.0/agent-mode/sessions.mdx). It is retained in this archive as historical interface media, not as a Classic feature specification.
+This screenshot accompanied the later [CE Agent Sessions guide](/docs/sessions/overview/). It is retained in this archive as historical interface media, not as a Classic feature specification.
 
 ![Handoff dialog showing session context and Oracle chats moving to a new agent](../../static/images/docs/images/agent-handoff.jpg)

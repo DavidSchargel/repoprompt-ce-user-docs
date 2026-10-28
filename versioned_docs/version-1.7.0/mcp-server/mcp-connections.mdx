@@ -1,0 +1,208 @@
+---
+id: "mcp-connections"
+title: "Connection Management"
+description: "Manage client connections, workspace context binding, compose tabs, and workspace approvals."
+slug: "/mcp-server/mcp-connections"
+keywords: ["status","connection","multi-window","tabs","tab binding","manage_workspaces","window_id","approval","workspace","reconnect","troubleshooting"]
+hide_table_of_contents: false
+toc_min_heading_level: 2
+toc_max_heading_level: 4
+---
+
+RepoPrompt provides comprehensive tools for managing MCP connections, including status monitoring, multi-window support, tab binding, and workspace management - all controllable both through the UI and programmatically via MCP tools.
+
+## Connection Status UI
+
+The toolbar's MCP icon opens the server popover. The popover identifies the window being configured and provides live listener and connection feedback:
+
+| Status | Meaning |
+| --- | --- |
+| **Active** | The listener is running and MCP tools are enabled for this window. |
+| **Waiting for listener…** | Window access is enabled but the listener is not running. |
+| **Listener active** with tools disabled | The shared listener is available, but this window is not exposing its tools. |
+| **Inactive** | This window is not exposing tools and the listener is not running. |
+| Running tool name / **Cancel** | A tool call is in progress; cancellation is available where supported. |
+
+The connection badge opens client details. In Settings, **Status Dashboard** opens diagnostics; an error indicator opens contextual error information. Use the window switch to change this window's access. **Force Stop Listener** stops the shared listener for all windows and clients.
+
+## Connection Approval
+
+A new external client process can trigger a **Connection Request** overlay showing its identity and executable information when available. Review the process and the connection you initiated before approving.
+
+With [Strict connection approval](../settings/mcp-server/mcp-server.mdx#strict-connection-approval) off, common client names are approved automatically and **Always allow this client** can save approval by name. Clear that option to use **Allow Session** (when executable identity is available) or **Allow Once** instead. Name-based trust can admit another program using the same name.
+
+With strict approval on, saved and built-in names are ignored. Approvals last for the current RepoPrompt run, including reconnects from the same running app. **Deny** rejects the request. Agents started inside RepoPrompt do not require this connection prompt.
+
+Connection admission, workspace-operation approval, and agent permissions are distinct. Allowing a client to connect does not authorize it to create or delete a workspace, approve an agent shell command, or widen its tools. See [Workspace Approvals](../settings/mcp-server/workspace-approvals.mdx) and [Agent Permissions](../settings/agent-mode/agent-permissions.mdx).
+
+## Multi-Window Context
+
+RepoPrompt supports multiple windows, each showing a workspace, behind one shared listener. The current UI provides a per-window MCP access switch. It does not require the old **Multi-Window Mode** setup step from Classic documentation.
+
+### Context Binding
+
+Use `bind_context` to discover, inspect, and bind the workspace context for this connection. Start with `op="list"`, then bind by absolute workspace root paths or a returned context UUID. Root matching first looks for an exact set, then an eligible superset; pass workspace roots rather than arbitrary descendant files.
+
+```json
+{"op":"bind","working_dirs":["/Users/example/Project"]}
+```
+
+When a suitable saved workspace is not already open, the app can open it. `create_if_missing=true` allows a new workspace to be requested when no match exists, subject to workspace approval. To pin a compose context rather than following the active tab, bind a `context_id` returned by discovery:
+
+```json
+{"op":"bind","context_id":"RETURNED-CONTEXT-UUID"}
+```
+
+Call `{"op":"status"}` to inspect the current binding. The current global `bind_context` schema does **not** accept `window_id`; use the fields returned by your connection's schema. Compose context IDs and Agent Mode session IDs serve different purposes and must not be substituted for each other.
+
+### Workspace Lifecycle
+
+`manage_workspaces` lists saved workspaces and handles workspace creation, switching, hiding, deletion, folders, and compose tabs. `list` excludes hidden workspaces by default; `include_hidden=true` includes them. Hiding keeps a workspace recoverable, while deletion is a separate operation.
+
+```text
+// List saved visible workspaces
+{ "action": "list" }
+
+// Include recoverable hidden workspaces
+{ "action": "list", "include_hidden": true }
+
+// Open a saved workspace in a new window
+{ "action": "switch", "workspace": "MyProject", "open_in_new_window": true }
+
+// Create a new workspace and switch to it, subject to approval
+{ "action": "create", "name": "NewProject", "folder_path": "/Users/example/NewProject", "switch_to_created": true }
+
+// Add a folder to an existing workspace
+{ "action": "add_folder", "workspace": "MyProject", "folder_path": "/Users/example/Shared" }
+```
+
+Use exact workspace UUIDs when names are ambiguous. Some lifecycle operations also accept a `window_id`; that is separate from the global context-binding API.
+
+## Tab Management
+
+Compose tabs allow parallel work contexts within a single window. MCP clients can manage tabs programmatically:
+
+### Listing Tabs
+
+```text
+// List tabs in current window
+{ "action": "list_tabs" }
+
+// Response includes:
+// - Tab ID and name
+// - [active] = Currently visible tab
+// - [bound] = Tab this MCP connection is pinned to
+```
+
+### Tab Binding
+
+A workspace/window affinity can follow the active tab. For operations that need a stable selection and prompt, bind the compose context explicitly before starting. `manage_workspaces` retains these legacy tab operations; prefer `bind_context op=list` and `op=bind context_id=...` for new integrations:
+
+```text
+// Bind to a specific tab for consistent context
+{ "action": "select_tab", "tab": "Feature-Auth", "focus": false }
+
+// focus: true = switch UI to show this tab (can disrupt user)
+// focus: false = bind silently, user's view unchanged
+```
+
+Once bound, all subsequent tool calls from this connection operate on the bound tab, regardless of which tab the user is viewing.
+
+### Creating Tabs for Background Work
+
+MCP clients can now create new compose tabs explicitly. This is useful for spinning up a fresh task context without disturbing the tab the user is currently looking at.
+
+```text
+// Create a blank background tab and bind this MCP connection to it
+{ "action": "create_tab", "name": "Bugfix", "bind": true, "focus": false }
+
+// Fork an existing tab into a new background tab
+{ "action": "create_tab", "mode": "fork", "source_tab": "Feature-Auth", "name": "Feature-Auth Follow-up" }
+```
+
+`create_tab` defaults to `bind=true` and `focus=false`. That means automation can create an isolated tab for a task, keep future tool calls pinned to it, and avoid stealing focus from the user.
+
+### Closing Tabs Safely
+
+Tabs can also be closed programmatically, but RepoPrompt applies safety checks to prevent destructive or confusing behavior.
+
+```text
+// Close a non-active tab by name or UUID
+{ "action": "close_tab", "tab": "Bugfix" }
+
+// Explicitly allow closing the currently visible tab
+{ "action": "close_tab", "tab": "Bugfix", "allow_active": true }
+```
+
+- The last remaining compose tab cannot be closed
+- The currently visible tab is protected unless `allow_active=true`
+- Tabs with live bound runs cannot be closed until those runs finish or disconnect
+
+### Tab-Scoped Oracle History
+
+Use `oracle_utils` with `op="sessions"` to find Oracle conversations at workspace or context scope. Supply a context UUID discovered through `bind_context` to narrow the list:
+
+```json
+{"op":"sessions","context_id":"RETURNED-CONTEXT-UUID","limit":10}
+```
+
+During eligible Agent Mode runs, `oracle_chat_log` returns recent Oracle messages; `chat_id` selects a conversation, `limit` bounds the response, and `include_user` controls whether the caller's messages are included. Use `oracle_send` or `ask_oracle`, as advertised, to continue a conversation. The Classic `chats` tool's `action="list"` and `action="log"` examples are not the current contract.
+
+### Context Builder Discovery Tab
+
+An external app-backed `context_builder` call normally creates a fresh compose tab for its discovery context. During an Agent Mode run, the tool reuses the current agent tab. Check the returned context and conversation IDs before continuing; do not assume discovery always creates a new tab.
+
+## Workspace Approval System
+
+Certain workspace operations require explicit user approval based on risk level:
+
+| Operation | Risk Level | Approval Required |
+| --- | --- | --- |
+| List workspaces | None | No |
+| Switch workspace | Low | No (existing workspaces) |
+| Create workspace | Low | According to Workspace Approvals policy |
+| Add folder | Medium | According to Workspace Approvals policy |
+| Remove folder | Medium | According to Workspace Approvals policy |
+| Delete workspace | High | According to Workspace Approvals policy |
+
+## Connection Lifecycle
+
+1. **Server start:** RepoPrompt opens its local bootstrap listener.
+2. **Client launch:** The external tool spawns `repoprompt-mcp` with the generated `--backend app` arguments over stdio.
+3. **Handshake:** The bridge connects locally and negotiates the tool surface.
+4. **Admission:** The app validates the connection and requests approval when required.
+5. **Binding:** The client resolves the intended workspace context before repository work.
+6. **Active use:** Tool calls and responses flow between the client and the app.
+7. **Disconnect:** The client closes, or the listener stops, and session resources are released.
+
+## Reconnection Behavior
+
+A lost app connection and a client restart can require a fresh handshake and binding. Reconnection support does not guarantee replay of an interrupted edit, a running model request, or restoration of every window/tab selection. After reconnecting, inspect `bind_context op=status`, refresh the tool list if necessary, and inspect workspace or run state before retrying a mutation.
+
+Keep an agent run's returned `session_id` for its control operations, and use its latest snapshot to determine whether the run finished or still needs input. Do not start a duplicate run merely because the external client stopped waiting.
+
+## Troubleshooting Connections
+
+### Connection Not Appearing
+
+- Ensure MCP Server is enabled in Settings
+- Bring RepoPrompt forward and inspect pending connection requests
+- Verify the client configuration points to the correct `repoprompt-mcp` path
+
+### Stale Connection State
+
+- Toggle the MCP Server off and on in Settings
+- Restart the external client
+- Inspect **Status Dashboard** and connection errors before resetting configuration; avoid deleting runtime files while the app is running
+
+### Wrong Window/Tab Receiving Tools
+
+- Use `list_tabs` to verify which tab is bound
+- Use `select_tab` to explicitly bind to the correct tab
+- Use `bind_context op=status` and rebind the intended workspace roots or context ID
+
+:::tip
+
+**Pro Tip:** For long-running agent sessions, bind to the intended context using `bind_context` early in the session. This prevents context confusion if tabs are switched during operation.
+
+:::

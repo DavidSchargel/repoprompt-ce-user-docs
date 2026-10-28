@@ -1,0 +1,29 @@
+---
+title: "Computer Use"
+slug: "/agent-mode/computer-use"
+description: "Enable desktop interaction for an eligible native Codex session and understand its local permission requirements."
+---
+
+**Computer Use** lets an eligible native Codex session interact with desktop applications through a supported companion. Use it for tasks that require the visible interface of another app, such as inspecting a rendered result or following a UI procedure that repository file tools cannot perform.
+
+The monitor-shaped control appears in the composer toolbar when the session is eligible. It reports **Computer Use on** or **off** for this chat, with a busy state while a change is being applied. Its presence does not mean every provider or sub-agent can use the desktop.
+
+![Monitor-shaped Computer Use toggle in the session toolbar](./images/computer-use.png)
+
+## Prepare an eligible session
+
+Computer Use requires a top-level native Codex session with its own tab, the feature enabled, and a supported installed companion from Codex or ChatGPT. RepoPrompt reports when no companion is available. A provider connection alone is not enough to satisfy these requirements.
+
+Enable the feature in Codex's [Direct Agent permissions](../settings/agent-mode/agent-permissions.mdx), then enable it locally in the intended chat using the toolbar control. The native `/computer-use` command is another entry point when supported. macOS permissions must be granted manually; enabling the feature does not silently approve operating-system access.
+
+## Give a bounded UI task
+
+Describe the application, the starting screen, the outcome, and any limits on what the agent should change. For example: “Open the local preview, inspect the sign-in form at narrow width, and report clipping; leave account settings unchanged.” Be explicit when a task should stop before submitting, purchasing, publishing, or otherwise making an external change.
+
+Watch the session's actions and respond to requests for input or approval. Computer Use is an additional way to carry out the task; the selected [execution location](./execution-location.mdx), tool permissions, and your instructions still matter.
+
+## If the control is unavailable
+
+Check that the chat is a direct native Codex session rather than a different provider or an agent-controlled child. Check the feature setting, companion availability, and macOS permissions. Read any displayed configuration error before retrying. If the runtime reports a conflicting Computer Use integration, resolve that configuration rather than repeatedly sending the same request.
+
+For a screenshot that you simply want the agent to analyze, use [Image Support](./image-support.mdx). Attaching an image provides visual input without enabling interactive desktop control.

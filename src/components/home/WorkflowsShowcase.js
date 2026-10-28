@@ -183,7 +183,7 @@ const WorkflowsShowcase = () => {
         </div>
 
         <div className="workflows-cta">
-          <Link to="/docs/agent-mode/workflows/" className="workflows-docs-link">
+          <Link to="/docs/agent-mode/workflow-templates/" className="workflows-docs-link">
             Explore the docs
           </Link>
         </div>

@@ -1,0 +1,1450 @@
+{
+  "capture_date": "2026-10-27",
+  "app": "RepoPrompt CE",
+  "documentation_version": "1.7.0",
+  "privacy": "Sensitive content blurred in saved full-resolution sources before cropping. No unredacted copies or accessibility transcripts are retained in this capture set.",
+  "sources": [
+    {
+      "file": "2026-10-27-settings-advanced-01.png",
+      "size": [
+        2306,
+        1664
+      ],
+      "sha256": "8481f9cd293cebc3ba8040b22833760c8fd35edae5877ee742a4d44e31a9e041",
+      "blurred_regions": []
+    },
+    {
+      "file": "2026-10-27-settings-advanced-02.png",
+      "size": [
+        2306,
+        1664
+      ],
+      "sha256": "54217ce31114a8a5e1e42a6de63cd12d89e9b52c2e0958d5c9cd9275fd794b46",
+      "blurred_regions": [
+        [
+          555,
+          938,
+          2130,
+          982
+        ],
+        [
+          555,
+          1044,
+          2130,
+          1095
+        ],
+        [
+          555,
+          1160,
+          2130,
+          1205
+        ]
+      ]
+    },
+    {
+      "file": "2026-10-27-settings-agent-decisions-01.png",
+      "size": [
+        2306,
+        1664
+      ],
+      "sha256": "893683e478dac7861695321386761940135d33e43bfb49dddfcc6296f9d38694",
+      "blurred_regions": []
+    },
+    {
+      "file": "2026-10-27-settings-agent-decisions-02.png",
+      "size": [
+        2306,
+        1664
+      ],
+      "sha256": "b0328fd9588998edba5b6a5eab90beb87cd6a280bd69f350525f28c476e11bdf",
+      "blurred_regions": []
+    },
+    {
+      "file": "2026-10-27-settings-agent-decisions-balancing-details.png",
+      "size": [
+        2306,
+        1664
+      ],
+      "sha256": "fc223219687e7f5d865afefb4109beb0afcf993fd57ecb02052adc7f05186694",
+      "blurred_regions": []
+    },
+    {
+      "file": "2026-10-27-settings-agent-decisions-effort-details.png",
+      "size": [
+        2306,
+        1664
+      ],
+      "sha256": "e65eea8926d868e0a8ce39a5cd82d965a09ed0acdb54421cc93230aab852cfe8",
+      "blurred_regions": []
+    },
+    {
+      "file": "2026-10-27-settings-agent-decisions-jev-details.png",
+      "size": [
+        2306,
+        1664
+      ],
+      "sha256": "be029e61042fb0b36fa6af927a1d291eafeb6c003e673149d0b358aa194fda80",
+      "blurred_regions": []
+    },
+    {
+      "file": "2026-10-27-settings-agent-decisions-openai-details.png",
+      "size": [
+        2306,
+        1664
+      ],
+      "sha256": "07358e0b2f3c6664a20f3d9a4edd3fb8ca9505f6cde19162205e75908b40806a",
+      "blurred_regions": []
+    },
+    {
+      "file": "2026-10-27-settings-agent-decisions-router-details.png",
+      "size": [
+        2306,
+        1664
+      ],
+      "sha256": "d07d2a0e5a51517512d99612ed260c93a68d7a122d9e0740aa18f7b0767e7ed5",
+      "blurred_regions": []
+    },
+    {
+      "file": "2026-10-27-settings-agent-decisions-router-sharing.png",
+      "size": [
+        2306,
+        1664
+      ],
+      "sha256": "85487c82820799b86c7b78d1cc4965516189130efecb2cc1d6cd71e7b01fecc1",
+      "blurred_regions": []
+    },
+    {
+      "file": "2026-10-27-settings-agent-decisions-services-01.png",
+      "size": [
+        2306,
+        1664
+      ],
+      "sha256": "b5641a9b87a68b5673ffbf94681ea61db897e96c0a9d634282db974dbca483b0",
+      "blurred_regions": []
+    },
+    {
+      "file": "2026-10-27-settings-agent-decisions-services-02.png",
+      "size": [
+        2306,
+        1664
+      ],
+      "sha256": "d21e34450a7eba1fe3a759b8cada1a831f8ddd10b53cd407ea37ce164a4f9ef9",
+      "blurred_regions": []
+    },
+    {
+      "file": "2026-10-27-settings-agent-models-01.png",
+      "size": [
+        2306,
+        1664
+      ],
+      "sha256": "abed1f992fc8241894c295bcb09ab26d522f2a872ae516c0fc9b6a666b270767",
+      "blurred_regions": [
+        [
+          900,
+          216,
+          1176,
+          266
+        ],
+        [
+          950,
+          314,
+          1110,
+          362
+        ]
+      ]
+    },
+    {
+      "file": "2026-10-27-settings-agent-models-02.png",
+      "size": [
+        2306,
+        1664
+      ],
+      "sha256": "abf56f1ef84e7175f2a3a216b795b450af4ba40505340aa08792e4f149469c80",
+      "blurred_regions": []
+    },
+    {
+      "file": "2026-10-27-settings-agent-models-03.png",
+      "size": [
+        2306,
+        1664
+      ],
+      "sha256": "88edac4026efd7f74e9f7dc26cf1ef5fc7e912cf6ea441b8923b329cc0e92951",
+      "blurred_regions": []
+    },
+    {
+      "file": "2026-10-27-settings-agent-models-reprompt.png",
+      "size": [
+        2306,
+        1664
+      ],
+      "sha256": "47b8b4c030929ed0cbc19f048481d54ba1fc4ae60a8dc3e30b516acb325124c6",
+      "blurred_regions": []
+    },
+    {
+      "file": "2026-10-27-settings-agent-permissions-01.png",
+      "size": [
+        2306,
+        1664
+      ],
+      "sha256": "c92bf10a6043083449ff4ba9b7aaa95b9295cfdf3ae2c018e5a413968f86d560",
+      "blurred_regions": []
+    },
+    {
+      "file": "2026-10-27-settings-agent-permissions-02.png",
+      "size": [
+        2306,
+        1664
+      ],
+      "sha256": "f46339438d675845bb979dfb5d60789b6f69a1d87d9510ca998600c81c3fb511",
+      "blurred_regions": []
+    },
+    {
+      "file": "2026-10-27-settings-agent-permissions-subagents-01.png",
+      "size": [
+        2306,
+        1664
+      ],
+      "sha256": "cf9d3d276045b985a40768166ce46e5f09ba9e6e81c89b0614e57860af325abf",
+      "blurred_regions": []
+    },
+    {
+      "file": "2026-10-27-settings-agent-permissions-subagents-bottom.png",
+      "size": [
+        2306,
+        1664
+      ],
+      "sha256": "f5fc42599286b8e68e15a59081a6d41d2da824182ceade0f38b275747cbf234e",
+      "blurred_regions": []
+    },
+    {
+      "file": "2026-10-27-settings-agent-permissions-subagents-preview.png",
+      "size": [
+        2306,
+        1664
+      ],
+      "sha256": "285c8385680c14d88919aa4c23168cc8ed2bd9fb00ff9a8f1c3e8c30654f9609",
+      "blurred_regions": []
+    },
+    {
+      "file": "2026-10-27-settings-agent-workflows-01.png",
+      "size": [
+        2306,
+        1664
+      ],
+      "sha256": "6fa5af92623c5369e89f988833dfc8533ee11da31c70a1bea824e67494ee7e31",
+      "blurred_regions": []
+    },
+    {
+      "file": "2026-10-27-settings-agent-workflows-02.png",
+      "size": [
+        2306,
+        1664
+      ],
+      "sha256": "e8ba15a829234d07d7e3aee7d7fc0d1509cd45ace8f55169f32fb0f1a6a7575e",
+      "blurred_regions": []
+    },
+    {
+      "file": "2026-10-27-settings-api-providers-01.png",
+      "size": [
+        2306,
+        1664
+      ],
+      "sha256": "1bab2f78729f0ee2e5509ba362c74a951484932b84fe5cd3c9d99a2e7ac9bcaa",
+      "blurred_regions": [
+        [
+          560,
+          1480,
+          2200,
+          1540
+        ]
+      ]
+    },
+    {
+      "file": "2026-10-27-settings-api-providers-02.png",
+      "size": [
+        2306,
+        1664
+      ],
+      "sha256": "afd14914606a776811e5fc9621a9135b11466db43108091475199b3428489eeb",
+      "blurred_regions": [
+        [
+          560,
+          1315,
+          2200,
+          1385
+        ]
+      ]
+    },
+    {
+      "file": "2026-10-27-settings-api-providers-03.png",
+      "size": [
+        2306,
+        1664
+      ],
+      "sha256": "56d5368e35ae275e79d0188dab5d969611b47353686ad814236c717e65b1ede1",
+      "blurred_regions": [
+        [
+          560,
+          250,
+          2200,
+          307
+        ]
+      ]
+    },
+    {
+      "file": "2026-10-27-settings-appearance-01.png",
+      "size": [
+        2306,
+        1664
+      ],
+      "sha256": "46b0405dc5b768d66bc90ac445efa7ce2910c9bb7dc4497f16d92566dbc06a80",
+      "blurred_regions": []
+    },
+    {
+      "file": "2026-10-27-settings-chat-settings-01.png",
+      "size": [
+        2306,
+        1664
+      ],
+      "sha256": "3058fa3695e20a8da3e47a851e77bb9355da89598413d5581d02b25025556ec6",
+      "blurred_regions": [
+        [
+          560,
+          480,
+          2260,
+          980
+        ],
+        [
+          550,
+          960,
+          2250,
+          1440
+        ]
+      ]
+    },
+    {
+      "file": "2026-10-27-settings-chat-settings-advanced.png",
+      "size": [
+        2306,
+        1664
+      ],
+      "sha256": "28577f834949d18ab44fc6682e1602842f6be5f8dfb5507c08b352ecd1b070b9",
+      "blurred_regions": [
+        [
+          560,
+          480,
+          2260,
+          980
+        ],
+        [
+          550,
+          960,
+          2250,
+          1440
+        ]
+      ]
+    },
+    {
+      "file": "2026-10-27-settings-cli-providers-01.png",
+      "size": [
+        2306,
+        1664
+      ],
+      "sha256": "fddf7b29e79cf06db2eada1285a2df58ae4f0d082a4a905d201d02e6147ea2fb",
+      "blurred_regions": []
+    },
+    {
+      "file": "2026-10-27-settings-cli-providers-cc-custom.png",
+      "size": [
+        2306,
+        1664
+      ],
+      "sha256": "37f4eb97b108caaf09775a9c92917ac9039271e109826efb52290361fc110cd4",
+      "blurred_regions": []
+    },
+    {
+      "file": "2026-10-27-settings-cli-providers-claude-01.png",
+      "size": [
+        2306,
+        1664
+      ],
+      "sha256": "c228ae00fd512884fa8fb73555baac58247f7cebcf09e6ae791f0a0a872abc26",
+      "blurred_regions": [
+        [
+          1745,
+          540,
+          2015,
+          575
+        ]
+      ]
+    },
+    {
+      "file": "2026-10-27-settings-cli-providers-claude-02.png",
+      "size": [
+        2306,
+        1664
+      ],
+      "sha256": "7c392cfde9d4ac01653f6203c611917e6379f6f897e88b046c5ec0a1f8467a99",
+      "blurred_regions": []
+    },
+    {
+      "file": "2026-10-27-settings-cli-providers-codex-01.png",
+      "size": [
+        2306,
+        1664
+      ],
+      "sha256": "afc9acc1b552fd300e9820531d2f22b85729a1aaabe366c8c9a4492b2f723487",
+      "blurred_regions": [
+        [
+          570,
+          465,
+          2220,
+          510
+        ],
+        [
+          734,
+          818,
+          985,
+          914
+        ],
+        [
+          1635,
+          1196,
+          1990,
+          1240
+        ]
+      ]
+    },
+    {
+      "file": "2026-10-27-settings-cli-providers-codex-02.png",
+      "size": [
+        2306,
+        1664
+      ],
+      "sha256": "068557f6ec6a6104db6ca4be99f643fc094cb2acd19c8ecf1b9b7d0fd847da14",
+      "blurred_regions": [
+        [
+          1745,
+          540,
+          2015,
+          575
+        ]
+      ]
+    },
+    {
+      "file": "2026-10-27-settings-cli-providers-other-02.png",
+      "size": [
+        2306,
+        1664
+      ],
+      "sha256": "9d97cdebd959eabfc1dffefc33d8777ae6bc4119e28c79a4414885507f473163",
+      "blurred_regions": []
+    },
+    {
+      "file": "2026-10-27-settings-context-builder-01.png",
+      "size": [
+        2306,
+        1664
+      ],
+      "sha256": "518bb117503db5e92a713125ecd6d0a9ed4f435e50172d342523a0221f8f7c95",
+      "blurred_regions": []
+    },
+    {
+      "file": "2026-10-27-settings-context-builder-02.png",
+      "size": [
+        2306,
+        1664
+      ],
+      "sha256": "2a0e8b84db9cd9b7b8ea0b2b484bbcc10b6ac388872f9592210ea769ec97fd27",
+      "blurred_regions": []
+    },
+    {
+      "file": "2026-10-27-settings-copy-prompt-order-01.png",
+      "size": [
+        2306,
+        1664
+      ],
+      "sha256": "e25ec7979a39876a8aef1f8e87ca69f390f9da1451ebdd43ad069c7ee3aa96aa",
+      "blurred_regions": []
+    },
+    {
+      "file": "2026-10-27-settings-custom-api-01.png",
+      "size": [
+        2306,
+        1664
+      ],
+      "sha256": "2424a3fc093e682eaad0fd22dad5f260af308a671ffe38b214275a9fc0d69014",
+      "blurred_regions": []
+    },
+    {
+      "file": "2026-10-27-settings-keyboard-shortcuts-01.png",
+      "size": [
+        2306,
+        1664
+      ],
+      "sha256": "9aa6648612b67fb8ca0183c629a71d97dde0efd156a37622b5d31e0f4efa4fd0",
+      "blurred_regions": []
+    },
+    {
+      "file": "2026-10-27-settings-keyboard-shortcuts-02.png",
+      "size": [
+        2306,
+        1664
+      ],
+      "sha256": "11480be3101513707602a616fc615fc081a6642a0dfdda156f5a4946c751f4ea",
+      "blurred_regions": []
+    },
+    {
+      "file": "2026-10-27-settings-keyboard-shortcuts-03.png",
+      "size": [
+        2306,
+        1664
+      ],
+      "sha256": "27d2e9d6132ae9fd088c440e9c3693a1c4a693ed6a50e18d2fd3bd9f49dacfaf",
+      "blurred_regions": []
+    },
+    {
+      "file": "2026-10-27-settings-keyboard-shortcuts-04.png",
+      "size": [
+        2306,
+        1664
+      ],
+      "sha256": "5f75d9443f46889c9c2974686e78160f36bec96cc21d66ebef51c2edf5cfbd24",
+      "blurred_regions": []
+    },
+    {
+      "file": "2026-10-27-settings-keyboard-shortcuts-composer.png",
+      "size": [
+        2306,
+        1664
+      ],
+      "sha256": "8bc835291ef78bcd1da9efc0005847ec5d3ccebd24db1ecf965832b7f34a014f",
+      "blurred_regions": []
+    },
+    {
+      "file": "2026-10-27-settings-manage-presets-01.png",
+      "size": [
+        2306,
+        1664
+      ],
+      "sha256": "9c020f81022a498fbf7f4b3108a4fa5793cc3b345275edd1e13a9a3cdef86235",
+      "blurred_regions": [
+        [
+          848,
+          236,
+          1010,
+          278
+        ]
+      ]
+    },
+    {
+      "file": "2026-10-27-settings-manage-workspaces-01.png",
+      "size": [
+        2306,
+        1664
+      ],
+      "sha256": "bf3df5a63b5bc91e0de41ef85d7a7e498ba2b34ba01581982b9009ccffb87afe",
+      "blurred_regions": [
+        [
+          550,
+          370,
+          2260,
+          1664
+        ]
+      ]
+    },
+    {
+      "file": "2026-10-27-settings-manage-workspaces-02.png",
+      "size": [
+        2306,
+        1664
+      ],
+      "sha256": "3bde110227fcf1dcb0f6902f2461e203ebeddbff8c4bb218d7807e09ece20b26",
+      "blurred_regions": [
+        [
+          550,
+          370,
+          2260,
+          1664
+        ]
+      ]
+    },
+    {
+      "file": "2026-10-27-settings-manage-workspaces-03.png",
+      "size": [
+        2306,
+        1664
+      ],
+      "sha256": "172f8459fc0ec50bfe5a6a29c2bba652ac814e24b5b31d65c8f1a905221c094a",
+      "blurred_regions": [
+        [
+          550,
+          370,
+          2260,
+          1664
+        ]
+      ]
+    },
+    {
+      "file": "2026-10-27-settings-manage-workspaces-04.png",
+      "size": [
+        2306,
+        1664
+      ],
+      "sha256": "60010acbac54d8eb5568f9f2d41da97c575148a2aeb14de6bd54edac683b22b0",
+      "blurred_regions": [
+        [
+          550,
+          370,
+          2260,
+          1664
+        ]
+      ]
+    },
+    {
+      "file": "2026-10-27-settings-manage-workspaces-05.png",
+      "size": [
+        2306,
+        1664
+      ],
+      "sha256": "e6e3301651695977c644fb19f63427fd11438560a8c17d9b595c1ba3f37856ae",
+      "blurred_regions": [
+        [
+          550,
+          370,
+          2260,
+          1664
+        ]
+      ]
+    },
+    {
+      "file": "2026-10-27-settings-manage-workspaces-06.png",
+      "size": [
+        2306,
+        1664
+      ],
+      "sha256": "d61dcc08aa6267faa8ba9f74882ff0d56fbf5bb757d046707c1bf4c49d957e72",
+      "blurred_regions": [
+        [
+          550,
+          370,
+          2260,
+          1664
+        ]
+      ]
+    },
+    {
+      "file": "2026-10-27-settings-manage-workspaces-07.png",
+      "size": [
+        2306,
+        1664
+      ],
+      "sha256": "ba358cd0bdb7729a9e1be06d85573d9a9dc134c0d486a1db8e73cb91c40dc5f6",
+      "blurred_regions": [
+        [
+          550,
+          370,
+          2260,
+          1664
+        ]
+      ]
+    },
+    {
+      "file": "2026-10-27-settings-manage-workspaces-08.png",
+      "size": [
+        2306,
+        1664
+      ],
+      "sha256": "272cc6e7cf028c4e6c356a94c77ffcd731dbe787e688ebd91a0fa108d0c4caf7",
+      "blurred_regions": [
+        [
+          550,
+          370,
+          2260,
+          1664
+        ]
+      ]
+    },
+    {
+      "file": "2026-10-27-settings-manage-workspaces-09.png",
+      "size": [
+        2306,
+        1664
+      ],
+      "sha256": "c035b7007d0abf6c9b5436f5992100a9b8c126fe5a8455483648ae54b9737929",
+      "blurred_regions": [
+        [
+          550,
+          370,
+          2260,
+          1664
+        ]
+      ]
+    },
+    {
+      "file": "2026-10-27-settings-manage-workspaces-10.png",
+      "size": [
+        2306,
+        1664
+      ],
+      "sha256": "0a7c13fc6763a58ecef93aa801bac1aa0283ed6214fef2619627b40ffdd41f0e",
+      "blurred_regions": [
+        [
+          550,
+          370,
+          2260,
+          1664
+        ]
+      ]
+    },
+    {
+      "file": "2026-10-27-settings-manage-workspaces-11.png",
+      "size": [
+        2306,
+        1664
+      ],
+      "sha256": "21c8f968d4ec535d78fe720bdf137faa376c8d55e39582a617f2e12b3a3dff3a",
+      "blurred_regions": [
+        [
+          550,
+          370,
+          2260,
+          1664
+        ]
+      ]
+    },
+    {
+      "file": "2026-10-27-settings-manage-workspaces-12.png",
+      "size": [
+        2306,
+        1664
+      ],
+      "sha256": "6ae58220f5488f19501af629da72a08cf9ee47e8632b369d2bee9f0a15db8fc3",
+      "blurred_regions": [
+        [
+          550,
+          370,
+          2260,
+          1664
+        ]
+      ]
+    },
+    {
+      "file": "2026-10-27-settings-manage-workspaces-13.png",
+      "size": [
+        2306,
+        1664
+      ],
+      "sha256": "851693b7445dc5d85175f2d093cf37d14e909b58fd4f0357c5da8fd4476eec2b",
+      "blurred_regions": [
+        [
+          550,
+          370,
+          2260,
+          1664
+        ]
+      ]
+    },
+    {
+      "file": "2026-10-27-settings-mcp-server-01.png",
+      "size": [
+        2306,
+        1664
+      ],
+      "sha256": "2e4deba8acbe896e43c59ea43d143b13b91ff699dd78894331ff2b32c39ef244",
+      "blurred_regions": []
+    },
+    {
+      "file": "2026-10-27-settings-mcp-server-02.png",
+      "size": [
+        2306,
+        1664
+      ],
+      "sha256": "ffcf4e801a8dfb3ea2c7f9b9271368ab81e9d2bdd7ea529e26493c71ee042b98",
+      "blurred_regions": []
+    },
+    {
+      "file": "2026-10-27-settings-mcp-server-current.png",
+      "size": [
+        2306,
+        1664
+      ],
+      "sha256": "fb3cb0896ee1f15184c157517917719c1c22ba2e92185231f405438821e30198",
+      "blurred_regions": []
+    },
+    {
+      "file": "2026-10-27-settings-mcp-server-json-bottom.png",
+      "size": [
+        2306,
+        1664
+      ],
+      "sha256": "af008b21f59448d307fb0b8520428fd77d5295264aa3583a8c1fe55b405da480",
+      "blurred_regions": [
+        [
+          550,
+          1530,
+          2250,
+          1664
+        ]
+      ]
+    },
+    {
+      "file": "2026-10-27-settings-mcp-server-json.png",
+      "size": [
+        2306,
+        1664
+      ],
+      "sha256": "0fea3ede72b8d9cd9ff974b0b8f935b9342a363d867fcc0c4e0b8fda2c550ae5",
+      "blurred_regions": []
+    },
+    {
+      "file": "2026-10-27-settings-model-config-01.png",
+      "size": [
+        2306,
+        1664
+      ],
+      "sha256": "fa830fc3d6270cd62c9c52aba941903104e9c7a577cad5fbae2e2ff21a0c6a01",
+      "blurred_regions": []
+    },
+    {
+      "file": "2026-10-27-settings-model-config-02.png",
+      "size": [
+        2306,
+        1664
+      ],
+      "sha256": "8f4b09dfc27dfeb2229d82c66f1e902ed1ca659245a894fe8ba0105f4ec95914",
+      "blurred_regions": []
+    },
+    {
+      "file": "2026-10-27-settings-model-config-03.png",
+      "size": [
+        2306,
+        1664
+      ],
+      "sha256": "33ea9e91ebd5121faf5ede41d55ffbbab34071001f39b2b686cc758bb8e1e7ec",
+      "blurred_regions": []
+    },
+    {
+      "file": "2026-10-27-settings-model-config-04.png",
+      "size": [
+        2306,
+        1664
+      ],
+      "sha256": "54c99d966b763b5b787d4d6c4a5e873294b82c3e794fc0e986d1340ba389f461",
+      "blurred_regions": []
+    },
+    {
+      "file": "2026-10-27-settings-model-config-05.png",
+      "size": [
+        2306,
+        1664
+      ],
+      "sha256": "3d7f9dac7456fd8e61a3b0e2c9fcf9acfd95aad11fbeebd9d99472e9693f9679",
+      "blurred_regions": []
+    },
+    {
+      "file": "2026-10-27-settings-model-config-06.png",
+      "size": [
+        2306,
+        1664
+      ],
+      "sha256": "bb5bb253c99cad413930a4a678919726418c60913dab8992986bb4e242e58001",
+      "blurred_regions": []
+    },
+    {
+      "file": "2026-10-27-settings-model-config-07.png",
+      "size": [
+        2306,
+        1664
+      ],
+      "sha256": "d3ed08493edb0e8ae952f840cb0c1d27bf072f8878731b7966100d00c10e9209",
+      "blurred_regions": []
+    },
+    {
+      "file": "2026-10-27-settings-model-config-08.png",
+      "size": [
+        2306,
+        1664
+      ],
+      "sha256": "5add90355d1b7c5e37f2a402ef4873bbf8f205bf1d40abecf75e26135b559d37",
+      "blurred_regions": []
+    },
+    {
+      "file": "2026-10-27-settings-model-config-09.png",
+      "size": [
+        2306,
+        1664
+      ],
+      "sha256": "53b6fecad796774ed86cc88ed713f876e3381138b38a98695b1332123d80ffe7",
+      "blurred_regions": []
+    },
+    {
+      "file": "2026-10-27-settings-model-config-10.png",
+      "size": [
+        2306,
+        1664
+      ],
+      "sha256": "3a524c669b16149d1ac53b2a7964c1981829ceffc4c7141353b7074990233367",
+      "blurred_regions": []
+    },
+    {
+      "file": "2026-10-27-settings-model-config-11.png",
+      "size": [
+        2306,
+        1664
+      ],
+      "sha256": "62261147066c31be6bc11d50c9ccc8287387a136e54cdda82499e7ff0ac37037",
+      "blurred_regions": []
+    },
+    {
+      "file": "2026-10-27-settings-model-config-12.png",
+      "size": [
+        2306,
+        1664
+      ],
+      "sha256": "7820685efc807a7dc72966e52d51fa1040eec58b507194323d5ceeb8b115d80b",
+      "blurred_regions": []
+    },
+    {
+      "file": "2026-10-27-settings-model-config-expanded.png",
+      "size": [
+        2306,
+        1664
+      ],
+      "sha256": "bda579707428b90a321befc91415ac62488cb52867e22aa0452243fe8586bf2e",
+      "blurred_regions": []
+    },
+    {
+      "file": "2026-10-27-settings-model-presets-01.png",
+      "size": [
+        2306,
+        1664
+      ],
+      "sha256": "dbfba4fd5e5d0f8580f0991a577de0a5ba17934641032f7601b6d93d04335ec4",
+      "blurred_regions": []
+    },
+    {
+      "file": "2026-10-27-settings-notifications-01.png",
+      "size": [
+        2306,
+        1664
+      ],
+      "sha256": "17d970058a3a591d83a994dc5689dacabdf3f11bdef46f0764eea4ab7ca169fa",
+      "blurred_regions": []
+    },
+    {
+      "file": "2026-10-27-settings-notifications-02.png",
+      "size": [
+        2306,
+        1664
+      ],
+      "sha256": "15f2bc2a9b3146aa1428c8fd6852e71a3a563e15063a0c049ffc5a386525f620",
+      "blurred_regions": []
+    },
+    {
+      "file": "2026-10-27-settings-openrouter-01.png",
+      "size": [
+        2306,
+        1664
+      ],
+      "sha256": "983aa94dcc5e6197975d633d1200f6a50ff0e14e8cdfb9e497c55ba56816b04c",
+      "blurred_regions": [
+        [
+          560,
+          256,
+          2210,
+          306
+        ],
+        [
+          550,
+          235,
+          2250,
+          340
+        ]
+      ]
+    },
+    {
+      "file": "2026-10-27-settings-openrouter-advanced.png",
+      "size": [
+        2306,
+        1664
+      ],
+      "sha256": "065f67ee683eb02934471ae695f44c996b424a787ac730e0cf4e64ff9c54f3a9",
+      "blurred_regions": [
+        [
+          560,
+          256,
+          2210,
+          306
+        ],
+        [
+          550,
+          235,
+          2250,
+          340
+        ]
+      ]
+    },
+    {
+      "file": "2026-10-27-settings-overview-01.png",
+      "size": [
+        2306,
+        1664
+      ],
+      "sha256": "e2839dd9004f695e74c7e0b9b52b684645570d856c5aea19bc5212735bfcef59",
+      "blurred_regions": []
+    },
+    {
+      "file": "2026-10-27-settings-overview-02.png",
+      "size": [
+        2306,
+        1664
+      ],
+      "sha256": "a0eb06572c57f0969b37795f0b61007b4f518bfad2a79b69a40b15c4598f136e",
+      "blurred_regions": []
+    },
+    {
+      "file": "2026-10-27-settings-overview-03.png",
+      "size": [
+        2306,
+        1664
+      ],
+      "sha256": "b48db9d7aee27ebb268af98b897c9cefb5c501324d0a2c58faeaf7ea84d5c048",
+      "blurred_regions": []
+    },
+    {
+      "file": "2026-10-27-settings-overview-environment.png",
+      "size": [
+        2306,
+        1664
+      ],
+      "sha256": "fef178c59407b0a76c97c89ff5729d9c0209320638c60adffd4d3fecfd27b148",
+      "blurred_regions": []
+    },
+    {
+      "file": "2026-10-27-settings-telemetry-01.png",
+      "size": [
+        2306,
+        1664
+      ],
+      "sha256": "0025779c4a85cf0549bd38d1f1a0e49c7aac3b2441e0928e4c26885b06046314",
+      "blurred_regions": []
+    },
+    {
+      "file": "2026-10-27-settings-tools-01.png",
+      "size": [
+        2306,
+        1664
+      ],
+      "sha256": "a07f1b9f1468de2ff4e4beac9fff6a47a4927de0ccc4e296bccc5de1cdc9e839",
+      "blurred_regions": []
+    },
+    {
+      "file": "2026-10-27-settings-tools-02.png",
+      "size": [
+        2306,
+        1664
+      ],
+      "sha256": "36355dae895b7a99411ff8cc841714163e15846f5545bfa543ae15eafdc724a8",
+      "blurred_regions": []
+    },
+    {
+      "file": "2026-10-27-settings-tools-03.png",
+      "size": [
+        2306,
+        1664
+      ],
+      "sha256": "2c188dc6fd9a3d2053a1417c6f1564819cce8aeefd8deb43da6ec911777b8056",
+      "blurred_regions": []
+    },
+    {
+      "file": "2026-10-27-settings-tools-04.png",
+      "size": [
+        2306,
+        1664
+      ],
+      "sha256": "6b46ef3ef096c05e14873bd3ea657b92de5a8328ab8ec601d972f38cb2902d96",
+      "blurred_regions": []
+    },
+    {
+      "file": "2026-10-27-settings-updates-01.png",
+      "size": [
+        2306,
+        1664
+      ],
+      "sha256": "4bb2cc69b5a0bdf624da743a83edcbbf3e9a98de8850e4f496a6c9044e992690",
+      "blurred_regions": []
+    },
+    {
+      "file": "2026-10-27-settings-workflow-presets-01.png",
+      "size": [
+        2306,
+        1664
+      ],
+      "sha256": "80b164004be1df99c30e64cb042276d8dcaac86ceafc351483142b987ea08297",
+      "blurred_regions": []
+    },
+    {
+      "file": "2026-10-27-settings-workspace-approvals-01.png",
+      "size": [
+        2306,
+        1664
+      ],
+      "sha256": "1e62b7ad0eddcbcfdf8c3f13e8a32e8c4f1550198bc88655170b11bcc4b8295b",
+      "blurred_regions": [
+        [
+          620,
+          1385,
+          2050,
+          1460
+        ]
+      ]
+    },
+    {
+      "file": "2026-10-27-settings-mcp-server-json-complete.png",
+      "size": [
+        2306,
+        1664
+      ],
+      "sha256": "5208c9fe266860511d0691df4545c0aff0ff59a0ddc4b582cb655dd0ad83d9d8",
+      "blurred_regions": [
+        [
+          848,
+          1392,
+          1580,
+          1440
+        ]
+      ]
+    },
+    {
+      "file": "2026-10-27-settings-mcp-server-json-recaptured.png",
+      "size": [
+        2306,
+        1664
+      ],
+      "sha256": "3b4cc8eac9116cbdf527d465e6871153cc161ec14c5e2800b8fbf7c1749ba76b",
+      "blurred_regions": [
+        [
+          848,
+          1392,
+          1580,
+          1440
+        ]
+      ]
+    },
+    {
+      "file": "2026-10-27-settings-agent-permissions-subagents-recaptured.png",
+      "size": [
+        2306,
+        1664
+      ],
+      "sha256": "415beee1b9688d65e73a8b7e6c686e8e70d83b42cd0e0b2152832d89de88f70c",
+      "blurred_regions": [],
+      "note": "Recaptured with pointer outside all documentation crops; original capture retained."
+    },
+    {
+      "file": "2026-10-27-settings-model-config-recaptured.png",
+      "size": [
+        2306,
+        1664
+      ],
+      "sha256": "b82aa2ccd5fe2a9f2c0bcd5291d642efbdd1103b2e9d66b3d6ee32cc354b524c",
+      "blurred_regions": [],
+      "note": "Recaptured with pointer outside all documentation crops; original capture retained."
+    }
+  ],
+  "crops": [
+    {
+      "file": "versioned_docs/version-1.7.0/settings/images/overview.png",
+      "source": "2026-10-27-settings-overview-01.png",
+      "box": [
+        550,
+        85,
+        2245,
+        1620
+      ],
+      "sha256": "3f0dbe0077eb711eee0822450f8bf675e7621a54bff92586cbc1766211ce8b54"
+    },
+    {
+      "file": "versioned_docs/version-1.7.0/settings/images/overview-environment-filtering.png",
+      "source": "2026-10-27-settings-overview-environment.png",
+      "box": [
+        560,
+        748,
+        2240,
+        1295
+      ],
+      "sha256": "05daeb6690839052e0132edd9bfa19b61604957ca5684ccf01c68efffb87e7b7"
+    },
+    {
+      "file": "versioned_docs/version-1.7.0/settings/images/overview-usage-limits.png",
+      "source": "2026-10-27-settings-overview-environment.png",
+      "box": [
+        560,
+        285,
+        2240,
+        510
+      ],
+      "sha256": "b538d0696ec37980c2c1c009e8b400df675b7dabfd1573d85f5fe3a4b668c65d"
+    },
+    {
+      "file": "versioned_docs/version-1.7.0/settings/images/agent-models.png",
+      "source": "2026-10-27-settings-agent-models-01.png",
+      "box": [
+        550,
+        85,
+        2245,
+        1630
+      ],
+      "sha256": "261cb528f689ab4cd50197bbeb13fbe826993960eb234244db80f658831dc99a"
+    },
+    {
+      "file": "versioned_docs/version-1.7.0/settings/images/agent-models-scope.png",
+      "source": "2026-10-27-settings-agent-models-01.png",
+      "box": [
+        550,
+        210,
+        2245,
+        600
+      ],
+      "sha256": "387d160592b61c83f3d809ef159f1b694a131259f7d53d4abed90370cb78a28b"
+    },
+    {
+      "file": "versioned_docs/version-1.7.0/settings/images/agent-models-oracles.png",
+      "source": "2026-10-27-settings-agent-models-01.png",
+      "box": [
+        550,
+        825,
+        2245,
+        1230
+      ],
+      "sha256": "884f879d59bbadf2e5e1f18d5d99c8820c5a09588e95eb4ca0087a71d0b27f0e"
+    },
+    {
+      "file": "versioned_docs/version-1.7.0/settings/images/agent-models-reprompt.png",
+      "source": "2026-10-27-settings-agent-models-reprompt.png",
+      "box": [
+        560,
+        540,
+        2240,
+        1522
+      ],
+      "sha256": "2060f08207f88924fb1b94fef9091608ccf433004c1f5e3bfdbfdf0ea694aa1b"
+    },
+    {
+      "file": "versioned_docs/version-1.7.0/settings/images/agent-permissions.png",
+      "source": "2026-10-27-settings-agent-permissions-01.png",
+      "box": [
+        550,
+        85,
+        2240,
+        1570
+      ],
+      "sha256": "7bb2c718cda5ad2be16fce2aed6e79f90c9553a9b7b61ac1f5e4297bea432e73"
+    },
+    {
+      "file": "versioned_docs/version-1.7.0/settings/images/agent-permissions-overseer.png",
+      "source": "2026-10-27-settings-agent-permissions-subagents-bottom.png",
+      "box": [
+        560,
+        782,
+        2240,
+        960
+      ],
+      "sha256": "650feaf806f16d8a1f1a9b43ea53da5c3bf8e43e7877762feacb71602a55ead2"
+    },
+    {
+      "file": "versioned_docs/version-1.7.0/settings/images/agent-permissions-subagents.png",
+      "source": "2026-10-27-settings-agent-permissions-subagents-recaptured.png",
+      "box": [
+        550,
+        85,
+        2240,
+        1620
+      ],
+      "sha256": "a42bfd98cda172695093188212fe3f62d93845d15adec05362557a0323db6819",
+      "note": "Recaptured to exclude the mouse pointer and halo."
+    },
+    {
+      "file": "versioned_docs/version-1.7.0/settings/images/agent-permissions-subagents-preview.png",
+      "source": "2026-10-27-settings-agent-permissions-subagents-recaptured.png",
+      "box": [
+        550,
+        540,
+        2240,
+        900
+      ],
+      "sha256": "fd5257df3158a1d6d9a9ea24329787b784514634552e7684eeb6beb84f86b402",
+      "note": "Recaptured to exclude the mouse pointer and halo."
+    },
+    {
+      "file": "versioned_docs/version-1.7.0/settings/images/agent-permissions-subagents-profiles.png",
+      "source": "2026-10-27-settings-agent-permissions-subagents-preview.png",
+      "box": [
+        550,
+        900,
+        2240,
+        1620
+      ],
+      "sha256": "3345d79d95eba2a53fc3f5925bdb63879e3a23e8ba3cf4f61447c3bf1b648186"
+    },
+    {
+      "file": "versioned_docs/version-1.7.0/settings/images/cli-providers.png",
+      "source": "2026-10-27-settings-cli-providers-01.png",
+      "box": [
+        550,
+        85,
+        2240,
+        1600
+      ],
+      "sha256": "abe2d6070fbf688e2fbc1f5cff258892f9c9511f69a9e0f2ec7d3f34c62b2162"
+    },
+    {
+      "file": "versioned_docs/version-1.7.0/settings/images/codex-import-mcp.png",
+      "source": "2026-10-27-settings-cli-providers-codex-01.png",
+      "box": [
+        560,
+        1135,
+        2225,
+        1248
+      ],
+      "sha256": "13e72c0f180abb4c49a6d3d0b28f0c7e304ff833d952e3065ddddc71b2a96d74"
+    },
+    {
+      "file": "versioned_docs/version-1.7.0/settings/images/codex-optional-features.png",
+      "source": "2026-10-27-settings-cli-providers-codex-02.png",
+      "box": [
+        560,
+        618,
+        2225,
+        1230
+      ],
+      "sha256": "7d980234b4be5167fc796383c6b7d020f01e83eb3794c2a309ece2d5ac59d8d7"
+    },
+    {
+      "file": "versioned_docs/version-1.7.0/settings/images/cc-custom-limits.png",
+      "source": "2026-10-27-settings-cli-providers-cc-custom.png",
+      "box": [
+        595,
+        247,
+        2190,
+        537
+      ],
+      "sha256": "560eb097ace6bfd106a7039fcb6bff84a51f455825941f03ac760e47de06248a"
+    },
+    {
+      "file": "versioned_docs/version-1.7.0/settings/images/keyboard-shortcuts.png",
+      "source": "2026-10-27-settings-keyboard-shortcuts-01.png",
+      "box": [
+        550,
+        85,
+        2245,
+        1430
+      ],
+      "sha256": "b68ae88ca96429b80b212d32337c2f42d2085e523676e000801bf6ea59c513b5"
+    },
+    {
+      "file": "versioned_docs/version-1.7.0/settings/images/keyboard-shortcuts-application.png",
+      "source": "2026-10-27-settings-keyboard-shortcuts-01.png",
+      "box": [
+        550,
+        335,
+        2245,
+        1430
+      ],
+      "sha256": "73e9b48f26a22fc3b45b460471258ec5ed880323cbc0fc08b18a2a092aa39a7d"
+    },
+    {
+      "file": "versioned_docs/version-1.7.0/settings/images/keyboard-shortcuts-agent-layout.png",
+      "source": "2026-10-27-settings-keyboard-shortcuts-composer.png",
+      "box": [
+        550,
+        125,
+        2245,
+        910
+      ],
+      "sha256": "1a1526db014fb46c4cb745c91126d857e61a6a4ec7eece05f965450f2ec42201"
+    },
+    {
+      "file": "versioned_docs/version-1.7.0/settings/images/keyboard-shortcuts-composer.png",
+      "source": "2026-10-27-settings-keyboard-shortcuts-composer.png",
+      "box": [
+        550,
+        915,
+        2245,
+        1220
+      ],
+      "sha256": "b2cf8f094b1b180df7a8fbe960a9bea21f181fdf208759805d33872ad93d303c"
+    },
+    {
+      "file": "versioned_docs/version-1.7.0/settings/images/keyboard-shortcuts-display.png",
+      "source": "2026-10-27-settings-keyboard-shortcuts-04.png",
+      "box": [
+        550,
+        1280,
+        2245,
+        1595
+      ],
+      "sha256": "6617217037b5dd1d49ceff41ae0c256ee761c815ebcfa73966d720313b8794e4"
+    },
+    {
+      "file": "versioned_docs/version-1.7.0/settings/images/mcp-server.png",
+      "source": "2026-10-27-settings-mcp-server-current.png",
+      "box": [
+        550,
+        85,
+        2245,
+        1620
+      ],
+      "sha256": "49206474cbe6c512f163fc2b9f42f3fec614066781f7a9d3615b0a5e8dfe041b"
+    },
+    {
+      "file": "versioned_docs/version-1.7.0/settings/images/mcp-server-strict-approval.png",
+      "source": "2026-10-27-settings-mcp-server-current.png",
+      "box": [
+        550,
+        470,
+        2245,
+        670
+      ],
+      "sha256": "c0f4252d8e2a01250424a7863a6d3daa7ca90106b8d6163bf3990a594dea1133"
+    },
+    {
+      "file": "versioned_docs/version-1.7.0/settings/images/model-config.png",
+      "source": "2026-10-27-settings-model-config-recaptured.png",
+      "box": [
+        550,
+        85,
+        2240,
+        530
+      ],
+      "sha256": "689fd86b856563c62d785c1ae2b0f8fdcef56e8c31763a0dd48bc49babf698b2",
+      "note": "Recaptured to exclude the mouse pointer and halo."
+    },
+    {
+      "file": "versioned_docs/version-1.7.0/settings/images/mcp-server-json.png",
+      "source": "2026-10-27-settings-mcp-server-json-recaptured.png",
+      "box": [
+        550,
+        1155,
+        2240,
+        1630
+      ],
+      "sha256": "35d3180e8a38b3213136fc5b0ba8a75389b010031ecf3f60c65336475a6dd017"
+    }
+  ],
+  "canonical_source": {
+    "revision": "3253f289a69a366b3e55bd28f47d024f932d77a5",
+    "files": [
+      "Sources/RepoPrompt/Features/Settings/Views/ProviderEnvironmentFilteringSettingsView.swift",
+      "Sources/RepoPrompt/Features/Settings/Views/AgentRepromptSettingsEditor.swift",
+      "Sources/RepoPromptSettingsCore/AgentRepromptModelPreference.swift",
+      "Sources/RepoPrompt/Features/Settings/Views/AgentPermissionsSettingsView.swift",
+      "Sources/RepoPrompt/Features/Settings/Views/KeyboardShortcutsSettingsView.swift",
+      "Sources/RepoPrompt/Features/Settings/Views/CLIProvidersSettingsView.swift",
+      "Sources/RepoPrompt/Features/Settings/Views/MCPSettingsView.swift",
+      "Sources/RepoPrompt/Infrastructure/UI/Components/MCPApprovalOverlayView.swift",
+      "Sources/RepoPromptDomainRuntime/MCPDomainCanonicalToolDefinitions.swift"
+    ]
+  }
+}
