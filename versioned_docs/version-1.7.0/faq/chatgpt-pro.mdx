@@ -24,7 +24,7 @@ OpenAI's [web quickstart](https://learn.chatgpt.com/docs/web) documents signing 
 
 ## Prepare and send the context
 
-In RepoPrompt, use **ChatGPT Export** to assemble a self-contained prompt, or use [Prepare and Copy Context](../sessions/context-composer.mdx) to inspect the selected code, receiving-model instructions, and Git changes before copying. The [export workflow](../agent-mode/workflows.mdx#chatgpt-export) can produce a Markdown prompt under `prompt-exports/`; inspect the actual result before using it.
+In RepoPrompt, use **ChatGPT Export** to assemble a self-contained prompt, or use [Prepare and Copy Context](../agent-mode/context-composer.mdx) to inspect the selected code, receiving-model instructions, and Git changes before copying. The [export workflow](../agent-mode/workflow-templates.mdx#chatgpt-export) can produce a Markdown prompt under `prompt-exports/`; inspect the actual result before using it.
 
 Paste the prepared prompt into the browser conversation. Check that the instructions and code arrived intact and fit the receiving interface's limits. If they do not fit, reduce irrelevant context rather than assuming a Pro plan accepts an unlimited repository. Send a concrete analysis request, for example:
 

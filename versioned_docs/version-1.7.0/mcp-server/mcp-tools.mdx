@@ -270,7 +270,7 @@ An exact exposed preset identity wins over a raw model ID and supplies the compl
 }
 ```
 
-Originals are sent for this turn only, and to each lane in a grouped request. Continue with the returned conversation IDs and explicitly attach files again if needed. Inspect individual lane statuses and export errors before retrying. See [Oracle](../sessions/oracle.mdx) for grouped-result review and attachment usage.
+Originals are sent for this turn only, and to each lane in a grouped request. Continue with the returned conversation IDs and explicitly attach files again if needed. Inspect individual lane statuses and export errors before retrying. See [Oracle](../agent-mode/oracle.mdx) for grouped-result review and attachment usage.
 
 Oracle attachment limits are **10 files**, **20 MiB per file**, and **50 MiB total** before provider encoding. UTF-8 text files must also fit the **512 KiB** inline-text limit; larger files are refused rather than truncated. Provider request and model-context limits still apply.
 

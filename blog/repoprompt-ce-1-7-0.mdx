@@ -58,7 +58,7 @@ For example, you can ask the rewriter to preserve acceptance criteria and file p
 
 The rewriting provider receives your message and supporting metadata, with recent chat excerpts included when enabled. It does not receive file contents, attachments, Git output, or tool results as part of that rewriting request. Review the draft for assumptions before sending it.
 
-See [Re-Prompter](/docs/sessions/re-prompter/) for review mode, optional automatic sending, clarification, and guidance settings.
+See [Re-Prompter](/docs/agent-mode/re-prompter/) for review mode, optional automatic sending, clarification, and guidance settings.
 
 ## NEW: Make model and effort decisions fit the task
 
@@ -70,7 +70,7 @@ Model Router can choose an eligible execution model and initial effort for a new
 
 If your workflow currently means manually switching agents or changing effort for each task, these controls can reduce that repeated setup. You can use routing where it helps and keep explicit choices where predictability matters. Established sessions and explicit model pins retain their targets; routing does not replace the model on every follow-up. Decision services receive task excerpts, so review their data-sharing settings as well as their recommendations.
 
-Read [Model Router and Agent Decisions](/docs/sessions/model-router/) and [Auto Effort](/docs/sessions/auto-effort/). [Providers & Models](/docs/providers/overview/) remains the reference for supported connections and model availability.
+Read [Model Router and Agent Decisions](/docs/agent-mode/model-router/) and [Auto Effort](/docs/agent-mode/auto-effort/). [Providers & Models](/docs/providers/overview/) remains the reference for supported connections and model availability.
 
 ## NEW: Give Oracle the evidence it needs
 
@@ -82,7 +82,7 @@ This makes it easier to ask another model about the same evidence your coding ta
 
 Attachment support depends on the route, and grouped consultations send the originals to each Oracle, increasing total usage. Attachments belong to that consultation turn; continuations do not automatically resend them.
 
-See [Oracle file attachments](/docs/sessions/oracle/#attach-files-to-an-oracle-consultation) and the [`oracle_send` reference](/docs/mcp-server/mcp-tools/#oracle_send).
+See [Oracle file attachments](/docs/agent-mode/oracle/#attach-files-to-an-oracle-consultation) and the [`oracle_send` reference](/docs/mcp-server/mcp-tools/#oracle_send).
 
 ## NEW: Move between active tasks from the keyboard
 
@@ -102,7 +102,7 @@ These improvements matter when an engineering task lasts longer than one sitting
 
 After an interruption, still inspect the latest session result and repository state before continuing. A restored conversation does not by itself establish that an interrupted operation completed.
 
-See [Session History](/docs/sessions/session-history/), [Worktrees](/docs/worktrees/), and [MCP connection approval](/docs/mcp-server/mcp-connections/#connection-approval).
+See [Session History](/docs/agent-mode/session-history/), [Worktrees](/docs/worktrees/), and [MCP connection approval](/docs/mcp-server/mcp-connections/#connection-approval).
 
 ## Get RepoPrompt CE 1.7.0
 

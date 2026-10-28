@@ -13,7 +13,7 @@ A worktree gives a coding task its own checkout. Before starting, open the inten
 3. Write a focused task with an observable result. For example: “Fix the empty-state layout and verify it at narrow widths. Work in the new worktree; leave the main checkout unchanged.”
 4. Send, then inspect the execution-location indicator. Check the path and branch or detached commit before assuming that work is isolated. If creation reports an error, resolve it before asking for edits.
 
-![Start in picker offering the workspace checkout, a new worktree, and existing worktrees](../sessions/images/execution-location.png)
+![Start in picker offering the workspace checkout, a new worktree, and existing worktrees](../agent-mode/images/execution-location.png)
 
 For a particular base revision or branch configuration, use the supported creation options exposed by the [manage_worktree tool](../mcp-server/mcp-tools.mdx#manage_worktree), and inspect the returned descriptor. Do not infer the base from the task's name.
 
@@ -21,7 +21,7 @@ For a particular base revision or branch configuration, use the supported creati
 
 Choose an entry under **Existing worktrees**. Rows identify the branch or detached commit, worktree name, and path. A prunable entry is unavailable. “No other worktrees available” means the picker has no alternative checkout to offer; it does not create one automatically.
 
-Changing an established session's location restarts its provider context and can require stopping an active turn. Follow [Execution Location](../sessions/execution-location.mdx#change-an-existing-sessions-location) before moving an ongoing task.
+Changing an established session's location restarts its provider context and can require stopping an active turn. Follow [Execution Location](../agent-mode/execution-location.mdx#change-an-existing-sessions-location) before moving an ongoing task.
 
 ## Prepare local setup
 

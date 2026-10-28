@@ -15,27 +15,28 @@
     },
     {
       "type": "category",
-      "label": "Sessions & Interface",
+      "label": "Agent Mode",
       "className": "sidebar-cat-monitor",
       "items": [
-        "sessions/overview",
-        "sessions/session-history",
-        "sessions/execution-location",
-        "sessions/workflow-templates",
-        "sessions/overseer",
-        "sessions/interviewer",
-        "sessions/re-prompter",
-        "sessions/model-router",
-        "sessions/auto-effort",
-        "sessions/computer-use",
-        "sessions/message-editor",
-        "sessions/model-and-effort",
-        "sessions/tools",
-        "sessions/approvals",
-        "sessions/oracle",
-        "sessions/context-builder",
-        "sessions/context-composer",
-        "sessions/image-support"
+        "agent-mode/overview",
+        "agent-mode/session-history",
+        "agent-mode/execution-location",
+        "agent-mode/workflow-templates",
+        "agent-mode/overseer",
+        "agent-mode/interviewer",
+        "agent-mode/re-prompter",
+        "agent-mode/model-router",
+        "agent-mode/auto-effort",
+        "agent-mode/computer-use",
+        "agent-mode/message-editor",
+        "agent-mode/model-and-effort",
+        "agent-mode/tools",
+        "agent-mode/approvals",
+        "agent-mode/oracle",
+        "agent-mode/context-builder",
+        "agent-mode/context-composer",
+        "agent-mode/image-support",
+        "agent-mode/skills"
       ]
     },
     {
@@ -79,16 +80,6 @@
             "providers/custom-api"
           ]
         }
-      ]
-    },
-    {
-      "type": "category",
-      "label": "Agent Mode",
-      "className": "sidebar-cat-code",
-      "items": [
-        "agent-mode/overview",
-        "agent-mode/workflows",
-        "agent-mode/skills"
       ]
     },
     {

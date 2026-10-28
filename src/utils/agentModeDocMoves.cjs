@@ -1,0 +1,23 @@
+module.exports = {
+  "/docs/sessions/approvals": "/docs/agent-mode/approvals/",
+  "/docs/sessions/auto-effort": "/docs/agent-mode/auto-effort/",
+  "/docs/sessions/computer-use": "/docs/agent-mode/computer-use/",
+  "/docs/sessions/context-builder": "/docs/agent-mode/context-builder/",
+  "/docs/sessions/context-composer": "/docs/agent-mode/context-composer/",
+  "/docs/sessions/execution-location": "/docs/agent-mode/execution-location/",
+  "/docs/sessions/image-support": "/docs/agent-mode/image-support/",
+  "/docs/sessions/interviewer": "/docs/agent-mode/interviewer/",
+  "/docs/sessions/message-editor": "/docs/agent-mode/message-editor/",
+  "/docs/sessions/model-and-effort": "/docs/agent-mode/model-and-effort/",
+  "/docs/sessions/model-router": "/docs/agent-mode/model-router/",
+  "/docs/sessions/oracle": "/docs/agent-mode/oracle/",
+  "/docs/sessions/overseer": "/docs/agent-mode/overseer/",
+  "/docs/sessions/overview": "/docs/agent-mode/overview/",
+  "/docs/sessions/re-prompter": "/docs/agent-mode/re-prompter/",
+  "/docs/sessions/session-history": "/docs/agent-mode/session-history/",
+  "/docs/sessions/tools": "/docs/agent-mode/tools/",
+  "/docs/sessions/workflow-templates": "/docs/agent-mode/workflow-templates/",
+  "/docs/sessions": "/docs/agent-mode/overview/",
+  "/docs/agent-mode/sessions": "/docs/agent-mode/overview/",
+  "/docs/agent-mode/workflows": "/docs/agent-mode/workflow-templates/"
+};

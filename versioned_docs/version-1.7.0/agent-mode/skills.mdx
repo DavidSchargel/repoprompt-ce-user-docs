@@ -53,15 +53,13 @@ When you send a message with a slash skill, RepoPrompt expands the template (str
 
 Agent Mode has two ways to load instructions for a task: the **Workflow** dropdown selects built-in or custom workflow templates, while a **slash skill** loads an on-disk instruction file typed as `/skill-name`. You can use one or the other per message, but not both. A custom in-app workflow template is not automatically an installed skill for an external coding host.
 
-## Skills for Terminal Agents
+## Use skills with external agents
 
-External coding agents can usually discover installed on-disk skills from shared directories when their host supports those locations. Connecting to RepoPrompt's MCP server supplies tool access; it does not install workflow skills. To make RepoPrompt's workflow skills available, install the matching MCP or CLI variant through **Quick Setup → Skills**, then use the external host's skill or slash-command picker.
-
-RepoPrompt supplies workflow instructions for external coding agents through commands such as `/rp-build` and `/rp-review`. **Quick Setup → Skills** installs the MCP or CLI variant as skill folders or prompt files for the selected host. These instructions guide the workflow; the client's tools and permissions determine what it can actually do. See [MCP Workflow Commands](../mcp-server/workflow-commands.mdx) for the complete catalog and installation locations.
+An external coding host controls which skill locations it discovers and how skills are invoked. Connecting to RepoPrompt's MCP server provides tools but does not install skills. For supplied commands such as `/rp-build` and `/rp-review`, use [MCP Workflow Commands](../mcp-server/workflow-commands.mdx) for installation, destinations, and MCP versus CLI variants.
 
 ## Creating Custom Skills
 
-Custom skills are Markdown files placed in specific directories. RepoPrompt automatically discovers them and makes them available — both in Agent Mode and for any terminal agents that share the same skill directories.
+Custom skills are Markdown files placed in specific directories. RepoPrompt automatically discovers them and makes them available — in Agent Mode and in compatible external hosts that scan those directories.
 
 ### Skill File Format
 

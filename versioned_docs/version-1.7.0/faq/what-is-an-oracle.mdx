@@ -25,7 +25,7 @@ For example: “Review this change for cancellation bugs. Use the selected imple
 
 ## Where does its context come from?
 
-The consultation uses a prepared package that can include selected files, Code Maps, instructions, conversation context, and relevant Git changes. [Context Builder](../sessions/context-builder.mdx) can discover and assemble the code before an Oracle analyzes it. Discovery and analysis are separate stages; they can use different models.
+The consultation uses a prepared package that can include selected files, Code Maps, instructions, conversation context, and relevant Git changes. [Context Builder](../agent-mode/context-builder.mdx) can discover and assemble the code before an Oracle analyzes it. Discovery and analysis are separate stages; they can use different models.
 
 The Oracle does not automatically know your entire repository. If an answer overlooks an important dependency, inspect the supplied context, add what is missing, and ask a focused follow-up.
 
@@ -33,6 +33,6 @@ The Oracle does not automatically know your entire repository. If an answer over
 
 Choose the Oracle model in **Settings → Agent Mode → Agent Models**. You can configure additional Oracles for independent perspectives; their answers remain separate, so compare their reasoning rather than assuming agreement or automatic synthesis.
 
-The brain-shaped **Oracle** control above the session editor opens the associated consultations. They can be created by a workflow, a coding-agent request, or a Context Builder analysis follow-up. Follow the [Oracle interface guide](../sessions/oracle.mdx) for the controls and [Agent Models settings](../settings/agent-mode/agent-models.mdx) for configuration.
+The brain-shaped **Oracle** control above the session editor opens the associated consultations. They can be created by a workflow, a coding-agent request, or a Context Builder analysis follow-up. Follow the [Oracle interface guide](../agent-mode/oracle.mdx) for the controls and [Agent Models settings](../settings/agent-mode/agent-models.mdx) for configuration.
 
 Bring useful findings back into the coding task, verify them against the current code, and review the resulting changes. An Oracle answer is advice, not proof that a change is correct. Consultations also use the selected provider's allowance or billing; see [AI Service Costs](./pay-for-services.mdx).

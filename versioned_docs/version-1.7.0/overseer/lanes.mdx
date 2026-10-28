@@ -22,7 +22,7 @@ The current lane limit is **12 per overseer**. Availability, workspace admission
 
 Define its deliverable, scope, and stopping point. “Investigate why cancellation leaves a stale row and report evidence” is a useful investigation. “Fix everything” makes ownership and completion harder to assess.
 
-Specify the intended workspace when work spans projects. Lane creation needs an unambiguous open workspace destination. A created lane is a top-level session, so do not assume it inherits the safety profile of an MCP sub-agent or a separate checkout. Inspect its permissions and [execution location](../sessions/execution-location.mdx). Use worktrees for concurrent edits that may overlap.
+Specify the intended workspace when work spans projects. Lane creation needs an unambiguous open workspace destination. A created lane is a top-level session, so do not assume it inherits the safety profile of an MCP sub-agent or a separate checkout. Inspect its permissions and [execution location](../agent-mode/execution-location.mdx). Use worktrees for concurrent edits that may overlap.
 
 A lane does not inherit its creator's authority. A coordinator with the required delegation scope can explicitly grant a narrower scope to a member session for nested coordination. Keep the overall plan in the parent conversation, define the nested coordinator's task, and review the [delegation boundaries](./overview.mdx#nested-delegation).
 

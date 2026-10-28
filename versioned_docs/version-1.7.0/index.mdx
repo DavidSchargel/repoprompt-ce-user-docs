@@ -60,9 +60,9 @@ Then select a battle-tested, pre-built workflow or manually inspect and adjust t
 
 Choose a connected coding runtime, then describe the task, choose a workflow, and follow the work in conversations and the Oracles that guide the results. You can inspect tool activity and changes, answer questions, and steer the agent as it works, all without switching between terminal sessions.
 
-![RepoPrompt session composer with workflow, context, model, tools, and permission controls](./sessions/images/composer.png)
+![RepoPrompt session composer with workflow, context, model, tools, and permission controls](./agent-mode/images/composer.png)
 
-[Get to know the session interface →](./sessions/overview.mdx)
+[Get to know the session interface →](agent-mode/overview.mdx)
 
 ### Keep using your preferred coding tools
 
@@ -74,7 +74,7 @@ Connect an MCP-compatible client to RepoPrompt's repository and context tools. Y
 
 Select code, add instructions and Git changes, then copy a self-contained package. Use it for a design discussion or an independent review in ChatGPT or another service, and bring the useful findings back to your coding session.
 
-[Prepare and copy your context →](./sessions/context-composer.mdx)
+[Prepare and copy your context →](agent-mode/context-composer.mdx)
 
 ## Start with the task you need to finish
 
@@ -90,7 +90,7 @@ Choose a built-in workflow from the welcome cards or the **Workflow** selector, 
 | Improve code structure                   | **Refactor** focuses on preserving intended behavior while improving the implementation. |
 | Get an independent perspective           | **ChatGPT Export** prepares context for a conversation outside RepoPrompt.               |
 
-[Choose a workflow for your task →](./sessions/workflow-templates.mdx)
+[Choose a workflow for your task →](agent-mode/workflow-templates.mdx)
 
 ## Let Context Builder do the discovery
 
@@ -108,7 +108,7 @@ It selects relevant files, slices, and Code Maps within your context budget (whi
 
 Use the prepared context to ask an Oracle for a plan, review, or answer, or export it for another model. Discovery and analysis can use different models.
 
-[Explore the Context Builder workflow →](./sessions/context-builder.mdx)
+[Explore the Context Builder workflow →](agent-mode/context-builder.mdx)
 
 <span id="why-it-matters" />
 <span id="without-curated-context" />
@@ -124,10 +124,10 @@ Use **worktrees** when parallel tasks need separate checkouts; separate conversa
 
 ## Keep control as the work develops
 
-- **Make the request clearer.** Use [Interviewer](./sessions/interviewer.mdx) to resolve open questions or [Re-Prompter](./sessions/re-prompter.mdx) to refine a draft before sending.
-- **Show the problem.** Attach a [screenshot or mockup](./sessions/image-support.mdx). Eligible Codex sessions can also use [Computer Use](./sessions/computer-use.mdx) for tasks that need the visible interface.
-- **Choose how the model works.** Set the [model and reasoning effort](./sessions/model-and-effort.mdx) yourself, or configure [Agent Decisions](./sessions/model-router.mdx) for eligible new tasks.
-- **Review the decisions that matter.** Inspect [approval requests and edit reviews](./sessions/approvals.mdx), then return to [session history](./sessions/session-history.mdx) when you need the context behind a result.
+- **Make the request clearer.** Use [Interviewer](agent-mode/interviewer.mdx) to resolve open questions or [Re-Prompter](agent-mode/re-prompter.mdx) to refine a draft before sending.
+- **Show the problem.** Attach a [screenshot or mockup](agent-mode/image-support.mdx). Eligible Codex sessions can also use [Computer Use](agent-mode/computer-use.mdx) for tasks that need the visible interface.
+- **Choose how the model works.** Set the [model and reasoning effort](agent-mode/model-and-effort.mdx) yourself, or configure [Agent Decisions](agent-mode/model-router.mdx) for eligible new tasks.
+- **Review the decisions that matter.** Inspect [approval requests and edit reviews](agent-mode/approvals.mdx), then return to [session history](agent-mode/session-history.mdx) when you need the context behind a result.
 
 ## Use the connection that fits your work
 
@@ -184,37 +184,32 @@ RepoPrompt Classic and its `repoprompt-classic` repository are archived. **[Clas
 
 - [Why RepoPrompt](./why-repoprompt.mdx)
 
-### Sessions & Interface
+### Agent Mode
 
-- [Overview](./sessions/overview.mdx)
-- [Session History](./sessions/session-history.mdx)
-- [Execution Location](./sessions/execution-location.mdx)
-- [Workflow Templates](./sessions/workflow-templates.mdx)
-- [Overseer](./sessions/overseer.mdx)
-- [Interviewer](./sessions/interviewer.mdx)
-- [Re-Prompter](./sessions/re-prompter.mdx)
-- [Agent Decisions](./sessions/model-router.mdx)
-- [Auto Effort](./sessions/auto-effort.mdx)
-- [Computer Use](./sessions/computer-use.mdx)
-- [Message Editor](./sessions/message-editor.mdx)
-- [Model and Effort](./sessions/model-and-effort.mdx)
-- [Tools](./sessions/tools.mdx)
-- [Approvals and Paused Sessions](./sessions/approvals.mdx)
-- [Oracle](./sessions/oracle.mdx)
-- [Context Builder](./sessions/context-builder.mdx)
-- [Prepare and Copy Context](./sessions/context-composer.mdx)
-- [Image Support](./sessions/image-support.mdx)
+- [Overview](agent-mode/overview.mdx)
+- [Session History](agent-mode/session-history.mdx)
+- [Execution Location](agent-mode/execution-location.mdx)
+- [Workflow Templates](agent-mode/workflow-templates.mdx)
+- [Overseer](agent-mode/overseer.mdx)
+- [Interviewer](agent-mode/interviewer.mdx)
+- [Re-Prompter](agent-mode/re-prompter.mdx)
+- [Agent Decisions](agent-mode/model-router.mdx)
+- [Auto Effort](agent-mode/auto-effort.mdx)
+- [Computer Use](agent-mode/computer-use.mdx)
+- [Message Editor](agent-mode/message-editor.mdx)
+- [Model and Effort](agent-mode/model-and-effort.mdx)
+- [Tools](agent-mode/tools.mdx)
+- [Approvals and Paused Sessions](agent-mode/approvals.mdx)
+- [Oracle](agent-mode/oracle.mdx)
+- [Context Builder](agent-mode/context-builder.mdx)
+- [Prepare and Copy Context](agent-mode/context-composer.mdx)
+- [Image Support](agent-mode/image-support.mdx)
+- [Skills & Slash Commands](./agent-mode/skills.mdx)
 
 ### Providers & Models
 
 - [Overview and provider directory](./providers/overview.mdx)
 - [Model availability, effort, tiers, and roles](./providers/models.mdx)
-
-### Agent Mode
-
-- [Overview](./agent-mode/overview.mdx)
-- [Workflow Commands](./agent-mode/workflows.mdx)
-- [Skills & Slash Commands](./agent-mode/skills.mdx)
 
 ### MCP Server
 

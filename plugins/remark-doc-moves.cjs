@@ -13,8 +13,13 @@ const moves = new Map([
 ]);
 const routeMoves = new Map([
   ['/docs/agent-mode/providers', '/docs/providers/overview/'],
-  ['/docs/agent-mode/sessions', '/docs/sessions/overview/'],
+  ...Object.entries(require('../src/utils/agentModeDocMoves.cjs')),
 ]);
+
+for (const name of Object.keys(require('../src/utils/agentModeDocMoves.cjs')).filter(route => route.startsWith('/docs/sessions/')).map(route => route.split('/').pop())) {
+  moves.set(path.join(root, `versioned_docs/version-1.7.0/sessions/${name}.mdx`), path.join(root, `versioned_docs/version-1.7.0/agent-mode/${name}.mdx`));
+}
+moves.set(path.join(root, 'versioned_docs/version-1.7.0/agent-mode/workflows.mdx'), path.join(root, 'versioned_docs/version-1.7.0/agent-mode/workflow-templates.mdx'));
 
 // Preserve source links from the immutable Classic archive when a CE guide moves.
 function resolveMovedDocLink(sourceFile, url) {
