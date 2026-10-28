@@ -1,7 +1,7 @@
 ---
 id: "settings"
 title: "Settings Reference"
-description: "Find RepoPrompt settings for appearance, editor behavior, AI models, context generation, and agent workflows."
+description: "Find the authoritative guides for RepoPrompt settings, provider connections, permissions, and prompt configuration."
 slug: "/reference/settings"
 keywords: ["preferences","options","configuration","general","chat settings","appearance","theme","dark mode","light mode","api keys"]
 hide_table_of_contents: false
@@ -9,148 +9,58 @@ toc_min_heading_level: 2
 toc_max_heading_level: 4
 ---
 
-Open Settings with `⌘+,` or from the gear icon.
+Open Settings with `⌘+,` or from the gear icon. Use this directory to reach the detailed guide for each settings page. Those guides document the controls and their behavior.
 
-:::tip[Settings pages]
+Use [Search Settings](../settings/search-settings.mdx) to find an option by name. For supported integrations, account requirements, model availability, and capabilities, use [Providers & Models](../providers/overview.mdx).
 
-The new Settings section follows the app’s navigation. Start with [Overview](../settings/agent-mode/overview.mdx) or [CLI Providers](../settings/agent-mode/cli-providers.mdx) for detailed controls, or use [Search Settings](../settings/search-settings.mdx) to find a page. These pages supersede the corresponding summaries below.
+## Agent Mode
 
-:::
-
-:::tip
-
-**Scripting these settings:** A subset of preferences is reachable from MCP and `rpce-cli` through `app_settings`, including appearance, prompt packaging, models, MCP preset visibility, Code Maps, file scanning, selected Agent Mode behavior, and notifications. See [App Settings Tool](../mcp-server/mcp-app-settings.mdx) for the current allowlist and [Setup Guide](../mcp-server/mcp-setup.mdx#terminal-access) for terminal access. The UI and tool share the underlying store for allowlisted keys. Credentials, permission policies, and workspace model overrides remain outside this tool; Classic editing and auto-start key examples no longer describe its registry.
-
-:::
+- [Overview](../settings/agent-mode/overview.mdx): general Agent Mode behavior and supervision.
+- [CLI Providers](../settings/agent-mode/cli-providers.mdx): connect and configure coding runtimes.
+- [Agent Models](../settings/agent-mode/agent-models.mdx): model choices for agent roles and supporting tasks.
+- [Agent Permissions](../settings/agent-mode/agent-permissions.mdx): direct-agent and sub-agent permissions.
+- [Agent Workflows](../settings/agent-mode/agent-workflows.mdx): workflow behavior and related controls.
+- [Agent Decisions](../settings/agent-mode/agent-decisions.mdx): automatic routing, effort selection, usage balancing, and decision services.
+- [Context Builder](../settings/agent-mode/context-builder.mdx): discovery and context-generation settings.
 
 ## General Settings
 
-### Appearance
-
-- **Theme:** Light, Dark, or System (follows macOS)
-- **Font size:** Adjust text size throughout the app
-- **Syntax highlighting:** Color scheme for code blocks
-
-### Updates
-
-- **Auto-update:** Enable automatic update checks
-- **Update channel:** Stable or Beta releases
-
-### Prompt Order
-
-- **Section ordering:** Customize the order of prompt sections (files, instructions, etc.)
-- **Include datetime:** Add a timestamp to prompts
-
-### Advanced
-
-- **Path display:** Relative or absolute paths in prompts
-- **Gitignore:** Respect .gitignore when scanning files
-- **Empty folders:** Show or hide empty directories
-- **URL scheme:** Enable `repoprompt://` URLs
-- **Saved prompts:** Export/import your stored prompts
+- [Appearance](../settings/general/appearance.mdx): interface appearance and text presentation.
+- [Updates](../settings/general/updates.mdx): update checks and release channels.
+- [Notifications](../settings/general/notifications.mdx): notification preferences.
+- [Keyboard Shortcuts](../settings/general/keyboard-shortcuts.mdx): configurable shortcuts.
+- [Advanced](../settings/general/advanced.mdx): advanced preferences, including the URL Opener.
+- [Telemetry](../settings/general/telemetry.mdx): crash-report and diagnostic controls.
 
 ## API Settings
 
-### API Providers
+The settings category is **Models & Providers**. Start with [Providers & Models](../providers/overview.mdx) for the canonical connection and capability reference, then open the relevant settings guide:
 
-Configure API keys for each provider:
-
-- Anthropic, OpenAI, Google (Gemini)
-- DeepSeek, Fireworks AI, Grok (xAI), Groq, Z.AI
-- Azure OpenAI (requires base URL + key + API version)
-- GitHub Models (OAuth sign-in, 8K context limit)
-- Ollama/Local (URL + model selection)
-
-### CLI Providers
-
-Use the [Providers & Models reference](../providers/overview.mdx) for the supported integrations, account requirements, and model availability. [CLI Providers settings](../settings/agent-mode/cli-providers.mdx) documents connection buttons and configuration controls.
-
-### OpenRouter
-
-Single API key for access to multiple providers through OpenRouter.
-
-### Custom API
-
-Configure custom OpenAI-compatible endpoints:
-
-- Base URL
-- API Key (optional)
-- Model name
-
-### Model Config
-
-Override default model parameters:
-
-- Temperature
-- Max tokens
-- Context window size
-- Custom parameters
+- [API Providers](../settings/models-and-providers/api-providers.mdx).
+- [OpenRouter](../settings/models-and-providers/openrouter.mdx).
+- [Custom API](../settings/models-and-providers/custom-api.mdx).
+- [Model Config](../settings/models-and-providers/model-config.mdx).
 
 ## Chat Settings
 
-### Chat Settings
+The settings category is **Prompting**:
 
-- **Default model:** Model used for new chats
-- **Auto-format:** Markdown rendering in chat
-- **Code block style:** Syntax highlighting theme
-
-### Pro Edit (Classic Edition)
-
-Configure delegate agent behavior:
-
-- **Model routing:** How models are selected for tasks
-- **Parallel agents:** Maximum concurrent file editors
-- **Planning model:** Model used for task decomposition
+- [Chat Settings](../settings/prompting/chat-settings.mdx): built-in chat behavior.
+- [Copy Prompt Order](../settings/prompting/copy-prompt-order.mdx): ordering and packaging copied context.
+- [Workflow Presets](../settings/prompting/workflow-presets.mdx): preset instructions and workflow definitions.
 
 ## MCP Settings
 
-### MCP Server
-
-Configure the Model Context Protocol server:
-
-- **Enable/Disable:** Turn MCP server on or off
-- **Connection status:** View connected clients
-- **Server settings:** Port and access controls
-
-### Model Presets
-
-Create and manage model presets for quick switching:
-
-- Save the current model configuration as a preset
-- Edit preset name and parameters
-- Delete unused presets
+- [MCP Server](../settings/mcp-server/mcp-server.mdx): server configuration and connections.
+- [Workspace Approvals](../settings/mcp-server/workspace-approvals.mdx): workspace access approvals.
+- [Tools](../settings/mcp-server/tools.mdx): tool availability and configuration.
+- [Model Presets](../settings/mcp-server/model-presets.mdx): model choices exposed through MCP.
 
 ## Workspace Settings
 
-### Manage Workspaces
+- [Manage Workspaces](../settings/workspaces/manage-workspaces.mdx): workspace and folder management.
+- [Manage Presets](../settings/workspaces/manage-presets.mdx): saved workspace selections and presets.
 
-- **Recent workspaces:** Quick access to previous projects
-- **Add/remove folders:** Manage workspace roots
-- **Workspace settings:** Per-workspace configurations
+## Scripting settings
 
-### Manage Presets
-
-Workspace-specific presets:
-
-- Save the current selection and settings as a preset
-- Load presets to restore context
-- Export/import presets
-
-## Prompt Presets
-
-### Copy Presets
-
-Configure how prompts are formatted when copied:
-
-- **Standard:** Clean format for any AI
-- **Pro Edit:** XML format for structured changes
-- **Plan:** Optimized for architectural planning
-- **Custom presets:** Create your own formats
-
-### Chat Presets
-
-Preset configurations for chat sessions:
-
-- System prompt templates
-- Default mode (chat/plan/edit)
-- Model selection
+A subset of preferences is available through MCP and `rpce-cli`. Use the [App Settings Tool](../mcp-server/mcp-app-settings.mdx) for the authoritative allowlist and the [Setup Guide](../mcp-server/mcp-setup.mdx#terminal-access) for terminal access. A control being visible in Settings does not mean it is available through that tool.
