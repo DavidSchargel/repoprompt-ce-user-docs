@@ -56,7 +56,7 @@ When the request needs authority the overseer does not already hold, RepoPrompt 
 | Spawn | Create or fork sessions and delegate to nested overseers. |
 | Worktree | Create and manage session worktree bindings, prepare merge previews, and request a merge review. |
 
-Scopes can cover one exact session, a session tree, a workspace, or all sessions. An ordinary all-sessions scope supports observation, organization, and restructuring; it does not by itself grant control over every running task. Deleting sessions, removing or pruning worktrees, changing provider permission modes, approving MCP clients, and changing app settings remain user actions. Oversight can manage eligible approvals within a task without granting permission to change those underlying controls.
+Scopes can cover one exact session, a session tree, a workspace, or all sessions. An ordinary all-sessions scope supports observation, organization, and restructuring; it does not by itself grant control over every running task. Session deletion remains a user action under ordinary scopes; **Overseer full access** allows session deletion without confirmation cards, subject to the remaining target and run-state checks. Removing or pruning worktrees, changing provider permission modes, approving MCP clients, and changing app settings remain user actions. Oversight can manage eligible approvals within a task without granting permission to change those underlying controls.
 
 ### Nested delegation
 
