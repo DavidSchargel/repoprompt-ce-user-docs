@@ -62,7 +62,7 @@ Expand **Advanced Chat Controls** to choose the response format used outside Pro
 | **Whole** | Requests complete replacement file contents. |
 | **None** | Leaves chat unconstrained but does not support direct file editing through this format. |
 
-The picker is disabled for a model that cannot use diff editing; selecting such a model switches the edit format to Whole.
+All models are treated as diff-capable, regardless of the saved **Allow Diff Editing** switch in [Model Config](../models-and-providers/model-config.mdx#allow-diff-editing). Changing the model does not disable the edit-format picker or automatically switch the format to **Whole**. Choose **Diff**, **Whole**, or **None** explicitly to set the response format.
 
 ## Model Temperature
 
