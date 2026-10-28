@@ -41,6 +41,12 @@ RepoPrompt gives you a well-thought-out, unified workspace for exploring a repos
 
 The macOS application is **free and open source**. Connect your own coding-runtime account, API provider, or local model service; [AI service costs](./faq/pay-for-services.mdx) depend on the connection you use.
 
+## tl;dr: Jump In Right Now
+
+Don't want to read right now? That's OK...we'll be here when you get back.
+
+Take a five-minute jump into the pool with [Getting Started](./overview/getting-started.mdx), or take your time and explore the workflow with [Going Deeper](./overview/going-deeper.mdx).
+
 ## Give your coding work the right tools and the right context
 
 Before any coding agent can make production-ready changes, it needs to understand the code already there: the relevant files, their interfaces, the changes in progress, and the constraints that matter. We all know that finding and sharing that context can take longer than writing the plan or prompt.
@@ -92,27 +98,12 @@ Choose a built-in workflow from the welcome cards or the **Workflow** selector, 
 
 [Choose a workflow for your task →](agent-mode/workflow-templates.mdx)
 
-## Let Context Builder do the discovery
+## Make RepoPrompt Your Partner
 
-You don't need to know every relevant filename before you start. Give Context Builder a task and any useful starting points, then inspect what it finds.
-
-### 1. Explore
-
-A discovery coding agent searches the repository and follows the code related to your question.
-
-### 2. Curate
-
-It selects relevant files, slices, and Code Maps within your context budget (which is what context engineering is all about). You can optionally review the selection, remove anything unnecessary, and add what it missed.
-
-### 3. Handoff
-
-Use the prepared context to ask an Oracle for a plan, review, or answer, or export it for another model. Discovery and analysis can use different models.
-
-[Explore the Context Builder workflow →](agent-mode/context-builder.mdx)
-
-<span id="why-it-matters" />
-<span id="without-curated-context" />
-<span id="with-curated-context" />
+1. **Describe the task.** The Context Builder gathers relevant code, and Oracle drafts an execution plan. A narrow context window and a double-checked plan is key for the best results.
+2. **Divide the work.** The Orchestrator assigns tasks with clear file boundaries. No hidden "Thinking..." output here.
+3. **Implement.** Agents work sequentially or in parallel from a shared plan, with the Orchestrator steering progress. The division of tasks and clarity that the Orchestrator offers is part of our "secret sauce."
+4. **Verify.** The Orchestrator checks the results against the plan and continues until complete. All together, this is what yields production-quality code.
 
 ## Coordinate larger changes without losing sight of them
 
@@ -150,144 +141,6 @@ Start with a question you can evaluate: understand an unfamiliar function, inves
 
 [Follow the getting-started walkthrough →](./overview/getting-started.mdx)
 
-## Learn More
-
-[![Video preview image](https://img.youtube.com/vi/ncY6cqOCd_Y/maxresdefault.jpg) RepoPrompt 101 Video walkthroughs of key features and workflows](https://youtube.com/playlist?list=PLFg9suyZ1OnLh3Tv5bP6jvWXcKKTlI_4m)
-
-[![Podcast cover art](../../static/images/docs/images/rate-limited_profile.jpg) Rate Limited Podcast AI coding workflows with Eric, Ray Fernando, Adam Larson](https://www.youtube.com/@ratelimitedpod)
-
-Some walkthroughs show Classic. Use the current guides below for RepoPrompt CE controls and supported workflows.
-
 ## Talk to These Docs
 
 Use **Copy page** to bring an article into an AI conversation. For the complete documentation, use the <a href={useBaseUrl('/llms.txt')}>LLM index</a> or <a href={useBaseUrl('/llms-full.txt')}>full documentation export</a>. Include your app version and the task you need help with.
-
-## Documentation table of contents
-
-<details>
-<summary>Browse every guide</summary>
-
-:::note
-
-RepoPrompt Classic and its `repoprompt-classic` repository are archived. **[Classic 2.1.0 archive](../version-classic-2.1.0/index.md)** is the documentation archive label: its instructions may describe earlier RepoPrompt Classic releases and are not specific to version 2.1.0. Features, interface labels, and workflows may differ from your installed version; check each guide's context before following it.
-
-:::
-
-### Overview
-
-- [Installation](./overview/installation.mdx)
-- [Getting Started](./overview/getting-started.mdx)
-- [Going Deeper](./overview/going-deeper.mdx)
-- [How It Works](./overview/how-it-works.mdx)
-- [How It (Really) Works](./overview/how-it-really-works.mdx)
-
-### Why RepoPrompt
-
-- [Why RepoPrompt](./why-repoprompt.mdx)
-
-### Agent Mode
-
-- [Overview](agent-mode/overview.mdx)
-- [Session History](agent-mode/session-history.mdx)
-- [Execution Location](agent-mode/execution-location.mdx)
-- [Workflow Templates](agent-mode/workflow-templates.mdx)
-- [Overseer](agent-mode/overseer.mdx)
-- [Interviewer](agent-mode/interviewer.mdx)
-- [Re-Prompter](agent-mode/re-prompter.mdx)
-- [Agent Decisions](agent-mode/model-router.mdx)
-- [Auto Effort](agent-mode/auto-effort.mdx)
-- [Computer Use](agent-mode/computer-use.mdx)
-- [Message Editor](agent-mode/message-editor.mdx)
-- [Model and Effort](agent-mode/model-and-effort.mdx)
-- [Tools](agent-mode/tools.mdx)
-- [Approvals and Paused Sessions](agent-mode/approvals.mdx)
-- [Oracle](agent-mode/oracle.mdx)
-- [Context Builder](agent-mode/context-builder.mdx)
-- [Prepare and Copy Context](agent-mode/context-composer.mdx)
-- [Image Support](agent-mode/image-support.mdx)
-- [Skills & Slash Commands](./agent-mode/skills.mdx)
-
-### Providers & Models
-
-- [Overview and provider directory](./providers/overview.mdx)
-- [Model availability, effort, tiers, and roles](./providers/models.mdx)
-
-### MCP Server
-
-- [Overview](./mcp-server/mcp-overview.mdx)
-- [Setup Guide](./mcp-server/mcp-setup.mdx)
-- [Setup Wizard](./mcp-server/setup-wizard.mdx)
-- [Tools Reference](./mcp-server/mcp-tools.mdx)
-- [App Settings Tool](./mcp-server/mcp-app-settings.mdx)
-- [Transport Modes](./mcp-server/mcp-transport.mdx)
-- [Settings & Presets](./mcp-server/mcp-settings.mdx)
-- [Connection Management](./mcp-server/mcp-connections.mdx)
-- [Workflow Commands](./mcp-server/workflow-commands.mdx)
-
-### Overseer Mode
-
-- [Overview](./overseer/overview.mdx)
-- [Lanes](./overseer/lanes.mdx)
-- [Linking Sessions](./overseer/linking-sessions.mdx)
-- [Best Practices](./overseer/best-practices.mdx)
-
-### Worktrees
-
-- [Worktrees overview](./worktrees/overview.mdx)
-- [Create and Use a Worktree](./worktrees/create-and-use.mdx)
-- [Review and Merge](./worktrees/review-and-merge.mdx)
-
-### Reference
-
-- [Settings Reference](./reference/settings.mdx)
-
-### Changelog
-
-- [Version 1.x Series](./changelog/ce-version-1-0.mdx)
-
-### FAQ
-
-- [What Is an Oracle?](./faq/what-is-an-oracle.mdx)
-- [What Happened to the Paid Version?](./faq/paid-version.mdx)
-- [How Do I Safely Migrate from Classic to RepoPrompt CE?](./faq/migrate-from-classic.mdx)
-- [Do I need to pay for AI services?](./faq/pay-for-services.mdx)
-- [Do I Need an API Key?](./faq/api-keys.mdx)
-- [How Do I Find the ChatGPT Pro Interface?](./faq/chatgpt-pro.mdx)
-- [Recover Credentials After an Upgrade](./faq/credential-recovery.mdx)
-- [Why Is My MCP Connection Not Working?](./faq/mcp-troubleshooting.mdx)
-- [Does RepoPrompt Run on Windows or Linux?](./faq/windows-linux.mdx)
-- [What Is the Tip Version and Should I Use It?](./faq/tip-version.mdx)
-- [Who Maintains RepoPrompt?](./faq/solo-project.mdx)
-- [How Can I Contribute?](./faq/contributing.mdx)
-- [How Do I Report an Issue or Submit a Feature Request?](./faq/report-issue.mdx)
-- [How can I build the application?](./faq/how-to-build.mdx)
-
-</details>
-
-## Code examples: MCP and shell
-
-<details>
-<summary>Compare MCP and CLI examples</summary>
-
-The following language tabs show the same read-only settings request. Code blocks provide a Copy button. See [App Settings Tool](./mcp-server/mcp-app-settings.mdx) for the current allowlist and [Setup Guide](./mcp-server/mcp-setup.mdx#terminal-access) for terminal installation.
-
-<Tabs groupId="settings-language">
-<TabItem value="json" label="JSON · MCP" default>
-
-Call `app_settings` with:
-
-```json
-{ "op": "get", "key": "ui.appearance_mode" }
-```
-
-</TabItem>
-<TabItem value="bash" label="Bash · rpce-cli">
-
-```bash
-rpce-cli -e 'call app_settings {"op":"get","key":"ui.appearance_mode"}'
-```
-
-</TabItem>
-</Tabs>
-
-</details>
