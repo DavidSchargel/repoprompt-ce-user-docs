@@ -126,7 +126,7 @@ RepoPrompt enables multi-hour, long-horizon engineering through **delegation-fir
 
 In `WorkflowPrompt+Orchestrate.swift` and `docs/architecture/agent-orchestration-guidance.md`, the orchestrator is strictly a **Coordinator**:
 
-- **Right-Sized Sub-Agent Work Items:** Anything spanning more than ~30 lines or touching more than 2 files is delegated to a fresh sub-agent (`agent_run op="start"`). The ideal sub-agent task touches **1–4 files**, addresses **one coherent concern**, and has explicit acceptance criteria.
+- **Focused Sub-Agent Work Items:** The orchestrator delegates implementation through `agent_run op="start"`, splitting the plan into coherent tasks with explicit acceptance criteria and dependency order. Delegation follows the workflow's coordinator role, not a fixed line-count or file-count threshold.
 - **Fresh Context Per Work Item:** Each worker sub-agent starts with a clean context window, reads the exported architectural plan (`Plan.md`), completes its scoped files, and returns a concise summary. When the worker finishes, its 30 turns of implementation tool calls are discarded rather than polluting the orchestrator.
 - **The Phase Gate Invariant:** Parallel sub-agents are instructed **not** to run full-repository builds or test suites concurrently (which causes build-lock contention and noisy failures). Instead, workers complete their scoped edits, and the orchestrator runs the build and test gate **once at the phase boundary**.
 - **Anti-Interference Rule:** While a delegated sub-agent is running, the orchestrator is forbidden from calling `steer` to hurry it or editing overlapping files in the same scope.
@@ -258,31 +258,32 @@ RepoPrompt's review pipeline (`WorkflowPrompt+Review.swift`, `SystemPromptServic
 
 ## 8. When RepoPrompt Would Not Be Helpful
 
-Engineering tools are defined as much by when _not_ to use them as by when to use them. Because Context Builder discovery, Oracle consultation, and multi-agent orchestration take extra time and tokens to run, RepoPrompt explicitly encodes **Fast Paths** and stop rules directly in its system and workflow prompts (`SystemPromptService.swift`, `WorkflowPrompt+Build.swift`, `WorkflowPrompt+Investigate.swift`, and `WorkflowPrompt+Orchestrate.swift`).
+Context Builder discovery, Oracle consultation, and multi-agent orchestration take time and tokens. Choose a workflow for the work you need, and follow its required stages. A small task does not automatically bypass a selected workflow's rules.
 
 Here is when full RepoPrompt workflows or Context Builder pipelines are **not** helpful — and what to do instead:
 
-### 1. Localized, Obvious 1–3 File Edits (Use the Fast Path)
+### 1. Localized, Obvious Edits
 
-If you already know which file needs to change, the edit is confined to **1–3 files**, and there are no architectural unknowns (for example, fixing a typo, adding a straightforward prop to a React component, or updating a single validation regex), running `context_builder` and consulting an Oracle adds unnecessary latency.
+If the target and change are already clear, an ordinary Agent Mode request can be enough. The agent can inspect the relevant files and make the requested edit without selecting a larger workflow. There is no fixed file-count or line-count threshold for that choice.
 
-- **How RepoPrompt handles this:** Both `/rp-build` (`WorkflowPrompt+Build.swift`) and `/rp-investigate` (`WorkflowPrompt+Investigate.swift`) include an explicit **Phase 1 Fast Path** rule: when the target is localized (1–3 files) and unambiguous, the agent is instructed to **skip `context_builder`, `agent_explore`, and Oracle planning**, read the target file directly with `read_file`, and apply the change with `apply_edits`.
+- **Build:** `/rp-build` requires Context Builder to gather context and produce a plan before implementation. A further Oracle consultation is optional when the plan is clear; the builder stage is not.
+- **Investigate:** `/rp-investigate` is read-only with respect to source code. It requires Context Builder and produces an investigation report rather than applying a fix. Its conditional shortcuts can reduce follow-up investigation, not turn it into an editing workflow.
 
-### 2. Micro-Tasks Under ~30 Lines (Skip Sub-Agent Orchestration)
+### 2. Tasks That Do Not Need Delegation
 
-Spawning a sub-agent (`agent_run op="start"`) requires spinning up a new session, reading the plan file, and reporting back.
+Delegation adds coordination, task briefs, and verification. For work you want one agent to implement directly, use an ordinary request or the Build workflow.
 
-- **How RepoPrompt handles this:** `WorkflowPrompt+Orchestrate.swift` defines explicit **Sub-Agent Sizing Heuristics**: if a change is **under ~30 lines and touches ≤ 2 files** (such as a single-line fix or a simple symbol rename), the agent should execute it directly or batch it with related work rather than delegating to a sub-agent.
+- **Orchestrate:** `/rp-orchestrate` plans, decomposes, and delegates implementation to sub-agents. The coordinator monitors and verifies their work. A named file can shorten orientation, and an existing plan can skip plan generation, but neither changes the coordinator into the implementer.
 
 ### 3. Routine Turn-by-Turn Agent Exploration (Skip Automatic `context_builder`)
 
 If you are already in the middle of an interactive coding session and ask a quick follow-up question about a file you are looking at, launching a full two-stage `context_builder` discovery sub-agent is overkill.
 
-- **How RepoPrompt handles this:** Section 3 of `SystemPromptService.agentModePrompt` (`Context Builder — Disabled Unless Explicitly Requested`) explicitly instructs Agent Mode sessions **not** to invoke `context_builder` on routine turns unless you ask for it by name or select a workflow that requires it. Instead, the agent uses lightweight direct calls (`get_file_tree`, `file_search`, `get_code_structure`, `read_file`) that return in milliseconds.
+- **How RepoPrompt handles this:** Ordinary Agent Mode turns can use direct tools such as `get_file_tree`, `file_search`, `get_code_structure`, and `read_file`. Context Builder is used when explicitly requested or required by the selected workflow. A routine follow-up does not by itself require another full discovery pass.
 
 ### 4. Standalone Scripts, LeetCode-Style Puzzles, or Zero-Context Tasks
 
-RepoPrompt is an architectural context engine for multi-file repositories. If you are writing a self-contained 50-line Python script from scratch, solving an isolated algorithm puzzle, or drafting prose with no codebase dependencies, there are no cross-file contracts, call graphs, or Code Maps to curate — a direct chat with your model is faster and simpler.
+RepoPrompt is an architectural context engine for multi-file repositories. If you are writing a self-contained script from scratch, solving an isolated algorithm puzzle, or drafting prose with no codebase dependencies, there may be no cross-file contracts, call graphs, or Code Maps to curate. A direct model conversation may be sufficient.
 
 ---
 
@@ -297,4 +298,4 @@ RepoPrompt is an architectural context engine for multi-file repositories. If yo
 | **Compaction Amnesia**              | Automatic mid-task truncation drops negative side constraints and architectural context.          | **Intentional `self_compact`** at turn boundaries, dedicated `<repoprompt_self_compact_note>` delivery, `oracle_chat_log` recovery, and `<forked_session>` handoffs.                                          |
 | **Single-Model Blind Spots**        | Forcing think-then-act models to edit mid-thought, or relying on one model for every task.        | **Tool-less Oracle** paired with tool-native agents, **4 Agent Roles** (`explore`, `engineer`, `pair`, `design`), **Multi-Oracle Rosters** (up to 5 models in parallel), and local **Usage Balancing**.       |
 | **Diff-Only Review Blindness**      | Reviewing a git patch in isolation misses broken upstream callers and downstream contracts.       | **Selectable Diff Artifacts** (`_git_data/.../MAP.txt`, `all.patch`, per-file patches) combined with curated caller/callee context in `context_builder(response_type="review")`.                              |
-| **Over-Engineering Simple Edits**   | Running heavy discovery and multi-agent orchestration on a 2-file bug fix wastes time.            | Built-in **Fast Path** gates in `/rp-build` and `/rp-investigate` (≤ 3 files), **~30-line threshold** in `/rp-orchestrate`, and disabled-by-default `context_builder` on routine turns.                       |
+| **Unnecessary Workflow Overhead** | Selecting a planning or delegation workflow when a direct, well-scoped request would suffice. | Use ordinary Agent Mode for direct work. Build requires Context Builder; Investigate remains read-only; Orchestrate delegates implementation. Choose by task needs, not fixed file or line counts. |
