@@ -28,9 +28,17 @@ Do not replace RepoPrompt CE's application-data directory with Classic's directo
 
 Use [Providers & Models](../providers/overview.mdx) to configure the coding runtime and the model connections your workflow needs. Check Oracle and Context Builder choices separately. A working CLI login does not automatically configure direct API access.
 
-If an expected credential is missing, inspect the relevant provider settings. [Credential Recovery](./credential-recovery.mdx) describes the explicit repair flow for known legacy RepoPrompt CE and RepoPrompt Classic Keychain accounts. That flow is not a complete Classic credential import. If it finds no suitable value, authenticate or enter the credential through the provider's current setup controls.
+[Credential Recovery](./credential-recovery.mdx) covers known legacy RepoPrompt CE accounts only; it does not import Classic credentials. When moving from Classic, authenticate with the provider through [CLI Providers](../settings/agent-mode/cli-providers.mdx), or re-enter your API credential through [API Providers](../settings/models-and-providers/api-providers.mdx), as appropriate for your connection.
+
+:::warning[Protect your credentials]
+API keys and tokens can grant access to your accounts and paid services. Do not paste them into AI conversations, public issues, screenshots, or plaintext migration notes. Use the provider's sign-in flow or the intended credential field in Settings. If a credential is exposed, revoke it with the provider and create a replacement.
+:::
 
 Validate the connection before changing or removing old credentials. Keep legacy values while you still need rollback access; deleting a local key is different from revoking it with the provider.
+
+:::warning[Use caution with macOS Keychain]
+Do not reset your Keychain, delete unrelated entries, or broaden access permissions to complete this migration; those changes can affect other applications and accounts. Check the requesting application and intended item before approving access. If you are unsure, cancel and use the provider's current sign-in or credential-entry controls instead.
+:::
 
 ## 4. Reconnect external tools and review custom prompts
 
