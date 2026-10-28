@@ -48,12 +48,14 @@ jobs:
           PUBLISH_APPROVED: ${{ vars.PUBLISH_APPROVED }}
           LEGAL_TEXT_APPROVED: ${{ vars.LEGAL_TEXT_APPROVED }}
         run: |
+          set -eu
           test "$GITHUB_REF" = refs/heads/main
           test "$PUBLISH_APPROVED" = true
           test "$LEGAL_TEXT_APPROVED" = true
           test -n "$PAGES_OWNER"
           test -n "$PAGES_REPOSITORY"
           test "$PAGES_OWNER/$PAGES_REPOSITORY" = "$GITHUB_REPOSITORY"
+          node scripts/check-publication-origin.cjs
       - name: Install locked dependencies
         run: pnpm install --frozen-lockfile
       - name: Validate root and project URL layouts
