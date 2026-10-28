@@ -91,7 +91,7 @@
       "redactions": []
     }
   ],
-  "source_repository": "/Users/david/Developer/Projects/synced-repos/repoprompt/repoprompt-ce",
+  "source_repository": "repoprompt/repoprompt-ce",
   "source_revision": "3253f289a69a366b3e55bd28f47d024f932d77a5",
   "reviewed_sources": [
     "Sources/RepoPrompt/Features/Settings/Views/SettingsView.swift",
