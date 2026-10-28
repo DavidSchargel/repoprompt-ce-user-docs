@@ -194,32 +194,29 @@
       "type": "category",
       "label": "Reference",
       "className": "sidebar-cat-sliders",
-      "items": [
-        "reference/settings"
-      ]
+      "items": ["reference/settings"]
     },
     {
       "type": "category",
       "label": "Changelog",
       "className": "sidebar-cat-pencil",
-      "items": [
-        "changelog/ce-version-1-0"
-      ]
+      "items": ["changelog/ce-version-1-0"]
     },
     {
       "type": "category",
       "label": "FAQ",
       "className": "sidebar-cat-puzzle",
       "items": [
-        "faq/what-is-an-oracle",
-        "faq/paid-version",
-        "faq/migrate-from-classic",
+        "faq/videos",
         "faq/pay-for-services",
-        "faq/api-keys",
+        "faq/windows-linux",
+        "faq/paid-version",
         "faq/chatgpt-pro",
+        "faq/what-is-an-oracle",
+        "faq/api-keys",
+        "faq/migrate-from-classic",
         "faq/credential-recovery",
         "faq/mcp-troubleshooting",
-        "faq/windows-linux",
         "faq/tip-version",
         "faq/solo-project",
         "faq/contributing",
