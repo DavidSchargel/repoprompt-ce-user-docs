@@ -81,9 +81,9 @@ Reviewing isolated Git patches without surrounding repository context creates hi
 
 ### 8. Over-Engineered Simple Edits
 
-Triggering heavy multi-agent orchestration, full discovery pipelines, or multi-model planning for trivial, localized 1–3 file fixes wastes time, tokens, and developer patience.
+Triggering heavy multi-agent orchestration, full discovery pipelines, or multi-model planning for small, well-understood edits adds unnecessary time and token use.
 
-- **How RepoPrompt solves it:** Built-in **Fast Path** rules in `/rp-build` and `/rp-investigate`, the **~30-line / ≤ 2-file threshold** in `/rp-orchestrate`, and disabled-by-default `context_builder` on routine turns. See [When RepoPrompt Would Not Be Helpful](./overview/how-it-really-works.mdx#8-when-repoprompt-would-not-be-helpful).
+- **How RepoPrompt solves it:** Use an ordinary Agent Mode request for a small, well-understood edit instead of selecting a workflow that adds planning or delegation. See [When RepoPrompt Would Not Be Helpful](./overview/how-it-really-works.mdx#8-when-repoprompt-would-not-be-helpful).
 
 ---
 
