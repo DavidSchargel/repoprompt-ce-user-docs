@@ -60,10 +60,10 @@ The descriptions in this catalog explain purpose, not permission. A tool being l
 
 ### `bind_context`
 
-List, inspect, and bind the workspace context used by this MCP connection. `op` is `list`, `status`, or `bind`. Bind with absolute `working_dirs` workspace roots or a `context_id` returned by discovery. `create_if_missing` requests creation when no suitable workspace exists, subject to approval. The current global schema does not accept `window_id`.
+List, inspect, and bind the workspace context used by this MCP connection. `op` is `list`, `status`, or `bind`. Bind with `working_dirs`, a comma-separated string of absolute workspace roots, or a `context_id` returned by discovery. `create_if_missing` requests creation when no suitable workspace exists, subject to approval. The current global schema does not accept `window_id`.
 
 ```json
-{"op":"bind","working_dirs":["/Users/example/Project"]}
+{"op":"bind","working_dirs":"/Users/example/Project"}
 ```
 
 Use a returned `context_id` when a stable compose-tab context is required. See [Connection Management](./mcp-connections.mdx#context-binding).
@@ -306,9 +306,9 @@ See [Workflow Commands](./workflow-commands.mdx#git-integration) for review-orie
 | Parameter | Description |
 | --- | --- |
 | `op` | status \| diff \| log \| show \| blame |
-| `repo_root` | Repo path or loaded root name (defaults to first loaded root). Supports suffixes: `:worktree` or `:main` to target a specific checkout |
+| `repo_root` | Repository path or loaded root name. Use `@main` for the main checkout or `@wt` for the current checkout, either alone or appended to a root such as `Project@main`. Omission uses the session-aware default described below. |
 | `repo_roots` | Array of repo paths or names (for multi-root operations) |
-| `compare` | Compare spec: uncommitted (default), staged, unstaged, mergebase:X, back:N, last, main, trunk, or any revspec. `main`/`trunk` and `*:main` use merge-base semantics. |
+| `compare` | Compare spec: uncommitted (default), staged, unstaged, mergebase:X, back:N, last, main, trunk, or any revspec. `main` and `trunk` use merge-base semantics. |
 | `detail` | summary (default) \| files \| patches \| full |
 | `scope` | all \| selected (diff scope) |
 | `artifacts` | Write snapshot artifacts (MAP.txt, patches) for diff |
@@ -325,7 +325,9 @@ See [Workflow Commands](./workflow-commands.mdx#git-integration) for review-orie
 - **show:** Single commit details
 - **blame:** Line-by-line attribution
 
-**Worktrees:** Full support for git worktrees. Status and diff output include worktree metadata (branch, main checkout path). Use `repo_root` suffixes to target specific checkouts in multi-worktree setups.
+**Default repository:** When `repo_root` is omitted, the session's sole applicable worktree binding selects the checkout. With no session worktree bindings, the default is the workspace's declared **PRIMARY** root, not the first root to finish loading. If that root is unavailable or is not a Git repository, the tool does not silently fall back to another root. Multiple session bindings have no default: identify the repository explicitly with a path, root name, or `repo_key`. Bare `@main` and `@wt` still require a default repository and do not resolve that ambiguity.
+
+**Worktrees:** Status and diff output include worktree metadata such as the branch and main checkout path. Use a qualified selector such as `Project@main` or `Project@wt` to identify both the repository and checkout. The `@main` selector chooses a checkout; `compare="main"` chooses a comparison base. These are separate settings.
 
 **Safety:** All git commands use `--no-ext-diff`, `--no-textconv`, `--color=never`, and `GIT_TERMINAL_PROMPT=0` to ensure predictable, safe output.
 
