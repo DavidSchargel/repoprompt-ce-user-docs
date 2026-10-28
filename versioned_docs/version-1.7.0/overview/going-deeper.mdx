@@ -1,0 +1,279 @@
+---
+id: "going-deeper"
+title: "Going Deeper"
+description: "Take a coding task from a clear brief to verified delivery in ten steps, with optional techniques for context, planning, coordination, and review."
+slug: "/overview/going-deeper"
+hide_table_of_contents: false
+toc_min_heading_level: 2
+toc_max_heading_level: 2
+---
+
+[Getting Started](./getting-started.mdx) gives you a four-step path through your first task. This guide expands that path into ten steps for work that needs more investigation, more coordination, or more careful review. Use the parts that help your task; a small fix does not need several agents, a formal plan document, and multiple Oracle consultations.
+
+Complete the [connection setup in Getting Started](./getting-started.mdx#before-step-1-connect-the-coding-runtime-and-oracle) first. For the location of a screen control, use [Agent Mode Overview](../agent-mode/overview.mdx).
+
+| Getting Started | Going Deeper |
+| --- | --- |
+| [Step 1: Describe the task](./getting-started.mdx#step-1-describe-the-task) | Steps 1–4: establish the workspace, choose access, write the brief, and select your approach. |
+| [Step 2: Prepare context and a plan](./getting-started.mdx#step-2-prepare-context-and-a-plan) | Steps 5–6: curate the evidence and review the plan. |
+| [Step 3: Implement and guide](./getting-started.mdx#step-3-implement-and-guide) | Steps 7–8: assign work, follow progress, and correct direction. |
+| [Step 4: Verify and finish](./getting-started.mdx#step-4-verify-and-finish) | Steps 9–10: verify the combined result, integrate it, and preserve a useful handoff. |
+
+## Step 1: Establish the workspace and starting point
+
+Before describing a change, make sure the agent will investigate the right project. Open the project with **File → Open** and inspect the loaded workspace. If several repository roots are available, identify which one owns the task and which others are references. A phrase such as “the web app” can be ambiguous when the workspace contains several applications.
+
+Ask the agent to establish a baseline: the active repository and branch, existing local edits, relevant project instructions, and the checks normally used for this part of the code. This makes it easier to distinguish the task's changes from work that was already present. Do not ask it to discard, reset, or commit unrelated edits just to obtain a clean starting point.
+
+For a bug, supply a reproducible observation before asking for a fix. Include what you did, what happened, and what you expected. For a feature, identify the user-facing outcome and any existing behavior that must remain. If the agent cannot reproduce a problem, have it state what it could verify rather than treating an explanation as a confirmed cause.
+
+:::tip[Try a short orientation request]
+
+For an unfamiliar repository, start with: “Identify the code that owns this behavior, read the relevant project instructions, and report existing local changes. Do not edit yet.” Review the answer, then give the implementation task in the same session.
+
+:::
+
+:::tip[Connect an external agent to the same workspace]
+
+An external MCP client can use `bind_context` with `op="list"` to discover contexts, then bind using the intended workspace roots or returned context ID. Check its binding before asking it to work; the RepoPrompt tab you can see is not proof of what that connection targets. See [Connection Management](../mcp-server/mcp-connections.mdx#context-binding).
+
+:::
+
+Continue when you and the agent agree on the project, the starting state, and the behavior being changed.
+
+## Step 2: Choose the checkout, tools, and permissions
+
+Open **Work locally** before the first message and decide where the changes belong. **Workspace checkout** uses the checkout already open. **New worktree** prepares a separate Git checkout for the task. **Existing worktrees** lets you continue work in an available checkout. Inspect the location indicator and any creation error after sending; selecting a worktree is not evidence that creation succeeded.
+
+Use the workspace checkout for a focused task when its changes can safely coexist with your current work. A separate worktree is useful for an experiment, an alternative implementation, or concurrent agents that might edit overlapping files. Separate conversations alone do not isolate edits. For a workspace with several repositories, identify the relevant repository rather than assuming one worktree covers all of them.
+
+Check **Tools** and **Permissions** for the selected provider. Available controls differ by integration, and MCP-launched sub-agents have a separate policy. Give the agent the capabilities the task requires; a model choice or workflow template does not grant tool access. Read approval requests in the context of the actual action and checkout.
+
+:::tip[Use a worktree for an experiment]
+
+Try a separate worktree when you want to compare two approaches without mixing their edits. Give each session a clear purpose and review the resulting diffs before choosing what to integrate. See [Execution Location](../agent-mode/execution-location.mdx) and [Create and Use a Worktree](../worktrees/create-and-use.mdx).
+
+:::
+
+:::tip[Investigate before granting write access]
+
+For diagnosis or code review, consider the provider's read-only options where available. A worktree isolates repository files but does not isolate credentials, databases, or external services. Check [Tools](../agent-mode/tools.mdx) and [Agent Permissions](../settings/agent-mode/agent-permissions.mdx) for the actual controls and their limits.
+
+:::
+
+Avoid changing an established session's execution location casually. It restarts the provider context and can require stopping an active run. Finish or stop the current work deliberately, then review the location change before continuing.
+
+## Step 3: Write a brief you can verify
+
+This is the request-writing part of [Getting Started, Step 1](./getting-started.mdx#step-1-describe-the-task). Describe the result rather than trying to predict every implementation detail. Give known files, symbols, screenshots, or error messages as starting points, and distinguish confirmed facts from suspected causes.
+
+A useful brief covers four things: the observed or desired behavior, the scope, the constraints, and the evidence that will count as success. “Make login better” leaves all four open. “Return an expired session to sign-in, preserve the destination, and prove that signing in resumes navigation” gives the agent something specific to investigate and verify.
+
+For example:
+
+```text
+When a session expires, opening a protected page leaves a blank screen.
+Return the user to sign-in and preserve the requested destination.
+
+Keep the existing page design and support direct links to protected pages.
+Investigate the current session and navigation code before choosing a fix.
+
+Show me the plan and wait for approval before editing.
+Verify expiration, successful sign-in, and failed sign-in behavior.
+Report the checks run and anything you could not verify.
+```
+
+The request for a planning pause is explicit. Selecting a planning-oriented workflow alone does not guarantee a human checkpoint. Likewise, a list of preferred files does not enforce a filesystem boundary; use the relevant permission controls as well as clear task instructions.
+
+:::tip[Add one concrete example]
+
+A short reproduction, an input/output example, or a screenshot often resolves ambiguity better than another paragraph of adjectives. Explain what the example demonstrates and which details must be preserved. Attachments are separate from selected repository context; see [Image Support](../agent-mode/image-support.mdx).
+
+:::
+
+:::tip[Separate requirements from suggestions]
+
+Write “The public API must stay compatible” for a requirement and “The cache may be involved; please investigate” for a hypothesis. This lets the agent examine alternatives without accidentally treating your first guess as the required solution.
+
+:::
+
+## Step 4: Choose the workflow and optional assistance
+
+Choose a **What are we building?** card or use the **Workflow** selector above the editor. Match the method to the task. **Plan & Build** combines research and implementation; **Deep Plan** produces a plan without implementation; **Investigate** focuses on diagnosis; **Review** examines changes; **Orchestrate** coordinates work across agents. The [Workflow Templates guide](../agent-mode/workflow-templates.mdx) explains the full catalog.
+
+The workflow wraps the message you submit. Its selection clears after submission, so choose it again when a later message needs that procedure. A normal follow-up can simply refer to the current task without restarting its entire workflow.
+
+Choose the execution model and effort from the options offered by your connected provider. Oracle and Context Builder have separate model selections. Use [Providers & Models](../providers/models.mdx) to understand those roles and availability rather than copying a model name from a screenshot.
+
+:::tip[Try Re-prompt on a rough draft]
+
+[Re-prompt](../agent-mode/re-prompter.mdx) can turn notes into a clearer brief before the execution agent receives them. In review mode, inspect the rewrite for changed constraints or invented requirements before sending. It does not inspect the contents of your attachments, so describe their purpose in the message.
+
+:::
+
+:::tip[Use Interview when a decision is still open]
+
+Turn on [Interviewer](../agent-mode/interviewer.mdx) before the first task if the agent should ask a few questions about scope or tradeoffs. Re-prompt helps prepare the draft; Interview asks the execution agent to clarify it after submission. You do not need both for a request that is already clear.
+
+:::
+
+:::tip[Try automatic decisions separately]
+
+[Agent Decisions](../agent-mode/model-router.mdx) can route eligible new tasks, while [Auto Effort](../agent-mode/auto-effort.mdx) adjusts effort for eligible turns on an explicitly selected model. Try one feature at a time so you can judge its effect on your work. Review the chosen service's setup and data-sharing details first; automatic selection is not a guarantee of lower cost or a better result.
+
+:::
+
+## Step 5: Discover and curate the relevant context
+
+This expands the discovery part of [Getting Started, Step 2](./getting-started.mdx#step-2-prepare-context-and-a-plan). Give Context Builder a task to investigate, not merely a request to gather many files. Useful context explains the behavior, the surrounding contracts, and the checks that protect them.
+
+An agent-driven workflow can call Context Builder for you. To inspect or run it yourself, open the context drawer and choose **Context Builder**. Review the discovery model, enter the **Task Description**, inspect the **Budget**, and choose **Run**. Use the **Selections** tab to inspect the resulting files and Code Maps. The **Prompt** tab holds receiving-model instructions, which are distinct from the discovery task.
+
+Context Builder uses repository search and code-structure information to build a selection. Different representations serve different purposes:
+
+| Representation | Useful when |
+| --- | --- |
+| Full file | The implementation, nearby logic, and local conventions matter together. |
+| Line slice | A particular section of a large file is relevant and its boundaries are understood. |
+| Code Map | The receiving model needs surrounding types, signatures, and relationships without every implementation body. |
+
+Inspect the selection for missing callers, related tests, configuration, and error paths. If a result is incomplete, explain which relationship is missing and why it matters. Adding the entire repository can hide the important material without resolving that gap.
+
+:::tip[Ask for the path through the code]
+
+Try: “Find the entry point, the session-expiration decision, the navigation result, and the tests covering that path.” A concrete relationship gives discovery a better target than “find everything about authentication.”
+
+:::
+
+:::tip[Adjust the budget after inspecting the package]
+
+Try a smaller budget when the selection contains much unrelated code. If essential implementation was reduced to signatures or omitted, refine the task or increase the budget. A budget is a selection target, not an output limit or proof that all required evidence fits. See [Context Builder settings](../settings/agent-mode/context-builder.mdx).
+
+:::
+
+:::tip[Preserve a carefully written prompt]
+
+If you want Context Builder to change the selection while retaining your receiving-model instructions, consider **Prompt Enhancement → Preserve**. **Augment** keeps the instructions and appends context; **Rewrite** allows rewriting. This setting is separate from the composer's Re-prompt feature.
+
+:::
+
+## Step 6: Review an Oracle-backed plan
+
+The planning half of [Getting Started, Step 2](./getting-started.mdx#step-2-prepare-context-and-a-plan) turns the evidence into a proposed change. Oracle analyzes the context it receives; the coding agent remains responsible for implementation. Ask the plan to identify the existing behavior, the proposed change, affected components, important edge cases, and how the result will be checked.
+
+Discovery and planning can happen in one Context Builder request. For MCP-driven work, `response_type: "plan"` requests the planning follow-up, and `export_response: true` requests an exported response. There is no need to repeat discovery solely to move from those two stages. In the interface, inspect **Analysis follow-up** and the selected response type. See [Context Builder](../agent-mode/context-builder.mdx) for the controls and [the tool reference](../mcp-server/mcp-tools.mdx#context_builder) for MCP arguments.
+
+Review the plan against your original brief. Does it explain why the proposed change addresses the observed problem? Does it preserve the required behavior? Are tests tied to the changed paths? Which assumptions still need confirmation? Resolve those questions before authorizing implementation when you requested a pause.
+
+For multi-agent work, keep the accepted plan in a shared Markdown document and have workers read it. Use the actual returned export path or an explicitly saved plan rather than assuming a file named `Plan.md` exists. Update the plan when the agreed approach changes so later workers do not implement an obsolete version.
+
+:::tip[Use another Oracle for a consequential tradeoff]
+
+You can configure additional Oracles in [Agent Models](../settings/agent-mode/agent-models.mdx#oracle-models). Ask for independent analysis of a specific risk, then compare the evidence behind disagreements. More responses are not votes, and grouped consultations consume usage across the participating models.
+
+:::
+
+:::tip[Export a focused second-opinion package]
+
+The **ChatGPT Export** workflow or [Prepare and Copy Context](../agent-mode/context-composer.mdx) can help you take the question and selected code to another model. Review the package before sharing it, then bring useful conclusions back to the coding session with the assumptions and evidence attached.
+
+:::
+
+## Step 7: Divide the work into clear assignments
+
+For a small change, the current agent can implement the whole plan. For a larger task, this step prepares the coordinated version of [Getting Started, Step 3](./getting-started.mdx#step-3-implement-and-guide). Divide work by deliverable and dependency, not simply by the number of agents available.
+
+Give each assignment a purpose, the files or components it may change, reference material, dependencies, and a concrete completion condition. Define shared interfaces before two workers implement opposite sides of them. If workers need to modify the same central file, sequence their work or give one worker ownership of that integration point.
+
+For example, after agreeing on the session-expiration behavior:
+
+```text
+Assignment: Add coverage for expired-session navigation.
+Read: the accepted plan and the existing navigation test helpers.
+Change: the navigation tests; do not change production behavior.
+Coordinate: tell the implementation worker if the tests reveal a missing case.
+Done when: expiration, return destination, and failed sign-in are covered.
+Report: changed files, checks run, and any unresolved assumptions.
+```
+
+Use the configured **Explore**, **Engineer**, **Pair**, and **Design** roles according to the assignment, not as substitutes for its scope. Their model mappings live in [Agent Models](../settings/agent-mode/agent-models.mdx#sub-agent-role-defaults). Inspect execution locations and permissions separately: MCP-launched sub-agents and user-created top-level sessions do not necessarily use the same policy.
+
+:::tip[Parallelize discovery before parallelizing edits]
+
+Try one read-only investigation of implementation paths and another of relevant tests. Compare their findings before assigning writes. This can reveal shared files or conflicting assumptions while changes are still easy to coordinate.
+
+:::
+
+:::tip[Add an overseer when coordination becomes the task]
+
+[Overseer](../overseer/overview.mdx) can follow linked sessions, help direct work, and organize results within the authority you grant. Start with a few clear assignments. Review delegation scope when prompted; enabling oversight alone does not grant unrestricted access to existing sessions.
+
+:::
+
+Before launching workers, make sure someone owns the combined result, including changes that cross assignment boundaries.
+
+## Step 8: Run the work and steer deliberately
+
+Once the approach is accepted, tell the agent to proceed. Follow the conversation and open tool cards when you need to understand a read, command, or edit. Respond to questions and approval requests in their active cards. A message in the composer is useful for direction, but does not replace an answer to a pending interaction.
+
+Keep tightly dependent work sequential. For example, establish the expiration decision first, update navigation to use it, then verify the whole sign-in path. Continuing with the same worker can retain useful context; launch a separate worker when the next assignment benefits from an independent investigation or a clearly separate scope.
+
+Run independent work concurrently only when its file ownership and dependencies are clear. An orchestrating agent can collect worker session IDs and monitor them together. In MCP-driven coordination, a multi-session `agent_run` wait returns when the first session reaches an interesting state; it does not mean all workers are finished. Handle that result or question, then keep monitoring the remaining sessions. See [agent_run](../mcp-server/mcp-tools.mdx#agent_run) for the request and result format.
+
+:::tip[Steer with a precise correction]
+
+Try: “Keep the current sign-in form unchanged. Limit the fix to the expired-session redirect and its tests.” State what should continue as well as what should change. For MCP-controlled workers, use `agent_run` steering to direct work and `respond` to answer a pending interaction.
+
+:::
+
+:::tip[Reduce repeated status checking]
+
+Use the orchestrator's wait operation or an overseer's wake controls instead of repeatedly asking every worker for status. You can also configure [Notifications](../settings/general/notifications.mdx) for approvals, questions, or completion. Automatic wake-ups can consume model usage; choose them for work that needs active supervision.
+
+:::
+
+If the task changes materially, stop and revise the accepted plan and assignments. A late instruction in one worker's chat does not automatically update every other worker. If a run fails or is interrupted, inspect its last tool result, current files, and Git state before retrying; some work may already have been applied.
+
+## Step 9: Review and verify the combined result
+
+This is the evidence-gathering part of [Getting Started, Step 4](./getting-started.mdx#step-4-verify-and-finish). An idle session, a successful tool call, or a worker's “done” message is not enough to establish that the requested behavior works.
+
+Start with the complete diff against the intended baseline. Look for unrelated changes, missing files, altered public behavior, and mismatches with the accepted plan. In a shared checkout, distinguish the task's edits from changes that belonged to someone else. For parallel work, review interactions between contributions as well as each contribution individually.
+
+Run the repository's appropriate checks in the checkout containing the combined result. Ask the agent to report what it actually ran, whether it passed, and what was unavailable. Reproduce the original problem and test the intended replacement behavior where possible. For a UI change, inspect the rendered result and relevant keyboard interactions; a type check alone cannot show whether the screen is usable.
+
+:::tip[Give review a defined comparison]
+
+The **Review** workflow can inspect uncommitted changes or a specified Git comparison. Tell the reviewer which branch or commits define the task and what risks deserve attention. “Review the expired-session fix for lost destinations and redirect loops” is more useful than an unspecified request to review everything.
+
+:::
+
+:::tip[Ask for evidence by requirement]
+
+Try: “For each acceptance criterion, point to the implementation and the check that verifies it. Mark anything unverified.” This makes gaps visible without requiring a long transcript of every command.
+
+:::
+
+Fix a failed check or incomplete requirement with a bounded follow-up. Repeat the checks affected by that fix and verify the combined state again. Update the plan's completion status from those results, not just from worker activity.
+
+## Step 10: Integrate, record, and close the task
+
+Finish the delivery part of [Getting Started, Step 4](./getting-started.mdx#step-4-verify-and-finish) in the checkout that should retain the work. Review what will be committed and keep unrelated edits out. Ask for a useful commit message explaining the resulting behavior and, for a substantial change, the reason behind it.
+
+If the task ran in a worktree, a commit there does not put the change into your main workspace. Review and commit the intended source edits, identify the target checkout, and request a merge preview. RepoPrompt's merge flow checks the source and target and presents a review before application. If either checkout changes after preview, request a fresh preview rather than assuming the earlier result still applies.
+
+Resolve merge conflicts in the **target checkout** named by the conflict card. After integration, inspect the target's history and run the relevant checks there. Keep the source worktree until you have verified the integrated result. Follow [Review and Merge](../worktrees/review-and-merge.mdx) for the exact controls; committing, merging, pushing, and deploying are separate actions.
+
+:::tip[Leave a handoff that supports the next task]
+
+Ask for a short summary of the outcome, relevant commits, checks, open questions, and anything deliberately deferred. Use **Handoff** where available to prepare context for another session, then review its destination and contents. It does not guarantee that every detail of a long conversation will fit in the next model's context.
+
+:::
+
+:::tip[Keep useful work without keeping it active]
+
+Use [Session History](../agent-mode/session-history.mdx) to return to completed conversations. Stash or archive work you may revisit; unlink coordination relationships and release delegated scopes when their purpose ends. Review worktree cleanup separately after integration. Closing a conversation is not proof that its file changes were committed or merged.
+
+:::
+
+The task is ready to close when the requested outcome is verified, the intended checkout contains the result, and remaining limitations or follow-up work are explicit. For the next small task, return to the [four-step Getting Started guide](./getting-started.mdx); use this longer path when its extra decisions will help.

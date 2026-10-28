@@ -1,137 +1,39 @@
 ---
 id: "getting-started"
 title: "Getting Started"
-description: "Follow an end-to-end starting workflow to go from an initial task prompt to verified code delivery using Context Builder, Oracle planning, and coordinated sub-agents."
+description: "Complete your first coding task in four steps: describe it, prepare context and a plan, implement, and verify."
 slug: "/overview/getting-started"
-keywords:
-  [
-    "getting started",
-    "starting workflow",
-    "orchestration",
-    "context builder",
-    "oracle",
-    "plan",
-    "sequential",
-    "parallel",
-    "sub-agents",
-    "multi-wait",
-    "steer",
-    "verify",
-  ]
 hide_table_of_contents: false
-toc_min_heading_level: 2
-toc_max_heading_level: 4
 ---
 
-Welcome to RepoPrompt! If you have never used RepoPrompt before, think of it as a **context coordinator and mission control** for AI coding agents.
+This is the simple quick-win-in-5-minutes to get going with RepoPrompt instructions. It is just a bare-bones starting point. Once you've seen how it it doesn't take much for RepoPrompt to generate clean production-ready code that is a step above what you're currently getting, you'll want to take just over an hour to [Go Deeper](./going-deeper.mdx) into how to level up your coding game.
 
-When you give a large feature request to a single coding agent in a terminal, it often spends half its working memory searching for files, reading irrelevant code, and losing track of requirements. RepoPrompt prevents this by breaking engineering work into a clear pipeline: **discover the right files → write an architectural plan → delegate scoped tasks to specialized sub-agents → verify the results**.
+## Before Step 1: Connect the coding runtime and Oracle
 
-After [installing RepoPrompt](./installation.mdx) and opening a project folder (**File → Open**), follow this starting workflow to take a task from an initial prompt to verified code delivery.
+Open **Settings → Agent Mode → CLI Providers** and connect the coding runtime you want to use. Complete its sign-in and use **Test Connection** to check it. [Providers & Models](../providers/overview.mdx) explains the available connections.
 
----
+In **Settings → Agent Mode → Agent Models**, choose an available **Context Builder Agent** to find relevant files and an **Oracle** to help analyze them. The [Setup Wizard](../mcp-server/setup-wizard.mdx) can help with these choices.
 
-## Starting Workflow
+## Step 1: Describe the task
 
-### Before Step 1: Connect the coding runtime and Oracle
+Open your project with **File → Open**. In a new Agent Mode session, choose **Work locally → Workspace checkout**, then select the **Plan & Build** workflow. Write what you want changed, any limits, and how you will know it works. You do not need to select every relevant file yourself.
 
-Use [Providers & Models](../providers/overview.mdx) to connect and authenticate the coding runtime you intend to use.
+For example: “Fix the sign-in error so an expired session returns me to the login screen. Keep the existing design and check that signing in again works. Show me the plan and wait for my approval before editing.”
 
-Optionally configure the Context Builder discovery choice and Oracle analysis model in [Agent Models](../settings/agent-mode/agent-models.mdx), using a connected provider for each. The [Setup Wizard](../mcp-server/setup-wizard.mdx) can help with those choices.
+## Step 2: Prepare context and a plan
 
-### Step 1: Describe the Task in a Prompt
+Send the message. Let the agent investigate the project, gather relevant code with Context Builder, and prepare a plan with Oracle. Answer any questions and review the proposed approach. If something is missing or outside your request, say so before implementation continues.
 
-Every workflow begins with a prompt describing _what_ you want to build or fix and _how_ to verify it. Because RepoPrompt has a dedicated discovery phase, you do not need to manually hunt down and attach every file in your repository before you start.
+You do not need to run discovery and planning separately or repeat the original request.
 
-1. **Confirm your workspace is open:** In RepoPrompt (or via MCP using `bind_context` / `get_file_tree`), make sure your project folder is loaded as the active workspace.
-2. **Choose the execution location:** In Agent Mode, open **Work locally** and select the workspace checkout, a new worktree, or an existing worktree. Choose before sending so the task starts in the intended checkout. See [Execution Location](../agent-mode/execution-location.mdx).
-3. **Choose an entry workflow:**
-   - **Inside RepoPrompt (Agent Mode):** Select a **What are we building?** workflow card or use the **Workflow** selector above the editor. **Orchestrate** coordinates multi-step work; **Plan & Build** structures research, planning, and implementation. Your message is wrapped in the selected template. See [Workflow Templates](../agent-mode/workflow-templates.mdx).
-   - **From an external terminal/IDE agent (via MCP):** Run `/rp-orchestrate <task>` or `/rp-build <task>` after installing RepoPrompt's [Workflow Commands](../mcp-server/workflow-commands.mdx).
-4. **Contextualize the request:** If your prompt uses high-level product terms (like _"improve login validation"_), the orchestrator first runs a quick scan or dispatches a read-only `explore` scout to translate your request into actual codebase nouns (exact module names, types, and file paths).
+## Step 3: Implement and guide
 
-### Step 2: Curate Relevant Code with Context Builder
+When the plan is ready, tell the agent to proceed. Follow its progress in the conversation and respond to questions or approval requests after reading what they authorize. If the work heads in the wrong direction, send a correction or stop the run.
 
-Steps 2 and 3 are stages of **one** `context_builder` request with `response_type: "plan"` and `export_response: true`. The request first launches a discovery coding agent to explore the repository and assemble a focused file selection toward the configured context budget, then runs the Oracle planning follow-up. Do not run discovery once here and repeat it for Step 3. Other workflows and routine turns can use direct repository tools without running Context Builder:
+## Step 4: Verify and finish
 
-1. **Navigate the repository:** The discovery agent inspects the project directory tree (`get_file_tree`) and runs regex or path searches (`file_search`) to locate candidate files.
-2. **Map APIs with Code Maps:** It calls `get_code_structure` to read **Code Maps** — compact summaries of classes, structs, function signatures, and dependency relationships (`uses` and `used_by`) — without loading thousands of lines of implementation bodies.
-3. **Build the selection (`manage_selection`):** It curates the active selection using three representation modes:
-   - **Full files (`full`):** For core files that will be directly modified.
-   - **Line slices (`slices`):** For specific line ranges in large files where only one function or handler matters.
-   - **Code Maps (`codemap_only`):** For surrounding dependencies (automatically added for related files) so the planner knows exact API signatures at a fraction of the token cost.
+Ask the agent to review the changes against your request and run the project's appropriate checks. Inspect the diff and try the changed behavior yourself. If a check fails or the result is incomplete, ask for a targeted fix and check again.
 
-### Step 3: Draft the Execution Plan with the Oracle
+Once you are satisfied, ask the agent to commit the change if you want a Git checkpoint. If you used a worktree, [review and merge its changes](../worktrees/review-and-merge.mdx) into your intended branch. A completed agent turn alone does not mean the work is verified or merged.
 
-In the same request started in Step 2, Context Builder hands the curated context to the **Oracle** for the planning follow-up. No second `context_builder` call is needed:
-
-1. **Deep architectural reasoning:** Because the discovery agent filtered out all search clutter, the Oracle starts with a clean context window containing only the file tree, relevant full files, line slices, and Code Maps.
-2. **Export a shared source of truth:** The Oracle drafts a step-by-step execution plan and writes it to a shared Markdown file (such as `Plan.md`, a file under `docs/plans/`, or an exported artifact path returned in `oracle_export_path`).
-3. **Establish shared alignment:** This exported plan file acts as the **shared source of truth** across the entire workflow. Instead of pasting a massive prompt into every sub-agent, each worker reads `Plan.md` via `read_file` to understand the architecture and its specific assignment.
-
-### Step 4: Decompose the Plan into Scoped Tasks
-
-Next, the **Orchestrator** reviews `Plan.md` and breaks the work into discrete, ordered work items (typically up to 5 work items per pass). To keep sub-agents from stepping on each other, each work item explicitly defines:
-
-- **Scoped file boundaries:** The exact files the sub-agent is permitted to modify and the reference files it should inspect.
-- **Role assignment:** Which sub-agent role fits the task:
-  - `pair` (the default role when `model_id` is omitted) for complex, multi-file implementation
-  - `engineer` for clear, well-bounded coding tasks
-  - `design` for UI, layout, or Markdown specification reviews
-  - `explore` for fast, read-only codebase reconnaissance
-- **Acceptance criteria ("Done when"):** Concrete build or test commands that prove the work item is finished.
-
-### Step 5: Execute Sequential and Parallel Work Branches
-
-With the work items defined and anchored to `Plan.md`, the orchestrator executes them using two patterns depending on whether tasks depend on each other:
-
-#### Sequential Branch: Steer Through Dependent Tasks
-
-When tasks must happen in a strict order because each step builds on the previous one — for example:
-
-1. **Implement the auth service**
-2. **Add API validation**
-3. **Wire up middleware**
-
-The orchestrator uses a single deep reasoning session and **steers** it from one task to the next:
-
-1. It launches a sub-agent (`agent_run op="start"`) for Task 1 and waits for completion (`agent_run op="wait"`).
-2. After verifying Task 1's edits, the orchestrator calls `agent_run op="steer"` on the _same_ `session_id` to inject Task 2, and then Task 3.
-3. **Why steer?** Steering keeps the agent's context warm when the next task is tightly coupled to the code it just wrote, while the orchestrator checks progress between every step.
-
-#### Parallel Branch: Dispatch Across Providers with Multi-Wait
-
-When tasks are independent and touch separate file boundaries — for example:
-
-- **Codex CLI** sub-agent: _Implement backend logic_
-- **OpenCode CLI** sub-agent: _Explore codebase_ (read-only reconnaissance via `agent_explore` or `model_id="explore"`)
-- **Google Antigravity** sub-agent: _Update configuration files_
-
-The orchestrator runs them concurrently across your connected CLI providers:
-
-1. It starts each sub-agent in detached mode (`agent_run op="start" detach=true`), collecting their `session_id` values into an array.
-2. It monitors all active workers at once using **multi-wait**:
-   ```json
-   {
-     "op": "wait",
-     "session_ids": ["<session_id_1>", "<session_id_2>", "<session_id_3>"]
-   }
-   ```
-3. **How multi-wait works:** A multi-session `wait` blocks until the **first** sub-agent finishes its turn or pauses to ask a question (`status: "waiting_for_input"`), returning `winner_session_id` and `pending_session_ids`. The orchestrator immediately handles that agent's result or answers its question (`agent_run op="respond"`), then resumes waiting on the remaining sessions.
-
-### Step 6: Verify Adherence to the Plan
-
-As sequential and parallel branches complete their work, they converge back at the orchestrator for verification before the task is marked done:
-
-1. **Inspect actual changes:** The orchestrator runs `git op="status"` and `git op="diff"` (and reads modified sections with `read_file`) to confirm every sub-agent stayed within its assigned file boundaries and followed `Plan.md`.
-2. **Run the appropriate checks:** Ask it to verify the combined changes using the project's permitted test and build commands. A completed coding-agent turn does not itself prove that those checks passed.
-3. **Update the shared plan and continue:** As each work item passes verification, the orchestrator marks it complete in `Plan.md` using `apply_edits`. If any check fails or a gap is found, it dispatches or steers a targeted fix, repeating the cycle until the entire plan is verified and complete.
-
----
-
-## Where to Go Next
-
-- **Understand the pipeline in depth:** Read [How It Works](./how-it-works.mdx) for a friendly guide to why Context Builder's Explore → Curate → Handoff pipeline outperforms standard agent loops.
-- **Connect your providers:** Choose the account and runtime described in the [Providers & Models directory](../providers/overview.mdx), then follow its connection guide.
-- **Try built-in workflows:** Explore all 8 workflows in [Agent Workflow Commands](../agent-mode/workflow-templates.mdx).
-- **Integrate isolated work:** Follow [Review and Merge](../worktrees/review-and-merge.mdx) when results live in separate worktrees.
+Read [Going Deeper](./going-deeper.mdx) for a multi-step walkthrough with more options and practices behind these four steps, or [Agent Mode Overview](../agent-mode/overview.mdx) to find your way around the interface.
