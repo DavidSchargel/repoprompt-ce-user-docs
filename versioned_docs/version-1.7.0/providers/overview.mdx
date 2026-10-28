@@ -51,8 +51,6 @@ Connect the intended runtime or service, complete its authentication, and test t
 
 Use [Model and Effort](../agent-mode/model-and-effort.mdx) to operate the session picker. Configure Oracle, Context Builder, and role defaults in [Agent Models](../settings/agent-mode/agent-models.mdx). Those choices serve different purposes and can use different connections; see [Model roles](./models.mdx#model-roles).
 
-<span id="using-your-existing-subscriptions" />
-
 ## Provider environment filtering
 
 If your shell environment contains credentials or endpoint settings for several providers, **Provider environment filtering (opt-in)** can withhold selected ambient variables from new provider processes. In **Settings → Agent Mode → Overview**, enter exact, case-sensitive variable names to withhold, then add per-provider pass-through exceptions for names that connection needs. Enter names only, separated by spaces or commas; values and wildcards are not accepted.
@@ -60,6 +58,8 @@ If your shell environment contains credentials or endpoint settings for several 
 Empty lists preserve the existing environment. Choose **Apply**, then start a new provider process to use the saved rules. Filtering also applies to provider probes and headless launches, but does not change already-running processes or your interactive terminal. Explicit app/runtime launch overrides remain available.
 
 If authentication or a tool stops working after filtering, check whether it depends on a withheld variable and add a narrow exception for that provider. This is a partial mitigation: it does not isolate credential files, shell profiles, or other resources available to the same macOS user. See [Agent Mode settings](../settings/agent-mode/overview.mdx) for the controls.
+
+<span id="using-your-existing-subscriptions" />
 
 ## Accounts and billing
 
