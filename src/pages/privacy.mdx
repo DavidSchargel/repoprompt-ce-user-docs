@@ -1,131 +1,211 @@
 ---
 title: RepoPrompt Privacy Policy
-description: RepoPrompt application privacy policy covering anonymous analytics, crash diagnostics, data handling, external integrations, and privacy rights.
+description: How RepoPrompt handles local data, diagnostics, connected services, website requests, and privacy rights around the world.
 ---
 
-import Head from '@docusaurus/Head';
+import Head from "@docusaurus/Head";
 
-<Head><meta name="robots" content="noindex,follow" /></Head>
+<Head>
+  <meta name="robots" content="noindex,follow" />
+</Head>
 
 # RepoPrompt Privacy Policy
 
-:::warning[Legal review required]
-This text is migrated from the application policy dated April 12, 2025. It requires legal review and confirmation that the described practices apply to Community Edition before publication. It is not a newly verified policy for this documentation website.
-:::
+**Last updated:** October 27, 2026
 
-**Effective Date:** April 12, 2025  
-**Last Updated:** April 12, 2025
+This policy explains what information RepoPrompt handles, where it goes, and the choices and rights available to you. “Personal information” includes information that identifies you or can reasonably be linked to you, including some technical identifiers and information contained in messages, files, or diagnostic reports.
 
-RepoPrompt ("**we**," "**us**," or "**our**") is committed to protecting your privacy. This Privacy Policy explains in clear terms how RepoPrompt collects, uses, and safeguards information when you use our application. It is designed to comply with the European Union's General Data Protection Regulation (GDPR) and Quebec's Law 25 (Bill 25), as well as other applicable global privacy laws, ensuring transparency and legal adequacy for all our users worldwide.
+## Scope and responsibility
 
-## 1. Scope and Application
+This policy covers the RepoPrompt application distributed by this project, this documentation website, and information you send to the project's support or contribution channels. “We,” “us,” and “our” refer to the operator identified in [Contact and privacy requests](#contact-and-privacy-requests).
 
-This Privacy Policy applies to the RepoPrompt application and any related services. By using RepoPrompt, you acknowledge that you have read and understood this Policy. This Policy covers users globally, including residents of the European Economic Area (EEA) and Quebec, Canada, and addresses the specific requirements of GDPR and Quebec's Law 25.
+RepoPrompt runs on your device. Basic use does not require a RepoPrompt account, but connected services can require their own accounts or API credentials. Running locally does not mean that every feature works offline or that information never leaves your device.
 
-## 2. Who We Are
+We are responsible for personal information we receive and control, such as project diagnostics and support correspondence. Your organization may separately control information in its repositories and workspaces. Providers you connect, websites you visit, and independently distributed forks have their own responsibilities and privacy notices; this policy does not describe their practices on their behalf.
 
-RepoPrompt is a locally-running application designed to assist with repository analysis and prompts. The application operates primarily on your device. There are no user accounts or registration with RepoPrompt, and we do not directly collect personal identifiers.
+## Information handled by the application
 
-## 3. Information We Collect
+### Local workspace and account information
 
-We do **not** collect any personal information that can identify you. RepoPrompt only collects a minimal amount of anonymous usage data for analytics and performance monitoring, as described below:
+RepoPrompt reads and stores information needed for the features you use. This can include workspace locations, selected files and code, messages and attachments, session history, drafts, settings, and cached provider information. These items can contain personal or confidential information even when the project does not receive them.
 
-### Anonymous Usage Analytics
+Supported application credentials use macOS Keychain storage in signed builds. Connected coding runtimes can maintain their own credentials, session records, and caches. Your operating system, backups, synchronization software, and other applications with access to those locations can also affect how local information is stored or copied.
 
-We use PostHog to gather usage statistics and understand how RepoPrompt is used. This includes basic, non-identifying information about feature usage and event counts.
+Selecting a local file and sending its contents to a connected service are different actions. The information a service receives depends on the feature, selected context, runtime permissions, and tools in use. Review that context before sending, and only provide information you are authorized to share.
 
-We have explicitly configured PostHog to **exclude** the following properties:
+### Crash reports and diagnostics
 
-- IP address
-- Operating system and device type
-- Geographic location (latitude, longitude, city, country, postal code)
-- Time zone and regional subdivision data
+In official builds configured for telemetry, RepoPrompt uses **Sentry** to receive diagnostics for investigating crashes, hangs, and startup performance. Reporting requires a build with Sentry support and a configured destination, an enabled reporting preference, and no process-level disable setting.
 
-No personally identifying information (PII) is collected, and all analytics data is either **aggregated** or **de-identified**.
+Reports can contain:
 
-PostHog data is stored in the United States and processed under GDPR-compliant terms, including Data Processing Agreements and standard contractual clauses.
+- Crash or exception details, error messages, and stack traces.
+- Application and operating system versions, build and environment metadata, and SDK information.
+- Device model, locale, memory information, and limited diagnostic context, including sanitized MCP connection lifecycle events.
+- Hang reports and sampled startup performance information when their separate controls are enabled.
 
-### Crash Reports and Diagnostics
+Before uploading a report, RepoPrompt applies a scrubber intended to remove request payloads, headers, cookies, query strings, user and location fields, stable device identifiers, obvious credentials, local home-directory paths, and IP-like values. Automatic session replay and automatic release-health session tracking are disabled.
 
-We use Sentry for crash reporting and diagnostics. These reports may include technical information such as error messages, stack traces, and non-identifying device metadata (e.g., operating system or browser type).
+The diagnostic system is not intended to collect your prompts, chat transcripts, source files, attachments, screenshots, tool inputs or results, provider request bodies, API keys, or tokens. These exclusions describe **diagnostics**, not information you intentionally send through other features.
 
-We have configured Sentry to:
+Scrubbing reduces exposure; it is not a guarantee that every report is anonymous. Unexpected error text can contain personal information. The service receiving a network request also necessarily receives connection information, including the source IP address, even when that address is removed from the report payload.
 
-- Scrub or remove IP addresses by default
-- Avoid collection of custom events or user identifiers
-- Exclude sensitive or personally identifiable information (PII) from logs and reports
+#### Diagnostic controls
 
-While Sentry may automatically capture general device and environment data (e.g., OS version, platform), this information is not linked to any user identity and cannot be used to identify individuals. We also do not use session replay, breadcrumb tracking, query parameters, or console logs.
+Open **Settings → General → Telemetry**:
 
-All crash data is processed under GDPR-compliant data processing terms. We rely on Sentry's participation in the EU-U.S. Data Privacy Framework and Standard Contractual Clauses to ensure adequate protection for data stored in the United States.
+- **Share crash reports and diagnostics** controls reporting and defaults on in telemetry-capable builds.
+- **App hang reports** defaults off.
+- **Performance timing and tracing** defaults off.
 
-**We do not collect or store:**
+Turning the master setting off closes the reporting SDK and stops new capture. It does not delete reports already received by Sentry or erase all previously queued reports. Serialized reports already in the SDK cache are not rewritten; remaining queued reports may be sent if reporting is enabled again.
 
-- Your personal identifiers
-- IP addresses or device identifiers
-- The contents of your code or files
-- Cookies or session data
+You can also set `REPOPROMPT_TELEMETRY_DISABLED=1` before launching the app to disable reporting for that process. See [Telemetry settings](/docs/settings/telemetry/) for the controls and build-status explanation.
 
-## 4. How We Use the Collected Data
+### Connected models, coding runtimes, and tools
 
-We use the limited data collected **only** to:
+When you use a connected service, RepoPrompt or its coding runtime sends the information needed for that request to the configured recipient. Depending on the feature, this can include your instructions, conversation context, selected or retrieved code, file names and paths, attachments, images, tool results, and authentication information needed to access that service.
 
-- Improve application performance and feature design
-- Identify and fix crashes or bugs
+Some features create additional requests:
 
-We do **not** use data for marketing, profiling, or advertising, and we never sell or share data for commercial purposes.
+- **Context Builder and Oracle:** the discovery or consultation model receives context for its assigned task. A consultation involving several providers can disclose context to each participating provider.
+- **Re-prompt:** the selected rewrite model can receive your draft, rewrite guidance, workspace root names and selected relative paths, and eligible recent conversation excerpts when that option is enabled. This request is separate from the subsequent coding task.
+- **Agent Decisions:** the selected decision service can receive a task or message excerpt, routing guidance, and candidate model or effort information to choose a model, provider, or effort level. Masking is best effort and does not make the excerpt anonymous.
+- **MCP and other tools:** enabled tools can read or transmit information within their permissions. Remote tool operators can receive the supplied inputs and authentication information; tool output can become part of a later model request.
+- **Computer use:** if enabled, the runtime can capture screen content and send it to its provider. Visible content can include information from other applications.
+- **Account usage displays:** separately enabled integrations obtain usage or quota information through the connected runtime. The runtime may update its own authentication or session records even when no model message is sent.
 
-## 5. Legal Basis for Processing
+**Turning off diagnostics does not turn off these requests.** Review the selected recipient, permissions, provider retention and training policies, and any organizational restrictions before using an integration. Choosing a local model does not make separately enabled remote features local.
 
-Under GDPR, we process data on the basis of **legitimate interest**—specifically, to ensure the stability and functionality of the app. Under Quebec's Law 25, we consider the anonymized nature of the data and user installation as valid consent.
+See [Providers & Models](/docs/providers/overview/), [Agent Models](/docs/settings/agent-models/), and [Agent Decisions](/docs/settings/agent-decisions/) for the available connections and controls. We do not promise that an external provider will delete data, avoid training, or keep it in a particular country unless its applicable terms and your configuration provide for that.
 
-## 6. Where and How We Store Data
+### Support and public contributions
 
-Analytics and crash data are transmitted and stored by our third-party service providers:
+If you contact the project, we receive what you send, such as your contact details, correspondence, and voluntarily supplied diagnostic material. We use this information to respond, investigate the issue, and maintain the project.
 
-- **PostHog (Analytics)** — stored in the **United States**
-- **Sentry (Crash Reports)** — stored in the **United States**
+GitHub issues, discussions, pull requests, and other public contribution channels can expose your profile, messages, code, and attachments to anyone. Public content may be indexed or copied. Remove credentials, personal information, confidential code, and identifying paths before posting. Use the private contact channel below for privacy requests rather than a public issue.
 
-These services comply with GDPR and offer appropriate safeguards (e.g., Data Processing Agreements, standard contractual clauses).
+## Website, downloads, and updates
 
-## 7. Third-Party Service Providers
+This documentation website is hosted on **GitHub Pages**. GitHub logs visitors' IP addresses for security purposes, including when they are not signed in to GitHub. See [GitHub's Pages data-collection notice](https://docs.github.com/en/pages/getting-started-with-github-pages/what-is-github-pages#data-collection) and [GitHub's privacy statement](https://docs.github.com/en/site-policy/privacy-policies/github-general-privacy-statement).
 
-We use the following third-party services:
+Downloading a release or checking for updates also creates network requests. The relevant host can receive IP addresses, browser or app information, requested URLs, timestamps, and other ordinary connection or access-log information. Its infrastructure and retention settings matter even when the application sends no diagnostics.
 
-- **PostHog** — for anonymous usage analytics
-- **Sentry** — for crash and performance monitoring
+We do not use PostHog or other product or website usage analytics. The Sentry crash reports and optional performance diagnostics described above are separate from usage analytics. Hosting logs and requests to external content services can still occur.
 
-## 8. Data Retention
+The website uses browser local storage for preferences such as appearance. You can remove these preferences by clearing site data in your browser. Blocking storage may prevent preferences from being remembered.
 
-We retain anonymous usage and crash data only as long as necessary for diagnostics and performance monitoring. We regularly review and delete or anonymize old data. No personally identifiable information is collected or stored.
+Search runs in your browser when the site uses its local search index. A deployment configured with **Algolia** instead sends search requests to that service. The homepage also loads external **X/Twitter** testimonial content and media, which creates requests to those external services. Loading embedded content can disclose connection information without requiring you to click an external link; the provider's privacy and storage practices apply.
 
-## 9. Your Privacy Rights
+Local search is the default in the website source. The optional hosted search configuration still needs confirmation for the production deployment. External content providers may use their own storage or tracking technologies under their privacy policies.
 
-RepoPrompt does not collect personal identifiers or maintain user-specific data, which means we cannot link any data back to an individual user. As such, the following rights are limited in scope:
+## Purposes and legal grounds
 
-- **Access or Deletion Requests:** We are unable to access or delete specific data associated with an individual user because we do not collect identifiable data.
-- **Opt-out Options:** You may opt out of analytics and crash reporting by disabling network access to these services or by modifying your device's configuration.
-- **Withdraw Consent:** Consent is considered granted through the act of installation and use, but since no identifiable data is collected, withdrawal has no effect on stored data.
-- **Complaints:** You may file a complaint with a privacy regulator in your jurisdiction if you believe your rights under applicable law are being violated.
+Information received by the project is used to provide documentation and releases, answer support requests, investigate specific failures, maintain reliability and security, and meet legal obligations. The application diagnostic system described above is for troubleshooting and performance investigation, not advertising or building marketing profiles.
 
-## 10. Security Measures
+Where a law requires a legal basis for processing, the basis depends on the activity:
 
-We use appropriate safeguards to protect data, including HTTPS encryption and restricted access. Crash data is anonymized, and no code or personal data is collected. The app is built around privacy-by-design principles, minimizing any data processing.
+- **Providing a requested service or taking steps at your request**, where processing is necessary to fulfill that service or contract.
+- **Legitimate interests**, where permitted, in maintaining reliable and secure software and responding to correspondence, balanced against your rights and expectations.
+- **Consent**, where required for optional collection, storage technologies, or another specific purpose. Consent must be informed and obtained before the processing that requires it; you can withdraw it through the relevant control or privacy contact.
+- **Legal obligations**, when processing is necessary to meet an applicable legal requirement.
 
-## 11. External APIs and Integrations
+These grounds require confirmation for the operator's actual activities and applicable jurisdictions. Installing the app, leaving a default setting enabled, or continuing to use the website is not blanket consent to all processing and does not waive your rights. Withdrawing consent does not make earlier lawful processing unlawful.
 
-RepoPrompt may allow optional API integrations. When used:
+## Recipients and disclosures
 
-- Data is sent **directly** from your device to the provider
-- We do **not** intercept, log, or transmit API data
-- You are responsible for reviewing third-party API privacy terms
+Information can be received by:
 
-## 12. Children's Privacy
+- **Sentry**, which processes diagnostic reports for the project when reporting is active.
+- **Website, distribution, and communication providers**, as needed to serve pages and downloads or handle correspondence, including GitHub for repository and release interactions and the external website services described above when used.
+- **Services you connect or authorize**, including model providers, decision services, coding runtimes, and remote tools. Their role and obligations depend on their terms and your relationship with them; they are not all processors acting for the RepoPrompt project.
+- **Other people**, when you publish content or choose to share an export, repository, or support report.
 
-RepoPrompt is not intended for children under 13. We do not knowingly collect information from children. If such data is discovered, we will delete it immediately upon request.
+We may also disclose information we hold when required by applicable law or a valid legal process, or when legally permitted and necessary to address a security incident or protect rights. Such disclosures should be limited to the information needed for that purpose. This does not give the project remote access to files that remain solely on your device.
 
-## 13. Changes to This Privacy Policy
+## International processing and transfers
 
-We may update this policy as needed. The latest version will always be dated at the top. Continued use of RepoPrompt after updates constitutes acceptance of any changes.
+Information can be processed outside your province, state, or country. A service's location depends on its infrastructure, account settings, and subprocessors. Authorities in a recipient country may have lawful access under that country's laws. Using the desktop app is not a guarantee of local data residency.
+
+For international transfers of personal information under our control, applicable transfer requirements must be met. Depending on the law and destination, these may involve an adequacy decision, contractual safeguards and additional protections, or another permitted mechanism. Transfers from Quebec can require a privacy impact assessment and a written agreement. EU, UK, and Swiss requirements are not interchangeable.
+
+The application source does not identify the Sentry account's storage region. The production reporting destination is supplied through release configuration, rather than a checked-in regional setting. The account's region and applicable transfer arrangements must be confirmed before publication; this draft does not assume a US or European location or claim an unverified agreement or certification. Contact us for the destinations and safeguards applicable to information we hold; consult connected providers separately for requests you send to them.
+
+## Retention and deletion
+
+Retention depends on the type of information and who holds it:
+
+- **Local data:** workspace settings, drafts, history, caches, and exports remain according to the application's storage behavior and your deletion choices. Uninstalling an app does not necessarily remove Keychain entries, exported files, backups, or a connected runtime's records.
+- **Diagnostics:** the application limits Sentry's local delivery cache to 10 items. This is a count limit, not a retention period. Hosted report retention is not specified in the application source and must be confirmed from the Sentry service account before publication. Disabling reporting is not a request to erase earlier reports.
+- **Website logs and support records:** the intended retention criteria are the time needed to operate and secure the service, resolve the request, and meet applicable legal obligations. The operator must verify the actual schedules, including backup deletion, before publication.
+- **External services and public contributions:** provider policies, your account settings, and the nature of a public contribution determine retention. Deleting your local conversation does not delete a provider's copy, a public post, or copies made by others.
+
+Where information must be retained to comply with law or resolve a legal claim, it should be limited to that purpose. Personal information should otherwise be deleted or irreversibly anonymized when no longer needed. Simply removing a name or applying the diagnostic scrubber does not establish irreversible anonymization.
+
+## Your choices and privacy rights
+
+You can change diagnostic preferences, disconnect services, restrict tool permissions, review context before sending, remove local data, and clear browser site storage. Disabling an optional feature may make that feature unavailable; it does not remove rights you otherwise have.
+
+Depending on the law and processing involved, you may also request confirmation of processing, access to and a copy of your personal information, correction, deletion, restriction, or portability. You may be able to object to processing, withdraw consent, challenge a decision, or complain to a regulator. These rights have conditions and exceptions; the following summaries apply only where the relevant law covers the activity.
+
+### European Economic Area and United Kingdom
+
+The EU GDPR and UK data protection laws provide rights to information, access, correction, erasure, restriction, objection, and, in qualifying circumstances, portability. You can withdraw consent and complain to the relevant supervisory authority. Additional protections can apply to decisions based solely on automated processing that have legal or similarly significant effects.
+
+Agent Decisions selects technical settings for an AI request; it is not intended to decide your eligibility for employment, credit, or other legal entitlements. The consequences of decisions made using an external AI service depend on that use and the responsible organization.
+
+See the [European Commission's explanation of individual rights](https://commission.europa.eu/law/law-topic/data-protection/information-individuals_en) and the [UK Information Commissioner's Office](https://ico.org.uk/for-the-public/).
+
+### Switzerland
+
+Where the Swiss Federal Act on Data Protection applies, you may request information about processing and seek correction or deletion, with further remedies depending on the circumstances. See the [Federal Data Protection and Information Commissioner's guidance](https://www.edoeb.admin.ch/en/faq-data-protection).
+
+### Canada, including Quebec
+
+Applicable federal and provincial laws can give you rights to be informed, access your information, challenge its accuracy, withdraw consent subject to lawful limits, and challenge an organization's handling of information. Quebec law also provides portability rights for qualifying computerized information and rights concerning decisions based exclusively on automated processing.
+
+Consent must meet the applicable standard; installation alone is not a substitute for meaningful consent. See the [Office of the Privacy Commissioner of Canada](https://www.priv.gc.ca/en/privacy-topics/privacy-laws-in-canada/) and the [Commission d'accès à l'information du Québec](https://www.cai.gouv.qc.ca/protection-renseignements-personnels/sujets-et-domaines-dinteret/principaux-changements-loi-25).
+
+### United States
+
+Where an applicable state privacy law covers the operator and activity, rights can include access, correction, deletion, portability, and opting out of sale, sharing for cross-context behavioral advertising, targeted advertising, or certain profiling. Some laws provide rights to limit particular uses of sensitive information or appeal a denied request. You must not be unlawfully discriminated against for exercising these rights.
+
+California's rights and business-coverage requirements are described by the [California Attorney General](https://oag.ca.gov/privacy/ccpa). Where required, recognized opt-out preference signals such as Global Privacy Control must be honored for covered processing. We do not claim that an app telemetry switch controls an external website's advertising practices or implements every legally required opt-out mechanism.
+
+### Brazil
+
+Where the LGPD applies, rights can include confirmation, access, correction, information about sharing, portability subject to applicable rules, and anonymization, blocking, or deletion of unnecessary, excessive, or unlawfully processed information. Consent-based processing can be challenged or consent withdrawn, and qualifying automated decisions can be reviewed. See the [ANPD's explanation of data-subject rights](https://www.gov.br/anpd/pt-br/assuntos/titular-de-dados-1/direito-dos-titulares).
+
+### Australia and New Zealand
+
+Where applicable, you can seek access to and correction of personal information and complain about its handling. In New Zealand, you may also request a statement of correction when a correction is not made. See the [Australian Information Commissioner's access guidance](https://www.oaic.gov.au/privacy/your-privacy-rights/your-personal-information/access-your-personal-information) and the [New Zealand Privacy Commissioner's explanation of privacy rights](https://www.privacy.org.nz/your-rights/your-privacy-rights/).
+
+### Other jurisdictions
+
+You may have additional rights under your local law. This policy does not exclude mandatory protections because your location is not listed. Contact us about the processing involved and the right you wish to exercise.
+
+## Contact and privacy requests
+
+- **Email:** [contact@repoprompt.com](mailto:contact@repoprompt.com).
+
+Email the address above with your request and enough information to locate the relevant records, such as the correspondence address, approximate date, or report reference if you have one. You do not need a RepoPrompt account. Do not send API keys, passwords, complete repositories, or unrelated identification documents.
+
+We may request proportionate identity or authorization verification where needed to protect information or satisfy the law. An authorized representative may act where permitted. We will respond within the applicable legal deadline and explain any permitted extension, refusal, fee, or appeal route. Requests are ordinarily free; any lawful exception must be explained. You may also complain to your competent privacy regulator, subject to its complaint procedure.
+
+Minimized diagnostic records may not contain enough information to identify a particular person. If we cannot locate your information, we will explain that limitation rather than assume that privacy rights never apply. We will not collect additional identifiers solely to make otherwise unidentifiable diagnostics identifiable. For information held only by a connected provider or your organization, direct the request to that controller; we remain responsible for requests concerning information we hold.
+
+## Security and sensitive information
+
+RepoPrompt limits diagnostic collection, scrubs reports before upload, and uses supported platform credential storage. These protections do not guarantee that every local file is encrypted, every external connection is secure, or every secret is detected. Protect your device and backups, limit integration permissions, and avoid including secrets or sensitive personal information that a task does not require.
+
+If a breach of personal information under our control triggers notification duties, applicable law determines the required notices to affected people and regulators. Please report a suspected exposure through the private contact channel; do not publish the exposed information in an issue.
+
+## Children and young people
+
+RepoPrompt is a developer tool and is not directed to children. Age thresholds and parental-consent requirements vary by country and processing activity. Do not provide a child's personal information unless you have authority and the necessary safeguards. A parent or guardian who believes a child has provided personal information to the project can contact us to request investigation and appropriate action under applicable law.
+
+## Changes to this policy
+
+We will update the date above when this policy changes and provide additional notice or obtain consent where required for a material change or new purpose. A policy revision does not by itself authorize a new use of information or replace any consent required by law.
 
 [Terms and conditions](/terms/) · [Home](/)
