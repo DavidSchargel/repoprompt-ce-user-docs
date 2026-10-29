@@ -116,6 +116,8 @@ async function main() {
     assert.equal(tags(html, 'link').find(entry => entry.rel === 'canonical')?.href, destination, `${route}: wrong canonical`);
     assert.equal(tags(html, 'meta').find(entry => entry.name === 'robots')?.content, 'noindex,follow', `${route}: redirect must not be indexed`);
     assert.match(html, /window\.location\.replace\(/, `${route}: redirect must replace history`);
+    const body = html.match(/<body\b[^>]*>([\s\S]*?)<\/body>/i)?.[1] ?? '';
+    assert.ok(tags(body, 'a').some(entry => entry.href === destination), `${route}: redirect must provide destination fallback link`);
   }
   for (const file of ['llms.txt', 'llms-full.txt', ...docsRoutes.map(route => route.replace(/\/$/, '.md'))]) {
     assert.ok(fs.readFileSync(path.join(directory, file), 'utf8').trim(), `${file}: missing or empty export`);
