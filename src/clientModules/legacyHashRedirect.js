@@ -3,7 +3,10 @@ import {resolveLegacyHash} from '../utils/resolveLegacyHash.cjs';
 
 function redirectLegacyHash() {
   if (typeof window === 'undefined') return;
-  const destination = resolveLegacyHash(window.location.hash);
+  const pathname = '/' + window.location.pathname.slice(siteConfig.baseUrl.length);
+  if (pathname === '/' && document.getElementById(window.location.hash.slice(1))) return;
+  const legacyLanding = ['/', '/docs', '/docs/', '/documentation', '/documentation/'].includes(pathname);
+  const destination = resolveLegacyHash(window.location.hash, {legacyLanding});
   if (destination) window.location.replace(siteConfig.baseUrl + destination.slice(1) + window.location.search);
 }
 

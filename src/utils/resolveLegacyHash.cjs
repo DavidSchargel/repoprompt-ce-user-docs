@@ -71,7 +71,13 @@ const routes = {
   "#s=getting-started&ss=first-prompt": "/docs/classic-2.1.0/ide-mode/first-prompt/"
 };
 
-function resolveLegacyHash(hash) {
+const plainHashes = Object.fromEntries(Object.entries(routes).map(([hash, destination]) => {
+  const params = new URLSearchParams(hash.slice(1));
+  return [`#${params.get('s')}${params.has('ss') ? `-${params.get('ss')}` : ''}`, destination];
+}));
+
+function resolveLegacyHash(hash, {legacyLanding = false} = {}) {
+  if (legacyLanding && Object.hasOwn(plainHashes, hash)) return plainHashes[hash];
   const params = new URLSearchParams(hash.replace(/^#/, ''));
   if (!params.has('s') && !params.has('ss')) return null;
   if (params.getAll('s').length !== 1 || params.getAll('ss').length > 1) return '/docs/';

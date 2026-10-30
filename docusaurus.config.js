@@ -121,13 +121,19 @@ module.exports = {
     }],
     ['@docusaurus/plugin-client-redirects', {
       redirects: [
-        {from: ['/claim', '/unsubscribe', '/appcast', '/pricing', '/roadmap', '/prompt-anatomy'], to: '/'},
         {from: '/documentation', to: '/docs/'},
+        {from: [
+          '/unsubscribe', '/appcast', '/beta-available.json', '/llm.txt',
+          '/roadmap', '/prompt-anatomy', '/repo-prompt-anatomy.html',
+          '/blog/file-editing-evolution',
+        ], to: '/docs/'},
+        {from: ['/claim', '/pricing', '/bench', '/bench/explorer', '/blog/building-repo-bench'],
+          to: '/docs/faq/paid-version/#does-repoprompt-include-every-feature-from-the-paid-app'},
+        {from: '/privacy-policy', to: '/privacy/'},
+        {from: '/terms-and-conditions', to: '/terms/'},
         {from: '/docs/settings/model-router', to: '/docs/settings/agent-decisions/'},
         ...Object.entries(require('./src/utils/agentModeDocMoves.cjs')).map(([from, to]) => ({from, to})),
         {from: ['/docs/agent-mode/providers', '/docs/providers'], to: '/docs/providers/overview/'},
-        {from: '/privacy-policy', to: '/privacy/'},
-        {from: '/terms-and-conditions', to: '/terms/'},
       ],
     }],
   ],

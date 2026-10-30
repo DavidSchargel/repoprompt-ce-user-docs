@@ -108,9 +108,16 @@ async function main() {
     assert.equal(png.subarray(1, 4).toString(), 'PNG');
     assert.equal(`${png.readUInt32BE(16)}x${png.readUInt32BE(20)}`, icon.sizes, `Incorrect dimensions for ${icon.src}`);
   }
-  for (const route of ['claim', 'unsubscribe', 'appcast', 'pricing', 'roadmap', 'prompt-anatomy']) {
+  const redirects = config.plugins.find(plugin => Array.isArray(plugin) && plugin[0] === '@docusaurus/plugin-client-redirects')[1].redirects;
+  for (const {from, to} of redirects) for (const route of [from].flat()) {
     const html = fs.readFileSync(path.join(directory, route, 'index.html'), 'utf8');
-    assert.equal(tags(html, 'meta').find((entry) => entry['http-equiv'] === 'refresh')?.content, `0; url=${config.baseUrl}`, `${route}: redirect changed`);
+    const destination = encodeURI(to.startsWith('/') ? config.baseUrl + to.slice(1) : to);
+    assert.equal(tags(html, 'meta').find((entry) => entry['http-equiv'] === 'refresh')?.content, `0; url=${destination}`, `${route}: redirect changed`);
+    assert.equal(tags(html, 'link').find(entry => entry.rel === 'canonical')?.href, destination, `${route}: wrong canonical`);
+    assert.equal(tags(html, 'meta').find(entry => entry.name === 'robots')?.content, 'noindex,follow', `${route}: redirect must not be indexed`);
+    assert.match(html, /window\.location\.replace\(/, `${route}: redirect must replace history`);
+    const body = html.match(/<body\b[^>]*>([\s\S]*?)<\/body>/i)?.[1] ?? '';
+    assert.ok(tags(body, 'a').some(entry => entry.href === destination), `${route}: redirect must provide destination fallback link`);
   }
   for (const file of ['llms.txt', 'llms-full.txt', ...docsRoutes.map(route => route.replace(/\/$/, '.md'))]) {
     assert.ok(fs.readFileSync(path.join(directory, file), 'utf8').trim(), `${file}: missing or empty export`);
