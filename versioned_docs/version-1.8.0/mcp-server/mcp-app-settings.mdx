@@ -1,0 +1,212 @@
+---
+id: "mcp-app-settings"
+title: "App Settings Tool"
+description: "Read and update the current allowlisted global application preferences over MCP."
+slug: "/mcp-server/mcp-app-settings"
+keywords: ["app_settings","app settings","allowlist","preferences","appearance","appearance_mode","dark mode","light mode","prompt packaging","prompt sections order","editing","edit format","file_edit_format","temperature","planning model","models","mcp.auto_start","auto-start","code_maps.globally_disabled","code maps toggle","settings tool","set preference","get preference","list settings","ui group","scriptable settings","flip preference"]
+hide_table_of_contents: false
+toc_min_heading_level: 2
+toc_max_heading_level: 4
+---
+
+The `app_settings` MCP tool lets agents read and write an allowlisted set of RepoPrompt's global preferences — appearance, prompt packaging, preferred models and the Oracle roster, Context Builder's agent/model, preset visibility, Code Maps, file scanning, selected Agent Mode preferences, and notifications — without opening the Settings UI. Credentials and workspace-specific profiles are not exposed.
+
+:::tip
+
+**Companion pages:** Use this page for the MCP/JSON surface. The same arguments can be sent with `rpce-cli` after [CLI installation](./mcp-setup.mdx#terminal-access). See [Settings Reference](../reference/settings.mdx) for the in-app controls.
+
+:::
+
+## When to Use It
+
+- Match the user's preferred appearance or prompt packaging before building a copy preset.
+- Review `mcp.show_model_presets` when configuring Oracle discovery.
+- Reset `models.planning_model` to `null` so RepoPrompt falls back to defaults.
+- Temporarily disable Code Maps globally via `code_maps.globally_disabled` during large refactors.
+- Inspect file-scanning and notification preferences without editing the raw settings document.
+
+## Operations
+
+| `op` | Selectors | Purpose |
+| --- | --- | --- |
+| `list` | optional `group` | Browse the allowlist catalog. Each entry includes the current value and, for keys that have them, `options_available: true`. |
+| `get` | exactly one of `key`, `keys`, `group` | Read one or more setting values. Selectors are mutually exclusive. |
+| `set` | `key` and `value` | Update exactly one setting. `keys` and `group` are rejected on `set`. |
+| `options` | `key`, optional `agent`, `limit`, `detailed` | List candidate values for keys that advertise `options_available: true`, including model and font-scale settings. |
+
+### Parameters
+
+| Parameter | Type | Notes |
+| --- | --- | --- |
+| `op` | `list \| get \| set \| options` | Required. |
+| `group` | string | `ui`, `prompt_packaging`, `models`, `context_builder`, `mcp`, `code_maps`, `file_system`, `agent_mode`, or `notifications`. Used by `list` and as a selector for `get`. |
+| `key` | string | Fully qualified key (e.g., `ui.appearance_mode`). Required for `set`; optional selector for `get`. |
+| `keys` | array of strings | Multi-key selector for `get`. Mutually exclusive with `key` and `group`. |
+| `value` | boolean, number, string, string array, or null | Required on `set`. Match the catalog's declared `type`: the additional Oracle roster uses an array, while `prompt_packaging.prompt_sections_order` uses a string containing a JSON array. |
+| `agent` | string | For `options` on model settings: filter candidates to a supported CLI backend, such as `claudeCode` or `codexExec`. |
+| `limit` | integer | For `options`: maximum number of candidates returned (1–200, default 60). |
+| `detailed` | boolean | For `options`: include descriptions and model metadata in each candidate. |
+
+## Groups
+
+The allowlist is organized into nine groups so an agent can browse narrowly before reaching for `set`. If you are not sure about the exact key, type, or allowed values, call `list` first; `set` validates strictly and rejects unknown or out-of-range values without partial application. The returned catalog is the authority for the running build, including any debug-only entries.
+
+### `ui` — Appearance and chrome
+
+| Key | Type | Details |
+| --- | --- | --- |
+| `ui.appearance_mode` | string enum | `System` \| `Light` \| `Dark`. App appearance mode. |
+| `ui.show_tooltips` | boolean | Whether RepoPrompt shows app tooltips. |
+| `ui.enable_keyboard_shortcuts` | boolean | Global keyboard shortcuts. New/changed shortcuts may only take effect after reopening a window. |
+| `ui.font_scale` | number | An app font-size preset value. Use `list` and `options` for accepted values; arbitrary sizes are rejected. |
+
+### `prompt_packaging` — How prompts are assembled
+
+| Key | Type | Details |
+| --- | --- | --- |
+| `prompt_packaging.prompt_sections_order` | string containing a JSON array | The wire value is a string, not a native JSON array. Its decoded array must contain each prompt section exactly once. Call `{"op":"list","group":"prompt_packaging"}` first and read `allowed_items` for the canonical section raw values before sending `set`. |
+| `prompt_packaging.duplicate_user_instructions_at_top` | boolean | Whether user instructions are duplicated at the top of packaged prompts. |
+| `prompt_packaging.file_path_display_option` | string enum | `Full` \| `Relative`. How file paths are displayed in packaged context. |
+| `prompt_packaging.selected_files_sort_method` | string enum | `nameAscending` \| `nameDescending` \| `tokenAscending` \| `tokenDescending`. |
+| `prompt_packaging.include_datetime_in_user_instructions` | boolean | Whether packaged user instructions include the current date/time. |
+
+### Legacy editing preferences
+
+The current allowlist has no `editing` group. Classic keys such as `editing.file_edit_format`, `editing.allow_diff_models_to_rewrite`, and `editing.complex_edit_strategy` should not be sent to this tool. Configure the relevant UI workflow instead; the current Oracle send contract offers `chat`, `plan`, and `review` modes.
+
+### `models` — Model selection and inference defaults
+
+| Key | Type | Details |
+| --- | --- | --- |
+| `models.preferred_compose_model` — **Built-in Chat Model** | string \| null | Preferred Built-in Chat model raw identifier, if set. Advertises `options_available: true`. Set `null` to clear. |
+| `models.planning_model` — **Oracle Model** | string \| null | Preferred Oracle model raw identifier, if set. Advertises `options_available: true`. Set `null` to clear. |
+| `models.additional_oracle_models` | string array | Ordered additional Oracle model IDs, with at most four entries. The primary model is configured separately. |
+| `models.sync_chat_model_with_oracle` — **Sync Built-in Chat with Oracle** | boolean | Whether the Built-in Chat model is kept in sync with the Oracle model. |
+| `models.temperature` | number | Range `0.0`–`2.0`. Only applied when `models.temperature_enabled` is `true`. |
+| `models.temperature_enabled` | boolean | Whether the global temperature is sent with model requests. |
+| `models.custom_planning_prompt` — **Custom Oracle System Prompt** | string | Custom system prompt used by the Oracle. Empty string restores the built-in default. |
+
+### `context_builder` — Context Builder agent & model
+
+| Key | Type | Details |
+| --- | --- | --- |
+| `context_builder.agent` | string enum | CLI agent used by Context Builder. Call `list` and read `allowed_values` for eligible backend IDs. Writes preserve the backend's remembered model when one exists, or use its default. |
+| `context_builder.model` | string \| null | Remembered model ID for the selected backend; null clears that slot. An unusable saved backend can read as null; inspect the agent catalog before setting a replacement. `options` normally scopes candidates to the current backend. |
+
+### `mcp` — MCP preset visibility
+
+| Key | Type | Details |
+| --- | --- | --- |
+| `mcp.show_model_presets` | boolean | Whether MCP model presets are exposed. Internal temporary suppression is separate and is not a durable allowlisted preference. |
+
+**Auto-Start** and live listener lifecycle controls remain in the app UI. The Classic `mcp.auto_start` example is not part of the current registry.
+
+### `code_maps` — Global Code Maps toggle
+
+| Key | Type | Details |
+| --- | --- | --- |
+| `code_maps.globally_disabled` | boolean | When `true`, Code Maps are globally disabled and the MCP `get_code_structure` tool is suppressed. |
+| `code_maps.non_git_enabled` | boolean | Opt in to Code Maps in non-Git folders. |
+
+### `file_system` — Workspace folder scanning
+
+These preferences affect scanning. Local `.repo_ignore` file contents remain repository content, rather than a scalar application setting.
+
+| Key | Type | Details |
+| --- | --- | --- |
+| `file_system.respect_repo_ignore` | boolean | Honor RepoPrompt-specific ignore rules. |
+| `file_system.respect_cursorignore` | boolean | Honor `.cursorignore` rules. |
+| `file_system.global_ignore_defaults` | string | Global ignore patterns separated by newlines; limited to 20,000 characters. |
+| `file_system.enable_hierarchical_ignores` | boolean | Honor ignore files in nested directories. |
+| `file_system.skip_symlinks` | boolean | Skip symbolic links; the inverse of the UI's Follow symbolic links option. |
+| `file_system.show_empty_folders` | boolean | Include empty folders in workspace listings. |
+
+### `agent_mode` — Selected global behavior
+
+| Key | Type | Details |
+| --- | --- | --- |
+| `agent_mode.show_built_in_workflow_cleanup_guidance` | boolean | Include housekeeping guidance in built-in Agent Mode workflow templates. Custom templates and external workflow instructions are separate. |
+| `agent_mode.codex_goal_support_enabled` | boolean | Enable Codex goal-support feature configuration. |
+| `agent_mode.codex_reasoning_summaries_enabled` | boolean | Request Codex reasoning summaries in Agent Mode; separate from reasoning effort. |
+| `agent_mode.claude_usage_quota_enabled` | boolean | Passive run rate-limit diagnostics; does not connect a Claude account or authorize account usage reads. |
+| `agent_mode.codex_usage_quota_enabled` | boolean | Observe-only Codex quota display preference. Quota readings are not returned over MCP. |
+| `agent_mode.usage_limits_display_enabled` | boolean | Display already-enabled usage sources; does not connect a source or change routing. |
+| `agent_mode.provider_conversation_cleanup_action` | enum | Provider conversation cleanup preference. Discover accepted values from `list`. |
+| `agent_mode.subagent_default_wait_seconds` | integer enum | Default otherwise-quiet sub-agent wait: `120`, `300`, `600`, `1200`, `1800`, or `3600` seconds. |
+
+### `notifications` — Notification preferences
+
+The registry exposes notification descriptor keys as booleans. Call `{"op":"list","group":"notifications"}` for the exact names, descriptions, and values in your build, then use a returned key with `set`. These preferences control app notification behavior; macOS notification authorization is managed by the operating system. See [Notifications settings](../settings/general/notifications.mdx).
+
+## Examples (MCP JSON)
+
+Each example shows the arguments object passed to `app_settings`:
+
+The prompt-section order is JSON encoded inside the string-valued `value`. This example uses the section names declared in the application source; compare them with the running catalog's `allowed_items` before changing the order:
+
+```json
+{
+  "op": "set",
+  "key": "prompt_packaging.prompt_sections_order",
+  "value": "[\"fileMap\",\"fileContents\",\"gitDiff\",\"metaPrompts\",\"userInstructions\"]"
+}
+```
+
+```text
+// Browse the full catalog (values always included)
+{ "op": "list" }
+
+// Inspect one group
+{ "op": "list", "group": "ui" }
+
+// Batch read a few keys
+{ "op": "get", "keys": ["ui.appearance_mode", "mcp.show_model_presets"] }
+
+// Toggle a boolean
+{ "op": "set", "key": "ui.show_tooltips", "value": false }
+
+// Update an enum
+{ "op": "set", "key": "ui.appearance_mode", "value": "Dark" }
+
+// Clear an optional model (null is valid for nullable keys)
+{ "op": "set", "key": "models.planning_model", "value": null }
+
+// Change a numeric setting
+{ "op": "set", "key": "models.temperature", "value": 1.25 }
+
+// Switch the Context Builder agent (remembered model is preserved)
+{ "op": "set", "key": "context_builder.agent", "value": "codexExec" }
+
+// List candidate models for the current Context Builder backend
+{ "op": "options", "key": "context_builder.model" }
+
+// Narrow candidates to one CLI backend
+{ "op": "options", "key": "models.planning_model", "agent": "codexExec", "limit": 25 }
+```
+
+## Error Behavior
+
+- **Unknown keys:** Rejected with a clear error. Call `list` (or `list` with a `group`) to discover the correct key.
+- **Wrong types:** Booleans, numbers, strings, and `null` are each validated against the entry's declared `type`.
+- **Out-of-range values:** Numeric ranges (e.g., `models.temperature` 0.0–2.0) and enum values are enforced.
+- **No partial application:** Validation fails closed — if any check fails, nothing is written.
+- **One key per `set`:** Passing `keys` or `group` on `set` is rejected.
+
+## Safety & Deliberately Excluded
+
+This surface is intentionally narrow. The following are **not** reachable through `app_settings` and must be managed in the Settings UI:
+
+- API credentials and raw provider secrets for any provider.
+- MCP tool ACLs, auto-start lifecycle controls (`mcp.auto_start`), and agent permission documents.
+- Workspace approvals and workspace-scoped chat/copy settings.
+- Agent permission policies, human-only strict approval controls (specifically `agent_mode.codex_hook_approval_strict_mode_enabled`, which is classified in `humanOnlySettingKeys` and explicitly rejected over MCP), and workspace model override dictionaries. Selected durable global Agent Mode preferences are explicitly allowlisted above.
+- Internal migration flags and settings absent from the catalog. Development builds can expose additional diagnostic entries; do not assume they exist in release builds.
+
+If a preference is dangerous, secret, or workspace-specific, it is kept UI-only by design. Agents can still discover what *is* reachable with `op=list`.
+
+## See Also
+
+- [Setup Guide](./mcp-setup.mdx#terminal-access) — install terminal access with `rpce-cli`.
+- [MCP Tools Reference](./mcp-tools.mdx) — schemas for every MCP tool.
+- [Settings Reference](../reference/settings.mdx) — the in-app Settings UI equivalents.
+- [MCP Server Overview](./mcp-overview.mdx) — IDE-for-agents framing and capability map.

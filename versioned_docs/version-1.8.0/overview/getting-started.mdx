@@ -1,0 +1,39 @@
+---
+id: "getting-started"
+title: "Getting Started"
+description: "Complete your first coding task in four steps: describe it, prepare context and a plan, implement, and verify."
+slug: "/overview/getting-started"
+hide_table_of_contents: false
+---
+
+Use RepoPrompt to give a coding agent the context it needs, plan a focused change, and review the result. This four-step guide helps you complete your first task. For more explanation and optional techniques, continue with [Going Deeper](./going-deeper.mdx).
+
+## Before Step 1: Connect the coding runtime and Oracle
+
+Open **Settings → Agent Mode → CLI Providers** and connect the coding runtime you want to use. Complete its sign-in and use **Test Connection** to check it. [Providers & Models](../providers/overview.mdx) explains the available connections.
+
+In **Settings → Agent Mode → Agent Models**, choose an available **Context Builder Agent** to find relevant files and an **Oracle** to help analyze them. The [Setup Wizard](../mcp-server/setup-wizard.mdx) can help with these choices.
+
+## Step 1: Describe the task
+
+Choose **File → New Workspace Window** to create a workspace for your project. Enter a **Workspace name**, choose **Add Folders** to select your project folder, then choose **Create Workspace**. In a new Agent Mode session, choose **Work locally → Workspace checkout**, then select the **Plan & Build** workflow. Write what you want changed, any limits, and how you will know it works. You do not need to select every relevant file yourself.
+
+For example: “Fix the sign-in error so an expired session returns me to the login screen. Keep the existing design and check that signing in again works. Show me the plan and wait for my approval before editing.”
+
+## Step 2: Prepare context and a plan
+
+Send the message. Let the agent investigate the project, gather relevant code with Context Builder, and prepare a plan with Oracle. Answer any questions and review the proposed approach. If something is missing or outside your request, say so before implementation continues.
+
+You do not need to run discovery and planning separately or repeat the original request.
+
+## Step 3: Implement and guide
+
+When the plan is ready, tell the agent to proceed. Follow its progress in the conversation and respond to questions or approval requests after reading what they authorize. If the work heads in the wrong direction, send a correction or stop the run.
+
+## Step 4: Verify and finish
+
+Ask the agent to review the changes against your request and run the project's appropriate checks. Inspect the diff and try the changed behavior yourself. If a check fails or the result is incomplete, ask for a targeted fix and check again.
+
+Once you are satisfied, ask the agent to commit the change if you want a Git checkpoint. If you used a worktree, [review and merge its changes](../worktrees/review-and-merge.mdx) into your intended branch. A completed agent turn alone does not mean the work is verified or merged.
+
+Read [Going Deeper](./going-deeper.mdx) for a multi-step walkthrough with more options and practices behind these four steps, or [Agent Mode Overview](../agent-mode/overview.mdx) to find your way around the interface.

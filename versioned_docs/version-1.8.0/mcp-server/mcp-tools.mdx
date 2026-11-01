@@ -1,0 +1,612 @@
+---
+id: "mcp-tools"
+title: "Tools Reference"
+description: "Use the current MCP tool contracts for workspace context, repository operations, Oracle conversations, and Agent Mode."
+slug: "/mcp-server/mcp-tools"
+keywords: ["manage_selection","workspace_context","file_search","read_file","apply_edits","chat_send","context_builder","get_file_tree","get_code_structure","chats","list_models","file_actions","prompt","app_settings","agent_run","agent_manage","start","poll","wait","cancel","steer","respond","list_agents","list_sessions","get_log","create_session","resume_session","stop_session","list_workflows","timeout","bounded wait","model_id","workflow_id","detach","session_ids","multi-wait","multi-poll","wait any","parallel wait","sub-agent","sub agent","subagent","spawn","orchestrate","agent control plane","multi-session"]
+hide_table_of_contents: false
+toc_min_heading_level: 2
+toc_max_heading_level: 4
+---
+
+This reference follows the current RepoPrompt source contracts. Tools are organized by category; ordinary tool toggles live in [MCP Tools settings](../settings/mcp-server/tools.mdx). Some tools are additionally limited to Agent Mode, discovery, or an authorized control relationship. Your connection's live schema determines which tools and arguments are available.
+
+The MCP settings status displays **21 available** tools for standard external client connections. RepoPrompt defines **31 total domain tools** (`MCPDomainToolCatalog.swift`):
+- **21 advertised tools** exposed to standard external MCP clients, consisting of **3 global tools** (`app_settings`, `bind_context`, `manage_workspaces`) and **18 window-scoped tools** (`agent_explore`, `agent_manage`, `agent_run`, `apply_edits`, `context_builder`, `file_actions`, `file_search`, `get_code_structure`, `get_file_tree`, `git`, `history`, `manage_selection`, `manage_worktree`, `oracle_send`, `oracle_utils`, `prompt`, `read_file`, `workspace_context`).
+- **10 policy-gated and sub-agent internal tools** (`ask_user`, `ask_oracle`, `oracle_chat_log`, `agent_session_link`, `session_admin`, `become_overseer`, `self_compact`, `share_thoughts`, `set_status`, `wait_for_next_user_instruction`) that are reserved for and dynamically activated within eligible Agent Mode and cross-session oversight contexts. See [Policy-Gated and Sub-Agent Internal Tools](#policy-gated-and-sub-agent-internal-tools).
+
+## Tool catalog at a glance
+
+These short descriptions follow the built-in Settings catalog shown in the reference screenshot. The detailed sections below explain current arguments, limitations, and behaviors; use the schema advertised by your connected build for the exact contract.
+
+| Tool | What it does |
+| --- | --- |
+| [`agent_explore`](#agent_explore) | Starts short-lived, read-only Explore agents for focused codebase probes. Each child gets a fresh session and context. |
+| [`agent_manage`](#agent_manage) | Lists agents, sessions, and workflows; reads logs and handoffs; creates, resumes, stops, or cleans up eligible sessions. |
+| [`agent_run`](#agent_run) | Starts and controls Agent Mode sessions, including waiting for input, steering, responding, and cancellation. |
+| [`app_settings`](#app_settings) | Reads or updates the allowlisted RepoPrompt preferences. Settings outside the allowlist are not exposed. |
+| [`apply_edits`](#apply_edits) | Applies a whole-file rewrite, one literal replacement, or a batch of literal replacements. Choose exactly one mode. |
+| [`bind_context`](#bind_context) | Discovers, inspects, and binds the workspace context for this MCP connection. |
+| [`context_builder`](#context_builder) | Explores the codebase, selects relevant files, and builds task context within a token budget. |
+| [`file_actions`](#file_actions) | Creates, moves, or deletes files. Paths are absolute; deletion moves items to Trash. |
+| [`file_search`](#file_search) | Searches file paths, contents, or both, with regex, extension, path, and exclusion filters. |
+| [`get_code_structure`](#get_code_structure) | Returns root-local Code Map structure for files, folders, or the current selection. |
+| [`get_file_tree`](#get_file_tree) | Generates a project directory tree or lists loaded root folders. |
+| [`git`](#git) | Inspects Git status, diffs, history, file versions, and blame without committing or pushing. |
+| [`history`](#history) | Searches Agent Mode session history across saved workspaces and reads bounded transcript excerpts. |
+| [`manage_selection`](#manage_selection) | Manages selected files and their representation as full content, line slices, or Code Maps. |
+| [`manage_workspaces`](#manage_workspaces) | Manages workspaces, folders, and Compose tabs across RepoPrompt windows. |
+| [`manage_worktree`](#manage_worktree) | Manages Git worktrees and session bindings, and supports previewing or applying session-bound merges. |
+| [`oracle_send`](#oracle_send) | Starts or continues an Oracle conversation for chat, planning, or review. |
+| [`oracle_utils`](#oracle_utils) | Discovers Oracle model choices or lists Oracle conversations; it does not send messages. |
+| [`prompt`](#prompt) | Reads or changes shared prompt text, and lists or selects copy presets. |
+| [`read_file`](#read_file) | Reads a workspace file in full or by line range. |
+| [`workspace_context`](#workspace_context) | Builds, renders, or exports the current workspace context and its selected components. |
+
+The descriptions in this catalog explain purpose, not permission. A tool being listed or enabled does not grant workspace approval, connect a provider, or bypass a tool's validation rules.
+
+## Changes from Classic
+
+| Classic example | Current source contract |
+| --- | --- |
+| `chat_send` | `oracle_send` for external consultations; `ask_oracle` inside eligible Agent Mode sessions. |
+| `list_models` | `oracle_utils` with `op="models"`. |
+| `chats` list/log | `oracle_utils op="sessions"`; eligible Agent Mode runs can use `oracle_chat_log`. |
+| Initial routing through select_tab | Prefer `bind_context` discovery and binding. Legacy compose-tab lifecycle actions remain available. |
+| Fixed five-minute agent waits | Configurable sub-agent default wait, with explicit per-call timeouts. |
+| App settings editing or auto-start keys | Use the current [allowlist](./mcp-app-settings.mdx); obsolete keys are rejected. |
+
+## Context Binding
+
+### `bind_context`
+
+List, inspect, and bind the workspace context used by this MCP connection. `op` is `list`, `status`, or `bind`. Bind with `working_dirs`, a comma-separated string of absolute workspace roots, or a `context_id` returned by discovery. `create_if_missing` requests creation when no suitable workspace exists, subject to approval. The current global schema does not accept `window_id`.
+
+```json
+{"op":"bind","working_dirs":"/Users/example/Project"}
+```
+
+Use a returned `context_id` when a stable compose-tab context is required. See [Connection Management](./mcp-connections.mdx#context-binding).
+
+## Selection & Context Tools
+
+### `manage_selection`
+
+Add, remove, or replace files in the current selection with fine-grained control over representation.
+
+| Parameter | Description |
+| --- | --- |
+| `op` | get \| add \| remove \| set \| clear \| preview \| promote \| demote |
+| `paths` | Array of file or folder paths (folders expanded recursively) |
+| `mode` | full \| slices \| codemap\_only |
+| `slices` | Array of &#123;path, ranges: \[&#123;start\_line, end\_line, description&#125;\]&#125; |
+| `view` | summary \| files \| content \| codemaps |
+
+**Selection Modes:**
+
+- **full:** Complete file content (default)
+- **slices:** Only specified line ranges
+- **codemap\_only:** Just function/type signatures (token-efficient)
+
+**Auto-Codemap:** When adding files with full/slices mode, related dependency files automatically get codemaps added. Use promote/demote to manually adjust.
+
+With op=set, full and codemap_only replace the corresponding selection, while slices replaces slices for the specified files and preserves unrelated full files and slices. Manual codemap_only, promote, or demote operations disable automatic codemap management. Use the returned selection to check the final representation.
+
+### `workspace_context`
+
+Get a complete snapshot of the current workspace state.
+
+| Parameter | Description |
+| --- | --- |
+| `include` | Array of: prompt, selection, code, files, tree, tokens |
+
+Returns prompt text, selected files, Code Maps, and token counts in a single call. Default includes are `prompt`, `selection`, `code`, and `tokens`; full file contents and the selected-file tree are opt-in. Additional operations are `snapshot`, `export`, `list_presets`, and `select_preset`. Use `path` for export and returned preset identities for selection; `copy_preset` overrides rendering or token-calculation presets.
+
+### `prompt`
+
+Get or modify the shared prompt/instructions text.
+
+| Parameter | Description |
+| --- | --- |
+| `op` | get \| set \| append \| clear \| export \| list_presets \| select_preset |
+| `text` | Text for set/append operations |
+| `path` | Output file for export |
+| `preset` | UUID, kind, or name for select_preset; requires an explicitly bound tab |
+| `copy_preset` | Optional export rendering override |
+
+### `context_builder`
+
+Intelligently explore the codebase and build optimal file context for a task.
+
+| Parameter | Description |
+| --- | --- |
+| `instructions` | Describe the task or question you need help with |
+| `response_type` | `clarify` (default, context only) \| `question` (answer using context) \| `plan` (generate implementation plan) \| `review` (generate code review with git diffs) |
+
+An external app-backed call creates a fresh compose tab and runs discovery toward the context budget. During Agent Mode, it reuses the current agent tab. A `question`, `plan`, or `review` response adds Oracle analysis and returns conversation information for follow-up. Continue with the Oracle tool advertised to your connection, using the returned `chat_id`.
+
+`export_response=true` can write generated analysis to a shareable file. App-backed analysis also accepts an exposed `oracle_preset` to select its Oracle roster independently of discovery. Direct-headless execution uses a separate `context_pack_ref` contract for a persisted frozen package and rejects `oracle_preset`. Runtime depends on repository size, task scope, provider latency, and analysis type.
+
+## File Operation Tools
+
+### `get_file_tree`
+
+Get an ASCII directory tree of the project.
+
+| Parameter | Description |
+| --- | --- |
+| `type` | files \| roots |
+| `mode` | auto \| full \| folders \| selected |
+| `path` | Optional starting folder |
+| `max_depth` | Limit tree depth (root = 0) |
+
+Files with available codemaps are marked with `+` in the tree output.
+
+### `file_search`
+
+Search by file path and/or content with regex support.
+
+| Parameter | Description |
+| --- | --- |
+| `pattern` | Search term or path pattern. Required. |
+| `mode` | `auto` (default), `path`, `content`, or `both`. Auto detects path versus content search from the pattern. |
+| `regex` | Regex is auto-detected by default. Set `false` for literal content matching or glob-style path matching; set `true` to force regular expressions. |
+| `context_lines` | Number of surrounding lines to include for content matches. |
+| `whole_word` | Match complete words only. |
+| `count_only` | Return match counts without match content. |
+| `max_results` | Maximum results to return (default: 50). |
+| `filter` | Optional `extensions`, `exclude`, and `paths` constraints. `paths` limits search to loaded workspace roots or subfolders. |
+
+Regex mode supports groups, lookarounds, and anchors. Literal mode treats special characters as text; in path mode, `*`, `?`, and `**` remain path wildcards. Large responses can be capped, with excess results omitted and the count reported.
+
+### `read_file`
+
+Read file contents with optional line ranges.
+
+| Parameter | Description |
+| --- | --- |
+| `path` | File path (relative or absolute) |
+| `start_line` | 1-based start line (negative for tail) |
+| `limit` | Number of lines to read |
+
+Use `start_line: -N` to read the last N lines (like `tail -n`).
+
+Reuse exact returned workspace paths. For an explicit root-qualified path, use `<root-alias>//<relative-path>`. Current read and edit resolution does not guess by basename or suffix. A worktree-bound session can show logical paths while reading from its bound checkout; inspect worktree_scope when returned.
+
+### `get_code_structure`
+
+Get root-local Code Maps for explicit files/directories or the current selection, with optional dependency expansion.
+
+| Parameter | Description |
+| --- | --- |
+| `paths` | Optional seed files or directories; omit for the current selection. |
+| `expand` | `uses`, `used_by`, or `both`; omit for seeds only. |
+| `depth` | Relationship depth 1–4; default 1 when expansion is requested. |
+| `signatures` | Include signature text; default true. False requests graph-only output. |
+| `size` | `small`, `medium` (default), or `large`. |
+
+Inspect per-root results in mixed workspaces. `updates_pending` data can still be usable; if output reports truncation, retry with a larger `size`. Classic's `scope` and `max_results` examples are not the current schema. Global Code Maps disabling suppresses this tool.
+
+### `file_actions`
+
+Create, delete, or move files.
+
+| Parameter | Description |
+| --- | --- |
+| `action` | create \| delete \| move |
+| `path` | Absolute file or folder path for every action. |
+| `content` | File content (for create) |
+| `new_path` | Absolute destination path for move. |
+| `if_exists` | error (default) \| overwrite |
+
+All create, delete, and move paths must be absolute, including in a single-root workspace. Create makes missing parent directories and selects the new file; `if_exists` defaults to `error`, while `overwrite` permits replacing an existing file. Delete moves the item to the macOS Trash, where it remains recoverable until Trash is emptied. Move fails if the destination exists and transfers the file's selection state. The optional operation_id is a correlation identifier, not a deduplication or replay-safety token.
+
+### `apply_edits`
+
+Apply search/replace edits or full file rewrites.
+
+| Parameter | Description |
+| --- | --- |
+| `path` | File to edit |
+| `search` | Text to find (single edit) |
+| `replace` | Replacement text (single edit) |
+| `edits` | Array of &#123;search, replace, all&#125; for multiple edits |
+| `rewrite` | Complete file content for full rewrite |
+| `all` | Replace all occurrences (default: false) |
+| `verbose` | Include diff preview in response |
+| `on_missing` | For rewrite only: error (default) or create. |
+
+Rewrite, single search/replace, and an edits array are mutually exclusive request modes. Supply exactly one. An optional operation_id is echoed as correlation information; it does not make a repeated edit safe to replay.
+
+Applies validated edits with applicable approval checks. Use diff previews and returned status to confirm results. Workspace paths use literal-first exact resolution: reuse returned paths unchanged, or use `<root-alias>//<relative-path>` for explicit root qualification. Basename and suffix guessing are not supported. Approved external read paths remain read-only.
+
+:::tip
+
+**CLI usage:** `apply_edits` requires JSON format via `rpce-cli`:
+
+```bash
+rpce-cli -e 'call apply_edits {"path":"file.ts","search":"old","replace":"new"}'
+rpce-cli -c apply_edits -j edits.json      # From .json file (auto-detected)
+rpce-cli -c apply_edits -j @edits.json     # From file (explicit @)
+echo '...' | rpce-cli -c apply_edits -j @- # From stdin
+```
+
+Use valid JSON with the intended literal search and replacement text, and inspect validation errors rather than relying on input repair.
+
+:::
+
+## Oracle & Model Tools
+
+### `oracle_send`
+
+Start or continue Oracle conversations for questions, planning, or review using the configured context and models.
+
+| Parameter | Description |
+| --- | --- |
+| `message` | Your message to send |
+| `new_chat` | Set true to force a new conversation; otherwise a missing chat_id resumes the selected or most recent eligible conversation. |
+| `mode` | chat \| plan \| review |
+| `model` | Exposed preset name/UUID or available raw primary model override; valid only with explicit new_chat=true. |
+| `chat_id` | Specific chat to continue |
+| `attachments` | App-backed file inputs: an array of `{ "path": "/absolute/path", "title": "Optional label" }` entries. See below for supported types and path boundaries. |
+| `export_response` | Write the response to a shareable file and return its export information. |
+
+**Modes:**
+
+- **chat:** General conversation
+- **plan:** Architectural planning without immediate edits
+- **review:** Code review with git diff context from selected files
+
+An exact exposed preset identity wins over a raw model ID and supplies the complete Oracle roster and mapped Chat Preset. A raw override replaces the primary while retaining configured additional Oracles. Continuation preserves the established conversation configuration and rejects model overrides. Oracle consultation is separate from the agent applying file edits.
+
+**Attachments:** Use `attachments` for supported images (PNG, JPEG, GIF, WebP), UTF-8 text, and PDFs on routes that accept native documents. Each path must be canonical and absolute, inside a loaded workspace root or the exact path of a file the user attached to this agent session. Unsupported input is refused; files are not silently omitted. Remote URLs and direct-headless attachment requests are not supported. The older `images` argument is an image-only compatibility alias; do not send it together with `attachments`.
+
+```json
+{
+  "message": "Review the layout against this screenshot.",
+  "new_chat": true,
+  "mode": "review",
+  "attachments": [{"path": "/Users/example/Project/design/current.png", "title": "Current layout"}]
+}
+```
+
+Originals are sent for this turn only, and to each lane in a grouped request. Continue with the returned conversation IDs and explicitly attach files again if needed. Inspect individual lane statuses and export errors before retrying. See [Oracle](../agent-mode/oracle.mdx) for grouped-result review and attachment usage.
+
+Oracle attachment limits are **10 files**, **20 MiB per file**, and **50 MiB total** before provider encoding. UTF-8 text files must also fit the **512 KiB** inline-text limit; larger files are refused rather than truncated. Provider request and model-context limits still apply.
+
+### `ask_oracle`
+
+During eligible Agent Mode runs, consult an Oracle in the current agent context with `message`, optional `chat_id`, `new_chat`, `mode`, `attachments`, and `export_response`. Omit chat_id or set new_chat=true to start; otherwise continue that conversation. A primary `model` override is allowed on a new conversation and rejected on continuation. Use the tool actually advertised to your connection.
+
+### `oracle_utils`
+
+Read-only helpers for model choices and Oracle conversation discovery.
+
+| Parameter | Description |
+| --- | --- |
+| `op` | models \| sessions |
+| `context_id` | Narrow sessions to a context UUID returned by bind_context. |
+| `scope` | workspace \| tab; context_id infers the narrowed scope. |
+| `limit` | Bound the session list. |
+
+With `op="models"`, list model choices and exposed presets relevant to Oracle sends. Use a returned identity rather than guessing a model or preset name. With `op="sessions"`, discover conversations to inspect or continue.
+
+### `oracle_chat_log`
+
+During eligible Agent Mode runs, recover recent Oracle messages after compaction or while continuing a consultation. Supply optional `chat_id`, `limit` of 1–50 messages (default 8), and `include_user` (default false). This reads history without sending a new turn.
+
+## Git Tools
+
+### `git`
+
+Safe, token-efficient git abstraction for MCP agents. Also supports Jujutsu (jj) repositories natively.
+
+See [Workflow Commands](./workflow-commands.mdx#git-integration) for review-oriented usage.
+
+| Parameter | Description |
+| --- | --- |
+| `op` | status \| diff \| log \| show \| blame |
+| `repo_root` | Repository path or loaded root name. Use `@main` for the main checkout or `@wt` for the current checkout, either alone or appended to a root such as `Project@main`. Omission uses the session-aware default described below. |
+| `repo_roots` | Array of repo paths or names (for multi-root operations) |
+| `compare` | Compare spec: uncommitted (default), staged, unstaged, mergebase:X, back:N, last, main, trunk, or any revspec. `main` and `trunk` use merge-base semantics. |
+| `detail` | summary (default) \| files \| patches \| full |
+| `scope` | all \| selected (diff scope) |
+| `artifacts` | Write snapshot artifacts (MAP.txt, patches) for diff |
+| `ref` | Git ref for show operation (e.g., HEAD~1, main) |
+| `path` | File path for blame operation |
+| `lines` | Line range for blame (e.g., "45-60") |
+| `count` | Number of commits for log |
+
+**Operations:**
+
+- **status:** Repository state (branch, upstream, ahead/behind, staged/modified/untracked)
+- **diff:** View changes with configurable detail level. Optionally writes artifacts.
+- **log:** Commit history with stats
+- **show:** Single commit details
+- **blame:** Line-by-line attribution
+
+**Default repository:** When `repo_root` is omitted, the session's sole applicable worktree binding selects the checkout. With no session worktree bindings, the default is the workspace's declared **PRIMARY** root, not the first root to finish loading. If that root is unavailable or is not a Git repository, the tool does not silently fall back to another root. Multiple session bindings have no default: identify the repository explicitly with a path, root name, or `repo_key`. Bare `@main` and `@wt` still require a default repository and do not resolve that ambiguity.
+
+**Worktrees:** Status and diff output include worktree metadata such as the branch and main checkout path. Use a qualified selector such as `Project@main` or `Project@wt` to identify both the repository and checkout. The `@main` selector chooses a checkout; `compare="main"` chooses a comparison base. These are separate settings.
+
+**Safety:** All git commands use `--no-ext-diff`, `--no-textconv`, `--color=never`, and `GIT_TERMINAL_PROMPT=0` to ensure predictable, safe output.
+
+## Workspace Management Tools
+
+### `manage_workspaces`
+
+List, switch, create, or modify workspaces and tabs.
+
+| Parameter | Description |
+| --- | --- |
+| `action` | list \| switch \| create \| hide \| unhide \| delete \| add\_folder \| remove\_folder \| list\_tabs \| select\_tab \| create\_tab \| close\_tab |
+| `workspace` | Workspace UUID or name |
+| `name` | Name for new workspace, or optional name for `create_tab` |
+| `folder_path` | Absolute path for add/remove\_folder |
+| `tab` | Tab UUID or name for `select_tab` or `close_tab` |
+| `mode` | For `create_tab`: `blank` \| `fork` (default: `blank`) |
+| `source_tab` | Optional source tab for `create_tab` when `mode="fork"` |
+| `bind` | For `create_tab`: bind this MCP connection to the new tab (default: true) |
+| `window_id` | Target window for supported lifecycle operations; separate from bind_context. |
+| `focus` | For `select_tab` or `create_tab`: switch the UI to that tab (default: false) |
+| `allow_active` | For `close_tab`: allow closing the currently visible tab |
+| `open_in_new_window` | For action=switch or create: opens workspace in a new window and binds connection. Returns `window_id` in response. |
+| `switch_to_created` | For action=create: switch to the newly created workspace in the target window (default: true). |
+
+Create, delete, and folder operations modify workspace state. Tab binding ensures consistent context even if the user switches tabs during your session. Use `open_in_new_window` with the switch or create action to open a workspace in a fresh window without affecting existing windows.
+
+**Tab automation:** `create_tab` defaults to `bind=true` and `focus=false`, so agents can create isolated background tabs without stealing UI focus. `close_tab` refuses to close the last remaining tab, the active visible tab unless `allow_active=true`, or any tab that still has live bound runs.
+
+### `manage_worktree`
+
+List, inspect, create, and bind Git worktrees for Agent sessions, or preview and apply a session-bound merge. Management operations are `list`, `show`, `create`, `bind`, `select`, and `unbind`; merge operations are `preview`, `apply`, `status`, `continue`, and `abort`.
+
+Use returned worktree IDs and an explicit session_id when routing does not resolve an active Agent session. Preview is non-mutating; apply requires its operation_id and the applicable confirmation or routed UI approval. Continue and abort require confirmation outside routed UI flows. See [Worktrees](../worktrees/overview.mdx).
+
+The source must be clean and committed, and the target must be clean. For the human review card, stale previews, and conflict recovery in the target checkout, see [Review and Merge](../worktrees/review-and-merge.mdx).
+
+## App Settings
+
+### `app_settings`
+
+Read and update allowlisted global preferences for appearance, prompt packaging, models, Context Builder, MCP preset visibility, Code Maps, file scanning, selected Agent Mode behavior, and notifications. Credentials, tool ACLs, permission policies, and workspace model override dictionaries are excluded.
+
+| Parameter | Description |
+| --- | --- |
+| `op` | `list` \| `get` \| `set` \| `options` |
+| `group` | `ui`, `prompt_packaging`, `models`, `context_builder`, `mcp`, `code_maps`, `file_system`, `agent_mode`, `notifications`. Filter on list or selector on get. |
+| `key` | Fully qualified key (e.g., `ui.appearance_mode`). Required on `set`; optional selector on `get`. |
+| `keys` | Array of keys for batch `get`. Mutually exclusive with `key` and `group`. |
+| `value` | Boolean, number, string, string array, or null, matching the catalog's declared type. The additional Oracle roster is an array; `prompt_packaging.prompt_sections_order` is a string containing a JSON array, not a native array. |
+| `agent` | For options: filter to a supported CLI backend, such as claudeCode or codexExec. |
+| `limit` | For `options`: maximum number of candidates returned (1–200, default 60). |
+| `detailed` | For `options`: include descriptions and model metadata in each candidate. |
+
+Call list first to discover the actual keys and types in the running build. Obsolete Classic editing and auto-start keys are not part of the current registry.
+
+**Examples:**
+
+```text
+# Browse the catalog (values always included)
+{ "op": "list" }
+
+# Inspect one group
+{ "op": "list", "group": "ui" }
+
+# Batch read
+{ "op": "get", "keys": ["ui.appearance_mode", "mcp.show_model_presets"] }
+
+# Toggle a flag
+{ "op": "set", "key": "ui.show_tooltips", "value": false }
+
+# Clear an optional model
+{ "op": "set", "key": "models.planning_model", "value": null }
+
+# Switch the Context Builder agent (remembered model is preserved)
+{ "op": "set", "key": "context_builder.agent", "value": "codexExec" }
+
+# List candidate values for a setting that advertises options_available
+{ "op": "options", "key": "models.planning_model", "agent": "codexExec" }
+```
+
+**See the standalone** [App Settings Tool](./mcp-app-settings.mdx) **page** for the complete key allowlist, per-group tables, validation rules, and the deliberately excluded categories.
+
+## Agent Control Plane
+
+:::tip
+
+**Advanced & Policy-Gated:** The `agent_run` and `agent_manage` tools are part of the advanced agent external control capability. They may not appear on all MCP connections — availability depends on the connection's policy configuration. These tools enable external orchestration of RepoPrompt's Agent Mode sessions.
+
+:::
+
+### `agent_run`
+
+Session-based control surface for long-running Agent Mode runs. Each start returns a session_id for poll, wait, steer, respond, and cancel. Use agent_manage for durable session history and metadata. Discover authoritative role mappings in its task_labels response; an omitted start model_id resolves through the pair role. Explicit model/effort targets come from the live catalog. Start-only worktree arguments can establish an isolated checkout before provider startup.
+
+When model routing is enabled in Agent Decisions, new starts with an omitted model_id or a role label can be routed across configured sub-agent targets. A compound model_id or explicit model_parameters pins the target and bypasses that automatic routing. A wait timeout bounds the waiting call; inspect the returned status and keep monitoring an active run rather than starting a duplicate.
+
+**Operations:**
+
+| Operation | Required Parameters | Description |
+| --- | --- | --- |
+| `start` | `message` | Start a new agent run in a **new session**. Do not pass `session_id` — use `steer` to continue an existing session. Optional: `session_name`, `model_id` (role label like `explore`, `engineer`, `pair`, `design`, or a specific ID from `agent_manage.list_agents`), `workflow_id`/`workflow_name`, `detach`, `timeout`. Returns a snapshot with `session_id`. |
+| `poll` | `session_id` or `session_ids` | Non-blocking read of the current run snapshot. With `session_ids` (array), returns all current snapshots in a collection response with `poll` metadata. |
+| `wait` | `session_id` or `session_ids`, optional `timeout` | Blocks until input is needed or a terminal/interesting state is reached. A multi-session wait returns when the first session reaches such a state. Default is the configured sub-agent wait, initially 120 seconds. Timeout=0 polls immediately. session_id and session_ids are mutually exclusive. |
+| `cancel` | `session_id` | Cancel an active agent run. Only valid when the run is `running` or `waiting_for_input`. Waits for cleanup before returning the final snapshot. |
+| `steer` | `session_id`, `message` | Continue the existing session, injecting into an active run or starting its next run after completion. Optional wait=true or timeout_seconds waits for a result using the configured default when no explicit timeout is given. Use respond for waiting_for_input. Start always creates a new session. |
+| `respond` | `session_id`, `interaction_id` | Resolve a pending interaction. Use `response` for decisions/text, `answers` for structured input, and `amendment` when relevant. Also supports `workflow_id`/`workflow_name`. |
+
+**Snapshot Status Values:**
+
+- `running` — Agent is actively working
+- `waiting_for_input` — Agent needs a response (check `interaction` field)
+- `completed` — Run finished successfully
+- `failed` — Run encountered an error (check `failure_reason`: `process_crash`, `timeout`, `agent_error`)
+- `cancelled` — Run was cancelled (`failure_reason: cancelled`)
+- `expired` — The session has no active control snapshot available
+
+**Snapshot Fields:** Depending on state and operation, responses can include session_id, status, status_text, assistant_text, transcript_item_count, failure_reason, session identity and parentage, and available agent/model information. Use the current snapshot's interaction_id and advertised response choices rather than reusing an older pending interaction.
+
+**Interaction Kinds** (for the `respond` operation):
+
+| Kind | Response Fields |
+| --- | --- |
+| `approval` | `response` (`accept` \| `accept_for_session` \| `accept_with_amendment` \| `decline` \| `cancel`), optional `reason` / `amendment` |
+| `question` | `response` (text) or `answers` (object), optional `skip` |
+| `user_input` | `response` (text) or `answers` (object), optional `skip` |
+
+**Sub-Agent Spawning:**
+
+Top-level MCP-started agent sessions can spawn sub-agents using `agent_run` and `agent_manage` — just like user-initiated sessions. This enables the **Orchestrate** workflow, which plans, decomposes, and delegates tasks across multiple agents. Only nested sub-agent sessions are blocked from spawning further agents (no recursive spawning).
+
+**Multi-Session Wait & Poll:**
+
+When running multiple agents in parallel, use `session_ids` (array) instead of `session_id` to monitor them efficiently:
+
+- **`op=wait` with `session_ids`:** Blocks until the *first* session reaches an interesting state. Returns the winning snapshot at the top level with a `wait` metadata object containing `mode`, `result`, `winner_session_id`, and `pending_session_ids`.
+- **`op=poll` with `session_ids`:** Returns all current snapshots immediately in a collection response with `poll` metadata and a `snapshots` array.
+
+`session_id` and `session_ids` are mutually exclusive. Multi-session mode is only supported for `wait` and `poll` — not `steer`, `respond`, or `cancel`.
+
+**Typical workflow:**
+
+1. Call `agent_run op=start message="..."` → receive `session_id`
+2. Call `agent_run op=wait session_id="..."` → waits up to the configured duration or explicit timeout until input is needed or the run reaches an interesting state
+3. When `status=waiting_for_input`, call `agent_run op=respond` with the returned `interaction_id` and an appropriate `response`
+4. Repeat wait/respond loop until the run reaches a terminal state
+
+### `agent_manage`
+
+Session and workflow management surface for Agent Mode. Use this tool to discover available agents, list and inspect sessions, and read transcript logs. `agent_run` controls the current run for a session, while session data itself persists across runs.
+
+**Operations:**
+
+| Operation | Key Parameters | Description |
+| --- | --- | --- |
+| `list_agents` | optional `roles_only` | List task_labels role mappings and exact agent/model/effort targets. roles_only=true omits the full explicit target catalog. |
+| `list_sessions` | `limit`, `state` | List live and persisted sessions, returning session IDs. Agent Mode callers are scoped to their spawned sessions. Filter by advertised state values; MCP-originated sessions are identified in the response. |
+| `get_log` | `session_id` | Read session transcript as compact XML. Returns `name` and `transcript_xml`. Supports `offset` and `limit` for pagination. |
+| `create_session` | `session_name` | Create a new agent session. Optional: `model_id` (role label or specific ID). |
+| `resume_session` | `session_id` | Hydrate and resume an existing session. Optional: `model_id`. |
+| `stop_session` | `session_id` | Stop/cancel a currently live running session. Returns `stop_requested: true` if the session was active. |
+| `cleanup_sessions` | `session_ids` (array) | Delete up to 256 unique valid MCP-originated session UUIDs. User-created and active sessions are protected. Validates the array before mutation and reports per-ID outcomes; inspect partial, cancellation, and retry results. |
+| `extract_handoff` / `handoff` | `session_id` | Export handoff XML for a live or persisted session. Use output_path for a file; file-content snapshots require an active live source context. |
+| `list_workflows` | — | List available agent workflows. |
+
+**Session IDs:** Use returned full UUIDs. Within agent_manage, use list_sessions for metadata and get_log for faithful transcript XML with turn pagination. The separate history tool has a bounded get_session operation for historical search results.
+
+**Workflow runs:** To start a workflow-backed run, use agent_run op=start with workflow_id or workflow_name and a message. Then use its returned session_id for wait, respond, and other run-control operations.
+
+### Agent Control Plane Examples
+
+```text
+# Discover available agents and workflows
+agent_manage op=list_agents
+agent_manage op=list_workflows
+
+# List recent sessions, filter by state
+agent_manage op=list_sessions limit=10
+agent_manage op=list_sessions state=failed
+
+# Read a session transcript
+agent_manage op=get_log session_id="<uuid>" limit=5
+
+# Stop a running session
+agent_manage op=stop_session session_id="<uuid>"
+
+# Clean up old MCP-originated sessions
+agent_manage op=cleanup_sessions session_ids=["<uuid1>","<uuid2>"]
+
+# Start a run and control it
+agent_run op=start message="Investigate the auth flow"
+agent_run op=wait session_id="<uuid>"
+agent_run op=wait session_id="<uuid>" timeout=10
+
+# Steer and wait for result in one call
+agent_run op=steer session_id="<uuid>" message="Now fix it" wait=true
+
+# Respond to a pending approval
+agent_run op=respond session_id="<uuid>" interaction_id="<id>" response="accept"
+
+# Respond to a question
+agent_run op=respond session_id="<uuid>" interaction_id="<id>" response="Use the staging API"
+
+# Start a workflow-backed run
+agent_run op=start workflow_id="<workflow-id>" message="Add logout support"
+
+# Then use agent_run to wait/respond on the returned session_id
+
+# Orchestrate: start multiple agents in parallel, wait for the first to finish
+agent_run op=start model_id="engineer" message="Task A" detach=true  # → session_id_1
+agent_run op=start model_id="engineer" message="Task B" detach=true  # → session_id_2
+agent_run op=wait session_ids=["<session_id_1>","<session_id_2>"] timeout=60
+
+# Poll all agents at once for a dashboard view
+agent_run op=poll session_ids=["<session_id_1>","<session_id_2>","<session_id_3>"]
+
+# Use the orchestrate workflow for automatic planning and delegation
+agent_run op=start workflow_name="orchestrate" message="Refactor auth into separate module"
+```
+
+:::tip
+
+**Tool Availability:** Individual tools can be enabled or disabled in **MCP Tools settings**. Disabled tools are withdrawn from the advertised list. Agent control tools are also gated by connection policy and may not appear on every connection.
+
+:::
+
+## Policy-Gated and Sub-Agent Internal Tools
+
+In addition to the 21 advertised tools above, RepoPrompt defines **10 policy-gated and sub-agent internal tools** that are omitted from the standard external catalog and activated dynamically within eligible Agent Mode and authorized cross-session oversight contexts:
+
+| Tool | Brief Description |
+| --- | --- |
+| [`ask_user`](#ask_user) | Prompts the user with structured questions, optional suggested answers, and configurable timeouts. |
+| [`ask_oracle`](#ask_oracle) | Consults the configured Oracle model directly from an eligible Agent Mode session. |
+| [`oracle_chat_log`](#oracle_chat_log) | Reads recent Oracle conversation history (`limit` 1–50) during an Agent Mode run without sending a new turn. |
+| `agent_session_link` | Manages cross-window and cross-session communication links, steering, model targeting, and auto-wake snoozing. |
+| `session_admin` | Administers sessions within a user-granted delegation scope, including session tree inspection, organization, worktree binding, and merge coordination. |
+| `become_overseer` | Requests promotion of the calling session to an overseer role to coordinate sibling sessions. |
+| `self_compact` | Requests self-compaction or context inspection (`op="context"` or `"compact"`) of the agent's own session context. |
+| `share_thoughts` | Publishes reasoning thoughts or plan progress to the session timeline. |
+| `set_status` | Updates the human-visible status indicator on the session card. |
+| `wait_for_next_user_instruction` | Signals that the agent has completed its turn and is waiting for the next user instruction. |
+
+## Exploration, History, and Session Coordination
+
+### `agent_explore`
+
+Launch short-lived read-only exploration children for narrow codebase probes. Operations are start, poll, wait, and cancel. Supply message or a batch of messages, save the returned session IDs, and use session_id or session_ids for monitoring. The role is always Explore, with no custom model/workflow selection, session reuse, steering, or responding. Explore children cannot edit, consult Oracles, or recursively delegate. Start-only worktree controls can isolate their reads.
+
+### `history`
+
+Search saved Agent Mode transcripts across workspaces with list_sessions, search, time, and bounded get_session operations. Window context does not automatically restrict history to one workspace; pass a workspace filter when needed. Search first, then read a small turn window using the returned session ID and turn location. Narrow truncated scans by workspace, dates, or session rather than requesting a whole transcript.
+
+### `ask_user`
+
+Ask structured questions, each with stable id and question fields and optional suggested answers. Title and context frame the interaction. The optional timeout_seconds overrides the global Question Timeout. Inspect timed_out, skipped, and answers keyed by question ID. Availability depends on the session's interaction policy.
+
+### Oversight tools
+
+For the interface and ordinary task workflow, see [Overseer Mode](../overseer/overview.mdx), including [Lanes](../overseer/lanes.mdx) and [Linking Sessions](../overseer/linking-sessions.mdx).
+
+For authorized cross-session oversight and multi-agent administration, RepoPrompt provides three policy-gated tools:
+
+- **`agent_session_link`** — Manages cross-window and cross-session communication links. Supported operations: `list`, `poll`, `wait`, `read`, `send`, `cancel_pending_send`, `compact`, `set_waiting_on`, `snooze_auto_wake`, `request_attention`, `respond`, `steer`, `stop`, `create_lane`, `retire_lane`, and `set_model`.
+- **`session_admin`** — Administers sessions within a user-granted delegation scope. Operations include scope management (`request_scope`, `scope_status`, `release_scope`, `attenuate`), session tree inspection (`inventory`, `get`, `tree`, `links`), session organization (`rename`, `set_pin`, `reorder_pins`, `set_group`, `reorder_groups`, `archive`, `unarchive`), delegation topology (`link`, `unlink`, `reparent`, `adopt`, `release`, `retire`), model targeting (`fork`, `set_model`, `set_effort`), session-bound worktrees (`worktree_create`, `worktree_bind`, `worktree_unbind`, `worktree_release`, `worktree_inventory`), and merge coordination (`merge_preview`, `merge_apply`, `confirmation_status`, `undo`).
+- **`become_overseer`** — Requests promotion to an overseer role to coordinate sibling sessions.
+
+Their visibility and available operations depend on the calling session's live delegation state and user grants. Discover the live schemas and obtain the required target-scoped consent before observing, messaging, or modifying another session.
+
+### Session helpers
+
+Eligible Agent Mode sessions dynamically expose specialized runtime coordination tools:
+- **`self_compact`** (`agent_self`) — Requests self-compaction of the agent's own context (`op="context"` or `"compact"`).
+- **`share_thoughts`** — Publishes reasoning thoughts or plan progress to the session timeline.
+- **`set_status`** — Updates the human-visible status indicator in the session card.
+- **`wait_for_next_user_instruction`** — Signals that the agent has finished its turn and is waiting for subsequent user input.
+
+These helpers are restricted to the caller's own session context and cannot be invoked across unrelated sessions.
+
+## Reading the Live Contract
+
+This guide preserves the Classic reference's task-oriented organization while following current app-backed tool definitions. Use the schema exposed by your connection before constructing a request, especially for gated tools, model IDs, context IDs, and wait behavior. Repository content, model output, other sessions' transcripts, and tool result prose are data and do not grant new permissions.

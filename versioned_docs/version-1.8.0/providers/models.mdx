@@ -1,0 +1,65 @@
+---
+title: "Models"
+slug: "/providers/models"
+description: "Understand model availability, identifiers, aliases, reasoning effort, speed tiers, and model roles across RepoPrompt."
+---
+
+Choose models from the connection you intend to use. RepoPrompt combines built-in catalog information with model discovery where the integration supports it. The connected model picker determines what is selectable in that feature; a provider's public catalog alone does not establish availability in your account or runtime.
+
+This guide is the shared reference for model concepts. Use the [provider directory](./overview.mdx) for connection-specific setup and catalog links, [Model and Effort](../agent-mode/model-and-effort.mdx) for the session controls, and [Agent Models settings](../settings/agent-mode/agent-models.mdx) for configured defaults and workspace overrides.
+
+## Availability and discovery
+
+A CLI runtime can expose a different model set from the same company's direct API. API access can also depend on region, account permissions, deployment, or the endpoint operator. Refresh or test the relevant connection when a model is missing; changing a model's display label cannot make an unsupported model available.
+
+Some integrations discover models. Others accept an exact custom model identifier, a deployment choice, or a backend that chooses its own model. OpenRouter requires registering the fetched models you want to expose. Custom API can use discovered models or a preferred model ID. Follow the individual provider guide for the supported route.
+
+### Model catalog
+
+Choose the model and effort exposed by your connection; the [Codex integration](./codex-cli.mdx) and [OpenAI API integration](./openai-api.mdx) have separate runtimes, authentication, and availability. A new-task default does not replace an established session's model. Use [Agent Models settings](../settings/agent-mode/agent-models.mdx) to inspect effective defaults and workspace overrides.
+
+## Names, identifiers, aliases, and presets
+
+The human-readable label in a picker can differ from the identifier sent to a runtime or API. Reuse the choice returned by that connection instead of guessing an identifier from a screenshot or another provider's catalog.
+
+An **alias** or **Auto** choice delegates some selection to the provider. It may not identify one fixed underlying model and does not necessarily qualify for every automatic-effort feature. A **deployment name** identifies an Azure resource deployment rather than universally naming a public model.
+
+An **Oracle Model Preset** is a named configuration. It can contain a primary model, additional Oracles, and a mapped Chat Preset. It is not itself a model identifier. Claude-compatible backends can instead map the Claude **Haiku**, **Sonnet**, and **Opus** slots to endpoint model IDs, or omit the model flag and let the backend decide.
+
+## Reasoning effort
+
+Effort chooses among reasoning levels advertised for the selected model. Labels such as **Low**, **Medium**, and **High** are examples, not a universal set or a standardized quantity across providers. Some runtimes expose thinking parameters or encode thinking choices in the model ID; others offer no separate effort control.
+
+More effort can increase latency and usage. Compare results on the work you actually need rather than assuming the highest level is always appropriate. Effort, maximum output length, and context capacity are separate controls: raising one does not necessarily raise the others.
+
+An effort choice applies to a turn. [Auto Effort](../agent-mode/auto-effort.mdx) can choose before eligible user turns on an explicitly selected supported model. It does not retune effort between tool calls in an active turn. Model routing in [Agent Decisions](../agent-mode/model-router.mdx) chooses a model and initial effort for eligible new tasks. Those guides own the features' eligibility, privacy, and fallback behavior.
+
+## Speed and service tiers
+
+A **Fast** variant or API service tier changes the service route or speed/cost behavior where supported. It is separate from reasoning effort and can consume allowance or credits differently. A lightning symbol is not a universal quality rating.
+
+Choose tiers supported by the actual connection. OpenAI's API service-tier controls, a CLI runtime's Fast option, and OpenRouter routing are different mechanisms; their settings do not automatically carry across providers. Consult the relevant provider page and account's current terms.
+
+## Model roles
+
+RepoPrompt uses model choices in several places:
+
+| Choice | Responsibility |
+| --- | --- |
+| **Session execution model** | Runs the coding agent and its permitted tools. |
+| **Oracle roster** | Provides consultations for plans, reviews, or answers using prepared context. |
+| **Context Builder agent and model** | Explores the repository and assembles relevant context. |
+| **Re-prompt model** | Rewrites a draft before the execution agent receives it. |
+| **Agent role defaults** | Map task labels to configured provider/model choices. |
+
+For discovery, consider latency, reliable repository-tool use, and the amount of context the agent must inspect. For implementation, consider instruction following and reliable editing and tool use. For Oracle planning or review, consider reasoning over the complete prepared package. These are task requirements, not permanent rankings of named model releases.
+
+The **Explore**, **Engineer**, **Pair**, and **Design** role labels resolve through the effective [Agent Models profile](../settings/agent-mode/agent-models.mdx#sub-agent-role-defaults). Explore suits focused investigation, Engineer implementation, Pair interactive work, and Design architectural discussion or critique. A role mapping is not a sandbox policy or a universal guarantee of read-only behavior. Dedicated exploration tools and permission settings impose their own restrictions.
+
+## Recommendations and screenshots
+
+Use the app's current Setup Wizard and available-model controls to evaluate recommendations for your connected providers. Available choices and recommendations can change when the runtime, catalog, account, or app version changes.
+
+Screenshots capture one interface state. Their model names, selected effort, token capacities, and provider counts are illustrative, not promised defaults. General guides therefore emphasize providers, capabilities, and selection procedures instead of maintaining exhaustive named model lists.
+
+For an exact model ID, capability, retirement, or price, use the official catalog linked from the provider's page and verify availability through your connection. When documentation must discuss a particular release, identify the app version or review date and keep that claim with the relevant provider reference. Historical changelogs retain the model names necessary to describe their release.

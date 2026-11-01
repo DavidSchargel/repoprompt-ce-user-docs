@@ -1,0 +1,35 @@
+---
+title: "Session History"
+slug: "/agent-mode/session-history"
+description: "Find, resume, rename, archive, and review Agent Mode conversations across tasks and windows."
+---
+
+Session history lets you return to a task with its conversation and tool activity intact. Use it to find a previous investigation, continue an implementation, or compare what several agents found. A session's history describes its work; the files on disk can have changed since the last message.
+
+## Find a conversation
+
+Open the Agent sessions sidebar to browse sessions in the current workspace. Rows identify the conversation and its activity; parent and child sessions can be grouped together. Select a row to open its transcript. RepoPrompt may show **Restoring conversation…** while it loads saved content. If restoration fails, use the displayed **Retry** action rather than starting a replacement task without checking the original.
+
+The **Agent Session Switcher** jumps among sessions in the focused window. **Search all Agent sessions** searches active or recent conversations across windows. Their default shortcuts are **⌘K** and **⇧⌘K**; the sessions sidebar defaults to **⌥⌘B**. All are configurable in [Keyboard Shortcuts](../settings/general/keyboard-shortcuts.mdx).
+
+Give long-running conversations descriptive names using **Rename chat**. A name such as “Checkout cancellation review” is easier to recognize than a generic request. Oversight marks and their tooltips identify sessions that oversee others or are overseen; they do not replace the run status.
+
+## Move between active and stashed work
+
+Use **Shift+Command+A** to cycle through sessions in the current window with unseen completed, failed, or waiting badges. Open the selected conversation to determine whether it needs an answer, approval, or result review; the badge alone does not establish success.
+
+**Command+W** stashes a session tab. **Shift+Command+T** reopens the most recently stashed session. Stashing preserves the conversation and is separate from archiving or deleting saved history. These commands and the current-session actions can be remapped in [Keyboard Shortcuts](../settings/general/keyboard-shortcuts.mdx).
+
+## Resume and inspect the work
+
+Select the session, read its latest result, and check its [execution location](./execution-location.mdx) before sending a follow-up. The provider, model, permissions, and worktree can differ from the session you last viewed. A stopped or completed task does not automatically resume merely because you open its transcript.
+
+Expand tool cards to inspect file reads, searches, command results, edits, or Oracle consultations. This is useful when a result refers to a file or decision you want to verify. Some saved history loads in bounded portions; use **Show more** where offered.
+
+For a fresh provider context or another agent, use **Handoff** where available. Review the destination provider and model and the prepared handoff context. A handoff is a way to carry useful task information forward; it does not make every detail of a long conversation fit into the destination's context window.
+
+## Archive and delete deliberately
+
+Archive conversations you want out of the active list while retaining their saved history. The **Archived Sessions** section lets you revisit archived work. Read bulk-action counts before confirming an operation. **Clear archived sessions** and **Delete chats** permanently remove saved conversations and can also remove related sub-agent chats, as stated in the confirmation.
+
+To disconnect coordination without deleting a conversation, use **Unlink** in [Overseer controls](../overseer/linking-sessions.mdx). To find older work through an agent, the read-only [history tool](../mcp-server/mcp-tools.mdx#history) can search saved sessions across workspaces.

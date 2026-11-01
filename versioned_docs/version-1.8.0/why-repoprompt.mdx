@@ -1,0 +1,94 @@
+---
+id: "why-repoprompt"
+title: "Why RepoPrompt"
+sidebar_label: "Why RepoPrompt"
+sidebar_class_name: sidebar-cat-rocket
+description: "Why senior engineers use RepoPrompt: the top failure modes of standard AI coding agents and how RepoPrompt's context engineering architecture solves them."
+slug: "/why-repoprompt"
+keywords:
+  [
+    "why repoprompt",
+    "failure modes",
+    "context rot",
+    "lost in the middle",
+    "tool bloat",
+    "multi-turn drift",
+    "compaction amnesia",
+    "single model blind spots",
+    "diff only review",
+    "over engineering",
+  ]
+hide_table_of_contents: false
+toc_min_heading_level: 2
+toc_max_heading_level: 4
+---
+
+Modern coding agents optimize for raw _convenience_: you type a prompt, and the agent immediately starts running shell commands and editing files. On small scripts, this feels magical. But on production codebases, unguided autonomous agents frequently hit a wall.
+
+RepoPrompt was explicitly architected to solve the **top failure modes in standard coding agents**:
+
+---
+
+## The Top Failure Modes in Standard Coding Agents
+
+### 1. Context Rot & Hallucinations
+
+As conversation histories and file dumps expand past a model's effective sweet spot (64k–128k tokens), attention degrades sharply. When forced to reason inside a bloated context window filled with dead-end searches, models invent non-existent APIs, misremember types, and hallucinate implementations.
+
+- **How RepoPrompt addresses it:** The **Context Builder** discovery coding agent curates a focused selection toward a configurable context budget before follow-up Oracle analysis. This reduces search noise in the receiving model's context, nearly guaranteeing that every relevant file is found or that all reasoning is spent on the solution. See [Reliable, Useful Results](./overview/how-it-really-works.mdx#1-reliable-useful-results-context-over-convenience).
+
+### 2. "Lost in the Middle" Forgetting
+
+Due to the U-shaped attention curve of transformers, models strongly weight instructions at the very beginning and very end of a prompt, but drop accuracy by 30%+ on vital constraints, types, or instructions buried in the middle of a large payload.
+
+**How RepoPrompt solves it:**
+
+1. **Code Maps** are compact, Tree-sitter-generated summaries of a file's structure: types, method signatures, and `uses`/`used_by` relationships. They give the model an architectural overview and the interfaces of neighboring modules without filling the prompt with their full implementations.
+2. **Line Slices** include selected line ranges from a file, so relevant functions or sections can appear together even when they are far apart in the source. Each slice retains its line numbers and can include a description, keeping implementation details available while leaving out unrelated code.
+3. **Instruction Sandwiching** duplicates `<user_instructions>` at both the top and bottom of assembled prompts when **Duplicate User Instructions at Top** is enabled. This places your requirements around the Code Maps and file contents, reinforcing them at both ends of the prompt.
+
+See [Advanced Context Engineering](./overview/how-it-really-works.mdx#2-advanced-context-engineering).
+
+### 3. MCP & Tool Context Bloat
+
+Unbounded tool schemas (schema bloat) and voluminous raw tool outputs (like 500-line `grep` logs) flood the message buffer, burning token budgets and destroying prompt caches before the model even begins reasoning.
+
+- **How RepoPrompt solves it:** Strict separation of **Model Context** (curated workspace selection) from **Tool Context** (noisy command history), preloaded compact tool catalogs, non-blocking auto-selection, and disabling redundant native file tools. See [Model Context vs. Tool Context](./overview/how-it-really-works.mdx#3-model-context-vs-tool-context).
+
+### 4. Multi-Turn Drift on Large Tasks
+
+As a single agent loops through dozens of iterative edits across 30+ turns, early constraints fade and small misinterpretations compound, causing the agent to wander away from the original goal or introduce conflicting changes.
+
+- **How RepoPrompt solves it:** A **Coordinator vs. Worker** architecture (Orchestrator Workflow) that breaks work into discrete 1–4 file work items for fresh sub-agents, coupled with the **Phase Gate Invariant** and an event-driven Overseer Mode **Oversight Auto-Wake**. See [Multi-Turn & Long-Horizon Operation](./overview/how-it-really-works.mdx#4-agents-operating-over-multiple-turns-and-longer-time-horizons).
+
+### 5. Compaction Amnesia
+
+Naive token-limit compaction summarizes conversation history by focusing on _what was done_, frequently stripping negative side constraints (e.g., _"never modify the public API"_) and raw file details, causing post-compaction regression loops.
+
+- **How RepoPrompt solves it:** Agent-initiated `self_compact` at clean turn boundaries with dedicated `<repoprompt_self_compact_note>` continuation delivery, `oracle_chat_log` recovery, and `<forked_session>` handoffs. See [Compaction Architecture](./overview/how-it-really-works.mdx#5-compaction-and-preventing-compaction-amnesia).
+
+### 6. Single-Model Blind Spots
+
+Forcing a single model to act as a search engine, architect, and coder causes failures—especially when reasoning models (trained to "think then act" in consensus) are forced to execute tool calls mid-thought.
+
+- **How RepoPrompt solves it:** Tool-less **Oracle** reasoning paired with tool-native CLI agents, 4 specialized **Agent Roles** (`explore`, `engineer`, `pair`, `design`), parallel **Multi-Oracle Rosters** (up to 5 models) with reconciliation guidance, and local **Usage Balancing**. See [LLM Variations & Limitations](./overview/how-it-really-works.mdx#6-variations-and-limitations-of-large-language-models-llms).
+
+### 7. Diff-Only Review Blindness
+
+Reviewing isolated Git patches without surrounding repository context creates high false-positive noise on style while completely missing breaking changes to callers one hop away from the diff.
+
+- **How RepoPrompt solves it:** Materialized selectable diff artifacts (`MAP.txt`, `all.patch`, per-file patches) combined with curated codebase context (callers, callees, and type contracts) in `/rp-review`. See [Codebase-Context Code Reviews](./overview/how-it-really-works.mdx#7-code-reviews-diff-only-vs-codebase-context-reviews).
+
+### 8. Over-Engineered Simple Edits
+
+Triggering heavy multi-agent orchestration, full discovery pipelines, or multi-model planning for small, well-understood edits adds unnecessary time and token use.
+
+- **How RepoPrompt solves it:** Use an ordinary Agent Mode request for a small, well-understood edit instead of selecting a workflow that adds planning or delegation. See [When RepoPrompt Would Not Be Helpful](./overview/how-it-really-works.mdx#8-when-repoprompt-would-not-be-helpful).
+
+---
+
+## Explore the Architecture
+
+- Learn how to start your first task in [Getting Started](./overview/getting-started.mdx).
+- Walk through the three-stage discovery pipeline in [How It Works](./overview/how-it-works.mdx).
+- Dive deep into the source code implementation and the **Summary Matrix** in [How It (Really) Works](./overview/how-it-really-works.mdx#summary-matrix-problem-vs-repoprompt-architecture).

@@ -1,0 +1,19 @@
+---
+title: "Grok / xAI API"
+slug: "/providers/xai-api"
+description: "Configure direct xAI model access and understand how an API credential differs from the Grok Build runtime."
+---
+
+The **Grok (xAI)** entry connects supported RepoPrompt model features directly to the xAI API. It is separate from [Grok Build](./grok-build.mdx), which runs a coding-agent CLI. It is also unrelated to the separately configured [Groq](./groq.mdx) service.
+
+## Connect and choose models
+
+Validate the xAI credential in [API Providers → Grok (xAI)](../settings/models-and-providers/api-providers.mdx#grok-xai) and inspect the discovered models. Use the provider's [model catalog](https://docs.x.ai/developers/models) and [release notes](https://docs.x.ai/developers/release-notes) for current identifiers and service changes.
+
+Available choices depend on API account access and integration support. Do not assume that a Grok Build runtime model name is interchangeable with a direct API ID. See [Models](./models.mdx) for availability and naming concepts.
+
+## Credentials and billing
+
+The configured API key can also be used by integrations that support the Grok API-key route, including Grok Build. The presence of that runtime does not change the billing boundary: requests authenticated with the key are associated with its xAI API account.
+
+Check which route a task is using before comparing allowance or charges with a separate account-login product. The [settings reference](../settings/models-and-providers/api-providers.mdx#grok-xai) describes key validation and model controls; the Grok Build guide covers runtime setup.

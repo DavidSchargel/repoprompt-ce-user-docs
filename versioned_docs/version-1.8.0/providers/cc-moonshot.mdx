@@ -1,0 +1,26 @@
+---
+title: "Claude Code Compatible Backend: CC Moonshot"
+sidebar_label: "CC Moonshot"
+slug: "/providers/cc-moonshot"
+description: "Route the installed Claude Code runtime to the Kimi coding endpoint with backend-managed model selection."
+---
+
+CC Moonshot uses the installed Claude Code executable with the Kimi coding endpoint and its own credential. It is a separate route from the standard Claude login and from other Claude-compatible backends.
+
+## Configure and test
+
+Open [CC Moonshot settings](../settings/agent-mode/cli-providers.mdx#cc-moonshot), save the Kimi credential, and choose **Test Backend**. The preset base URL is `https://api.kimi.com/coding/`. Advanced controls can change the display name, endpoint, and authentication-variable choice.
+
+The Claude executable must be available, but an Anthropic account login is not required for this endpoint route. The credential information control opens the provider's account console. Use the backend test after changing its connection settings.
+
+## Backend-managed models
+
+Kimi chooses the model. RepoPrompt supplies neither a `--model` flag nor a Claude Code effort level for this backend. It can therefore appear as one backend choice rather than an exhaustive list of named models.
+
+Do not add a model ID copied from the Claude or OpenAI catalog to force a choice this route does not expose. See [Models](./models.mdx) for the distinction between a model identifier, an alias, and backend-managed selection.
+
+## Account and capability boundary
+
+The Claude integration supplies its session and tool framework; the compatible endpoint determines actual model behavior and support. Changing between Claude routes starts a fresh provider context so the endpoint and authentication are applied cleanly.
+
+Kimi's coding-service account and terms govern access, allowance, billing, and retention. Use the account links in the settings card or the [Moonshot platform](https://platform.moonshot.ai) to inspect the relevant service; an Anthropic subscription does not cover this backend automatically.

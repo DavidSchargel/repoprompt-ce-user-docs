@@ -1,0 +1,23 @@
+---
+title: "OpenAI API"
+slug: "/providers/openai-api"
+description: "Connect direct OpenAI API access, discover available models, and distinguish API billing from Codex CLI access."
+---
+
+OpenAI API connects supported RepoPrompt model features directly to an API account. It is separate from the [Codex CLI](./codex-cli.mdx) runtime and RepoPrompt-managed ChatGPT sign-in.
+
+## Connect
+
+Validate a credential in [API Providers → OpenAI](../settings/models-and-providers/api-providers.mdx#openai) to fetch available models. The settings page documents API service tiers, tier-specific model variants, and the optional custom base URL.
+
+For an independently configured OpenAI-compatible service, use [Custom API](./custom-api.mdx). For an Azure resource deployment, use [Azure OpenAI](./azure-openai.mdx). Compatibility with the OpenAI protocol does not establish the same account, model IDs, or service terms.
+
+## Models and capabilities
+
+The [OpenAI API model catalog](https://platform.openai.com/docs/models) is the provider reference for model identifiers and capabilities. Actual selection depends on the API account, endpoint, and integration support. A model available through a CLI or subscription product is not necessarily available through this API connection.
+
+[Models](./models.mdx) explains effort and service tiers. Use [Model Config](../settings/models-and-providers/model-config.mdx) for supported streaming, API-routing, and temperature overrides; these do not grant access to unavailable models.
+
+## Account and billing
+
+The API project and credential determine request charges and quotas. A ChatGPT subscription or Codex login does not automatically fund API calls. Inspect the relevant API account and service tier when assessing usage.
