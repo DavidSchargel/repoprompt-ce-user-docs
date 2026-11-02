@@ -1,4 +1,4 @@
-name: Validate and optionally publish Pages
+name: Validate and deploy Pages
 
 on:
   pull_request:
@@ -16,7 +16,7 @@ permissions:
   contents: read
 
 concurrency:
-  group: ${{ github.event_name == 'workflow_dispatch' && inputs.publish && 'pages-publication' || format('pages-validation-{0}', github.ref) }}
+  group: ${{ github.ref == 'refs/heads/main' && (github.event_name == 'push' || (github.event_name == 'workflow_dispatch' && inputs.publish)) && 'pages-publication' || format('pages-validation-{0}', github.ref) }}
   cancel-in-progress: true
 
 jobs:
@@ -43,7 +43,7 @@ jobs:
           cache-dependency-path: pnpm-lock.yaml
           install: false
       - name: Check publication confirmations
-        if: github.event_name == 'workflow_dispatch' && inputs.publish
+        if: (github.event_name == 'push' || (github.event_name == 'workflow_dispatch' && inputs.publish))
         env:
           PUBLISH_APPROVED: ${{ vars.PUBLISH_APPROVED }}
           LEGAL_TEXT_APPROVED: ${{ vars.LEGAL_TEXT_APPROVED }}
@@ -73,16 +73,16 @@ jobs:
       - name: Build configured site
         run: pnpm run build
       - name: Configure Pages
-        if: github.event_name == 'workflow_dispatch' && inputs.publish
+        if: (github.event_name == 'push' || (github.event_name == 'workflow_dispatch' && inputs.publish))
         uses: actions/configure-pages@983d7736d9b0ae728b81ab479565c72886d7745b # v5
       - name: Upload Pages artifact
-        if: github.event_name == 'workflow_dispatch' && inputs.publish
+        if: (github.event_name == 'push' || (github.event_name == 'workflow_dispatch' && inputs.publish))
         uses: actions/upload-pages-artifact@7b1f4a764d45c48632c6b24a0339c27f5614fb0b # v4
         with:
           path: build
 
   deploy:
-    if: github.event_name == 'workflow_dispatch' && github.ref == 'refs/heads/main' && inputs.publish && vars.PUBLISH_APPROVED == 'true' && vars.LEGAL_TEXT_APPROVED == 'true'
+    if: (github.event_name == 'push' || (github.event_name == 'workflow_dispatch' && inputs.publish)) && github.ref == 'refs/heads/main' && vars.PUBLISH_APPROVED == 'true' && vars.LEGAL_TEXT_APPROVED == 'true'
     needs: build
     runs-on: ubuntu-latest
     permissions:
