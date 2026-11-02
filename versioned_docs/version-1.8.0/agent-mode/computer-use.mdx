@@ -14,6 +14,12 @@ The monitor-shaped control appears in the composer toolbar when the session is e
 
 Computer Use requires a top-level native Codex session with its own tab, the feature enabled, and a supported installed companion from Codex or ChatGPT. RepoPrompt reports when no companion is available. A provider connection alone is not enough to satisfy these requirements.
 
+:::note[OpenAI-signed Codex executable required]
+
+Computer Use requires an OpenAI-signed Codex executable. A re-signed runtime can fail companion authentication. In the official build, select a compatible OpenAI-signed local executable under **Settings → Agent Mode → CLI Providers → Codex CLI → Advanced**, then quit and restart RepoPrompt CE. Runtime selection takes effect on the next app launch; restarting only the chat session does not apply the change. See [Runtime and sign-in](../settings/agent-mode/cli-providers.mdx#runtime-and-sign-in) for executable selection and compatibility details.
+
+:::
+
 Enable the feature in [Codex CLI → Optional Codex Features](../settings/agent-mode/cli-providers.mdx#optional-codex-features), then enable it locally in the intended chat using the toolbar control. The native `/computer-use` command is another entry point when supported. macOS permissions must be granted manually; enabling the feature does not silently approve operating-system access.
 
 ## Give a bounded UI task

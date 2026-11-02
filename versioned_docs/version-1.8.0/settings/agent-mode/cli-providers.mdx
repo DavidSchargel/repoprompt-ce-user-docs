@@ -94,7 +94,7 @@ RepoPrompt's managed Codex sign-in and configuration are separate from your stan
 
 ![Optional Codex features, including Computer Use and connected-app controls](../images/codex-optional-features.png)
 
-- **Computer Use** enables `/computer-use` in direct Codex sessions. It requires the Computer Use companion and an OpenAI-signed Codex executable, plus macOS Screen Recording and Accessibility permissions when requested. A re-signed runtime can fail companion authentication; select a compatible local runtime under **Codex CLI → Advanced** and restart the session if needed. This option is off by default.
+- **Computer Use** enables `/computer-use` in direct Codex sessions. It requires the Computer Use companion and an OpenAI-signed Codex executable, plus macOS Screen Recording and Accessibility permissions when requested. A re-signed runtime can fail companion authentication; select a compatible OpenAI-signed local executable under **Codex CLI → Advanced**, then quit and restart RepoPrompt CE. Restarting only the chat session does not apply a runtime selection change. This option is off by default.
 - **Apps** permits use of connected apps.
 - **Plugins** permits loading installed plugins.
 - **MCP Elicitation** permits MCP servers to request additional input during a run.

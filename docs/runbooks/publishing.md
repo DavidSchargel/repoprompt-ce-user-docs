@@ -11,16 +11,16 @@ The source of truth for CI behavior is [`.github/workflows/pages.yml`](../../.gi
 | Trigger | Build and validation | Pages deployment |
 | --- | --- | --- |
 | Pull request | Runs | Skipped |
-| Push to `main` | Runs | Skipped |
+| Push to `main` (including a merged pull request) | Runs publication checks and then builds | Runs when every publication gate passes |
 | Push to another branch without a pull request | No push-triggered run | No deployment |
 | Manual run, `publish` unchecked | Runs on the selected ref | Skipped |
 | Manual run, `publish` checked | Runs publication checks and then builds | Runs only when every publication gate passes |
 
-The `deploy` job requires a manual `workflow_dispatch` run on `main`, `publish` enabled, both approval variables exactly `true`, and a successful `build` job. **“This job was skipped” is expected on validation-only runs.** It is not a build failure.
+The `deploy` job requires either a push to `main` or a manual `workflow_dispatch` run on `main` with `publish` enabled, both approval variables exactly `true`, and a successful `build` job. **“This job was skipped” is expected on validation-only runs.** It is not a build failure.
 
 Every build job first runs the full validation pipeline for `/` and `/repoprompt-ce-user-docs/` using `https://example.invalid`, `noindex`, and local search. It then builds again with the repository variables. Only that final, repository-configured artifact can be uploaded for publication; the validation fixtures are replaced.
 
-For a publish-enabled run, **Check publication confirmations** also checks that `PAGES_OWNER/PAGES_REPOSITORY` exactly matches GitHub's `GITHUB_REPOSITORY`. A wrong ref, missing approval, or mismatched repository fails that build step. An unsuccessful build prevents deployment. Environment protection rules can require a separate reviewer approval; those rules are configured in GitHub, not created by the workflow.
+For a push to `main` or a publish-enabled manual run, **Check publication confirmations** also checks that `PAGES_OWNER/PAGES_REPOSITORY` exactly matches GitHub's `GITHUB_REPOSITORY`. A wrong ref, missing approval, or mismatched repository fails that build step. An unsuccessful build prevents deployment. Environment protection rules can require a separate reviewer approval; those rules are configured in GitHub, not created by the workflow.
 
 ## Local configuration
 
@@ -99,18 +99,18 @@ GitHub supplies `GITHUB_TOKEN`, `GITHUB_REF`, and `GITHUB_REPOSITORY`; the setup
 
 1. Review the intended commit on `main`, the active production origin/base path, legal content, asset attribution, and validation results. Privacy and terms currently contain review warnings and explicit `noindex`; deployment does not remove those source-level notices. Change them only as part of approved content changes. Setting an approval variable does not edit these pages.
 2. Verify the existing Pages, environment, and repository-variable settings. Change them only when the release needs a configuration change. Local shell exports do not configure Actions.
-3. Open **Actions → Validate and optionally publish Pages → Run workflow**, choose `main`, and leave **publish** unchecked. Confirm the build succeeds using the production configuration. A skipped deploy job is expected here.
-4. Run the workflow again on the reviewed `main` commit with **publish** checked. The publication checks must pass; the build then configures Pages and uploads `build/`. The deploy job uses `pages: write` and `id-token: write`. Approve the environment deployment if its protection rules require it.
+3. Merge the reviewed pull request into `main` (or push the reviewed change to `main` according to repository policy). The **Validate and deploy Pages** workflow automatically checks publication configuration, validates, builds, uploads, and deploys the site. Approve the environment deployment if its protection rules require it.
+4. For a manual validation or redeployment, open **Actions → Validate and deploy Pages → Run workflow**, choose `main`, and set **publish** as needed. Unchecked validates only; checked uses the same publication gates and deploys after a successful build.
 5. Open the deployment URL from the run. Check the homepage, current and Classic docs, blog, legal pages, a deep-page refresh, search, redirects, images, and machine-readable exports. Confirm that the deployed commit is the one reviewed.
 6. Record the commit, Actions run URL, deployment URL, configuration, and checks performed. A successful deployment alone does not establish accessibility conformance or correct Algolia results.
 
 Include the [accessibility verification record](maintenance.md#accessibility-verification-gate) in release review. After deployment, recheck the affected keyboard flows, focus visibility, link announcements, and responsive layouts on the published revision. Keep known barriers and untested cases explicit. A green workflow confirms the automated checks ran; it is not a WCAG 2.2 AA certification.
 
-Validation runs for the same ref share a concurrency group. Publish-enabled manual runs share a separate publication group. A newer run in the same group can cancel one already in progress; inspect the latest run before interpreting cancellation or deployment status.
+Validation-only runs for the same ref share a concurrency group. Pushes to `main` and publish-enabled manual runs on `main` share a publication group. A newer run in the same group can cancel one already in progress; inspect the latest run before interpreting cancellation or deployment status.
 
 ## Rollback
 
-Identify the last known-good deployed commit from Actions and the Pages environment. Revert the defective change through normal review, validate the resulting `main`, and publish it with the same manual procedure. Do not force-push or treat a failed build as a rollback; the existing deployment remains the live version until a replacement deployment succeeds.
+Identify the last known-good deployed commit from Actions and the Pages environment. Revert the defective change through normal review, validate the resulting `main`, and let the push to `main` deploy the rollback through the same publication gates. Do not force-push or treat a failed build as a rollback; the existing deployment remains the live version until a replacement deployment succeeds.
 
 At a project subpath, the generated `robots.txt` does not control the host's root `robots.txt`. Page-level `noindex` also does not make public content private. Keep sensitive information out of every published artifact.
 
