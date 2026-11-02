@@ -18,6 +18,8 @@ Select from the models and reasoning levels advertised by the active runtime. Av
 
 Codex tool controls cover Bash, Search, Goals, Reasoning Summaries, Local Memories, and configured MCP servers. [Tools](../agent-mode/tools.mdx) explains the composer controls; [Codex settings](../settings/agent-mode/cli-providers.mdx#core-tools-and-runtime-features) documents the individual switches. Eligible direct sessions can also use [Computer Use](../agent-mode/computer-use.mdx) when its companion and local permission requirements are met.
 
+Approval choices are request-specific. RepoPrompt offers only the actions advertised by the current Codex request, which can include cancellation instead of decline or a proposed policy amendment instead of ordinary approval. Computer Use does not allow session-wide or remembered grants. See [Approvals and Paused Sessions](../agent-mode/approvals.mdx#tool-approval) before responding.
+
 ## Account and usage
 
 The account signed into RepoPrompt's managed runtime determines access and allowance. It need not be the account used by a separate terminal installation. CLI access does not save an OpenAI API key or pay for direct API requests. Check the connected account's plan and usage for the route being used.

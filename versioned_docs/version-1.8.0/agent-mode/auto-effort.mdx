@@ -20,6 +20,8 @@ The selected supported model must be explicit and advertise multiple effort leve
 
 A start already handled by model routing retains the effort chosen by routing. Steering an agent while it is already working does not change effort mid-turn. Effort is held through that turn's tool calls. Auto Effort can be enabled independently of model routing.
 
+[Auto Workflow](./workflow-templates.mdx#automatic-workflow-selection) is a separate first-message template matcher. Auto Effort evaluates the workflow that will actually apply, including an eligible automatic selection, and discards advice if that workflow changes. A custom workflow still keeps manual effort. Auto Workflow shares Model Router’s service; it does not change Auto Effort’s independent service selection.
+
 ## Understand feedback and fallback
 
 While a decision is being made, the control can show a busy state. After a service choice, its tooltip reports the chosen effort; directional feedback compares service choices or the initial selected effort. It does not prove that every intervening message used that effort.

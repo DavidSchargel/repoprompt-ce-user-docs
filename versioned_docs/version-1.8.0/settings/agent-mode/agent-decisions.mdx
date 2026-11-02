@@ -1,7 +1,7 @@
 ---
 id: "agent-decisions"
 title: "Agent Decisions"
-description: "Configure Model Router, Auto Effort, local usage balancing, and decision services for Agent Mode."
+description: "Configure Model Router, Auto Workflow, Auto Effort, local usage balancing, and decision services for Agent Mode."
 slug: "/settings/agent-decisions"
 hide_table_of_contents: false
 ---
@@ -10,23 +10,17 @@ hide_table_of_contents: false
 
 Open **Settings → Agent Mode → Agent Decisions**, between **Agent Workflows** and **Context Builder**.
 
-Choose how RepoPrompt selects execution models and reasoning effort, balances plan usage, and connects to decision services. These controls have separate responsibilities:
+Choose how RepoPrompt selects execution models, workflow templates, and reasoning effort, balances plan usage, and connects to decision services. These controls have separate responsibilities:
 
 | Feature | What it changes | When it applies |
 | --- | --- | --- |
 | Model Router | Selects a provider, model, and initial reasoning effort | Eligible new primary sessions and managed sub-agents |
+| Auto Workflow | Chooses a workflow template, or no template | First eligible composer message in a fresh local session |
 | Auto Effort | Selects reasoning effort while keeping your chosen model | Eligible user turns, including follow-ups after a turn finishes |
 | Usage Balancing | Can substitute a comparable model on another connected plan | Eligible new tasks; usage decisions stay on your Mac |
-| Decision Services | Supplies the service used by Model Router or Auto Effort | When selected and configured for that feature |
+| Decision Services | Supplies decisions for routing, workflow matching, or effort | Auto Workflow shares Model Router's service; Auto Effort has its own selection |
 
-The screenshots show the interface with unconfigured services. Captured model names and selections are examples, not recommended defaults. Use [Providers & Models](../../providers/overview.mdx) for connection requirements and the [Models reference](../../providers/models.mdx) for availability, effort, and service tiers.
-
-<details>
-<summary>View the complete Agent Decisions settings pane</summary>
-
-![Agent Decisions pane with Model Router, Auto Effort, Usage Balancing, and expanded decision-service cards](../images/agent-decisions.png)
-
-</details>
+The isolated screenshots illustrate individual controls with unconfigured services; they are not a complete pane reference. Captured model names and selections are examples, not recommended defaults. Use [Providers & Models](../../providers/overview.mdx) for connection requirements and the [Models reference](../../providers/models.mdx) for availability, effort, and service tiers.
 
 ## Enable Model Router
 
@@ -51,6 +45,21 @@ Use guidance for preferences such as “Prefer my connected coding provider for 
 **What Router shares** explains that the selected service receives a short, best-effort-masked task excerpt, saved guidance, Agent Models role references, and descriptions of candidate providers, models, and effort levels. Attached files, workspace context, file paths, chat history, tool results, and execution-provider credentials are not appended to that request.
 
 Text you type into the task or guidance can still contain sensitive information. Masking can miss it. Review the selected service's own privacy disclosure as well. The complete task goes to the selected execution agent separately.
+
+## Auto Workflow
+
+**Enable Auto Workflow** lets RepoPrompt choose a workflow template, or no template, for the first message you send from the composer in a fresh local session. It is off by default. The **Auto Workflow** switch at the top of the composer’s **Workflow** dropdown controls the same app-wide setting.
+
+Auto Workflow uses **Model Router’s selected decision service**, even when Model Router itself is off. Choose **Configure** to set up that service. **Paused — configure the selected decision service below.** means matching needs service configuration; it does not stop you from sending normally.
+
+- Only the first nonempty composer request in a fresh session is eligible. Slash-leading requests, follow-ups, resumed sessions, child or handoff sessions, and MCP-started sessions are not auto-matched.
+- A manual workflow choice always wins, including a choice you change or clear while matching is pending. An automatic choice applies to that submission, not a saved manual selection.
+- Matching considers visible built-in workflows and custom workflows, plus the option to use none. No suitable match, an oversized catalog, an unavailable service, or an invalid decision falls back to a normal send.
+- **Sending… Choosing workflow** indicates that matching is pending. See [Workflow Templates](../../agent-mode/workflow-templates.mdx#automatic-workflow-selection) for the composer workflow.
+
+### What Auto Workflow shares
+
+The selected service receives a short, best-effort-masked excerpt of the initial message and workflow names and descriptions, including custom workflow metadata. It does not receive template bodies, attachments, tool results, or earlier conversation. Masking can miss sensitive text; turn Auto Workflow off for private tasks.
 
 ## Auto effort
 
@@ -93,11 +102,11 @@ With the app active, task activity can trigger checks at most once per **30 minu
 
 ## Decision Services
 
-Each service card shows supported features, selection badges, and configuration status. Expand a card to review its credential controls and disclosures. Configuring a service does not automatically select it for both features; use each feature's **Decision service** menu.
+Each service card shows supported features, selection badges, and configuration status. Expand a card to review its credential controls and disclosures. Configuring a service does not automatically select it for every feature. Model Router and Auto Workflow share a **Decision service** selection; Auto Effort selects its service independently. A service card can show **Used by Auto Workflow** or **Selected for Auto Workflow**. Its capability chips do not replace the eligibility and sharing rules above.
 
 ### Choosing Decisions by OpenAI or Jev
 
-Both integrations can select a model for a new task or select effort for an eligible turn. They make a decision from RepoPrompt's supplied choices; they do not execute the coding task. You can choose one service for routing and another for Auto Effort.
+Both integrations can select a model for a new task, match an eligible initial message to a workflow, or select effort for an eligible turn. They make a decision from RepoPrompt's supplied choices; they do not execute the coding task. You can choose one service for routing and Auto Workflow, and another for Auto Effort.
 
 **Consider Decisions by OpenAI** when your team already manages OpenAI API projects and wants decision usage within that account structure. OpenAI documents typed choices, probabilities, and scores in its [Decisions guide](https://developers.openai.com/api/docs/guides/decisions). Check its [data-control documentation](https://developers.openai.com/api/docs/guides/your-data) against your account's requirements; documented service options do not mean this RepoPrompt integration enables them automatically.
 
@@ -126,7 +135,7 @@ Both integrations can select a model for a new task or select effort for an elig
 #### What RepoPrompt uses
 
 - **Jev by TypeSafe:** The same text-based decision roles; the provider's additional question types are not separate settings here.
-- **Decisions by OpenAI:** Text-based choices for routing and effort; broader API capabilities do not automatically become app features.
+- **Decisions by OpenAI:** Text-based choices for routing, workflow matching, and effort; broader API capabilities do not automatically become app features.
 
 #### Failure behavior
 
@@ -139,25 +148,21 @@ For either service, compare actual decision quality, response time, and billed u
 
 ### Jev by TypeSafe
 
-![Jev service card with Model Router and Auto Effort selection badges, API key controls, privacy disclosure, and technical limits](../images/agent-decisions-jev.png)
-
 Enter a **TypeSafe API key**, then choose **Validate & Save**. **Verify Saved Key** rechecks the stored credential; **Remove Key** removes it. Features depending on that credential need a valid configuration before they can make decisions.
 
-Jev chooses a model and initial effort for Model Router, or only effort for Auto Effort. Key verification checks account access without sending a task. Decision requests have a **five-second deadline** and are not retried automatically. Review the card's **Privacy and data sharing** and **Technical limits**, including its links to TypeSafe's privacy policy and API documentation.
+Jev chooses a model and initial effort for Model Router, a template or no template for Auto Workflow, or only effort for Auto Effort. Key verification checks account access without sending a task. Decision requests have a **five-second deadline** and are not retried automatically. Review the card's **Privacy and data sharing** and **Technical limits**, including its links to TypeSafe's privacy policy and API documentation.
 
 ### Decisions by OpenAI
-
-![Decisions by OpenAI card with project-key and validation notices, credential controls, privacy and data controls, pricing, and technical limits](../images/agent-decisions-openai.png)
 
 Enter the **API key for Decisions by OpenAI** and choose **Validate & Save**. **Verify Saved Key** checks it again; **Remove Key** removes it. Validation sends a fixed test request, may incur a small input-token charge, and confirms access only at that time.
 
 The card recommends a dedicated OpenAI project and project key for attribution and project-level spending controls. A separate key is not a hard budget boundary, and organization limits can span projects. Another key can be used if you accept shared accounting. This service credential is separate from choosing the session's execution provider.
 
-Read the expanded disclosures before enabling the service:
+Read the expanded disclosures before enabling the service. The service card's routing and effort descriptions are not the complete Auto Workflow disclosure; also read **What Auto Workflow shares** above.
 
-- **Privacy and data controls:** Routing sends limited task and guidance text with candidate descriptions, without appended repository or workspace payloads. Effort selection sends the selected model ID, effort choices, a masked message excerpt, and an applicable built-in workflow category. Leading-slash invocations, attachments, and tagged-file payloads remain ineligible under this service's prompt-workflow rules. Masking is not anonymization. Account and project configuration determine eligibility for regional processing, residency, and other data controls.
+- **Privacy and data controls:** Routing sends limited task and guidance text with candidate descriptions, without appended repository or workspace payloads. Effort selection sends the selected model ID, effort choices, a masked message excerpt, and an applicable built-in workflow category. Auto Workflow skips slash-leading requests. Attachment contents and tagged-file payloads are not included in decision requests; an otherwise eligible message can still have its text excerpt evaluated. Masking is not anonymization. Account and project configuration determine eligibility for regional processing, residency, and other data controls.
 - **Pricing:** Decisions API charges are set by OpenAI and can vary with context length or processing region. Use the card's current pricing link rather than assuming execution-plan allowance covers these requests.
-- **Technical limits:** The service uses an implementation-pinned decision model, with a **five-second deadline** and **64 KiB response cap**. Requests are not retried automatically. The model name in the screenshot describes that captured implementation, not a model you must select for coding.
+- **Technical limits:** The service uses an implementation-pinned decision model, with a **five-second deadline** and **64 KiB response cap**. Requests are not retried automatically. The service’s implementation model is not a model you must select for coding.
 
 The card links to [Decisions documentation](https://developers.openai.com/api/docs/guides/decisions), [OpenAI data controls](https://developers.openai.com/api/docs/guides/your-data), and [API pricing](https://developers.openai.com/api/docs/pricing). Consult the [Models reference](../../providers/models.mdx) for the separate execution-model choices.
 

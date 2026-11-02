@@ -16,6 +16,8 @@ Choose the primary Oracle and up to four additional Oracles in [Agent Models](..
 
 ![Composer toolbar showing Oracle access beside the selected-context control](./images/composer.png)
 
+Model capabilities affect how output arrives. Some [OpenAI API execution modes](../providers/openai-api.mdx#execution-modes-and-streaming) return output only after completion rather than streaming partial text. See [Models](../providers/models.mdx) for the distinction between model identity, execution mode, effort, and service tier.
+
 ## Open and review consultations
 
 Click **Oracle** to inspect the relevant conversation. Oracle consultations can be created by a workflow, a direct agent request, or a Context Builder analysis follow-up. The popover favors conversations associated with the current agent session so results remain connected to the task you are viewing.
@@ -33,6 +35,8 @@ Attachments apply to that Oracle turn. A continuation does not automatically res
 ## Read grouped results
 
 A grouped consultation returns a group identity and separate results for its Oracle lanes. Check each lane's status and answer, including any failure or cancellation. A useful answer from one lane does not mean every lane succeeded. Retain the returned conversation IDs to inspect or continue the relevant consultation rather than repeating the entire group blindly.
+
+A live lane can show **Settled · awaiting group** after its activity ends. That is not yet a final **Completed** result or proof that the group succeeded. Wait for the group’s saved results, then inspect each lane’s outcome rather than relying on a status-dot color.
 
 Treat Oracle guidance as input to the coding agent's decision. Compare disagreements against the task and repository evidence, then tell the execution agent which changes to pursue. Export failures are reported separately from the consultation results, so a failed export does not by itself mean all model answers were lost.
 

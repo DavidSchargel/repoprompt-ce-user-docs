@@ -8,13 +8,26 @@ Images give an agent visual evidence that is difficult to express in text: a cli
 
 ## Add images to the next message
 
-Click the attachment button near Send to open **Choose Files**, then select one or more images. You can also paste an image from the clipboard or drag image files into the message editor. RepoPrompt prepares supported image input and shows attachments above the editor.
+Click the attachment button near Send to open **Choose Files**, then select one or more images. You can also paste an image from the clipboard or drop files anywhere in the Agent Mode pane. **Drop files to attach** marks the drop target. Plain text and web links remain editor content rather than becoming file attachments. RepoPrompt prepares supported image input and shows attachments above the editor.
 
 ![Image attachment button beside the message editor](./images/image-attachment.png)
 
 Review the attachment previews before sending. Remove an image with its attachment removal control if it belongs to another task or contains information you do not intend to share. Attachments are staged for the next turn; they are not sent merely because you select or paste them.
 
-The available attachment actions depend on the current session and submission state. If an action is disabled during a pending submission or rewrite, finish or cancel that step before changing its attachments. Image support also depends on the provider and selected model; read a reported compatibility or input error rather than assuming every connected model accepts the same formats.
+Attach files when the chat is idle. If the agent is working, wait for it to finish. Finish or cancel any pending submission or rewrite before changing attachments. If you switch sessions or workspaces, check the active tab and reattach the files if needed.
+
+Image support varies by provider and model; see [Providers & Models](../providers/overview.mdx). Grok Build sessions do not support attachments.
+
+## Preview an image
+
+Click an image thumbnail in the composer or transcript to open its preview and optionally reveal it in the Finder.
+
+## Saved images and privacy
+
+A session’s attachment folder is capped at 200 MiB, with older retained files removed to make room and forks and handoffs make independently owned image copies. Images over 20 MiB are candidates for downscaling so keep originals elsewhere when long-term access or exact pixels matter. Successfully deleting a saved session removes its managed attachment folder. 
+
+Review images for credentials and secrets before attaching them!
+
 
 ## Include other files when useful
 

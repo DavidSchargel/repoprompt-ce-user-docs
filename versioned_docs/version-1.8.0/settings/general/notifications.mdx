@@ -65,6 +65,8 @@ Three additional options are off by default:
 
 **Reply from Turn-Complete Notifications** is off by default. Enable it to send typed notification replies as the session's next message.
 
+The current request must support the action too. For Codex, notifications omit approval or decline when the provider did not advertise those choices; enabling a notification preference does not add them. Open the app to inspect the available actions if the notification cannot resolve the request.
+
 Every action is checked against the live request when pressed. Stale, risky, or complex requests open the app instead of applying an outdated response.
 
 ## Chat & Context Builder

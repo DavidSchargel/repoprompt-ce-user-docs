@@ -28,8 +28,12 @@ Expand tool cards to inspect file reads, searches, command results, edits, or Or
 
 For a fresh provider context or another agent, use **Handoff** where available. Review the destination provider and model and the prepared handoff context. A handoff is a way to carry useful task information forward; it does not make every detail of a long conversation fit into the destination's context window.
 
+Saved image thumbnails can reopen their retained copies. See [saved images and privacy](./image-support.mdx#saved-images-and-privacy).
+
 ## Archive and delete deliberately
 
 Archive conversations you want out of the active list while retaining their saved history. The **Archived Sessions** section lets you revisit archived work. Read bulk-action counts before confirming an operation. **Clear archived sessions** and **Delete chats** permanently remove saved conversations and can also remove related sub-agent chats, as stated in the confirmation.
+
+Successful session deletion also removes that session’s managed attachment folder, not the original source images. If deletion fails, the folder is preserved; do not assume a failed operation removed local image copies.
 
 To disconnect coordination without deleting a conversation, use **Unlink** in [Overseer controls](../overseer/linking-sessions.mdx). To find older work through an agent, the read-only [history tool](../mcp-server/mcp-tools.mdx#history) can search saved sessions across workspaces.

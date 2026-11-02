@@ -11,11 +11,12 @@ A paused coding session can be waiting for a tool decision, an edit review, proj
 An approval card shows **Needs your approval**, the requested operation, and available details such as the command or working directory. Read the proposed action and its scope.
 
 - **Approve** accepts the current request where supported.
-- **Decline** refuses the request and lets the runtime handle that outcome.
+- **Decline**, when offered, refuses the request and lets the runtime handle that outcome.
+- **Cancel**, when offered, sends the request’s cancellation response; do not assume it is interchangeable with Decline.
 - A session-approval option, when offered, has a broader scope than one request.
 - **Approve & Remember** accepts the proposed execution-policy amendment supplied with the request. Inspect that proposal before choosing it; it is not merely a second label for one-time approval.
 
-The available choices depend on the provider and request. A separate **Permission Approval** card does not offer remembered decisions through this interface. For default provider modes and the separate MCP sub-agent policy, see [Tools](./tools.mdx) and [Agent Permissions](../settings/agent-mode/agent-permissions.mdx).
+The available choices depend on the provider and request. Codex cards follow the actions advertised for that specific request: ordinary **Approve** or **Decline** may be absent, and **Approve & Remember** appears only for an allowed policy amendment. Notifications and MCP responses follow the same current-request limits. Computer Use does not allow session-wide grants or remembered amendments. If a stale or unsupported response reports **No response was applied**, refresh the pending interaction and choose one of its current options. A separate **Permission Approval** card does not offer remembered decisions through this interface. For default provider modes and the separate MCP sub-agent policy, see [Tools](./tools.mdx) and [Agent Permissions](../settings/agent-mode/agent-permissions.mdx).
 
 ## Apply Edits Review
 

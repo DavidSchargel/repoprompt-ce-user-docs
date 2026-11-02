@@ -13,6 +13,18 @@ toc_max_heading_level: 4
 
 This changelog covers RepoPrompt Community Edition releases, starting with the first CE release. The original, unsupported Classic edition [legacy documentation remains available](../../version-classic-2.1.0/index.md).
 
+### 1.8.0 - November 1, 2026
+
+RepoPrompt CE v1.8.0 (build 41) adds opt-in workflow matching and improves attachment handling, coordination, and review reliability.
+
+- **Auto Workflow:** Match the first eligible local composer message to a template, with manual selections taking precedence. See [Workflow Templates](../agent-mode/workflow-templates.mdx#automatic-workflow-selection).
+- **Images and drafts:** Drop files across the Agent pane, open image previews, and retain bounded session image copies. Re-prompt remembers workspace activation and shows clearer completion feedback. See [Image Support](../agent-mode/image-support.mdx) and [Re-Prompter](../agent-mode/re-prompter.mdx).
+- **Coordination and approvals:** Qualified `self_noop` check-ins reduce routine transcript noise without deleting history. Codex approval actions follow each request’s supported choices. See [Overseer best practices](../overseer/best-practices.mdx#keep-routine-check-ins-quiet) and [Approvals](../agent-mode/approvals.mdx).
+- **Models and Oracle:** Adds direct OpenAI API execution-mode support with completion polling, distinguishes settled Oracle lanes from final group results, and labels unavailable token usage. See [OpenAI API](../providers/openai-api.mdx#execution-modes-and-streaming) and [Oracle](../agent-mode/oracle.mdx#read-grouped-results).
+- **Context and reliability:** Clarifies app/headless MCP binding, validates contributing roots for Context Builder reviews, and fixes session recovery, turn tracking, indexing, and update shutdown handling.
+
+**[Release notes](https://github.com/repoprompt/repoprompt-ce/releases/tag/v1.8.0)** · **[Full Changelog for 1.8.0](https://github.com/repoprompt/repoprompt-ce/compare/v1.7.0...v1.8.0)**
+
 ### 1.7.0 - October 27, 2026
 
 RepoPrompt v1.7.0 (build 40) adds Agent workflow capabilities and improves reliability across sessions and workspaces.

@@ -4,11 +4,13 @@ slug: "/agent-mode/model-router"
 description: "Let the configured decision service choose an eligible model and initial effort for a new session."
 ---
 
-**Agent Decisions** brings together automatic model routing, Auto Effort, local Usage Balancing, and decision-service configuration. Open [Settings → Agent Mode → Agent Decisions](../settings/agent-mode/agent-decisions.mdx) to configure these features.
+**Agent Decisions** brings together automatic model routing, Auto Workflow, Auto Effort, local Usage Balancing, and decision-service configuration. Open [Settings → Agent Mode → Agent Decisions](../settings/agent-mode/agent-decisions.mdx) to configure these features.
 
 For a new task, use the branching-arrow routing control above the message editor to let RepoPrompt choose an execution model and initial reasoning effort. Routing uses your connected providers, decision settings, and task description. [Auto Effort](./auto-effort.mdx) separately chooses effort for eligible turns while keeping the selected model.
 
 ![Composer with Model Router enabled and a Jev by TypeSafe routing label in place of the ordinary model selection](./images/model-router.png)
+
+[Auto Workflow](./workflow-templates.mdx#automatic-workflow-selection) chooses a template, not an execution model. It is separately enabled and shares Model Router’s selected decision service even when routing is off. Auto Effort keeps its own service selection.
 
 ## Read the composer state
 
@@ -40,4 +42,4 @@ See [Agent Decisions settings](../settings/agent-mode/agent-decisions.mdx) for s
 
 ## Choose a decision service
 
-Use the [Decisions by OpenAI and Jev comparison](../settings/agent-mode/agent-decisions.mdx#choosing-decisions-by-openai-or-jev) to compare account setup, verification, data handling, and the capabilities RepoPrompt actually uses. Choose routing and Auto Effort services independently; evaluate them on representative tasks rather than assuming one is universally faster, cheaper, or more accurate.
+Use the [Decisions by OpenAI and Jev comparison](../settings/agent-mode/agent-decisions.mdx#choosing-decisions-by-openai-or-jev) to compare account setup, verification, data handling, and the capabilities RepoPrompt actually uses. Choose the shared routing/Auto Workflow service independently of the Auto Effort service; evaluate them on representative tasks rather than assuming one is universally faster, cheaper, or more accurate.

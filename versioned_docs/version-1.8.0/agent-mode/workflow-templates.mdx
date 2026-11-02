@@ -18,8 +18,6 @@ On an empty session, select a card under **What are we building?**. The selected
 
 Open the lightning-bolt **Workflow** control above the editor. This selector offers the workflow catalog while you compose, including custom workflows you have added. The name and short description help you choose a method before sending. **Configure…** and the welcome screen's **Edit** control open workflow configuration; the refresh control reloads the available definitions.
 
-![Workflow selector showing built-in templates and Configure](./images/workflow-selector.png)
-
 | Template | What it asks the agent to do |
 | --- | --- |
 | **Orchestrate** | Break a complex request into tasks, delegate work, and check the results. |
@@ -32,6 +30,12 @@ Open the lightning-bolt **Workflow** control above the editor. This selector off
 | **ChatGPT Export** | Assemble code and context into a prompt you can take to ChatGPT. |
 
 The list depends on visibility settings; a hidden built-in template remains configurable. See [Agent Workflows settings](../settings/agent-mode/agent-workflows.mdx) to show, hide, feature, reorder, or clone templates and create custom Markdown workflows.
+
+## Automatic workflow selection
+
+**Auto Workflow** chooses a suitable workflow for the first message in a new local session. It considers visible built-in and custom workflows; your manual selection takes precedence. If no workflow fits, the message sends without one.
+
+Turn it on at the top of the **Workflow** dropdown. It is off by default. Configure the decision service in [Agent Decisions](../settings/agent-mode/agent-decisions.mdx#auto-workflow), and review [what Auto Workflow shares](../settings/agent-mode/agent-decisions.mdx#what-auto-workflow-shares) before using it for private work.
 
 ## Send the request through the template
 

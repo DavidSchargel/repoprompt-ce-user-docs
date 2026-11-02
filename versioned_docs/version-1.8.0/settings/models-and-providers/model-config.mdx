@@ -36,6 +36,8 @@ Controls whether a supported provider request streams its response as it arrives
 
 The saved override is consulted by provider paths that use the model's streaming capability. It cannot make an endpoint support a streaming protocol it does not implement. Built-in model defaults can differ, so the switch is not a universal guarantee of the request mode used by every provider.
 
+For mode-bearing [OpenAI API selections](../../providers/openai-api.mdx#execution-modes-and-streaming), **Use Streaming** is off and disabled. Its explanation identifies background polling: output arrives when the response finishes. This capability takes precedence over a saved streaming override. The screenshot above illustrates a different model’s controls, not this disabled state.
+
 ## Use Responses-API
 
 This switch appears only for custom-provider models. It controls the model's API-routing flag for the **Responses API**, rather than the usual Chat Completions route. Enable it only when the custom endpoint supports that API.

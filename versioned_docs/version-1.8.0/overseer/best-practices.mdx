@@ -39,7 +39,11 @@ Automatic turns can generate more updates, so even one relationship can sustain 
 
 ### Keep routine check-ins quiet
 
-For supported Codex and Claude Code sessions, RepoPrompt can recognize a routine automatic check-in that has nothing actionable to report and suppress its routine transcript noise. This reduces repeated coordination chatter; it does not eliminate the model turn or its usage. A meaningful result, failure, or request for input still deserves review.
+On supported first-party Codex and Claude Code routes, an eligible routine idle check-in can receive **Nothing needed? Call self_noop.** The agent must explicitly call the internal `self_noop` tool with empty arguments; silence or `[ack]` alone does not qualify. Claude-compatible alternatives and other providers do not use this quiet classification.
+
+The tool must be available through the session’s current route and an active outbound link. Before suppressing routine transcript noise, RepoPrompt verifies a single accepted declaration, its matching successful tool result, and a normally completed turn without other work or pending interactions. Leading assistant output, other tool activity, errors, cancellation, or uncertain identity keep the turn visible. A tool acknowledgement alone is not proof of quiet classification.
+
+This reduces repeated coordination chatter; it does not eliminate the model turn or its usage, disable notifications, or replace wake controls. A meaningful result, failure, or request for input still deserves review. See the [`self_noop` contract](../mcp-server/mcp-tools.mdx#self_noop) for the internal-tool boundary.
 
 Quiet display does not erase the saved conversation or exported history, and it is separate from turning Auto-wake off. Use the wake interval and snooze controls above to reduce unnecessary turns. Give the overseer an explicit instruction such as “Notify me when a result is ready, work fails, or you need a decision; keep unchanged routine checks quiet.”
 

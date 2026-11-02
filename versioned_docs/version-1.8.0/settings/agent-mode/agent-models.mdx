@@ -55,7 +55,9 @@ For named configurations exposed to MCP clients, see [Oracle Model Presets](../m
 
 ![Re-prompt model, mode, recent-context option, rewrite guidance, and Save controls](../images/agent-models-reprompt.png)
 
-Re-prompt turns your draft message into a clearer task brief before sending it to the agent. Its settings follow the global or workspace scope selected at the top of this page.
+Re-prompt turns your draft message into a clearer task brief before sending it to the agent. Its model, mode, recent-context option, and guidance follow the global or workspace profile scope selected at the top of this page.
+
+The composer’s Re-prompt **on/off state** is separate: it defaults off and is remembered for the workspace, rather than inherited with the model profile. Tabs without a workspace keep unsaved window-local activation. See [Re-Prompter](../../agent-mode/re-prompter.mdx) for activation, completed-draft preview, and sending.
 
 - **Model** selects the model that rewrites the draft. The default uses a fast model from a connected Claude or ChatGPT subscription. See [Providers & Models](../../providers/models.mdx) for model availability.
 - **Effort** is Low unless [Auto Effort](./agent-decisions.mdx#auto-effort) chooses the level.

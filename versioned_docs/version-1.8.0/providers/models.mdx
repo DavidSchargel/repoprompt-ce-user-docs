@@ -26,6 +26,8 @@ An **alias** or **Auto** choice delegates some selection to the provider. It may
 
 An **Oracle Model Preset** is a named configuration. It can contain a primary model, additional Oracles, and a mapped Chat Preset. It is not itself a model identifier. Claude-compatible backends can instead map the Claude **Haiku**, **Sonnet**, and **Opus** slots to endpoint model IDs, or omit the model flag and let the backend decide.
 
+An **execution mode** can share an underlying API model ID with another picker choice. It is distinct from reasoning effort and service tier. Result labels can preserve the selected mode even when the request uses a shared base ID; this does not override a genuinely different model reported by the runtime. See [OpenAI API execution modes and streaming](./openai-api.mdx#execution-modes-and-streaming) for that integration’s behavior and availability limits.
+
 ## Reasoning effort
 
 Effort chooses among reasoning levels advertised for the selected model. Labels such as **Low**, **Medium**, and **High** are examples, not a universal set or a standardized quantity across providers. Some runtimes expose thinking parameters or encode thinking choices in the model ID; others offer no separate effort control.

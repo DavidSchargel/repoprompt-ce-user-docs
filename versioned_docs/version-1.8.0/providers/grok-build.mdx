@@ -16,6 +16,8 @@ Use models discovered from the connected runtime. A model visible in xAI's publi
 
 Grok's launch approval choice applies to newly started processes. Its Full Access option starts the runtime with always-approve behavior for shell and editing tools. The [settings reference](../settings/agent-mode/cli-providers.mdx#grok-build) explains the exact launch controls. Grok's own rules can also affect approval behavior; do not treat its modes as identical to Codex's sandbox levels.
 
+Grok Build does not accept composer file or image attachments. Picker, paste, and pane-wide drop do not bypass this restriction. Describe the task in text and use the runtime’s permitted repository tools where appropriate; see [Image Support](../agent-mode/image-support.mdx) for the separate attachment workflow.
+
 ## Account and usage
 
 The route used by the runtime determines the account and usage terms. When the integration supplies an xAI API key, requests using that credential are billed to the corresponding API account. Check whether a run is using account login or an API credential before assuming that one account plan covers it.

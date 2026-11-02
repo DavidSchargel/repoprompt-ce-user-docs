@@ -41,7 +41,7 @@ RepoPrompt supports multiple windows, each showing a workspace, behind one share
 
 ### Context Binding
 
-Use `bind_context` to discover, inspect, and bind the workspace context for this connection. Start with `op="list"`, then bind by absolute workspace root paths or a returned context UUID. Root matching first looks for an exact set, then an eligible superset; pass workspace roots rather than arbitrary descendant files.
+Use `bind_context` to discover, inspect, and bind the workspace context for this connection. Start with `op="list"`, then bind by absolute workspace root paths or a returned context UUID. Root matching first looks for an exact set, then an unambiguous eligible superset; pass workspace roots rather than arbitrary descendant files. Prefer an array: the string form splits on commas and cannot safely represent a root containing a comma.
 
 ```json
 {"op":"bind","working_dirs":["/Users/example/Project"]}
@@ -53,7 +53,13 @@ When a suitable saved workspace is not already open, the app can open it. `creat
 {"op":"bind","context_id":"RETURNED-CONTEXT-UUID"}
 ```
 
-Call `{"op":"status"}` to inspect the current binding. The current global `bind_context` schema does **not** accept `window_id`; use the fields returned by your connection's schema. Compose context IDs and Agent Mode session IDs serve different purposes and must not be substituted for each other.
+On the app backend, `window_id` can filter `list`, disambiguate root matches, or bind the specified window’s current compose-tab context. That explicit binding stays on the captured context even when the visible tab changes. Call `{"op":"status"}` to inspect it. Compose context IDs and Agent Mode session IDs serve different purposes and must not be substituted for each other.
+
+### Direct-headless binding
+
+A direct-headless connection has no app windows. `bind_context list` returns saved workspace/context identities and the current binding. Bind with a returned `context_id` or absolute roots in `working_dirs`; the match must be unique. Any supplied `window_id` is rejected.
+
+Headless binding never creates a workspace implicitly. `create_if_missing` and `tab_name` do not create anything when an existing context matches, and no match is an error. Use explicit workspace lifecycle operations when creation is intended.
 
 ### Workspace Lifecycle
 
@@ -76,11 +82,13 @@ Call `{"op":"status"}` to inspect the current binding. The current global `bind_
 { "action": "add_folder", "workspace": "MyProject", "folder_path": "/Users/example/Shared" }
 ```
 
-Use exact workspace UUIDs when names are ambiguous. Some lifecycle operations also accept a `window_id`; that is separate from the global context-binding API.
+Use exact workspace UUIDs when names are ambiguous. On headless, name-based switch respects visibility, while `bind_context list` and `list_tabs` retain the full saved context inventory. Hide prefers a unique visible name before falling back to a unique hidden name; unhide resolves hidden names without requiring `include_hidden`.
+
+App-backed lifecycle calls can use `window_id`. Headless rejects it and rejects `open_in_new_window=true`. Headless accepts but ignores `focus` and `close_window`; ignoring `close_window` does **not** prevent deletion. With create, `switch_to_created=true` binds the newly created context on headless.
 
 ## Tab Management
 
-Compose tabs allow parallel work contexts within a single window. MCP clients can manage tabs programmatically:
+Compose tabs allow parallel work contexts within a single app window. The UI-oriented examples below use the app backend. Headless `select_tab` requires a canonical context UUID, not a tab name; `close_tab` accepts a listed UUID or unambiguous name. Both operations require `tab`. Headless has no visible focus; `create_tab` with `bind=true` binds the new context and records it as the workspace’s active compose tab.
 
 ### Listing Tabs
 
@@ -110,7 +118,7 @@ Once bound, all subsequent tool calls from this connection operate on the bound 
 
 ### Creating Tabs for Background Work
 
-MCP clients can now create new compose tabs explicitly. This is useful for spinning up a fresh task context without disturbing the tab the user is currently looking at.
+MCP clients can create new compose tabs explicitly. This is useful for spinning up a fresh task context without disturbing the tab the user is currently looking at.
 
 ```text
 // Create a blank background tab and bind this MCP connection to it

@@ -12,6 +12,10 @@ description: "Rewrite a draft in the message editor, review the result, and deci
 
 Enable Re-prompt and read its first-use disclosure. Write the request and press **Return** or click **Send**. In the normal review mode, this first action rewrites the text in the composer. Review and edit the visible draft, then press Return or Send again to submit it.
 
+Re-prompt starts off and remembers its on/off state for the workspace.
+
+While rewriting, the strip shows progress. A completed draft shows "Rewrite complete..." or "Draft ready...". Read it, edit it, and send from the composer, not the preview.
+
 You remain in control of the draft. Typing stops an in-progress rewrite. **Escape** restores the original for your next Send. By default, **⌘Return** asks for another rewrite, and **⌘⇧O** sends the original immediately. You can remap the two composer commands in [Keyboard Shortcuts](../settings/general/keyboard-shortcuts.mdx). Use these controls according to the current composer state rather than repeatedly pressing Send while a rewrite is still arriving.
 
 The rewriter can offer an optional clarification question. Answering can produce another revision. You can also continue with the visible draft without answering. This clarification happens before submission; [Interviewer](./interviewer.mdx) asks the execution agent to clarify the task after submission.
@@ -20,7 +24,7 @@ The rewriter can offer an optional clarification question. Answering can produce
 
 Open the control's context menu to select an available Re-prompt model, restore its automatic default, change **Mode**, or toggle **Include recent chat context**. **Agent Models Settings** opens the related configuration. If no usable model is connected, the control offers **Choose model** instead of silently selecting an unavailable provider.
 
-**Send automatically** mode dispatches completed rewrites unless a clarification question or slash-leading text needs review. Use review mode when you want to inspect every rewritten request. Your Re-prompt model is separate from the model that ultimately performs the task.
+**Send automatically** mode dispatches completed rewrites unless a clarification question or slash-leading text needs review. It also rechecks that Re-prompt is still enabled, the destination and draft still match, and text composition is finished. If those conditions change, inspect the draft rather than assuming it was sent. Use review mode when you want to inspect every rewritten request. Your Re-prompt model is separate from the model that ultimately performs the task.
 
 ### Set rewrite guidance
 
@@ -32,4 +36,4 @@ Guidance changes how the draft is prepared; it does not grant the execution agen
 
 The rewriting provider receives your message, rewriting guidance, workspace root names and selected paths, and recent chat excerpts when enabled. File contents, attachments, Git output, and tool results are not included in that rewriting request. The screenshot's model name is an example; provider billing and retention apply to the configured route.
 
-Paths, names, excerpts, and anything you type can still be sensitive. Read the disclosure when changing providers. If model routing or [Auto Effort](./auto-effort.mdx) is enabled through [Agent Decisions](./model-router.mdx), the resulting task can also be evaluated by its configured decision service before the execution agent starts.
+Paths, names, excerpts, and anything you type can still be sensitive. Read the disclosure when changing providers. If model routing, [Auto Workflow](./workflow-templates.mdx#automatic-workflow-selection), or [Auto Effort](./auto-effort.mdx) is enabled, the resulting task can also be evaluated by its configured decision service before the execution agent starts. A request that originally began with `/` is not auto-matched to a workflow, even if rewriting removes that prefix. Review each feature’s sharing rules in [Agent Decisions](../settings/agent-mode/agent-decisions.mdx).

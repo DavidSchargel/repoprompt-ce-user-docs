@@ -11,13 +11,13 @@ toc_max_heading_level: 4
 
 This reference follows the current RepoPrompt source contracts. Tools are organized by category; ordinary tool toggles live in [MCP Tools settings](../settings/mcp-server/tools.mdx). Some tools are additionally limited to Agent Mode, discovery, or an authorized control relationship. Your connection's live schema determines which tools and arguments are available.
 
-The MCP settings status displays **21 available** tools for standard external client connections. RepoPrompt defines **31 total domain tools** (`MCPDomainToolCatalog.swift`):
+The MCP settings status displays **21 available** tools for standard external client connections. RepoPrompt defines **32 total domain tools** (`MCPDomainToolCatalog.swift`):
 - **21 advertised tools** exposed to standard external MCP clients, consisting of **3 global tools** (`app_settings`, `bind_context`, `manage_workspaces`) and **18 window-scoped tools** (`agent_explore`, `agent_manage`, `agent_run`, `apply_edits`, `context_builder`, `file_actions`, `file_search`, `get_code_structure`, `get_file_tree`, `git`, `history`, `manage_selection`, `manage_worktree`, `oracle_send`, `oracle_utils`, `prompt`, `read_file`, `workspace_context`).
-- **10 policy-gated and sub-agent internal tools** (`ask_user`, `ask_oracle`, `oracle_chat_log`, `agent_session_link`, `session_admin`, `become_overseer`, `self_compact`, `share_thoughts`, `set_status`, `wait_for_next_user_instruction`) that are reserved for and dynamically activated within eligible Agent Mode and cross-session oversight contexts. See [Policy-Gated and Sub-Agent Internal Tools](#policy-gated-and-sub-agent-internal-tools).
+- **11 policy-gated and sub-agent internal tools** (`ask_user`, `ask_oracle`, `oracle_chat_log`, `agent_session_link`, `session_admin`, `become_overseer`, `self_noop`, `self_compact`, `share_thoughts`, `set_status`, `wait_for_next_user_instruction`) that are reserved for and dynamically activated within eligible Agent Mode and cross-session oversight contexts. See [Policy-Gated and Sub-Agent Internal Tools](#policy-gated-and-sub-agent-internal-tools).
 
 ## Tool catalog at a glance
 
-These short descriptions follow the built-in Settings catalog shown in the reference screenshot. The detailed sections below explain current arguments, limitations, and behaviors; use the schema advertised by your connected build for the exact contract.
+These short descriptions summarize the built-in Settings catalog. The detailed sections below explain current arguments, limitations, and behaviors; use the schema advertised by your connected build for the exact contract.
 
 | Tool | What it does |
 | --- | --- |
@@ -60,10 +60,14 @@ The descriptions in this catalog explain purpose, not permission. A tool being l
 
 ### `bind_context`
 
-List, inspect, and bind the workspace context used by this MCP connection. `op` is `list`, `status`, or `bind`. Bind with `working_dirs`, a comma-separated string of absolute workspace roots, or a `context_id` returned by discovery. `create_if_missing` requests creation when no suitable workspace exists, subject to approval. The current global schema does not accept `window_id`.
+List, inspect, and bind the workspace context used by this MCP connection. `op` is `list`, `status`, or `bind`. Prefer `working_dirs` as an array of absolute workspace root paths, or use a `context_id` returned by discovery. A string is also accepted but splits on commas; use an array when a root contains a comma. Matching checks an exact root set first, then an unambiguous eligible superset. Descendant paths are not root selectors.
+
+**App-backed:** `list` returns open windows and compose tabs; `window_id` can filter it. A bind can use roots, a context ID, or `window_id`. Binding a window captures its current compose-tab context; later visible-tab changes do not redirect it. A window selector can disambiguate matching workspaces. `create_if_missing=true` may request workspace creation after approval when no match exists.
+
+**Direct headless:** `list` returns saved workspace/context identities and the current binding, without windows. Bind by context ID or roots; any supplied `window_id` is rejected. A unique eligible match is required. Headless never creates a workspace implicitly: `create_if_missing` or `tab_name` can be supplied with an existing match without causing creation, and no match is an error.
 
 ```json
-{"op":"bind","working_dirs":"/Users/example/Project"}
+{"op":"bind","working_dirs":["/Users/example/Project"]}
 ```
 
 Use a returned `context_id` when a stable compose-tab context is required. See [Connection Management](./mcp-connections.mdx#context-binding).
@@ -126,6 +130,8 @@ Intelligently explore the codebase and build optimal file context for a task.
 An external app-backed call creates a fresh compose tab and runs discovery toward the context budget. During Agent Mode, it reuses the current agent tab. A `question`, `plan`, or `review` response adds Oracle analysis and returns conversation information for follow-up. Continue with the Oracle tool advertised to your connection, using the returned `chat_id`.
 
 `export_response=true` can write generated analysis to a shareable file. App-backed analysis also accepts an exposed `oracle_preset` to select its Oracle roster independently of discovery. Direct-headless execution uses a separate `context_pack_ref` contract for a persisted frozen package and rejects `oracle_preset`. Runtime depends on repository size, task scope, provider latency, and analysis type.
+
+For review, selected roots that share a checkout can contribute to one Git target, but every contributing root must remain authorized. Ambiguous mappings or stale root/worktree access can stop the request before context is packaged. Reload or reselect the intended roots, verify their checkout bindings, and start a new review. Selection does not automatically authorize every root or worktree.
 
 ## File Operation Tools
 
@@ -343,19 +349,22 @@ List, switch, create, or modify workspaces and tabs.
 | `workspace` | Workspace UUID or name |
 | `name` | Name for new workspace, or optional name for `create_tab` |
 | `folder_path` | Absolute path for add/remove\_folder |
-| `tab` | Tab UUID or name for `select_tab` or `close_tab` |
+| `tab` | Required for `select_tab` and `close_tab`. App: UUID or name. Headless: canonical UUID for selection; listed UUID or unambiguous name for closing. |
 | `mode` | For `create_tab`: `blank` \| `fork` (default: `blank`) |
 | `source_tab` | Optional source tab for `create_tab` when `mode="fork"` |
 | `bind` | For `create_tab`: bind this MCP connection to the new tab (default: true) |
-| `window_id` | Target window for supported lifecycle operations; separate from bind_context. |
-| `focus` | For `select_tab` or `create_tab`: switch the UI to that tab (default: false) |
+| `window_id` | App-backed target window. Headless rejects any supplied value. |
+| `focus` | App-backed `select_tab`/`create_tab`: switch the visible tab (default: false). Headless accepts and ignores it. |
 | `allow_active` | For `close_tab`: allow closing the currently visible tab |
-| `open_in_new_window` | For action=switch or create: opens workspace in a new window and binds connection. Returns `window_id` in response. |
-| `switch_to_created` | For action=create: switch to the newly created workspace in the target window (default: true). |
+| `open_in_new_window` | App-backed switch/create: open a window and bind the connection. Headless rejects true; false or omission has no new-window effect. |
+| `switch_to_created` | For create: switch in the app target window, or bind the new context on headless (default: true). |
+| `close_window` | App-backed delete: request window closure. Headless ignores this flag, but still performs deletion. |
 
-Create, delete, and folder operations modify workspace state. Tab binding ensures consistent context even if the user switches tabs during your session. Use `open_in_new_window` with the switch or create action to open a workspace in a fresh window without affecting existing windows.
+Create, delete, and folder operations modify workspace state. `list` omits hidden workspaces unless `include_hidden=true`. On headless, `bind_context list` and `list_tabs` still expose the full saved context inventory. Name-based switch respects visibility. Hide prefers a unique visible match, then a unique hidden match; unhide can resolve hidden names without `include_hidden`. Use a workspace UUID to resolve ambiguity.
 
-**Tab automation:** `create_tab` defaults to `bind=true` and `focus=false`, so agents can create isolated background tabs without stealing UI focus. `close_tab` refuses to close the last remaining tab, the active visible tab unless `allow_active=true`, or any tab that still has live bound runs.
+Explicit tab binding ensures consistent context even if the user switches tabs during your session. On the app backend, use `open_in_new_window` with the switch or create action to open a workspace in a fresh window without affecting existing windows.
+
+**Tab automation:** `create_tab` defaults to `bind=true` and `focus=false`, so app-backed agents can create isolated background tabs without stealing UI focus. Headless has no visible window; binding a created context also records it as the workspace’s active compose tab. `close_tab` refuses to close the last remaining tab, the active visible tab unless `allow_active=true`, or any tab that still has live bound runs.
 
 ### `manage_worktree`
 
@@ -446,6 +455,8 @@ When model routing is enabled in Agent Decisions, new starts with an omitted mod
 - `expired` — The session has no active control snapshot available
 
 **Snapshot Fields:** Depending on state and operation, responses can include session_id, status, status_text, assistant_text, transcript_item_count, failure_reason, session identity and parentage, and available agent/model information. Use the current snapshot's interaction_id and advertised response choices rather than reusing an older pending interaction.
+
+`respond` must use an option allowed by the current request; the response vocabulary below is not a promise that every action is offered. Codex requests can omit accept or decline and offer cancel instead. Remembered approval must match an advertised amendment. Computer Use rejects session grants and amendments. **No response was applied** means a stale or unsupported answer did not resolve the interaction; fetch its current snapshot before retrying.
 
 **Interaction Kinds** (for the `respond` operation):
 
@@ -556,7 +567,7 @@ agent_run op=start workflow_name="orchestrate" message="Refactor auth into separ
 
 ## Policy-Gated and Sub-Agent Internal Tools
 
-In addition to the 21 advertised tools above, RepoPrompt defines **10 policy-gated and sub-agent internal tools** that are omitted from the standard external catalog and activated dynamically within eligible Agent Mode and authorized cross-session oversight contexts:
+In addition to the 21 advertised tools above, RepoPrompt defines **11 policy-gated and sub-agent internal tools** that are omitted from the standard external catalog and activated dynamically within eligible Agent Mode and authorized cross-session oversight contexts:
 
 | Tool | Brief Description |
 | --- | --- |
@@ -566,6 +577,7 @@ In addition to the 21 advertised tools above, RepoPrompt defines **10 policy-gat
 | `agent_session_link` | Manages cross-window and cross-session communication links, steering, model targeting, and auto-wake snoozing. |
 | `session_admin` | Administers sessions within a user-granted delegation scope, including session tree inspection, organization, worktree binding, and merge coordination. |
 | `become_overseer` | Requests promotion of the calling session to an overseer role to coordinate sibling sessions. |
+| [`self_noop`](#self_noop) | Declares a routine linked-session check-in has nothing to do; quiet display requires host verification. |
 | `self_compact` | Requests self-compaction or context inspection (`op="context"` or `"compact"`) of the agent's own session context. |
 | `share_thoughts` | Publishes reasoning thoughts or plan progress to the session timeline. |
 | `set_status` | Updates the human-visible status indicator on the session card. |
@@ -596,6 +608,20 @@ For authorized cross-session oversight and multi-agent administration, RepoPromp
 - **`become_overseer`** — Requests promotion to an overseer role to coordinate sibling sessions.
 
 Their visibility and available operations depend on the calling session's live delegation state and user grants. Discover the live schemas and obtain the required target-scoped consent before observing, messaging, or modifying another session.
+
+`session_admin fork` can copy conversation images into independently owned storage for the child. A partial-fork error can leave a child already created when image copying fails or the destination changes. Inspect the returned child and error before retrying; the error does not promise rollback. See [saved images and privacy](../agent-mode/image-support.mdx#saved-images-and-privacy).
+
+### `self_noop`
+
+An internal, empty-argument tool for qualified routine check-ins in Agent Mode. It requires an active **outbound** session link and an eligible advertised tool route; an inbound link alone is insufficient. It is not a standard external-client tool or a general Settings toggle. The direct-headless installer does not expose it.
+
+```json
+{}
+```
+
+The acknowledgement `{"result":"done"}` confirms the call, not that the turn was classified as quiet. On supported first-party Codex and Claude Code routes, the host must verify one valid declaration, its correlated successful result, and a normally completed turn without other work or unresolved interactions. Silence or `[ack]` alone does not qualify. Errors, cancellation, uncertain correlation, or other activity keep the ordinary transcript visible.
+
+Quiet display does not delete saved/exported conversation history, eliminate the model turn, or guarantee lower usage. See [quiet Overseer check-ins](../overseer/best-practices.mdx#keep-routine-check-ins-quiet).
 
 ### Session helpers
 
