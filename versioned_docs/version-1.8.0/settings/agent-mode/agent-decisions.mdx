@@ -20,7 +20,7 @@ Choose how RepoPrompt selects execution models, workflow templates, and reasonin
 | Usage Balancing | Can substitute a comparable model on another connected plan | Eligible new tasks; usage decisions stay on your Mac |
 | Decision Services | Supplies decisions for routing, workflow matching, or effort | Auto Workflow shares Model Router's service; Auto Effort has its own selection |
 
-The isolated screenshots illustrate individual controls with unconfigured services; they are not a complete pane reference. Captured model names and selections are examples, not recommended defaults. Use [Providers & Models](../../providers/overview.mdx) for connection requirements and the [Models reference](../../providers/models.mdx) for availability, effort, and service tiers.
+The isolated screenshots illustrate individual controls; they are not a complete pane reference. Captured service configurations, model names, and selections are examples, not recommended defaults. Use [Providers & Models](../../providers/overview.mdx) for connection requirements and the [Models reference](../../providers/models.mdx) for availability, effort, and service tiers.
 
 ## Enable Model Router
 
@@ -47,6 +47,8 @@ Use guidance for preferences such as “Prefer my connected coding provider for 
 Text you type into the task or guidance can still contain sensitive information. Masking can miss it. Review the selected service's own privacy disclosure as well. The complete task goes to the selected execution agent separately.
 
 ## Auto Workflow
+
+![Auto Workflow enabled with its shared decision service, configuration control, fallback explanation, and expanded sharing disclosure](../images/agent-decisions-auto-workflow.png)
 
 **Enable Auto Workflow** lets RepoPrompt choose a workflow template, or no template, for the first message you send from the composer in a fresh local session. It is off by default. The **Auto Workflow** switch at the top of the composer’s **Workflow** dropdown controls the same app-wide setting.
 
@@ -101,6 +103,8 @@ Usage Balancing is off by default. Its default strategy when enabled is **Even p
 With the app active, task activity can trigger checks at most once per **30 minutes**, with **12 checks per rolling day** for Claude, and at most once per **10 minutes** for Codex. There is no idle polling, and routing does not wait for a refresh. Connected usage also supports a startup check and manual refresh.
 
 ## Decision Services
+
+![Decision Services cards showing Jev ready and used by automatic decisions, and Decisions by OpenAI requiring configuration](../images/agent-decisions-services.png)
 
 Each service card shows supported features, selection badges, and configuration status. Expand a card to review its credential controls and disclosures. Configuring a service does not automatically select it for every feature. Model Router and Auto Workflow share a **Decision service** selection; Auto Effort selects its service independently. A service card can show **Used by Auto Workflow** or **Selected for Auto Workflow**. Its capability chips do not replace the eligibility and sharing rules above.
 
