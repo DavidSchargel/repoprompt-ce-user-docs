@@ -51,7 +51,7 @@ Edit the current collection under `versioned_docs/`, its sidebar under `versione
 
 The site uses Cosmos with local theme overrides. Follow the [content guide](docs/runbooks/content-and-media.md) for images, terminology, links, and source layout, and the [maintenance guide](docs/runbooks/maintenance.md) for rendering and accessibility checks.
 
-For screenshots, the [demo repository](repoprompt-ce-user-docs-demo-code/README.md) is a separate, locally maintained checkout.
+For screenshots, the [demo repository](https://github.com/repoprompt/repoprompt-ce-user-docs-demo-code) is an ideal separate, locally maintained checkout with nothing of value.
 
 ## Accessibility intent
 
