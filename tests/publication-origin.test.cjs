@@ -70,5 +70,47 @@ test('Pages publication runs on main pushes and opted-in manual runs only', () =
     }
     const group = evaluate(workflow.concurrency.group.slice(3, -2).trim(), github, inputs, vars);
     assert.equal(group === 'pages-publication', ref === 'refs/heads/main' && (event === 'push' || (event === 'workflow_dispatch' && publish)));
+    assert.equal(evaluate(workflow.concurrency['cancel-in-progress'].slice(3, -2).trim(), github, inputs, vars), group !== 'pages-publication');
+  }
+});
+
+test('Pages deploys only an artifact matching current main and fails closed on lookup errors', () => {
+  const os = require('node:os');
+  const {spawnSync} = require('node:child_process');
+  const yaml = require('js-yaml');
+  const workflow = yaml.load(fs.readFileSync(path.join(__dirname, '../.github/workflows/pages.yml'), 'utf8'));
+  const deploy = workflow.jobs.deploy;
+  const guard = deploy.steps.find(step => step.id === 'current-main');
+  const publication = deploy.steps.find(step => step.id === 'deployment');
+  assert.equal(deploy.permissions.contents, 'read');
+  assert.equal(guard.env.GH_TOKEN, '${{ github.token }}');
+  assert.equal(guard.env.ARTIFACT_SHA, '${{ github.sha }}');
+  assert.equal(publication.if, "steps.current-main.outputs.matches == 'true'");
+  assert.equal(deploy.steps.indexOf(guard) + 1, deploy.steps.indexOf(publication));
+  const directory = fs.mkdtempSync(path.join(os.tmpdir(), 'pages-sha-'));
+  try {
+    fs.writeFileSync(path.join(directory, 'gh'), `#!/bin/sh
+test "$*" = 'api repos/owner/docs/git/ref/heads/main --jq .object.sha' || exit 2
+if [ "$MOCK_API_FAILURE" = true ]; then exit 1; fi
+printf '%s\\n' "$MOCK_MAIN_SHA"
+`, {mode: 0o755});
+    for (const [mainSha, failure, expected] of [
+      ['artifact-sha', false, 'matches=true\n'],
+      ['newer-sha', false, 'matches=false\n'],
+      ['', true, ''],
+    ]) {
+      const output = path.join(directory, 'output');
+      fs.writeFileSync(output, '');
+      const result = spawnSync('bash', ['-c', guard.run], {
+        encoding: 'utf8',
+        env: {...process.env, PATH: `${directory}:${process.env.PATH}`,
+          GITHUB_REPOSITORY: 'owner/docs', GITHUB_OUTPUT: output,
+          ARTIFACT_SHA: 'artifact-sha', MOCK_MAIN_SHA: mainSha, MOCK_API_FAILURE: String(failure)},
+      });
+      assert.equal(result.status, failure ? 1 : 0, result.stderr);
+      assert.equal(fs.readFileSync(output, 'utf8'), expected);
+    }
+  } finally {
+    fs.rmSync(directory, {recursive: true, force: true});
   }
 });

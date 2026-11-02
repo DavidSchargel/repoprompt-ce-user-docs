@@ -43,7 +43,7 @@ Without site environment variables, canonical URLs use `https://example.invalid`
 
 The [Pages workflow](.github/workflows/pages.yml) validates pull requests, pushes to `main`, and manual runs. Pushes to `main`, including merged pull requests, deploy automatically after validation and publication checks pass. Pull requests and manual runs with `publish` unchecked validate without deploying.
 
-Initial publication required a manual run on `main` with `publish` checked, `PUBLISH_APPROVED=true`, `LEGAL_TEXT_APPROVED=true`, matching owner/repository variables, and a successful build. Updates to the live site retain these gates and deploy when changes reach `main`. Follow the [update procedure](docs/runbooks/publishing.md#deploy-an-update) for deployment checks and optional manual publication.
+Initial publication requires a one-time manual run on `main` with `publish` checked. Subsequent updates deploy automatically when changes reach `main`, subject to the remaining gates: `PUBLISH_APPROVED=true`, `LEGAL_TEXT_APPROVED=true`, matching owner/repository variables, and a successful build. At deployment time, the artifact commit must also match the current `main` commit. Follow the [update procedure](docs/runbooks/publishing.md#deploy-an-update) for deployment checks and optional manual publication.
 
 ## Content and theme
 

@@ -17,7 +17,7 @@ permissions:
 
 concurrency:
   group: ${{ github.ref == 'refs/heads/main' && (github.event_name == 'push' || (github.event_name == 'workflow_dispatch' && inputs.publish)) && 'pages-publication' || format('pages-validation-{0}', github.ref) }}
-  cancel-in-progress: true
+  cancel-in-progress: ${{ !(github.ref == 'refs/heads/main' && (github.event_name == 'push' || (github.event_name == 'workflow_dispatch' && inputs.publish))) }}
 
 jobs:
   build:
@@ -86,12 +86,28 @@ jobs:
     needs: build
     runs-on: ubuntu-latest
     permissions:
+      contents: read
       pages: write
       id-token: write
     environment:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
     steps:
+      - name: Check artifact matches current main
+        id: current-main
+        env:
+          GH_TOKEN: ${{ github.token }}
+          ARTIFACT_SHA: ${{ github.sha }}
+        run: |
+          set -eu
+          main_sha=$(gh api "repos/$GITHUB_REPOSITORY/git/ref/heads/main" --jq '.object.sha')
+          if [ "$ARTIFACT_SHA" = "$main_sha" ]; then
+            echo 'matches=true' >> "$GITHUB_OUTPUT"
+          else
+            echo 'matches=false' >> "$GITHUB_OUTPUT"
+            echo 'Skipping publication: the artifact commit is no longer current main.'
+          fi
       - name: Deploy Pages
+        if: steps.current-main.outputs.matches == 'true'
         id: deployment
         uses: actions/deploy-pages@d6db90164ac5ed86f2b6aed7e0febac5b3c0c03e # v4
