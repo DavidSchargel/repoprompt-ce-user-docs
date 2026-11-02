@@ -313,6 +313,7 @@ See [Workflow Commands](./workflow-commands.mdx#git-integration) for review-orie
 | --- | --- |
 | `op` | status \| diff \| log \| show \| blame |
 | `repo_root` | Repository path or loaded root name. Use `@main` for the main checkout or `@wt` for the current checkout, either alone or appended to a root such as `Project@main`. Omission uses the session-aware default described below. |
+| `repo_key` | String repository identifier, available in `manage_worktree` list results. Use it to identify a repository when loaded root names are ambiguous. |
 | `repo_roots` | Array of repo paths or names (for multi-root operations) |
 | `compare` | Compare spec: uncommitted (default), staged, unstaged, mergebase:X, back:N, last, main, trunk, or any revspec. `main` and `trunk` use merge-base semantics. |
 | `detail` | summary (default) \| files \| patches \| full |

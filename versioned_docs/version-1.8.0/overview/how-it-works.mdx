@@ -77,7 +77,7 @@ Depending on the `response_type` requested by the workflow, RepoPrompt also enha
 
 ## Core Context Builder Workflows
 
-RepoPrompt ships included slash commands that wrap this three-stage pipeline into repeatable engineering workflows. You can run these from the **Workflow** dropdown in Agent Mode or type them as slash commands in any connected MCP client:
+RepoPrompt provides workflow templates for this three-stage pipeline. Select a template from the **Workflow** dropdown in Agent Mode. Connecting an MCP client provides tools but does not by itself install workflow commands. To use commands such as `/rp-orchestrate` in a compatible external client, follow the [Quick Setup → Skills installation steps](../mcp-server/workflow-commands.mdx), then use that client's skill or slash-command picker. The available names and invocation depend on the client and installed variant:
 
 ### 1. Orchestrate (`/rp-orchestrate`)
 

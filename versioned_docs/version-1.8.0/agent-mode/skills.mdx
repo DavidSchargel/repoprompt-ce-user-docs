@@ -43,15 +43,15 @@ Skills are discoverable instruction files or packages. A skill can contain workf
 
 RepoPrompt's slash-skill loader reads Markdown instruction files with optional YAML frontmatter, including folder-based `SKILL.md` files and supported legacy command files. In Agent Mode, invoking one expands its template with your task description. External coding hosts have their own discovery and invocation behavior.
 
+### Skills vs. workflow templates
+
+Agent Mode has two ways to load instructions for a task: the **Workflow** dropdown selects built-in or custom workflow templates, while a **slash skill** loads an on-disk instruction file typed as `/skill-name`. You can use one or the other per message, but not both. A custom in-app workflow template is not automatically an installed skill for an external coding host.
+
 ## Skills in Agent Mode
 
 Agent Mode discovers skills from on-disk directories and presents them in the input bar. Type `/` at the start of your message to see available skills — they filter as you type by name and description.
 
 When you send a message with a slash skill, RepoPrompt expands the template (stripping frontmatter and substituting `$ARGUMENTS` with your task description) before sending it to the agent.
-
-**Skills vs. workflow templates**
-
-Agent Mode has two ways to load instructions for a task: the **Workflow** dropdown selects built-in or custom workflow templates, while a **slash skill** loads an on-disk instruction file typed as `/skill-name`. You can use one or the other per message, but not both. A custom in-app workflow template is not automatically an installed skill for an external coding host.
 
 ## Use skills with external agents
 
