@@ -1,0 +1,36 @@
+---
+id: "pay-for-services"
+title: "Do I need to pay for AI services?"
+description: "Understand RepoPrompt's cost and the separate account charges for coding agents, APIs, and local model services."
+slug: "/faq/pay-for-services"
+hide_table_of_contents: false
+---
+
+RepoPrompt is free and open source. AI usage depends on the connection you choose: a coding-agent account, an API credential, or a model server you operate.
+
+## What RepoPrompt charges
+
+RepoPrompt does not charge for the application or add a markup to provider bills. You supply the relevant account or service. Its terms, quotas, pricing, and data practices apply to requests sent through that route.
+
+A CLI subscription does not automatically pay for direct API requests, and an API key does not establish access to a separate subscription product. Check which account and connection the task actually uses.
+
+For the transition from the former application subscription, see [What Happened to the Paid Version?](./paid-version.mdx). For credentials, see [Do I Need an API Key?](./api-keys.mdx).
+
+## Supported AI providers
+
+The [Providers & Models directory](../providers/overview.mdx) maintains the supported coding-agent, API, compatible-backend, and local-service references. Each provider page explains prerequisites, authentication, capabilities, account boundaries, and billing distinctions.
+
+### Provider setup and current model catalogs
+
+Use the provider's reference page for its connection instructions and official catalog links. [Models](../providers/models.mdx) explains discovery, availability, aliases, effort, and how selections differ between execution, Oracle, and Context Builder. Model names and prices change, so this FAQ does not maintain a second catalog.
+
+## How to keep costs predictable
+
+- Inspect the provider account that owns the login or API key and review its current pricing, quotas, and billing controls.
+- Keep context focused and choose a capability level suited to the task. A workflow can make several model requests, including discovery, consultation, or draft rewriting.
+- Review paid speed tiers and automatic follow-up features before using them for extended tasks.
+- For [local models](../providers/local-models.mdx), confirm that inference actually stays local and account for hardware and electricity use. A local server can also be configured to call a hosted route with separate charges.
+
+## What is free and what is not
+
+The application is free. AI access is free only when the selected service, account, model, and usage are free under its current terms, or when inference runs locally without a hosted API bill. RepoPrompt cannot guarantee a provider's free allowance or subscription entitlement.

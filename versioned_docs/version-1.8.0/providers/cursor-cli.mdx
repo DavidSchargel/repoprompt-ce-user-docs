@@ -1,0 +1,23 @@
+---
+title: "Cursor CLI"
+slug: "/providers/cursor-cli"
+description: "Connect the Cursor agent runtime and use the models and parameters it advertises to RepoPrompt."
+---
+
+Cursor CLI connects the installed `cursor-agent` runtime through ACP. RepoPrompt discovers its models and parameters and supplies its MCP integration to the session.
+
+## Connect and authenticate
+
+Install the Cursor agent runtime and complete its supported authentication. Open [Cursor CLI settings](../settings/agent-mode/cli-providers.mdx#cursor-cli) and choose **Connect**. The runtime can request login or use supported credentials such as `CURSOR_API_KEY` or `CURSOR_AUTH_TOKEN`.
+
+Use **Test Connection** to recheck access and **Refresh Models** to request the current catalog. **Sign Out** disconnects Cursor in RepoPrompt and clears cached model availability.
+
+## Models and capabilities
+
+Select from the model, effort, and speed parameters returned by the connected runtime. Cursor's **Auto** option delegates model selection to Cursor; it is distinct from automatic routing in RepoPrompt's Agent Decisions. See [Models](./models.mdx) for shared selection concepts.
+
+Model, effort, and speed controls are locked while an active Cursor run is using them. Its ACP approval controls are documented in [CLI Providers settings](../settings/agent-mode/cli-providers.mdx#cursor-cli). Available capabilities depend on the runtime and selected model; a connection does not establish unrestricted access to every tool.
+
+## Account and usage
+
+Cursor authentication and its account terms determine access and allowance. Connecting this runtime does not configure the same model through a separate API provider or transfer Cursor account entitlement to that API. Check the account and selected runtime route when assessing usage.

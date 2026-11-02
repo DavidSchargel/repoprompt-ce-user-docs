@@ -1,0 +1,25 @@
+---
+title: "Claude Code CLI"
+slug: "/providers/claude-code-cli"
+description: "Use the installed Claude Code runtime and its authentication for RepoPrompt coding sessions."
+---
+
+Claude Code CLI runs coding sessions through the installed `claude` executable. The app may label this provider **Claude Code**. Its integration supports agent conversations, tool activity, context compaction, and RepoPrompt MCP tools.
+
+## Connect and authenticate
+
+Install and authenticate Claude Code using its supported login flow. When login is needed, run `claude login` in your terminal, then open [Claude Code CLI settings](../settings/agent-mode/cli-providers.mdx#claude-code-cli) and choose **Connect**. **Test Connection** rechecks the integration.
+
+RepoPrompt's **Sign Out** clears its recorded Claude connection state. Manage the standalone CLI's authentication separately when you need to change that login. This integration is distinct from the [Anthropic API](./anthropic-api.mdx) key configured for direct model requests.
+
+## Models and capabilities
+
+The connected runtime supplies model and effort choices. See [Models](./models.mdx) for selection concepts; a label in a captured screenshot is not a permanent default.
+
+Claude's permission mode, Bash access, strict MCP scope, and lazy tool loading are configured in its settings. Advanced prompt packaging controls how RepoPrompt delivers Agent Mode instructions. Refer to the [settings controls](../settings/agent-mode/cli-providers.mdx#claude-tools) for their exact effects and when changes apply.
+
+## Compatible backends and accounts
+
+[CC Zai](./cc-zai.mdx), [CC Moonshot](./cc-moonshot.mdx), and [CC Custom](./cc-custom.mdx) reuse the Claude executable with different endpoints and credentials. They are separate routes from the standard Anthropic-backed login. Switching between those routes starts a fresh provider context so the endpoint and authentication are applied cleanly.
+
+The authentication route determines account usage and billing. A Claude subscription does not automatically cover direct Anthropic API requests or requests billed by a compatible backend operator.

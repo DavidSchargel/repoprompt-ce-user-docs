@@ -1,0 +1,21 @@
+---
+title: "Anthropic API"
+slug: "/providers/anthropic-api"
+description: "Configure direct Anthropic model access and distinguish its API credential from Claude Code authentication."
+---
+
+Anthropic API provides direct model requests for supported RepoPrompt features such as Oracle and built-in Chat. It is separate from the [Claude Code CLI](./claude-code-cli.mdx) coding-agent integration.
+
+## Connect
+
+Use the Anthropic entry in [API Providers settings](../settings/models-and-providers/api-providers.mdx#anthropic). Supply an API credential with access to the intended models and validate it. The custom-model field accepts an exact compatible Anthropic identifier; it does not turn an arbitrary label into a supported model.
+
+## Models and availability
+
+Use the provider's supported IDs and the choices available through this connection. Model capabilities, context limits, and support status vary. Review [Anthropic's model lifecycle documentation](https://docs.anthropic.com/en/docs/about-claude/model-deprecations) before retaining a saved custom identifier across model retirements.
+
+[Models](./models.mdx) explains shared selection concepts. For RepoPrompt's per-model overrides, see [Model Config](../settings/models-and-providers/model-config.mdx); those controls cannot add capabilities absent from the endpoint.
+
+## Account and billing
+
+Requests use the Anthropic API account associated with the saved key. A Claude subscription or an authenticated Claude Code runtime does not automatically pay for direct API requests or configure this credential. Check API access and billing on the account that owns the key.

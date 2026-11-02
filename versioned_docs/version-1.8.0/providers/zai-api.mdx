@@ -1,0 +1,21 @@
+---
+title: "Z.AI API"
+slug: "/providers/zai-api"
+description: "Configure direct Z.AI model access and understand the credential shared with CC Zai."
+---
+
+Z.AI provides direct API model access for supported RepoPrompt features. It is distinct from [CC Zai](./cc-zai.mdx), which runs the Claude Code runtime through Z.ai's compatible coding endpoint.
+
+## Connect and choose models
+
+Use [API Providers → Z.AI](../settings/models-and-providers/api-providers.mdx#zai) to save and validate the credential and choose a supported custom model where offered. Refer to [Z.ai's documentation](https://docs.z.ai/) for the current model catalog and API support. Use an identifier available through the actual connection rather than a fixed model release listed in a screenshot.
+
+## Shared credential, distinct routes
+
+This saved credential is shared with CC Zai. Changing or deleting it in either settings location affects the same secret. Saving it also makes the compatible backend available when its runtime prerequisites and configuration are satisfied.
+
+Direct API model selection and the CC Zai Claude-slot mappings are separate configurations. A shared key does not mean they expose identical models, endpoints, or capabilities. See [Models](./models.mdx) and the CC Zai guide before changing those mappings.
+
+## Account and billing
+
+Z.ai's terms for the account, endpoint, and product determine allowance and charges. Check which route is being used rather than assuming that a coding plan and a general API call share the same allowance. RepoPrompt does not add a provider markup.

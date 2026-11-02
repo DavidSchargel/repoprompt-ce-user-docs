@@ -51,6 +51,8 @@ Edit the current collection under `versioned_docs/`, its sidebar under `versione
 
 The site uses Cosmos with local theme overrides. Follow the [content guide](docs/runbooks/content-and-media.md) for images, terminology, links, and source layout, and the [maintenance guide](docs/runbooks/maintenance.md) for rendering and accessibility checks.
 
+For screenshots, the [demo repository](https://github.com/repoprompt/repoprompt-ce-user-docs-demo-code) is an ideal separate, locally maintained checkout with nothing of value.
+
 ## Accessibility intent
 
 Always aim to meet [WCAG 2.2 Level AA](https://www.w3.org/TR/WCAG22/), with readable content, keyboard navigation, visible focus, meaningful headings and link labels, and support for screen readers and zoom. External links show a ↗ indicator and provide a screen-reader warning before opening a new tab.
