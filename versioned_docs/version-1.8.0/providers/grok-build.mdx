@@ -10,6 +10,8 @@ Grok Build connects the installed `grok` runtime to Agent Mode. It is a coding-a
 
 Make the Grok runtime available, authenticate with `grok login` or configure the API credential supported by the integration, then open [Grok Build settings](../settings/agent-mode/cli-providers.mdx#grok-build). Choose **Connect** and inspect the model-discovery result. **Test Connection** rechecks access; **Sign Out** disconnects Grok Build in RepoPrompt and clears cached availability.
 
+Even after `grok login`, RepoPrompt passes any Grok (xAI) API key saved in **Settings → API Providers** to Grok Build, including for **Connect** and model discovery. Grok chooses the credential; requests using the key can incur charges on the associated xAI API account.
+
 ## Models and permissions
 
 Use models discovered from the connected runtime. A model visible in xAI's public API catalog does not automatically identify the same selection in the coding runtime. See [Models](./models.mdx) for discovery and identifier guidance.

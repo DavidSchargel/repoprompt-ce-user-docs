@@ -9,7 +9,7 @@ CC Moonshot uses the installed Claude Code executable with the Kimi coding endpo
 
 ## Configure and test
 
-Open [CC Moonshot settings](../settings/agent-mode/cli-providers.mdx#cc-moonshot), save the Kimi credential, and choose **Test Backend**. The preset base URL is `https://api.kimi.com/coding/`. Advanced controls can change the display name, endpoint, and authentication-variable choice.
+Open [CC Moonshot settings](../settings/agent-mode/cli-providers.mdx#cc-moonshot) and save the Kimi credential. Before choosing **Test Backend**, open **Advanced** and check that the base URL matches your credential's region. The preset is the endpoint, `https://api.kimi.com/coding/`; Kimi lists `https://api.kimi.ai/coding/` for overseas use. See [Kimi Code's endpoint guidance](https://www.kimi.com/code/docs/en/) for the current Anthropic-compatible addresses. Advanced controls can also change the display name and authentication-variable choice.
 
 The Claude executable must be available, but an Anthropic account login is not required for this endpoint route. The credential information control opens the provider's account console. Use the backend test after changing its connection settings.
 
@@ -23,4 +23,4 @@ Do not add a model ID copied from the Claude or OpenAI catalog to force a choice
 
 The Claude integration supplies its session and tool framework; the compatible endpoint determines actual model behavior and support. Changing between Claude routes starts a fresh provider context so the endpoint and authentication are applied cleanly.
 
-Kimi's coding-service account and terms govern access, allowance, billing, and retention. Use the account links in the settings card or the [Moonshot platform](https://platform.moonshot.ai) to inspect the relevant service; an Anthropic subscription does not cover this backend automatically.
+Kimi's coding-service account and terms govern access, allowance, billing, and retention. Use the account links in the settings card or the [Kimi Code console](https://www.kimi.com/code/console) to inspect the relevant service; an Anthropic subscription does not cover this backend automatically.
