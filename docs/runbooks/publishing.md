@@ -2,7 +2,7 @@
 
 ## Repository and publication status
 
-The public repository is [DavidSchargel/repoprompt-ce-user-docs](https://github.com/DavidSchargel/repoprompt-ce-user-docs), and the site is published on GitHub Pages. Initial publication is complete. This runbook covers validating changes, updating the live site, and rolling back a release. A successful validation run or a locally generated artifact does not update the live deployment.
+The public repository is [repoprompt/repoprompt-ce-user-docs](https://github.com/repoprompt/repoprompt-ce-user-docs). This runbook covers validating changes, updating the GitHub Pages site, and rolling back a release. A successful validation run or a locally generated artifact does not update the live deployment.
 
 The source of truth for CI behavior is [`.github/workflows/pages.yml`](../../.github/workflows/pages.yml). Use GitHub Actions and the `github-pages` environment to identify the current deployed commit and URL. Check those records before reporting a new release as live.
 
@@ -29,7 +29,7 @@ Run commands from the repository root. Use the Node.js major in [`.node-version`
 No configuration file is required for local work. The defaults are `https://example.invalid`, base path `/`, site-wide `noindex`, and local docs search. To preview a GitHub project-site layout, create an ignored `.env.local` containing shell-compatible assignments:
 
 ```sh
-export PAGES_OWNER=DavidSchargel
+export PAGES_OWNER=repoprompt
 export PAGES_REPOSITORY=repoprompt-ce-user-docs
 export SITE_URL="https://${PAGES_OWNER}.github.io"
 export SITE_BASE_URL=/repoprompt-ce-user-docs/
@@ -82,7 +82,7 @@ Review or update the live site's repository variables under **Settings → Secre
 
 | Variable | Purpose |
 | --- | --- |
-| `PAGES_OWNER` | Exact GitHub owner; `DavidSchargel` for the configured origin. |
+| `PAGES_OWNER` | Exact GitHub owner; `repoprompt` for this repository. |
 | `PAGES_REPOSITORY` | Repository name only; `repoprompt-ce-user-docs` for the configured origin. |
 | `SITE_URL` | Optional canonical-origin override, such as an approved custom domain. |
 | `SITE_BASE_URL` | Optional base-path override. Use `/` for a root site or `/REPOSITORY/` for a project site. |
