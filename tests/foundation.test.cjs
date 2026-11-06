@@ -133,9 +133,9 @@ test('LLM exports are generated directly with versioned routes and resolved cont
   const {generateExports} = require('../scripts/generate-llm-exports.cjs');
   const root = fs.mkdtempSync(path.join(require('node:os').tmpdir(), 'llm-exports-'));
   t.after(() => fs.rmSync(root, {recursive: true, force: true}));
-  for (const baseUrl of ['/', '/project/']) {
-    const site = path.join(root, baseUrl === '/' ? 'root' : 'project');
-    fs.mkdirSync(site);
+  for (const baseUrl of ['/', '/project/', '/project name/', '/café/', '/project%20name/']) {
+    const site = fs.mkdtempSync(path.join(root, 'site-'));
+    const basePath = new URL(baseUrl, 'https://example.invalid').pathname;
     const versions = {'9.4.0': {label: '9.4', path: ''}, 'classic-2.1.0': {label: 'Classic 2.1', path: 'classic-2.1.0'}};
     fs.writeFileSync(path.join(site, 'versions.json'), JSON.stringify(Object.keys(versions)));
     fs.writeFileSync(path.join(site, 'docusaurus.config.js'), `module.exports = ${JSON.stringify({
@@ -153,7 +153,7 @@ test('LLM exports are generated directly with versioned routes and resolved cont
     const build = path.join(site, 'build');
     for (const prefix of ['docs', 'docs/classic-2.1.0']) {
       const article = fs.readFileSync(path.join(build, prefix + '.md'), 'utf8');
-      assert.ok(article.includes(`https://example.invalid${baseUrl}${prefix}/guide/#setup`));
+      assert.ok(article.includes(`https://example.invalid${basePath}${prefix}/guide/#setup`));
       assert.ok(article.includes('Local screenshot'));
       assert.doesNotMatch(article, /screen\.png|\.\/guide\.mdx/);
       assert.ok(fs.existsSync(path.join(build, prefix, 'guide.md')));
@@ -163,10 +163,10 @@ test('LLM exports are generated directly with versioned routes and resolved cont
       if (filename === 'llms.txt') {
         assert.ok(content.includes('Community Edition 9.4'));
         assert.ok(content.includes('Classic 2.1'));
-        assert.ok(content.includes(`https://example.invalid${baseUrl}docs/guide.md`));
+        assert.ok(content.includes(`https://example.invalid${basePath}docs/guide.md`));
       } else {
         assert.ok(content.includes('Guide content.'));
-        assert.ok(content.includes(`https://example.invalid${baseUrl}docs/classic-2.1.0/guide/#setup`));
+        assert.ok(content.includes(`https://example.invalid${basePath}docs/classic-2.1.0/guide/#setup`));
       }
     }
   }

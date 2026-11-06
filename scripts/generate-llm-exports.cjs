@@ -23,6 +23,7 @@ function getVersionLabel(config, version) {
 async function generateExports({root = path.join(__dirname, '..'), directory = path.join(root, 'build')} = {}) {
   const config = require(path.join(root, 'docusaurus.config.js'));
   const siteUrl = new URL(config.baseUrl, config.url).href;
+  const basePath = new URL(siteUrl).pathname;
   const entries = require('./doc-inventory.cjs').readDocs(root);
   const labels = new Map([...new Set(entries.map(entry => entry.version))]
     .map(version => [version, getVersionLabel(config, version)]));
@@ -38,7 +39,7 @@ async function generateExports({root = path.join(__dirname, '..'), directory = p
     docs.push(doc);
   }
   for (const doc of docs) {
-    const file = path.join(directory, new URL(doc.url).pathname.slice(config.baseUrl.length));
+    const file = path.join(directory, new URL(doc.url).pathname.slice(basePath.length));
     await fs.mkdir(path.dirname(file), {recursive: true});
     await fs.writeFile(file, `# ${doc.title}\n\n> ${doc.description}\n\n${doc.content}\n`);
   }
