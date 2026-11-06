@@ -18,6 +18,8 @@ Enable Re-prompt and read its first-use disclosure. Write the request and press 
 
 Re-prompt starts off and remembers its on/off state for the workspace.
 
+A rewrite continues if you switch to another session. Return to its session to review the result; automatic sending waits for the correct composer and still checks the draft and destination before sending.
+
 While rewriting, the strip shows progress. A completed draft shows "Rewrite complete..." or "Draft ready...". Read it, edit it, and send from the composer, not the preview.
 
 ![Completed rewrite ready for review before sending](./images/rewrite-ready.png)
@@ -40,6 +42,6 @@ Guidance changes how the draft is prepared; it does not grant the execution agen
 
 ## Know what is shared
 
-The rewriting provider receives your message, rewriting guidance, workspace root names and selected paths, and recent chat excerpts when enabled. File contents, attachments, Git output, and tool results are not included in that rewriting request. The screenshot's model name is an example; provider billing and retention apply to the configured route.
+The rewriting provider receives your message, rewriting guidance, workspace root names and selected paths, attachment names, the session title, and recent chat excerpts when enabled. File contents, attachments, Git output, and tool results are not included in that rewriting request. The screenshot's model name is an example; provider billing and retention apply to the configured route.
 
 Paths, names, excerpts, and anything you type can still be sensitive. Read the disclosure when changing providers. If model routing, [Auto Workflow](./workflow-templates.mdx#automatic-workflow-selection), or [Auto Effort](./auto-effort.mdx) is enabled, the resulting task can also be evaluated by its configured decision service before the execution agent starts. A request that originally began with `/` is not auto-matched to a workflow, even if rewriting removes that prefix. Review each feature’s sharing rules in [Agent Decisions](../settings/agent-mode/agent-decisions.mdx).

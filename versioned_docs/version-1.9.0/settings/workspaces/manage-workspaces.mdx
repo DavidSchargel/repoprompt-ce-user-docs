@@ -52,6 +52,8 @@ Use **Saved**, **Temporary**, or **All** to choose the workspace collection, and
 
 Existing workspace rows provide management actions such as renaming and hiding. Hidden workspaces remain recoverable. Deleting a workspace removes its saved state, tabs, and history; project folders are kept. Bulk deletion asks for confirmation and stops running work in affected workspaces.
 
+If RepoPrompt cannot read saved workspace tabs, it preserves the unreadable data in a verified recovery backup before replacing the workspace document. If that backup cannot be saved, a banner reports that saving is blocked and that your latest changes remain only in the current window. Resolve the problem described in the banner, then select **Retry**; **Show in Finder** opens the workspace folder. If the banner reports a conflicting change, it offers **Discard my changes** instead; read the warning before discarding.
+
 When duplicate records share project roots, the page can offer **Consolidate Duplicates…**. Its confirmation explains the backup and preservation of records still in active use. Workspace operations requested by clients can also be governed by [Workspace Approvals](../mcp-server/workspace-approvals.mdx).
 
 </div>
