@@ -13,6 +13,18 @@ toc_max_heading_level: 4
 
 This changelog covers RepoPrompt Community Edition releases, starting with the first CE release. The original, unsupported Classic edition [legacy documentation remains available](../../version-classic-2.1.0/index.md).
 
+### 1.9.0 - November 6, 2026
+
+RepoPrompt CE 1.9.0 redesigns the Agent Mode sidebar and improves session control, re-prompting, and recovery.
+
+- **Agent sidebar:** Chats and Overseers have separate tabs, with nested overseen sessions, updated header controls, and direct navigation from Overseer badges.
+- **Claude Code runs:** Turns started by Claude Code itself are visible and controllable as ordinary agent runs.
+- **Re-prompt and focus:** Re-prompt uses recent conversation context and the session title, preserves in-flight rewrites across session switches, and waits for the correct composer before auto-sending. Session activation focuses pending questions or the composer while preserving typing and keeping Return away from pending approvals.
+- **Workspace and indexing reliability:** Unreadable workspace data is preserved, and recovery requires a verified backup before replacement. Compose tabs decode individually; MCP tool preferences persist per window. CodeMap root pause settings persist, and indexing, bootstrap, and headless connection waits have bounded timeouts and actionable errors.
+- **Additional fixes:** Improves Codex compaction, model menu consistency, Claude context capacity, mixed-direction Markdown lists and tables, Oracle completion duration, Debug profile persistence, and settings scrolling. Tooltip sizing and release infrastructure also receive fixes.
+
+**[Release notes](https://github.com/repoprompt/repoprompt-ce/releases/tag/v1.9.0)** · **[Full Changelog for 1.9.0](https://github.com/repoprompt/repoprompt-ce/compare/v1.8.1...v1.9.0)**
+
 ### 1.8.0 - November 1, 2026
 
 RepoPrompt CE v1.8.0 (build 41) adds opt-in workflow matching and improves attachment handling, coordination, and review reliability.
