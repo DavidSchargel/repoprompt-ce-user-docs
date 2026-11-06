@@ -1,6 +1,6 @@
 ---
 id: overview
-title: RepoPrompt Classic 2.1.0
+title: RepoPrompt Classic 2.1
 description: Historical RepoPrompt guides and Classic release notes.
 slug: /
 hide_table_of_contents: false

@@ -1,21 +1,15 @@
 const remarkIdealImages = require('./plugins/remark-ideal-images.cjs');
 const remarkDocMoves = require('./plugins/remark-doc-moves.cjs');
 const docVersions = require('./versions.json');
-// versions.json is ordered newest first; Classic keeps its published archive route.
 const currentCEVersion = docVersions[0];
 if (!currentCEVersion || currentCEVersion.startsWith('classic-')) {
   throw new Error('versions.json must list the current CE version first.');
 }
-const docsVersions = Object.fromEntries(docVersions.map(version => [version,
-  version === 'classic-2.1.0'
-    ? {label: 'Classic 2.1.0', path: 'classic-2.1.0', banner: 'unmaintained'}
-    : {label: version, path: version === currentCEVersion ? '' : version, banner: version === currentCEVersion ? 'none' : 'unmaintained'},
-]));
-const llmDocsDirectories = docVersions.map(version => ({
-  path: `versioned_docs/version-${version}`,
-  routeBasePath: ['docs', docsVersions[version].path].filter(Boolean).join('/'),
-  label: version === 'classic-2.1.0' ? docsVersions[version].label : `Community Edition ${docsVersions[version].label}`,
-}));
+const docsVersions = Object.fromEntries(docVersions.map(version => [version, {
+  label: version === 'classic-2.1.0' ? 'Classic 2.1' : version.replace(/^(\d+\.\d+)\.0$/, '$1'),
+  path: version === currentCEVersion ? '' : version,
+  banner: version === currentCEVersion ? 'none' : 'unmaintained',
+}]));
 const organizationName = process.env.PAGES_OWNER;
 const projectName = process.env.PAGES_REPOSITORY;
 const url = process.env.SITE_URL || (organizationName ? `https://${organizationName}.github.io` : 'https://example.invalid');
@@ -24,6 +18,13 @@ const algoliaValues = [process.env.ALGOLIA_APP_ID, process.env.ALGOLIA_SEARCH_AP
 if (algoliaValues.some(Boolean) && !algoliaValues.every(Boolean)) {
   throw new Error('Set all three ALGOLIA_APP_ID, ALGOLIA_SEARCH_API_KEY, and ALGOLIA_INDEX_NAME values, or none.');
 }
+const algolia = algoliaValues.every(Boolean) ? {
+  appId: algoliaValues[0],
+  apiKey: algoliaValues[1],
+  indexName: algoliaValues[2],
+  contextualSearch: true,
+  insights: false,
+} : undefined;
 
 if (!/^\/(?:[^?#]*\/)?$/.test(baseUrl)) throw new Error('SITE_BASE_URL must start and end with / and have no query or fragment.');
 const origin = new URL(url);
@@ -50,8 +51,6 @@ module.exports = {
   ],
   noIndex: process.env.SITE_INDEXABLE !== 'true',
   future: {v4: true},
-  storage: {type: 'localStorage'},
-  onBrokenLinks: 'throw',
   onBrokenAnchors: 'throw',
   onDuplicateRoutes: 'throw',
   markdown: {hooks: {onBrokenMarkdownLinks: 'throw', onBrokenMarkdownImages: 'throw'}},
@@ -83,16 +82,13 @@ module.exports = {
         require.resolve('./src/css/typography.css'),
         require.resolve('./src/css/navbar.css'),
       ]},
-      sitemap: {changefreq: 'weekly', priority: 0.5, ignorePatterns: ['**/privacy/**', '**/terms/**']},
+      sitemap: {ignorePatterns: ['**/privacy/**', '**/terms/**']},
     }],
   ],
   themes: [
     ['cosmos-docusaurus-theme', {injectFavicon: false}],
-    ...(!algoliaValues.every(Boolean) ? [[require.resolve('@easyops-cn/docusaurus-search-local'), {
-      indexDocs: true,
+    ...(!algolia ? [[require.resolve('@easyops-cn/docusaurus-search-local'), {
       indexBlog: false,
-      indexPages: false,
-      docsRouteBasePath: '/docs',
       docsDir: ['versioned_docs'],
       forceIgnoreNoIndex: true,
       hashed: true,
@@ -100,13 +96,6 @@ module.exports = {
   ],
   plugins: [
     require.resolve('./plugins/seo-policy.cjs'),
-    ['docusaurus-plugin-llms', {
-      generateLLMsTxt: true,
-      generateLLMsFullTxt: true,
-      generateMarkdownFiles: true,
-      excludeImports: true,
-      docsDir: llmDocsDirectories,
-    }],
     ['docusaurus-plugin-copy-page-button', {
       enabledActions: ['copy'],
       placement: 'article',
@@ -157,8 +146,6 @@ module.exports = {
     },
     image: 'images/blog/repo-prompt-community-edition.png',
     metadata: [{name: 'description', content: 'Documentation for RepoPrompt Community Edition and the Classic archive.'}],
-    // Offer explicit light and dark choices; no cookies are used.
-    colorMode: {respectPrefersColorScheme: false},
     navbar: {
       title: 'RepoPrompt',
       items: [
@@ -170,9 +157,6 @@ module.exports = {
         {type: 'docsVersionDropdown', position: 'right'},
       ],
     },
-    tableOfContents: {minHeadingLevel: 2, maxHeadingLevel: 3},
-    ...(algoliaValues.every(Boolean) ? {
-      algolia: {appId: algoliaValues[0], apiKey: algoliaValues[1], indexName: algoliaValues[2], contextualSearch: true, insights: false},
-    } : {}),
+    ...(algolia ? {algolia} : {}),
   },
 };

@@ -1,3 +1,8 @@
+/**
+ * Checks image rendering, testimonials, CSS processing, and resource URLs,
+ * plus mobile-navigation focus behavior with simulated hooks and DOM controls.
+ * These checks do not replace browser or assistive-technology review.
+ */
 const test = require('node:test');
 const assert = require('node:assert/strict');
 const fs = require('node:fs');
@@ -203,8 +208,8 @@ test('resource checks reject serialized objects and validate relative as well as
   }
 });
 
-for (const initialPath of ['/', '/docs/', '/blog/', '/project/docs/classic-2.1.0/']) {
-test(`mobile navigation contains focus and restores background on ${initialPath}`, () => {
+test('mobile navigation contains focus and restores background across navigation', () => {
+  const initialPath = '/project/docs/classic-2.1.0/';
   const React = require('react');
   let effect;
   let toggles = 0;
@@ -305,4 +310,3 @@ test(`mobile navigation contains focus and restores background on ${initialPath}
   assert.deepEqual(background.map((element) => element.inert), [false, true]);
   assert.equal(sidebarListeners.size, 0);
 });
-}

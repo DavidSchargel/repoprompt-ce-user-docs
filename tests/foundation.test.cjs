@@ -1,3 +1,7 @@
+/**
+ * Checks shared metadata filtering, LLM Markdown transformations and exports, image
+ * processing adapters, and responsive-image artifact validation.
+ */
 const test = require('node:test');
 const assert = require('node:assert/strict');
 const remarkIdealImages = require('../plugins/remark-ideal-images.cjs');
@@ -121,6 +125,51 @@ test('LLM links preserve routes, fragments, site prefixes, and literal examples'
     rewriteDocLinks('[Missing](./missing.mdx)', source, routes, 'https://example.invalid/'),
     /Unresolved LLM link/,
   );
+});
+
+test('LLM exports are generated directly with versioned routes and resolved content', async (t) => {
+  const fs = require('node:fs');
+  const path = require('node:path');
+  const {generateExports} = require('../scripts/generate-llm-exports.cjs');
+  const root = fs.mkdtempSync(path.join(require('node:os').tmpdir(), 'llm-exports-'));
+  t.after(() => fs.rmSync(root, {recursive: true, force: true}));
+  for (const baseUrl of ['/', '/project/', '/project name/', '/café/', '/project%20name/']) {
+    const site = fs.mkdtempSync(path.join(root, 'site-'));
+    const basePath = new URL(baseUrl, 'https://example.invalid').pathname;
+    const versions = {'9.4.0': {label: '9.4', path: ''}, 'classic-2.1.0': {label: 'Classic 2.1', path: 'classic-2.1.0'}};
+    fs.writeFileSync(path.join(site, 'versions.json'), JSON.stringify(Object.keys(versions)));
+    fs.writeFileSync(path.join(site, 'docusaurus.config.js'), `module.exports = ${JSON.stringify({
+      title: 'Fixture docs', tagline: 'Fixture guides', url: 'https://example.invalid', baseUrl,
+      presets: [['classic', {docs: {routeBasePath: 'docs', versions}}]],
+    })};`);
+    for (const version of Object.keys(versions)) {
+      const directory = path.join(site, `versioned_docs/version-${version}`);
+      fs.mkdirSync(directory, {recursive: true});
+      fs.writeFileSync(path.join(directory, 'start.mdx'), '---\ntitle: Start\ndescription: Start guide\nslug: /\n---\n\n[Guide](./guide.mdx#setup)\n\n![Local screenshot](./screen.png)\n');
+      fs.writeFileSync(path.join(directory, 'guide.mdx'), '---\ntitle: Guide\ndescription: Details\nslug: /guide\n---\n\n## Setup\n\nGuide content.\n');
+    }
+    // No Docusaurus/plugin output exists before generation.
+    await generateExports({root: site});
+    const build = path.join(site, 'build');
+    for (const prefix of ['docs', 'docs/classic-2.1.0']) {
+      const article = fs.readFileSync(path.join(build, prefix + '.md'), 'utf8');
+      assert.ok(article.includes(`https://example.invalid${basePath}${prefix}/guide/#setup`));
+      assert.ok(article.includes('Local screenshot'));
+      assert.doesNotMatch(article, /screen\.png|\.\/guide\.mdx/);
+      assert.ok(fs.existsSync(path.join(build, prefix, 'guide.md')));
+    }
+    for (const filename of ['llms.txt', 'llms-full.txt']) {
+      const content = fs.readFileSync(path.join(build, filename), 'utf8');
+      if (filename === 'llms.txt') {
+        assert.ok(content.includes('Community Edition 9.4'));
+        assert.ok(content.includes('Classic 2.1'));
+        assert.ok(content.includes(`https://example.invalid${basePath}docs/guide.md`));
+      } else {
+        assert.ok(content.includes('Guide content.'));
+        assert.ok(content.includes(`https://example.invalid${basePath}docs/classic-2.1.0/guide/#setup`));
+      }
+    }
+  }
 });
 
 test('unsupported formats, URL fragments, queries, and remote images stay unchanged', () => {

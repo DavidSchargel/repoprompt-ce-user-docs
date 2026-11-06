@@ -1,24 +1,29 @@
+/**
+ * Generates documentation Markdown exports, llms.txt, and llms-full.txt in build/.
+ * Runs once after Docusaurus, using the registered documentation inventory and
+ * version labels to preserve canonical routes, resolve links, and retain image
+ * descriptions. Uses docusaurus-plugin-llms as a processing library; the package
+ * is not registered as a Docusaurus plugin.
+ */
 const fs = require('node:fs/promises');
 const path = require('node:path');
-const {exportFiles, sanitizeImages} = require('./llm-markdown.cjs');
+const {sanitizeImages} = require('./llm-markdown.cjs');
 const {rewriteDocLinks} = require('./llm-links.cjs');
 const {processMarkdownFile} = require('docusaurus-plugin-llms/lib/processor');
 const {generateLLMFile} = require('docusaurus-plugin-llms/lib/generator');
 
 function getVersionLabel(config, version) {
-  const options = config.plugins.find(plugin => Array.isArray(plugin) && plugin[0] === 'docusaurus-plugin-llms')?.[1];
-  const section = options?.docsDir?.find(section => section.path === `versioned_docs/version-${version}`);
-  if (typeof section?.label !== 'string' || !section.label.trim()) {
+  const options = config.presets.find(([name]) => name === 'classic')[1].docs.versions[version];
+  if (typeof options?.label !== 'string' || !options.label.trim()) {
     throw new Error(`Missing configured LLM export label for documentation version ${version}.`);
   }
-  return section.label;
+  return version.startsWith('classic-') ? options.label : `Community Edition ${options.label}`;
 }
 
-async function main() {
-  const root = path.join(__dirname, '..');
-  const directory = path.join(root, 'build');
-  const config = require('../docusaurus.config.js');
+async function generateExports({root = path.join(__dirname, '..'), directory = path.join(root, 'build')} = {}) {
+  const config = require(path.join(root, 'docusaurus.config.js'));
   const siteUrl = new URL(config.baseUrl, config.url).href;
+  const basePath = new URL(siteUrl).pathname;
   const entries = require('./doc-inventory.cjs').readDocs(root);
   const labels = new Map([...new Set(entries.map(entry => entry.version))]
     .map(version => [version, getVersionLabel(config, version)]));
@@ -33,20 +38,19 @@ async function main() {
     doc.section = labels.get(entry.version);
     docs.push(doc);
   }
-  for (const file of exportFiles(directory)) await fs.unlink(file);
   for (const doc of docs) {
-    const file = path.join(directory, new URL(doc.url).pathname.slice(config.baseUrl.length));
+    const file = path.join(directory, new URL(doc.url).pathname.slice(basePath.length));
     await fs.mkdir(path.dirname(file), {recursive: true});
     await fs.writeFile(file, `# ${doc.title}\n\n> ${doc.description}\n\n${doc.content}\n`);
   }
   for (const full of [false, true]) {
     await generateLLMFile(docs, path.join(directory, full ? 'llms-full.txt' : 'llms.txt'), config.title, config.tagline, full, undefined, undefined, 100, false);
   }
-  console.log(`Finalized ${docs.length} LLM documents with canonical version paths, resolved article links, and image alt text.`);
+  console.log(`Generated ${docs.length} LLM documents with canonical version paths, resolved article links, and image alt text.`);
 }
 
-module.exports = {getVersionLabel};
-if (require.main === module) main().catch((error) => {
+module.exports = {getVersionLabel, generateExports};
+if (require.main === module) generateExports().catch((error) => {
   console.error(error);
   process.exitCode = 1;
 });

@@ -2,7 +2,7 @@
 
 Help improve the end-user documentation for RepoPrompt CE: correct a confusing
 step, update a screenshot, explain a workflow, or fix the documentation site.
-Application changes belong in the [RepoPrompt CE repository](https://github.com/repoprompt/repoprompt-ce) and documentation changes belong in this [RepoPrompt CE documentation repository](https://github.com/repoprompt/repoprompt-ce-use-docs).
+Application changes belong in the [RepoPrompt CE repository](https://github.com/repoprompt/repoprompt-ce) and documentation changes belong in this [RepoPrompt CE documentation repository](https://github.com/repoprompt/repoprompt-ce-user-docs).
 
 ## Before you start
 
@@ -24,7 +24,7 @@ planned feature as available.
 - Images: `static/images/`.
 - Maintainer instructions: `docs/runbooks/`.
 
-The Classic 2.1.0 documentation is an archive. Do not create or edit files in
+The Classic 2.1 documentation is an archive. Do not create or edit files in
 `classic-2.1.0` or `versioned_docs/version-classic-2.1.0/`.
 Do not edit generated files in `build/` or `.docusaurus/`. This project does not
 use Architecture Decision Records (ADRs).
@@ -43,7 +43,7 @@ when needed.
 
 ## Local checks
 
-See [README.md](README.md#local-development) for setup. From the repository root:
+See [README.md](README.md#local-documentation-development) for setup. From the repository root:
 
 ```sh
 pnpm install

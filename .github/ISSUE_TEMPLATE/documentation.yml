@@ -1,0 +1,24 @@
+name: Documentation issue
+description: Report a documentation correction, improvement, or website problem.
+title: "[Docs]: "
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Search existing documentation issues first.
+
+        For application bugs or feature requests, use the [application repository](https://github.com/repoprompt/repoprompt-ce) and not this one.
+
+        Issues are public; remove private information. Report vulnerabilities using the [security policy](https://github.com/repoprompt/repoprompt-ce-user-docs/security/policy).
+  - type: input
+    id: location
+    attributes:
+      label: Page URL or source file
+      description: Include the relevant section, if applicable.
+  - type: textarea
+    id: details
+    attributes:
+      label: What needs to change?
+      description: Describe the problem or missing guidance and the expected result. Quote the relevant passage or describe the screenshot or link. For instructions, explain where you got stuck and what happened. For site problems, include steps and browser or assistive technology details if relevant.
+    validations:
+      required: true
