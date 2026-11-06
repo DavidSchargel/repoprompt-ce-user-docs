@@ -1,3 +1,7 @@
+/**
+ * Checks image alt-text policy using synthetic MDX and image bytes, including
+ * decorative-image approval across registered documentation versions.
+ */
 const test = require('node:test');
 const assert = require('node:assert/strict');
 const fs = require('node:fs');

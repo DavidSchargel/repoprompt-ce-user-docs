@@ -1,3 +1,7 @@
+/**
+ * Checks external-link detection and DOM decoration, including new-tab
+ * announcements, safe rel attributes, repeated decoration, and changed links.
+ */
 const test = require('node:test');
 const assert = require('node:assert/strict');
 const cheerio = require('cheerio');

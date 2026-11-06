@@ -1,3 +1,7 @@
+/**
+ * Checks shared metadata filtering, LLM Markdown transformations, image
+ * processing adapters, and responsive-image artifact validation.
+ */
 const test = require('node:test');
 const assert = require('node:assert/strict');
 const remarkIdealImages = require('../plugins/remark-ideal-images.cjs');

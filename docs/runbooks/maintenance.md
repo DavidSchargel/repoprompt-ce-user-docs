@@ -17,6 +17,21 @@ Keep unit tests independent of current editorial content. Use synthetic Markdown
 
 `pnpm run check:artifacts` is read-only, but must receive the same SITE_URL/SITE_BASE_URL/SITE_INDEXABLE values used to build. The build directory always contains only the most recent configuration. Do not compare a project-path artifact against default root config.
 
+### Test files
+
+`pnpm test` runs every `tests/*.test.cjs` file:
+
+| File | What it checks |
+| --- | --- |
+| [`doc-moves.test.cjs`](../../tests/doc-moves.test.cjs) | Redirects for moved Agent Mode pages and legacy-link rewriting during MDX compilation, including query strings and fragments. |
+| [`doc-versions.test.cjs`](../../tests/doc-versions.test.cjs) | Version labels, IDs, routes, banners, and LLM export configuration using synthetic versions. |
+| [`external-links.test.cjs`](../../tests/external-links.test.cjs) | External-link detection, the arrow and a11y new-tab announcement, safe `rel` values, and dynamically changed links. |
+| [`foundation.test.cjs`](../../tests/foundation.test.cjs) | Metadata filtering, LLM Markdown cleanup and link rewriting, image adapters, and responsive-image artifact checks. |
+| [`image-alt.test.cjs`](../../tests/image-alt.test.cjs) | For a11y. Empty alt text for reviewed decorative images and approval tied to image bytes across versions. |
+| [`publication-origin.test.cjs`](../../tests/publication-origin.test.cjs) | Publication origin restrictions and Pages workflow gates, including deployment triggers and the current-main artifact check. |
+| [`rendering.test.cjs`](../../tests/rendering.test.cjs) | MDX image rendering, testimonials, CSS processing, resource URLs, and simulated mobile-navigation focus behavior, including same-page and cross-page links. |
+| [`search-artifacts.test.cjs`](../../tests/search-artifacts.test.cjs) | Search-result origin handling and membership in the correct version inventory. |
+
 ## Cosmos rendering contract
 
 `package.json` targets `defaults and supports css-cascade-layers` in production and development. Native cascade-layer support is required; legacy browsers outside that intersection are not supported. Keep `future.v4: true` and the actual Cosmos theme. Do not replace this with a font override or switch off v4 layers: a missing browser policy lets PostCSS polyfill separate CSS modules independently, raising Infima specificity above unlayered Cosmos. The generated-artifact audit requires native Infima layers and the unlayered Cosmos Outfit token. Tests process the installed Infima/Cosmos CSS through the actual PostCSS plugins.

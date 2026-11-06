@@ -1,3 +1,7 @@
+/**
+ * Checks publication origin restrictions and Pages workflow safeguards,
+ * including event gates and stale-artifact rejection with a mocked GitHub CLI.
+ */
 const test = require('node:test');
 const assert = require('node:assert/strict');
 const fs = require('node:fs');
@@ -28,21 +32,15 @@ test('publication rejects URLs that are not bare origins', () => {
   ]) assert.throws(() => publicationOrigin({SITE_URL}), undefined, SITE_URL);
 });
 
-test('the origin guard remains in the publication-only confirmation step', () => {
-  const workflow = fs.readFileSync(path.join(__dirname, '../.github/workflows/pages.yml'), 'utf8');
-  const step = workflow.split('- name: Check publication confirmations')[1].split('- name: Install locked dependencies')[0];
-  assert.match(step, /if: \(github\.event_name == 'push' \|\| \(github\.event_name == 'workflow_dispatch' && inputs\.publish\)\)/);
-  assert.match(step, /set -eu/);
-  assert.match(step, /node scripts\/check-publication-origin\.cjs/);
-});
-
-
 test('Pages publication runs on main pushes and opted-in manual runs only', () => {
   const yaml = require('js-yaml');
   const workflow = yaml.load(fs.readFileSync(path.join(__dirname, '../.github/workflows/pages.yml'), 'utf8'));
   assert.deepEqual(workflow.on.push.branches, ['main']);
   assert.equal(workflow.jobs.deploy.needs, 'build');
   const steps = workflow.jobs.build.steps;
+  const confirmations = steps.find(step => step.name === 'Check publication confirmations');
+  assert.match(confirmations.run, /set -eu/);
+  assert.match(confirmations.run, /node scripts\/check-publication-origin\.cjs/);
   const gates = ['Check publication confirmations', 'Configure Pages', 'Upload Pages artifact']
     .map(name => steps.find(step => step.name === name).if);
   const evaluate = (expression, github, inputs, vars) =>
