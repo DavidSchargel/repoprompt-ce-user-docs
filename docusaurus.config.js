@@ -1,15 +1,14 @@
 const remarkIdealImages = require('./plugins/remark-ideal-images.cjs');
 const remarkDocMoves = require('./plugins/remark-doc-moves.cjs');
 const docVersions = require('./versions.json');
-// versions.json is ordered newest first; Classic keeps its published archive route.
 const currentCEVersion = docVersions[0];
 if (!currentCEVersion || currentCEVersion.startsWith('classic-')) {
   throw new Error('versions.json must list the current CE version first.');
 }
 const docsVersions = Object.fromEntries(docVersions.map(version => [version,
   version === 'classic-2.1.0'
-    ? {label: 'Classic 2.1.0', path: 'classic-2.1.0', banner: 'unmaintained'}
-    : {label: version, path: version === currentCEVersion ? '' : version, banner: version === currentCEVersion ? 'none' : 'unmaintained'},
+    ? {label: 'Classic 2.1', path: 'classic-2.1.0', banner: 'unmaintained'}
+    : {label: version.replace(/^(\d+\.\d+)\.0$/, '$1'), path: version === currentCEVersion ? '' : version, banner: version === currentCEVersion ? 'none' : 'unmaintained'},
 ]));
 const llmDocsDirectories = docVersions.map(version => ({
   path: `versioned_docs/version-${version}`,

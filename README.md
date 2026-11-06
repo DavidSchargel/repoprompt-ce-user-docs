@@ -4,7 +4,7 @@
 
 This public repository contains the RepoPrompt CE documentation website, published on GitHub Pages. It includes the Community Edition guides, the Classic archive, the blog, and the Docusaurus site. It is separate from the [RepoPrompt CE application repository](https://github.com/repoprompt/repoprompt-ce).
 
-The [Classic documentation](versioned_docs/version-classic-2.1.0/) is read-only. **Classic 2.1.0** is an archive label; its guides may describe earlier Classic releases. The first entry in [`versions.json`](versions.json) selects the current CE collection, served at `/docs/`; Classic is served at `/docs/classic-2.1.0/`.
+The [Classic documentation](versioned_docs/version-classic-2.1.0/) is read-only. **Classic 2.1** is an archive label; its guides may describe earlier Classic releases. The first entry in [`versions.json`](versions.json) selects the current CE collection, served at `/docs/`; Classic is served at `/docs/classic-2.1.0/`.
 
 RepoPrompt CE is a free, open-source native macOS app and agent orchestrator for context engineering. It helps coding agents understand your codebase before they act. It assembles focused, reviewable context from files, CodeMaps, repository structure, and Git diffs, then hands that context to AI tools and CLI agents.
 

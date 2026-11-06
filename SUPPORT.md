@@ -28,5 +28,5 @@ Follow [SECURITY.md](SECURITY.md) for vulnerabilities or exposed secrets.
 Never post credentials or private project content in a public issue.
 
 Support is community-based. There is no guaranteed response time. The Classic
-2.1.0 documentation is preserved for reference and may describe obsolete
+2.1 documentation is preserved for reference and may describe obsolete
 features, providers, or workflows.
