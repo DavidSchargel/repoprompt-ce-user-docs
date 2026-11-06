@@ -20,6 +20,7 @@
       "className": "sidebar-cat-monitor",
       "items": [
         "agent-mode/overview",
+        "agent-mode/agent-sidebar-overview",
         "agent-mode/session-history",
         "agent-mode/execution-location",
         "agent-mode/workflow-templates",
