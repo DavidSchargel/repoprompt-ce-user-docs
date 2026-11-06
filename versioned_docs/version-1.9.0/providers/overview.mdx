@@ -1,0 +1,68 @@
+---
+title: "Providers & Models"
+sidebar_label: "Overview"
+slug: "/providers/overview"
+description: "The central reference for RepoPrompt provider connections, accounts, capabilities, and model availability."
+---
+
+Start here to choose and connect a provider. Each integration's page is the reference for its account requirements, model discovery, capabilities, and limitations. [Models](./models.mdx) explains identifiers, aliases, reasoning effort, speed tiers, and choosing models for different roles.
+
+A **provider** supplies an agent runtime or model service. A **model** is a choice available through that connection. The same company can offer separate CLI and API products with different authentication, billing, and capabilities. For example, connecting Codex CLI does not configure OpenAI API access, and signing into Claude Code does not save an Anthropic API key.
+
+## Provider comparison
+
+Choose the connection that matches the work and account you intend to use. The summaries below wrap naturally on narrow screens; open an individual guide for setup and limitations.
+
+## Coding agents
+
+These ten integrations run coding-agent sessions. Configure their controls in [CLI Providers settings](../settings/agent-mode/cli-providers.mdx). The app can abbreviate **Claude Code CLI** to **Claude Code** and **OpenCode CLI** to **OpenCode**.
+
+1. <span id="codex-cli" /> **[Codex CLI](./codex-cli.mdx)** — included or custom runtime with RepoPrompt-managed ChatGPT sign-in.
+2. <span id="claude-code" /><span id="claude-code-cli" /> **[Claude Code CLI](./claude-code-cli.mdx)** — installed Claude runtime with Anthropic authentication.
+3. <span id="opencode" /><span id="opencode-cli" /> **[OpenCode CLI](./opencode-cli.mdx)** — ACP runtime using providers configured in OpenCode.
+4. <span id="cursor-cli" /> **[Cursor CLI](./cursor-cli.mdx)** — Cursor runtime with discovered models and provider parameters.
+5. <span id="grok-build" /> **[Grok Build](./grok-build.mdx)** — installed Grok runtime with login or a configured API key.
+6. <span id="google-antigravity" /> **[Google Antigravity](./google-antigravity.mdx)** — managed ACP runtime with Google authentication.
+7. <span id="devin-cli" /> **[Devin CLI](./devin-cli.mdx)** — Devin ACP runtime with its own authentication and permission modes.
+8. <span id="cc-zai" /><span id="claude-code-compatible-backend-cc-zai" /> **[Claude Code Compatible Backend: CC Zai](./cc-zai.mdx)** — Claude runtime routed to Z.ai with model-slot mappings.
+9. <span id="cc-moonshot" /><span id="claude-code-compatible-backend-cc-moonshot" /> **[Claude Code Compatible Backend: CC Moonshot](./cc-moonshot.mdx)** — Claude runtime routed to Kimi, which manages the model choice.
+10. <span id="cc-custom" /><span id="claude-code-compatible-backend-cc-custom" /> **[Claude Code Compatible Backend: CC Custom](./cc-custom.mdx)** — Claude runtime routed to an Anthropic-compatible endpoint you configure.
+
+## API and local services
+
+Direct model connections primarily serve Oracle, built-in Chat, and other supported model features. They do not by themselves install a coding-agent runtime. The **API Providers** pane contains ten direct API or local configurations:
+
+- [Anthropic API](./anthropic-api.mdx)
+- [OpenAI API](./openai-api.mdx)
+- [DeepSeek](./deepseek.mdx)
+- [Fireworks AI](./fireworks-ai.mdx)
+- [Grok / xAI API](./xai-api.mdx)
+- [Groq](./groq.mdx)
+- [Z.AI API](./zai-api.mdx)
+- [Gemini API](./gemini-api.mdx)
+- [Azure OpenAI](./azure-openai.mdx)
+- [Local models: Ollama and LM Studio](./local-models.mdx)
+
+[OpenRouter](./openrouter.mdx) and [Custom API](./custom-api.mdx) are additional routes with their own configuration pages. Use [API Providers settings](../settings/models-and-providers/api-providers.mdx) for the direct-provider fields and controls.
+
+## Choose and switch providers
+
+Connect the intended runtime or service, complete its authentication, and test the connection. Then choose from the models that connection actually offers. A provider's published catalog can be broader than what your account, runtime, region, or deployment exposes.
+
+Use [Model and Effort](../agent-mode/model-and-effort.mdx) to operate the session picker. Configure Oracle, Context Builder, and role defaults in [Agent Models](../settings/agent-mode/agent-models.mdx). Those choices serve different purposes and can use different connections; see [Model roles](./models.mdx#model-roles).
+
+## Provider environment filtering
+
+If your shell environment contains credentials or endpoint settings for several providers, **Provider environment filtering (opt-in)** can withhold selected ambient variables from new provider processes. In **Settings → Agent Mode → Overview**, enter exact, case-sensitive variable names to withhold, then add per-provider pass-through exceptions for names that connection needs. Enter names only, separated by spaces or commas; values and wildcards are not accepted.
+
+Empty lists preserve the existing environment. Choose **Apply**, then start a new provider process to use the saved rules. Filtering also applies to provider probes and headless launches, but does not change already-running processes or your interactive terminal. Explicit app/runtime launch overrides remain available.
+
+If authentication or a tool stops working after filtering, check whether it depends on a withheld variable and add a narrow exception for that provider. This is a partial mitigation: it does not isolate credential files, shell profiles, or other resources available to the same macOS user. See [Agent Mode settings](../settings/agent-mode/overview.mdx) for the controls.
+
+<span id="using-your-existing-subscriptions" />
+
+## Accounts and billing
+
+RepoPrompt is free and does not add a provider markup. The selected account and route determine usage charges and quotas. A CLI subscription does not automatically pay for API calls, and an API credential does not establish access to a separate CLI subscription product. Each provider page explains the relevant distinction and links to its catalog where applicable.
+
+For the short billing answer, see [Do I need to pay for AI services?](../faq/pay-for-services.mdx). For changing model catalogs and screenshots, follow the [Models guide](./models.mdx#recommendations-and-screenshots) rather than treating a captured model name as a permanent default.

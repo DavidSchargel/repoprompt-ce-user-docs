@@ -1,0 +1,23 @@
+---
+title: "Devin CLI"
+slug: "/providers/devin-cli"
+description: "Use Devin's ACP runtime, provider-managed authentication, models, and process permission modes."
+---
+
+Devin CLI runs coding sessions through the installed `devin acp` runtime. Devin manages its authentication and internal tools; RepoPrompt supplies the session interface and supported integration.
+
+## Prepare the runtime
+
+Install and authenticate Devin using its own supported tools. Open [Devin CLI settings](../settings/agent-mode/cli-providers.mdx#devin-cli) to inspect runtime availability and request **Refresh Models**. The availability indicator describes installation, not a guarantee that authentication or every model request will succeed.
+
+## Models and permission behavior
+
+Choose from the runtime's discovered models. Devin can encode thinking choices in model identifiers rather than exposing a separate native effort level. Follow the returned choices and the [Models guide](./models.mdx), not names copied from another provider's menu.
+
+The selected permission mode applies to newly started processes. The settings reference describes **Provider Default**, **Normal**, **Accept Edits**, **Smart**, and **Full Approval**, including which actions can run automatically. This integration does not expose Devin's autonomous mode.
+
+A permission mode is specific to the runtime. It does not establish the same sandbox guarantees as similarly named choices on other providers. Inspect the current session's tools, permissions, and execution location before assigning file changes.
+
+## Account and usage
+
+Devin's authenticated account and product terms determine allowance and charges. Manage that account through Devin's own authentication tools. Connecting another CLI provider or direct API account in RepoPrompt does not grant Devin access.

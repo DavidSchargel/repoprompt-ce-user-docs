@@ -1,0 +1,39 @@
+---
+title: "Worktrees"
+slug: "/worktrees"
+description: "Use separate Git checkouts for coding tasks, prepare local setup files, and review and merge completed work."
+---
+
+A **Git worktree** is a separate working directory attached to the same repository. Each checkout has its own files, index, and checked-out branch or commit, while sharing Git history. You can work on different branches at once without repeatedly switching branches in your main checkout.
+
+RepoPrompt creates worktrees through Agent Mode and the MCP `manage_worktree create` tool, with optional copying of local setup files.
+
+## Start with a separate checkout
+
+Use a worktree when parallel coding tasks could edit the same files, or when you want to try an approach without changing your main checkout. Separate sessions alone do not isolate files.
+
+Follow [Create and use a worktree](./create-and-use.mdx) to choose a location and prepare its local setup. When the task is complete, follow [Review and merge](./review-and-merge.mdx) to bring committed changes into the intended target checkout. Starting a worktree does not automatically integrate its results.
+
+RepoPrompt can create worktrees for MCP tools and Agent Mode. App-managed worktrees are placed in the `.repoprompt-worktrees` container unless you deliberately choose an external path. A worktree gives a coding agent an isolated checkout while the main checkout and other worktrees remain available for parallel work. It does not isolate external services, databases, credentials, or processes outside that checkout.
+
+On APFS, RepoPrompt automatically attempts copy-on-write cloning when the new worktree starts from the same tree as a clean source checkout on the same volume. Tracked files initially share disk blocks with the source and consume additional space only when changed. RepoPrompt verifies the cloned checkout by refreshing its index and requiring a clean Git status. It uses an ordinary Git checkout when the source is dirty, the requested base differs, or repository features such as sparse checkout, submodules, Git LFS filters, special line-ending or encoding attributes, hooks, path collisions, different volumes, or an external destination make cloning unsuitable. Set `clone_tracked_checkout=false` when checkout speed matters more than disk space.
+
+## Coordinate worktrees through an overseer
+
+An [Overseer](../overseer/overview.mdx#worktrees-on-behalf-of-linked-agents) with worktree authority can create, inspect, bind, or unbind worktrees for sessions in its delegation scope. Repository selection follows the target session's workspace and bindings. Tell the coordinator which repository to use if the target has several bindings.
+
+A binding change can wait until the target is idle. Releasing a worktree unbinds it and marks it for cleanup without removing files. The overseer can prepare a merge preview and request application, but you still review the merge in the target session. These operations do not make an isolated checkout a credential or process sandbox.
+
+## Copying local ignored files with `.worktreeinclude`
+
+Add `.worktreeinclude` at the main repository root using `.gitignore` patterns. Matching ignored files are copied; tracked edits are excluded. MCP creation can explicitly include matching untracked files with `copy_worktree_include_untracked_files=true`.
+
+Patterns support comments, directory rules, globs, and `!` negations. With the default ignored-only behavior, Git must already treat a file as ignored, and the final matching `.worktreeinclude` rule must include it. The explicit MCP opt-in above also permits matching non-ignored untracked files. RepoPrompt copies regular files individually, using APFS clones when available and byte copies otherwise. It does not copy tracked files, ordinary untracked files by default, symlinks, unsafe paths, or files that would overwrite an existing destination.
+
+Copying is limited to RepoPrompt-managed worktrees. An external worktree created with `allow_external_path=true` is still created, but `.worktreeinclude` files are not copied there. Successful copying is silent; if a copy cannot be completed, the worktree remains and `manage_worktree create` may report a warning. Agent Mode and descriptor-only flows record production-safe diagnostics.
+
+## Be careful with broad patterns
+
+There is no copy-size or file-count limit. Keep patterns narrow to avoid duplicating large caches.
+
+For implementation details, see the [worktrees guide in the application source repository](https://github.com/repoprompt/repoprompt-ce/blob/main/docs/worktrees.md).

@@ -1,0 +1,26 @@
+---
+title: "Claude Code Compatible Backend: CC Custom"
+sidebar_label: "CC Custom"
+slug: "/providers/cc-custom"
+description: "Connect the Claude Code runtime to your own Anthropic-compatible endpoint and choose its model-routing behavior."
+---
+
+CC Custom directs the installed Claude Code runtime to an Anthropic-compatible endpoint you configure. It is distinct from [Custom API](./custom-api.mdx), which connects to an OpenAI-compatible direct model API.
+
+## Configure the route
+
+In [CC Custom settings](../settings/agent-mode/cli-providers.mdx#cc-custom), enable the backend and set its display name, base URL, authentication mode, and credential. Choose the authentication variable expected by the endpoint, save the credential, and use **Test Backend**.
+
+The installed Claude executable is required. The endpoint operator determines whether the chosen protocol, authentication, model, and tool behavior are compatible. A saved URL and key are not evidence of a successful request; test the actual route.
+
+## Choose model behavior
+
+**No model flag** leaves the model choice to the endpoint and omits Claude model and effort selection. **Claude slot mappings** maps the **Haiku**, **Sonnet**, and **Opus** slots to backend model IDs; all three mappings must be filled before launch in that mode.
+
+Use identifiers from the endpoint's own catalog or documentation. See [Models](./models.mdx) for shared identifier and selection concepts. Changing the endpoint or mappings does not make an incompatible model support the Claude runtime's requests.
+
+## Capabilities and billing
+
+The route uses the Claude Code integration, but the endpoint's implementation determines the model capabilities and response behavior. Switching between compatible backends and standard Claude Code starts a fresh provider context.
+
+The endpoint operator controls billing, privacy, and retention. Use a credential intended for that destination and review its terms. Neither an Anthropic subscription nor an unrelated API account automatically pays for this custom route.
