@@ -29,14 +29,12 @@ The `docusaurus-plugin-llms` dependency supplies the MDX processor and index/ful
 
 | File | What it checks |
 | --- | --- |
-| [`doc-moves.test.cjs`](../../tests/doc-moves.test.cjs) | Redirects for moved Agent Mode pages and legacy-link rewriting during MDX compilation, including query strings and fragments. |
-| [`doc-versions.test.cjs`](../../tests/doc-versions.test.cjs) | Version labels, IDs, routes, banners, and LLM export configuration using synthetic versions. |
+| [`docs-routing.test.cjs`](../../tests/docs-routing.test.cjs) | Legacy redirects and MDX link rewriting; version labels, IDs, routes, banners, and LLM export configuration; search-result origins and membership in the correct version inventory. |
 | [`external-links.test.cjs`](../../tests/external-links.test.cjs) | External-link detection, the arrow and a11y new-tab announcement, safe `rel` values, and dynamically changed links. |
 | [`foundation.test.cjs`](../../tests/foundation.test.cjs) | Metadata filtering, LLM Markdown cleanup and link rewriting, direct export generation at root and project paths, image adapters, and responsive-image artifact checks. |
 | [`image-alt.test.cjs`](../../tests/image-alt.test.cjs) | For a11y. Empty alt text for reviewed decorative images and approval tied to image bytes across versions. |
 | [`publication-origin.test.cjs`](../../tests/publication-origin.test.cjs) | Publication origin restrictions and Pages workflow gates, including deployment triggers and the current-main artifact check. |
 | [`rendering.test.cjs`](../../tests/rendering.test.cjs) | MDX image rendering, testimonials, CSS processing, resource URLs, and simulated mobile-navigation focus behavior, including same-page and cross-page links. |
-| [`search-artifacts.test.cjs`](../../tests/search-artifacts.test.cjs) | Search-result origin handling and membership in the correct version inventory. |
 
 ## Cosmos rendering contract
 
