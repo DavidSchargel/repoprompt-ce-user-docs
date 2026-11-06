@@ -6,36 +6,52 @@ description: "RepoPrompt CE 1.9 redesigns the Agent sidebar and improves session
 tags: [repo-prompt, community-edition, coding-agents, workflows]
 ---
 
-**RepoPrompt Community Edition 1.9 is here.** This release makes it easier to see how your agent sessions fit together, pick up the conversation that needs attention, and keep work moving as you switch between tasks.
+**RepoPrompt Community Edition 1.9 is here!**
 
-It also improves recovery and reliability across workspaces, indexing, and provider sessions.
+If you work with several coding agents at once, you know how quickly the conversations can pile up. Which agent is waiting on you? Which one was checking another agent's work? And where did that prompt go when you switched sessions?
+
+This release makes those everyday moments easier to navigate. It also brings improvements to workspace recovery, indexing, and provider sessions.
 
 {/* truncate */}
 
-## A new view of chats and overseers
+## Find the conversation you need
 
-The redesigned Agent Mode sidebar separates **Chats** and **Overseers** into tabs. Overseen sessions appear nested under their overseer, so you can see the relationship between a coordinating session and the work it manages. Updated header controls make navigation easier, and Overseer badges take you directly to the associated session.
+The Agent sidebar has a new layout that makes it easier to see your sessions and how they relate to one another. Overseen sessions can appear under their overseer, and an Overseer badge can take you directly to the related conversation.
 
-When you have several agents working on a task, that structure helps you find the right conversation without reconstructing the coordination from memory.
+Use **All**, **Active**, **Pinned**, and **Overseers** to narrow the list. When a parent has a lot of sub-agent threads underneath it, you can collapse those groups and open them again when you need the details.
 
-## See and control Claude Code turns
+If you've ever had a handful of agents researching, implementing, and reviewing different pieces of the same task, this should make it easier to find the right conversation and get back to work. Take a look at the [Agent Sidebar Overview](/docs/agent-mode/agent-sidebar-overview/) for the controls.
 
-Claude Code can start turns on its own. Those turns now appear as ordinary agent runs, so you can see their activity and control them through the same interface you use for other runs.
+## See when Claude Code starts a turn
 
-## Keep your place while re-prompting
+Claude Code can start a turn on its own. In 1.9, those turns show up as ordinary agent runs, so you can follow their activity and use the usual run controls. You don't have to wonder whether something is happening just because you didn't send a new message from the composer.
 
-Re-prompt now uses recent conversation context and the session title when revising a draft. If you switch sessions while a rewrite is in progress, the rewrite is preserved. When automatic sending is enabled, RepoPrompt waits for the correct composer before sending.
+## Switch sessions without losing a rewrite
 
-Session activation also gives attention to the pending question or composer while preserving text you are already typing. Return stays away from pending approvals, helping prevent an unintended action while you navigate.
+Re-prompt helps turn a rough request into a clearer brief before it reaches your coding agent. It now uses the session title and, when enabled, recent conversation context to help with that rewrite.
 
-## More dependable recovery and indexing
+Need to check another agent while it's working? Go ahead. The rewrite continues while you switch sessions, and you can return to review it. If you've enabled automatic sending, RepoPrompt waits for the correct composer and checks the draft and destination before sending.
 
-Version 1.9 preserves unreadable workspace data and requires a verified backup before recovery can replace it. Compose tabs are decoded individually, and MCP tool preferences are saved per window.
+There's also a little less friction when you return to a session: RepoPrompt focuses a pending question when appropriate, or the composer, while preserving text you're already typing. Return is kept away from pending approvals, so you can read the card and make that decision deliberately.
 
-CodeMap root pause settings now persist. Indexing, bootstrap, and headless connection waits are bounded and report actionable errors, making it easier to understand when work needs attention.
+See [Re-Prompter](/docs/agent-mode/re-prompter/) for the modes, keyboard controls, and what gets shared with the rewriting provider.
 
-The release also fixes cold-session Codex compaction, model menu consistency, and Claude context-window capacity handling. It improves mixed right-to-left and left-to-right Markdown lists and tables, shows completed Oracle duration, and includes settings and tooltip fixes.
+## A safer way back when workspace data can't be read
 
-## Get RepoPrompt CE 1.9
+Workspace recovery is one of those things you hope you never need. When you do, preserving the original data matters.
+
+RepoPrompt now requires a verified recovery backup before replacing unreadable workspace data. If it can't save that backup, it blocks the save and tells you that your latest changes are only in the current window. After addressing the reported issue, you can retry. Compose tabs are also decoded individually, so one unreadable tab doesn't have to take down the whole collection.
+
+The MCP tools enablement preference is now restored per window. Individual tool switches remain shared across windows. See [Manage Workspaces](/docs/settings/manage-workspaces/) and [MCP Tools](/docs/settings/tools/) for more detail.
+
+## The smaller fixes add up
+
+Code Map pause settings now persist for each root. Indexing, bootstrap, and headless connection waits have limits and report errors when they can't finish, giving you a clearer indication of what needs attention.
+
+This release also improves Codex compaction, model menu consistency, and Claude context-window handling. Mixed right-to-left and left-to-right Markdown lists and tables render better, completed Oracle responses can show their duration, and there are fixes for settings scrolling, tooltip sizing, and Debug profile persistence.
+
+## Give 1.9 a try
+
+Open a workspace with a few active sessions and try the new sidebar filters. If you use an overseer, follow its linked sessions and see how the new layout fits the way you work.
 
 [Download RepoPrompt CE 1.9 and read the release notes](https://github.com/repoprompt/repoprompt-ce/releases/tag/v1.9.0), browse the [full changelog from 1.8.1 to 1.9](https://github.com/repoprompt/repoprompt-ce/compare/v1.8.1...v1.9.0), or see the [documentation changelog](/docs/changelog/ce-version-1-0/).
