@@ -10,11 +10,6 @@ const docsVersions = Object.fromEntries(docVersions.map(version => [version, {
   path: version === currentCEVersion ? '' : version,
   banner: version === currentCEVersion ? 'none' : 'unmaintained',
 }]));
-const llmDocsDirectories = docVersions.map(version => ({
-  path: `versioned_docs/version-${version}`,
-  routeBasePath: ['docs', docsVersions[version].path].filter(Boolean).join('/'),
-  label: version === 'classic-2.1.0' ? docsVersions[version].label : `Community Edition ${docsVersions[version].label}`,
-}));
 const organizationName = process.env.PAGES_OWNER;
 const projectName = process.env.PAGES_REPOSITORY;
 const url = process.env.SITE_URL || (organizationName ? `https://${organizationName}.github.io` : 'https://example.invalid');
@@ -101,11 +96,6 @@ module.exports = {
   ],
   plugins: [
     require.resolve('./plugins/seo-policy.cjs'),
-    ['docusaurus-plugin-llms', {
-      generateMarkdownFiles: true,
-      excludeImports: true,
-      docsDir: llmDocsDirectories,
-    }],
     ['docusaurus-plugin-copy-page-button', {
       enabledActions: ['copy'],
       placement: 'article',

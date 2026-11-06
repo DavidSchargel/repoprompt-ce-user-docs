@@ -58,7 +58,7 @@ pnpm run build
 pnpm run serve
 ```
 
-The build runs tests, content checks, Docusaurus compilation, redirect finalization, LLM export finalization, and artifact checks. `serve` previews the existing `build/`; it does not rebuild it. Inspect navigation, images, version switching, deep-page refreshes, search, and legacy links. Check canonical URLs, `sitemap.xml`, `robots.txt`, `llms.txt`, and page-level robots metadata against the selected configuration.
+The build runs tests, content checks, Docusaurus compilation, redirect finalization, LLM export generation, and artifact checks. `serve` previews the existing `build/`; it does not rebuild it. Inspect navigation, images, version switching, deep-page refreshes, search, and legacy links. Check canonical URLs, `sitemap.xml`, `robots.txt`, `llms.txt`, and page-level robots metadata against the selected configuration.
 
 For changes to deployment paths, theme adapters, or generated URLs, validate both layouts:
 

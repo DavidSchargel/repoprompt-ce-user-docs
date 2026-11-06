@@ -8,7 +8,7 @@ Use the Node.js version in [`.node-version`](../../.node-version) and the pnpm v
 | --- | --- |
 | `pnpm test` | Metadata filtering, image and theme adapters, LLM transformations, document moves, search helpers, and source/SSR interaction contracts. It does not test a running browser or assistive technology. |
 | `pnpm run check:content` | All registered documentation versions, sidebars, MDX compilation, relative document links, heading fragments, images, and legacy mapping destinations. It does not validate README/runbook links or remote websites. |
-| `pnpm run build` | Runs both checks above, compiles with strict link/anchor checks, finalizes redirects and LLM exports, then audits generated images, metadata, routes, and local search results. |
+| `pnpm run build` | Runs both checks above, compiles with strict link/anchor checks, finalizes redirects and generates LLM exports, then audits generated images, metadata, routes, and local search results. |
 | `pnpm run serve` | Serves the existing production artifact for manual review. It does not rebuild it. |
 
 For README or runbook edits, also verify every changed local path and heading link directly. For site changes, use the complete build when permitted, followed by browser checks appropriate to the change. Record commands actually run and any untested portions; do not reuse old pass counts as current results. Deploying an update to the live site and verifying remote Algolia results are separate steps in the [publishing](publishing.md) and [search](search-and-redirects.md) runbooks.
@@ -16,6 +16,12 @@ For README or runbook edits, also verify every changed local path and heading li
 Keep unit tests independent of current editorial content. Use synthetic Markdown, image bytes, versions, and temporary files instead of reading published articles or screenshots. Assert behavior rather than exact copy, testimonial counts, or incidental spacing. Validate the real content, assets, and routes through the content and artifact checks; compatibility URLs may remain explicit test cases because they are a navigation contract.
 
 `pnpm run check:artifacts` is read-only, but must receive the same SITE_URL/SITE_BASE_URL/SITE_INDEXABLE values used to build. The build directory always contains only the most recent configuration. Do not compare a project-path artifact against default root config.
+
+### LLM export generation
+
+[`scripts/generate-llm-exports.cjs`](../../scripts/generate-llm-exports.cjs) generates `build/llms.txt`, `build/llms-full.txt`, and individual documentation Markdown exports once after Docusaurus compilation. `pnpm run build` runs it automatically before artifact validation. It uses the registered documentation inventory and version labels, resolves article links to canonical URLs, and replaces local images with their alt text.
+
+The `docusaurus-plugin-llms` dependency supplies the MDX processor and index/full-text generator; it is used as a library rather than registered as a Docusaurus plugin. A bare `docusaurus build` does not generate these exports. To regenerate them for an existing build, run `node scripts/generate-llm-exports.cjs` from the repository root with the same site environment values used for that build, then run `pnpm run check:artifacts`. Follow the [build configuration procedure](publishing.md#validate-a-release-artifact) for those values.
 
 ### Test files
 
@@ -26,7 +32,7 @@ Keep unit tests independent of current editorial content. Use synthetic Markdown
 | [`doc-moves.test.cjs`](../../tests/doc-moves.test.cjs) | Redirects for moved Agent Mode pages and legacy-link rewriting during MDX compilation, including query strings and fragments. |
 | [`doc-versions.test.cjs`](../../tests/doc-versions.test.cjs) | Version labels, IDs, routes, banners, and LLM export configuration using synthetic versions. |
 | [`external-links.test.cjs`](../../tests/external-links.test.cjs) | External-link detection, the arrow and a11y new-tab announcement, safe `rel` values, and dynamically changed links. |
-| [`foundation.test.cjs`](../../tests/foundation.test.cjs) | Metadata filtering, LLM Markdown cleanup and link rewriting, image adapters, and responsive-image artifact checks. |
+| [`foundation.test.cjs`](../../tests/foundation.test.cjs) | Metadata filtering, LLM Markdown cleanup and link rewriting, direct export generation at root and project paths, image adapters, and responsive-image artifact checks. |
 | [`image-alt.test.cjs`](../../tests/image-alt.test.cjs) | For a11y. Empty alt text for reviewed decorative images and approval tied to image bytes across versions. |
 | [`publication-origin.test.cjs`](../../tests/publication-origin.test.cjs) | Publication origin restrictions and Pages workflow gates, including deployment triggers and the current-main artifact check. |
 | [`rendering.test.cjs`](../../tests/rendering.test.cjs) | MDX image rendering, testimonials, CSS processing, resource URLs, and simulated mobile-navigation focus behavior, including same-page and cross-page links. |

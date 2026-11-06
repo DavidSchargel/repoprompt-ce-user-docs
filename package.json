@@ -9,7 +9,7 @@
   "scripts": {
     "generate:favicons": "node scripts/generate-favicons.cjs",
     "start": "docusaurus start",
-    "build": "pnpm test && pnpm run check:content && docusaurus build && node scripts/finalize-redirects.cjs && node scripts/finalize-llm-exports.cjs && pnpm run check:artifacts",
+    "build": "pnpm test && pnpm run check:content && docusaurus build && node scripts/finalize-redirects.cjs && node scripts/generate-llm-exports.cjs && pnpm run check:artifacts",
     "check:artifacts": "node scripts/check-artifacts.cjs",
     "test": "node --test tests/*.test.cjs",
     "check:content": "node scripts/check-content.cjs",
